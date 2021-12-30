@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<GenRoBag>
+    <db implementation="postgres" host="localhost" user="postgres" password="tom69" port="5432"/>
+	<db dbname="shipsteps"/>
+
+	<packages>
+		<gnrcore_sys pkgcode="gnrcore:sys"/>
+		<gnrcore_adm pkgcode="gnrcore:adm"/>
+        <gnrcore_email pkgcode="gnrcore:email"/>
+
+        <unlocode pkgcode="unlocode:unlocode"/>
+        <pfda pkgcode="pfda:pfda"/>
+		<shipsteps/>
+	</packages>
+
+	<authentication pkg="gnrcore:sys">
+		<py_auth defaultTags="user" pkg="adm" method="authenticate"/>
+	</authentication>
+</GenRoBag>

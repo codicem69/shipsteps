@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><metadata><email><subject _T="NN"></subject>
+<to_address _T="NN"></to_address>
+<from_address _T="NN"></from_address>
+<cc_address _T="NN"></cc_address>
+<bcc_address _T="NN"></bcc_address>
+<attachments _T="NN"></attachments></email></metadata>
+<varsbag><g5d8lhmi5l _pkey="g5d8lhmi5l"><fieldpath>tipo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Tipo</fieldname>
+<varname dtype="::NN">tipo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8lhmi5l>
+<g5d8lii7cx _pkey="g5d8lii7cx"><fieldpath>nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Nome</fieldname>
+<varname dtype="::NN">nome</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8lii7cx>
+<g5d8ljjvu9 _pkey="g5d8ljjvu9"><fieldpath>bandiera</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Bandiera</fieldname>
+<varname dtype="::NN">bandiera</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8ljjvu9>
+<g5d8lktord _pkey="g5d8lktord"><fieldpath>loa</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">LOA</fieldname>
+<varname dtype="::NN">loa</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8lktord>
+<g5d8llsd7t _pkey="g5d8llsd7t"><fieldpath>gt</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">GT</fieldname>
+<varname dtype="::NN">gt</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8llsd7t>
+<g5d8ln47ft _pkey="g5d8ln47ft"><fieldpath>nt</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">NT</fieldname>
+<varname dtype="::NN">nt</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8ln47ft>
+<g5d8lq0v6p _pkey="g5d8lq0v6p"><fieldpath>imo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">imo</fieldname>
+<varname dtype="::NN">imo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8lq0v6p></varsbag>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<content>&lt;div&gt;
+	$tipo&amp;nbsp; $nome&lt;/div&gt;
+&lt;div&gt;
+	Flag: $bandiera&lt;/div&gt;
+&lt;div&gt;
+	IMO: $imo&lt;/div&gt;
+&lt;div&gt;
+	GT $gt - NT $nt&lt;/div&gt;
+&lt;div&gt;
+	LOA $loa&lt;/div&gt;
+</content>
+<compiled><main maintable="pfda.imbarcazione" locale="it-IT" virtual_columns="" columns="$tipo,$nome,$bandiera,$loa,$gt,$nt,$imo" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"tipo": "T", "nome": "T", "bandiera": "T", "loa": "T", "gt": "T", "nt": "T", "imo": "T"}::JS'>&lt;html&gt;&lt;body&gt;&lt;div&gt;
+	$tipo&amp;#160; $nome&lt;/div&gt;
+&lt;div&gt;
+	Flag: $bandiera&lt;/div&gt;
+&lt;div&gt;
+	IMO: $imo&lt;/div&gt;
+&lt;div&gt;
+	GT $gt - NT $nt&lt;/div&gt;
+&lt;div&gt;
+	LOA $loa&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;</main></compiled></GenRoBag>

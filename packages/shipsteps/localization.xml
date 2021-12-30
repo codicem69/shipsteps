@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><menu path="menu.py" ext="py"><en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
+<en_transit_cargoes base="Transit cargoes" it="Carichi in transito"></en_transit_cargoes>
+<en_cargoes_unloding_loading base="Cargoes unloding/loading" it="Carichi sbarco/imbarchi"></en_cargoes_unloding_loading>
+<en_agencies base="Agencies" it="Agenzie"></en_agencies>
+<en_staff base="Staff"></en_staff>
+<en_vessel_details base="Vessel details"></en_vessel_details>
+<en_owners base="Owners" it="Armatori"></en_owners>
+<en_arrivals base="Arrivals" it="Arrivi"></en_arrivals></menu>
+<model><agency path="model/agency.py" ext="py"><en_agency base="Agency" it="Agenzia"></en_agency>
+<en_agencies base="Agencies" it="Agenzie"></en_agencies>
+<en_agency_name base="Agency Name" it="Nome agenzia"></en_agency_name>
+<en_description_agency base="Description Agency" it="Descrizione agenzia"></en_description_agency>
+<en_address base="address" it="indirizzo"></en_address>
+<en_telephone base="telephone" it="Telefono"></en_telephone>
+<en_fax base="fax"></en_fax>
+<en_email fr="Email" de="E-Mail-" en="Email" it="Email" base="email"></en_email>
+<en_web base="web"></en_web>
+<en_agent_name base="Agent name" it="Nome Agente"></en_agent_name>
+<en_agent_mobile base="Agent mobile" it="cellulare Agente"></en_agent_mobile>
+<en_birth_place base="Birth place" it="Luogo di nascita"></en_birth_place>
+<en_birth_date base="Birth date" it="Data di nascita"></en_birth_date>
+<en_place_cciaa base="Place CCIAA" it="CCIAA luogo"></en_place_cciaa>
+<en_c_f_agent base="C.F. agent" it="C.F. agente"></en_c_f_agent>
+<en_residential_address base="Residential address" it="Indirizzo di residenza"></en_residential_address>
+<en_cap_res_city base="CAP res. city" it="CAP residenza"></en_cap_res_city>
+<en_residential_city base="Residential city" it="Città di residenza"></en_residential_city>
+<en_virtual_stamp_description base="Virtual stamp description" it="Descrizione bollo virtuale"></en_virtual_stamp_description>
+<en_port base="Port" it="Porto"></en_port></agency>
+<arrival path="model/arrival.py" ext="py"><en_arrival base="Arrival" it="Arrivo"></en_arrival>
+<en_arrivals base="Arrivals" it="Arrivi"></en_arrivals>
+<en_agency base="Agency" it="Agenzia"></en_agency>
+<en_reference_number base="Reference number"></en_reference_number>
+<en_date base="Date" de="Datum" en="Date" fr="Date" it="Data"></en_date>
+<en_vessel base="Vessel"></en_vessel>
+<en_eta base="ETA"></en_eta>
+<en_etb base="ETB"></en_etb>
+<en_et_start base="ET start"></en_et_start>
+<en_etc base="ETC"></en_etc>
+<en_ets base="ETS"></en_ets>
+<en_aft_draft_arr_ base="AFT draft arr."></en_aft_draft_arr_>
+<en_fw_draft_arr_ base="FW draft arr."></en_fw_draft_arr_>
+<en_aft_draft_dep_ base="AFT draft dep."></en_aft_draft_dep_>
+<en_fw_draft_dep base="FW draft dep"></en_fw_draft_dep>
+<en_mandatory base="Mandatory" de="Verpflichtend" en="Mandatory" fr="Obligatoire" it="Mandatario"></en_mandatory>
+<en_dock base="Dock" it="Banchina"></en_dock>
+<en_moor_info base="Moor info" it="Infornazioni ormeggio"></en_moor_info>
+<en_master_name base="Master name"></en_master_name>
+<en_crew_no_ base="Crew no."></en_crew_no_>
+<en_passengers_no_ base="Passengers no."></en_passengers_no_>
+<en_last_port base="Last port"></en_last_port>
+<en_departure_last_port base="Departure last port" it="Partenza ultimo porto"></en_departure_last_port>
+<en_next_port base="Next port"></en_next_port>
+<en_eta_next_port base="ETA next port"></en_eta_next_port>
+<en_cargo_destination base="Cargo destination" it="Destinazione carico"></en_cargo_destination>
+<en_invoicing base="Invoicing" it="Fatturazione"></en_invoicing></arrival>
+<cargo_transit path="model/cargo_transit.py" ext="py"><en_transit_cargo base="Transit cargo" it="Carico in transito"></en_transit_cargo>
+<en_transit_cargoes base="Transit cargoes" it="Carichi in transito"></en_transit_cargoes>
+<en_description base="Description" en="Description" it="Descrizione"></en_description></cargo_transit>
+<cargo_unl_load path="model/cargo_unl_load.py" ext="py"><en_cargo_unloding_loading base="Cargo unloding/loading" it="Carico sbarco/imbarco"></en_cargo_unloding_loading>
+<en_cargoes_unloding_loading base="Cargoes unloding/loading" it="Carichi sbarco/imbarchi"></en_cargoes_unloding_loading>
+<en_shippers base="Shippers" it="Caricatori"></en_shippers>
+<en_receivers base="Receivers" it="Ricevitori"></en_receivers>
+<en_description base="Description" en="Description" it="Descrizione"></en_description>
+<en_foreign_cargo base="Foreign cargo" it="Merce estera"></en_foreign_cargo></cargo_unl_load>
+<dock path="model/dock.py" ext="py"><en_dock base="Dock" it="Banchina"></en_dock>
+<en_docks base="Docks" it="Banchine"></en_docks>
+<en_dock_name base="Dock name" it="Nome banchina"></en_dock_name></dock>
+<invoice_det path="model/invoice_det.py" ext="py"><en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
+<en_company_name base="Company name" it="Rag. sociale agenzia"></en_company_name>
+<en_address base="Address" it="indirizzo"></en_address>
+<en_cap base="CAP"></en_cap>
+<en_city_place base="City place" it="Città - Nazione"></en_city_place>
+<en_vat_number base="Vat number" it="Partita IVA"></en_vat_number>
+<en_fiscal_code base="Fiscal code" it="Codice fiscale"></en_fiscal_code>
+<en_unique_code base="Unique code" it="Codice univoco"></en_unique_code></invoice_det>
+<measure path="model/measure.py" ext="py"><en_description base="Description" en="Description" it="Descrizione"></en_description></measure>
+<owner path="model/owner.py" ext="py"><en_owner base="Owner" it="Armatore"></en_owner>
+<en_owners base="Owners" it="Armatori"></en_owners>
+<en_owner_name fr="Le nom du propriétaire" de="Besitzer der Datei" en="Owner name" it="Nome armatore" base="Owner name"></en_owner_name>
+<en_owner_address base="Owner address" it="Indirizzo armatore"></en_owner_address></owner>
+<ship_rec path="model/ship_rec.py" ext="py"><en_shipper_receiver base="Shipper-Receiver" it="Caricatore-Ricevitore"></en_shipper_receiver>
+<en_name fr="Nom" de="Name" en="Name" it="Nome" base="Name"></en_name>
+<en_address base="Address" it="indirizzo"></en_address>
+<en_city_place base="City-Place" it="Città - Nazione"></en_city_place></ship_rec>
+<shipdoc path="model/shipdoc.py" ext="py"><en_vessel_name base="vessel name" it="Nome nave"></en_vessel_name>
+<en_vessel_details base="vessel details"></en_vessel_details>
+<en_gt base="GT"></en_gt>
+<en_nt base="NT"></en_nt>
+<en_flag base="Flag"></en_flag>
+<en_loa base="LOA"></en_loa></shipdoc>
+<staff path="model/staff.py" ext="py"><en_staff base="Staff"></en_staff>
+<en_user fr="Utilisateur" de="Benutzer" en="User" it="Utente" base="User"></en_user>
+<en_agency base="Agency" it="Agenzia"></en_agency>
+<en_name fr="Nom" de="Name" en="Name" it="Nome" base="Name"></en_name>
+<en_surname base="Surname"></en_surname>
+<en_telephone base="Telephone" it="Telefono"></en_telephone>
+<en_e_mail base="E-mail"></en_e_mail>
+<en_profile_photo base="Profile photo"></en_profile_photo>
+<en_is_active base="Is active"></en_is_active>
+<en_fullname base="Fullname"></en_fullname>
+<en_username fr="Nom d'utilisateur" de="Benutzername" en="Username" it="Nome utente" base="Username"></en_username></staff>
+<vessel_details path="model/vessel_details.py" ext="py"><en_vessel_details base="Vessel details"></en_vessel_details>
+<en_call_sign base="Call sign"></en_call_sign>
+<en_built base="Built"></en_built>
+<en_beam base="Beam"></en_beam>
+<en_registarion_place base="Registarion place"></en_registarion_place>
+<en_registration_no_ base="Registration no."></en_registration_no_>
+<en_ex_name base="Ex name"></en_ex_name>
+<en_note fr="Note" de="Note" en="Note" it="Note" base="Note"></en_note>
+<en_vessel_photo base="Vessel photo"></en_vessel_photo>
+<en_vessel_name base="Vessel Name" it="Nome nave"></en_vessel_name></vessel_details>
+<vessel_details_atc path="model/vessel_details_atc.py" ext="py"><en_expire_date fr="Date D'Expiration" de="Ablaufdatum" en="Expire Date" it="Data Di Scadenza" base="Expire date"></en_expire_date></vessel_details_atc></model>
+<resources><tables><staff><th_staff path="resources/tables/staff/th_staff.py" ext="py"><en_remove_image base="Remove image"></en_remove_image></th_staff></staff>
+<vessel_details><th_vessel_details path="resources/tables/vessel_details/th_vessel_details.py" ext="py"><en_remove_image base="Remove image"></en_remove_image></th_vessel_details></vessel_details></tables></resources></GenRoBag>
