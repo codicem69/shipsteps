@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <GenRoBag>
-    <db implementation="postgres" host="localhost" user="postgres" password="xxxxx" port="5432"/>
+
 	<db dbname="shipsteps"/>
 
 	<packages>
