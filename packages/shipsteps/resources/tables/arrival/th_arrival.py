@@ -33,8 +33,10 @@ class View(BaseComponent):
         r.fieldcell('eta_np', width='5em')
         r.fieldcell('cargo_dest')
         r.fieldcell('invoice_det_id', width='40em')
-        #r.fieldcell('@gpg_id.date_start')
-
+        r.fieldcell('@gpg_arr.n_gpg', name= 'GPG n.')
+        r.fieldcell('@gpg_arr.date_start', name= 'GPG start', width='5em')
+        r.fieldcell('@gpg_arr.date_end', name= 'GPG end', width='5em')
+        
     def th_order(self):
         return 'agency_id'
 

@@ -35,6 +35,7 @@ class Table(object):
         tbl.column('invoice_det_id',size='22', name_long='!![en]Invoicing'
                     ).relation('invoice_det.id', relation_name='invoicing_arr', mode='foreignkey', onDelete='raise')
         
+
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),date = self.db.workdate)
 
