@@ -16,4 +16,14 @@ class Table(object):
         tbl.column('description', name_short='!![en]Description')
         tbl.column('operation', name_short='operation', values='U:Unloading,L:Loading')
         tbl.column('foreign_cargo', dtype='B', name_short='!![en]Foreign cargo')
+        tbl.formulaColumn('cargo_arr',"'-' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>'")
+        tbl.formulaColumn('cargo_onboard', """CASE WHEN $operation = 'L' THEN '-Loading cargo/carico da imbarcare: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' 
+                                            ELSE '-Unloading cargo/carico da sbarcare: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' END """,
+                            dtype='T', name_long='Carico a bordo')
+        tbl.formulaColumn('ship_rec', "'s: '|| @shipper_id.name || ' - r: ' || @receiver_id.name")
+        tbl.formulaColumn('tot_cargo',select=dict(table='shipsteps.cargo_unl_load',
+                                                columns='SUM($quantity)',
+                                                where='$id=#THIS.id'),
+                                    dtype='N',name_long='!![en]Cargo total', format='#,###.000')
+
         

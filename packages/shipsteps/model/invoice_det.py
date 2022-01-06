@@ -13,6 +13,6 @@ class Table(object):
         tbl.column('cf', name_short='!![en]Fiscal code')
         tbl.column('cod_univoco',size='6', name_short='!![en]Unique code')
         tbl.column('pec', name_short='Email pec')
-        tbl.formulaColumn('fullname',"""$rag_sociale ||'-'|| $address ||'-'|| $cap ||'-'|| $city || ' - Vat: ' || coalesce($vat,'') || 'unique code: ' ||
-                             coalesce($cod_univoco,'') || 'pec: ' || coalesce($pec,'') """ )
+        tbl.formulaColumn('fullname',"""$rag_sociale ||' '|| coalesce($address, '') ||' '|| coalesce($cap,'') ||' '|| coalesce($city,'') || ' Vat: ' || coalesce($vat,'') || ' unique code: ' ||
+                             coalesce($cod_univoco,'') || ' pec: ' || coalesce($pec,'') """ )
         

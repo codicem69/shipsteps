@@ -24,7 +24,8 @@ class Table(object):
         tbl.column('residence_city',name_short='!![en]Residential city')
         tbl.column('virtual_stamp',name_short='!![en]Virtual stamp description')
         tbl.column('port',size='22',name_short='!![en]Port').relation('unlocode.place.id',relation_name='portag_unlocode', mode='foreignkey', onDelete='raise')
-
+        tbl.aliasColumn('fullname','@user.fullname', name_long='!![en]user signature')
+        
     def partitioning_pkeys(self):
         if self.db.currentEnv.get('current_agency_id'):
             return [self.db.currentEnv['current_agency_id']]

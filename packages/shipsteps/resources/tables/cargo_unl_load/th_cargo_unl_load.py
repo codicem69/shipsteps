@@ -16,6 +16,7 @@ class View(BaseComponent):
         r.fieldcell('description', width='20em')
         r.fieldcell('operation')
         r.fieldcell('foreign_cargo')
+       
 
     def th_order(self):
         return 'arrival_id'
@@ -30,7 +31,7 @@ class ViewFromCargoLU(BaseComponent):
         #r.fieldcell('arrival_id')
         r.fieldcell('shipper_id', hasDownArrow=True,edit=True, width='40em')
         r.fieldcell('receiver_id', hasDownArrow=True,edit=True, width='40em')
-        r.fieldcell('quantity', edit=True)
+        r.fieldcell('quantity', edit=True, totalize=True)
         r.fieldcell('measure_id', hasDownArrow=True,edit=True, width='5em')
         r.fieldcell('description', edit=True, width='30em')
         r.fieldcell('operation', edit=True, width='5em')

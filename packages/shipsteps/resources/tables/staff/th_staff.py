@@ -15,6 +15,7 @@ class View(BaseComponent):
         r.fieldcell('surname')
         r.fieldcell('telephone')
         r.fieldcell('email')
+        r.fieldcell('note')
        # r.fieldcell('profile_photo')
         r.fieldcell('is_active')
 
@@ -43,6 +44,7 @@ class Form(BaseComponent):
         fb.field('surname' )
         fb.field('telephone' )
         fb.field('email' )
+        fb.field('note', width='30em' )
        # fb.field('profile_photo' )
         fb.field('is_active' )
         right = bc.contentPane(region='right',title='Profile photo',width='200px', margin='10px')

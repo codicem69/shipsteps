@@ -53,7 +53,11 @@
 <en_next_port base="Next port"></en_next_port>
 <en_eta_next_port base="ETA next port"></en_eta_next_port>
 <en_cargo_destination base="Cargo destination" it="Destinazione carico"></en_cargo_destination>
-<en_invoicing base="Invoicing" it="Fatturazione"></en_invoicing></arrival>
+<en_invoicing base="Invoicing" it="Fatturazione"></en_invoicing>
+<en_cargo base="Cargo" it="Carico"></en_cargo>
+<en_cargo_on_board base="Cargo on board" it="Carico a bordo"></en_cargo_on_board>
+<en_shipper_receivers base="Shipper/Receivers"></en_shipper_receivers>
+<en_cargo_total base="Cargo total" it="Totale carico"></en_cargo_total></arrival>
 <cargo_transit path="model/cargo_transit.py" ext="py"><en_transit_cargo base="Transit cargo" it="Carico in transito"></en_transit_cargo>
 <en_transit_cargoes base="Transit cargoes" it="Carichi in transito"></en_transit_cargoes>
 <en_description base="Description" en="Description" it="Descrizione"></en_description></cargo_transit>
@@ -62,10 +66,13 @@
 <en_shippers base="Shippers" it="Caricatori"></en_shippers>
 <en_receivers base="Receivers" it="Ricevitori"></en_receivers>
 <en_description base="Description" en="Description" it="Descrizione"></en_description>
-<en_foreign_cargo base="Foreign cargo" it="Merce estera"></en_foreign_cargo></cargo_unl_load>
+<en_foreign_cargo base="Foreign cargo" it="Merce estera"></en_foreign_cargo>
+<en_cargo_total base="Cargo total" it="Totale carico"></en_cargo_total></cargo_unl_load>
 <dock path="model/dock.py" ext="py"><en_dock base="Dock" it="Banchina"></en_dock>
 <en_docks base="Docks" it="Banchine"></en_docks>
 <en_dock_name base="Dock name" it="Nome banchina"></en_dock_name></dock>
+<gpg path="model/gpg.py" ext="py"><en_start_date_hour base="Start date hour"></en_start_date_hour>
+<en_end_date_hour base="End date hour"></en_end_date_hour></gpg>
 <invoice_det path="model/invoice_det.py" ext="py"><en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
 <en_company_name base="Company name" it="Rag. sociale agenzia"></en_company_name>
 <en_address base="Address" it="indirizzo"></en_address>
@@ -111,5 +118,12 @@
 <en_vessel_photo base="Vessel photo"></en_vessel_photo>
 <en_vessel_name base="Vessel Name" it="Nome nave"></en_vessel_name></vessel_details>
 <vessel_details_atc path="model/vessel_details_atc.py" ext="py"><en_expire_date fr="Date D'Expiration" de="Ablaufdatum" en="Expire Date" it="Data Di Scadenza" base="Expire date"></en_expire_date></vessel_details_atc></model>
-<resources><tables><staff><th_staff path="resources/tables/staff/th_staff.py" ext="py"><en_remove_image base="Remove image"></en_remove_image></th_staff></staff>
+<resources><tables><arrival><th_arrival path="resources/tables/arrival/th_arrival.py" ext="py"><en_gpg base="GPG"></en_gpg>
+<en_cargo_loading_unloading base="Cargo loading / unloading"></en_cargo_loading_unloading>
+<en_transit_cargo base="Transit cargo" it="Carico in transito"></en_transit_cargo>
+<en_shippers_receivers base="Shippers / Receivers"></en_shippers_receivers>
+<en_vessel_arrival base="Vessel arrival"></en_vessel_arrival>
+<en_arrival_details base="Arrival details"></en_arrival_details>
+<en_special_security_guards base="Special security guards"></en_special_security_guards></th_arrival></arrival>
+<staff><th_staff path="resources/tables/staff/th_staff.py" ext="py"><en_remove_image base="Remove image"></en_remove_image></th_staff></staff>
 <vessel_details><th_vessel_details path="resources/tables/vessel_details/th_vessel_details.py" ext="py"><en_remove_image base="Remove image"></en_remove_image></th_vessel_details></vessel_details></tables></resources></GenRoBag>

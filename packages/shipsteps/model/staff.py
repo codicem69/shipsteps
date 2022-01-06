@@ -12,9 +12,10 @@ class Table(object):
         tbl.column('surname',name_long='!![en]Surname') 
         tbl.column('telephone',name_long='!![en]Telephone')
         tbl.column('email',name_long='!![en]E-mail')  
+        tbl.column('note', name_long='note')
         tbl.column('profile_photo', dtype='P', name_long='!![en]Profile photo')
         tbl.column('is_active', dtype='B', name_long='!![en]Is active')    
-        tbl.formulaColumn('fullname', "$surname ||' '||$name", name_long='!![en]Fullname')
+        tbl.formulaColumn('fullname', "$name ||' '||$surname || '<br>' || 'mob.: ' || $telephone || '<br>' || 'email: ' || $email || '<br>' || $note", name_long='!![en]Fullname')
         tbl.aliasColumn('username', '@user_id.username', name_long='!![en]Username')
 
     
