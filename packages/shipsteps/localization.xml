@@ -44,7 +44,7 @@
 <en_fw_draft_dep base="FW draft dep"></en_fw_draft_dep>
 <en_mandatory base="Mandatory" de="Verpflichtend" en="Mandatory" fr="Obligatoire" it="Mandatario"></en_mandatory>
 <en_dock base="Dock" it="Banchina"></en_dock>
-<en_moor_info base="Moor info" it="Infornazioni ormeggio"></en_moor_info>
+<en_moor_info base="Moor info" it="Informazioni ormeggio"></en_moor_info>
 <en_master_name base="Master name"></en_master_name>
 <en_crew_no_ base="Crew no."></en_crew_no_>
 <en_passengers_no_ base="Passengers no."></en_passengers_no_>

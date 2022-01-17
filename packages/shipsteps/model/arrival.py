@@ -2,13 +2,15 @@
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('arrival', pkey='id', name_long='!![en]Arrival', name_plural='!![en]Arrivals',caption_field='reference_num', partition_agency_id='agency_id')
+        tbl=pkg.table('arrival', pkey='id', name_long='!![en]Arrival', name_plural='!![en]Arrivals',
+                                 caption_field='reference_num', partition_agency_id='agency_id')
         self.sysFields(tbl)
 
         tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
                                     'agency.id',relation_name='agency_id_name', mode='foreignkey', onDelete='raise')
         tbl.column('reference_num',name_long='!![en]Reference number')
         tbl.column('date',dtype='D',name_long='!![en]Date')
+        tbl.column('pfda_id',size='22',name_short='!![en]Pfda no.').relation('pfda.proforma.id',relation_name='pfda_arr', mode='foreignkey', onDelete='raise')
         tbl.column('vessel_details_id',size='22',name_long='!![en]Vessel',validate_notnull=True).relation(
                                     'vessel_details.id',relation_name='vessel_details_name', mode='foreignkey', onDelete='raise')
         tbl.column('eta', dtype='DH', name_short='!![en]ETA')
@@ -34,11 +36,14 @@ class Table(object):
         tbl.column('cargo_dest', name_short='!![en]Cargo destination')
         tbl.column('invoice_det_id',size='22', name_long='!![en]Invoicing'
                     ).relation('invoice_det.id', relation_name='invoicing_arr', mode='foreignkey', onDelete='raise')
+        tbl.column('cargo_onboard', name_short='!![en]Cargo on board')
+        tbl.column('transit_cargo', name_short='!![en]Transit Cargo')
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
+        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('carico_arr','@cargo_lu_arr.cargo_arr',name_long='Carico in arrivo')
-        tbl.aliasColumn('cargo_onboard','@cargo_lu_arr.cargo_onboard',name_long='!![en]Cargo on board')
-        tbl.aliasColumn('transit_cargo','@cargo_transit_arr.transit_cargo')
+        tbl.aliasColumn('cargo_lu_en','@cargo_lu_arr.cargo_lu_en',name_long='!![en]Cargo L/U')
+       # tbl.aliasColumn('transit_cargo','@cargo_transit_arr.transit_cargo')
         tbl.aliasColumn('ship_rec','@cargo_lu_arr.ship_rec',name_long='!![en]Shipper/Receivers')
         tbl.aliasColumn('tot_cargo','@cargo_lu_arr.tot_cargo')#,name_long='!![en]Cargo total')
         tbl.aliasColumn('lastport','@last_port.citta_nazione', name_long='!![en]Last port')
