@@ -2,7 +2,7 @@
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('sof_tanks', pkey='id', name_long='Sof tanks', name_plural='Sof tanks',caption_field='id')
+        tbl=pkg.table('sof_tanks', pkey='id', name_long='Sof tanks', name_plural='Sof tanks',caption_field='id', partition_agency_id='agency_id')
         self.sysFields(tbl)
 
         tbl.column('sof_id',size='22', name_long='sof_id'
@@ -15,5 +15,5 @@ class Table(object):
         tbl.column('hose_conn', dtype='DH', name_short='!![en]Hoses connected')
         tbl.column('hose_disconn', dtype='DH', name_short='!![en]Hoses disconnected')
         tbl.column('average', size=':15', dtype='T', name_short='!![en]Average rate')
-
+        tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
    

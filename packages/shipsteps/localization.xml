@@ -1,9 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><menu path="menu.py" ext="py"><en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
-<en_transit_cargoes base="Transit cargoes" it="Carichi in transito"></en_transit_cargoes>
+<GenRoBag><menu path="menu.py" ext="py"><en_operations_sof base="Operations SOF"></en_operations_sof>
+<en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
+<en_services_emails base="Services emails"></en_services_emails>
 <en_cargoes_unloding_loading base="Cargoes unloding/loading" it="Carichi sbarco/imbarchi"></en_cargoes_unloding_loading>
+<en_arrival_times base="arrival times"></en_arrival_times>
 <en_agencies base="Agencies" it="Agenzie"></en_agencies>
 <en_staff base="Staff"></en_staff>
+<en_arrival_details base="Arrival details"></en_arrival_details>
 <en_vessel_details base="Vessel details"></en_vessel_details>
 <en_owners base="Owners" it="Armatori"></en_owners>
 <en_arrivals base="Arrivals" it="Arrivi"></en_arrivals></menu>
@@ -26,12 +29,14 @@
 <en_cap_res_city base="CAP res. city" it="CAP residenza"></en_cap_res_city>
 <en_residential_city base="Residential city" it="Città di residenza"></en_residential_city>
 <en_virtual_stamp_description base="Virtual stamp description" it="Descrizione bollo virtuale"></en_virtual_stamp_description>
-<en_port base="Port" it="Porto"></en_port></agency>
+<en_port base="Port" it="Porto"></en_port>
+<en_user_signature base="user signature"></en_user_signature></agency>
 <arrival path="model/arrival.py" ext="py"><en_arrival base="Arrival" it="Arrivo"></en_arrival>
 <en_arrivals base="Arrivals" it="Arrivi"></en_arrivals>
 <en_agency base="Agency" it="Agenzia"></en_agency>
 <en_reference_number base="Reference number"></en_reference_number>
 <en_date base="Date" de="Datum" en="Date" fr="Date" it="Data"></en_date>
+<en_pfda_no_ base="Pfda no."></en_pfda_no_>
 <en_vessel base="Vessel"></en_vessel>
 <en_eta base="ETA"></en_eta>
 <en_etb base="ETB"></en_etb>
@@ -54,23 +59,66 @@
 <en_eta_next_port base="ETA next port"></en_eta_next_port>
 <en_cargo_destination base="Cargo destination" it="Destinazione carico"></en_cargo_destination>
 <en_invoicing base="Invoicing" it="Fatturazione"></en_invoicing>
-<en_cargo base="Cargo" it="Carico"></en_cargo>
 <en_cargo_on_board base="Cargo on board" it="Carico a bordo"></en_cargo_on_board>
+<en_transit_cargo base="Transit Cargo" it="Carico in transito"></en_transit_cargo>
+<en_cargo base="Cargo" it="Carico"></en_cargo>
+<en_cargo_l_u base="Cargo L/U"></en_cargo_l_u>
 <en_shipper_receivers base="Shipper/Receivers"></en_shipper_receivers>
 <en_cargo_total base="Cargo total" it="Totale carico"></en_cargo_total></arrival>
-<cargo_transit path="model/cargo_transit.py" ext="py"><en_transit_cargo base="Transit cargo" it="Carico in transito"></en_transit_cargo>
-<en_transit_cargoes base="Transit cargoes" it="Carichi in transito"></en_transit_cargoes>
-<en_description base="Description" en="Description" it="Descrizione"></en_description></cargo_transit>
+<arrival_det path="model/arrival_det.py" ext="py"><en_arrival_details base="Arrival details"></en_arrival_details>
+<en_draft_aft_arrival base="Draft AFT arrival"></en_draft_aft_arrival>
+<en_draft_fw_arrival base="Draft FW arrival"></en_draft_fw_arrival>
+<en_draft_aft_departure base="Draft AFT departure"></en_draft_aft_departure>
+<en_draft_fw_departure base="Draft FW departure"></en_draft_fw_departure>
+<en_tug_in base="TUG in"></en_tug_in>
+<en_tug_out base="TUG out"></en_tug_out>
+<en_ifo_arrival base="IFO arrival"></en_ifo_arrival>
+<en_diesel_oil_arrival base="Diesel Oil arrival"></en_diesel_oil_arrival>
+<en_lub_oil_arrival base="Lub Oil arrival"></en_lub_oil_arrival>
+<en_fresh_water_arrival base="Fresh Water arrival"></en_fresh_water_arrival>
+<en_ifo_departure base="IFO departure"></en_ifo_departure>
+<en_diesel_oil_departure base="Diesel Oil departure"></en_diesel_oil_departure>
+<en_lub_oil_departure base="Lub Oil departure"></en_lub_oil_departure>
+<en_fresh_water_departure base="Fresh Water departure"></en_fresh_water_departure></arrival_det>
+<arrival_time path="model/arrival_time.py" ext="py"><en_arrival_times base="arrival times"></en_arrival_times>
+<en_end_of_sea_passage base="End of sea passage"></en_end_of_sea_passage>
+<en_arrived_on_road base="Arrived on road"></en_arrived_on_road>
+<en_anchored base="Anchored"></en_anchored>
+<en_anchor_up base="Anchor up"></en_anchor_up>
+<en_pilot_on_board base="Pilot on board"></en_pilot_on_board>
+<en_first_rope base="First rope"></en_first_rope>
+<en_moored base="Moored"></en_moored>
+<en_pilot_off base="Pilot off"></en_pilot_off>
+<en_gangway_in_pos_ base="Gangway in pos."></en_gangway_in_pos_>
+<en_free_pratique base="Free pratique"></en_free_pratique>
+<en_pilot_on_board_dep base="Pilot on board dep"></en_pilot_on_board_dep>
+<en_last_line base="Last line"></en_last_line>
+<en_vessel_sailed base="Vessel sailed"></en_vessel_sailed>
+<en_commenced_of_sea_pass base="Commenced of sea pass"></en_commenced_of_sea_pass></arrival_time>
 <cargo_unl_load path="model/cargo_unl_load.py" ext="py"><en_cargo_unloding_loading base="Cargo unloding/loading" it="Carico sbarco/imbarco"></en_cargo_unloding_loading>
 <en_cargoes_unloding_loading base="Cargoes unloding/loading" it="Carichi sbarco/imbarchi"></en_cargoes_unloding_loading>
 <en_shippers base="Shippers" it="Caricatori"></en_shippers>
 <en_receivers base="Receivers" it="Ricevitori"></en_receivers>
+<en_quantity base="Quantity"></en_quantity>
+<en_measure base="measure"></en_measure>
 <en_description base="Description" en="Description" it="Descrizione"></en_description>
+<en_description_it base="Description IT"></en_description_it>
 <en_foreign_cargo base="Foreign cargo" it="Merce estera"></en_foreign_cargo>
 <en_cargo_total base="Cargo total" it="Totale carico"></en_cargo_total></cargo_unl_load>
 <dock path="model/dock.py" ext="py"><en_dock base="Dock" it="Banchina"></en_dock>
 <en_docks base="Docks" it="Banchine"></en_docks>
-<en_dock_name base="Dock name" it="Nome banchina"></en_dock_name></dock>
+<en_dock_name base="Dock name" it="Nome banchina"></en_dock_name>
+<en_port base="Port" it="Porto"></en_port></dock>
+<email_arr path="model/email_arr.py" ext="py"><en_destination base="Destination"></en_destination>
+<en_email_description base="Email description"></en_email_description>
+<en_email_type base="Email type"></en_email_type></email_arr>
+<email_services path="model/email_services.py" ext="py"><en_services_email base="Services email"></en_services_email>
+<en_services_emails base="Services emails"></en_services_emails>
+<en_consignee base="Consignee"></en_consignee>
+<en_port base="Port" it="Porto"></en_port></email_services>
+<email_sof path="model/email_sof.py" ext="py"><en_destination base="Destination"></en_destination>
+<en_email_description base="Email description"></en_email_description>
+<en_email_type base="Email type"></en_email_type></email_sof>
 <gpg path="model/gpg.py" ext="py"><en_start_date_hour base="Start date hour"></en_start_date_hour>
 <en_end_date_hour base="End date hour"></en_end_date_hour></gpg>
 <invoice_det path="model/invoice_det.py" ext="py"><en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
@@ -96,6 +144,30 @@
 <en_nt base="NT"></en_nt>
 <en_flag base="Flag"></en_flag>
 <en_loa base="LOA"></en_loa></shipdoc>
+<sof path="model/sof.py" ext="py"><en_nor_tendered base="NOR tendered"></en_nor_tendered>
+<en_nor_received base="NOR received"></en_nor_received>
+<en_nor_accepted base="NOR accepted"></en_nor_accepted>
+<en_load_unload_commenced base="Load/Unload commenced"></en_load_unload_commenced>
+<en_load_unload_completed base="Load/Unload completed"></en_load_unload_completed>
+<en_documents_onboard base="Documents onboard"></en_documents_onboard>
+<en_receivers_shippers_remarks base="Receivers / Shippers Remarks"></en_receivers_shippers_remarks>
+<en_master_remarks base="Master Remarks"></en_master_remarks>
+<en_note_sof base="Note SOF"></en_note_sof></sof>
+<sof_operations path="model/sof_operations.py" ext="py"><en_operation_sof base="Operation SOF"></en_operation_sof>
+<en_operations_sof base="Operations SOF"></en_operations_sof>
+<en_date base="Date" de="Datum" en="Date" fr="Date" it="Data"></en_date>
+<en_day fr="Jour" de="Tag" en="Day" it="Giorno" base="Day"></en_day>
+<en_operations base="Operations"></en_operations>
+<en_from base="From" de="Von" en="From" fr="À partir de" it="Da"></en_from>
+<en_to base="To" de="Bis" en="To" fr="À" it="A"></en_to></sof_operations>
+<sof_tanks path="model/sof_tanks.py" ext="py"><en_inspection_commenced base="Inspection commenced"></en_inspection_commenced>
+<en_inspection_completed base="Inspection completed"></en_inspection_completed>
+<en_cargo_calculation base="Cargo calculation"></en_cargo_calculation>
+<en_ullage_commenced base="Ullage commenced"></en_ullage_commenced>
+<en_ullage_completed base="Ullage completed"></en_ullage_completed>
+<en_hoses_connected base="Hoses connected"></en_hoses_connected>
+<en_hoses_disconnected base="Hoses disconnected"></en_hoses_disconnected>
+<en_average_rate base="Average rate"></en_average_rate></sof_tanks>
 <staff path="model/staff.py" ext="py"><en_staff base="Staff"></en_staff>
 <en_user fr="Utilisateur" de="Benutzer" en="User" it="Utente" base="User"></en_user>
 <en_agency base="Agency" it="Agenzia"></en_agency>
@@ -118,12 +190,29 @@
 <en_vessel_photo base="Vessel photo"></en_vessel_photo>
 <en_vessel_name base="Vessel Name" it="Nome nave"></en_vessel_name></vessel_details>
 <vessel_details_atc path="model/vessel_details_atc.py" ext="py"><en_expire_date fr="Date D'Expiration" de="Ablaufdatum" en="Expire Date" it="Data Di Scadenza" base="Expire date"></en_expire_date></vessel_details_atc></model>
-<resources><tables><arrival><th_arrival path="resources/tables/arrival/th_arrival.py" ext="py"><en_gpg base="GPG"></en_gpg>
+<resources><tables><arrival><th_arrival path="resources/tables/arrival/th_arrival.py" ext="py"><en_cargo base="Cargo" it="Carico"></en_cargo>
+<en_sof base="SOF"></en_sof>
+<en_gpg base="GPG"></en_gpg>
+<en_cargo_onboard base="Cargo onboard"></en_cargo_onboard>
 <en_cargo_loading_unloading base="Cargo loading / unloading"></en_cargo_loading_unloading>
 <en_transit_cargo base="Transit cargo" it="Carico in transito"></en_transit_cargo>
 <en_shippers_receivers base="Shippers / Receivers"></en_shippers_receivers>
-<en_vessel_arrival base="Vessel arrival"></en_vessel_arrival>
 <en_arrival_details base="Arrival details"></en_arrival_details>
-<en_special_security_guards base="Special security guards"></en_special_security_guards></th_arrival></arrival>
+<en_email_arrival base="Email Arrival"></en_email_arrival>
+<en_sof_cargo base="Sof_Cargo"></en_sof_cargo>
+<en_vessel_arrival base="Vessel arrival"></en_vessel_arrival>
+<en_special_security_guards base="Special security guards"></en_special_security_guards>
+<en_times base="Times"></en_times>
+<en_cargo_on_board base="Cargo on board" it="Carico a bordo"></en_cargo_on_board>
+<en_arrival_times base="Arrival times"></en_arrival_times>
+<en_draft base="DRAFT"></en_draft>
+<en_remains base="REMAINS"></en_remains>
+<en_used_tugs base="USED TUGS"></en_used_tugs></th_arrival></arrival>
+<email_services><th_email_services path="resources/tables/email_services/th_email_services.py" ext="py"><en_insert_the_emails_separate_by_commas base="Insert the emails separate by commas" it="Inserisci l'emails separate dalla virgola"></en_insert_the_emails_separate_by_commas></th_email_services></email_services>
+<sof><th_sof path="resources/tables/sof/th_sof.py" ext="py"><en_remarks base="Remarks"></en_remarks>
+<en_tank_times base="Tank times"></en_tank_times>
+<en_master_remarks base="Master Remarks"></en_master_remarks>
+<en_note_general_remarks base="Note / General Remarks"></en_note_general_remarks></th_sof></sof>
+<sof_cargo><th_sof_cargo path="resources/tables/sof_cargo/th_sof_cargo.py" ext="py"><en_cargo base="Cargo" it="Carico"></en_cargo></th_sof_cargo></sof_cargo>
 <staff><th_staff path="resources/tables/staff/th_staff.py" ext="py"><en_remove_image base="Remove image"></en_remove_image></th_staff></staff>
 <vessel_details><th_vessel_details path="resources/tables/vessel_details/th_vessel_details.py" ext="py"><en_remove_image base="Remove image"></en_remove_image></th_vessel_details></vessel_details></tables></resources></GenRoBag>

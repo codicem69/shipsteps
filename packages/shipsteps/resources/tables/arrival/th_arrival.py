@@ -81,6 +81,8 @@ class Form(BaseComponent):
         self.sof(tc.contentPane(title='!![en]Sof'))
         self.arrival_details(tc.borderContainer(title='!![en]Arrival details', region='top', background = 'lavenderblush'))
         self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
+        self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
+        
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
 
     def datiArrivo(self,bc):
@@ -121,13 +123,14 @@ class Form(BaseComponent):
         fb.field('cargo_dest', colspan=2, width='30em' )
         fb.br()
         fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
-
+        
         fb = center2.formbuilder(cols=1, border_spacing='4px', fld_width='8em')
         #fb.field('arrival_id')
         fb.field('date_start')
         fb.field('date_end')
         fb.field('n_gpg')
-
+        
+        
        #fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='8em')
        ##fb.field('arrival_id')
        #fb.field('eosp')
@@ -214,6 +217,48 @@ class Form(BaseComponent):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
    #def sof_cargo(self,pane):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
+
+    def taskList(self, bc):
+        rg_prearrival = bc.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='500px', height = 'auto').div(margin='10px',margin_left='2px')
+        #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
+        
+        fb = rg_prearrival.formbuilder(cols=4, border_spacing='4px',fld_width='10em')
+        #fb.field('arrival_id')
+        fb.field('cheklist')
+        fb.semaphore('^.cheklist')
+        fb.field('frontespizio')
+        fb.semaphore('^.frontespizio')
+        fb.field('cartella_nave')
+        fb.semaphore('^.cartella_nave')
+        fb.field('modulo_nave')
+        fb.semaphore('^.modulo_nave')
+        fb.field('email_dogana')
+        fb.semaphore('^.email_dogana')
+        fb.field('email_finanza')
+        fb.semaphore('^.email_finanza')
+        fb.field('email_frontiera')
+        fb.semaphore('^.email_frontiera')
+        fb.field('email_usma')
+        fb.semaphore('^.email_usma')
+        fb.field('email_pfso')
+        fb.semaphore('^.email_pfso')
+        fb.field('email_pilot')
+        fb.semaphore('^.email_pilot')
+        fb.field('email_mooringmen')
+        fb.semaphore('^.email_mooringmen')
+        fb.field('email_tug')
+        fb.semaphore('^.email_tug')
+        fb.field('email_garbage')
+        fb.semaphore('^.email_garbage')
+        fb.field('email_chemist')
+        fb.semaphore('^.email__chemist')
+        fb.field('email_antifire')
+        fb.semaphore('^.email_antifire')
+        fb.field('email_gpg')
+        fb.semaphore('^.email_gpg')
+        fb.field('email_ens')
+        fb.semaphore('^.email_ens')
+
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )

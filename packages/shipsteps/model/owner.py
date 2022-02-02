@@ -7,3 +7,4 @@ class Table(object):
         self.sysFields(tbl)
         tbl.column('own_name',name_short='!![en]Owner name')
         tbl.column('address_own',name_short='!![en]Owner address')
+        tbl.formulaColumn('own_fullname', "$own_name || ' ' || coalesce($address_own,'')")

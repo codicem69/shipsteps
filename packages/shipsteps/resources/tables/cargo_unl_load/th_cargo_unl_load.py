@@ -4,6 +4,7 @@
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
 
+
 class View(BaseComponent):
 
     def th_struct(self,struct):
@@ -58,7 +59,8 @@ class Form(BaseComponent):
         fb.field('description_it' )
         fb.field('operation' )
         fb.field('foreign_cargo' )
-
+        
+       
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )

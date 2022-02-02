@@ -3,7 +3,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('cargo_unl_load', pkey='id', name_long='!![en]Cargo unloding/loading', 
-                        name_plural='!![en]Cargoes unloding/loading',caption_field='cargo_arr')
+                        name_plural='!![en]Cargoes unloding/loading',caption_field='cargo_arr', partition_agency_id='agency_id')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -20,9 +20,9 @@ class Table(object):
         tbl.column('description_it', name_short='!![en]Description IT')
         tbl.column('operation', name_short='operation', values='U:Unloading,L:Loading')
         tbl.column('foreign_cargo', dtype='B', name_short='!![en]Foreign cargo')
-        tbl.formulaColumn('cargo_arr',"'-' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>'")
+        tbl.formulaColumn('cargo_arr',"'-' || COALESCE(@measure_id.description,'') || ' ' || COALESCE($quantity,0) || ' ' || COALESCE($description,'') || '<br>'")
         tbl.formulaColumn('cargo_lu_en', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' 
-                                            ELSE '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' END """,
+                                            WHEN $operation = 'U' THEN '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U')
         tbl.formulaColumn('ship_rec', "'s: '|| @shipper_id.name || ' - r: ' || @receiver_id.name")
         tbl.formulaColumn('tot_cargo',select=dict(table='shipsteps.cargo_unl_load',
@@ -30,4 +30,4 @@ class Table(object):
                                                 where='$id=#THIS.id'),
                                     dtype='N',name_long='!![en]Cargo total', format='#,###.000')
 
-    
+        tbl.aliasColumn('agency_id','@arrival_id.agency_id')

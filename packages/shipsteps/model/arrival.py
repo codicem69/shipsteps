@@ -54,7 +54,7 @@ class Table(object):
         pkey=record['pkey']
         
         #carico = self.db.table('shipsteps.cargo_unl_load').readColumns(columns='$description', where='$arrival_id=:a_id',a_id=pkey)
-        carico = self.db.table('shipsteps.cargo_unl_load').query(columns="$operation || ': ' || @measure_id.description || ' ' || $quantity || ' ' || $description",
+        carico = self.db.table('shipsteps.cargo_unl_load').query(columns="COALESCE($operation,'') || ': ' || COALESCE(@measure_id.description,'') || ' ' || $quantity || ' ' || COALESCE($description,'')",
                                                                     where='$arrival_id=:a_id',
                                                                     a_id=pkey).fetch()
         n_car = len(carico) 

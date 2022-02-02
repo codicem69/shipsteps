@@ -1,4 +1,4 @@
 <?xml version="1.0" ?>
 <GenRoBag>
-	<wsgi/>
+	<wsgi port="8082" mainpackage='shipsteps' external_host='http://localhost:8082'/>
 </GenRoBag>

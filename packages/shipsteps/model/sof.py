@@ -2,7 +2,7 @@
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('sof', pkey='id', name_long='sof', name_plural='sof',caption_field='sof_det')
+        tbl=pkg.table('sof', pkey='id', name_long='sof', name_plural='sof',caption_field='sof_det', partition_agency_id='agency_id')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -18,5 +18,5 @@ class Table(object):
         tbl.column('note', name_short='!![en]Note SOF')
         
         tbl.formulaColumn('sof_det',"@arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
-
+        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
     
