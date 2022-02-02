@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><title _T="NN"></title>
+<batch_id>pr_tpl_NXVfMaWTNjy_K493NRjZRg</batch_id>
+<owner_page_id>6Z9QHD18MNS_fXRATlAHXg</owner_page_id>
+<note _T="NN"></note>
+<start_ts _T="DH">2022-01-19T17:52:19.517725+01:00</start_ts>
+<end_ts _T="DH">2022-01-19T17:52:19.905440+01:00</end_ts>
+<time_delta>0:00:00</time_delta>
+<result url="/_user/admin/output/pdf/atN2yZFbNWmDOneZPkM7VA.pdf?download=True&amp;mtime=1642611140" document_name="atN2yZFbNWmDOneZPkM7VA" url_print='javascript:genro.openWindow("/_user/admin/output/pdf/atN2yZFbNWmDOneZPkM7VA.pdf?mtime=1642611140","atN2yZFbNWmDOneZPkM7VA");' autoDestroy="600::L"></result></GenRoBag>

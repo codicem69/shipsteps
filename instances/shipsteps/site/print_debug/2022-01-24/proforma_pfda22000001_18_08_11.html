@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="http://127.0.0.1:8082/_rsrc/common/print_stylesheet.css" rel="stylesheet" media="all" type="text/css"></link>
+<style media="print">
+                        .no_print{
+                            display:none;
+                        }
+                        [visible_if=""]{
+                            display:none;
+                        }
+                        [hidden_if]{
+                            display:none;
+                        }
+                        [hidden_if=""]{
+                            display:block;
+                        }
+                        span[hidden_if=""]{
+                            display:inline;
+                        }
+                        </style>
+<style>
+                        [visible_if=""]{
+                            display:none;
+                        }
+                        [hidden_if]{
+                            display:none;
+                        }
+                        div[hidden_if=""]{
+                            display:block;
+                        }
+                        tr[hidden_if=""]{
+                            display:table-row;
+                        }
+                        table[hidden_if=""]{
+                            display:table;
+                        }
+                        span[hidden_if=""]{
+                            display:inline;
+                        }
+            </style>
+<style>
+                        #printButton{
+                            position:fixed;right:30px;top:5px;z-index:100;
+                            cursor:pointer;',onclick='window.print();
+                            background:#3F5A8D; color:white; -moz-border-radius:8px;
+                            -webkit-border-radius:8px;font-size:9pt;
+                            padding:3px;padding-left:8px;
+                            padding-right:8px;border:1px solid white;
+                            -moz-box-shadow:4px 4px 5px gray;
+                            -webkit-box-shadow:4px 4px 5px gray;
+                            font-family:courier;
+                        }
+                        </style>
+<style>.x_br{border-top:none!important;border-left:none!important;}
+                           .x_r{border-top:none!important;border-left:none!important;border-bottom:none!important;}
+                           .x_b{border-top:none!important;border-left:none!important;border-right:none!important;}
+                           .x_{border:none!important;}
+                        </style>
+<style>
+
+                        .caption{text-align:center;
+                                 color:gray;
+                                 font-size:8pt;
+                                 height:4mm;
+                                 line-height:4mm;
+                                 font-weight: normal;
+                                 }
+                        .smallCaption{font-size:7pt;
+                                  text-align:left;
+                                  color:gray;
+                                  text-indent:1mm;
+                                  width:auto;
+                                  font-weight: normal;
+                                  line-height:auto;
+                                  line-height:3mm;
+                                  height:3mm;</style>
+<style>
+                        .extrasmall {font-size:6pt;text-align:left;line-height:3mm;}
+                        .textfield {text-indent:0mm;margin:1mm;line-height:3mm}
+                        .dotted_bottom {border-bottom:1px dotted gray;}
+
+                        .aligned_right{
+                            text-align:right;
+                            margin-right:1.5mm;
+                        }
+                        .aligned_left{
+                            text-align:left;
+                            margin-left:1.5mm;
+                        }
+                        .aligned_center{
+                            text-align:center;
+                        }
+                        .gnrcolumnset{
+                            text-align:center;
+                            background:#888;
+                            color:white;
+                            border-bottom-width:0;
+                            font-size:8pt;
+                            border-top-left-radius:2mm;
+                            border-top-right-radius:2mm;
+                        }
+                        .totalizer_row{
+                            color:white;
+                            background:gray;
+                        }
+                        .totalize_caption{
+                            text-align:right;
+                            padding-right:2mm;
+                            font-weight: bold;
+                            font-style:italic;
+                        }
+
+                        .subtotal_00.totalizer_row{
+                            background:-webkit-linear-gradient(left, white, gray 30%);
+                            background:linear-gradient(to right, white, gray 30%);
+
+                        }
+                        .subtotal_01.totalizer_row{
+                            background:-webkit-linear-gradient(left, white, gray 50%);
+                            background:linear-gradient(to right, white, gray 50%);
+                        }
+                        .subtotal_02.totalizer_row{
+                            background:-webkit-linear-gradient(left, white, gray 80%);
+                            background:linear-gradient(to right, white, gray 80%);
+                        }
+                        .subtotal_03.totalizer_row{
+                            background:-webkit-linear-gradient(left, white, gray 90%);
+                            background:linear-gradient(to right, white, gray 90%);
+                        }
+                         </style>
+<style>.cell_label{
+                            font-size 8pt;
+                            text-align:left;
+                            color:gray;
+                            text-indent:1mm;}
+    
+                            .footer_content{   
+                            text-align:right;
+                            margin:2mm;
+                            }
+                            </style>
+<style>.l__layout{border:0.3mm solid #e0e0e0;position:absolute;}</style>
+<style>.mainLayout_layout{border:0mm solid #e0e0e0;position:absolute;}</style>
+<style>.doc_header_layout{border:0mm solid #e0e0e0;position:absolute;}</style>
+<style>.dati_proforma_layout{border:0mm solid #e0e0e0;position:absolute;}</style>
+<style>.dati_cliente_layout{border:0mm solid #e0e0e0;position:absolute;}</style>
+<style>.gridLayout_layout{border:0.3mm solid #e0e0e0;position:absolute;}</style>
+<style>.footer_layout{border:0.3mm solid #e0e0e0;position:absolute;}</style></head>
+<body style=""><div style="position:relative;width:210.0mm;height:297.0mm;border:.3mm solid white;/*do not remove */                                   top:0mm;left:0mm;"><div style="position:absolute;top:0mm;left:0mm;right:0mm;bottom:0mm;"><div class="gnrlayout l__layout" style="border-width:0.3mm;width:210mm;height:297mm;top:0mm;left:0mm;right:0mm;bottom:0mm;border:0;z-index:0;"><div class="layout_row" style="position:absolute;height:29.7mm;top:0mm;left:0mm;right:0mm;"><div class="gnrlayout l__layout x_br" style="width:109.54mm;height:29.7mm;top:0mm;left:0mm;border:0;overflow:hidden;border-width:0.3mm;"><div class="content_base" style=""><div>
+	<img alt="http://127.0.0.1:8082/home:adm_htmltemplate/6jPNJt1rNF2ZOJDNAaMjVw/logoranalliagencypos.png?_calling_page_id=cR593payNx6hIVhAnvTP6Q&_nocache=g5z18z1vft" class="shrinkToFit" src="http://127.0.0.1:8082/home:adm_htmltemplate/6jPNJt1rNF2ZOJDNAaMjVw/logoranalliagencypos.png?_calling_page_id=cR593payNx6hIVhAnvTP6Q&_nocache=g5z18z1vft" style="width: 242px; height: 100px; margin: 10px 20px;" /></div></div></div>
+<div class="gnrlayout l__layout x_br" style="width:32.91999999999998mm;height:29.7mm;top:0mm;left:109.84mm;border:0;overflow:hidden;border-width:0.3mm;"></div>
+<div class="gnrlayout l__layout x_br" style="width:66.94mm;height:29.7mm;top:0mm;left:143.05999999999997mm;border:0;overflow:hidden;border-width:0.3mm;"><div class="content_base" style=""><div style="text-align: right;">
+	<span style="font-size:10px;"><span style="font-family:arial,helvetica,sans-serif;"><span style="color:#696969;">Via Porto, 64/68&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></div>
+<div style="text-align: right;">
+	<span style="font-size:10px;"><span style="font-family:arial,helvetica,sans-serif;"><span style="color:#696969;">Ortona (Ch) - Italy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></div>
+<div style="text-align: right;">
+	<span style="font-size:10px;"><span style="font-family:arial,helvetica,sans-serif;"><span style="color:#696969;">tel. +39 085 9064600&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></div>
+<div style="text-align: right;">
+	<span style="font-size:10px;"><span style="font-family:arial,helvetica,sans-serif;"><span style="color:#696969;">fax +39 085 9067358&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></div>
+<div>
+	<br />
+	<table cellpadding="1" cellspacing="1" style="border-collapse:collapse;width:500px;">
+		<tbody>
+			<tr>
+			</tr>
+			<tr>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div>
+	<br />
+	<br />
+	&nbsp;</div>
+<div>
+	&nbsp;</div></div></div></div>
+<div class="layout_row" style="position:absolute;height:257mm;top:30mm;left:0mm;right:0mm;"><div class="gnrlayout l__layout x_br" style="width:10mm;height:257mm;top:0mm;left:0mm;border:0;overflow:hidden;border-width:0.3mm;"></div>
+<div class="gnrlayout l__layout x_br" style="width:189.4mm;height:257mm;top:0mm;left:10.3mm;border:0;overflow:hidden;border-width:0.3mm;"><div class="gnrlayout mainLayout_layout" style="border-width:0.0mm 0.0mm 0.0mm 0.0mm;width:187.4mm;height:255mm;top:1mm;left:1mm;right:1mm;bottom:1mm;font-family:Arial Narrow;font-size:11pt;"><div class="layout_row" style="position:absolute;height:48mm;top:0mm;left:0mm;right:0mm;"><div class="gnrlayout mainLayout_layout x_" style="width:187.4mm;height:48mm;top:0mm;left:0mm;"><div class="gnrlayout doc_header_layout" style="border-width:0.0mm 0.0mm 0.0mm 0.0mm;width:187.4mm;height:48mm;top:0mm;left:0mm;right:0mm;bottom:0mm;margin:5mm;"><div class="layout_row" style="position:absolute;height:48mm;top:0mm;left:0mm;right:0mm;"><div class="gnrlayout doc_header_layout x_" style="width:105mm;height:48mm;top:0mm;left:0mm;"><div class="gnrlayout dati_proforma_layout" style="border-width:0.0mm 0.0mm 0.0mm 0.0mm;width:105mm;height:40mm;top:0mm;left:0mm;right:0mm;bottom:0mm;"><div class="layout_row" style="position:absolute;height:8mm;top:0mm;left:0mm;right:0mm;"><div class="gnrlayout dati_proforma_layout x_" style="width:52.5mm;height:8mm;top:0mm;left:0mm;font-size:10pt;"><div class="cell_label" style="position:absolute;height:3mm;top:0mm;left:0mm;right:0mm;">Date</div>
+<div class="content_base" style="position:absolute;top:3mm;left:0mm;right:0mm;">10/01/22</div></div>
+<div class="gnrlayout dati_proforma_layout x_" style="width:52.5mm;height:8mm;top:0mm;left:52.5mm;font-size:10pt;"><div class="cell_label" style="position:absolute;height:3mm;top:0mm;left:0mm;right:0mm;">PFDA no.</div>
+<div class="content_base" style="position:absolute;top:3mm;left:0mm;right:0mm;">PFDA22/000001 </div></div></div>
+<div class="layout_row" style="position:absolute;height:8mm;top:8mm;left:0mm;right:0mm;"><div class="gnrlayout dati_proforma_layout x_" style="width:52.5mm;height:8mm;top:0mm;left:0mm;font-size:10pt;"><div class="cell_label" style="position:absolute;height:3mm;top:0mm;left:0mm;right:0mm;">type</div>
+<div class="content_base" style="position:absolute;top:3mm;left:0mm;right:0mm;">M/V</div></div>
+<div class="gnrlayout dati_proforma_layout x_" style="width:52.5mm;height:8mm;top:0mm;left:52.5mm;font-size:10pt;"><div class="cell_label" style="position:absolute;height:3mm;top:0mm;left:0mm;right:0mm;">name</div>
+<div class="content_base" style="position:absolute;top:3mm;left:0mm;right:0mm;">DORADO PLUS</div></div></div>
+<div class="layout_row" style="position:absolute;height:8mm;top:16mm;left:0mm;right:0mm;"><div class="gnrlayout dati_proforma_layout x_" style="width:52.5mm;height:8mm;top:0mm;left:0mm;font-size:10pt;"><div class="cell_label" style="position:absolute;height:3mm;top:0mm;left:0mm;right:0mm;">Flag</div>
+<div class="content_base" style="position:absolute;top:3mm;left:0mm;right:0mm;">MALTA</div></div>
+<div class="gnrlayout dati_proforma_layout x_" style="width:52.5mm;height:8mm;top:0mm;left:52.5mm;font-size:10pt;"><div class="cell_label" style="position:absolute;height:3mm;top:0mm;left:0mm;right:0mm;">LOA</div>
+<div class="content_base" style="position:absolute;top:3mm;left:0mm;right:0mm;">139,72</div></div></div>
+<div class="layout_row" style="position:absolute;height:8mm;top:24mm;left:0mm;right:0mm;"><div class="gnrlayout dati_proforma_layout x_" style="width:52.5mm;height:8mm;top:0mm;left:0mm;font-size:10pt;"><div class="cell_label" style="position:absolute;height:3mm;top:0mm;left:0mm;right:0mm;">GT</div>
+<div class="content_base" style="position:absolute;top:3mm;left:0mm;right:0mm;">5684</div></div>
+<div class="gnrlayout dati_proforma_layout x_" style="width:52.5mm;height:8mm;top:0mm;left:52.5mm;font-size:10pt;"><div class="cell_label" style="position:absolute;height:3mm;top:0mm;left:0mm;right:0mm;">NT</div>
+<div class="content_base" style="position:absolute;top:3mm;left:0mm;right:0mm;">3230</div></div></div>
+<div class="layout_row" style="position:absolute;height:8mm;top:32mm;left:0mm;right:0mm;"><div class="gnrlayout dati_proforma_layout x_" style="width:105mm;height:8mm;top:0mm;left:0mm;font-size:10pt;"><div class="cell_label" style="position:absolute;height:3mm;top:0mm;left:0mm;right:0mm;">Cargo</div>
+<div class="content_base" style="position:absolute;top:3mm;left:0mm;right:0mm;">MT.6600 WHEAT IN BULK</div></div></div></div></div>
+<div class="gnrlayout doc_header_layout x_" style="width:80mm;height:48mm;top:0mm;left:105mm;"><div class="gnrlayout dati_cliente_layout" style="border-width:0.0mm 0.0mm 0.0mm 0.0mm;width:80mm;height:15mm;top:0mm;left:0mm;right:0mm;bottom:0mm;"><div class="layout_row" style="position:absolute;height:5mm;top:0mm;left:0mm;right:0mm;"><div class="gnrlayout dati_cliente_layout x_" style="width:80mm;height:5mm;top:0mm;left:0mm;font-weight:bold;"><div class="content_base" style="">Messrs.</div></div></div>
+<div class="layout_row" style="position:absolute;height:5mm;top:5mm;left:0mm;right:0mm;"><div class="gnrlayout dati_cliente_layout x_" style="width:80mm;height:5mm;top:0mm;left:0mm;font-weight:bold;font-size:10pt;"><div class="content_base" style="">GRANVIK SHIPPING SA</div></div></div>
+<div class="layout_row" style="position:absolute;height:5mm;top:10mm;left:0mm;right:0mm;"><div class="gnrlayout dati_cliente_layout x_" style="width:80mm;height:5mm;top:0mm;left:0mm;font-weight:bold;font-size:10pt;"><div class="content_base" style=""></div></div></div></div></div></div></div></div></div>
+<div class="layout_row" style="position:absolute;height:127mm;top:48mm;left:0mm;right:0mm;"><div class="gnrlayout mainLayout_layout x_" style="width:187.4mm;height:127mm;top:0mm;left:0mm;"><div class="gnrlayout gridLayout_layout" style="border-width:0.3mm 0.3mm 0.3mm 0.3mm;width:186.6mm;height:126.20000000000003mm;top:0.1mm;left:0.1mm;right:0.1mm;bottom:0.1mm;font-size:9pt;text-align:left;"><div class="layout_row" style="position:absolute;height:4.7mm;top:0mm;left:0mm;right:0mm;"><div class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.7mm;top:0mm;left:0mm;border-width:0.3mm;"><div class="caption" style="position:absolute;height:4mm;top:0mm;left:0mm;right:0mm;">Service</div>
+<div class="content_base" style="position:absolute;top:4mm;left:0mm;right:0mm;"></div></div>
+<div class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.7mm;top:0mm;left:50.3mm;border-width:0.3mm;"><div class="caption" style="position:absolute;height:4mm;top:0mm;left:0mm;right:0mm;">Description</div>
+<div class="content_base" style="position:absolute;top:4mm;left:0mm;right:0mm;"></div></div>
+<div class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.7mm;top:0mm;left:166.6mm;border-width:0.3mm;"><div class="caption" style="position:absolute;height:4mm;top:0mm;left:0mm;right:0mm;">Euro</div>
+<div class="content_base" style="position:absolute;top:4mm;left:0mm;right:0mm;"></div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:5mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Harbour Master Dues</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Harbour Master Dues" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">62,50</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:9.5mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Administration charge</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Administration charge" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">18,08</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:14mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Pilot</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Pilot" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">654,46</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:18.5mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Mooringmen</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Mooringmen" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">785,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:23mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Agency fees</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Agency fees" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">€ 2489,00 &gt;&gt;&gt;</div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">2.200,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:27.5mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Customs clearance</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Customs clearance" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">€ 1200,00 &gt;&gt;&gt;</div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">1.000,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:32mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Garbage</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Garbage" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">450,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:36.5mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Dispensation for liquid waste</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Dispensation for liquid waste" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">190,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:41mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Isps</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Isps" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">350,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:45.5mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Miscellaneous</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Miscellaneous" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">120,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:50mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Auth. loading/unl. goods in bulk</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Auth. loading/unl. goods in bulk" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">190,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:54.5mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">Italian Anchorage Dues</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="Italian Anchorage Dues" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">1 YEAR</div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">7.600,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:4.2mm;top:59mm;left:0mm;right:0mm;"><div field="descrizione_servizio" name="Service" field_getter="descrizione_servizio" sheet="*" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:4.2mm;top:0mm;left:0mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style="">ENS</div></div>
+<div field="descrizione" name="Description" field_getter="descrizione" sheet="*" servizio="ENS" align_class="aligned_left" class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:4.2mm;top:0mm;left:50.3mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_left" style=""></div></div>
+<div field="tariffa" name="Euro" field_getter="tariffa" sheet="*" align_class="aligned_right" class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:4.2mm;top:0mm;left:166.6mm;overflow:hidden;white-space:nowrap;border-width:0.3mm;"><div class="content_base aligned_right" style="">150,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:62.7mm;top:63.5mm;left:0mm;right:0mm;"><div class="gnrlayout gridLayout_layout x_br" style="width:50mm;height:62.7mm;top:0mm;left:0mm;border-width:0.3mm;"></div>
+<div class="gnrlayout gridLayout_layout x_br" style="width:116mm;height:62.7mm;top:0mm;left:50.3mm;border-width:0.3mm;"></div>
+<div class="gnrlayout gridLayout_layout x_br" style="width:20mm;height:62.7mm;top:0mm;left:166.6mm;border-width:0.3mm;"></div></div></div></div></div>
+<div class="layout_row" style="position:absolute;height:80mm;top:175mm;left:0mm;right:0mm;"><div class="gnrlayout mainLayout_layout x_" style="width:187.4mm;height:80mm;top:0mm;left:0mm;"><div class="gnrlayout footer_layout" style="border-width:0.3mm 0.0mm 0.0mm 0.3mm;width:186.6mm;height:78.7mm;top:1mm;left:0.5mm;right:0mm;bottom:0mm;"><div class="layout_row" style="position:absolute;height:3.7mm;top:0mm;left:0mm;right:0mm;"><div class="gnrlayout footer_layout x_br" style="width:166.29999999999998mm;height:3.7mm;top:0mm;left:0mm;font-size:8pt;border-width:0.3mm;"><div class="aligned_right" style="">Stamps</div></div>
+<div class="gnrlayout footer_layout x_br" style="width:20mm;height:3.7mm;top:0mm;left:166.6mm;font-size:8pt;border-width:0.3mm;"><div class="aligned_right" style="">34,00</div></div></div>
+<div class="layout_row" style="position:absolute;height:5.7mm;top:4mm;left:0mm;right:0mm;"><div class="gnrlayout footer_layout x_br" style="width:166.29999999999998mm;height:5.7mm;top:0mm;left:0mm;font-size:12pt;font-weight:bold;border-width:0.3mm;"><div class="aligned_right" style="">Total PFDA excluded Italian Anchorage Dues - Euro</div></div>
+<div class="gnrlayout footer_layout x_br" style="width:20mm;height:5.7mm;top:0mm;left:166.6mm;font-weight:bold;border-width:0.3mm;"><div class="aligned_right" style="">13.804,04</div></div></div>
+<div class="layout_row" style="position:absolute;height:68.7mm;top:10mm;left:0mm;right:0mm;"><div class="gnrlayout footer_layout x_br" style="width:186.6mm;height:68.7mm;top:0mm;left:0mm;font-size:8pt;border-width:0.3mm;"><div class="aligned_left" style=""><div>
+	<strong>In compliance with running Italian Law April 4, 1977 &ndash; No. 135 Art.3 remittance of the full above amount to be arranged before vessel departure enabling Harbour Master to grant departure port clearance w/o any delay.</strong></div>
+<div>
+	&nbsp;</div>
+<div>
+	Our bank details:</div>
+<div>
+	<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ranalli Srl - Via Porto snc - 66026 ORTONA (CH)</strong></div>
+<div>
+	<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Unicredit Banca di Roma - Filiale di Ortona<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IBAN code: IT 56 K 0200877781000010721361<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BIC code: U N C R I T M 1 S U 9</strong></div>
+<div>
+	&nbsp;</div>
+<div>
+	<u>PLEASE LET US KNOW HOW THE D/A AND INVOICES MUST BE HEADED AND MAILED</u></div>
+<pre>
+<span style="font-size:10px;"><span style="font-family:courier new,courier,monospace;"><samp>General info:
+<small>Pilot   Normal working time from Monday to Saturday h.08:00-17:00 national holiday excluded
+Mooring Normal working time from Monday to Saturday h.06:01-20:00 national holiday excluded
+Tugboat Normal working time from Monday to Friday   h.08:00-17:00 national holiday excluded</small></samp></span></span></pre>
+<div>
+	Fresh Water service by truck &euro; 6,80/tons (minimum no.1 truck mt.30) from monday to friday</div></div></div></div></div></div></div></div></div>
+<div class="gnrlayout l__layout x_br" style="width:10mm;height:257mm;top:0mm;left:200.00000000000003mm;border:0;overflow:hidden;border-width:0.3mm;"></div></div>
+<div class="layout_row" style="position:absolute;height:9.7mm;top:287.3mm;left:0mm;right:0mm;"><div class="gnrlayout l__layout x_br" style="width:30mm;height:9.7mm;top:0mm;left:0mm;border:0;overflow:hidden;border-width:0.3mm;"></div>
+<div class="gnrlayout l__layout x_br" style="width:149.4mm;height:9.7mm;top:0mm;left:30.3mm;border:0;overflow:hidden;border-width:0.3mm;"><div class="content_base" style=""><div style="text-align: center;">
+	<span style="font-family:arial,helvetica,sans-serif;"><span style="color:#696969;">ranallishipping.com</span></span></div></div></div>
+<div class="gnrlayout l__layout x_br" style="width:30mm;height:9.7mm;top:0mm;left:180.00000000000003mm;border:0;overflow:hidden;border-width:0.3mm;"><div class="content_base" style=""><div style="text-align: center;">
+	<span style="font-size:8px;"><span style="font-family:arial,helvetica,sans-serif;">1/1</span></span></div></div></div></div></div></div></div></body></html>
