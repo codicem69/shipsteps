@@ -23,7 +23,10 @@ class ViewFromSof_Cargo(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('sof_id',name='Arrivo nave',edit=True)
         r.fieldcell('cargo_unl_load_id',name='Carico', edit=True, width='auto')
-
+    
+    def th_view(self,view):
+        view.grid.attributes.update(selfDragRows=True)
+        
 class Form(BaseComponent):
 
     def th_form(self, form):

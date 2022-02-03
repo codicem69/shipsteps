@@ -19,4 +19,5 @@ class Table(object):
         
         tbl.formulaColumn('sof_det',"@arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        tbl.aliasColumn('ship_rec','@sof_cargo_sof.ship_rec')
     

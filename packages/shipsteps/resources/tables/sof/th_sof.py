@@ -15,7 +15,8 @@ class View(BaseComponent):
         r.fieldcell('ops_commenced')
         r.fieldcell('ops_completed')
         r.fieldcell('doc_onboard')
-
+        r.fieldcell('ship_rec', width='40em')
+        
     def th_order(self):
         return 'arrival_id'
 
@@ -33,7 +34,7 @@ class ViewFromSof(BaseComponent):
         r.fieldcell('ops_commenced', edit=True)
         r.fieldcell('ops_completed', edit=True)
         r.fieldcell('doc_onboard', edit=True)
-
+        r.fieldcell('ship_rec')
 
 class Form(BaseComponent):
 
@@ -47,12 +48,13 @@ class Form(BaseComponent):
         fb.field('ops_commenced')
         fb.field('ops_completed')
         fb.field('doc_onboard')
+        
 
 class FormSof(BaseComponent):
     
     def th_form(self, form):
         bc = form.center.borderContainer()
-        self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='80px', background='lightgrey'))
+        self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='110px', background='lightgrey', splitter=True))
         tc = bc.tabContainer(region = 'center',margin='2px')
         
         self.cargoSof(tc.contentPane(title='Cargo SOF'))
@@ -70,16 +72,18 @@ class FormSof(BaseComponent):
 
     def datiSof(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=4, border_spacing='4px',fld_width='10em')
-        fb.field('arrival_id')
+        #fb.field('arrival_id')
         fb.field('nor_tend')
         fb.field('nor_rec')
         fb.field('nor_acc')
+        fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2)
         fb.field('ops_commenced')
         fb.field('ops_completed')
         fb.field('doc_onboard')
+        
 
     def cargoSof(self,pane):
-        pane.dialogTableHandler(relation='@sof_cargo_sof',viewResource='ViewFromSof_Cargo',
+        pane.inlineTableHandler(relation='@sof_cargo_sof',viewResource='ViewFromSof_Cargo',
                                 picker='cargo_unl_load_id')
 
     def operationsSof(self,pane):
