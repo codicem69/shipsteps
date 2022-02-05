@@ -8,6 +8,7 @@ class View(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
+        r.fieldcell('agency_id')
         r.fieldcell('consignee')
         r.fieldcell('email')
         r.fieldcell('email_cc')
@@ -26,6 +27,7 @@ class Form(BaseComponent):
     def th_form(self, form):
         pane = form.record
         fb = pane.formbuilder(cols=1, border_spacing='4px')
+        fb.field('agency_id', width='10em')
         fb.field('consignee', width='40em')
         fb.div("!![en]Insert the emails separate by commas", margin_top='10px')
         fb.field('email',width='40em', height='10em')

@@ -5,6 +5,8 @@ class Table(object):
         tbl=pkg.table('email_services', pkey='id', name_long='!![en]Services email', name_plural='!![en]Services emails',
                        caption_field='consignee', partition_port='port')
         self.sysFields(tbl)
+        tbl.column('agency_id',size='22', name_long='agency_id'
+                    ).relation('agency.id', relation_name='email_services', mode='foreignkey', onDelete='raise')
         tbl.column('consignee', name_short='!![en]Consignee')
         tbl.column('email', name_short='Email')
         tbl.column('email_cc', name_short='Email cc')

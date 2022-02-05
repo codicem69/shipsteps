@@ -24,6 +24,9 @@ class Table(object):
         tbl.formulaColumn('cargo_lu_en', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' 
                                             WHEN $operation = 'U' THEN '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U')
+        tbl.formulaColumn('cargo_lu_en_ita', """CASE WHEN $operation = 'L' THEN '-Carico da imbarcare: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' 
+                                            WHEN $operation = 'U' THEN '-Carico da sbarcare: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' ELSE 'NIL' END """,
+                            dtype='T', name_long='Carico L/U ITA')
         tbl.formulaColumn('ship_rec', "'s: '|| @shipper_id.name || ' - r: ' || @receiver_id.name")
         tbl.formulaColumn('tot_cargo',select=dict(table='shipsteps.cargo_unl_load',
                                                 columns='SUM($quantity)',
@@ -32,4 +35,7 @@ class Table(object):
         tbl.formulaColumn('cargo_ship_rec', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Shippers: ' || @shipper_id.name || '<br>' 
                                             WHEN $operation = 'U' THEN '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Receivers: ' || @receiver_id.name || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U shiprec')
+        tbl.formulaColumn('tip_cargo_dogana',"""CASE WHEN $foreign_cargo = 'True' THEN 'Merce estera da importare'
+                                                WHEN $foreign_cargo = 'False' THEN 'Merce scortata da T2L' ELSE 'Merce scortata da T2L' END""")
+        
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
