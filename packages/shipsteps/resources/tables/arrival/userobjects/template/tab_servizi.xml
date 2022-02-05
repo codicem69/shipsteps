@@ -1,0 +1,994 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-03T12:34:34.549583+01:00</_ins_ts>
+<_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-02-04T14:39:39.548155+01:00</_mod_ts>
+<_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatetab_servizi</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">tab_servizi</code>
+<objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
+<pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
+<tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Tabella Servizi</description>
+<notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div style="width:420mm; height=297mm"&gt;
+	&amp;nbsp;&lt;br /&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td colspan="3" style="text-align: center;"&gt;
+					&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="2" style="text-align: center;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$vessel_imbarcazione_bandiera&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="1" style="text-align: center;width: 100px;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Last Port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$last_port&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;width: 100px;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Next Port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$next_port&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$proforma_protocollo&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Invoice to: &lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="3" style="text-align: center;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$fatturazione_fullname&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;SERVICES&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;width: 100px;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PFDA &amp;euro;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;width: 100px;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;INV.NO.&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;width: 100px;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;DATA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center; width: 100px;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;EURO&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;HARBOUR MASTER DUES&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_tributi_cp&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ADMINISTARTION CHARGE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_administration_charge&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PILOT&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_pilot&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;MOORINGMEN&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_mooringmen&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;TUG&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_tug&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;AGENCY FEES&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_agency_fees&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;CUSTOMS CLEARANCE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_customs_clearance&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;GARBAGE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_garbage&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;DISPENSATION FOR LIQUID WASTE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_garbage_auth_&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ISPS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_isps&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;MISCELLANEOUS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_miscellaneous&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;APPLICATION AND AUTH. BULK CARGO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_bulk_auth_&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ANTIFIRE / ANTIPOLLUTION&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_antifire&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;div&gt;
+			&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+				&lt;tbody&gt;
+					&lt;tr row_datasource="@pfda_id.@proforma_servextra"&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_serviziextra_serv_extra&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;$proforma_serviziextra_tariffa&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&lt;span style=" font-size:12px;"&gt;&lt;span style=" font-size:12px;"&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&lt;span style=" font-size:12px;"&gt;&lt;span style=" font-size:12px;"&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&lt;span style=" font-size:12px;"&gt;&lt;span style=" font-size:12px;"&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+			&lt;div&gt;
+				&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+					&lt;tbody&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;TAX STAMPS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_tax_stamps&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;TOTALE&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$proforma_totale_pfda&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+					&lt;/tbody&gt;
+				&lt;/table&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div style="text-align: center;"&gt;
+	&lt;span style=" font-size:12px;"&gt;&lt;span style=" font-size:12px;"&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</content>
+<metadata><author>admin</author>
+<version _T="NN"></version>
+<date _T="NN"></date>
+<is_print _T="B" _valuelabel="">True</is_print>
+<is_mail _T="NN"></is_mail>
+<is_row _T="NN"></is_row>
+<row_height _T="NN"></row_height>
+<default_letterhead _displayedValue="A3 ORIZZ" _valuelabel="Carta intestata">nea0LMn3PM2CzQ7eOeXoww</default_letterhead>
+<summary _T="NN"></summary>
+<email><subject _T="NN"></subject>
+<to_address _T="NN"></to_address>
+<from_address _T="NN"></from_address>
+<cc_address _T="NN"></cc_address>
+<bcc_address _T="NN"></bcc_address>
+<attachments _T="NN"></attachments></email>
+<email_compiled _T="BAG"></email_compiled></metadata>
+<varsbag><g6pi9rvb9t _pkey="g6pi9rvb9t"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Tipo</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_tipo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pi9rvb9t>
+<g6pi9t35z5 _pkey="g6pi9t35z5"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_nome</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pi9t35z5>
+<g6pi9up1b5 _pkey="g6pi9up1b5"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Bandiera</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_bandiera</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask dtype="::NN" _loadedValue="::NN">bandiera %s</mask>
+<editable _T="NN" dtype="::NN"></editable></g6pi9up1b5>
+<g6pib98frl _pkey="g6pib98frl"><fieldpath dtype="::NN">@invoice_det_id.fullname</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Fatturazione/fullname</fieldname>
+<varname dtype="::NN">fatturazione_fullname</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pib98frl>
+<g6pib13z7t _pkey="g6pib13z7t"><fieldpath dtype="::NN">nextport</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Next port</fieldname>
+<varname dtype="::NN">next_port</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pib13z7t>
+<g6piazy7cx _pkey="g6piazy7cx"><fieldpath dtype="::NN">lastport</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Last port</fieldname>
+<varname dtype="::NN">last_port</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6piazy7cx>
+<g6pic4whfl _pkey="g6pic4whfl"><fieldpath dtype="::NN">@pfda_id.pilot</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Pilot</fieldname>
+<varname dtype="::NN">proforma_pilot</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pic4whfl>
+<g6pibssgo9 _pkey="g6pibssgo9"><fieldpath dtype="::NN">@pfda_id.protocollo</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">proforma/Protocollo</fieldname>
+<varname dtype="::NN">proforma_protocollo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask dtype="::NN" _loadedValue="::NN">PFDA N. %s</mask>
+<editable _T="NN" dtype="::NN"></editable></g6pibssgo9>
+<g6picjm3sh _pkey="g6picjm3sh"><fieldpath dtype="::NN">@pfda_id.tug</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Tug</fieldname>
+<varname dtype="::NN">proforma_tug</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6picjm3sh>
+<g6picfymrl _pkey="g6picfymrl"><fieldpath dtype="::NN">@pfda_id.moor</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Mooringmen</fieldname>
+<varname dtype="::NN">proforma_mooringmen</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6picfymrl>
+<g6pid02ebl _pkey="g6pid02ebl"><fieldpath dtype="::NN">@pfda_id.garbage</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Garbage</fieldname>
+<varname dtype="::NN">proforma_garbage</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pid02ebl>
+<g6pict9rzt _pkey="g6pict9rzt"><fieldpath dtype="::NN">@pfda_id.customs</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Customs Clearance</fieldname>
+<varname dtype="::NN">proforma_customs_clearance</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pict9rzt>
+<g6picpjvs1 _pkey="g6picpjvs1"><fieldpath dtype="::NN">@pfda_id.agency</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Agency fees</fieldname>
+<varname dtype="::NN">proforma_agency_fees</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6picpjvs1>
+<g6pid71gwh _pkey="g6pid71gwh"><fieldpath dtype="::NN">@pfda_id.retaingarbage</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Garbage auth.</fieldname>
+<varname dtype="::NN">proforma_garbage_auth_</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pid71gwh>
+<g6pidbg8y9 _pkey="g6pidbg8y9"><fieldpath dtype="::NN">@pfda_id.isps</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/ISPS</fieldname>
+<varname dtype="::NN">proforma_isps</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pidbg8y9>
+<g6pidduo29 _pkey="g6pidduo29"><fieldpath dtype="::NN">@pfda_id.misc</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Miscellaneous</fieldname>
+<varname dtype="::NN">proforma_miscellaneous</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pidduo29>
+<g6pidqhklt _pkey="g6pidqhklt"><fieldpath dtype="::NN">@pfda_id.antifire</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Antifire</fieldname>
+<varname dtype="::NN">proforma_antifire</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pidqhklt>
+<g6pidgiy41 _pkey="g6pidgiy41"><fieldpath dtype="::NN">@pfda_id.bulkauth</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Bulk auth.</fieldname>
+<varname dtype="::NN">proforma_bulk_auth_</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pidgiy41>
+<g6pieuw069 _pkey="g6pieuw069"><fieldpath dtype="::NN">@pfda_id.@proforma_servextra.descrizione</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">proforma/serviziextra/Descrizione</fieldname>
+<varname dtype="::NN">proforma_serviziextra_descrizione</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pieuw069>
+<g6pif9kokx _pkey="g6pif9kokx"><fieldpath dtype="::NN">@pfda_id.@proforma_servextra.tariffa</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/serviziextra/Tariffa</fieldname>
+<varname dtype="::NN">proforma_serviziextra_tariffa</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pif9kokx>
+<g6piegu5ix _pkey="g6piegu5ix"><fieldpath dtype="::NN">@pfda_id.totalepfda</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Totale pfda</fieldname>
+<varname dtype="::NN">proforma_totale_pfda</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6piegu5ix>
+<g6piee9a5t _pkey="g6piee9a5t"><fieldpath dtype="::NN">@pfda_id.stamp</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Tax Stamps</fieldname>
+<varname dtype="::NN">proforma_tax_stamps</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6piee9a5t>
+<g6pie8dmk9 _pkey="g6pie8dmk9"><fieldpath dtype="::NN">@pfda_id.admcharge</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Administration Charge</fieldname>
+<varname dtype="::NN">proforma_administration_charge</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pie8dmk9>
+<g6pie5v42p _pkey="g6pie5v42p"><fieldpath dtype="::NN">@pfda_id.diritticp</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">proforma/Tributi CP</fieldname>
+<varname dtype="::NN">proforma_tributi_cp</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6pie5v42p>
+<g6qqtkothd _pkey="g6qqtkothd"><fieldpath dtype="::NN">@pfda_id.@proforma_servextra.serv_extra</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">proforma/serviziextra/serv_extra</fieldname>
+<varname dtype="::NN">proforma_serviziextra_serv_extra</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g6qqtkothd></varsbag>
+<parameters _T="BAG"></parameters>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<content_css></content_css>
+<compiled><_pfda_id_proforma_servextra _tag="@pfda_id_@proforma_servextra">&lt;tr row_datasource="@pfda_id.@proforma_servextra"&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$serv_extra&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;$tariffa&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&lt;span style=" font-size:12px;"&gt;&lt;span style=" font-size:12px;"&gt;&amp;#160;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&lt;span style=" font-size:12px;"&gt;&lt;span style=" font-size:12px;"&gt;&amp;#160;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&lt;span style=" font-size:12px;"&gt;&lt;span style=" font-size:12px;"&gt;&amp;#160;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					</_pfda_id_proforma_servextra>
+<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@invoice_det_id.fullname,nextport,lastport,@pfda_id.@proforma_servextra.serv_extra" columns="@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,@invoice_det_id.fullname,$nextport,$lastport,@pfda_id.pilot,@pfda_id.protocollo,@pfda_id.tug,@pfda_id.moor,@pfda_id.garbage,@pfda_id.customs,@pfda_id.agency,@pfda_id.retaingarbage,@pfda_id.isps,@pfda_id.misc,@pfda_id.antifire,@pfda_id.bulkauth,@pfda_id.@proforma_servextra.descrizione,@pfda_id.@proforma_servextra.tariffa,@pfda_id.totalepfda,@pfda_id.stamp,@pfda_id.admcharge,@pfda_id.diritticp,@pfda_id.@proforma_servextra.serv_extra" formats="{}::JS" masks='{"vessel_imbarcazione_bandiera": "bandiera %s", "proforma_protocollo": "PFDA N. %s"}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "fatturazione_fullname": "A", "next_port": "T", "last_port": "T", "proforma_pilot": "N", "proforma_protocollo": "A", "proforma_tug": "N", "proforma_mooringmen": "N", "proforma_garbage": "N", "proforma_customs_clearance": "N", "proforma_agency_fees": "N", "proforma_garbage_auth_": "N", "proforma_isps": "N", "proforma_miscellaneous": "N", "proforma_antifire": "N", "proforma_bulk_auth_": "N", "proforma_serviziextra_descrizione": "T", "proforma_serviziextra_tariffa": "N", "proforma_totale_pfda": "N", "proforma_tax_stamps": "N", "proforma_administration_charge": "N", "proforma_tributi_cp": "N", "proforma_serviziextra_serv_extra": "A"}::JS'>&lt;div style="width:420mm; height=297mm"&gt;
+	&amp;#160;&lt;br&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td colspan="3" style="text-align: center;"&gt;
+					&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="2" style="text-align: center;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.bandiera^vessel_imbarcazione_bandiera&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="1" style="text-align: center;width: 100px;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Last Port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$lastport&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;width: 100px;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Next Port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$nextport&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@pfda_id.protocollo^proforma_protocollo&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Invoice to: &lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="3" style="text-align: center;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@invoice_det_id.fullname&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;SERVICES&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;width: 100px;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PFDA &amp;#8364;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;width: 100px;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;INV.NO.&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;width: 100px;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;DATA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center; width: 100px;"&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;EURO&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;HARBOUR MASTER DUES&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.diritticp&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ADMINISTARTION CHARGE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.admcharge&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PILOT&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.pilot&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;MOORINGMEN&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.moor&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;TUG&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.tug&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;AGENCY FEES&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.agency&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;CUSTOMS CLEARANCE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.customs&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;GARBAGE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.garbage&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;DISPENSATION FOR LIQUID WASTE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.retaingarbage&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ISPS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.isps&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;MISCELLANEOUS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.misc&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;APPLICATION AND AUTH. BULK CARGO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.bulkauth&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ANTIFIRE / ANTIPOLLUTION&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.antifire&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td style="text-align: center;"&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;div&gt;
+			&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+				&lt;tbody&gt;
+					
+$@pfda_id.@proforma_servextra
+&lt;tr&gt;
+						&lt;td&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+						&lt;td style="text-align: center;width: 100px;"&gt;
+							&amp;#160;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+			&lt;div&gt;
+				&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+					&lt;tbody&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;TAX STAMPS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.stamp&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;#160;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;#160;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;#160;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;TOTALE&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@pfda_id.totalepfda&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;#160;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;#160;&lt;/td&gt;
+							&lt;td style="text-align: center;width: 100px;"&gt;
+								&amp;#160;&lt;/td&gt;
+						&lt;/tr&gt;
+					&lt;/tbody&gt;
+				&lt;/table&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div style="text-align: center;"&gt;
+	&lt;span style=" font-size:12px;"&gt;&lt;span style=" font-size:12px;"&gt;&amp;#160;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</main></compiled></data>
+<authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
+<private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" as="t0_quicklist"></quicklist>
+<flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_print</flags>
+<required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
+<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>
