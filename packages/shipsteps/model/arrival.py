@@ -42,7 +42,7 @@ class Table(object):
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
         #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('carico_arr','@cargo_lu_arr.cargo_arr',name_long='Carico in arrivo')
-        tbl.aliasColumn('cargo_lu_en','@cargo_lu_arr.cargo_lu_en',name_long='!![en]Cargo L/U')
+        tbl.aliasColumn('cargo_lu_en','@cargo_lu_arr.cargo_ship_rec',name_long='!![en]Cargo L/U')
        # tbl.aliasColumn('transit_cargo','@cargo_transit_arr.transit_cargo')
         tbl.aliasColumn('ship_rec','@cargo_lu_arr.ship_rec',name_long='!![en]Shipper/Receivers')
         tbl.aliasColumn('tot_cargo','@cargo_lu_arr.tot_cargo')#,name_long='!![en]Cargo total')
