@@ -48,7 +48,8 @@ class Table(object):
         tbl.aliasColumn('tot_cargo','@cargo_lu_arr.tot_cargo')#,name_long='!![en]Cargo total')
         tbl.aliasColumn('lastport','@last_port.citta_nazione', name_long='!![en]Last port')
         tbl.aliasColumn('nextport','@next_port.citta_nazione', name_long='!![en]Next port')
-        
+        tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )
+
     def pyColumn_cargo(self,record,field):
         
         pkey=record['pkey']
