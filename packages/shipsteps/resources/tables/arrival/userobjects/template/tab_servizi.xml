@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-11T18:38:15.270839+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-02-17T12:08:14.516971+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-02-17T12:23:14.616690+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatetab_servizi</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">tab_servizi</code>
@@ -57,7 +57,7 @@
 						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;EURO&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;HARBOUR MASTER DUES&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_tributi_cp&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -69,7 +69,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ADMINISTARTION CHARGE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_administration_charge&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -81,7 +81,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PILOT&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_pilot&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -93,7 +93,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;MOORINGMEN&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_mooringmen&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -106,11 +106,11 @@
 				&lt;/tr&gt;
 				&lt;tr&gt;
 					&lt;td style="vertical-align: middle;"&gt;
-						&lt;div&gt;
+						&lt;div style="text-align: left;"&gt;
 							&amp;nbsp;&lt;/div&gt;
-						&lt;div&gt;
+						&lt;div style="text-align: left;"&gt;
 							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;TUG&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-						&lt;div&gt;
+						&lt;div style="text-align: left;"&gt;
 							&amp;nbsp;&lt;/div&gt;
 					&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
@@ -123,7 +123,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;AGENCY FEES&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_agency_fees&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -135,7 +135,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;CUSTOMS CLEARANCE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_customs_clearance&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -147,7 +147,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;GARBAGE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_garbage&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -159,7 +159,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;DISPENSATION FOR LIQUID WASTE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_garbage_auth_&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -171,7 +171,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ISPS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_isps&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -183,7 +183,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;MISCELLANEOUS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_miscellaneous&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -195,7 +195,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;APPLICATION AND AUTH. BULK CARGO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_bulk_auth_&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -207,7 +207,7 @@
 						&amp;nbsp;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ANTIFIRE / ANTIPOLLUTION&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_antifire&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -224,7 +224,7 @@
 			&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
 				&lt;tbody&gt;
 					&lt;tr row_datasource="@pfda_id.@proforma_servextra"&gt;
-						&lt;td&gt;
+						&lt;td style="text-align: left;"&gt;
 							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$proforma_serviziextra_serv_extra&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 						&lt;td style="text-align: center;width: 100px;"&gt;
 							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;$proforma_serviziextra_tariffa&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -648,7 +648,7 @@
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css></content_css>
 <compiled><_pfda_id_proforma_servextra _tag="@pfda_id_@proforma_servextra">&lt;tr row_datasource="@pfda_id.@proforma_servextra"&gt;
-						&lt;td&gt;
+						&lt;td style="text-align: left;"&gt;
 							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$serv_extra&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 						&lt;td style="text-align: center;width: 100px;"&gt;
 							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;$tariffa&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -706,7 +706,7 @@
 						&lt;span style="font-size:16px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;EURO&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;HARBOUR MASTER DUES&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.diritticp&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -718,7 +718,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ADMINISTARTION CHARGE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.admcharge&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -730,7 +730,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PILOT&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.pilot&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -742,7 +742,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;MOORINGMEN&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.moor&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -755,11 +755,11 @@
 				&lt;/tr&gt;
 				&lt;tr&gt;
 					&lt;td style="vertical-align: middle;"&gt;
-						&lt;div&gt;
+						&lt;div style="text-align: left;"&gt;
 							&amp;#160;&lt;/div&gt;
-						&lt;div&gt;
+						&lt;div style="text-align: left;"&gt;
 							&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;TUG&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-						&lt;div&gt;
+						&lt;div style="text-align: left;"&gt;
 							&amp;#160;&lt;/div&gt;
 					&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
@@ -772,7 +772,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;AGENCY FEES&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.agency&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -784,7 +784,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;CUSTOMS CLEARANCE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.customs&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -796,7 +796,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;GARBAGE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.garbage&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -808,7 +808,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;DISPENSATION FOR LIQUID WASTE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.retaingarbage&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -820,7 +820,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ISPS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.isps&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -832,7 +832,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;MISCELLANEOUS&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.misc&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -844,7 +844,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;APPLICATION AND AUTH. BULK CARGO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.bulkauth&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -856,7 +856,7 @@
 						&amp;#160;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr&gt;
-					&lt;td&gt;
+					&lt;td style="text-align: left;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ANTIFIRE / ANTIPOLLUTION&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
 						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@pfda_id.antifire&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
