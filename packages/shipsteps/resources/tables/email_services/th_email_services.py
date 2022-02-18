@@ -9,10 +9,11 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('agency_id')
+        r.fieldcell('service_for_email_id')
         r.fieldcell('consignee')
         r.fieldcell('email')
         r.fieldcell('email_cc')
-        r.fieldcell('port')
+        #r.fieldcell('port')
 
     def th_order(self):
         return 'consignee'
@@ -28,13 +29,14 @@ class Form(BaseComponent):
         pane = form.record
         fb = pane.formbuilder(cols=1, border_spacing='4px')
         fb.field('agency_id', width='10em')
+        fb.field('service_for_email_id')
         fb.field('consignee', width='40em')
         fb.div("!![en]Insert the emails separate by commas", margin_top='10px')
         fb.field('email',width='40em', height='10em')
         fb.div(' ')
         fb.div("!![en]Insert the emails separate by commas", margin_top='10px')
         fb.field('email_cc',width='40em', height='10em')
-        fb.field('port')
+        #fb.field('port')
 
 
     def th_options(self):

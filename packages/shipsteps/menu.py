@@ -1,6 +1,5 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-
+#!/usr/bin/env python
+# encoding: utf-8
 def config(root,application=None):
     shipsteps = root.branch('shipsteps')
     shipsteps.thpage('!![en]Task list',table='shipsteps.tasklist')
