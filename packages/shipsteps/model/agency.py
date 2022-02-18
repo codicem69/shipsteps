@@ -26,6 +26,9 @@ class Table(object):
         tbl.column('port',size='22',name_short='!![en]Port').relation('unlocode.place.id',relation_name='portag_unlocode', mode='foreignkey', onDelete='raise')
         tbl.aliasColumn('fullname','@user.fullname', name_long='!![en]user signature')
         
+        tbl.aliasColumn('consignee','@email_services.consignee')
+        #tbl.formulaColumn('dog_int', """CASE WHEN $service_fe = 'dogana' THEN $consignee ELSE NULL END""")
+
     def partitioning_pkeys(self):
         if self.db.currentEnv.get('current_agency_id'):
             return [self.db.currentEnv['current_agency_id']]

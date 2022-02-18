@@ -49,6 +49,176 @@ class Table(object):
         tbl.aliasColumn('lastport','@last_port.citta_nazione', name_long='!![en]Last port')
         tbl.aliasColumn('nextport','@next_port.citta_nazione', name_long='!![en]Next port')
         tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )
+        
+        #formule column per email servizi
+        tbl.formulaColumn('dog_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='dogana'),
+                                                dtype='T')
+        tbl.formulaColumn('dog_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='dogana'),
+                                                dtype='T')
+        tbl.formulaColumn('dog_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='dogana'),
+                                                dtype='T')
+        tbl.formulaColumn('gdfroan_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='gdf roan'),
+                                                dtype='T')
+        tbl.formulaColumn('gdfroan_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='gdf roan'),
+                                                dtype='T')
+        tbl.formulaColumn('gdfroan_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='gdf roan'),
+                                                dtype='T')
+        tbl.formulaColumn('immigration_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='immigration'),
+                                                dtype='T')
+        tbl.formulaColumn('immigration_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='immigration'),
+                                                dtype='T')
+        tbl.formulaColumn('immigration_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='immigration'),
+                                                dtype='T')
+        tbl.formulaColumn('usma_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='sanimare'),
+                                                dtype='T')
+        tbl.formulaColumn('usma_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='sanimare'),
+                                                dtype='T')
+        tbl.formulaColumn('usma_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='sanimare'),
+                                                dtype='T')
+        tbl.formulaColumn('pilot_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='pilot'),
+                                                dtype='T')
+        tbl.formulaColumn('pilot_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='pilot'),
+                                                dtype='T')
+        tbl.formulaColumn('pilot_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='pilot'),
+                                                dtype='T')
+        tbl.formulaColumn('moor_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='mooringmen'),
+                                                dtype='T')
+        tbl.formulaColumn('moor_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='mooringmen'),
+                                                dtype='T')
+        tbl.formulaColumn('moor_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='mooringmen'),
+                                                dtype='T')
+        tbl.formulaColumn('tug_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='tug'),
+                                                dtype='T')
+        tbl.formulaColumn('tug_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='tug'),
+                                                dtype='T')
+        tbl.formulaColumn('tug_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='tug'),
+                                                dtype='T')
+        tbl.formulaColumn('garbage_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='garbage'),
+                                                dtype='T')
+        tbl.formulaColumn('garbage_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='garbage'),
+                                                dtype='T')
+        tbl.formulaColumn('garbage_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='garbage'),
+                                                dtype='T')
+        tbl.formulaColumn('chemist_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='chemist'),
+                                                dtype='T')
+        tbl.formulaColumn('chemist_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='chemist'),
+                                                dtype='T')
+        tbl.formulaColumn('chemist_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='chemist'),
+                                                dtype='T')
+        tbl.formulaColumn('water_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='water supply'),
+                                                dtype='T')
+        tbl.formulaColumn('water_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='water supply'),
+                                                dtype='T')
+        tbl.formulaColumn('water_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='water supply'),
+                                                dtype='T')
+        tbl.formulaColumn('antifire_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='antifire'),
+                                                dtype='T')
+        tbl.formulaColumn('antifire_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='antifire'),
+                                                dtype='T')
+        tbl.formulaColumn('antifire_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='antifire'),
+                                                dtype='T')
+        tbl.formulaColumn('ens_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='ens'),
+                                                dtype='T')
+        tbl.formulaColumn('ens_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='ens'),
+                                                dtype='T')
+        tbl.formulaColumn('ens_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='ens'),
+                                                dtype='T')
+        tbl.formulaColumn('gpg_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='gpg'),
+                                                dtype='T')
+        tbl.formulaColumn('gpg_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='gpg'),
+                                                dtype='T')
+        tbl.formulaColumn('gpg_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='gpg'),
+                                                dtype='T')
+        tbl.formulaColumn('pfso_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='pfso'),
+                                                dtype='T')
+        tbl.formulaColumn('pfso_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='pfso'),
+                                                dtype='T')
+        tbl.formulaColumn('pfso_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='pfso'),
+                                                dtype='T')
 
     def pyColumn_cargo(self,record,field):
         

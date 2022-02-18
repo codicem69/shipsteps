@@ -14,6 +14,11 @@ class Table(object):
         tbl.column('email_cc', name_short='Email cc')
     #    tbl.column('port',size='22',name_short='!![en]Port').relation('unlocode.place.id',relation_name='port_email_unlocode', 
     #                                                                    mode='foreignkey', onDelete='raise')
+        tbl.aliasColumn('service_for_email','@service_for_email_id.description_serv')
+       # tbl.formulaColumn('dog_int', """CASE WHEN $service_for_email = 'dogana' THEN $consignee ELSE NULL END""")
+        #tbl.formulaColumn('dog_email', """CASE WHEN $service_for_email = 'dogana' THEN $email END""")
+        #tbl.formulaColumn('dog_email_cc', """CASE WHEN $service_for_email = 'dogana' THEN $email_cc END""")
+        
 
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'))

@@ -20,7 +20,7 @@ class Table(object):
         tbl.column('description_it', name_short='!![en]Description IT')
         tbl.column('operation', name_short='operation', values='U:Unloading,L:Loading')
         tbl.column('foreign_cargo', dtype='B', name_short='!![en]Foreign cargo')
-        tbl.formulaColumn('cargo_arr',"'-' || COALESCE(@measure_id.description,'') || ' ' || COALESCE($quantity,0) || ' ' || COALESCE($description,'') || '<br>'")
+        tbl.formulaColumn('cargo_arr',"'-' || COALESCE(@measure_id.description,'') || ' ' || COALESCE($quantity,0) || ' ' || COALESCE($description || '<br>','') ")
         tbl.formulaColumn('cargo_lu_en', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' 
                                             WHEN $operation = 'U' THEN '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U')
