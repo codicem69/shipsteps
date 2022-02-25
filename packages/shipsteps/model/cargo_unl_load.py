@@ -28,6 +28,8 @@ class Table(object):
                                             WHEN $operation = 'U' THEN '-Carico da sbarcare: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U ITA')
         tbl.formulaColumn('ship_rec', "'s: '|| @shipper_id.name || ' - r: ' || @receiver_id.name")
+        tbl.formulaColumn('ship_or_rec', """CASE WHEN $operation = 'L' THEN 'Shipper/Caricatore: ' || @shipper_id.name WHEN $operation = 'U' THEN 'Receiver/Ricevitore: ' || @receiver_id.name ELSE '' END """,
+                                        dtype='T', name_long='Ship or Rec')
         tbl.formulaColumn('tot_cargo',select=dict(table='shipsteps.cargo_unl_load',
                                                 columns='SUM($quantity)',
                                                 where='$id=#THIS.id'),

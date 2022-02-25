@@ -48,6 +48,10 @@ class Table(object):
         tbl.aliasColumn('tot_cargo','@cargo_lu_arr.tot_cargo')#,name_long='!![en]Cargo total')
         tbl.aliasColumn('lastport','@last_port.citta_nazione', name_long='!![en]Last port')
         tbl.aliasColumn('nextport','@next_port.citta_nazione', name_long='!![en]Next port')
+        tbl.aliasColumn('owners','@vessel_details_id.@owner_id.own_fullname', name_long='!![en]Owners full name')
+        tbl.aliasColumn('ship_or_rec','@cargo_lu_arr.ship_or_rec', name_long='!![en]Ship or Rec')
+        tbl.aliasColumn('workport','@agency_id.@port.citta_nazione')
+
         tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )
         
         #formule column per email servizi
@@ -74,6 +78,18 @@ class Table(object):
         tbl.formulaColumn('gdfroan_email_cc',select=dict(table='shipsteps.email_services',
                                                 columns='$email_cc',
                                                 where='$service_for_email=:serv', serv='gdf roan'),
+                                                dtype='T')
+        tbl.formulaColumn('gdf_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv', serv='gdf'),
+                                                dtype='T')
+        tbl.formulaColumn('gdf_email',select=dict(table='shipsteps.email_services',
+                                                columns='$email',
+                                                where='$service_for_email=:serv', serv='gdf'),
+                                                dtype='T')
+        tbl.formulaColumn('gdf_email_cc',select=dict(table='shipsteps.email_services',
+                                                columns='$email_cc',
+                                                where='$service_for_email=:serv', serv='gdf'),
                                                 dtype='T')
         tbl.formulaColumn('immigration_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
