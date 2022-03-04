@@ -15,7 +15,9 @@ class Table(object):
         tbl.column('note', name_long='note')
         tbl.column('department', name_long='department')
         tbl.column('profile_photo', dtype='P', name_long='!![en]Profile photo')
-        tbl.column('is_active', dtype='B', name_long='!![en]Is active')    
+        tbl.column('is_active', dtype='B', name_long='!![en]Is active')   
+        tbl.column('email_account_id',size='22', name_long='!![en]Email account'
+                    ).relation('email.account.id', relation_name='', mode='foreignkey', onDelete='raise')
         tbl.formulaColumn('fullname', """$name ||' '||$surname || '<br>' || coalesce($department ||' department <br>','') 
                             || coalesce('mob.: ' || $telephone || '<br>', '') || coalesce('email: ' || $email || '<br>' , '') 
                             || coalesce($note,'')""", name_long='!![en]Fullname')

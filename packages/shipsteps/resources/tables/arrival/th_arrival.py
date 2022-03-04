@@ -3,6 +3,8 @@
 
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
+from gnr.web.gnrbaseclasses import TableTemplateToHtml
+from datetime import datetime
 
 class View(BaseComponent):
 
@@ -53,17 +55,25 @@ class View(BaseComponent):
 
 
 class Form(BaseComponent):
-
+    py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
+    
     def th_form(self, form):
         #pane = form.record
         #fb = pane.formbuilder(cols=2, border_spacing='4px')
-        bc = form.center.borderContainer()
        
+        bc1 = form.center.borderContainer()
+        tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
+        
+        bc = tc.borderContainer(title='!![en]Arrival')
+        bc_task = tc.borderContainer(title='!![en]Task List')
+       # tc2 = bc2.tabContainer(margin='2px', region='center', height='auto', splitter=True)
        # bc_top = bc.borderContainer(region='center',height='300px', splitter=True)
        # pane_center=bc_top.contentPane(region='center',datapath='.record', width='1200px', splitter=True)
         #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
         self.datiArrivo(bc.borderContainer(region='top',height='300px', splitter=True, background = 'lavenderblush'))
+        self.taskList(bc_task.borderContainer(title='!![en]Task list',region='top',height='50%', background = 'lavenderblush'))
+        self.allegatiArrivo(bc_task.contentPane(title='Attachments', region='center', height='50%'))
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
         #self.gpg(bc.borderContainer(region='center',datapath='.@gpg_arr',height='300px', splitter=True, background = 'lavenderblush'))
@@ -81,7 +91,7 @@ class Form(BaseComponent):
         self.sof(tc.contentPane(title='!![en]Sof'))
         self.arrival_details(tc.borderContainer(title='!![en]Arrival details', region='top', background = 'lavenderblush'))
         self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
-        self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
+        #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
         
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
 
@@ -218,47 +228,185 @@ class Form(BaseComponent):
    #def sof_cargo(self,pane):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
 
-    def taskList(self, bc):
-        rg_prearrival = bc.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='500px', height = 'auto').div(margin='10px',margin_left='2px')
+    def taskList(self, bc_task):
+        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='700px', height = 'auto').div(margin='10px',margin_left='2px')
         #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
-        
-        fb = rg_prearrival.formbuilder(cols=4, border_spacing='4px',fld_width='10em')
+        tbl_staff =  self.db.table('shipsteps.staff')
+        account_email = tbl_staff.readColumns(columns='$email_account_id',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+
+        fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px')#,fld_width='10em')
         #fb.field('arrival_id')
+        btn_cl = fb.Button('!![en]Print')
+        btn_cl.dataRpc(None, self.print_template,record='=#FORM.record.id',
+                            nome_template = 'shipsteps.arrival:check_list', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
         fb.field('cheklist')
         fb.semaphore('^.cheklist')
+
+        btn_fs = fb.Button('!![en]Print')
+        btn_fs.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.arrival:front_nave')
         fb.field('frontespizio')
         fb.semaphore('^.frontespizio')
+
+        btn_cn = fb.Button('!![en]Print')
+        btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.arrival:cartella_doc')
         fb.field('cartella_nave')
         fb.semaphore('^.cartella_nave')
+
+        btn_ts = fb.Button('!![en]Print')
+        btn_ts.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.arrival:tab_servizi')
+        fb.field('tab_servizi')
+        fb.semaphore('^.tab_servizi')
+
+        btn_fc = fb.Button('!![en]Print')
+        btn_fc.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.arrival:front_carico')
+        fb.field('front_carico')
+        fb.semaphore('^.front_carico')
+
+        btn_mn = fb.Button('!![en]Print')
+        btn_mn.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.arrival:mod_nave')
         fb.field('modulo_nave')
         fb.semaphore('^.modulo_nave')
+    
+        btn_dog = fb.Button('Email')
+        btn_dog.dataRpc(None, self.email_dog_gdf,
+                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_dogana')
         fb.field('email_dogana')
         fb.semaphore('^.email_dogana')
-        fb.field('email_finanza')
-        fb.semaphore('^.email_finanza')
+        
+       #uploader = fb.button('Upload more files')
+       #uploader.dataController("""
+       #                        genro.dlg.multiUploaderDialog('!![en]Upload many files and assign them to users',{
+       #                                    uploadPath:uploadPath,
+       #                                    onResult:function(){
+       #                                        genro.publish("floating_message",{message:"Upload completato", messageType:"message"});
+       #                                        genro.publish('trigger_action',{user_id:user_id}); }
+       #                                    });""", 
+       #                                    uploadPath=':import_queue', 
+       #                                    _ask=dict(title='Choose users to whom to assign files', 
+       #                                        fields=[dict(name='user_id', lbl='User', tag='dbselect', table='adm.user')]))
+
+        btn_fr = fb.Button('Email')
+        btn_fr.dataRpc(None, self.email_dog_gdf,
+                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_frontiera')
         fb.field('email_frontiera')
         fb.semaphore('^.email_frontiera')
+
+        btn_usma = fb.Button('Email')
+        btn_usma.dataRpc(None, self.email_dog_gdf,
+                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_sanimare')
         fb.field('email_usma')
         fb.semaphore('^.email_usma')
+
+        btn_pfso = fb.Button('Email')
+        btn_pfso.dataRpc(None, self.email_dog_gdf,
+                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_pfso')
         fb.field('email_pfso')
         fb.semaphore('^.email_pfso')
-        fb.field('email_pilot')
-        fb.semaphore('^.email_pilot')
-        fb.field('email_mooringmen')
-        fb.semaphore('^.email_mooringmen')
+
+        btn_pilot = fb.Button('Email')
+        btn_pilot.dataRpc(None, self.email_dog_gdf,
+                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_pilot_moor')
+        fb.field('email_pilot_moor')
+        fb.semaphore('^.email_pilot_moor')
+
+        btn_tug = fb.Button('Email')
+        btn_tug.dataRpc(None, self.email_dog_gdf,
+                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_tug')
         fb.field('email_tug')
         fb.semaphore('^.email_tug')
+
+        btn_garb = fb.Button('Email')
+       #btn_garb.dataRpc(None, self.email_dog_gdf,
+       #           record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_garbage')
         fb.field('email_garbage')
         fb.semaphore('^.email_garbage')
+
+        btn_chem = fb.Button('Email')
+        btn_chem.dataRpc(None, self.email_dog_gdf,
+                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_chemist')
         fb.field('email_chemist')
-        fb.semaphore('^.email__chemist')
-        fb.field('email_antifire')
-        fb.semaphore('^.email_antifire')
+        fb.semaphore('^.email_chemist')
+                
+        btn_gpg = fb.Button('Email')
+       #btn_gpg.dataRpc(None, self.email_dog_gdf,
+       #           record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_gpg')
         fb.field('email_gpg')
         fb.semaphore('^.email_gpg')
+
+        btn_ens = fb.Button('Email')
         fb.field('email_ens')
         fb.semaphore('^.email_ens')
+        btn_af = fb.Button('Email')
+        fb.field('email_antifire')
+        fb.semaphore('^.email_antifire')
+    def allegatiArrivo(self,pane):
+        pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
-
+    @public_method
+    def email_dog_gdf(self, record,email_account_id,email_template_id, **kwargs):
+        tbl_arrival = self.db.table('shipsteps.arrival')
+        
+        if not record: 
+            return
+        tbl_att =  self.db.table('shipsteps.arrival_atc')
+        fileurl = tbl_att.query(columns='$fileurl',
+                  where='$att_email=:a_att AND $maintable_id=:mt_id',
+                    a_att='true',mt_id=record).fetch()
+        ln = len(fileurl)
+        attcmt=[]
+       # a=0
+       # r=1
+        for r in range(ln):    
+            file_url = fileurl[r][0]
+            file_path = file_url.replace('/home','site')           
+            fileSn = self.site.storageNode(file_path)
+            attcmt.append(fileSn.internal_path)
+           #if r < (ln-1):
+           #    attcmt = attcmt + fileSn.internal_path + ',' 
+           #else: 
+           #    attcmt = attcmt + fileSn.internal_path
+                
+                 
+        self.db.table('email.message').newMessageFromUserTemplate(
+                                                      record_id=record,
+                                                      table='shipsteps.arrival',
+                                                      account_id = email_account_id,
+                                                      attachments=attcmt,
+                                                      template_code=email_template_id)
+        
+        self.db.commit()
+        
+    @public_method
+    def print_template(self, record, resultAttr=None, nome_template=None,  nome_vs=None, **kwargs):
+        # Crea stampa
+       # if not record['datarisultato']:
+        #    return
+        
+        tbl_arrival = self.db.table('shipsteps.arrival')
+        builder = TableTemplateToHtml(table=tbl_arrival)
+        #nome_template = nome_template #'shipsteps.arrival:check_list'
+        #print(x)
+        nome_temp = nome_template.replace('shipsteps.arrival:','')    
+        nome_file = '{cl_id}.pdf'.format(
+                    cl_id=nome_temp +'_' + nome_vs)
+        
+        #nome_file_st = 'laboratorio_piazza_sta_{cl_id}.pdf'.format(
+        #    cl_id=self.avatar.user_id)
+        template = self.loadTemplate(nome_template)  # nome del template
+        pdfpath = self.site.storageNode('home:stampe_template', nome_file)
+        
+        # (pdfpath.internal_path)
+        builder(record=record, template=template)
+        result = builder.writePdf(pdfpath=pdfpath)
+       
+        self.setInClientData(path='gnr.clientprint',
+                             value=result.url(timestamp=datetime.now()), fired=True)
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
