@@ -251,13 +251,17 @@ class Form(BaseComponent):
         fb.semaphore('^.frontespizio')
 
         btn_cn = fb.Button('!![en]Print')
-        btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form', 
+                                                fields=[dict(name='letterhead_id', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
+                                                hasDownArrow=True, auxColumns='$name', table='adm.htmltemplate')]), nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:cartella_doc')
         fb.field('cartella_nave')
         fb.semaphore('^.cartella_nave')
 
         btn_ts = fb.Button('!![en]Print')
-        btn_ts.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        btn_ts.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form', 
+                                                fields=[dict(name='letterhead_id', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
+                                                hasDownArrow=True, auxColumns='$name', table='adm.htmltemplate')]), nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:tab_servizi')
         fb.field('tab_servizi')
         fb.semaphore('^.tab_servizi')
@@ -275,7 +279,7 @@ class Form(BaseComponent):
         fb.semaphore('^.modulo_nave')
     
         btn_dog = fb.Button('Email')
-        btn_dog.dataRpc(None, self.email_dog_gdf,
+        btn_dog.dataRpc(None, self.email_services,
                    record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_dogana')
         fb.field('email_dogana')
         fb.semaphore('^.email_dogana')
@@ -293,49 +297,49 @@ class Form(BaseComponent):
        #                                        fields=[dict(name='user_id', lbl='User', tag='dbselect', table='adm.user')]))
 
         btn_fr = fb.Button('Email')
-        btn_fr.dataRpc(None, self.email_dog_gdf,
+        btn_fr.dataRpc(None, self.email_services,
                    record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_frontiera')
         fb.field('email_frontiera')
         fb.semaphore('^.email_frontiera')
 
         btn_usma = fb.Button('Email')
-        btn_usma.dataRpc(None, self.email_dog_gdf,
+        btn_usma.dataRpc(None, self.email_services,
                    record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_sanimare')
         fb.field('email_usma')
         fb.semaphore('^.email_usma')
 
         btn_pfso = fb.Button('Email')
-        btn_pfso.dataRpc(None, self.email_dog_gdf,
+        btn_pfso.dataRpc(None, self.email_services,
                    record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_pfso')
         fb.field('email_pfso')
         fb.semaphore('^.email_pfso')
 
         btn_pilot = fb.Button('Email')
-        btn_pilot.dataRpc(None, self.email_dog_gdf,
+        btn_pilot.dataRpc(None, self.email_services,
                    record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_pilot_moor')
         fb.field('email_pilot_moor')
         fb.semaphore('^.email_pilot_moor')
 
         btn_tug = fb.Button('Email')
-        btn_tug.dataRpc(None, self.email_dog_gdf,
+        btn_tug.dataRpc(None, self.email_services,
                    record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_tug')
         fb.field('email_tug')
         fb.semaphore('^.email_tug')
 
         btn_garb = fb.Button('Email')
-       #btn_garb.dataRpc(None, self.email_dog_gdf,
+       #btn_garb.dataRpc(None, self.email_services,
        #           record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_garbage')
         fb.field('email_garbage')
         fb.semaphore('^.email_garbage')
 
         btn_chem = fb.Button('Email')
-        btn_chem.dataRpc(None, self.email_dog_gdf,
+        btn_chem.dataRpc(None, self.email_services,
                    record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_chemist')
         fb.field('email_chemist')
         fb.semaphore('^.email_chemist')
                 
         btn_gpg = fb.Button('Email')
-       #btn_gpg.dataRpc(None, self.email_dog_gdf,
+       #btn_gpg.dataRpc(None, self.email_services,
        #           record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_gpg')
         fb.field('email_gpg')
         fb.semaphore('^.email_gpg')
@@ -350,7 +354,7 @@ class Form(BaseComponent):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
     @public_method
-    def email_dog_gdf(self, record,email_account_id,email_template_id, **kwargs):
+    def email_services(self, record,email_account_id,email_template_id, **kwargs):
         tbl_arrival = self.db.table('shipsteps.arrival')
         
         if not record: 
@@ -372,8 +376,8 @@ class Form(BaseComponent):
            #    attcmt = attcmt + fileSn.internal_path + ',' 
            #else: 
            #    attcmt = attcmt + fileSn.internal_path
-                
-                 
+          
+               
         self.db.table('email.message').newMessageFromUserTemplate(
                                                       record_id=record,
                                                       table='shipsteps.arrival',
@@ -402,10 +406,18 @@ class Form(BaseComponent):
         template = self.loadTemplate(nome_template)  # nome del template
         pdfpath = self.site.storageNode('home:stampe_template', nome_file)
         
+       #tbl_template=self.db.table('adm.htmltemplate')
+       #letterhead = tbl_template.readColumns(columns='$id',
+       #          where='$name=:tp_name', tp_name='A3_orizz')
         # (pdfpath.internal_path)
-        builder(record=record, template=template)
+        if kwargs:
+            letterhead=kwargs['letterhead_id']
+        else:
+            letterhead=''
+    
+        builder(record=record, template=template, letterhead_id=letterhead)
         result = builder.writePdf(pdfpath=pdfpath)
-       
+     
         self.setInClientData(path='gnr.clientprint',
                              value=result.url(timestamp=datetime.now()), fired=True)
     def th_options(self):
