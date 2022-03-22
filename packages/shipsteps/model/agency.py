@@ -24,6 +24,8 @@ class Table(object):
         tbl.column('residence_city',name_short='!![en]Residential city')
         tbl.column('virtual_stamp',name_short='!![en]Virtual stamp description')
         tbl.column('port',size='22',name_short='!![en]Port').relation('unlocode.place.id',relation_name='portag_unlocode', mode='foreignkey', onDelete='raise')
+        tbl.column('emailpec_account_id',size='22', name_long='!![en]Email pec account'
+                    ).relation('email.account.id', relation_name='', mode='foreignkey', onDelete='raise')
         tbl.aliasColumn('fullname','@user.fullname', name_long='!![en]user signature')
         
         tbl.aliasColumn('consignee','@email_services.consignee')

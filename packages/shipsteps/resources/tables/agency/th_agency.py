@@ -26,6 +26,7 @@ class View(BaseComponent):
         r.fieldcell('cap_residence')
         r.fieldcell('residence_city')
         r.fieldcell('virtual_stamp')
+        r.fieldcell('emailpec_account_id')
         r.fieldcell('port')
 
     def th_order(self):
@@ -70,6 +71,7 @@ class Form(BaseComponent):
         fb.field('cap_residence' )
         fb.field('residence_city' )
         fb.simpleTextArea(lbl='Virtual stamp',value='^.virtual_stamp',editor=True, height='100px', width='100px' )
+        fb.field('emailpec_account_id', hasDownArrow=True )
         fb.field('port' ,colspan=2)
 
    #def BolloVirtuale(self,frame):

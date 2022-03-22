@@ -13,6 +13,11 @@ class View(BaseComponent):
         r.fieldcell('consignee')
         r.fieldcell('email')
         r.fieldcell('email_cc')
+        r.fieldcell('email_bcc')
+        r.fieldcell('email_pec')
+        r.fieldcell('email_cc_pec')
+        
+
         #r.fieldcell('port')
 
     def th_order(self):
@@ -27,15 +32,25 @@ class Form(BaseComponent):
 
     def th_form(self, form):
         pane = form.record
-        fb = pane.formbuilder(cols=1, border_spacing='4px')
+        fb = pane.formbuilder(cols=2, border_spacing='4px')
         fb.field('agency_id', width='10em')
+        fb.br()
         fb.field('service_for_email_id')
+        fb.br()
         fb.field('consignee', width='40em')
-        fb.div("!![en]Insert the emails separate by commas", margin_top='10px')
-        fb.field('email',width='40em', height='10em')
-        fb.div(' ')
-        fb.div("!![en]Insert the emails separate by commas", margin_top='10px')
-        fb.field('email_cc',width='40em', height='10em')
+        fb.br()
+        fb.div("!![en]Insert the emails separate by commas",font_weight='bold', margin_top='10px')
+        fb.br()
+        fb.field('email',width='40em', height='10em',tag='textarea')
+        
+        fb.field('email_cc',width='40em', height='10em',tag='textarea')
+        fb.field('email_bcc',width='40em', height='10em',tag='textarea')
+        fb.br()
+        fb.div("!![en]Insert the emails separate by commas",font_weight='bold', margin_top='10px')
+        fb.br()
+        fb.field('email_pec',width='40em', height='10em',tag='textarea')
+        
+        fb.field('email_cc_pec',width='40em', height='10em',tag='textarea')
         #fb.field('port')
 
 

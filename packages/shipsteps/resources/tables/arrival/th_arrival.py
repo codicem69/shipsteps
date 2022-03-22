@@ -12,6 +12,7 @@ class View(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('agency_id', width='7em')
         r.fieldcell('reference_num', width='7em')
+        r.fieldcell('nsis_prot',width='8em')
         r.fieldcell('date')
         r.fieldcell('vessel_details_id', width='15em')
         r.fieldcell('eta', width='5em')
@@ -23,6 +24,7 @@ class View(BaseComponent):
         r.fieldcell('draft_fw_arr', width='5em')
         r.fieldcell('draft_aft_dep', width='5em')
         r.fieldcell('draft_fw_dep', width='5em')
+        r.fieldcell('n_tug',width='4em')
         r.fieldcell('mandatory')
         r.fieldcell('dock_id', width='5em')
         r.fieldcell('info_moor')
@@ -66,6 +68,7 @@ class Form(BaseComponent):
         
         bc = tc.borderContainer(title='!![en]Arrival')
         bc_task = tc.borderContainer(title='!![en]Task List')
+        bc_task2 = tc.borderContainer(title='!![en]SOF')
        # tc2 = bc2.tabContainer(margin='2px', region='center', height='auto', splitter=True)
        # bc_top = bc.borderContainer(region='center',height='300px', splitter=True)
        # pane_center=bc_top.contentPane(region='center',datapath='.record', width='1200px', splitter=True)
@@ -73,6 +76,7 @@ class Form(BaseComponent):
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
         self.datiArrivo(bc.borderContainer(region='top',height='300px', splitter=True, background = 'lavenderblush'))
         self.taskList(bc_task.borderContainer(title='!![en]Task list',region='top',height='50%', background = 'lavenderblush'))
+        self.sof(bc_task2.contentPane(title='!![en]Sof',height='100%'))
         self.allegatiArrivo(bc_task.contentPane(title='Attachments', region='center', height='50%'))
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
@@ -98,7 +102,8 @@ class Form(BaseComponent):
     def datiArrivo(self,bc):
         center = bc.roundedGroup(title='!![en]Vessel arrival', region='center',datapath='.record',width='210px', height = '100%').div(margin='10px',margin_left='2px')
         center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')
-        center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='215px', height = '100%', margin_left='1170px').div(margin='10px',margin_left='2px')
+        center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
+        center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px', height = '50%', margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]Times',table='shipsteps.arrival_time',region='center',datapath='.record.@time_arr',width='245px', height = '350px', margin_left='1385px').div(margin='10px',margin_left='2px')
 
         fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')   
@@ -134,12 +139,15 @@ class Form(BaseComponent):
         fb.br()
         fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
         
-        fb = center2.formbuilder(cols=1, border_spacing='4px', fld_width='8em')
+        fb = center2.formbuilder(cols=1, border_spacing='4px', fld_width='10em')
         #fb.field('arrival_id')
         fb.field('date_start')
         fb.field('date_end')
         fb.field('n_gpg')
         
+        fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='10em')
+        fb.field('nsis_prot')
+        fb.field('n_tug')
         
        #fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='8em')
        ##fb.field('arrival_id')
@@ -231,56 +239,59 @@ class Form(BaseComponent):
     def taskList(self, bc_task):
         rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='700px', height = 'auto').div(margin='10px',margin_left='2px')
         #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
-        tbl_staff =  self.db.table('shipsteps.staff')
-        account_email = tbl_staff.readColumns(columns='$email_account_id',
-                  where='$agency_id=:ag_id',
-                    ag_id=self.db.currentEnv.get('current_agency_id'))
-
+       #tbl_staff =  self.db.table('shipsteps.staff')
+       #account_email = tbl_staff.readColumns(columns='$email_account_id',
+       #          where='$agency_id=:ag_id',
+       #            ag_id=self.db.currentEnv.get('current_agency_id'))
+       #tbl_agency =  self.db.table('shipsteps.agency')
+       #account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
+       #          where='$id=:ag_id',
+       #            ag_id=self.db.currentEnv.get('current_agency_id'))
         fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px')#,fld_width='10em')
         #fb.field('arrival_id')
         btn_cl = fb.Button('!![en]Print')
         btn_cl.dataRpc(None, self.print_template,record='=#FORM.record.id',
-                            nome_template = 'shipsteps.arrival:check_list', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
+                            nome_template = 'shipsteps.arrival:check_list', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
         fb.field('cheklist')
         fb.semaphore('^.cheklist')
 
         btn_fs = fb.Button('!![en]Print')
         btn_fs.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:front_nave')
+                            nome_template = 'shipsteps.arrival:front_nave',format_page='A4')
         fb.field('frontespizio')
         fb.semaphore('^.frontespizio')
 
         btn_cn = fb.Button('!![en]Print')
-        btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form', 
-                                                fields=[dict(name='letterhead_id', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
-                                                hasDownArrow=True, auxColumns='$name', table='adm.htmltemplate')]), nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:cartella_doc')
+       #btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form', 
+       #                                        fields=[dict(name='letterhead_id', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
+       #                                        hasDownArrow=True, auxColumns='$name', table='adm.htmltemplate')]), nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+       #                    nome_template = 'shipsteps.arrival:cartella_doc')
+        btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.arrival:cartella_doc',format_page='A3')
         fb.field('cartella_nave')
         fb.semaphore('^.cartella_nave')
 
         btn_ts = fb.Button('!![en]Print')
-        btn_ts.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form', 
-                                                fields=[dict(name='letterhead_id', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
-                                                hasDownArrow=True, auxColumns='$name', table='adm.htmltemplate')]), nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:tab_servizi')
+        btn_ts.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3')
         fb.field('tab_servizi')
         fb.semaphore('^.tab_servizi')
 
         btn_fc = fb.Button('!![en]Print')
         btn_fc.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:front_carico')
+                            nome_template = 'shipsteps.arrival:front_carico',format_page='A4')
         fb.field('front_carico')
         fb.semaphore('^.front_carico')
 
         btn_mn = fb.Button('!![en]Print')
         btn_mn.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:mod_nave')
+                            nome_template = 'shipsteps.arrival:mod_nave',format_page='A4')
         fb.field('modulo_nave')
         fb.semaphore('^.modulo_nave')
     
         btn_dog = fb.Button('Email')
         btn_dog.dataRpc(None, self.email_services,
-                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_dogana')
+                   record='=#FORM.record.id', servizio='dogana', email_template_id='email_dogana')
         fb.field('email_dogana')
         fb.semaphore('^.email_dogana')
         
@@ -298,31 +309,31 @@ class Form(BaseComponent):
 
         btn_fr = fb.Button('Email')
         btn_fr.dataRpc(None, self.email_services,
-                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_frontiera')
+                   record='=#FORM.record.id', servizio=['immigration'], email_template_id='email_frontiera')
         fb.field('email_frontiera')
         fb.semaphore('^.email_frontiera')
 
         btn_usma = fb.Button('Email')
         btn_usma.dataRpc(None, self.email_services,
-                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_sanimare')
+                   record='=#FORM.record.id', servizio=['sanimare'], email_template_id='email_sanimare')
         fb.field('email_usma')
         fb.semaphore('^.email_usma')
 
         btn_pfso = fb.Button('Email')
         btn_pfso.dataRpc(None, self.email_services,
-                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_pfso')
+                   record='=#FORM.record.id', servizio=['pfso'], email_template_id='email_pfso')
         fb.field('email_pfso')
         fb.semaphore('^.email_pfso')
 
         btn_pilot = fb.Button('Email')
         btn_pilot.dataRpc(None, self.email_services,
-                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_pilot_moor')
+                   record='=#FORM.record.id', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor')
         fb.field('email_pilot_moor')
         fb.semaphore('^.email_pilot_moor')
 
         btn_tug = fb.Button('Email')
         btn_tug.dataRpc(None, self.email_services,
-                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_tug')
+                   record='=#FORM.record.id', servizio=['tug'], email_template_id='email_tug')
         fb.field('email_tug')
         fb.semaphore('^.email_tug')
 
@@ -334,13 +345,13 @@ class Form(BaseComponent):
 
         btn_chem = fb.Button('Email')
         btn_chem.dataRpc(None, self.email_services,
-                   record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_chemist')
+                   record='=#FORM.record.id', servizio=['chemist'], email_template_id='email_chemist')
         fb.field('email_chemist')
         fb.semaphore('^.email_chemist')
                 
         btn_gpg = fb.Button('Email')
-       #btn_gpg.dataRpc(None, self.email_services,
-       #           record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_gpg')
+        btn_gpg.dataRpc(None, self.email_services,
+                  record='=#FORM.record.id', servizio=['gpg'], email_template_id='email_gpg')
         fb.field('email_gpg')
         fb.semaphore('^.email_gpg')
 
@@ -354,7 +365,7 @@ class Form(BaseComponent):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
     @public_method
-    def email_services(self, record,email_account_id,email_template_id, **kwargs):
+    def email_services(self, record,email_template_id,servizio=[], **kwargs):
         tbl_arrival = self.db.table('shipsteps.arrival')
         
         if not record: 
@@ -376,19 +387,83 @@ class Form(BaseComponent):
            #    attcmt = attcmt + fileSn.internal_path + ',' 
            #else: 
            #    attcmt = attcmt + fileSn.internal_path
-          
-               
-        self.db.table('email.message').newMessageFromUserTemplate(
-                                                      record_id=record,
-                                                      table='shipsteps.arrival',
-                                                      account_id = email_account_id,
-                                                      attachments=attcmt,
-                                                      template_code=email_template_id)
+
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('shipsteps.staff')
+        account_email = tbl_staff.readColumns(columns='$email_account_id',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('shipsteps.agency')
+        account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))  
         
-        self.db.commit()
+        
+        #Lettura degli indirizzi email destinatari
+        ln_serv=len(servizio)
+        
+        #email_d, email_cc_d, email_pec_d, email_pec_cc_d=[],[],[],[]
+        email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d='','','','',''
+        tbl_email_services=self.db.table('shipsteps.email_services')
+        for e in range(ln_serv):
+            serv=servizio[e]
+        
+            email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
+                                                    where='$service_for_email=:serv AND $agency_id=:ag_id', serv=serv, 
+                                                    ag_id=self.db.currentEnv.get('current_agency_id'))
+            #email_d.append(email_dest)
+            #email_cc_d.append(email_cc_dest)
+            #email_pec_d.append(email_pec_dest)
+            #email_pec_cc_d.append(email_pec_cc_dest)
+            
+            if e < (ln_serv-1):
+                if email_dest is not None:
+                    email_d = email_d + email_dest + ','
+                if email_cc_dest is not None:    
+                    email_cc_d = email_cc_d + email_cc_dest + ','
+                if email_bcc_dest is not None:    
+                    email_bcc_d = email_bcc_d + email_bcc_dest + ','
+                if email_pec_dest is not None:
+                    email_pec_d = email_pec_d + email_pec_dest + ','
+                if email_pec_cc_dest is not None:
+                    email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest + ','
+            else:
+                if email_dest is not None:
+                    email_d = email_d + email_dest
+                if email_cc_dest is not None:
+                    email_cc_d = email_cc_d + email_cc_dest
+                if email_bcc_dest is not None:
+                    email_bcc_d = email_bcc_d + email_bcc_dest    
+                if email_pec_dest is not None:
+                    email_pec_d = email_pec_d + email_pec_dest
+                if email_pec_cc_dest is not None:
+                    email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest
+        #print(x)
+        if (email_dest) is not None:
+            self.db.table('email.message').newMessageFromUserTemplate(
+                                                          record_id=record,
+                                                          table='shipsteps.arrival',
+                                                          account_id = account_email,
+                                                          to_address=email_d,
+                                                          cc_address=email_cc_d,
+                                                          bcc_address=email_bcc_d,
+                                                          attachments=attcmt,
+                                                          template_code=email_template_id)
+            self.db.commit()
+        
+        if (email_pec_dest) is not None:
+            self.db.table('email.message').newMessageFromUserTemplate(
+                                                          record_id=record,
+                                                          table='shipsteps.arrival',
+                                                          account_id = account_emailpec,
+                                                          to_address=email_pec_d,
+                                                          cc_address=email_pec_cc_d,
+                                                          attachments=attcmt,
+                                                          template_code=email_template_id)
+            self.db.commit()
         
     @public_method
-    def print_template(self, record, resultAttr=None, nome_template=None,  nome_vs=None, **kwargs):
+    def print_template(self, record, resultAttr=None, nome_template=None,  nome_vs=None, format_page=None, **kwargs):
         # Crea stampa
        # if not record['datarisultato']:
         #    return
@@ -405,7 +480,7 @@ class Form(BaseComponent):
         #    cl_id=self.avatar.user_id)
         template = self.loadTemplate(nome_template)  # nome del template
         pdfpath = self.site.storageNode('home:stampe_template', nome_file)
-        
+       # print(x)
        #tbl_template=self.db.table('adm.htmltemplate')
        #letterhead = tbl_template.readColumns(columns='$id',
        #          where='$name=:tp_name', tp_name='A3_orizz')
@@ -415,9 +490,14 @@ class Form(BaseComponent):
         else:
             letterhead=''
     
-        builder(record=record, template=template, letterhead_id=letterhead)
+        builder(record=record, template=template,letterhead_id=letterhead)
+        if format_page=='A3':
+            builder.page_format='A3'
+            builder.page_width=427
+            builder.page_height=290
+                
         result = builder.writePdf(pdfpath=pdfpath)
-     
+        #print(x)
         self.setInClientData(path='gnr.clientprint',
                              value=result.url(timestamp=datetime.now()), fired=True)
     def th_options(self):

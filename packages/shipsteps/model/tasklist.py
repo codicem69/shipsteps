@@ -31,3 +31,4 @@ class Table(object):
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('email_account','@arrival_id.email_account_id')
         
+   

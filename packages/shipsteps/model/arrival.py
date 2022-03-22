@@ -39,6 +39,8 @@ class Table(object):
                     ).relation('invoice_det.id', relation_name='invoicing_arr', mode='foreignkey', onDelete='raise')
         tbl.column('cargo_onboard', name_short='!![en]Cargo on board')
         tbl.column('transit_cargo', name_short='!![en]Transit Cargo')
+        tbl.column('nsis_prot', name_short='Nsis prot.')
+        tbl.column('n_tug',size='1', name_short='!![en]Number Tug')
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
         #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
@@ -53,6 +55,7 @@ class Table(object):
         tbl.aliasColumn('ship_or_rec','@cargo_lu_arr.ship_or_rec', name_long='!![en]Ship or Rec')
         tbl.aliasColumn('workport','@agency_id.@port.citta_nazione')
         tbl.aliasColumn('email_account_id','@agency_id.@user.email_account_id')
+       
 
         tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )
         
