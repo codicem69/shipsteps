@@ -1,4 +1,5 @@
 # encoding: utf-8
+from datetime import datetime
 
 class Table(object):
     def config_db(self,pkg):
@@ -43,6 +44,7 @@ class Table(object):
         tbl.column('n_tug',size='1', name_short='!![en]Number Tug')
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
+        tbl.pyColumn('saluto',name_long='!![en]Greeting', static=True)
         #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('carico_arr','@cargo_lu_arr.cargo_arr',name_long='Carico in arrivo')
         tbl.aliasColumn('cargo_lu_en','@cargo_lu_arr.cargo_ship_rec',name_long='!![en]Cargo L/U')
@@ -256,7 +258,20 @@ class Table(object):
 
        
         return cargo
+    
+    def pyColumn_saluto(self,record,field):
         
+        now = datetime.now()
+        cur_time = now.strftime("%H:%M:%S")    
+        if cur_time < '13:00:00':
+            sal='Buongiorno'  
+        if cur_time < '17:00:00':
+            sal='Buon pomeriggio'
+        if cur_time < '24:00:00':
+            sal = 'Buonasera'    
+        if cur_time < '04:00:00':
+            sal = 'Buona notte'      
+        return sal
         
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),date = self.db.workdate)

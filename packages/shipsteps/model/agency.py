@@ -26,9 +26,11 @@ class Table(object):
         tbl.column('port',size='22',name_short='!![en]Port').relation('unlocode.place.id',relation_name='portag_unlocode', mode='foreignkey', onDelete='raise')
         tbl.column('emailpec_account_id',size='22', name_long='!![en]Email pec account'
                     ).relation('email.account.id', relation_name='', mode='foreignkey', onDelete='raise')
+        tbl.column('agency_stamp', dtype='P', name_long='!![en]Agency Stamp')
         tbl.aliasColumn('fullname','@user.fullname', name_long='!![en]user signature')
         
         tbl.aliasColumn('consignee','@email_services.consignee')
+        tbl.formulaColumn('fullstyle',"$agency_name || '<br>' || $address || '<br>' || 'tel. ' || $tel || '<br>' || coalesce('fax ' || $fax,'') || '<br>' || $email || '<br>' || $web ")
         #tbl.formulaColumn('dog_int', """CASE WHEN $service_fe = 'dogana' THEN $consignee ELSE NULL END""")
 
     def partitioning_pkeys(self):

@@ -5,6 +5,7 @@ from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
+from gnr.core.gnrlang import GnrException
 
 class View(BaseComponent):
 
@@ -65,9 +66,10 @@ class Form(BaseComponent):
        
         bc1 = form.center.borderContainer()
         tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
-        
+       
         bc = tc.borderContainer(title='!![en]Arrival')
         bc_task = tc.borderContainer(title='!![en]Task List')
+        tc_att = bc_task.tabContainer(margin='2px', region='center', height='auto')
         bc_task2 = tc.borderContainer(title='!![en]SOF')
        # tc2 = bc2.tabContainer(margin='2px', region='center', height='auto', splitter=True)
        # bc_top = bc.borderContainer(region='center',height='300px', splitter=True)
@@ -75,9 +77,11 @@ class Form(BaseComponent):
         #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
         self.datiArrivo(bc.borderContainer(region='top',height='300px', splitter=True, background = 'lavenderblush'))
-        self.taskList(bc_task.borderContainer(title='!![en]Task list',region='top',height='50%', background = 'lavenderblush'))
+        self.taskList(bc_task.borderContainer(title='!![en]Task list',region='top',height='50%', background = 'lavenderblush', splitter=True))
         self.sof(bc_task2.contentPane(title='!![en]Sof',height='100%'))
-        self.allegatiArrivo(bc_task.contentPane(title='Attachments', region='center', height='50%'))
+        #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
+        self.allegatiArrivo(tc_att.contentPane(title='!![en]Attachments'))
+        self.garbage(tc_att.contentPane(title='!![en]Garbage'))
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
         #self.gpg(bc.borderContainer(region='center',datapath='.@gpg_arr',height='300px', splitter=True, background = 'lavenderblush'))
@@ -165,7 +169,6 @@ class Form(BaseComponent):
        #fb.field('sailed')
        #fb.field('cosp', lbl='CoSP')
 
-       
     def datiCaricoBordo(self,frame):
         frame.simpleTextArea(title='!![en]Cargo on board',value='^.cargo_onboard',editor=True)
 
@@ -288,6 +291,13 @@ class Form(BaseComponent):
                             nome_template = 'shipsteps.arrival:mod_nave',format_page='A4')
         fb.field('modulo_nave')
         fb.semaphore('^.modulo_nave')
+
+        btn_gb = fb.Button('!![en]Print')
+        btn_gb.dataRpc(None, self.print_template_garbage,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.garbage:garbage_request',format_page='A4', selId='=shipsteps_arrival.form.shipsteps_garbage.view.grid.selectedId')
+        
+        fb.field('modulo_nave')
+        fb.semaphore('^.modulo_nave')
     
         btn_dog = fb.Button('Email')
         btn_dog.dataRpc(None, self.email_services,
@@ -338,8 +348,9 @@ class Form(BaseComponent):
         fb.semaphore('^.email_tug')
 
         btn_garb = fb.Button('Email')
-       #btn_garb.dataRpc(None, self.email_services,
-       #           record='=#FORM.record.id', email_account_id=account_email, email_template_id='email_garbage')
+        
+        btn_garb.dataRpc(None, self.email_services,
+                  record='=#FORM.record.id', selId='=shipsteps_arrival.form.shipsteps_garbage.view.grid.selectedId', email_template_id='email_garbage')
         fb.field('email_garbage')
         fb.semaphore('^.email_garbage')
 
@@ -361,11 +372,27 @@ class Form(BaseComponent):
         btn_af = fb.Button('Email')
         fb.field('email_antifire')
         fb.semaphore('^.email_antifire')
+   
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
+    def garbage(self, pane):
+        pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
+       #center = bc_task.roundedGroup(title='!![en]Garbage form', region='center',table='shipsteps.garbage',datapath='.record.@garbage_arr',width='auto', height = '100%').div(margin='10px',margin_left='2px')
+       #fb = center.formbuilder(cols=3, border_spacing='4px')
+       #fb.field('ora_arr')
+       #fb.field('data_arr')
+       #fb.field('sosta_gg')
+       #fb.field('rif_alim')
+       #fb.field('bilge')
+       #fb.field('cargo_res')
+       #fb.field('altro')
+       #fb.field('altro_spec',tag='textarea')
+       #fb.br()
+       #fb.field('invio_fat',tag='textarea')
+
     @public_method
-    def email_services(self, record,email_template_id,servizio=[], **kwargs):
+    def email_services(self, record,email_template_id=None,servizio=[],selId=None, **kwargs):
         tbl_arrival = self.db.table('shipsteps.arrival')
         
         if not record: 
@@ -438,7 +465,7 @@ class Form(BaseComponent):
                     email_pec_d = email_pec_d + email_pec_dest
                 if email_pec_cc_dest is not None:
                     email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest
-        #print(x)
+
         if (email_dest) is not None:
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record,
@@ -471,7 +498,7 @@ class Form(BaseComponent):
         tbl_arrival = self.db.table('shipsteps.arrival')
         builder = TableTemplateToHtml(table=tbl_arrival)
         #nome_template = nome_template #'shipsteps.arrival:check_list'
-        #print(x)
+       
         nome_temp = nome_template.replace('shipsteps.arrival:','')    
         nome_file = '{cl_id}.pdf'.format(
                     cl_id=nome_temp +'_' + nome_vs)
@@ -500,5 +527,34 @@ class Form(BaseComponent):
         #print(x)
         self.setInClientData(path='gnr.clientprint',
                              value=result.url(timestamp=datetime.now()), fired=True)
+
+    @public_method
+    def print_template_garbage(self, record, resultAttr=None,selId=None, nome_template=None,  nome_vs=None, format_page=None, **kwargs):
+       
+        if selId is None: 
+            raise GnrException('Devi selezionare il record del Garbage per la stampa')            
+            return 
+
+        tbl_garbage = self.db.table('shipsteps.garbage')
+        builder = TableTemplateToHtml(table=tbl_garbage)
+               
+        nome_temp = nome_template.replace('shipsteps.garbage:','')    
+        nome_file = '{cl_id}.pdf'.format(
+                    cl_id=nome_temp)
+        
+        template = self.loadTemplate(nome_template)  # nome del template
+        pdfpath = self.site.storageNode('home:stampe_template', nome_file)
+         
+        builder(record=selId, template=template)
+        if format_page=='A3':
+            builder.page_format='A3'
+            builder.page_width=427
+            builder.page_height=290
+                
+        result = builder.writePdf(pdfpath=pdfpath)
+        #print(x)
+      # self.setInClientData(path='gnr.clientprint',
+      #                       value=result.url(timestamp=datetime.now()), fired=True)
+    
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )

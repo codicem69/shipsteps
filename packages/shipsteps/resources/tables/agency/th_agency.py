@@ -3,6 +3,7 @@
 
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
+import re,os
 
 class View(BaseComponent):
 
@@ -45,14 +46,14 @@ class Form(BaseComponent):
         bc = form.center.borderContainer()
         
         self.DatiAgenzia(bc.borderContainer(region='top',datapath='.record',height='500px', splitter=True))
-        tc = bc.tabContainer(margin='2px',region='center')
+       # tc = bc.tabContainer(margin='2px',region='center')
         #self.BolloVirtuale(tc.contentPane(title='Virtual Stamp description',datapath='.record'))
-   
+        
     def DatiAgenzia(self,bc):
-        left = bc.roundedGroup(region='left', title='Agency details', width='100%').div(margin='10px',margin_right='20px')
+        center = bc.roundedGroup(region='center', title='Agency details').div(margin='10px',margin_right='20px')
         #center= bc.contentPane(region='center',title='Virtual stamp description').div(margin='10px',margin_right='20px')
                
-        fb = left.formbuilder(cols=2, border_spacing='4px')
+        fb = center.formbuilder(cols=2, border_spacing='4px')
         fb.field('agency_name' )
         fb.field('description' )
         fb.field('address' )
@@ -72,10 +73,24 @@ class Form(BaseComponent):
         fb.field('residence_city' )
         fb.simpleTextArea(lbl='Virtual stamp',value='^.virtual_stamp',editor=True, height='100px', width='100px' )
         fb.field('emailpec_account_id', hasDownArrow=True )
+
         fb.field('port' ,colspan=2)
+
+        right = bc.roundedGroup(region='right',title='!![en]Agency stamp',width='20%')
+        #right = bc.roundedGroup(region='right',title='!![en]Agency stamp', width='20%', height='100%', margin='10px',margin_right='20px')
+        #cp=right.contentPane()
+        right.img(src='^.agency_stamp', edit=True, crop_width='200px', crop_height='200px', 
+                        placeholder=True, upload_folder='site:image', upload_filename='=.id')
+        right.button('!![en]Remove image', hidden='^.agency_stamp?=!#v').dataRpc(self.deleteImage, image='=.agency_stamp')
 
    #def BolloVirtuale(self,frame):
    #    frame.simpleTextArea(title='Virtual stamp',value='^.virtual_stamp',editor=True)
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
+
+    @public_method
+    def deleteImage(self, image=None, **kwargs):
+        image_path = self.sitepath + re.sub('/_storage/site', '',image).split('?',1)[0]
+        os.remove(image_path)
+        self.setInClientData(value=None, path='shipsteps_staff.form.record.agency_stamp')
