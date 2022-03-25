@@ -1,5 +1,5 @@
 # encoding: utf-8
-from datetime import datetime
+
 
 class Table(object):
     def config_db(self,pkg):
@@ -18,26 +18,17 @@ class Table(object):
         tbl.column('altro_spec', name_short='!![en]Specify other')
         tbl.column('invio_fat', name_short='!![en]Sending invoice')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        tbl.pyColumn('datalavoro',name_long='!![en]Workdate', static=True)
         tbl.aliasColumn('agency_fullstyle','@arrival_id.@agency_id.fullstyle')
         tbl.formulaColumn('sped_fat',"""CASE WHEN $invio_fat <> '' THEN $invio_fat ELSE $agency_fullstyle END""")
-        tbl.pyColumn('datalavoro',name_long='!![en]Workdate', static=True)
-        tbl.pyColumn('saluto',name_long='!![en]Greeting', static=True)
+        tbl.formulaColumn('rif_alim_x',"""CASE WHEN $rif_alim = 'true' THEN 'X' ELSE '' END""")
+        tbl.formulaColumn('bilge_x',"""CASE WHEN $bilge = 'true' THEN 'X' ELSE '' END""")
+        tbl.formulaColumn('cargo_res_x',"""CASE WHEN $cargo_res = 'true' THEN 'X' ELSE '' END""")
+        tbl.formulaColumn('altro_x',"""CASE WHEN $altro = 'true' THEN 'X' ELSE '' END""")
 
     def pyColumn_datalavoro(self,record,field):
         data_lavoro=self.db.workdate
         
         return data_lavoro
 
-    def pyColumn_saluto(self,record,field):
-        
-        now = datetime.now()
-        cur_time = now.strftime("%H:%M:%S")    
-        if cur_time < '13:00:00':
-            sal='Buongiorno'  
-        if cur_time < '17:00:00':
-            sal='Buon pomeriggio'
-        if cur_time < '24:00:00':
-            sal = 'Buonasera'    
-        if cur_time < '04:00:00':
-            sal = 'Buona notte'      
-        return sal
+    

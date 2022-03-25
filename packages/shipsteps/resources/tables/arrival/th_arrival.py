@@ -240,7 +240,7 @@ class Form(BaseComponent):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
 
     def taskList(self, bc_task):
-        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='700px', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='30%', height = 'auto').div(margin='10px',margin_left='2px')
         #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
        #tbl_staff =  self.db.table('shipsteps.staff')
        #account_email = tbl_staff.readColumns(columns='$email_account_id',
@@ -250,58 +250,71 @@ class Form(BaseComponent):
        #account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
        #          where='$id=:ag_id',
        #            ag_id=self.db.currentEnv.get('current_agency_id'))
-        fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px')#,fld_width='10em')
+        #,fld_width='10em')
         #fb.field('arrival_id')
-        btn_cl = fb.Button('!![en]Print')
-        btn_cl.dataRpc(None, self.print_template,record='=#FORM.record.id',
+        div1=rg_prearrival.div(width='450px',height='100px',margin='auto',
+                        padding='5px',
+                        border='1px solid silver',
+                        margin_top='2px',margin_left='10px')
+        fb1=div1.formbuilder(colspan=3,cols=6, border_spacing='4px')
+
+        btn_cl = fb1.Button('!![en]Print')
+        btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
                             nome_template = 'shipsteps.arrival:check_list', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
-        fb.field('cheklist')
-        fb.semaphore('^.cheklist')
-
-        btn_fs = fb.Button('!![en]Print')
-        btn_fs.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        fb1.dataController("if(msg=='check_list') SET .checklist=true", msg='^nome_temp') 
+        fb1.field('checklist')
+        fb1.semaphore('^.checklist')
+        btn_fs = fb1.Button('!![en]Print')
+        btn_fs.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:front_nave',format_page='A4')
-        fb.field('frontespizio')
-        fb.semaphore('^.frontespizio')
+        fb1.dataController("if(msg=='front_nave') SET .frontespizio=true", msg='^nome_temp')
+        fb1.field('frontespizio')
+        fb1.semaphore('^.frontespizio')
 
-        btn_cn = fb.Button('!![en]Print')
+        btn_cn = fb1.Button('!![en]Print')
        #btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form', 
        #                                        fields=[dict(name='letterhead_id', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
        #                                        hasDownArrow=True, auxColumns='$name', table='adm.htmltemplate')]), nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
        #                    nome_template = 'shipsteps.arrival:cartella_doc')
-        btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        btn_cn.dataRpc('nome_temp', self.print_template, record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:cartella_doc',format_page='A3')
-        fb.field('cartella_nave')
-        fb.semaphore('^.cartella_nave')
+        fb1.dataController("if(msg=='cartella_doc') SET .cartella_nave=true", msg='^nome_temp')
+        fb1.field('cartella_nave')
+        fb1.semaphore('^.cartella_nave')
 
-        btn_ts = fb.Button('!![en]Print')
-        btn_ts.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        btn_ts = fb1.Button('!![en]Print')
+        btn_ts.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3')
-        fb.field('tab_servizi')
-        fb.semaphore('^.tab_servizi')
+        fb1.dataController("if(msg=='tab_servizi') SET .tab_servizi=true", msg='^nome_temp')
+        fb1.field('tab_servizi')
+        fb1.semaphore('^.tab_servizi')
 
-        btn_fc = fb.Button('!![en]Print')
-        btn_fc.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        btn_fc = fb1.Button('!![en]Print')
+        btn_fc.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:front_carico',format_page='A4')
-        fb.field('front_carico')
-        fb.semaphore('^.front_carico')
+        fb1.dataController("if(msg=='front_carico') SET .front_carico=true", msg='^nome_temp')
+        fb1.field('front_carico')
+        fb1.semaphore('^.front_carico')
 
-        btn_mn = fb.Button('!![en]Print')
-        btn_mn.dataRpc(None, self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        btn_mn = fb1.Button('!![en]Print',action="SET .modulo_nave=true")
+        btn_mn.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:mod_nave',format_page='A4')
-        fb.field('modulo_nave')
-        fb.semaphore('^.modulo_nave')
-
-        btn_gb = fb.Button('!![en]Print')
-        btn_gb.dataRpc(None, self.print_template_garbage,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.garbage:garbage_request',format_page='A4', selId='=shipsteps_arrival.form.shipsteps_garbage.view.grid.selectedId')
+        fb1.dataController("if(msg=='mod_nave') SET .checklist=true", msg='^nome_temp')
+        fb1.field('modulo_nave')
+        fb1.semaphore('^.modulo_nave')
         
-        fb.field('modulo_nave')
-        fb.semaphore('^.modulo_nave')
-    
+        div2=rg_prearrival.div(width='450px',height='180px',margin='auto',
+                        padding='5px',
+                        border='1px solid silver',
+                        margin_top='2px',margin_left='10px')
+        fb = div2.formbuilder(colspan=3,cols=6, border_spacing='4px')
+        #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
         btn_dog = fb.Button('Email')
-        btn_dog.dataRpc(None, self.email_services,
-                   record='=#FORM.record.id', servizio='dogana', email_template_id='email_dogana')
+        btn_dog.dataRpc('msg_special', self.email_services,
+                   record='=#FORM.record.id', servizio=['dogana','gdf','gdf roan'], email_template_id='email_dogana')
+        #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
+        #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
+        fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
         fb.field('email_dogana')
         fb.semaphore('^.email_dogana')
         
@@ -318,61 +331,78 @@ class Form(BaseComponent):
        #                                        fields=[dict(name='user_id', lbl='User', tag='dbselect', table='adm.user')]))
 
         btn_fr = fb.Button('Email')
-        btn_fr.dataRpc(None, self.email_services,
+        btn_fr.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['immigration'], email_template_id='email_frontiera')
+        fb.dataController("if(msgspec=='val_imm') {SET .email_frontiera=true; alert('Messaggio Creato')}", msgspec='^msg_special')
         fb.field('email_frontiera')
         fb.semaphore('^.email_frontiera')
 
         btn_usma = fb.Button('Email')
-        btn_usma.dataRpc(None, self.email_services,
+        btn_usma.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['sanimare'], email_template_id='email_sanimare')
+        fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
         fb.field('email_usma')
         fb.semaphore('^.email_usma')
 
         btn_pfso = fb.Button('Email')
-        btn_pfso.dataRpc(None, self.email_services,
+        btn_pfso.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['pfso'], email_template_id='email_pfso')
+        fb.dataController("if(msgspec=='val_pfso') {SET .email_pfso=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
         fb.field('email_pfso')
         fb.semaphore('^.email_pfso')
 
         btn_pilot = fb.Button('Email')
-        btn_pilot.dataRpc(None, self.email_services,
+        btn_pilot.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor')
+        fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
         fb.field('email_pilot_moor')
         fb.semaphore('^.email_pilot_moor')
 
         btn_tug = fb.Button('Email')
-        btn_tug.dataRpc(None, self.email_services,
+        btn_tug.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['tug'], email_template_id='email_tug')
+        fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        #fb.dataController("alert(msg)", _if='msg',msg='^msg_special') 
         fb.field('email_tug')
         fb.semaphore('^.email_tug')
 
         btn_garb = fb.Button('Email')
+        btn_garb.dataRpc('msg_special', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
+                            nome_template = 'shipsteps.garbage:garbage_request',format_page='A4', selId='=shipsteps_arrival.form.shipsteps_garbage.view.grid.selectedId')
+        #fb.dataController("alert(msg)", _if='msg',msg='^msg_select') 
+        fb.dataController("if(msgspec=='val_garbage') {SET .email_garbage=true ; alert('Messaggio Creato');} if(msgspec=='yes') alert('Devi selezionare il record del Garbage per la stampa'); "
+                            , msgspec='^msg_special')
         
-        btn_garb.dataRpc(None, self.email_services,
-                  record='=#FORM.record.id', selId='=shipsteps_arrival.form.shipsteps_garbage.view.grid.selectedId', email_template_id='email_garbage')
         fb.field('email_garbage')
         fb.semaphore('^.email_garbage')
 
         btn_chem = fb.Button('Email')
-        btn_chem.dataRpc(None, self.email_services,
+        btn_chem.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['chemist'], email_template_id='email_chemist')
+        fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
         fb.field('email_chemist')
         fb.semaphore('^.email_chemist')
                 
         btn_gpg = fb.Button('Email')
-        btn_gpg.dataRpc(None, self.email_services,
+        btn_gpg.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['gpg'], email_template_id='email_gpg')
+        fb.dataController("if(msgspec=='val_gpg') {SET .email_gpg=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
         fb.field('email_gpg')
         fb.semaphore('^.email_gpg')
 
         btn_ens = fb.Button('Email')
+        btn_ens.dataRpc('msg_special', self.email_services,
+                  record='=#FORM.record.id', servizio=['ens'], email_template_id='email_ens')
+        fb.dataController("if(msgspec=='val_ens') {SET .email_ens=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+       # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
         fb.field('email_ens')
         fb.semaphore('^.email_ens')
         btn_af = fb.Button('Email')
         fb.field('email_antifire')
         fb.semaphore('^.email_antifire')
-   
+        
+        
+
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
@@ -381,7 +411,7 @@ class Form(BaseComponent):
        #center = bc_task.roundedGroup(title='!![en]Garbage form', region='center',table='shipsteps.garbage',datapath='.record.@garbage_arr',width='auto', height = '100%').div(margin='10px',margin_left='2px')
        #fb = center.formbuilder(cols=3, border_spacing='4px')
        #fb.field('ora_arr')
-       #fb.field('data_arr')
+       #fb.field('data_arr')print(x)
        #fb.field('sosta_gg')
        #fb.field('rif_alim')
        #fb.field('bilge')
@@ -392,9 +422,10 @@ class Form(BaseComponent):
        #fb.field('invio_fat',tag='textarea')
 
     @public_method
-    def email_services(self, record,email_template_id=None,servizio=[],selId=None, **kwargs):
+    def email_services(self, record,email_template_id=None,servizio=[], **kwargs):
         tbl_arrival = self.db.table('shipsteps.arrival')
         
+
         if not record: 
             return
         tbl_att =  self.db.table('shipsteps.arrival_atc')
@@ -410,6 +441,12 @@ class Form(BaseComponent):
             file_path = file_url.replace('/home','site')           
             fileSn = self.site.storageNode(file_path)
             attcmt.append(fileSn.internal_path)
+
+        #Condizioniamo l'aggiunta dell'allegato se il servizio invio email è il garbage
+        if servizio==['garbage']:
+            file_path_gb = 'site:stampe_template/garbage_request.pdf'
+            fileSn_gb = self.site.storageNode(file_path_gb)
+            attcmt.append(fileSn_gb.internal_path)
            #if r < (ln-1):
            #    attcmt = attcmt + fileSn.internal_path + ',' 
            #else: 
@@ -465,7 +502,7 @@ class Form(BaseComponent):
                     email_pec_d = email_pec_d + email_pec_dest
                 if email_pec_cc_dest is not None:
                     email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest
-
+       
         if (email_dest) is not None:
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record,
@@ -488,13 +525,41 @@ class Form(BaseComponent):
                                                           attachments=attcmt,
                                                           template_code=email_template_id)
             self.db.commit()
+
         
+        if (email_dest or email_pec_dest) is not None:
+            
+            if servizio == ['dogana','gdf','gdf roan']:
+                msg_special = 'val_dog'
+            elif servizio == ['immigration']:
+                msg_special = 'val_imm'
+            elif servizio == ['sanimare']:
+                msg_special = 'val_usma'
+            elif servizio == ['pfso']:
+                msg_special = 'val_pfso'    
+            elif servizio == ['pilot','mooringmen']:
+                msg_special = 'val_pil_moor'
+            elif servizio == ['tug']:
+                msg_special = 'val_tug'
+            elif servizio == ['garbage']:
+                 msg_special = 'val_garbage'
+            elif servizio == ['chemist']:
+                msg_special = 'val_chemist'
+            elif servizio == ['gpg']:
+                msg_special = 'val_gpg'
+            elif servizio == ['ens']:
+                msg_special = 'val_ens'    
+            return msg_special
+            
+        
+            
+            
+       
+
     @public_method
     def print_template(self, record, resultAttr=None, nome_template=None,  nome_vs=None, format_page=None, **kwargs):
         # Crea stampa
-       # if not record['datarisultato']:
-        #    return
-        
+              
         tbl_arrival = self.db.table('shipsteps.arrival')
         builder = TableTemplateToHtml(table=tbl_arrival)
         #nome_template = nome_template #'shipsteps.arrival:check_list'
@@ -527,13 +592,15 @@ class Form(BaseComponent):
         #print(x)
         self.setInClientData(path='gnr.clientprint',
                              value=result.url(timestamp=datetime.now()), fired=True)
+         
+        return nome_temp
 
     @public_method
-    def print_template_garbage(self, record, resultAttr=None,selId=None, nome_template=None,  nome_vs=None, format_page=None, **kwargs):
-       
+    def print_template_garbage(self, record, resultAttr=None,selId=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
+        #msg_special=None
         if selId is None: 
-            raise GnrException('Devi selezionare il record del Garbage per la stampa')            
-            return 
+            msg_special = 'yes'
+            return msg_special
 
         tbl_garbage = self.db.table('shipsteps.garbage')
         builder = TableTemplateToHtml(table=tbl_garbage)
@@ -552,9 +619,15 @@ class Form(BaseComponent):
             builder.page_height=290
                 
         result = builder.writePdf(pdfpath=pdfpath)
-        #print(x)
-      # self.setInClientData(path='gnr.clientprint',
-      #                       value=result.url(timestamp=datetime.now()), fired=True)
-    
+       
+        self.setInClientData(path='gnr.clientprint',
+                              value=result.url(timestamp=datetime.now()), fired=True)
+        self.email_services(record,email_template_id,servizio)
+        #se ritorna il valore di self.msg_pecial dalla funzione sopra lanciata self.email_services
+        # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
+        # il msg con il dataController 
+        msg_special='val_garbage'      
+        return msg_special
+
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )

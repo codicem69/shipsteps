@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-03-23T08:35:36.719252+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-03-23T17:06:54.800122+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-03-25T12:46:39.446458+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.garbagetemplategarbage_request</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">garbage_request</code>
@@ -92,25 +92,25 @@
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid"&gt;
 					&lt;td style="text-align: right;width:50px"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$rif_alim&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$rif_alim_x&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 					&lt;td colspan="2"&gt;
 						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Rifiuti Alimentari&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid"&gt;
 					&lt;td style="text-align: right;width:50px"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$bilge&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$bilge_x&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 					&lt;td colspan="2"&gt;
 						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Acque di sentina&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid"&gt;
 					&lt;td style="text-align: right;width:50px"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$cargo_res&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$cargo_res_x&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 					&lt;td colspan="2"&gt;
 						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Residui di carico&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid"&gt;
 					&lt;td style="text-align: right;width:50px"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$altro&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$altro_x&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 					&lt;td colspan="2"&gt;
 						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Altro&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
@@ -216,46 +216,46 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g86a8yv5gh>
-<g86a8zn7hl _pkey="g86a8zn7hl"><fieldpath dtype="::NN">rif_alim</fieldpath>
-<dtype dtype="::NN">B</dtype>
-<fieldname dtype="::NN">rif_alim</fieldname>
-<varname dtype="::NN">rif_alim</varname>
-<virtual_column _T="NN"></virtual_column>
+<g88onk94bd _pkey="g88onk94bd"><fieldpath dtype="::NN">rif_alim_x</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">rif_alim_x</fieldname>
+<varname dtype="::NN">rif_alim_x</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
-<format dtype="::NN" _loadedValue="::NN">X</format>
+<format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g86a8zn7hl>
-<g86a90kjc1 _pkey="g86a90kjc1"><fieldpath dtype="::NN">bilge</fieldpath>
-<dtype dtype="::NN">B</dtype>
-<fieldname dtype="::NN">bilge</fieldname>
-<varname dtype="::NN">bilge</varname>
-<virtual_column _T="NN"></virtual_column>
+<editable _T="NN" dtype="::NN"></editable></g88onk94bd>
+<g88onmtqf5 _pkey="g88onmtqf5"><fieldpath dtype="::NN">bilge_x</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">bilge_x</fieldname>
+<varname dtype="::NN">bilge_x</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
-<format dtype="::NN" _loadedValue="::NN">X</format>
+<format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g86a90kjc1>
-<g86a91t16p _pkey="g86a91t16p"><fieldpath dtype="::NN">cargo_res</fieldpath>
-<dtype dtype="::NN">B</dtype>
-<fieldname dtype="::NN">cargo_res</fieldname>
-<varname dtype="::NN">cargo_res</varname>
-<virtual_column _T="NN"></virtual_column>
+<editable _T="NN" dtype="::NN"></editable></g88onmtqf5>
+<g88onorzqp _pkey="g88onorzqp"><fieldpath dtype="::NN">cargo_res_x</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">cargo_res_x</fieldname>
+<varname dtype="::NN">cargo_res_x</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
-<format dtype="::NN" _loadedValue="::NN">X</format>
+<format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g86a91t16p>
-<g86a92w0qh _pkey="g86a92w0qh"><fieldpath dtype="::NN">altro</fieldpath>
-<dtype dtype="::NN">B</dtype>
-<fieldname dtype="::NN">altro</fieldname>
-<varname dtype="::NN">altro</varname>
-<virtual_column _T="NN"></virtual_column>
+<editable _T="NN" dtype="::NN"></editable></g88onorzqp>
+<g88onqlhrl _pkey="g88onqlhrl"><fieldpath dtype="::NN">altro_x</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">altro_x</fieldname>
+<varname dtype="::NN">altro_x</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
-<format dtype="::NN" _loadedValue="::NN">X</format>
+<format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g86a92w0qh>
+<editable _T="NN" dtype="::NN"></editable></g88onqlhrl>
 <g86a941epd _pkey="g86a941epd"><fieldpath dtype="::NN">altro_spec</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">altro_spec</fieldname>
@@ -459,7 +459,7 @@
 <parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css></content_css>
-<compiled><main maintable="shipsteps.garbage" locale="it-IT" virtual_columns="@arrival_id.@invoice_det_id.fullname,@arrival_id.lastport,@arrival_id.owners,@arrival_id.workport,@arrival_id.@agency_id.fullstyle,datalavoro,sped_fat" columns="$ora_arr,$data_arr,$sosta_gg,$rif_alim,$bilge,$cargo_res,$altro,$altro_spec,@arrival_id.@invoice_det_id.fullname,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.description,@arrival_id.@agency_id.address,@arrival_id.@agency_id.tel,@arrival_id.@agency_id.fax,@arrival_id.@agency_id.email,@arrival_id.@agency_id.web,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera,@arrival_id.@vessel_details_id.@imbarcazione_id.gt,@arrival_id.lastport,@arrival_id.owners,@arrival_id.workport,@arrival_id.@agency_id.fullstyle,$datalavoro,@arrival_id.@agency_id.agency_stamp,$sped_fat" formats='{"rif_alim": "X", "bilge": "X", "cargo_res": "X", "altro": "X", "arrival_id_agenzia_agency_stamp": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"ora_arr": "H", "data_arr": "D", "sosta_gg": "A", "rif_alim": "B", "bilge": "B", "cargo_res": "B", "altro": "B", "altro_spec": "T", "arrival_id_fatturazione_fullname": "A", "arrival_id_agenzia_agency_name": "T", "arrival_id_agenzia_description": "T", "arrival_id_agenzia_address": "T", "arrival_id_agenzia_tel": "T", "arrival_id_agenzia_fax": "T", "arrival_id_agenzia_email": "T", "arrival_id_agenzia_web": "T", "arrival_id_vessel_imbarcazione_tipo": "T", "arrival_id_vessel_imbarcazione_nome": "T", "arrival_id_vessel_imbarcazione_bandiera": "T", "arrival_id_vessel_imbarcazione_gt": "T", "arrival_id_last_port": "T", "arrival_id_owners_full_name": "T", "arrival_id_workport": "T", "arrival_id_agenzia_fullstyle": "A", "data_di_lavoro": "T", "arrival_id_agenzia_agency_stamp": "P", "sped_fat": "A"}::JS'>&lt;div&gt;
+<compiled><main maintable="shipsteps.garbage" locale="it-IT" virtual_columns="rif_alim_x,bilge_x,cargo_res_x,altro_x,@arrival_id.@invoice_det_id.fullname,@arrival_id.lastport,@arrival_id.owners,@arrival_id.workport,@arrival_id.@agency_id.fullstyle,datalavoro,sped_fat" columns="$ora_arr,$data_arr,$sosta_gg,$rif_alim_x,$bilge_x,$cargo_res_x,$altro_x,$altro_spec,@arrival_id.@invoice_det_id.fullname,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.description,@arrival_id.@agency_id.address,@arrival_id.@agency_id.tel,@arrival_id.@agency_id.fax,@arrival_id.@agency_id.email,@arrival_id.@agency_id.web,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera,@arrival_id.@vessel_details_id.@imbarcazione_id.gt,@arrival_id.lastport,@arrival_id.owners,@arrival_id.workport,@arrival_id.@agency_id.fullstyle,$datalavoro,@arrival_id.@agency_id.agency_stamp,$sped_fat" formats='{"arrival_id_agenzia_agency_stamp": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"ora_arr": "H", "data_arr": "D", "sosta_gg": "A", "rif_alim_x": "A", "bilge_x": "A", "cargo_res_x": "A", "altro_x": "A", "altro_spec": "T", "arrival_id_fatturazione_fullname": "A", "arrival_id_agenzia_agency_name": "T", "arrival_id_agenzia_description": "T", "arrival_id_agenzia_address": "T", "arrival_id_agenzia_tel": "T", "arrival_id_agenzia_fax": "T", "arrival_id_agenzia_email": "T", "arrival_id_agenzia_web": "T", "arrival_id_vessel_imbarcazione_tipo": "T", "arrival_id_vessel_imbarcazione_nome": "T", "arrival_id_vessel_imbarcazione_bandiera": "T", "arrival_id_vessel_imbarcazione_gt": "T", "arrival_id_last_port": "T", "arrival_id_owners_full_name": "T", "arrival_id_workport": "T", "arrival_id_agenzia_fullstyle": "A", "data_di_lavoro": "T", "arrival_id_agenzia_agency_stamp": "P", "sped_fat": "A"}::JS'>&lt;div&gt;
 	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;margin-top:30px;width:95%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
@@ -540,25 +540,25 @@
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid"&gt;
 					&lt;td style="text-align: right;width:50px"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$rif_alim^rif_alim&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$rif_alim_x&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 					&lt;td colspan="2"&gt;
 						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Rifiuti Alimentari&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid"&gt;
 					&lt;td style="text-align: right;width:50px"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$bilge^bilge&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$bilge_x&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 					&lt;td colspan="2"&gt;
 						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Acque di sentina&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid"&gt;
 					&lt;td style="text-align: right;width:50px"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$cargo_res^cargo_res&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$cargo_res_x&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 					&lt;td colspan="2"&gt;
 						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Residui di carico&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid"&gt;
 					&lt;td style="text-align: right;width:50px"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$altro^altro&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$altro_x&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 					&lt;td colspan="2"&gt;
 						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Altro&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;

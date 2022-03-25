@@ -1,45 +1,41 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-23T15:46:18.743487+01:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-03-22T08:30:08.963341+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-02-23T15:59:45.364452+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-03-22T09:01:00.304653+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplateemail_gpg</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_gpg</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Email GPG</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
 	&lt;span style="font-family:courier new,courier,monospace;"&gt;da: $agenzia_agency_name&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;a:&amp;nbsp; $tug_int&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;a:&amp;nbsp; $gpg_int&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;RICHIESTA SERVIZIO RIMORCHIO PER IL SOTTO ELENCATO NATANTE&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;RICHIESTA SERVIZIO ASSISTENZA N.&lt;span style="font-family:courier new,courier,monospace;"&gt;$gpg_n_gpg&lt;/span&gt; GUARDIE GIURATE PARTICOLARI PER IL SOTTO ELENCATO NATANTE&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;PREVISTO ARRIVO RADA PORTO DI $agenzia_place_descrizione IL $eta $vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;br /&gt;
-	&lt;br /&gt;
-	PREVISTO ORMEGGIO IL $etb&lt;/span&gt;&lt;br /&gt;
-	&amp;nbsp;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;NUMERO RIMORCHIATORI RICHIESTI: $N_RIM&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Bandiera: $vessel_imbarcazione_bandiera&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;br /&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;Denominazione Natante: $vessel_imbarcazione_nome&lt;br /&gt;
-	Bandiera: $vessel_imbarcazione_bandiera&lt;br /&gt;
-	Tipo Unit&amp;agrave;: $vessel_imbarcazione_tipo&lt;br /&gt;
-	Nominativo Internazionale: $vessel_imbarcazione_vessel_details_callsign&lt;br /&gt;
-	Lunghezza / Larghezza: $vessel_imbarcazione_loa / $vessel_imbarcazione_vessel_details_beam&lt;br /&gt;
-	Stazza Netta / Lorda: $vessel_imbarcazione_nt / $vessel_imbarcazione_gt&lt;/span&gt;&lt;br /&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;Banchina di ormeggio: $banchina_dock_name&lt;br /&gt;
-	Prevista partenza: $ets&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Banchina di ormeggio: $banchina_dock_name&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;INIZIO SERVIZIO $gpg_date_start&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;FINE&amp;nbsp;&amp;nbsp; SERVIZIO $gpg_date_end&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
@@ -98,16 +94,6 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g6rxw06vwx>
-<g6ryo5dlf5 _pkey="g6ryo5dlf5"><fieldpath dtype="::NN">carico_arr</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Carico in arrivo</fieldname>
-<varname dtype="::NN">carico_in_arrivo</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g6ryo5dlf5>
 <g6rxwa9azd _pkey="g6rxwa9azd"><fieldpath dtype="::NN">@agency_id.address</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Agenzia/address</fieldname>
@@ -198,36 +184,6 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g6rxwufzh5>
-<g6rxwyzwpl _pkey="g6rxwyzwpl"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.loa</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/LOA</fieldname>
-<varname dtype="::NN">vessel_imbarcazione_loa</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g6rxwyzwpl>
-<g6rxx06vs1 _pkey="g6rxx06vs1"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.gt</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/GT</fieldname>
-<varname dtype="::NN">vessel_imbarcazione_gt</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g6rxx06vs1>
-<g6rxx1f3ll _pkey="g6rxx1f3ll"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nt</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/NT</fieldname>
-<varname dtype="::NN">vessel_imbarcazione_nt</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g6rxx1f3ll>
 <g6rxx2ji2p _pkey="g6rxx2ji2p"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.imo</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Vessel/imbarcazione/imo</fieldname>
@@ -318,16 +274,6 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g6rye5qiih>
-<g6ry9iizkx _pkey="g6ry9iizkx"><fieldpath dtype="::NN">cargo_onboard</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">cargo_onboard</fieldname>
-<varname dtype="::NN">cargo_onboard</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g6ry9iizkx>
 <g6ry9ffcah _pkey="g6ry9ffcah"><fieldpath dtype="::NN">lastport</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Last port</fieldname>
@@ -358,73 +304,70 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g76c14331d>
-<g7bqwykc35 _pkey="g7bqwykc35"><fieldpath dtype="::NN">tug_email_cc</fieldpath>
+<g856lhbw9l _pkey="g856lhbw9l"><fieldpath>gpg_int</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">tug_email_cc</fieldname>
-<varname dtype="::NN">tug_email_cc</varname>
+<fieldname dtype="::NN">gpg_int</fieldname>
+<varname dtype="::NN">gpg_int</varname>
 <virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g7bqwykc35>
-<g7bqww3cdt _pkey="g7bqww3cdt"><fieldpath dtype="::NN">tug_email</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">tug_email</fieldname>
-<varname dtype="::NN">tug_email</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<mask _T="NN" dtype="::NN"></mask></g856lhbw9l>
+<g856tskwyx _pkey="g856tskwyx"><fieldpath>@gpg_arr.n_gpg</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">GPG/n_gpg</fieldname>
+<varname dtype="::NN">gpg_n_gpg</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g7bqww3cdt>
-<g7bqwu0ywx _pkey="g7bqwu0ywx"><fieldpath dtype="::NN">tug_int</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">tug_int</fieldname>
-<varname dtype="::NN">tug_int</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<mask _T="NN" dtype="::NN"></mask></g856tskwyx>
+<g856t5qg69 _pkey="g856t5qg69"><fieldpath>@gpg_arr.date_start</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">GPG/date_start</fieldname>
+<varname dtype="::NN">gpg_date_start</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g7bqwu0ywx></varsbag>
-<parameters><g7br1y62ah _pkey="g7br1y62ah"><code dtype="::NN" _loadedValue="::NN">N_RIM</code>
-<description dtype="::NN" _loadedValue="::NN">Numero rimorchiatori</description>
-<fieldtype dtype="::NN" _displayedValue="Integer" _loadedValue="::NN">L</fieldtype>
+<mask _T="NN" dtype="::NN"></mask></g856t5qg69>
+<g85748vwbt _pkey="g85748vwbt"><fieldpath>@gpg_arr.date_end</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">GPG/date_end</fieldname>
+<varname dtype="::NN">gpg_date_end</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<values _T="NN" dtype="::NN"></values></g7br1y62ah></parameters>
+<mask _T="NN" dtype="::NN"></mask></g85748vwbt></varsbag>
+<parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css></content_css>
-<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="carico_arr,@agency_id.fullname,@agency_id.@port.citta_nazione,lastport,@invoice_det_id.fullname,tug_email_cc,tug_email,tug_int" columns="@agency_id.agency_name,$carico_arr,@agency_id.address,@agency_id.fullname,@agency_id.tel,@agency_id.fax,@agency_id.email,@agency_id.web,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,@vessel_details_id.@imbarcazione_id.loa,@vessel_details_id.@imbarcazione_id.gt,@vessel_details_id.@imbarcazione_id.nt,@vessel_details_id.@imbarcazione_id.imo,@vessel_details_id.@imbarcazione_id.@vessel_details.beam,@vessel_details_id.@imbarcazione_id.@vessel_details.callsign,$eta,$etb,$ets,@dock_id.dock_name,@agency_id.@port.citta_nazione,@agency_id.description,$cargo_onboard,$lastport,@agency_id.@port.descrizione,@invoice_det_id.fullname,$tug_email_cc,$tug_email,$tug_int" formats='{"N_RIM": null}::JS' masks='{"N_RIM": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "carico_in_arrivo": "T", "agenzia_address": "T", "agenzia_user_signature": "T", "agenzia_tel": "T", "agenzia_fax": "T", "agenzia_email": "T", "agenzia_web": "T", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "vessel_imbarcazione_loa": "T", "vessel_imbarcazione_gt": "T", "vessel_imbarcazione_nt": "T", "vessel_imbarcazione_imo": "T", "vessel_imbarcazione_vessel_details_beam": "T", "vessel_imbarcazione_vessel_details_callsign": "A", "eta": "DH", "etb": "DH", "ets": "DH", "banchina_dock_name": "T", "agenzia_place_citta_nazione": "A", "agenzia_description": "T", "cargo_onboard": "T", "last_port": "T", "agenzia_place_descrizione": "T", "fatturazione_fullname": "A", "tug_email_cc": "T", "tug_email": "T", "tug_int": "T"}::JS'>&lt;div&gt;
+<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.fullname,@agency_id.@port.citta_nazione,lastport,@invoice_det_id.fullname,gpg_int" columns="@agency_id.agency_name,@agency_id.address,@agency_id.fullname,@agency_id.tel,@agency_id.fax,@agency_id.email,@agency_id.web,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,@vessel_details_id.@imbarcazione_id.imo,@vessel_details_id.@imbarcazione_id.@vessel_details.beam,@vessel_details_id.@imbarcazione_id.@vessel_details.callsign,$eta,$etb,$ets,@dock_id.dock_name,@agency_id.@port.citta_nazione,@agency_id.description,$lastport,@agency_id.@port.descrizione,@invoice_det_id.fullname,$gpg_int,@gpg_arr.n_gpg,@gpg_arr.date_start,@gpg_arr.date_end" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "agenzia_address": "T", "agenzia_user_signature": "T", "agenzia_tel": "T", "agenzia_fax": "T", "agenzia_email": "T", "agenzia_web": "T", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "vessel_imbarcazione_imo": "T", "vessel_imbarcazione_vessel_details_beam": "T", "vessel_imbarcazione_vessel_details_callsign": "A", "eta": "DH", "etb": "DH", "ets": "DH", "banchina_dock_name": "T", "agenzia_place_citta_nazione": "A", "agenzia_description": "T", "last_port": "T", "agenzia_place_descrizione": "T", "fatturazione_fullname": "A", "gpg_int": "T", "gpg_n_gpg": "A", "gpg_date_start": "DH", "gpg_date_end": "DH"}::JS'>&lt;div&gt;
 	&lt;span style="font-family:courier new,courier,monospace;"&gt;da: $@agency_id.agency_name&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;a:&amp;nbsp; $tug_int&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;a:&amp;nbsp; $gpg_int&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;RICHIESTA SERVIZIO RIMORCHIO PER IL SOTTO ELENCATO NATANTE&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;RICHIESTA SERVIZIO ASSISTENZA N.&lt;span style="font-family:courier new,courier,monospace;"&gt;$@gpg_arr.n_gpg&lt;/span&gt; GUARDIE GIURATE PARTICOLARI PER IL SOTTO ELENCATO NATANTE&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;PREVISTO ARRIVO RADA PORTO DI $@agency_id.@port.descrizione IL $eta $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;br /&gt;
-	&lt;br /&gt;
-	PREVISTO ORMEGGIO IL $etb&lt;/span&gt;&lt;br /&gt;
-	&amp;nbsp;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;NUMERO RIMORCHIATORI RICHIESTI: $N_RIM&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Bandiera: $@vessel_details_id.@imbarcazione_id.bandiera&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;br /&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;Denominazione Natante: $@vessel_details_id.@imbarcazione_id.nome&lt;br /&gt;
-	Bandiera: $@vessel_details_id.@imbarcazione_id.bandiera&lt;br /&gt;
-	Tipo Unit&amp;agrave;: $@vessel_details_id.@imbarcazione_id.tipo&lt;br /&gt;
-	Nominativo Internazionale: $@vessel_details_id.@imbarcazione_id.@vessel_details.callsign&lt;br /&gt;
-	Lunghezza / Larghezza: $@vessel_details_id.@imbarcazione_id.loa / $@vessel_details_id.@imbarcazione_id.@vessel_details.beam&lt;br /&gt;
-	Stazza Netta / Lorda: $@vessel_details_id.@imbarcazione_id.nt / $@vessel_details_id.@imbarcazione_id.gt&lt;/span&gt;&lt;br /&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;Banchina di ormeggio: $@dock_id.dock_name&lt;br /&gt;
-	Prevista partenza: $ets&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Banchina di ormeggio: $@dock_id.dock_name&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;INIZIO SERVIZIO $@gpg_arr.date_start&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;FINE&amp;nbsp;&amp;nbsp; SERVIZIO $@gpg_arr.date_end&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;

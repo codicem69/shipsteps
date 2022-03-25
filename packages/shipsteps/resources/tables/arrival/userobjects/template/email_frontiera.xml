@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-18T17:22:14.021037+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-02-18T17:43:33.892975+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-03-21T15:30:07.901723+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplateemail_frontiera</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_frontiera</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Email Frontiera</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
@@ -82,14 +82,15 @@
 <default_letterhead _T="NN"></default_letterhead>
 <summary _T="NN"></summary>
 <email><subject _valuelabel="Oggetto">Previsto arrivo $vessel_imbarcazione_tipo $vessel_imbarcazione_nome</subject>
-<to_address _valuelabel="A">$immigration_email</to_address>
+<to_address _valuelabel="A">$email</to_address>
 <from_address _T="NN"></from_address>
-<cc_address _valuelabel="CC">$immigration_email_cc</cc_address>
-<bcc_address _T="NN"></bcc_address>
+<cc_address _valuelabel="CC">$email_cc</cc_address>
+<bcc_address _valuelabel="BCC">$email_bcc</bcc_address>
 <attachments _T="NN"></attachments></email>
 <email_compiled><subject>Previsto arrivo $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome</subject>
-<to_address>$immigration_email</to_address>
-<cc_address>$immigration_email_cc</cc_address></email_compiled></metadata>
+<to_address>$email</to_address>
+<cc_address>$email_cc</cc_address>
+<bcc_address>$email_bcc</bcc_address></email_compiled></metadata>
 <varsbag><g6rxw06vwx _pkey="g6rxw06vwx"><fieldpath dtype="::NN">@agency_id.agency_name</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Agenzia/agency_name</fieldname>
@@ -450,12 +451,29 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g76b4hsqht></varsbag>
-<parameters _T="BAG"></parameters>
+<parameters><g845vug38p _pkey="g845vug38p"><code dtype="::NN">email</code>
+<description dtype="::NN">Email</description>
+<fieldtype _T="NN" dtype="::NN"></fieldtype>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<values _T="NN" dtype="::NN" _loadedValue="$immigration_email"></values></g845vug38p>
+<g84edzvezl _pkey="g84edzvezl"><code dtype="::NN" _loadedValue="::NN">email_cc</code>
+<description dtype="::NN" _loadedValue="::NN">Email cc</description>
+<fieldtype _T="NN" dtype="::NN"></fieldtype>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<values _T="NN" dtype="::NN"></values></g84edzvezl>
+<g84ee6j65t _pkey="g84ee6j65t"><code dtype="::NN" _loadedValue="::NN">email_bcc</code>
+<description dtype="::NN" _loadedValue="::NN">Email bcc</description>
+<fieldtype _T="NN" dtype="::NN"></fieldtype>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<values _T="NN" dtype="::NN"></values></g84ee6j65t></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css></content_css>
 <compiled><_cargo_lu_arr _tag="@cargo_lu_arr">&lt;div row_datasource="@cargo_lu_arr"&gt;
 	&lt;span style="font-family:courier new,courier,monospace;"&gt;$cargo_lu_en_ita&lt;/span&gt;&lt;/div&gt;</_cargo_lu_arr>
-<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="carico_arr,@agency_id.fullname,@agency_id.@port.citta_nazione,lastport,@cargo_lu_arr.cargo_lu_en_ita,@cargo_lu_arr.tip_cargo_dogana,immigration_email_cc,immigration_email,immigration_int" columns="@agency_id.agency_name,$carico_arr,@agency_id.address,@agency_id.fullname,@agency_id.tel,@agency_id.fax,@agency_id.email,@agency_id.web,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,@vessel_details_id.@imbarcazione_id.loa,@vessel_details_id.@imbarcazione_id.gt,@vessel_details_id.@imbarcazione_id.nt,@vessel_details_id.@imbarcazione_id.imo,@vessel_details_id.@imbarcazione_id.@vessel_details.beam,@vessel_details_id.@imbarcazione_id.@vessel_details.callsign,$master_name,$n_crew,$n_passengers,$eta,$etb,$ets,@dock_id.dock_name,@agency_id.@port.citta_nazione,@agency_id.description,$transit_cargo,$cargo_onboard,$lastport,@agency_id.@port.descrizione,@cargo_lu_arr.cargo_lu_en_ita,$cargo_dest,@cargo_lu_arr.tip_cargo_dogana,$immigration_email_cc,$immigration_email,$immigration_int" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "carico_in_arrivo": "T", "agenzia_address": "T", "agenzia_user_signature": "T", "agenzia_tel": "T", "agenzia_fax": "T", "agenzia_email": "T", "agenzia_web": "T", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "vessel_imbarcazione_loa": "T", "vessel_imbarcazione_gt": "T", "vessel_imbarcazione_nt": "T", "vessel_imbarcazione_imo": "T", "vessel_imbarcazione_vessel_details_beam": "T", "vessel_imbarcazione_vessel_details_callsign": "A", "master_name": "T", "n_crew": "N", "n_passengers": "N", "eta": "DH", "etb": "DH", "ets": "DH", "banchina_dock_name": "T", "agenzia_place_citta_nazione": "A", "agenzia_description": "T", "transit_cargo": "T", "cargo_onboard": "T", "last_port": "T", "agenzia_place_descrizione": "T", "carichi_sbarco_imbarchi_carico_l_u_ita": "T", "cargo_dest": "T", "carichi_sbarco_imbarchi_tip_cargo_dogana": "A", "immigration_email_cc": "T", "immigration_email": "T", "immigration_int": "T"}::JS'>&lt;div&gt;
+<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="carico_arr,@agency_id.fullname,@agency_id.@port.citta_nazione,lastport,@cargo_lu_arr.cargo_lu_en_ita,@cargo_lu_arr.tip_cargo_dogana,immigration_email_cc,immigration_email,immigration_int" columns="@agency_id.agency_name,$carico_arr,@agency_id.address,@agency_id.fullname,@agency_id.tel,@agency_id.fax,@agency_id.email,@agency_id.web,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,@vessel_details_id.@imbarcazione_id.loa,@vessel_details_id.@imbarcazione_id.gt,@vessel_details_id.@imbarcazione_id.nt,@vessel_details_id.@imbarcazione_id.imo,@vessel_details_id.@imbarcazione_id.@vessel_details.beam,@vessel_details_id.@imbarcazione_id.@vessel_details.callsign,$master_name,$n_crew,$n_passengers,$eta,$etb,$ets,@dock_id.dock_name,@agency_id.@port.citta_nazione,@agency_id.description,$transit_cargo,$cargo_onboard,$lastport,@agency_id.@port.descrizione,@cargo_lu_arr.cargo_lu_en_ita,$cargo_dest,@cargo_lu_arr.tip_cargo_dogana,$immigration_email_cc,$immigration_email,$immigration_int" formats='{"email": null, "email_cc": null, "email_bcc": null}::JS' masks='{"email": null, "email_cc": null, "email_bcc": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "carico_in_arrivo": "T", "agenzia_address": "T", "agenzia_user_signature": "T", "agenzia_tel": "T", "agenzia_fax": "T", "agenzia_email": "T", "agenzia_web": "T", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "vessel_imbarcazione_loa": "T", "vessel_imbarcazione_gt": "T", "vessel_imbarcazione_nt": "T", "vessel_imbarcazione_imo": "T", "vessel_imbarcazione_vessel_details_beam": "T", "vessel_imbarcazione_vessel_details_callsign": "A", "master_name": "T", "n_crew": "N", "n_passengers": "N", "eta": "DH", "etb": "DH", "ets": "DH", "banchina_dock_name": "T", "agenzia_place_citta_nazione": "A", "agenzia_description": "T", "transit_cargo": "T", "cargo_onboard": "T", "last_port": "T", "agenzia_place_descrizione": "T", "carichi_sbarco_imbarchi_carico_l_u_ita": "T", "cargo_dest": "T", "carichi_sbarco_imbarchi_tip_cargo_dogana": "A", "immigration_email_cc": "T", "immigration_email": "T", "immigration_int": "T"}::JS'>&lt;div&gt;
 	&lt;span style="font-family:courier new,courier,monospace;"&gt;da: $@agency_id.agency_name&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;

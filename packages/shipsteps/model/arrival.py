@@ -265,11 +265,11 @@ class Table(object):
         cur_time = now.strftime("%H:%M:%S")    
         if cur_time < '13:00:00':
             sal='Buongiorno'  
-        if cur_time < '17:00:00':
+        elif cur_time < '17:00:00':
             sal='Buon pomeriggio'
-        if cur_time < '24:00:00':
+        elif cur_time < '24:00:00':
             sal = 'Buonasera'    
-        if cur_time < '04:00:00':
+        elif cur_time < '04:00:00':
             sal = 'Buona notte'      
         return sal
         
