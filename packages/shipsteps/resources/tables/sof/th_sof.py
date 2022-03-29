@@ -65,6 +65,7 @@ class FormSof(BaseComponent):
         self.remarks_rs(tc_rem.contentPane(title='Receivers/Shippers Remarks',datapath='.record'))
         self.remarks_cte(tc_rem.contentPane(title='Master Remarks',datapath='.record'))
         self.remarks_note(tc_rem.contentPane(title='Note Remarks',datapath='.record'))
+        self.onbehalf_remarks(tc_rem.contentPane(title='On behalf Remarks',datapath='.record'))
 
         tc_tanks = tc.tabContainer(title='!![en]Tank times',margin='2px')
         self.tanks(tc_tanks.contentPane(title='Time tanks'))
@@ -105,6 +106,9 @@ class FormSof(BaseComponent):
         fb.button('Inserisci',lbl='Remark Wheat/Corn',action="""SET ^.remarks_rs = note_remark;
                                             alert("Inserito - Ricordati di salvare");""",
                     note_remark='=gnr.app_preference.shipsteps.remarks_wheat_corn')
+    
+    def onbehalf_remarks(self,frame):
+        frame.simpleTextArea(title='!![en]On behalf Sipper/Receiver remarks',value='^.onbehalf',editor=True)
 
     def tanks(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=2, border_spacing='4px',fld_width='10em',table='shipsteps.sof_tanks',datapath='.record.@sof_tanks')

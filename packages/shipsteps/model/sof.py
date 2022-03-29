@@ -12,10 +12,11 @@ class Table(object):
         tbl.column('nor_acc', dtype='T', name_short='!![en]NOR accepted')
         tbl.column('ops_commenced', dtype='DH', name_short='!![en]Load/Unload commenced')
         tbl.column('ops_completed', dtype='DH', name_short='!![en]Load/Unload completed')
-        tbl.column('doc_onboard', dtype='T', name_short='!![en]Documents onboard')
+        tbl.column('doc_onboard', dtype='DH', name_short='!![en]Documents onboard')
         tbl.column('remarks_rs', name_short='!![en]Receivers / Shippers Remarks')
         tbl.column('remarks_cte', name_short='!![en]Master Remarks')
         tbl.column('note', name_short='!![en]Note SOF')
+        tbl.column('onbehalf', name_short='!![en]On behalf')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@sof_cargo_sof.ship_rec')
         tbl.aliasColumn('cargo_sof', '@sof_cargo_sof.@cargo_unl_load_id.cargo_sof',name_long='!![en]Cargo sof')
@@ -30,7 +31,10 @@ class Table(object):
         tbl.formulaColumn('ops_completed_txt', """CASE WHEN $ops_completed is not null AND $cargo_op = 'U' THEN 'Unloading completed ' 
                                                   WHEN $ops_completed is not null AND $cargo_op = 'L' THEN 'Loading completed ' ELSE '' END""", dtype='T')
         tbl.formulaColumn('doc_onboard_txt', """CASE WHEN $doc_onboard is not null THEN  :onboard END""",  dtype='T', var_onboard="cargo's documents on board")
-        tbl.formulaColumn('time_sof', """coalesce('NOR tendered ' || to_char($nor_tend, 'DD-MM-YYYY HH.MI'), '') || '<br>' || coalesce('NOR received ' || to_char($nor_rec, 'DD-MM-YYYY HH.MI'),'') || '<br>' ||
-                                         coalesce('NOR accepted ' || $nor_acc, '') || '<br>' || $ops_commenced_txt || to_char($ops_commenced, 'DD-MM-YYYY HH.MI') || '<br>' || 
-                                         $ops_completed_txt || to_char(ops_completed, 'DD-MM-YYYY HH.MI') || '<br>' || coalesce(:onboard || $doc_onboard,'')""",var_onboard="Cargo's documents on board")
+        tbl.formulaColumn('note_txt', """CASE WHEN $note is not null THEN 'Notes' || '<br>'  ELSE '' END""", dtype='T')
+        
+        
+        tbl.formulaColumn('time_sof', """coalesce('NOR tendered ' || to_char($nor_tend, :df), '') || '<br>' || coalesce('NOR received ' || to_char($nor_rec, :df),'') || '<br>' ||
+                                         coalesce('NOR accepted ' || $nor_acc, '') || '<br>' || $ops_commenced_txt || to_char($ops_commenced, :df) || '<br>' || 
+                                         $ops_completed_txt || to_char(ops_completed, :df) || '<br>' || coalesce(:onboard || to_char($doc_onboard,:df),'')""",var_onboard="Cargo's documents on board ",var_df='DD-MM-YYYY HH:MI')
     

@@ -16,4 +16,13 @@ class Table(object):
         tbl.column('hose_disconn', dtype='DH', name_short='!![en]Hoses disconnected')
         tbl.column('average', size=':15', dtype='T', name_short='!![en]Average rate')
         tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
+
+        tbl.formulaColumn('start_insp_txt', """CASE WHEN $start_insp is not null THEN 'Inspection commenced' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('stop_insp_txt', """CASE WHEN $stop_insp is not null THEN 'Inspection completed' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('cargo_calc_txt', """CASE WHEN $cargo_calc is not null THEN 'Cargo calculation' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('start_ullage_txt', """CASE WHEN $start_ullage is not null THEN 'Ullage commenced' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('stop_ullage_txt', """CASE WHEN $stop_ullage is not null THEN 'Ullage completed' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('hose_conn_txt', """CASE WHEN $hose_conn is not null THEN 'Hoses connected' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('hose_disconn_txt', """CASE WHEN $hose_disconn is not null THEN 'Hoses disconnected' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('average_txt', """CASE WHEN $average is not null THEN 'Average rate' ELSE '' END""", dtype='T')
    
