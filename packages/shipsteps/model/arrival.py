@@ -248,9 +248,14 @@ class Table(object):
         pkey=record['pkey']
         
         #carico = self.db.table('shipsteps.cargo_unl_load').readColumns(columns='$description', where='$arrival_id=:a_id',a_id=pkey)
-        carico = self.db.table('shipsteps.cargo_unl_load').query(columns="COALESCE($operation,'') || ': ' || COALESCE(@measure_id.description,'') || ' ' || $quantity || ' ' || COALESCE($description,'')",
+        
+        carico = self.db.table('shipsteps.cargo_unl_load').query(columns="""CASE WHEN $operation = 'L' THEN 'Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description  
+                                            WHEN $operation = 'U' THEN 'Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description ELSE 'NIL' END """,
                                                                     where='$arrival_id=:a_id',
-                                                                    a_id=pkey).fetch()
+                                                                    a_id=pkey).fetch()                                    
+       #carico = self.db.table('shipsteps.cargo_unl_load').query(columns="COALESCE($operation,'') || ': ' || COALESCE(@measure_id.description,'') || ' ' || $quantity || ' ' || COALESCE($description,'')",
+       #                                                            where='$arrival_id=:a_id',
+       #                                                            a_id=pkey).fetch()
         n_car = len(carico) 
         cargo=''                                                               
         for r in range (n_car):

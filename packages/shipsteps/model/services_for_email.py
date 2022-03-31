@@ -68,3 +68,7 @@ class Table(object):
     @metadata(mandatory=True)
     def sysRecord_watersupply(self):
         return self.newrecord(code='ws',description_serv='water supply')
+
+    @metadata(mandatory=True)
+    def sysRecord_capitaneria(self):
+        return self.newrecord(code='cp',description_serv='capitaneria')

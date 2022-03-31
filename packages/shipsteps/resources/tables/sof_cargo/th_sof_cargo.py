@@ -22,8 +22,10 @@ class ViewFromSof_Cargo(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('sof_id',name='Arrivo nave',edit=True)
-        r.fieldcell('cargo_unl_load_id',name='Carico', edit=True, width='auto')
-    
+        r.fieldcell('cargo_unl_load_id',name='Carico', edit=True, width='auto',tab='dbSelect',hasDownArrow=True,
+                                        condition=":aid = $arrival_id",
+                                        condition_aid='^#FORM.record.arrival_id')
+
     def th_view(self,view):
         view.grid.attributes.update(selfDragRows=True)
         

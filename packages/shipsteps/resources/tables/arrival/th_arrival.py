@@ -59,14 +59,14 @@ class View(BaseComponent):
 
 class Form(BaseComponent):
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
-    
+
     def th_form(self, form):
         #pane = form.record
         #fb = pane.formbuilder(cols=2, border_spacing='4px')
-       
+
         bc1 = form.center.borderContainer()
         tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
-       
+
         bc = tc.borderContainer(title='!![en]Arrival')
         bc_task = tc.borderContainer(title='!![en]Task List')
         tc_att = bc_task.tabContainer(margin='2px', region='center', height='auto')
@@ -82,6 +82,7 @@ class Form(BaseComponent):
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
         self.allegatiArrivo(tc_att.contentPane(title='!![en]Attachments'))
         self.garbage(tc_att.contentPane(title='!![en]Garbage'))
+        self.integrazione(tc_att.contentPane(title='!![en]Alimentary integration'))
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
         #self.gpg(bc.borderContainer(region='center',datapath='.@gpg_arr',height='300px', splitter=True, background = 'lavenderblush'))
@@ -91,16 +92,16 @@ class Form(BaseComponent):
         #tc_sof = tc.tabContainer(title='!![en]SOF',margin='2px', region='center', height='450px', splitter=True)
         #tc_r = bc_top.tabContainer(margin='2px', region='right', width='25%')#, width='25%', splitter=True)
         #self.gpg(tc_r.contentPane(title='!![en]GPG'))
-        
+
         self.datiCaricoBordo(tc_car.contentPane(title='!![en]Cargo onboard',datapath='.record'))
         self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
         self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
         self.car_ric(tc.contentPane(title='!![en]Shippers / Receivers'))
-        self.sof(tc.contentPane(title='!![en]Sof'))
+       # self.sof(tc.contentPane(title='!![en]Sof'))
         self.arrival_details(tc.borderContainer(title='!![en]Arrival details', region='top', background = 'lavenderblush'))
         self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
-        
+
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
 
     def datiArrivo(self,bc):
@@ -110,14 +111,14 @@ class Form(BaseComponent):
         center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px', height = '50%', margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]Times',table='shipsteps.arrival_time',region='center',datapath='.record.@time_arr',width='245px', height = '350px', margin_left='1385px').div(margin='10px',margin_left='2px')
 
-        fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')   
+        fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly=True)
         fb.field('date')
         fb.field('vessel_details_id' )
         fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome')
 
-        fb = center1.formbuilder(cols=5, border_spacing='4px',lblpos='T',fldalign='left')   
+        fb = center1.formbuilder(cols=5, border_spacing='4px',lblpos='T',fldalign='left')
         fb.field('eta' , width='10em')
         fb.field('etb' , width='10em')
         fb.field('et_start' , width='10em')
@@ -142,17 +143,17 @@ class Form(BaseComponent):
         fb.field('cargo_dest', colspan=2, width='30em' )
         fb.br()
         fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
-        
+
         fb = center2.formbuilder(cols=1, border_spacing='4px', fld_width='10em')
         #fb.field('arrival_id')
         fb.field('date_start')
         fb.field('date_end')
         fb.field('n_gpg')
-        
+
         fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='10em')
         fb.field('nsis_prot')
         fb.field('n_tug')
-        
+
        #fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='8em')
        ##fb.field('arrival_id')
        #fb.field('eosp')
@@ -183,11 +184,11 @@ class Form(BaseComponent):
 
     def sof(self,pane):
         pane.stackTableHandler(relation='@sof_arr', formResource='FormSof')
-        
+
     def arrival_details(self, bc):
         rg_times = bc.roundedGroup(title='!![en]Arrival times',table='shipsteps.arrival_time',region='left',datapath='.record.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
         rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
-        
+
         fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('eosp')
         fb.field('aor')
@@ -205,7 +206,7 @@ class Form(BaseComponent):
         fb.field('cosp', lbl='Commenced of <br>Sea Passage',fldvalign='center')
 
         fb = rg_details.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
-       
+
         #fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=3, border_spacing='4px',fld_width='10em',table='shipsteps.arrival_det',datapath='.record.@arr_details')
         fb.div('!![en]DRAFT')
         fb.br()
@@ -261,7 +262,7 @@ class Form(BaseComponent):
         btn_cl = fb1.Button('!![en]Print')
         btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
                             nome_template = 'shipsteps.arrival:check_list', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
-        fb1.dataController("if(msg=='check_list') SET .checklist=true", msg='^nome_temp') 
+        fb1.dataController("if(msg=='check_list') SET .checklist=true", msg='^nome_temp')
         fb1.field('checklist')
         fb1.semaphore('^.checklist')
         btn_fs = fb1.Button('!![en]Print')
@@ -272,7 +273,7 @@ class Form(BaseComponent):
         fb1.semaphore('^.frontespizio')
 
         btn_cn = fb1.Button('!![en]Print')
-       #btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form', 
+       #btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form',
        #                                        fields=[dict(name='letterhead_id', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
        #                                        hasDownArrow=True, auxColumns='$name', table='adm.htmltemplate')]), nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
        #                    nome_template = 'shipsteps.arrival:cartella_doc')
@@ -302,7 +303,7 @@ class Form(BaseComponent):
         fb1.dataController("if(msg=='mod_nave') SET .checklist=true", msg='^nome_temp')
         fb1.field('modulo_nave')
         fb1.semaphore('^.modulo_nave')
-        
+
         div2=rg_prearrival.div(width='450px',height='180px',margin='auto',
                         padding='5px',
                         border='1px solid silver',
@@ -317,7 +318,7 @@ class Form(BaseComponent):
         fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
         fb.field('email_dogana')
         fb.semaphore('^.email_dogana')
-        
+
        #uploader = fb.button('Upload more files')
        #uploader.dataController("""
        #                        genro.dlg.multiUploaderDialog('!![en]Upload many files and assign them to users',{
@@ -325,9 +326,9 @@ class Form(BaseComponent):
        #                                    onResult:function(){
        #                                        genro.publish("floating_message",{message:"Upload completato", messageType:"message"});
        #                                        genro.publish('trigger_action',{user_id:user_id}); }
-       #                                    });""", 
-       #                                    uploadPath=':import_queue', 
-       #                                    _ask=dict(title='Choose users to whom to assign files', 
+       #                                    });""",
+       #                                    uploadPath=':import_queue',
+       #                                    _ask=dict(title='Choose users to whom to assign files',
        #                                        fields=[dict(name='user_id', lbl='User', tag='dbselect', table='adm.user')]))
 
         btn_fr = fb.Button('Email')
@@ -362,17 +363,17 @@ class Form(BaseComponent):
         btn_tug.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['tug'], email_template_id='email_tug')
         fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
-        #fb.dataController("alert(msg)", _if='msg',msg='^msg_special') 
+        #fb.dataController("alert(msg)", _if='msg',msg='^msg_special')
         fb.field('email_tug')
         fb.semaphore('^.email_tug')
 
         btn_garb = fb.Button('Email')
         btn_garb.dataRpc('msg_special', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
                             nome_template = 'shipsteps.garbage:garbage_request',format_page='A4', selId='=shipsteps_arrival.form.shipsteps_garbage.view.grid.selectedId')
-        #fb.dataController("alert(msg)", _if='msg',msg='^msg_select') 
+        #fb.dataController("alert(msg)", _if='msg',msg='^msg_select')
         fb.dataController("if(msgspec=='val_garbage') {SET .email_garbage=true ; alert('Messaggio Creato');} if(msgspec=='yes') alert('Devi selezionare il record del Garbage per la stampa'); "
                             , msgspec='^msg_special')
-        
+
         fb.field('email_garbage')
         fb.semaphore('^.email_garbage')
 
@@ -382,7 +383,7 @@ class Form(BaseComponent):
         fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
         fb.field('email_chemist')
         fb.semaphore('^.email_chemist')
-                
+
         btn_gpg = fb.Button('Email')
         btn_gpg.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['gpg'], email_template_id='email_gpg')
@@ -400,33 +401,29 @@ class Form(BaseComponent):
         btn_af = fb.Button('Email')
         fb.field('email_antifire')
         fb.semaphore('^.email_antifire')
-        
-        
+
+
 
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
     def garbage(self, pane):
         pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
-       #center = bc_task.roundedGroup(title='!![en]Garbage form', region='center',table='shipsteps.garbage',datapath='.record.@garbage_arr',width='auto', height = '100%').div(margin='10px',margin_left='2px')
-       #fb = center.formbuilder(cols=3, border_spacing='4px')
-       #fb.field('ora_arr')
-       #fb.field('data_arr')print(x)
-       #fb.field('sosta_gg')
-       #fb.field('rif_alim')
-       #fb.field('bilge')
-       #fb.field('cargo_res')
-       #fb.field('altro')
-       #fb.field('altro_spec',tag='textarea')
-       #fb.br()
-       #fb.field('invio_fat',tag='textarea')
+
+    def integrazione(self, pane):
+        pane.inlineTableHandler(relation='@integrazione',viewResource='ViewIntegrazione', 
+                               picker='cargo_unl_load_id',
+                               picker_condition='arrival_id=:aid',
+                               picker_condition_aid='^#FORM.record.id',
+                               picker_viewResource='ViewFromCargoLU_picker')
+    
 
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[], **kwargs):
         tbl_arrival = self.db.table('shipsteps.arrival')
-        
 
-        if not record: 
+
+        if not record:
             return
         tbl_att =  self.db.table('shipsteps.arrival_atc')
         fileurl = tbl_att.query(columns='$fileurl',
@@ -436,9 +433,9 @@ class Form(BaseComponent):
         attcmt=[]
        # a=0
        # r=1
-        for r in range(ln):    
+        for r in range(ln):
             file_url = fileurl[r][0]
-            file_path = file_url.replace('/home','site')           
+            file_path = file_url.replace('/home','site')
             fileSn = self.site.storageNode(file_path)
             attcmt.append(fileSn.internal_path)
 
@@ -448,8 +445,8 @@ class Form(BaseComponent):
             fileSn_gb = self.site.storageNode(file_path_gb)
             attcmt.append(fileSn_gb.internal_path)
            #if r < (ln-1):
-           #    attcmt = attcmt + fileSn.internal_path + ',' 
-           #else: 
+           #    attcmt = attcmt + fileSn.internal_path + ','
+           #else:
            #    attcmt = attcmt + fileSn.internal_path
 
         # Lettura degli account email predefiniti all'interno di Agency e Staff
@@ -460,32 +457,32 @@ class Form(BaseComponent):
         tbl_agency =  self.db.table('shipsteps.agency')
         account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
                   where='$id=:ag_id',
-                    ag_id=self.db.currentEnv.get('current_agency_id'))  
-        
-        
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+
+
         #Lettura degli indirizzi email destinatari
         ln_serv=len(servizio)
-        
+
         #email_d, email_cc_d, email_pec_d, email_pec_cc_d=[],[],[],[]
         email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d='','','','',''
         tbl_email_services=self.db.table('shipsteps.email_services')
         for e in range(ln_serv):
             serv=servizio[e]
-        
+
             email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
-                                                    where='$service_for_email=:serv AND $agency_id=:ag_id', serv=serv, 
+                                                    where='$service_for_email=:serv AND $agency_id=:ag_id', serv=serv,
                                                     ag_id=self.db.currentEnv.get('current_agency_id'))
             #email_d.append(email_dest)
             #email_cc_d.append(email_cc_dest)
             #email_pec_d.append(email_pec_dest)
             #email_pec_cc_d.append(email_pec_cc_dest)
-            
+
             if e < (ln_serv-1):
                 if email_dest is not None:
                     email_d = email_d + email_dest + ','
-                if email_cc_dest is not None:    
+                if email_cc_dest is not None:
                     email_cc_d = email_cc_d + email_cc_dest + ','
-                if email_bcc_dest is not None:    
+                if email_bcc_dest is not None:
                     email_bcc_d = email_bcc_d + email_bcc_dest + ','
                 if email_pec_dest is not None:
                     email_pec_d = email_pec_d + email_pec_dest + ','
@@ -497,12 +494,12 @@ class Form(BaseComponent):
                 if email_cc_dest is not None:
                     email_cc_d = email_cc_d + email_cc_dest
                 if email_bcc_dest is not None:
-                    email_bcc_d = email_bcc_d + email_bcc_dest    
+                    email_bcc_d = email_bcc_d + email_bcc_dest
                 if email_pec_dest is not None:
                     email_pec_d = email_pec_d + email_pec_dest
                 if email_pec_cc_dest is not None:
                     email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest
-       
+
         if (email_dest) is not None:
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record,
@@ -514,7 +511,7 @@ class Form(BaseComponent):
                                                           attachments=attcmt,
                                                           template_code=email_template_id)
             self.db.commit()
-        
+
         if (email_pec_dest) is not None:
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record,
@@ -526,9 +523,9 @@ class Form(BaseComponent):
                                                           template_code=email_template_id)
             self.db.commit()
 
-        
+
         if (email_dest or email_pec_dest) is not None:
-            
+
             if servizio == ['dogana','gdf','gdf roan']:
                 msg_special = 'val_dog'
             elif servizio == ['immigration']:
@@ -536,7 +533,7 @@ class Form(BaseComponent):
             elif servizio == ['sanimare']:
                 msg_special = 'val_usma'
             elif servizio == ['pfso']:
-                msg_special = 'val_pfso'    
+                msg_special = 'val_pfso'
             elif servizio == ['pilot','mooringmen']:
                 msg_special = 'val_pil_moor'
             elif servizio == ['tug']:
@@ -548,26 +545,26 @@ class Form(BaseComponent):
             elif servizio == ['gpg']:
                 msg_special = 'val_gpg'
             elif servizio == ['ens']:
-                msg_special = 'val_ens'    
+                msg_special = 'val_ens'
             return msg_special
-            
-        
-            
-            
-       
+
+
+
+
+
 
     @public_method
     def print_template(self, record, resultAttr=None, nome_template=None,  nome_vs=None, format_page=None, **kwargs):
         # Crea stampa
-              
+
         tbl_arrival = self.db.table('shipsteps.arrival')
         builder = TableTemplateToHtml(table=tbl_arrival)
         #nome_template = nome_template #'shipsteps.arrival:check_list'
-       
-        nome_temp = nome_template.replace('shipsteps.arrival:','')    
+
+        nome_temp = nome_template.replace('shipsteps.arrival:','')
         nome_file = '{cl_id}.pdf'.format(
                     cl_id=nome_temp +'_' + nome_vs)
-        
+
         #nome_file_st = 'laboratorio_piazza_sta_{cl_id}.pdf'.format(
         #    cl_id=self.avatar.user_id)
         template = self.loadTemplate(nome_template)  # nome del template
@@ -581,52 +578,52 @@ class Form(BaseComponent):
             letterhead=kwargs['letterhead_id']
         else:
             letterhead=''
-    
+
         builder(record=record, template=template,letterhead_id=letterhead)
         if format_page=='A3':
             builder.page_format='A3'
             builder.page_width=427
             builder.page_height=290
-                
+
         result = builder.writePdf(pdfpath=pdfpath)
         #print(x)
         self.setInClientData(path='gnr.clientprint',
                              value=result.url(timestamp=datetime.now()), fired=True)
-         
+
         return nome_temp
 
     @public_method
     def print_template_garbage(self, record, resultAttr=None,selId=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
-        if selId is None: 
+        if selId is None:
             msg_special = 'yes'
             return msg_special
 
         tbl_garbage = self.db.table('shipsteps.garbage')
         builder = TableTemplateToHtml(table=tbl_garbage)
-               
-        nome_temp = nome_template.replace('shipsteps.garbage:','')    
+
+        nome_temp = nome_template.replace('shipsteps.garbage:','')
         nome_file = '{cl_id}.pdf'.format(
                     cl_id=nome_temp)
-        
+
         template = self.loadTemplate(nome_template)  # nome del template
         pdfpath = self.site.storageNode('home:stampe_template', nome_file)
-         
+
         builder(record=selId, template=template)
         if format_page=='A3':
             builder.page_format='A3'
             builder.page_width=427
             builder.page_height=290
-                
+
         result = builder.writePdf(pdfpath=pdfpath)
-       
+
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
         self.email_services(record,email_template_id,servizio)
         #se ritorna il valore di self.msg_pecial dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
-        # il msg con il dataController 
-        msg_special='val_garbage'      
+        # il msg con il dataController
+        msg_special='val_garbage'
         return msg_special
 
     def th_options(self):

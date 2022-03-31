@@ -41,9 +41,22 @@ class ViewFromCargoLU(BaseComponent):
         r.fieldcell('description_it', edit=True, width='20em')
         r.fieldcell('operation', edit=True, width='5em')
         r.fieldcell('foreign_cargo', edit=True, width='5em')    
+    
 
+class ViewFromCargoLU_picker(BaseComponent):
+   
+    def th_struct(self,struct):
+        r = struct.view().rows()
+        r.fieldcell('arrival_id')
+        r.fieldcell('bln', width='7em')
+        r.fieldcell('shipper_id',width='40em')
+        r.fieldcell('receiver_id', width='40em')
+        r.fieldcell('quantity')
+        r.fieldcell('measure_id', width='5em')
+        r.fieldcell('description', width='20em')
+        r.fieldcell('operation', width='5em')
 
-
+   
 class Form(BaseComponent):
 
     def th_form(self, form):

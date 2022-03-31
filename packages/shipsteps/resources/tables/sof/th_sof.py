@@ -65,7 +65,7 @@ class FormSof(BaseComponent):
         self.remarks_rs(tc_rem.contentPane(title='Receivers/Shippers Remarks',datapath='.record'))
         self.remarks_cte(tc_rem.contentPane(title='Master Remarks',datapath='.record'))
         self.remarks_note(tc_rem.contentPane(title='Note Remarks',datapath='.record'))
-        self.onbehalf_remarks(tc_rem.contentPane(title='On behalf Remarks',datapath='.record'))
+        self.onbehalf_remarks(tc_rem.contentPane(title='!![en]On behalf Sippers/Receivers',datapath='.record'))
 
         tc_tanks = tc.tabContainer(title='!![en]Tank times',margin='2px')
         self.tanks(tc_tanks.contentPane(title='Time tanks'))
@@ -77,7 +77,7 @@ class FormSof(BaseComponent):
         fb.field('nor_tend')
         fb.field('nor_rec')
         fb.field('nor_acc')
-        fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2)
+        fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2, tag='textArea')
         fb.field('ops_commenced')
         fb.field('ops_completed')
         fb.field('doc_onboard')
@@ -85,7 +85,10 @@ class FormSof(BaseComponent):
 
     def cargoSof(self,pane):
         pane.inlineTableHandler(relation='@sof_cargo_sof',viewResource='ViewFromSof_Cargo',
-                                picker='cargo_unl_load_id')
+                                picker='cargo_unl_load_id',
+                                picker_condition='arrival_id=:aid',
+                                picker_condition_aid='^#FORM.record.arrival_id',
+                                picker_viewResource='ViewFromCargoLU_picker')
 
     def operationsSof(self,pane):
         pane.inlineTableHandler(relation='@sof_operations',viewResource='ViewFromSofOperations')
@@ -108,7 +111,7 @@ class FormSof(BaseComponent):
                     note_remark='=gnr.app_preference.shipsteps.remarks_wheat_corn')
     
     def onbehalf_remarks(self,frame):
-        frame.simpleTextArea(title='!![en]On behalf Sipper/Receiver remarks',value='^.onbehalf',editor=True)
+        frame.simpleTextArea(value='^.onbehalf',editor=True)
 
     def tanks(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=2, border_spacing='4px',fld_width='10em',table='shipsteps.sof_tanks',datapath='.record.@sof_tanks')
