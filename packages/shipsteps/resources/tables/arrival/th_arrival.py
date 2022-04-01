@@ -82,7 +82,7 @@ class Form(BaseComponent):
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
         self.allegatiArrivo(tc_att.contentPane(title='!![en]Attachments'))
         self.garbage(tc_att.contentPane(title='!![en]Garbage'))
-        self.integrazione(tc_att.contentPane(title='!![en]Alimentary integration'))
+        
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
         #self.gpg(bc.borderContainer(region='center',datapath='.@gpg_arr',height='300px', splitter=True, background = 'lavenderblush'))
@@ -97,6 +97,7 @@ class Form(BaseComponent):
         self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
         self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
         self.car_ric(tc.contentPane(title='!![en]Shippers / Receivers'))
+        self.charterers(tc.contentPane(title='!![en]Charterers'))
        # self.sof(tc.contentPane(title='!![en]Sof'))
         self.arrival_details(tc.borderContainer(title='!![en]Arrival details', region='top', background = 'lavenderblush'))
         self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
@@ -180,7 +181,10 @@ class Form(BaseComponent):
         frame.simpleTextArea(title='!![en]Transit cargo',value='^.transit_cargo',editor=True)
 
     def car_ric(self,pane):
-        pane.dialogTableHandler(table='shipsteps.ship_rec',view_store_onStart=True,export=True)
+        pane.inlineTableHandler(table='shipsteps.ship_rec',viewResource='ViewFromShipRec',view_store_onStart=True,export=True)
+
+    def charterers(self,pane):
+        pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True,export=True)
 
     def sof(self,pane):
         pane.stackTableHandler(relation='@sof_arr', formResource='FormSof')
@@ -241,7 +245,8 @@ class Form(BaseComponent):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
 
     def taskList(self, bc_task):
-        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='30%', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='41%', height = '250px').div(margin='10px',margin_left='2px')
+        rg_prearrival_cp = bc_task.roundedGroup(title='!![en]Pre arrival CP',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='41%', height = 'auto',margin_top='250px').div(margin='10px',margin_left='2px')
         #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
        #tbl_staff =  self.db.table('shipsteps.staff')
        #account_email = tbl_staff.readColumns(columns='$email_account_id',
@@ -253,11 +258,13 @@ class Form(BaseComponent):
        #            ag_id=self.db.currentEnv.get('current_agency_id'))
         #,fld_width='10em')
         #fb.field('arrival_id')
-        div1=rg_prearrival.div(width='450px',height='100px',margin='auto',
+
+        #definizione primo rettangolo di stampa all'interno del roundedGroup Pre Arrival
+        div1=rg_prearrival.div(width='96%',height='20%',margin='auto',
                         padding='5px',
                         border='1px solid silver',
                         margin_top='2px',margin_left='10px')
-        fb1=div1.formbuilder(colspan=3,cols=6, border_spacing='4px')
+        fb1=div1.formbuilder(colspan=3,cols=9, border_spacing='4px')
 
         btn_cl = fb1.Button('!![en]Print')
         btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
@@ -304,11 +311,12 @@ class Form(BaseComponent):
         fb1.field('modulo_nave')
         fb1.semaphore('^.modulo_nave')
 
-        div2=rg_prearrival.div(width='450px',height='180px',margin='auto',
+        #definizione secondo rettangolo invio email all'interno del roundedGroup Pre Arrival
+        div2=rg_prearrival.div(width='96%',height='20%',margin='auto',
                         padding='5px',
                         border='1px solid silver',
                         margin_top='2px',margin_left='10px')
-        fb = div2.formbuilder(colspan=3,cols=6, border_spacing='4px')
+        fb = div2.formbuilder(colspan=3,cols=9, border_spacing='4px')
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
         btn_dog = fb.Button('Email')
         btn_dog.dataRpc('msg_special', self.email_services,
@@ -316,7 +324,7 @@ class Form(BaseComponent):
         #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
         fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
-        fb.field('email_dogana')
+        fb.field('email_dogana', lbl='!![en]Customs')
         fb.semaphore('^.email_dogana')
 
        #uploader = fb.button('Upload more files')
@@ -335,28 +343,28 @@ class Form(BaseComponent):
         btn_fr.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['immigration'], email_template_id='email_frontiera')
         fb.dataController("if(msgspec=='val_imm') {SET .email_frontiera=true; alert('Messaggio Creato')}", msgspec='^msg_special')
-        fb.field('email_frontiera')
+        fb.field('email_frontiera',lbl='!![en]Immigration')
         fb.semaphore('^.email_frontiera')
 
         btn_usma = fb.Button('Email')
         btn_usma.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['sanimare'], email_template_id='email_sanimare')
         fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
-        fb.field('email_usma')
+        fb.field('email_usma', lbl='!![en]Sanimare')
         fb.semaphore('^.email_usma')
 
         btn_pfso = fb.Button('Email')
         btn_pfso.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['pfso'], email_template_id='email_pfso')
         fb.dataController("if(msgspec=='val_pfso') {SET .email_pfso=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
-        fb.field('email_pfso')
+        fb.field('email_pfso', lbl='PFSO')
         fb.semaphore('^.email_pfso')
 
         btn_pilot = fb.Button('Email')
         btn_pilot.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor')
         fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
-        fb.field('email_pilot_moor')
+        fb.field('email_pilot_moor',lbl='Pilot/Moor')
         fb.semaphore('^.email_pilot_moor')
 
         btn_tug = fb.Button('Email')
@@ -364,7 +372,7 @@ class Form(BaseComponent):
                    record='=#FORM.record.id', servizio=['tug'], email_template_id='email_tug')
         fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
         #fb.dataController("alert(msg)", _if='msg',msg='^msg_special')
-        fb.field('email_tug')
+        fb.field('email_tug',lbl='!![en]Tug')
         fb.semaphore('^.email_tug')
 
         btn_garb = fb.Button('Email')
@@ -374,21 +382,21 @@ class Form(BaseComponent):
         fb.dataController("if(msgspec=='val_garbage') {SET .email_garbage=true ; alert('Messaggio Creato');} if(msgspec=='yes') alert('Devi selezionare il record del Garbage per la stampa'); "
                             , msgspec='^msg_special')
 
-        fb.field('email_garbage')
+        fb.field('email_garbage',lbl='!![en]Garbage')
         fb.semaphore('^.email_garbage')
 
         btn_chem = fb.Button('Email')
         btn_chem.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['chemist'], email_template_id='email_chemist')
         fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
-        fb.field('email_chemist')
+        fb.field('email_chemist',lbl='!![en]Chemist')
         fb.semaphore('^.email_chemist')
 
         btn_gpg = fb.Button('Email')
         btn_gpg.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['gpg'], email_template_id='email_gpg')
         fb.dataController("if(msgspec=='val_gpg') {SET .email_gpg=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
-        fb.field('email_gpg')
+        fb.field('email_gpg',lbl='GPG')
         fb.semaphore('^.email_gpg')
 
         btn_ens = fb.Button('Email')
@@ -396,33 +404,39 @@ class Form(BaseComponent):
                   record='=#FORM.record.id', servizio=['ens'], email_template_id='email_ens')
         fb.dataController("if(msgspec=='val_ens') {SET .email_ens=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
        # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
-        fb.field('email_ens')
+        fb.field('email_ens',lbl='ENS')
         fb.semaphore('^.email_ens')
         btn_af = fb.Button('Email')
-        fb.field('email_antifire')
+        fb.field('email_antifire', lbl='!![en]Antifire')
         fb.semaphore('^.email_antifire')
 
-
+        #definizione terzo rettangolo dentro rounded Group Pre Arrival CP
+        div_cp=rg_prearrival_cp.div(width='96%',height='60%',margin='auto',
+                        padding='5px',
+                        border='1px solid silver',
+                        margin_top='2px',margin_left='10px')
+        fb_cp=div_cp.formbuilder(colspan=3,cols=9, border_spacing='4px')
+        
+        btn_integr = fb_cp.Button('Email')
+        btn_integr.dataRpc('msg_special', self.email_services,
+                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_integrazione_alim')
+        fb_cp.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+       # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
+        fb_cp.field('email_integr', lbl='!![en]Alimentary integration')
+        fb_cp.semaphore('^.email_integr')
 
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
     def garbage(self, pane):
         pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
-
-    def integrazione(self, pane):
-        pane.inlineTableHandler(relation='@integrazione',viewResource='ViewIntegrazione', 
-                               picker='cargo_unl_load_id',
-                               picker_condition='arrival_id=:aid',
-                               picker_condition_aid='^#FORM.record.id',
-                               picker_viewResource='ViewFromCargoLU_picker')
     
 
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[], **kwargs):
         tbl_arrival = self.db.table('shipsteps.arrival')
 
-
+        
         if not record:
             return
         tbl_att =  self.db.table('shipsteps.arrival_atc')
@@ -499,7 +513,7 @@ class Form(BaseComponent):
                     email_pec_d = email_pec_d + email_pec_dest
                 if email_pec_cc_dest is not None:
                     email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest
-
+        
         if (email_dest) is not None:
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record,
@@ -546,6 +560,8 @@ class Form(BaseComponent):
                 msg_special = 'val_gpg'
             elif servizio == ['ens']:
                 msg_special = 'val_ens'
+            elif servizio == ['capitaneria']:
+                msg_special = 'val_integr'
             return msg_special
 
 

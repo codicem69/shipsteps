@@ -18,23 +18,23 @@ class View(BaseComponent):
     def th_query(self):
         return dict(column='name', op='contains', val='')
 
-class ViewFromShipRec(BaseComponent):
+class ViewFromCharterers(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('name', width='50em',edit=True)
-        r.fieldcell('address', width='50em',edit=True)
-        r.fieldcell('city', width='50em',edit=True)
+        r.fieldcell('name', width='50em', edit=True)
+        r.fieldcell('address', width='50em', edit=True)
+        r.fieldcell('city', width='50em', edit=True)
 
 class Form(BaseComponent):
 
     def th_form(self, form):
         pane = form.record
         fb = pane.formbuilder(cols=2, border_spacing='4px')
-        fb.field('name' )
-        fb.field('address' )
-        fb.field('city' )
+        fb.field('name')
+        fb.field('address')
+        fb.field('city')
 
 
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px' )
+        return dict(dialog_height='400px', dialog_width='600px')

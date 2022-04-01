@@ -13,6 +13,8 @@ class Table(object):
                     ).relation('ship_rec.id', relation_name='cargo_lu_ship', mode='foreignkey', onDelete='raise')
         tbl.column('receiver_id',size='22', name_long='!![en]Receivers'
                     ).relation('ship_rec.id', relation_name='cargo_lu_rec', mode='foreignkey', onDelete='raise')
+        tbl.column('charterers_id',size='22', name_long='!![en]Charterers'
+                    ).relation('charterers.id', relation_name='chart_cargo', mode='foreignkey', onDelete='raise')
         tbl.column('quantity', dtype='N', size='10,3', name_short='!![en]Quantity', format='#,###.000')
         tbl.column('measure_id',size='22', name_long='!![en]measure'
                     ).relation('measure.id', relation_name='cargo_lu_measure', mode='foreignkey', onDelete='raise')
@@ -20,6 +22,12 @@ class Table(object):
         tbl.column('description_it', name_short='!![en]Description IT')
         tbl.column('operation', name_short='operation', values='U:Unloading,L:Loading')
         tbl.column('foreign_cargo', dtype='B', name_short='!![en]Foreign cargo')
+        tbl.column('place_origin_goods',size='22',name_short='!![en]Place origin goods').relation('unlocode.place.id',
+                                            relation_name='origingoods', mode='foreignkey', onDelete='raise')
+        tbl.column('place_dest_goods',size='22',name_short='!![en]Place destination goods').relation('unlocode.place.id',
+                                            relation_name='destgoods', mode='foreignkey', onDelete='raise') 
+        tbl.aliasColumn('lastport','@arrival_id.@last_port.citta_nazione', name_long='!![en]Last port')
+        tbl.aliasColumn('nextport','@arrival_id.@next_port.citta_nazione', name_long='!![en]Next port')
         tbl.formulaColumn('cargo_arr',"'-' || COALESCE(@measure_id.description,'') || ' ' || COALESCE($quantity,0) || ' ' || COALESCE($description || '<br>','') ")
         tbl.formulaColumn('cargo_lu_en', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' 
                                             WHEN $operation = 'U' THEN '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' ELSE 'NIL' END """,
@@ -27,8 +35,8 @@ class Table(object):
         tbl.formulaColumn('cargo_sof', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || coalesce('BL no.' || $bln, '') || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' 
                                             WHEN $operation = 'U' THEN '-Unloading cargo: ' || coalesce('BL no.' || $bln, '') || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico Sof')
-        tbl.formulaColumn('cargo_lu_en_ita', """CASE WHEN $operation = 'L' THEN '-Carico da imbarcare: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' 
-                                            WHEN $operation = 'U' THEN '-Carico da sbarcare: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' ELSE 'NIL' END """,
+        tbl.formulaColumn('cargo_lu_en_ita', """CASE WHEN $operation = 'L' THEN '-Carico da imbarcare: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description_it || '<br>' 
+                                            WHEN $operation = 'U' THEN '-Carico da sbarcare: ' || @measure_id.description || ' ' || $quantity || ' ' || $description_it || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U ITA')
         tbl.formulaColumn('ship_rec', "'s: '|| @shipper_id.name || ' - r: ' || @receiver_id.name")
         tbl.formulaColumn('ship_or_rec', """CASE WHEN $operation = 'L' THEN 'Shipper/Caricatore: ' || @shipper_id.name WHEN $operation = 'U' THEN 'Receiver/Ricevitore: ' || @receiver_id.name ELSE '' END """,

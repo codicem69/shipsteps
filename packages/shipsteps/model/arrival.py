@@ -45,6 +45,7 @@ class Table(object):
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
         tbl.pyColumn('saluto',name_long='!![en]Greeting', static=True)
+        tbl.pyColumn('datacorrente',name_long='!![en]Current date', static=True)
         #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('carico_arr','@cargo_lu_arr.cargo_arr',name_long='Carico in arrivo')
         tbl.aliasColumn('cargo_lu_en','@cargo_lu_arr.cargo_ship_rec',name_long='!![en]Cargo L/U')
@@ -62,6 +63,10 @@ class Table(object):
         tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )
         
         #formule column per email servizi
+        tbl.formulaColumn('cp_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='capitaneria'),
+                                                dtype='T')
         tbl.formulaColumn('dog_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='dogana'),
@@ -246,9 +251,6 @@ class Table(object):
     def pyColumn_cargo(self,record,field):
         
         pkey=record['pkey']
-        
-        #carico = self.db.table('shipsteps.cargo_unl_load').readColumns(columns='$description', where='$arrival_id=:a_id',a_id=pkey)
-        
         carico = self.db.table('shipsteps.cargo_unl_load').query(columns="""CASE WHEN $operation = 'L' THEN 'Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description  
                                             WHEN $operation = 'U' THEN 'Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description ELSE 'NIL' END """,
                                                                     where='$arrival_id=:a_id',
@@ -277,7 +279,11 @@ class Table(object):
         elif cur_time < '04:00:00':
             sal = 'Buona notte'      
         return sal
+    
+    def pyColumn_datacorrente(self,record,field):
+        data_lavoro=self.db.workdate
         
+        return data_lavoro
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),date = self.db.workdate)
 
@@ -291,3 +297,5 @@ class Table(object):
 
     def randomValues(self):
         return dict(date = dict(sorted=True))
+
+    

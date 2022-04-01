@@ -32,15 +32,18 @@ class ViewFromCargoLU(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         #r.fieldcell('arrival_id')
-        r.fieldcell('bln', hasDownArrow=True,edit=True, width='7em')
-        r.fieldcell('shipper_id', hasDownArrow=True,edit=True, width='40em')
-        r.fieldcell('receiver_id', hasDownArrow=True,edit=True, width='40em')
+        r.fieldcell('bln', hasDownArrow=True,edit=True, width='3em')
+        r.fieldcell('shipper_id', hasDownArrow=True,edit=True, width='20em')
+        r.fieldcell('receiver_id', hasDownArrow=True,edit=True, width='20em')
+        r.fieldcell('charterers_id', hasDownArrow=True,edit=True, width='20em')
         r.fieldcell('quantity', edit=True, totalize=True)
         r.fieldcell('measure_id', hasDownArrow=True,edit=True, width='5em')
         r.fieldcell('description', edit=True, width='20em')
         r.fieldcell('description_it', edit=True, width='20em')
         r.fieldcell('operation', edit=True, width='5em')
-        r.fieldcell('foreign_cargo', edit=True, width='5em')    
+        r.fieldcell('foreign_cargo', edit=True, width='5em')
+        r.fieldcell('place_origin_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')
+        r.fieldcell('place_dest_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')    
     
 
 class ViewFromCargoLU_picker(BaseComponent):
@@ -66,13 +69,15 @@ class Form(BaseComponent):
         fb.field('bln')
         fb.field('shipper_id' )
         fb.field('receiver_id' )
+        fb.field('charterers_id' )
         fb.field('quantity' )
         fb.field('measure_id' )
         fb.field('description' )
         fb.field('description_it' )
         fb.field('operation' )
         fb.field('foreign_cargo' )
-        
+        fb.field('place_origin_goods' )
+        fb.field('place_dest_goods' )
        
 
     def th_options(self):

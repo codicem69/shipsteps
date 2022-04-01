@@ -23,7 +23,7 @@ class Menu(object):
         shipsteps.thpage(u"!![en]Owners", table="shipsteps.owner", tags="")
         shipsteps.thpage(u"!![en]Arrivals", table="shipsteps.arrival", tags="")
         shipsteps.thpage(u"!![en]Garbage form", table="shipsteps.garbage", tags="")
-        shipsteps.thpage(u"!![en]Alimentary integration", table="shipsteps.integrazione", tags="")
+        shipsteps.thpage(u"!![en]Charterers", table="shipsteps.charterers", tags="")
         shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
        # pfda = root.branch(u"pfda", tags="")
        # pfda.thpage(u"!![en]Proforma", table="pfda.proforma", tags="")
