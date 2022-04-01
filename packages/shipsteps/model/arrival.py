@@ -15,6 +15,7 @@ class Table(object):
         tbl.column('pfda_id',size='22',name_short='!![en]Pfda no.').relation('pfda.proforma.id',relation_name='pfda_arr', mode='foreignkey', onDelete='raise')
         tbl.column('vessel_details_id',size='22',name_long='!![en]Vessel',validate_notnull=True).relation(
                                     'vessel_details.id',relation_name='vessel_details_name', mode='foreignkey', onDelete='raise')
+        tbl.column('visit_id',dtype='T',name_short='Visit ID')
         tbl.column('eta', dtype='DH', name_short='!![en]ETA')
         tbl.column('etb', dtype='DH', name_short='!![en]ETB')
         tbl.column('et_start', dtype='DH', name_short='!![en]ET start')

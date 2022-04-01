@@ -13,6 +13,7 @@ class View(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('agency_id', width='7em')
         r.fieldcell('reference_num', width='7em')
+        r.fieldcell('visit_id',width='8em')
         r.fieldcell('nsis_prot',width='8em')
         r.fieldcell('date')
         r.fieldcell('vessel_details_id', width='15em')
@@ -118,6 +119,7 @@ class Form(BaseComponent):
         fb.field('date')
         fb.field('vessel_details_id' )
         fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome')
+        fb.field('visit_id')
 
         fb = center1.formbuilder(cols=5, border_spacing='4px',lblpos='T',fldalign='left')
         fb.field('eta' , width='10em')
@@ -140,8 +142,8 @@ class Form(BaseComponent):
         fb.field('next_port',auxColumns='@nazione_code.nome' )
         fb.field('eta_np' , width='10em')
         fb.br()
-        fb.field('mandatory', colspan=2 , width='30em')
-        fb.field('cargo_dest', colspan=2, width='30em' )
+        fb.field('mandatory', colspan=3 , width='47em')
+        fb.field('cargo_dest', colspan=2, width='29em' )
         fb.br()
         fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
 
