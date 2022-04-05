@@ -45,6 +45,8 @@ class ViewFromCargoLU(BaseComponent):
         r.fieldcell('place_origin_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')
         r.fieldcell('place_dest_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')    
     
+    def th_order(self):
+        return 'bln'
 
 class ViewFromCargoLU_picker(BaseComponent):
    

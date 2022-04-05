@@ -25,8 +25,8 @@ class ViewFromEmailArrival(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
        # r.fieldcell('arrival_id')
-        r.fieldcell('dest', edit=True, width='10em')
-        r.fieldcell('description', edit=True, width='30em')
+        r.fieldcell('dest',  edit=dict(validate_notnull=True), width='10em')
+        r.fieldcell('description',  edit=dict(validate_notnull=True), width='30em')
         r.fieldcell('email_arr',  edit=dict(validate_notnull=True), width='20em')
         r.fieldcell('email_type', edit=dict(validate_notnull=True))
 

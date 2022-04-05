@@ -13,4 +13,8 @@ class Table(object):
         tbl.column('email_arr', name_short='Email arrival')
         tbl.column('email_type', size=':3', name_short='!![en]Email type', values='to:to,cc:cc,ccn:ccn')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        tbl.formulaColumn('email_int',"$dest || ' ' || $description",order_by='$dest DESC',group_by='$dest', dtype='T')
+        
+    
+
     

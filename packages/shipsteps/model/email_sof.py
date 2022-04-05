@@ -13,4 +13,4 @@ class Table(object):
         tbl.column('email_sof', name_short='Email SOF')
         tbl.column('email_type', size=':3', name_short='!![en]Email type', values='to:to,cc:cc,ccn:ccn')
         tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
-    
+        tbl.formulaColumn('email_int',"$dest || ' ' || $description || '<br>'", dtype='T')

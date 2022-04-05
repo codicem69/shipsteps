@@ -22,7 +22,14 @@ class Table(object):
         tbl.aliasColumn('cargo_sof', '@sof_cargo_sof.@cargo_unl_load_id.cargo_sof',name_long='!![en]Cargo sof')
        # tbl.aliasColumn('carico_del_sof', '@sof_cargo_sof.carico_del_sof',name_long='!![en]Cargo on sof')
         tbl.aliasColumn('cargo_op', '@sof_cargo_sof.@cargo_unl_load_id.operation',name_long='!![en]Cago operation')
+        tbl.aliasColumn('shiprec_sofcargo','@sof_cargo_sof.ship_rec')
+        tbl.pyColumn('shiprec',name_long='!![en]Shipper or Receiver')
         tbl.pyColumn('carico_del_sof',name_long='!![en]Cargo on sof')
+        tbl.pyColumn('email_sof_to',name_long='!![en]Email sof to', static=True)
+        tbl.pyColumn('email_sof_cc',name_long='!![en]Email sof cc', static=True)
+        tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
+        tbl.pyColumn('email_arr_cc',name_long='!![en]Email arrival cc', static=True)
+        #tbl.pyColumn('totcarico',name_long='!![en]Totcarico', static=True)
         tbl.formulaColumn('sof_det',"@arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
         tbl.formulaColumn('nor_tend_txt', """CASE WHEN $nor_tend is not null THEN 'NOR tendered' ELSE '' END""", dtype='T')
         tbl.formulaColumn('nor_rec_txt', """CASE WHEN $nor_rec is not null THEN 'NOR received' ELSE '' END""", dtype='T')
@@ -38,38 +45,175 @@ class Table(object):
         tbl.formulaColumn('time_sof', """coalesce('NOR tendered ' || to_char($nor_tend, :df), '') || '<br>' || coalesce('NOR received ' || to_char($nor_rec, :df),'') || '<br>' ||
                                          coalesce('NOR accepted ' || $nor_acc, '') || '<br>' || $ops_commenced_txt || to_char($ops_commenced, :df) || '<br>' || 
                                          $ops_completed_txt || to_char(ops_completed, :df) || '<br>' || coalesce(:onboard || to_char($doc_onboard,:df),'')""",var_onboard="Cargo's documents on board ",var_df='DD-MM-YYYY HH:MI')
-    
-    def pyColumn_carico_del_sof(self,record,field):
         
-        #if not record['pkey']:
+    def pyColumn_carico_del_sof(self,record,field):
         p_key=record['id']
-       # if not record['id']:
-        #p_key=record['id']
-
-        car_s=self.db.table('shipsteps.sof_cargo').query(where='$cargo_unl_load_id IS NOT NULL').fetchGrouped(key='sof_id')#fetch() 
-        car_sof=car_s[p_key]
+        #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
+        carico = self.db.table('shipsteps.sof_cargo').query(columns="@cargo_unl_load_id.operation,coalesce('BL no.' || @cargo_unl_load_id.bln,''), @cargo_unl_load_id.@measure_id.description, @cargo_unl_load_id.quantity,@cargo_unl_load_id.description",
+                                                                where='sof_id=:sofid',sofid=p_key).fetch()
         cargo=''
-        a=-1
-        tot_l_cargo=0
-        tot_u_cargo=0
-        for c in car_sof:
-            car=c['cargo_unl_load_id']
-            
-            carico = (self.db.table('shipsteps.cargo_unl_load').query(columns="""CASE WHEN $operation = 'L' THEN 'Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description  
-                                            WHEN $operation = 'U' THEN 'Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description ELSE 'NIL' END """,
-                                            where='$id=:cargo_id',cargo_id=car).fetch()) 
-            operation,measure,quantity = self.db.table('shipsteps.cargo_unl_load').readColumns(columns='$operation,@measure_id.description,$quantity',
-                                    where='$id=:cargo_id',cargo_id=car)
-            if operation == 'U':
-                tot_u_cargo += quantity
-            elif operation =='L':
-                tot_l_cargo += quantity
-            cargo += ' - ' + carico[0][0] + '<br>'
-            a+= 1
-        if (tot_u_cargo > 0 and tot_l_cargo == 0) :
-            cargo = cargo +  '- Tot. Unloading cargo: '+ measure + ' ' + str(tot_u_cargo)
-        elif (tot_u_cargo == 0 and tot_l_cargo > 0) :
-            cargo = cargo +  '- Tot. Loading cargo: ' + measure + ' '+ str(tot_l_cargo)
-        elif (tot_u_cargo > 0 and tot_l_cargo > 0) :
-            cargo = cargo +  '- Tot. Unloading cargo: ' + measure + ' '+ str(tot_u_cargo) + '<br>' + '- Tot. Loading cargo: ' + measure + ' ' + str(tot_l_cargo)
-        return cargo
+        for c in range(len(carico)):
+            if carico[c][0]== 'U':
+                cargo += '- Unloading cargo: ' + carico[c][1] + ' ' + carico[c][2] + ' ' + str(carico[c][3]) + ' ' + carico[c][4] + '<br>'
+            else:
+                cargo += '- Loading cargo: ' + carico[c][1] + ' ' + carico[c][2] + ' ' + str(carico[c][3]) + ' ' + carico[c][4] + '<br>'
+        
+        #prepariamo i dati per il totale carico
+        tot_carico = self.db.table('shipsteps.sof_cargo').query(columns="@cargo_unl_load_id.operation, @cargo_unl_load_id.@measure_id.description, SUM(@cargo_unl_load_id.quantity)",
+                                                                where='sof_id=:sofid',sofid=p_key, group_by='@cargo_unl_load_id.@measure_id.description,@cargo_unl_load_id.operation').fetch()
+        totale_carico=''
+        for c in range(len(tot_carico)):
+            if tot_carico[c][0]== 'U':
+                totale_carico += '- Tot. unloading cargo: ' + tot_carico[c][1] + ' ' + str(tot_carico[c][2]) + '<br>'
+            else:
+                totale_carico += '- Tot. loading cargo: ' + tot_carico[c][1] + ' ' + str(tot_carico[c][2]) + '<br>' 
+        
+        #inseriamo in un unica variabile tutti i dati relativi al carico sopra calcolati
+        descr_carico = cargo + '<br>' + totale_carico
+        return descr_carico
+    
+    def pyColumn_shiprec(self,record,field):
+       
+        p_key=record['id']
+        #prepariamo i dati per associare Shipper e Receiver alle BL
+        shiprec = self.db.table('shipsteps.sof_cargo').query(columns="@cargo_unl_load_id.operation,coalesce('BL no.' || @cargo_unl_load_id.bln,''),@cargo_unl_load_id.@shipper_id.name,@cargo_unl_load_id.@receiver_id.name",
+                                                                where='sof_id=:sofid',sofid=p_key).fetch()
+        ship_rec=''
+        for c in range(len(shiprec)):
+            if shiprec[c][0] == 'U':
+                ship_rec += '- ' + shiprec[c][1] + ' Receiver: ' + shiprec[c][3] + '<br>'
+            else:
+                ship_rec += '- ' + shiprec[c][1] + ' Shipper: ' + shiprec[c][3] + '<br>'  
+        return ship_rec
+   #def pyColumn_carico_del_sof(self,record,field):
+   #    
+   #    #if not record['pkey']:
+   #    p_key=record['id']
+   #   # if not record['id']:
+   #    #p_key=record['id']
+
+   #    car_s=self.db.table('shipsteps.sof_cargo').query(where='$cargo_unl_load_id IS NOT NULL').fetchGrouped(key='sof_id')#fetch() 
+   #    car_sof=car_s[p_key]
+   #    cargo=''
+   #    a=-1
+   #    tot_l_cargo_mt=0
+   #    tot_u_cargo_mt=0
+   #    tot_l_cargo_kgs=0
+   #    tot_u_cargo_kgs=0
+   #    tot_l_cargo_ltrs=0
+   #    tot_u_cargo_ltrs=0
+
+   #    for c in car_sof:
+   #        car=c['cargo_unl_load_id']
+   #        
+   #        carico = (self.db.table('shipsteps.cargo_unl_load').query(columns="""CASE WHEN $operation = 'L' THEN 'Loading cargo: ' || coalesce('BL no.' || $bln,'') || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description  
+   #                                        WHEN $operation = 'U' THEN 'Unloading cargo: ' || coalesce('BL no.'|| $bln,'') || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description ELSE 'NIL' END """,
+   #                                        where='$id=:cargo_id',cargo_id=car).fetch()) 
+   #        operation,measure,quantity = self.db.table('shipsteps.cargo_unl_load').readColumns(columns='$operation,@measure_id.description,$quantity',
+   #                                where='$id=:cargo_id',cargo_id=car)
+   #        cargo_d=self.db.table('shipsteps.cargo_unl_load').query(columns='$operation,@measure_id.description,$quantity',
+   #                                        where='$id=:cargo_id',cargo_id=car).fetch()
+   #        
+   #        if (operation == 'U' and measure =='MT.'):
+   #            tot_u_cargo_mt += quantity
+   #        elif (operation =='L' and measure =='MT.'):
+   #            tot_l_cargo_mt += quantity
+   #        if (operation == 'U' and measure =='Kgs'):
+   #            tot_u_cargo_kgs += quantity
+   #        elif (operation =='L' and measure =='Kgs'):
+   #            tot_l_cargo_kgs += quantity
+   #        if (operation == 'U' and measure =='Ltrs'):
+   #            tot_u_cargo_ltrs += quantity
+   #        elif (operation =='L' and measure =='Ltrs'):
+   #            tot_l_cargo_ltrs += quantity
+   #        cargo += ' - ' + carico[0][0] + '<br>'
+   #        #a+= 1
+   #    if (tot_u_cargo_mt > 0 and tot_l_cargo_mt == 0) :
+   #        cargo = cargo +  '<br>- Tot. Unloading cargo: MT. ' + str(tot_u_cargo_mt)
+   #    elif (tot_u_cargo_mt == 0 and tot_l_cargo_mt > 0) :
+   #        cargo = cargo +  '<br>- Tot. Loading cargo: MT. ' + str(tot_l_cargo_mt)
+   #    elif (tot_u_cargo_mt > 0 and tot_l_cargo_mt > 0) :
+   #        cargo = cargo +  '<br>- Tot. Unloading cargo: MT. ' + str(tot_u_cargo_mt) + '<br>' + '- Tot. Loading cargo: MT. ' + str(tot_l_cargo_mt)
+   #    if (tot_u_cargo_kgs > 0 and tot_l_cargo_kgs == 0) :
+   #        cargo = cargo +  '<br>- Tot. Unloading cargo: Kgs ' + str(tot_u_cargo_kgs)
+   #    elif (tot_u_cargo_kgs == 0 and tot_l_cargo_kgs > 0) :
+   #        cargo = cargo +  '<br>- Tot. Loading cargo: Kgs ' + str(tot_l_cargo_kgs)
+   #    elif (tot_u_cargo_kgs > 0 and tot_l_cargo_kgs > 0) :
+   #        cargo = cargo +  '<br>- Tot. Unloading cargo: Kgs ' + str(tot_u_cargo_kgs) + '<br>' + '- Tot. Loading cargo: Kgs ' + str(tot_l_cargo_kgs)
+   #    if (tot_u_cargo_ltrs > 0 and tot_l_cargo_ltrs == 0) :
+   #        cargo = cargo +  '<br>- Tot. Unloading cargo: Ltrs ' + str(tot_u_cargo_ltrs)
+   #    elif (tot_u_cargo_ltrs == 0 and tot_l_cargo_ltrs > 0) :
+   #        cargo = cargo +  '<br>- Tot. Loading cargo: Ltrs ' + str(tot_l_cargo_ltrs)
+   #    elif (tot_u_cargo_ltrs > 0 and tot_l_cargo_ltrs > 0) :
+   #        cargo = cargo +  '<br>- Tot. Unloading cargo: Ltrs ' + str(tot_u_cargo_ltrs) + '<br>' + '- Tot. Loading cargo: Ltrs ' + str(tot_l_cargo_ltrs)
+   #   # print(x)
+   #    return cargo
+
+    def pyColumn_email_sof_to(self,record,field):
+
+        pkey=record['id']
+        email_dest = self.db.table('shipsteps.email_sof').query(columns="""$dest || ' ' || $description""",
+                                                                    where='$sof_id=:a_id and $dest=:to' ,
+                                                                    a_id=pkey, to='to').fetch()                                    
+        n_email = len(email_dest) 
+        email_int=''                                                               
+        for r in range (n_email):
+            email_int += email_dest[r][0] + '<br>'
+        return email_int
+
+    def pyColumn_email_sof_cc(self,record,field):
+
+        pkey=record['id']
+        email_dest = self.db.table('shipsteps.email_sof').query(columns="""$dest || ' ' || $description""",
+                                                                    where='$sof_id=:a_id and $dest=:to' ,
+                                                                    a_id=pkey, to='cc').fetch()                                    
+        n_email = len(email_dest) 
+        email_int=''                                                               
+        for r in range (n_email):
+            email_int += email_dest[r][0] + '<br>'
+        return email_int
+    
+    def pyColumn_email_arr_to(self,record,field):
+        
+        pkey=record['arrival_id']
+        email_dest = self.db.table('shipsteps.email_arr').query(columns="""$dest || ' ' || $description""",
+                                                                    where='$arrival_id=:a_id and $dest=:to' ,
+                                                                    a_id=pkey, to='to').fetch()                                    
+        n_email = len(email_dest) 
+        email_int=''                                                               
+        for r in range (n_email):
+            email_int += email_dest[r][0] + '<br>'
+        return email_int
+    
+    def pyColumn_email_arr_cc(self,record,field):
+        
+        pkey=record['arrival_id']
+        email_dest = self.db.table('shipsteps.email_arr').query(columns="""$dest || ' ' || $description""",
+                                                                    where='$arrival_id=:a_id and $dest=:to' ,
+                                                                    a_id=pkey, to='cc').fetch()                                    
+        n_email = len(email_dest) 
+        email_int=''                                                               
+        for r in range (n_email):
+            email_int += email_dest[r][0] + '<br>'
+        return email_int
+
+   #def pyColumn_shiprec(self,record,field):
+   #   
+   #    pkey=record['id']
+
+   #    car_s=self.db.table('shipsteps.sof_cargo').query(where='$cargo_unl_load_id IS NOT NULL').fetchGrouped(key='sof_id')#fetch() 
+   #    car_sof=car_s[pkey]
+   #    ship_rec=''
+   #    
+   #    for c in car_sof:
+   #        car=c['cargo_unl_load_id']
+   #        shiprec = self.db.table('shipsteps.cargo_unl_load').query(columns="""CASE WHEN $operation = 'L' THEN coalesce('BL no.' || $bln,'') || ' Shipper/Caricatore: ' || @shipper_id.name 
+   #                                                                        WHEN $operation = 'U' THEN coalesce('BL no.' || $bln, '') || ' Receiver/Ricevitore: ' || @receiver_id.name 
+   #                                                                        ELSE '' END AS shiprec""",
+   #                                                                  where='$id=:cargo_id',cargo_id=car).fetch()
+   #        if ship_rec != shiprec[0][0]:                                                                             
+   #            ship_rec += ' - ' + shiprec[0][0] + '<br>'
+   #        
+   #    return ship_rec
+        
+        

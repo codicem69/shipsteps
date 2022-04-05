@@ -5,7 +5,7 @@ class Table(object):
     def config_db(self,pkg):
         
         tbl=pkg.table('arrival', pkey='id', name_long='!![en]Arrival', name_plural='!![en]Arrivals',
-                                 caption_field='reference_num', partition_agency_id='agency_id')
+                                 caption_field='arrival_data', partition_agency_id='agency_id')
         self.sysFields(tbl)
 
         tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
@@ -45,8 +45,12 @@ class Table(object):
         tbl.column('n_tug',size='1', name_short='!![en]Number Tug')
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
+        tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
+        tbl.pyColumn('email_arr_cc',name_long='!![en]Email arrival cc', static=True)
+        
         tbl.pyColumn('saluto',name_long='!![en]Greeting', static=True)
         tbl.pyColumn('datacorrente',name_long='!![en]Current date', static=True)
+        
         #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('carico_arr','@cargo_lu_arr.cargo_arr',name_long='Carico in arrivo')
         tbl.aliasColumn('cargo_lu_en','@cargo_lu_arr.cargo_ship_rec',name_long='!![en]Cargo L/U')
@@ -59,8 +63,12 @@ class Table(object):
         tbl.aliasColumn('ship_or_rec','@cargo_lu_arr.ship_or_rec', name_long='!![en]Ship or Rec')
         tbl.aliasColumn('workport','@agency_id.@port.citta_nazione')
         tbl.aliasColumn('email_account_id','@agency_id.@user.email_account_id')
-       
+        #tbl.aliasColumn('email_int_arr','@arrival_email.email_int')
+        tbl.aliasColumn('email_int_sof','@sof_arr.@sof_email.email_int')
+        
+        
 
+        tbl.formulaColumn('arrival_data',"$reference_num || ' - ' || @vessel_details_id.@imbarcazione_id.nome || ' - ' || coalesce($visit_id,'')", dtype='T')    
         tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )
         
         #formule column per email servizi
@@ -250,8 +258,9 @@ class Table(object):
                                                 dtype='T')
 
     def pyColumn_cargo(self,record,field):
-        
-        pkey=record['pkey']
+       
+        pkey=record['id']
+
         carico = self.db.table('shipsteps.cargo_unl_load').query(columns="""CASE WHEN $operation = 'L' THEN 'Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description  
                                             WHEN $operation = 'U' THEN 'Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description ELSE 'NIL' END """,
                                                                     where='$arrival_id=:a_id',
@@ -259,6 +268,7 @@ class Table(object):
        #carico = self.db.table('shipsteps.cargo_unl_load').query(columns="COALESCE($operation,'') || ': ' || COALESCE(@measure_id.description,'') || ' ' || $quantity || ' ' || COALESCE($description,'')",
        #                                                            where='$arrival_id=:a_id',
        #                                                            a_id=pkey).fetch()
+             
         n_car = len(carico) 
         cargo=''                                                               
         for r in range (n_car):
@@ -266,7 +276,33 @@ class Table(object):
 
        
         return cargo
+
+    def pyColumn_email_arr_to(self,record,field):
+        
+        pkey=record['pkey']
+        email_dest = self.db.table('shipsteps.email_arr').query(columns="""$dest || ' ' || $description""",
+                                                                    where='$arrival_id=:a_id and $dest=:to' ,
+                                                                    a_id=pkey, to='to').fetch()                                    
+        n_email = len(email_dest) 
+        email_int=''                                                               
+        for r in range (n_email):
+            email_int += email_dest[r][0] + '<br>'
+        return email_int
     
+    def pyColumn_email_arr_cc(self,record,field):
+        
+        pkey=record['pkey']
+        email_dest = self.db.table('shipsteps.email_arr').query(columns="""$dest || ' ' || $description""",
+                                                                    where='$arrival_id=:a_id and $dest=:to' ,
+                                                                    a_id=pkey, to='cc').fetch()                                    
+        n_email = len(email_dest) 
+        email_int=''                                                               
+        for r in range (n_email):
+            email_int += email_dest[r][0] + '<br>'
+        return email_int
+    
+    
+
     def pyColumn_saluto(self,record,field):
         
         now = datetime.now()
@@ -285,6 +321,7 @@ class Table(object):
         data_lavoro=self.db.workdate
         
         return data_lavoro
+
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),date = self.db.workdate)
 

@@ -44,7 +44,7 @@ class View(BaseComponent):
         r.fieldcell('@gpg_arr.date_end', name= 'GPG end', width='5em')
        #r.fieldcell('@cargo_lu_arr.description', name= 'cargo_descr', width='5em')
         #r.fieldcell('carico', name='Descrizione Carico',width='30em')
-        r.fieldcell('cargo', width='50em')
+        #r.fieldcell('cargo', width='50em')
         #r.fieldcell('@cargo_lu_arr.cargo_on_board', width='50em')
         r.fieldcell('cargo_lu_en', width='50em')
         r.fieldcell('@cargo_lu_arr.tot_cargo', width='10em')
@@ -320,6 +320,16 @@ class Form(BaseComponent):
                         margin_top='2px',margin_left='10px')
         fb = div2.formbuilder(colspan=3,cols=9, border_spacing='4px')
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
+        btn_sr = fb.Button('Email')
+        btn_sr.dataRpc('msg_special', self.email_services,
+                   record='=#FORM.record.id', servizio=['ship_rec'], email_template_id='email_ship_rec')
+        #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
+        #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
+        fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.field('email_ship_rec', lbl='!![en]Shipper/Receivers')
+        fb.semaphore('^.email_ship_rec')
+
+
         btn_dog = fb.Button('Email')
         btn_dog.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['dogana','gdf','gdf roan'], email_template_id='email_dogana')
