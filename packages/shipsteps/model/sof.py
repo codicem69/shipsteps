@@ -24,6 +24,7 @@ class Table(object):
         tbl.aliasColumn('cargo_op', '@sof_cargo_sof.@cargo_unl_load_id.operation',name_long='!![en]Cago operation')
         tbl.aliasColumn('shiprec_sofcargo','@sof_cargo_sof.ship_rec')
         tbl.pyColumn('shiprec',name_long='!![en]Shipper or Receiver')
+        tbl.pyColumn('shiprec_bl',name_long='!![en]Shipper or Receiver BL')
         tbl.pyColumn('carico_del_sof',name_long='!![en]Cargo on sof')
         tbl.pyColumn('email_sof_to',name_long='!![en]Email sof to', static=True)
         tbl.pyColumn('email_sof_cc',name_long='!![en]Email sof cc', static=True)
@@ -72,7 +73,7 @@ class Table(object):
         descr_carico = cargo + '<br>' + totale_carico
         return descr_carico
     
-    def pyColumn_shiprec(self,record,field):
+    def pyColumn_shiprec_bl(self,record,field):
        
         p_key=record['id']
         #prepariamo i dati per associare Shipper e Receiver alle BL
@@ -85,6 +86,28 @@ class Table(object):
             else:
                 ship_rec += '- ' + shiprec[c][1] + ' Shipper: ' + shiprec[c][3] + '<br>'  
         return ship_rec
+
+    def pyColumn_shiprec(self,record,field):
+       
+        p_key=record['id']
+        #prepariamo i dati per associare Shipper e Receiver alle BL
+        receiver = self.db.table('shipsteps.sof_cargo').query(columns="""CASE WHEN @cargo_unl_load_id.operation ='U' THEN 'Receiver: ' || 
+                                                                        @cargo_unl_load_id.@receiver_id.name ELSE '' END""",
+                                                                where='sof_id=:sofid', group_by='@cargo_unl_load_id.operation,@cargo_unl_load_id.@receiver_id.name',sofid=p_key).fetch()  
+        shipper = self.db.table('shipsteps.sof_cargo').query(columns="""CASE WHEN @cargo_unl_load_id.operation ='L' THEN 'Shipper: ' || 
+                                                                        @cargo_unl_load_id.@shipper_id.name ELSE '' END""",
+                                                                where='sof_id=:sofid', group_by='@cargo_unl_load_id.operation,@cargo_unl_load_id.@shipper_id.name',sofid=p_key).fetch()                                                                  
+        rec=''
+        for c in range(len(receiver)):
+            if receiver[c][0] is not '':
+                rec += receiver[c][0] + '<br>'             
+        ship=''
+        for c in range(len(shipper)):
+            if shipper[c][0] is not '':
+                rec += shipper[c][0] + '<br>'
+        ship_rec = rec + ship
+        return ship_rec
+        print(x) 
    #def pyColumn_carico_del_sof(self,record,field):
    #    
    #    #if not record['pkey']:
