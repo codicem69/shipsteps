@@ -46,7 +46,7 @@ class Table(object):
         tbl.formulaColumn('time_sof', """coalesce('NOR tendered ' || to_char($nor_tend, :df), '') || '<br>' || coalesce('NOR received ' || to_char($nor_rec, :df),'') || '<br>' ||
                                          coalesce('NOR accepted ' || $nor_acc, '') || '<br>' || $ops_commenced_txt || to_char($ops_commenced, :df) || '<br>' || 
                                          $ops_completed_txt || to_char(ops_completed, :df) || '<br>' || coalesce(:onboard || to_char($doc_onboard,:df),'')""",var_onboard="Cargo's documents on board ",var_df='DD-MM-YYYY HH:MI')
-        
+
     def pyColumn_carico_del_sof(self,record,field):
         p_key=record['id']
         #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
