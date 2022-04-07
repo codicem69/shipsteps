@@ -9,6 +9,7 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('arrival_id')
+        r.fieldcell('sof_n',width='5em')
         r.fieldcell('nor_tend')
         r.fieldcell('nor_rec')
         r.fieldcell('nor_acc')
@@ -28,6 +29,7 @@ class ViewFromSof(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('arrival_id')
+        r.fieldcell('sof_n',width='3em')
         r.fieldcell('nor_tend', edit=True)
         r.fieldcell('nor_rec', edit=True)
         r.fieldcell('nor_acc', edit=True)
@@ -42,6 +44,7 @@ class Form(BaseComponent):
         pane = form.record
         fb = pane.formbuilder(cols=2, border_spacing='4px')
         fb.field('arrival_id')
+        fb.field('sof_n')
         fb.field('nor_tend')
         fb.field('nor_rec')
         fb.field('nor_acc')
@@ -74,13 +77,14 @@ class FormSof(BaseComponent):
     def datiSof(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=4, border_spacing='4px',fld_width='10em')
         #fb.field('arrival_id')
+        fb.field('sof_n', readOnly=True)
         fb.field('nor_tend')
         fb.field('nor_rec')
         fb.field('nor_acc')
-        fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2, tag='textArea')
         fb.field('ops_commenced')
         fb.field('ops_completed')
         fb.field('doc_onboard')
+        fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2, tag='textArea')
         
 
     def cargoSof(self,pane):

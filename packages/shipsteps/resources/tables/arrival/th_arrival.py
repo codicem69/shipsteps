@@ -325,11 +325,11 @@ class Form(BaseComponent):
                    record='=#FORM.record.id', servizio=['arr','sof'], email_template_id='email_arr_shiprec',
                    _ask=dict(title='!![en]Select the SOF',
                                                fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
-                                               hasDownArrow=True, auxColumns='$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
+                                               hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
                                                 condition_cod='=#FORM.record.id')]))
         #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
-        fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Messaggio Creato')} if(msgspec=='no_email') alert('Devi inserire email destinari come TO o BCC');", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
         fb.field('email_ship_rec', lbl='!![en]Shipper/Receivers')
         fb.semaphore('^.email_ship_rec')
 
@@ -339,7 +339,7 @@ class Form(BaseComponent):
                    record='=#FORM.record.id', servizio=['dogana','gdf','gdf roan'], email_template_id='email_dogana')
         #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
-        fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_dogana', lbl='!![en]Customs')
         fb.semaphore('^.email_dogana')
 
@@ -358,35 +358,35 @@ class Form(BaseComponent):
         btn_fr = fb.Button('Email')
         btn_fr.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['immigration'], email_template_id='email_frontiera')
-        fb.dataController("if(msgspec=='val_imm') {SET .email_frontiera=true; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='val_imm') {SET .email_frontiera=true; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_frontiera',lbl='!![en]Immigration')
         fb.semaphore('^.email_frontiera')
 
         btn_usma = fb.Button('Email')
         btn_usma.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['sanimare'], email_template_id='email_sanimare')
-        fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_usma', lbl='!![en]Sanimare')
         fb.semaphore('^.email_usma')
 
         btn_pfso = fb.Button('Email')
         btn_pfso.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['pfso'], email_template_id='email_pfso')
-        fb.dataController("if(msgspec=='val_pfso') {SET .email_pfso=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='val_pfso') {SET .email_pfso=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_pfso', lbl='PFSO')
         fb.semaphore('^.email_pfso')
 
         btn_pilot = fb.Button('Email')
         btn_pilot.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor')
-        fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_pilot_moor',lbl='Pilot/Moor')
         fb.semaphore('^.email_pilot_moor')
 
         btn_tug = fb.Button('Email')
         btn_tug.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['tug'], email_template_id='email_tug')
-        fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
         #fb.dataController("alert(msg)", _if='msg',msg='^msg_special')
         fb.field('email_tug',lbl='!![en]Tug')
         fb.semaphore('^.email_tug')
@@ -395,7 +395,7 @@ class Form(BaseComponent):
         btn_garb.dataRpc('msg_special', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
                             nome_template = 'shipsteps.garbage:garbage_request',format_page='A4', selId='=shipsteps_arrival.form.shipsteps_garbage.view.grid.selectedId')
         #fb.dataController("alert(msg)", _if='msg',msg='^msg_select')
-        fb.dataController("if(msgspec=='val_garbage') {SET .email_garbage=true ; alert('Messaggio Creato');} if(msgspec=='yes') alert('Devi selezionare il record del Garbage per la stampa'); "
+        fb.dataController("if(msgspec=='val_garbage') {SET .email_garbage=true ; alert('Message created');} if(msgspec=='yes') alert('You must select the record as row in the garbage form'); "
                             , msgspec='^msg_special')
 
         fb.field('email_garbage',lbl='!![en]Garbage')
@@ -404,21 +404,21 @@ class Form(BaseComponent):
         btn_chem = fb.Button('Email')
         btn_chem.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['chemist'], email_template_id='email_chemist')
-        fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_chemist',lbl='!![en]Chemist')
         fb.semaphore('^.email_chemist')
 
         btn_gpg = fb.Button('Email')
         btn_gpg.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['gpg'], email_template_id='email_gpg')
-        fb.dataController("if(msgspec=='val_gpg') {SET .email_gpg=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='val_gpg') {SET .email_gpg=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_gpg',lbl='GPG')
         fb.semaphore('^.email_gpg')
 
         btn_ens = fb.Button('Email')
         btn_ens.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['ens'], email_template_id='email_ens')
-        fb.dataController("if(msgspec=='val_ens') {SET .email_ens=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb.dataController("if(msgspec=='val_ens') {SET .email_ens=true ; alert('Message created')}", msgspec='^msg_special')
        # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
         fb.field('email_ens',lbl='ENS')
         fb.semaphore('^.email_ens')
@@ -436,7 +436,7 @@ class Form(BaseComponent):
         btn_integr = fb_cp.Button('Email')
         btn_integr.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_integrazione_alim')
-        fb_cp.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Messaggio Creato')}", msgspec='^msg_special')
+        fb_cp.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
        # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
         fb_cp.field('email_integr', lbl='!![en]Alimentary integration')
         fb_cp.semaphore('^.email_integr')
@@ -615,7 +615,8 @@ class Form(BaseComponent):
         if kwargs:
             sof_id=kwargs['sof_id']
             if sof_id is None:
-                return
+                msg_special='no_sof'
+                return msg_special
         else:
             return
         #inizializziamo le variabili per le email

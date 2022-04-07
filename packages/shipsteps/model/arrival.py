@@ -6,7 +6,7 @@ class Table(object):
         
         tbl=pkg.table('arrival', pkey='id', name_long='!![en]Arrival', name_plural='!![en]Arrivals',
                                  caption_field='arrival_data', partition_agency_id='agency_id')
-        self.sysFields(tbl)
+        self.sysFields(tbl,counter=True)
 
         tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
                                     'agency.id',relation_name='agency_id_name', mode='foreignkey', onDelete='raise')
@@ -260,21 +260,16 @@ class Table(object):
     def pyColumn_cargo(self,record,field):
        
         pkey=record['id']
-
         carico = self.db.table('shipsteps.cargo_unl_load').query(columns="""CASE WHEN $operation = 'L' THEN 'Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description  
                                             WHEN $operation = 'U' THEN 'Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description ELSE 'NIL' END """,
                                                                     where='$arrival_id=:a_id',
                                                                     a_id=pkey).fetch()                                    
-       #carico = self.db.table('shipsteps.cargo_unl_load').query(columns="COALESCE($operation,'') || ': ' || COALESCE(@measure_id.description,'') || ' ' || $quantity || ' ' || COALESCE($description,'')",
-       #                                                            where='$arrival_id=:a_id',
-       #                                                            a_id=pkey).fetch()
-             
+      
         n_car = len(carico) 
         cargo=''                                                               
         for r in range (n_car):
             cargo += ' - ' + carico[r][0] + '<br>'
 
-       
         return cargo
 
     def pyColumn_email_arr_to(self,record,field):

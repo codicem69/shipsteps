@@ -3,10 +3,11 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('sof', pkey='id', name_long='sof', name_plural='sof',caption_field='sof_det', partition_agency_id='agency_id')
-        self.sysFields(tbl)
+        self.sysFields(tbl,counter=True)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='sof_arr', mode='foreignkey', onDelete='cascade')
+        tbl.column('sof_n',dtype='T', name_short='!![en]SOF n.')
         tbl.column('nor_tend', dtype='DH', name_short='!![en]NOR tendered')
         tbl.column('nor_rec', dtype='DH', name_short='!![en]NOR received')
         tbl.column('nor_acc', dtype='T', name_short='!![en]NOR accepted')
@@ -99,11 +100,11 @@ class Table(object):
                                                                 where='sof_id=:sofid', group_by='@cargo_unl_load_id.operation,@cargo_unl_load_id.@shipper_id.name',sofid=p_key).fetch()                                                                  
         rec=''
         for c in range(len(receiver)):
-            if receiver[c][0] is not '':
+            if receiver[c][0] != '':
                 rec += receiver[c][0] + '<br>'             
         ship=''
         for c in range(len(shipper)):
-            if shipper[c][0] is not '':
+            if shipper[c][0] != '':
                 rec += shipper[c][0] + '<br>'
         ship_rec = rec + ship
         return ship_rec
@@ -239,4 +240,7 @@ class Table(object):
    #        
    #    return ship_rec
         
-        
+    def counter_sof_n(self,record=None):
+        #2021/000001
+        #return dict(format='$K$YYYY/$NNNNNN', code='A', period='YYYY', date_field='date', showOnLoad=True, date_tolerant=True)
+        return dict(format='$K/$NNN',code='S', showOnLoad=True)    
