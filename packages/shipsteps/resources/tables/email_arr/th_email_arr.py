@@ -11,7 +11,7 @@ class View(BaseComponent):
         r.fieldcell('arrival_id')
         r.fieldcell('dest')
         r.fieldcell('description')
-        r.fieldcell('email_arr')
+        r.fieldcell('email')
         r.fieldcell('email_type')
 
     def th_order(self):
@@ -27,7 +27,7 @@ class ViewFromEmailArrival(BaseComponent):
        # r.fieldcell('arrival_id')
         r.fieldcell('dest',  edit=dict(validate_notnull=True), width='10em')
         r.fieldcell('description',  edit=dict(validate_notnull=True), width='30em')
-        r.fieldcell('email_arr',  edit=dict(validate_notnull=True), width='20em')
+        r.fieldcell('email',  edit=dict(validate_notnull=True), width='20em')
         r.fieldcell('email_type', edit=dict(validate_notnull=True))
 
 
@@ -39,7 +39,7 @@ class Form(BaseComponent):
         fb.field('arrival_id' )
         fb.field('dest' )
         fb.field('description' )
-        fb.field('email_arr' )
+        fb.field('email' )
         fb.field('email_type' )
 
 
