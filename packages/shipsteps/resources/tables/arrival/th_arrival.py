@@ -614,8 +614,10 @@ class Form(BaseComponent):
         #verifichiamo e assegnamo alla variabile sof_id arrivatoci dal bottone di invio email
         if kwargs:
             sof_id=kwargs['sof_id']
+            if sof_id is None:
+                return
         else:
-            sof_id=''
+            return
         #inizializziamo le variabili per le email
         email_arr_to,email_arr_cc,email_arr_bcc='','',''
         email_a_to,email_a_cc,email_a_bcc=[],[],[]

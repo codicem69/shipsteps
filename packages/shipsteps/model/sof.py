@@ -55,9 +55,9 @@ class Table(object):
         cargo=''
         for c in range(len(carico)):
             if carico[c][0]== 'U':
-                cargo += '- Unloading cargo: ' + carico[c][1] + ' ' + carico[c][2] + ' ' + str(carico[c][3]) + ' ' + carico[c][4] + '<br>'
+                cargo += '- Unloading cargo: ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + ' ' + str(carico[c][4]) + '<br>'
             else:
-                cargo += '- Loading cargo: ' + carico[c][1] + ' ' + carico[c][2] + ' ' + str(carico[c][3]) + ' ' + carico[c][4] + '<br>'
+                cargo += '- Loading cargo: ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + ' ' + str(carico[c][4]) + '<br>'
         
         #prepariamo i dati per il totale carico
         tot_carico = self.db.table('shipsteps.sof_cargo').query(columns="@cargo_unl_load_id.operation, @cargo_unl_load_id.@measure_id.description, SUM(@cargo_unl_load_id.quantity)",
@@ -65,9 +65,9 @@ class Table(object):
         totale_carico=''
         for c in range(len(tot_carico)):
             if tot_carico[c][0]== 'U':
-                totale_carico += '- Tot. unloading cargo: ' + tot_carico[c][1] + ' ' + str(tot_carico[c][2]) + '<br>'
+                totale_carico += '- Tot. unloading cargo: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>'
             else:
-                totale_carico += '- Tot. loading cargo: ' + tot_carico[c][1] + ' ' + str(tot_carico[c][2]) + '<br>' 
+                totale_carico += '- Tot. loading cargo: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>' 
         
         #inseriamo in un unica variabile tutti i dati relativi al carico sopra calcolati
         descr_carico = cargo + '<br>' + totale_carico
