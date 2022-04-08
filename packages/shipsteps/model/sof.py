@@ -32,7 +32,7 @@ class Table(object):
         tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
         tbl.pyColumn('email_arr_cc',name_long='!![en]Email arrival cc', static=True)
         #tbl.pyColumn('totcarico',name_long='!![en]Totcarico', static=True)
-        tbl.formulaColumn('sof_det',"@arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
+        tbl.formulaColumn('sof_det',"$sof_n || '-' || @arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
         tbl.formulaColumn('nor_tend_txt', """CASE WHEN $nor_tend is not null THEN 'NOR tendered' ELSE '' END""", dtype='T')
         tbl.formulaColumn('nor_rec_txt', """CASE WHEN $nor_rec is not null THEN 'NOR received' ELSE '' END""", dtype='T')
         tbl.formulaColumn('nor_acc_txt', """CASE WHEN $nor_acc is not null THEN 'NOR acceppted' ELSE '' END""", dtype='T')

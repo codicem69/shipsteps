@@ -323,10 +323,9 @@ class Form(BaseComponent):
         btn_sr = fb.Button('Email')
         btn_sr.dataRpc('msg_special', self.email_arrival_sof,
                    record='=#FORM.record.id', servizio=['arr','sof'], email_template_id='email_arr_shiprec',
-                   _ask=dict(title='!![en]Select the SOF',
-                                               fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
-                                               hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
-                                                condition_cod='=#FORM.record.id')]))
+                   _ask=dict(title='!![en]Select the SOF',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
+                             hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
+                                                condition_cod='=#FORM.record.id',width='25em')]))
         #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
         fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
@@ -440,6 +439,13 @@ class Form(BaseComponent):
        # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
         fb_cp.field('email_integr', lbl='!![en]Alimentary integration')
         fb_cp.semaphore('^.email_integr')
+
+        btn_update = fb_cp.Button('!![en]Email services <br> updating')
+        btn_update.dataRpc('msg_special', self.email_serv_upd,
+                   record='=#FORM.record.id',email_template_id='email_arr_shiprec',
+                   _ask=dict(title='!![en]Select the services to update',fields=[dict(name='upd', lbl='!![en]Updating', tag='checkboxtext',
+                             table='shipsteps.services_for_email', columns='$description_serv',#values='dogana,gdf,gdf roan,pilot,mooringmen,tug,immigration,sanimare,pfso,garbage,chemist,gpg',
+                             validate_notnull=True,cols=4,popup=True,colspan=2)]))
 
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
@@ -579,6 +585,102 @@ class Form(BaseComponent):
             elif servizio == ['capitaneria']:
                 msg_special = 'val_integr'
             return msg_special
+    
+    @public_method
+    def email_serv_upd(self, record,email_template_id=None, **kwargs):
+                
+        if not record:
+            return
+        tbl_att =  self.db.table('shipsteps.arrival_atc')
+        fileurl = tbl_att.query(columns='$fileurl',
+                  where='$att_email=:a_att AND $maintable_id=:mt_id',
+                    a_att='true',mt_id=record).fetch()
+        ln = len(fileurl)
+        attcmt=[]
+       # a=0
+       # r=1
+        for r in range(ln):
+            file_url = fileurl[r][0]
+            file_path = file_url.replace('/home','site')
+            fileSn = self.site.storageNode(file_path)
+            attcmt.append(fileSn.internal_path)
+
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('shipsteps.staff')
+        account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('shipsteps.agency')
+        agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        #preleviamo dai kwargs i servizi per gli aggiornamenti
+        services=kwargs['upd']
+        #trasformiamo la stringa services in una lista
+        servizio=list(services.split(","))
+        #troviamo la lunghezza della variabile servizio
+        ln_serv=len(servizio)
+        #assegnamo le varibili liste per inserire successivamente i risultati della ricerca sulla tabella email_services
+        destinatario,destinatario_pec,email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d=[],[],[],[],[],[],[]
+        #definiamo la variabile contentente la tabella email_services
+        tbl_email_services=self.db.table('shipsteps.email_services')
+        #con il ciclo for ad ogni passaggio otteniamo il nome del servizio che passeremo alla query e i risultati saranno appesi alle liste
+        for e in range(ln_serv):
+            serv=servizio[e]
+
+            dest,email_dest, email_cc_dest,email_bcc_dest = tbl_email_services.readColumns(columns="""$consignee,$email,$email_cc,$email_bcc""",
+                                                    where="$service_for_email_id=:serv AND $agency_id=:ag_id", serv=serv,
+                                                    ag_id=self.db.currentEnv.get('current_agency_id'))
+            dest_pec,email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$consignee,$email_pec,$email_cc_pec""",
+                                                    where='$service_for_email_id=:serv AND $agency_id=:ag_id AND $email_pec IS NOT NULL', serv=serv,
+                                                    ag_id=self.db.currentEnv.get('current_agency_id'))
+            if dest is not None and dest !='':
+                destinatario.append('a: ' + dest)
+            if dest_pec is not None and dest_pec !='':
+                destinatario_pec.append('a: ' + dest_pec)
+            if email_dest is not None and email_dest !='':
+                email_d.append(email_dest)
+            if email_cc_dest is not None and email_cc_dest != '':
+                email_cc_d.append(email_cc_dest)
+            if email_bcc_dest is not None and email_bcc_dest != '':    
+                email_bcc_d.append(email_bcc_dest)
+            if email_pec_dest is not None and email_pec_dest != '':
+                email_pec_d.append(email_pec_dest)
+            if email_pec_cc_dest is not None and email_pec_cc_dest !='':
+                email_pec_cc_d.append(email_pec_cc_dest)
+        #trasformiamo le liste in stringhe assegnandole alle relative variabili
+        consignee='<br>'.join([str(item) for item in destinatario])
+        consignee_pec='<br>'.join([str(item) for item in destinatario_pec])
+        email_to = ','.join([str(item) for item in email_d])
+        email_cc = ','.join([str(item) for item in email_cc_d])
+        email_bcc = ','.join([str(item) for item in email_bcc_d])
+        email_pec = ','.join([str(item) for item in email_pec_d])
+        email_pec_cc = ','.join([str(item) for item in email_pec_cc_d])
+        
+        body_html=("""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + 
+                    '<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>""")
+        if (email_to) is not None:
+            self.db.table('email.message').newMessage(account_id=account_email,
+                           to_address=email_to,
+                           from_address=email_mittente,
+                           subject='prova invio', body=body_html, 
+                           cc_address=email_cc, 
+                           bcc_address=email_bcc, attachments=attcmt,
+                           html=True)
+            self.db.commit()
+        body_html_pec=("""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee_pec + 
+                        '<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>""")
+        if email_pec is not None and email_pec!='':
+            
+            self.db.table('email.message').newMessage(account_id=account_emailpec,
+                           to_address=email_pec,
+                           from_address=emailpec_mitt,
+                           subject='prova invio pec', body=body_html_pec, 
+                           cc_address=email_pec_cc, 
+                           attachments=attcmt,
+                           html=True)
+            self.db.commit()
+       # print(x)
 
     @public_method
     def email_arrival_sof(self, record,email_template_id=None,servizio=[], **kwargs):
