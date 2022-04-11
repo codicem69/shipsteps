@@ -247,8 +247,8 @@ class Form(BaseComponent):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
 
     def taskList(self, bc_task):
-        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='41%', height = '250px').div(margin='10px',margin_left='2px')
-        rg_prearrival_cp = bc_task.roundedGroup(title='!![en]Pre arrival CP',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='41%', height = 'auto',margin_top='250px').div(margin='10px',margin_left='2px')
+        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='670px', height = 'auto').div(margin='10px',margin_left='2px')
+        #rg_prearrival_cp = bc_task.roundedGroup(title='!![en]Pre arrival CP',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='670px', height = 'auto',margin_top='290px').div(margin='10px',margin_left='2px')
         #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
        #tbl_staff =  self.db.table('shipsteps.staff')
        #account_email = tbl_staff.readColumns(columns='$email_account_id',
@@ -262,11 +262,11 @@ class Form(BaseComponent):
         #fb.field('arrival_id')
 
         #definizione primo rettangolo di stampa all'interno del roundedGroup Pre Arrival
-        div1=rg_prearrival.div(width='96%',height='20%',margin='auto',
-                        padding='5px',
+        div1=rg_prearrival.div(width='99%',height='20%',margin='auto',
+                        padding='2px',
                         border='1px solid silver',
-                        margin_top='2px',margin_left='10px')
-        fb1=div1.formbuilder(colspan=3,cols=9, border_spacing='4px')
+                        margin_top='1px',margin_left='4px')
+        fb1=div1.formbuilder(colspan=3,cols=9, border_spacing='1px')
 
         btn_cl = fb1.Button('!![en]Print')
         btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
@@ -314,11 +314,11 @@ class Form(BaseComponent):
         fb1.semaphore('^.modulo_nave')
 
         #definizione secondo rettangolo invio email all'interno del roundedGroup Pre Arrival
-        div2=rg_prearrival.div(width='96%',height='20%',margin='auto',
-                        padding='5px',
+        div2=rg_prearrival.div(width='99%',height='20%',margin='auto',
+                        padding='2px',
                         border='1px solid silver',
-                        margin_top='2px',margin_left='10px')
-        fb = div2.formbuilder(colspan=3,cols=9, border_spacing='4px')
+                        margin_top='1px',margin_left='4px')
+        fb = div2.formbuilder(colspan=3,cols=9, border_spacing='2px')
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
         btn_sr = fb.Button('Email')
         btn_sr.dataRpc('msg_special', self.email_arrival_sof,
@@ -425,27 +425,61 @@ class Form(BaseComponent):
         fb.field('email_antifire', lbl='!![en]Antifire')
         fb.semaphore('^.email_antifire')
 
-        #definizione terzo rettangolo dentro rounded Group Pre Arrival CP
-        div_cp=rg_prearrival_cp.div(width='96%',height='60%',margin='auto',
-                        padding='5px',
-                        border='1px solid silver',
-                        margin_top='2px',margin_left='10px')
-        fb_cp=div_cp.formbuilder(colspan=3,cols=9, border_spacing='4px')
-        
-        btn_integr = fb_cp.Button('Email')
-        btn_integr.dataRpc('msg_special', self.email_services,
-                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_integrazione_alim')
-        fb_cp.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
-       # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
-        fb_cp.field('email_integr', lbl='!![en]Alimentary integration')
-        fb_cp.semaphore('^.email_integr')
-
-        btn_update = fb_cp.Button('!![en]Email services <br> updating')
+        btn_update = fb.Button('!![en]Email services<br>updating')
         btn_update.dataRpc('msg_special', self.email_serv_upd,
-                   record='=#FORM.record.id',email_template_id='email_arr_shiprec',
+                   record='=#FORM.record',email_template_id='email_arr_shiprec',
                    _ask=dict(title='!![en]Select the services to update',fields=[dict(name='upd', lbl='!![en]Updating', tag='checkboxtext',
                              table='shipsteps.services_for_email', columns='$description_serv',#values='dogana,gdf,gdf roan,pilot,mooringmen,tug,immigration,sanimare,pfso,garbage,chemist,gpg',
                              validate_notnull=True,cols=4,popup=True,colspan=2)]))
+        fb.dataController("if(msgspec=='val_upd') {alert('Message created')}", msgspec='^msg_special')
+        fb.div('')
+        fb.div('')       
+        btn_upd_shiprec = fb.Button('!![en]Email Ship/Rec.<br>updating')
+        btn_upd_shiprec.dataRpc('msg_special', self.email_arrival_sof,
+                   record='=#FORM.record.id', servizio=['arr','sof'], email_template_id='email_updating_shiprec',
+                   _ask=dict(title='!![en]Select the SOF',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
+                             hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
+                                                condition_cod='=#FORM.record.id',width='25em')]))
+        #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
+        #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
+        fb.dataController("if(msgspec=='ship_rec_upd') {alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
+        
+        div3=rg_prearrival.div('<strong>Harbour Master - Docs before vessel arrival</strong>',width='99%',height='20%',margin='auto',
+                        padding='4px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb2 = div3.formbuilder(colspan=3,cols=9, border_spacing='2px')
+        btn_integr = fb2.Button('Email')
+        btn_integr.dataRpc('msg_special', self.email_services,
+                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_integrazione_alim')
+        fb2.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
+       # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
+        fb2.field('email_integr', lbl='!![en]Alimentary integration')
+        fb2.semaphore('^.email_integr')
+
+        btn_garb_cp = fb2.Button('Email')
+        btn_garb_cp.dataRpc('msg_special', self.email_services,
+                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_garbage_cp')
+        fb2.dataController("if(msgspec=='val_garb_cp') {SET .email_garbage_cp=true ; alert('Message created')}", msgspec='^msg_special')
+       # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
+        fb2.field('email_garbage_cp', lbl='!![en]Garbage form')
+        fb2.semaphore('^.email_garbage_cp')
+        #definizione terzo rettangolo dentro rounded Group Pre Arrival CP
+       #div_cp=rg_prearrival_cp.div(width='96%',height='60%',margin='auto',
+       #                padding='5px',
+       #                border='1px solid silver',
+       #                margin_top='2px',margin_left='10px')
+       #fb_cp=div_cp.formbuilder(colspan=3,cols=9, border_spacing='4px')
+       #
+       #btn_integr = fb_cp.Button('Email')
+       #btn_integr.dataRpc('msg_special', self.email_services,
+       #          record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_integrazione_alim')
+       #fb_cp.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
+      
+       #fb_cp.field('email_integr', lbl='!![en]Alimentary integration')
+       #fb_cp.semaphore('^.email_integr')
+
+        
 
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
@@ -582,19 +616,30 @@ class Form(BaseComponent):
                 msg_special = 'val_gpg'
             elif servizio == ['ens']:
                 msg_special = 'val_ens'
+            elif email_template_id == 'email_garbage_cp':
+                msg_special = 'val_garb_cp'
             elif servizio == ['capitaneria']:
                 msg_special = 'val_integr'
             return msg_special
     
     @public_method
     def email_serv_upd(self, record,email_template_id=None, **kwargs):
-                
+        #print(x)        
         if not record:
             return
+        #lettura del record_id della tabella arrival
+        record_id=record['id']
+        #lettura dati su tabella arrival
+        tbl_arrival = self.db.table('shipsteps.arrival')
+        vessel_type,vessel_name,eta_arr,info_moor = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,$eta,$info_moor',
+                  where='$agency_id=:ag_id AND $id=:rec_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=record_id)
+        eta = eta_arr.strftime("%d/%m/%Y, %H:%M")    
+        #lettura degli attachment    
         tbl_att =  self.db.table('shipsteps.arrival_atc')
         fileurl = tbl_att.query(columns='$fileurl',
                   where='$att_email=:a_att AND $maintable_id=:mt_id',
-                    a_att='true',mt_id=record).fetch()
+                    a_att='true',mt_id=record_id).fetch()
         ln = len(fileurl)
         attcmt=[]
        # a=0
@@ -657,29 +702,48 @@ class Form(BaseComponent):
         email_pec = ','.join([str(item) for item in email_pec_d])
         email_pec_cc = ','.join([str(item) for item in email_pec_cc_d])
         
-        body_html=("""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + 
-                    '<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>""")
+        now = datetime.now()
+        cur_time = now.strftime("%H:%M:%S")    
+        if cur_time < '13:00:00':
+            sal='Buongiorno,'  
+        elif cur_time < '17:00:00':
+            sal='Buon pomeriggio'
+        elif cur_time < '24:00:00':
+            sal = 'Buonasera,' 
+        elif cur_time < '04:00:00':
+            sal = 'Buona notte,'      
+
+        subject='aggiornamento '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
+        body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
+        body_header_pec="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee_pec + '<br><br>'
+        body_footer= '<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
+        
+        body_msg=(sal + '<br>' + "con la presente si comunica che il nuovo ETA della " +vessel_type + ' ' + vessel_name + " è il " + eta + '<br><br>' + info_moor)
+        body_html=(body_header + body_msg + body_footer )
+        #print(x)
         if (email_to) is not None:
             self.db.table('email.message').newMessage(account_id=account_email,
                            to_address=email_to,
                            from_address=email_mittente,
-                           subject='prova invio', body=body_html, 
+                           subject=subject, body=body_html, 
                            cc_address=email_cc, 
                            bcc_address=email_bcc, attachments=attcmt,
                            html=True)
             self.db.commit()
-        body_html_pec=("""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee_pec + 
-                        '<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>""")
+        body_html_pec=(body_header_pec + body_msg + body_footer )
         if email_pec is not None and email_pec!='':
             
             self.db.table('email.message').newMessage(account_id=account_emailpec,
                            to_address=email_pec,
                            from_address=emailpec_mitt,
-                           subject='prova invio pec', body=body_html_pec, 
+                           subject=subject, body=body_html_pec, 
                            cc_address=email_pec_cc, 
                            attachments=attcmt,
                            html=True)
             self.db.commit()
+        if (email_dest or email_pec_dest) is not None:
+            msg_special='val_upd'
+            return msg_special
        # print(x)
 
     @public_method
@@ -792,7 +856,10 @@ class Form(BaseComponent):
                                                           template_code=email_template_id)
         self.db.commit()
         #ritorniamo con la variabile msg_special per l'innesco del messaggio e il settaggio della checklist invio email a vero
-        msg_special = 'ship_rec'
+        if email_template_id == 'email_updating_shiprec':
+            msg_special = 'ship_rec_upd'
+        else:
+            msg_special = 'ship_rec'
         return msg_special
 
     @public_method

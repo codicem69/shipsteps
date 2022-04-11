@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-04-04T16:40:53.219693+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-04-11T15:31:27.664207+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-04-11T10:26:36.407864+02:00</_mod_ts>
-<_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
-<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.softemplateemail_arr_shiprec</identifier>
-<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_arr_shiprec</code>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-04-11T15:50:54.519044+02:00</_mod_ts>
+<_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.softemplateemail_updating_shiprec</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_updating_shiprec</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.sof</tbl>
 <userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
-<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Email arrival Ship/Rec</description>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Email updating Ship/Rec</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
 	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$email_arrival_to$email_sof_to$email_sof_cc$email_arrival_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
@@ -64,7 +64,7 @@
 &lt;div&gt;
 	&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$imbarcazione_tipo $imbarcazione_nome ETA $port_name port on $eta WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+	&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;new ETA $port_name port &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;$imbarcazione_tipo $imbarcazione_nome on $eta WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 &lt;div&gt;
@@ -94,13 +94,13 @@
 <row_height _T="NN"></row_height>
 <default_letterhead _T="NN"></default_letterhead>
 <summary _T="NN"></summary>
-<email><subject _valuelabel="Oggetto">$imbarcazione_tipo $imbarcazione_nome $port_name port ref:$reference_number</subject>
+<email><subject _valuelabel="Oggetto">Updating $imbarcazione_tipo $imbarcazione_nome $port_name port ref:$reference_number</subject>
 <to_address _valuelabel="A">$email_to</to_address>
 <from_address _T="NN"></from_address>
 <cc_address _valuelabel="CC">$email_cc</cc_address>
 <bcc_address _valuelabel="BCC">$email_ccn</bcc_address>
 <attachments _T="NN"></attachments></email>
-<email_compiled><subject>$@arrival_id.@vessel_details_id.@imbarcazione_id.tipo $@arrival_id.@vessel_details_id.@imbarcazione_id.nome $@arrival_id.@agency_id.@port.descrizione port ref:$@arrival_id.reference_num</subject>
+<email_compiled><subject>Updating $@arrival_id.@vessel_details_id.@imbarcazione_id.tipo $@arrival_id.@vessel_details_id.@imbarcazione_id.nome $@arrival_id.@agency_id.@port.descrizione port ref:$@arrival_id.reference_num</subject>
 <to_address>$email_to</to_address>
 <cc_address>$email_cc</cc_address>
 <bcc_address>$email_ccn</bcc_address></email_compiled></metadata>
@@ -417,7 +417,7 @@
 &lt;div&gt;
 	&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.tipo $@arrival_id.@vessel_details_id.@imbarcazione_id.nome ETA $@arrival_id.@agency_id.@port.descrizione port on $@arrival_id.eta WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+	&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;new ETA $@arrival_id.@agency_id.@port.descrizione port &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.tipo $@arrival_id.@vessel_details_id.@imbarcazione_id.nome on $@arrival_id.eta WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 &lt;div&gt;

@@ -29,7 +29,7 @@ class Table(object):
         tbl.column('email_integr', dtype='B', name_short='!![en]Email Alimentary integration')
         tbl.column('form_gdf', dtype='B', name_short='Form GdF')
         tbl.column('form_immigration', dtype='B', name_short='!![en]Immigration form')
-        
+        tbl.column('email_garbage_cp', dtype='B', name_short='!![en]Email Garbage HM')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('email_account','@arrival_id.email_account_id')
         
