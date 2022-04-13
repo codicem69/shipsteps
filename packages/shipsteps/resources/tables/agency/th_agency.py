@@ -71,7 +71,7 @@ class Form(BaseComponent):
         fb.field('residence_address' )
         fb.field('cap_residence' )
         fb.field('residence_city' )
-        fb.simpleTextArea(lbl='Virtual stamp',value='^.virtual_stamp',editor=True, height='100px', width='100px' )
+        fb.simpleTextArea(lbl='Virtual stamp',value='^.virtual_stamp',editor=True, height='150px', width='150px' )
         fb.field('emailpec_account_id', hasDownArrow=True )
 
         fb.field('port' ,colspan=2)
@@ -79,7 +79,7 @@ class Form(BaseComponent):
         right = bc.roundedGroup(region='right',title='!![en]Agency stamp',width='20%')
         #right = bc.roundedGroup(region='right',title='!![en]Agency stamp', width='20%', height='100%', margin='10px',margin_right='20px')
         #cp=right.contentPane()
-        right.img(src='^.agency_stamp', edit=True, crop_width='200px', crop_height='200px', 
+        right.img(src='^.agency_stamp', edit=True, crop_width='100px', crop_height='100px', 
                         placeholder=True, upload_folder='site:image', upload_filename='=.id')
         right.button('!![en]Remove image', hidden='^.agency_stamp?=!#v').dataRpc(self.deleteImage, image='=.agency_stamp')
 
