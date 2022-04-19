@@ -39,7 +39,7 @@ class ViewFromGarbage(BaseComponent):
         r.fieldcell('altro', edit=True)
         r.fieldcell('altro_spec', edit=True, width='25em')
         r.fieldcell('invio_fat', edit=True, width='40em')
-
+        record_sel='=#FORM.shipsteps_garbage.view.grid.selectedId'
 class Form(BaseComponent):
 
     def th_form(self, form):
