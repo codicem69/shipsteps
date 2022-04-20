@@ -9,6 +9,7 @@ class Table(object):
         tbl.column('imb_sba', dtype='B', name_short='!![en]Unloading/Loading',default=False)
         tbl.column('navigazione', name_short='!![en]Navigation', values='Internazionale:Internazionale,Nazionale:Nazionale')
         tbl.column('doc_all', name_short='!![en]Attached docs')
+        
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.formulaColumn('nulla_osta',"""CASE WHEN $imb_sba = True THEN 'allo sbarco' ELSE :sba END""",var_sba="all'imbarco")
         tbl.formulaColumn('piano_imb_sba',"""CASE WHEN $imb_sba = True THEN 'scaricazione' ELSE 'caricazione' END""")
