@@ -3,6 +3,8 @@
 
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
+from gnr.web.gnrbaseclasses import TableTemplateToHtml
+from datetime import datetime
 
 class View(BaseComponent):
 
@@ -17,6 +19,7 @@ class View(BaseComponent):
         r.fieldcell('ops_completed')
         r.fieldcell('doc_onboard')
         r.fieldcell('ship_rec', width='40em')
+        r.fieldcell('intestazione_sof')
         
     def th_order(self):
         return 'arrival_id'
@@ -37,6 +40,7 @@ class ViewFromSof(BaseComponent):
         r.fieldcell('ops_completed', edit=True)
         r.fieldcell('doc_onboard', edit=True)
         r.fieldcell('ship_rec')
+        r.fieldcell('intestazione_sof', edit=True)
 
 class Form(BaseComponent):
 
@@ -51,6 +55,7 @@ class Form(BaseComponent):
         fb.field('ops_commenced')
         fb.field('ops_completed')
         fb.field('doc_onboard')
+        fb.field('int_sof')
         
 
 class FormSof(BaseComponent):
@@ -85,7 +90,49 @@ class FormSof(BaseComponent):
         fb.field('ops_completed')
         fb.field('doc_onboard')
         fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2, tag='textArea')
+        fb.field('int_sof')
         
+    def th_bottom_custom(self, bottom):
+        bar = bottom.slotBar('10,stampa_sof,stampa_sof_fiore,*,10')
+        btn_sof_print=bar.stampa_sof.button('Print SOF')
+        btn_sof_fiore=bar.stampa_sof_fiore.button('Print SOF Fiore')
+        btn_sof_print.dataRpc('msg_special', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
+        btn_sof_fiore.dataRpc('msg_special', self.print_sof_fiore,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
+                            nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4')
+    
+    @public_method
+    def print_sof(self, record, resultAttr=None, nome_template=None, format_page=None, **kwargs):
+        #msg_special=None
+        record_id=record['id']
+        #print(x)
+       #if selId is None:
+       #    msg_special = 'yes'
+       #    return msg_special
+
+        tbl_sof = self.db.table('shipsteps.sof')
+        builder = TableTemplateToHtml(table=tbl_sof)
+
+        nome_temp = nome_template.replace('shipsteps.sof:','')
+        nome_file = '{cl_id}.pdf'.format(
+                    cl_id=nome_temp)
+
+        template = self.loadTemplate(nome_template)  # nome del template
+        pdfpath = self.site.storageNode('home:stampe_template', nome_file)
+
+        #builder(record=selId, template=template)
+        builder(record=record_id, template=template)
+        if format_page=='A3':
+            builder.page_format='A3'
+            builder.page_width=427
+            builder.page_height=290
+
+        result = builder.writePdf(pdfpath=pdfpath)
+
+        self.setInClientData(path='gnr.clientprint',
+                              value=result.url(timestamp=datetime.now()), fired=True)
+
+    def print_sof_fiore(self):
+        pass
 
     def cargoSof(self,pane):
         pane.inlineTableHandler(relation='@sof_cargo_sof',viewResource='ViewFromSof_Cargo',

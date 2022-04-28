@@ -18,12 +18,14 @@ class Table(object):
         tbl.column('remarks_cte', name_short='!![en]Master Remarks')
         tbl.column('note', name_short='!![en]Note SOF')
         tbl.column('onbehalf', name_short='!![en]On behalf')
+        tbl.column('int_sof', name_short='!![en]Sof header')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@sof_cargo_sof.ship_rec')
         tbl.aliasColumn('cargo_sof', '@sof_cargo_sof.@cargo_unl_load_id.cargo_sof',name_long='!![en]Cargo sof')
        # tbl.aliasColumn('carico_del_sof', '@sof_cargo_sof.carico_del_sof',name_long='!![en]Cargo on sof')
         tbl.aliasColumn('cargo_op', '@sof_cargo_sof.@cargo_unl_load_id.operation',name_long='!![en]Cago operation')
         tbl.aliasColumn('shiprec_sofcargo','@sof_cargo_sof.ship_rec')
+        tbl.aliasColumn('agencyname','@arrival_id.@agency_id.agency_name')
         tbl.pyColumn('shiprec',name_long='!![en]Shipper or Receiver')
         tbl.pyColumn('shiprec_bl',name_long='!![en]Shipper or Receiver BL')
         tbl.pyColumn('carico_del_sof',name_long='!![en]Cargo on sof')
@@ -33,14 +35,21 @@ class Table(object):
         tbl.pyColumn('email_arr_cc',name_long='!![en]Email arrival cc', static=True)
         #tbl.pyColumn('totcarico',name_long='!![en]Totcarico', static=True)
         tbl.formulaColumn('sof_det',"$sof_n || '-' || @arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
-        tbl.formulaColumn('nor_tend_txt', """CASE WHEN $nor_tend is not null THEN 'NOR tendered' ELSE '' END""", dtype='T')
-        tbl.formulaColumn('nor_rec_txt', """CASE WHEN $nor_rec is not null THEN 'NOR received' ELSE '' END""", dtype='T')
-        tbl.formulaColumn('nor_acc_txt', """CASE WHEN $nor_acc is not null THEN 'NOR acceppted' ELSE '' END""", dtype='T')
-        tbl.formulaColumn('ops_commenced_txt', """CASE WHEN $ops_commenced is not null AND $cargo_op = 'U' THEN 'Unloading commenced ' 
-                                                  WHEN $ops_commenced is not null AND $cargo_op = 'L' THEN 'Loading commenced ' ELSE '' END""", dtype='T')
-        tbl.formulaColumn('ops_completed_txt', """CASE WHEN $ops_completed is not null AND $cargo_op = 'U' THEN 'Unloading completed ' 
-                                                  WHEN $ops_completed is not null AND $cargo_op = 'L' THEN 'Loading completed ' ELSE '' END""", dtype='T')
-        tbl.formulaColumn('doc_onboard_txt', """CASE WHEN $doc_onboard is not null THEN  :onboard END""",  dtype='T', var_onboard="cargo's documents on board")
+        tbl.formulaColumn('nor_tend_txt', """CASE WHEN $nor_tend is not null THEN 'NOR tendered' || '<br>'  ELSE '' END""", dtype='T')
+        tbl.formulaColumn('nor_rec_txt', """CASE WHEN $nor_rec is not null THEN 'NOR received' || '<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('nor_acc_txt', """CASE WHEN $nor_acc is not null THEN 'NOR acceppted' || '<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('ops_commenced_txt', """CASE WHEN $ops_commenced is not null AND $cargo_op = 'U' THEN 'Unloading commenced '  || '<br>' 
+                                                  WHEN $ops_commenced is not null AND $cargo_op = 'L' THEN 'Loading commenced ' || '<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('ops_completed_txt', """CASE WHEN $ops_completed is not null AND $cargo_op = 'U' THEN 'Unloading completed '  || '<br>'
+                                                  WHEN $ops_completed is not null AND $cargo_op = 'L' THEN 'Loading completed ' || '<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('doc_onboard_txt', """CASE WHEN $doc_onboard is not null THEN  :onboard  || '<br>' END""",  dtype='T', var_onboard="cargo's documents on board ")
+        tbl.formulaColumn('nor_tend_time', """CASE WHEN $nor_tend is not null THEN to_char($nor_tend, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
+        tbl.formulaColumn('nor_rec_time', """CASE WHEN $nor_rec is not null THEN to_char($nor_rec, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
+        tbl.formulaColumn('nor_acc_time', """CASE WHEN $nor_acc is not null THEN $nor_acc || '<br>'  ELSE '' END""", dtype='T')
+        tbl.formulaColumn('ops_commenced_time', """CASE WHEN $ops_commenced is not null THEN to_char($ops_commenced, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
+        tbl.formulaColumn('ops_completed_time', """CASE WHEN $ops_completed is not null THEN to_char($ops_completed, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
+        tbl.formulaColumn('doc_onboard_time', """CASE WHEN $doc_onboard is not null THEN to_char($doc_onboard, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
+
         tbl.formulaColumn('note_txt', """CASE WHEN $note is not null THEN 'Notes' || '<br>'  ELSE '' END""", dtype='T')
         
         
@@ -48,6 +57,8 @@ class Table(object):
                                          coalesce('NOR accepted ' || $nor_acc, '') || '<br>' || $ops_commenced_txt || to_char($ops_commenced, :df) || '<br>' || 
                                          $ops_completed_txt || to_char(ops_completed, :df) || '<br>' || coalesce(:onboard || to_char($doc_onboard,:df),'')""",var_onboard="Cargo's documents on board ",var_df='DD-MM-YYYY HH:MI')
 
+        tbl.formulaColumn('intestazione_sof',"""CASE WHEN $int_sof is null THEN $agencyname 
+                                                WHEN $int_sof = '' THEN $agencyname ELSE $int_sof END""" )
     def pyColumn_carico_del_sof(self,record,field):
         p_key=record['id']
         #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
