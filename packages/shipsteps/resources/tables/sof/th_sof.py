@@ -59,7 +59,7 @@ class Form(BaseComponent):
         
 
 class FormSof(BaseComponent):
-    
+    py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor'
     def th_form(self, form):
         bc = form.center.borderContainer()
         self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='110px', background='lightgrey', splitter=True))
@@ -78,6 +78,7 @@ class FormSof(BaseComponent):
         tc_tanks = tc.tabContainer(title='!![en]Tank times',margin='2px')
         self.tanks(tc_tanks.contentPane(title='Time tanks'))
         self.emailSof(tc.contentPane(title='Email SOF'))
+        self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
 
     def datiSof(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=4, border_spacing='4px',fld_width='10em')
@@ -179,5 +180,19 @@ class FormSof(BaseComponent):
     def emailSof(self,pane):
         pane.inlineTableHandler(title='Email SOF', relation='@sof_email',viewResource='ViewFromSofEmail')
 
+    def editSof(self, frame):
+        bar = frame.top.slotBar('10, lett_select,*',height='20px',border_bottom='1px solid silver')
+        fb = bar.lett_select.formbuilder(cols=2,datapath='#FORM.record.htmlbag')
+        fb.dbselect('^.letterhead_id',table='adm.htmltemplate',lbl='carta intestata',hasDownArrow=True)
+        fb.button('Get Html Doc').dataRpc('#FORM.record.htmlbag.source',self.db.table('shipsteps.sof').getHTMLDoc,
+                                            sof_id='=#FORM.pkey',
+                                            record_template='sof',
+                                            letterhead='.letterhead_id')
+        
+        frame.pagedEditor(value='^#FORM.record.htmlbag.source',pagedText='^#FORM.record.htmlbag.output',
+                          border='1px solid silver',
+                          letterhead_id='^#FORM.record.htmlbag.letterhead_id',
+                          datasource='#FORM.record',printAction=True)
+  
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px')

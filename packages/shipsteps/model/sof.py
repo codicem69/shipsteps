@@ -1,4 +1,6 @@
 # encoding: utf-8
+from gnr.core.gnrdecorator import public_method
+from gnr.web.gnrbaseclasses import TableTemplateToHtml
 
 class Table(object):
     def config_db(self,pkg):
@@ -19,6 +21,7 @@ class Table(object):
         tbl.column('note', name_short='!![en]Note SOF')
         tbl.column('onbehalf', name_short='!![en]On behalf')
         tbl.column('int_sof', name_short='!![en]Sof header')
+        tbl.column('htmlbag', dtype='X', name_long='HTML Doc Bag')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@sof_cargo_sof.ship_rec')
         tbl.aliasColumn('cargo_sof', '@sof_cargo_sof.@cargo_unl_load_id.cargo_sof',name_long='!![en]Cargo sof')
@@ -250,7 +253,13 @@ class Table(object):
    #            ship_rec += ' - ' + shiprec[0][0] + '<br>'
    #        
    #    return ship_rec
-        
+    
+    @public_method
+    def getHTMLDoc(self,sof_id=None,record_template=None,**kwargs):
+        testo=TableTemplateToHtml(table=self,record_template=record_template).contentFromTemplate(record=sof_id)
+        return testo
+
+
     def counter_sof_n(self,record=None):
         #2021/000001
         #return dict(format='$K$YYYY/$NNNNNN', code='A', period='YYYY', date_field='date', showOnLoad=True, date_tolerant=True)

@@ -30,6 +30,9 @@ class ViewFromSofOperations(BaseComponent):
         r.fieldcell('operations',edit=True, width='40em')
         r.fieldcell('from',edit=True, width='5em')
         r.fieldcell('to',edit=True, width='5em')
+    
+    def th_order(self):
+        return 'date'
 
 class Form(BaseComponent):
 
