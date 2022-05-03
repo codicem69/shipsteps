@@ -25,6 +25,7 @@ class ViewFromSofOperations(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
+        r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('date',edit=True)
         r.fieldcell('day',edit=True)
         r.fieldcell('operations',edit=True, width='40em')
@@ -32,7 +33,7 @@ class ViewFromSofOperations(BaseComponent):
         r.fieldcell('to',edit=True, width='5em')
     
     def th_order(self):
-        return 'date'
+        return '_row_count'
 
 class Form(BaseComponent):
 
