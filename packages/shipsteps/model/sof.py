@@ -53,7 +53,7 @@ class Table(object):
         tbl.formulaColumn('ops_completed_time', """CASE WHEN $ops_completed is not null THEN to_char($ops_completed, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
         tbl.formulaColumn('doc_onboard_time', """CASE WHEN $doc_onboard is not null THEN to_char($doc_onboard, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
 
-        tbl.formulaColumn('note_txt', """CASE WHEN $note is not null THEN 'Notes' || '<br>'  ELSE '' END""", dtype='T')
+        tbl.formulaColumn('note_txt', """CASE WHEN $note is not null THEN 'Notes/Rain Times/General Reamarks' || '<br>'  ELSE '' END""", dtype='T')
         
         
         tbl.formulaColumn('time_sof', """coalesce('NOR tendered ' || to_char($nor_tend, :df), '') || '<br>' || coalesce('NOR received ' || to_char($nor_rec, :df),'') || '<br>' ||

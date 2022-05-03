@@ -79,6 +79,7 @@ class FormSof(BaseComponent):
         self.tanks(tc_tanks.contentPane(title='Time tanks'))
         self.emailSof(tc.contentPane(title='Email SOF'))
         self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
+        self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
 
     def datiSof(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=4, border_spacing='4px',fld_width='10em')
@@ -193,6 +194,21 @@ class FormSof(BaseComponent):
                           border='1px solid silver',
                           letterhead_id='^#FORM.record.htmlbag.letterhead_id',
                           datasource='#FORM.record',printAction=True)
-  
+    def Sofpdf(self,frame):
+        self.printDisplay(frame,resource='shipsteps.sof:html_res/sof_template')
+
+    def printDisplay(self, frame, resource=None, html=None):
+        bar = frame.top.slotBar('10,lett_select,*', height='20px', border_bottom='1px solid silver')
+        bar.lett_select.formbuilder().dbselect('^.curr_letterhead_id',
+                                                table='adm.htmltemplate',
+                                                lbl='Carta intestata',
+                                                hasDownArrow=True)
+        frame.documentFrame(resource=resource,
+                            pkey='^#FORM.pkey',
+                            html=html,
+                            letterhead_id='^.curr_letterhead_id',
+                            missingContent='NO SOF',
+                          _if='pkey',_delay=100)
+
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px')
