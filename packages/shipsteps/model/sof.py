@@ -29,6 +29,9 @@ class Table(object):
         tbl.aliasColumn('cargo_op', '@sof_cargo_sof.@cargo_unl_load_id.operation',name_long='!![en]Cago operation')
         tbl.aliasColumn('shiprec_sofcargo','@sof_cargo_sof.ship_rec')
         tbl.aliasColumn('agencyname','@arrival_id.@agency_id.agency_name')
+        tbl.aliasColumn('timearr','@arrival_id.@time_arr.time_arr')
+        tbl.aliasColumn('timearr2','@arrival_id.@time_arr.time_arr_2')
+        tbl.aliasColumn('sofop_int','@sof_operations.operation_int')
         tbl.pyColumn('shiprec',name_long='!![en]Shipper or Receiver')
         tbl.pyColumn('shiprec_bl',name_long='!![en]Shipper or Receiver BL')
         tbl.pyColumn('carico_del_sof',name_long='!![en]Cargo on sof')
@@ -46,6 +49,10 @@ class Table(object):
                                                   WHEN $ops_commenced is not null AND $cargo_op = 'L' THEN 'Loading commenced ' || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('ops_completed_txt', """CASE WHEN $ops_completed is not null AND $cargo_op = 'U' THEN 'Unloading completed '  || '<br>'
                                                   WHEN $ops_completed is not null AND $cargo_op = 'L' THEN 'Loading completed ' || '<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('ops_commenced_email', """CASE WHEN $ops_commenced is not null AND $cargo_op = 'U' THEN 'Unloading commenced------'
+                                                  WHEN $ops_commenced is not null AND $cargo_op = 'L' THEN 'Loading commenced--------' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('ops_completed_email', """CASE WHEN $ops_completed is not null AND $cargo_op = 'U' THEN 'Unloading completed------'
+                                                  WHEN $ops_completed is not null AND $cargo_op = 'L' THEN 'Loading completed--------' ELSE '' END""", dtype='T')
         tbl.formulaColumn('doc_onboard_txt', """CASE WHEN $doc_onboard is not null THEN  :onboard  || '<br>' END""",  dtype='T', var_onboard="cargo's documents on board ")
         tbl.formulaColumn('nor_tend_time', """CASE WHEN $nor_tend is not null THEN to_char($nor_tend, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
         tbl.formulaColumn('nor_rec_time', """CASE WHEN $nor_rec is not null THEN to_char($nor_rec, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
@@ -57,10 +64,11 @@ class Table(object):
         tbl.formulaColumn('note_txt', """CASE WHEN $note is not null THEN 'Notes/Rain Times/General Reamarks' || '<br>'  ELSE '' END""", dtype='T')
         
         
-        tbl.formulaColumn('time_sof', """coalesce('NOR tendered ' || to_char($nor_tend, :df), '') || '<br>' || coalesce('NOR received ' || to_char($nor_rec, :df),'') || '<br>' ||
-                                         coalesce('NOR accepted ' || $nor_acc, '') || '<br>' || $ops_commenced_txt || to_char($ops_commenced, :df) || '<br>' || 
-                                         $ops_completed_txt || to_char(ops_completed, :df) || '<br>' || coalesce(:onboard || to_char($doc_onboard,:df),'')""",var_onboard="Cargo's documents on board ",var_df='DD-MM-YYYY HH:MI')
-
+        tbl.formulaColumn('time_sof', """coalesce('NOR tendered-------------' || to_char($nor_tend, :df), '') || '<br>' || coalesce('NOR received-------------' || to_char($nor_rec, :df),'') || '<br>' ||
+                                         coalesce('NOR accepted-------------' || $nor_acc, '') || '<br>' || $ops_commenced_email || to_char($ops_commenced, :df) || '<br>' || 
+                                         $ops_completed_email || to_char(ops_completed, :df) || '<br>' || coalesce(:onboard || to_char($doc_onboard,:df),'')""",var_onboard="Documents on board-------",var_df='DD/MM/YYYY HH:MI')
+        tbl.formulaColumn('portlog_time',"""CASE WHEN $timearr is not null OR $time_sof is not null OR $timearr2 is not null THEN 
+                                            'PORTLOG<br>------------------------------<br>' || $timearr || '<br>' || $time_sof || '<br>' || $timearr2 || '<br>' END""")
         tbl.formulaColumn('intestazione_sof',"""CASE WHEN $int_sof is null THEN $agencyname 
                                                 WHEN $int_sof = '' THEN $agencyname ELSE $int_sof END""" )
     def pyColumn_carico_del_sof(self,record,field):

@@ -14,5 +14,5 @@ class Table(object):
         tbl.column('from', dtype='H', name_short='!![en]From')
         tbl.column('to', dtype='H', name_short='!![en]To')
         tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
-    
-    
+        tbl.formulaColumn('operation_int',"""CASE WHEN $date is not null THEN '<br>OPERATIONS<br>------------------------------' END""", dtype='T')
+        

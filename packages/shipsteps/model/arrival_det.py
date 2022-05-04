@@ -23,4 +23,11 @@ class Table(object):
         tbl.column('lo_dep', size=':15', name_short='!![en]Lub Oil departure')
         tbl.column('fw_dep', size=':15', name_short='!![en]Fresh Water departure')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
-    
+        tbl.formulaColumn('robarr_int',"""CASE WHEN $ifo_arr is not null OR $do_arr is not null OR $lo_arr is not null OR $fw_arr is not null THEN
+                                        '<br>R.O.B. ON ARRIVAL<br>------------------------------<br>' ELSE '' END""", dtype='T' )
+        tbl.formulaColumn('robdep_int',"""CASE WHEN $ifo_dep is not null OR $do_dep is not null OR $lo_dep is not null OR $fw_dep is not null THEN
+                                        '<br>R.O.B. ON DEPARTURE<br>------------------------------<br>' ELSE '' END""", dtype='T' )
+        tbl.formulaColumn('tugs_int',"""CASE WHEN $tug_in is not null OR $tug_out is not null THEN
+                                        '<br><br>TUGS USED<br>------------------------------<br>' ELSE '' END""", dtype='T' )
+        tbl.formulaColumn('draft_int',"""CASE WHEN $draft_aft_arr is not null OR $draft_fw_arr is not null OR $draft_aft_dep is not null
+                                        OR $draft_fw_dep is not null THEN '<br><br>DRAFT<br>------------------------------<br>' ELSE '' END""", dtype='T')

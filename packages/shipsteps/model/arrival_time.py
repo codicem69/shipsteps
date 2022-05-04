@@ -23,6 +23,7 @@ class Table(object):
         tbl.column('sailed', dtype='DH', name_short='!![en]Vessel sailed')
         tbl.column('cosp', dtype='DH', name_short='!![en]Commenced of sea pass')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        
        # tbl.aliasColumn('time_from_sof','@arrival_id.@sof_arr.time_sof')
         tbl.formulaColumn('eosp_txt', """CASE WHEN $eosp is not null THEN 'Eosp' || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('aor_txt', """CASE WHEN $aor is not null THEN 'Vessel arrived on road' || '<br>' ELSE '' END""", dtype='T')
@@ -53,11 +54,11 @@ class Table(object):
         tbl.formulaColumn('sailed_time', """CASE WHEN $sailed is not null THEN to_char($sailed, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
         tbl.formulaColumn('cosp_time', """CASE WHEN $cosp is not null THEN to_char($cosp, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
 
-        tbl.formulaColumn('time_arr',"""coalesce('End of sea passage ' || to_char($eosp, :df),'') || '<br>' || coalesce('Arrived on road ' || to_char($aor, :df), '') || '<br>' ||
-                                        coalesce('Anchored ' || to_char($anchored, :df),'') || '<br>' || coalesce('Anchor aweigh ' || to_char($anchor_up, :df),'') || '<br>' ||
-                                        coalesce('Pilot on board ' || to_char($pob, :df),'') || '<br>' || coalesce('First rope ashore ' || to_char($first_rope, :df),'') || '<br>' ||
-                                        coalesce('Moored ' || to_char($moored, :df),'') || '<br>' || coalesce('Pilot off ' || to_char($poff, :df), '') || '<br>' ||
-                                        coalesce('Gangway in position ' || to_char($gangway, :df), '') || '<br>' || coalesce('Free pratique reported ' || to_char($free_p, :df), '') """,dtype='T',var_df='DD-MM-YYYY HH.MI')
-        tbl.formulaColumn('time_arr_2',"""coalesce('Sailing pilot on board ' || to_char($pobd, :df), '') || '<br>' || coalesce('Last line ashore ' || to_char($last_line, :df),'') || '<br>' ||
-                                          coalesce('Vessel sailed ' || to_char($sailed, :df),'') || '<br>' || coalesce('Commenced of sea passage ' || to_char($cosp, :df), '')""", dtype='T',var_df='DD-MM-YYYY HH.MI')
+        tbl.formulaColumn('time_arr',"""coalesce('End of sea passage-------' || to_char($eosp, :df),'') || '<br>' || coalesce('Arrived on road----------' || to_char($aor, :df), '') || '<br>' ||
+                                        coalesce('Anchored-----------------' || to_char($anchored, :df),'') || '<br>' || coalesce('Anchor aweigh------------' || to_char($anchor_up, :df),'') || '<br>' ||
+                                        coalesce('Pilot on board-----------' || to_char($pob, :df),'') || '<br>' || coalesce('First rope ashore--------' || to_char($first_rope, :df),'') || '<br>' ||
+                                        coalesce('Moored-------------------' || to_char($moored, :df),'') || '<br>' || coalesce('Pilot off----------------' || to_char($poff, :df), '') || '<br>' ||
+                                        coalesce('Gangway in position------' || to_char($gangway, :df), '') || '<br>' || coalesce('Free pratique reported---' || to_char($free_p, :df), '') """,dtype='T',var_df='DD/MM/YYYY HH:MI')
+        tbl.formulaColumn('time_arr_2',"""coalesce('Sailing pilot on board---' || to_char($pobd, :df), '') || '<br>' ||  coalesce('Last line ashore---------' || to_char($last_line, :df),'') || '<br>' ||
+                                          coalesce('Vessel sailed------------' || to_char($sailed, :df),'') || '<br>' || coalesce('Commenced of sea passage-' || to_char($cosp, :df), '')""", dtype='T',var_df='DD/MM/YYYY HH:MI')
         
