@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-04-04T16:40:53.219693+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-04-11T10:26:36.407864+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-05-04T10:13:41.545546+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.softemplateemail_arr_shiprec</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_arr_shiprec</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.sof</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Email arrival Ship/Rec</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
@@ -34,31 +34,13 @@
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;CARGO DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$cargo_on_sof&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$shipper_or_receiver&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
+	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$int_carico&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$cargo_on_sof&lt;/span&gt;&lt;/span&gt;$shipper_or_receiver&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;EXPECTED TIMES&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ETA:...........$eta WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ETB:...........$etb WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ET Start ops:..&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$et_start WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ETC:...........$etc WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ETS:...........$ets WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$eta_email$etb_email$etstart_email$etc_email$ets_email&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
@@ -214,6 +196,15 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g8jullodft>
+<g9glv3lhex _pkey="g9glv3lhex"><fieldpath>int_carico</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">int_carico</fieldname>
+<varname dtype="::NN">int_carico</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></g9glv3lhex>
 <g8juoy09qp _pkey="g8juoy09qp"><fieldpath dtype="::NN">@arrival_id.cargo</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">arrival_id/Carico</fieldname>
@@ -254,6 +245,15 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g8jv0cbuqx>
+<g9gkvrury1 _pkey="g9gkvrury1"><fieldpath>@arrival_id.eta_email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/eta_email</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_eta_email">eta_email</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></g9gkvrury1>
 <g8jv0eyv9t _pkey="g8jv0eyv9t"><fieldpath dtype="::NN">@arrival_id.etb</fieldpath>
 <dtype dtype="::NN">DH</dtype>
 <fieldname dtype="::NN">arrival_id/etb</fieldname>
@@ -264,6 +264,15 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g8jv0eyv9t>
+<g9gkvu7ivd _pkey="g9gkvu7ivd"><fieldpath>@arrival_id.etb_email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/etb_email</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_etb_email">etb_email</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></g9gkvu7ivd>
 <g8jv0h5p8h _pkey="g8jv0h5p8h"><fieldpath dtype="::NN">@arrival_id.et_start</fieldpath>
 <dtype dtype="::NN">DH</dtype>
 <fieldname dtype="::NN">arrival_id/et_start</fieldname>
@@ -274,6 +283,15 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g8jv0h5p8h>
+<g9gkvy9cvd _pkey="g9gkvy9cvd"><fieldpath>@arrival_id.etstart_email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/etstart_email</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_etstart_email">etstart_email</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></g9gkvy9cvd>
 <g8jv0j71o1 _pkey="g8jv0j71o1"><fieldpath dtype="::NN">@arrival_id.etc</fieldpath>
 <dtype dtype="::NN">DH</dtype>
 <fieldname dtype="::NN">arrival_id/etc</fieldname>
@@ -284,6 +302,15 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g8jv0j71o1>
+<g9gkw2k335 _pkey="g9gkw2k335"><fieldpath>@arrival_id.etc_email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/etc_email</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_etc_email">etc_email</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></g9gkw2k335>
 <g8jv0loc69 _pkey="g8jv0loc69"><fieldpath dtype="::NN">@arrival_id.ets</fieldpath>
 <dtype dtype="::NN">DH</dtype>
 <fieldname dtype="::NN">arrival_id/ets</fieldname>
@@ -294,6 +321,15 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g8jv0loc69>
+<g9gl51jqrl _pkey="g9gl51jqrl"><fieldpath>@arrival_id.ets_email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/ets_email</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_ets_email">ets_email</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></g9gl51jqrl>
 <g8jv7mepu9 _pkey="g8jv7mepu9"><fieldpath dtype="::NN">@arrival_id.@agency_id.@port.descrizione</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">arrival_id/Agenzia/place/Descrizione</fieldname>
@@ -364,7 +400,7 @@
 <values _T="NN" dtype="::NN"></values></g8jvdbz6i9></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css _T="NN"></content_css>
-<compiled><main maintable="shipsteps.sof" locale="it-IT" virtual_columns="email_sof_to,email_arr_to,email_sof_cc,email_arr_cc,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,@arrival_id.cargo,carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,shiprec" columns="$email_sof_to,$email_arr_to,$email_sof_cc,$email_arr_cc,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@dock_id.dock_name,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,@arrival_id.cargo,$carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta,@arrival_id.etb,@arrival_id.et_start,@arrival_id.etc,@arrival_id.ets,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,$shiprec,@arrival_id.reference_num" formats='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' masks='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"email_sof_to": "T", "email_arrival_to": "T", "email_sof_cc": "T", "email_arrival_cc": "T", "imbarcazione_tipo": "T", "imbarcazione_nome": "T", "agency_name": "T", "agenzia_place_citta_nazione": "A", "banchina_dock_name": "T", "last_port": "A", "next_port": "A", "arrival_id_carico": "T", "cargo_on_sof": "T", "ship_or_rec": "T", "eta": "DH", "etb": "DH", "et_start": "DH", "etc": "DH", "ets": "DH", "port_name": "T", "agenzia_fullstyle": "A", "user_signature": "T", "shipper_or_receiver": "T", "reference_number": "T"}::JS'>&lt;div&gt;
+<compiled><main maintable="shipsteps.sof" locale="it-IT" virtual_columns="email_sof_to,email_arr_to,email_sof_cc,email_arr_cc,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,int_carico,@arrival_id.cargo,carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta_email,@arrival_id.etb_email,@arrival_id.etstart_email,@arrival_id.etc_email,@arrival_id.ets_email,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,shiprec" columns="$email_sof_to,$email_arr_to,$email_sof_cc,$email_arr_cc,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@dock_id.dock_name,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,$int_carico,@arrival_id.cargo,$carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta,@arrival_id.eta_email,@arrival_id.etb,@arrival_id.etb_email,@arrival_id.et_start,@arrival_id.etstart_email,@arrival_id.etc,@arrival_id.etc_email,@arrival_id.ets,@arrival_id.ets_email,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,$shiprec,@arrival_id.reference_num" formats='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' masks='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"email_sof_to": "T", "email_arrival_to": "T", "email_sof_cc": "T", "email_arrival_cc": "T", "imbarcazione_tipo": "T", "imbarcazione_nome": "T", "agency_name": "T", "agenzia_place_citta_nazione": "A", "banchina_dock_name": "T", "last_port": "A", "next_port": "A", "int_carico": "T", "arrival_id_carico": "T", "cargo_on_sof": "T", "ship_or_rec": "T", "eta": "DH", "eta_email": "T", "etb": "DH", "etb_email": "T", "et_start": "DH", "etstart_email": "T", "etc": "DH", "etc_email": "T", "ets": "DH", "ets_email": "T", "port_name": "T", "agenzia_fullstyle": "A", "user_signature": "T", "shipper_or_receiver": "T", "reference_number": "T"}::JS'>&lt;div&gt;
 	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$email_arr_to$email_sof_to$email_sof_cc$email_arr_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
@@ -387,31 +423,13 @@
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;CARGO DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$carico_del_sof&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$shiprec&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
+	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$int_carico&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$carico_del_sof&lt;/span&gt;&lt;/span&gt;$shiprec&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;EXPECTED TIMES&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ETA:...........$@arrival_id.eta WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ETB:...........$@arrival_id.etb WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ET Start ops:..&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.et_start WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ETC:...........$@arrival_id.etc WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;ETS:...........$@arrival_id.ets WP/AGW&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.eta_email$@arrival_id.etb_email$@arrival_id.etstart_email$@arrival_id.etc_email$@arrival_id.ets_email&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;

@@ -66,7 +66,11 @@ class Table(object):
         #tbl.aliasColumn('email_int_arr','@arrival_email.email_int')
         tbl.aliasColumn('email_int_sof','@sof_arr.@sof_email.email_int')
         
-        
+        tbl.formulaColumn('eta_email',"""CASE WHEN $eta IS NOT NULL THEN :etadescr || $eta || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etadescr='ETA:...........')
+        tbl.formulaColumn('etb_email',"""CASE WHEN $etb IS NOT NULL THEN :etbdescr || $etb || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etbdescr='ETB:...........')
+        tbl.formulaColumn('etstart_email',"""CASE WHEN $et_start IS NOT NULL THEN :etstdescr || $et_start || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etstdescr='ET Start ops:..')
+        tbl.formulaColumn('etc_email',"""CASE WHEN $etc IS NOT NULL THEN :etcdescr || $etc || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etcdescr='ETC:...........')
+        tbl.formulaColumn('ets_email',"""CASE WHEN $ets IS NOT NULL THEN :etsdescr || $ets || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etsdescr='ETS:...........')
 
         tbl.formulaColumn('arrival_data',"$reference_num || ' - ' || @vessel_details_id.@imbarcazione_id.nome || ' - ' || coalesce($visit_id,'')", dtype='T')    
         tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )

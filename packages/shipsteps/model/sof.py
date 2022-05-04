@@ -37,6 +37,7 @@ class Table(object):
         tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
         tbl.pyColumn('email_arr_cc',name_long='!![en]Email arrival cc', static=True)
         #tbl.pyColumn('totcarico',name_long='!![en]Totcarico', static=True)
+        tbl.formulaColumn('int_carico',"""CASE WHEN $cargo_sof <>'NIL' THEN 'CARGO DETAILS<br>' || :carsof ELSE '' END""",dtype='T',var_carsof='------------------------------<br>')
         tbl.formulaColumn('sof_det',"$sof_n || '-' || @arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
         tbl.formulaColumn('nor_tend_txt', """CASE WHEN $nor_tend is not null THEN 'NOR tendered' || '<br>'  ELSE '' END""", dtype='T')
         tbl.formulaColumn('nor_rec_txt', """CASE WHEN $nor_rec is not null THEN 'NOR received' || '<br>' ELSE '' END""", dtype='T')
@@ -71,9 +72,10 @@ class Table(object):
         for c in range(len(carico)):
             if carico[c][0]== 'U':
                 cargo += '- Unloading cargo: ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + ' ' + str(carico[c][4]) + '<br>'
-            else:
+            elif carico[c][0]== 'L':
                 cargo += '- Loading cargo: ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + ' ' + str(carico[c][4]) + '<br>'
-        
+            else:
+                cargo = ''
         #prepariamo i dati per il totale carico
         tot_carico = self.db.table('shipsteps.sof_cargo').query(columns="@cargo_unl_load_id.operation, @cargo_unl_load_id.@measure_id.description, SUM(@cargo_unl_load_id.quantity)",
                                                                 where='sof_id=:sofid',sofid=p_key, group_by='@cargo_unl_load_id.@measure_id.description,@cargo_unl_load_id.operation').fetch()
@@ -81,11 +83,15 @@ class Table(object):
         for c in range(len(tot_carico)):
             if tot_carico[c][0]== 'U':
                 totale_carico += '- Tot. unloading cargo: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>'
-            else:
+            elif tot_carico[c][0]== 'L':
                 totale_carico += '- Tot. loading cargo: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>' 
-        
+            else:
+                totale_carico =''
         #inseriamo in un unica variabile tutti i dati relativi al carico sopra calcolati
-        descr_carico = cargo + '<br>' + totale_carico
+        if cargo != '' or totale_carico != '':
+            descr_carico = cargo + '<br>' + totale_carico
+        else:
+            descr_carico = ''
         return descr_carico
     
     def pyColumn_shiprec_bl(self,record,field):
@@ -115,12 +121,15 @@ class Table(object):
         rec=''
         for c in range(len(receiver)):
             if receiver[c][0] != '':
-                rec += receiver[c][0] + '<br>'             
+                rec += '<br>' + receiver[c][0] + '<br>'             
         ship=''
         for c in range(len(shipper)):
             if shipper[c][0] != '':
-                rec += shipper[c][0] + '<br>'
-        ship_rec = rec + ship
+                rec += '<br>' + shipper[c][0] + '<br>'
+        if rec != '' or rec != '':
+            ship_rec = rec + ship + '<br>'
+        else:
+            ship_rec=''    
         return ship_rec
         print(x) 
    #def pyColumn_carico_del_sof(self,record,field):

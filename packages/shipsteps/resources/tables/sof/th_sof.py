@@ -95,11 +95,11 @@ class FormSof(BaseComponent):
         fb.field('int_sof')
         
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_sof,stampa_sof_fiore,*,10')
+        bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,*,10')
         btn_sof_print=bar.stampa_sof.button('Print SOF')
-        btn_sof_fiore=bar.stampa_sof_fiore.button('Print SOF Fiore')
+        btn_sof_arrivo=bar.email_arrivo.button('Email arrival')
         btn_sof_print.dataRpc('msg_special', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
-        btn_sof_fiore.dataRpc('msg_special', self.print_sof_fiore,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
+        btn_sof_arrivo.dataRpc('msg_special', self.email_sof_arrival,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
                             nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4')
     
     @public_method
@@ -133,7 +133,7 @@ class FormSof(BaseComponent):
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
 
-    def print_sof_fiore(self):
+    def email_sof_arrival(self):
         pass
 
     def cargoSof(self,pane):
