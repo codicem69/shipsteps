@@ -99,9 +99,9 @@ class FormSof(BaseComponent):
         btn_sof_print=bar.stampa_sof.button('Print SOF')
         btn_sof_arrivo=bar.email_arrivo.button('Email arrival')
         btn_sof_print.dataRpc('msg_special', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
-        btn_sof_arrivo.dataRpc('msg_special', self.email_sof_arrival,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
-                            nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4')
-    
+        btn_sof_arrivo.dataRpc('msg_special', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',
+                            nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',ciao='prova',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys')
+        bar.dataController("if(msgspec=='arrival_sof') {alert('Message created')}", msgspec='^msg_special')
     @public_method
     def print_sof(self, record, resultAttr=None, nome_template=None, format_page=None, **kwargs):
         #msg_special=None
@@ -132,9 +132,6 @@ class FormSof(BaseComponent):
 
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
-
-    def email_sof_arrival(self):
-        pass
 
     def cargoSof(self,pane):
         pane.inlineTableHandler(relation='@sof_cargo_sof',viewResource='ViewFromSof_Cargo',
@@ -209,6 +206,131 @@ class FormSof(BaseComponent):
                             letterhead_id='^.curr_letterhead_id',
                             missingContent='NO SOF',
                           _if='pkey',_delay=100)
+
+    @public_method
+    def email_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
+        record_arr=record['arrival_id']
+        #verifichiamo che ci sia il record
+        if not record:
+            return
+        #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
+        attcmt=[]
+        #lettura degli attachment
+        if selPkeys_att is not None:
+            lenPkeys_att = len(selPkeys_att) #verifichiamo la lunghezza della lista pkeys tabella allegati
+            file_url=[]
+            tbl_att =  self.db.table('shipsteps.arrival_atc') #definiamo la variabile della tabella allegati
+            #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
+            #viene appesa alla variabile lista file_url
+            for e in range(lenPkeys_att):
+                pkeys_att=selPkeys_att[e]
+                fileurl = tbl_att.readColumns(columns='$fileurl',
+                      where='$id=:att_id',
+                        att_id=pkeys_att)
+                if fileurl is not None and fileurl !='':
+                    file_url.append(fileurl)
+        
+            ln = len(file_url)
+            for r in range(ln):
+                fileurl = file_url[r]
+                file_path = fileurl.replace('/home','site')
+                fileSn = self.site.storageNode(file_path)
+                attcmt.append(fileSn.internal_path) 
+
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('shipsteps.staff')
+        account_email,email_mittente = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('shipsteps.agency')
+        account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+
+        #verifichiamo e assegnamo alla variabile sof_id arrivatoci dal bottone di invio email
+        if kwargs:
+            sof_id=kwargs['record_attr']['_pkey']
+            if sof_id is None:
+                msg_special='no_sof'
+                return msg_special
+        else:
+            return
+        #inizializziamo le variabili per le email
+        email_arr_to,email_arr_cc,email_arr_bcc='','',''
+        email_a_to,email_a_cc,email_a_bcc=[],[],[]
+        #definiamo le tabelle dove prelevare l'email
+        tbl_email_sof=self.db.table('shipsteps.email_sof')
+        tbl_email_arr=self.db.table('shipsteps.email_arr')
+        #verifichiamo la lunghezza del servizio arrivatoci tramite il bottone di invio email e con i cicli for preleviamo i
+        #dati email dalle relative tabelle- tramite l'uso delle liste con gli append aggiungiamo l'email 
+        ln_serv=len(servizio)
+        for e in range(ln_serv):
+            serv=servizio[e]
+            if serv=='arr':
+                email_to = tbl_email_arr.query(columns="$email",
+                                                    where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
+                                                    type='to').fetch()
+                for e in range(len(email_to)):
+                    email_a_to.append(email_to[e][0])
+
+                email_cc = tbl_email_arr.query(columns="$email",
+                                                    where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
+                                                    type='cc').fetch()  
+                for e in range(len(email_cc)):
+                    email_a_cc.append(email_cc[e][0])
+
+                email_bcc = tbl_email_arr.query(columns="$email",
+                                                    where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
+                                                    type='ccn').fetch()
+                for e in range(len(email_bcc)):
+                    email_a_bcc.append(email_bcc[e][0])
+                
+            elif serv=='sof':
+                email_to = tbl_email_sof.query(columns="$email",
+                                                    where='$sof_id=:s_id and $email_type=:type', s_id=sof_id,
+                                                    type='to').fetch()  
+                for e in range(len(email_to)):
+                    email_a_to.append(email_to[e][0])
+
+                email_cc = tbl_email_sof.query(columns="$email",
+                                                    where='$sof_id=:s_id and $email_type=:type', s_id=sof_id,
+                                                    type='cc').fetch()
+                for e in range(len(email_cc)):
+                    email_a_cc.append(email_cc[e][0]) 
+
+                email_bcc = tbl_email_sof.query(columns="$email",
+                                                    where='$sof_id=:s_id and $email_type=:type', s_id=sof_id,
+                                                    type='ccn').fetch()  
+                for e in range(len(email_bcc)):
+                    email_a_bcc.append(email_bcc[e][0])
+        #estraiamo le stringhe email dalle liste
+        email_arr_to=','.join([str(item) for item in email_a_to])
+        email_arr_cc=','.join([str(item) for item in email_a_cc])                    
+        email_arr_bcc=','.join([str(item) for item in email_a_bcc])
+        #verifichiamo che non mancano email destinatari TO e CCN altrimenti ritorniamo con la variabile msg_special che innesca il messaggio
+        #verifichiamo se non presente l'email to allora inseriamo l'email del mittente
+        if email_arr_to == email_arr_bcc == '':  
+            msg_special = 'no_email'
+            return msg_special
+        elif email_arr_to =='':    
+            email_arr_to=email_mittente 
+        #creiamo il nuovo messaggio e con il db.commit lo salviamo nella tabella di uscita email pronto per l'invio                                        
+        self.db.table('email.message').newMessageFromUserTemplate(
+                                                          record_id=sof_id,
+                                                          table='shipsteps.sof',
+                                                          account_id = account_email,
+                                                          to_address=email_arr_to,
+                                                          cc_address=email_arr_cc,
+                                                          bcc_address=email_arr_bcc,
+                                                          attachments=attcmt,
+                                                          template_code=email_template_id)
+        self.db.commit()
+        #ritorniamo con la variabile msg_special per l'innesco del messaggio e il settaggio della checklist invio email a vero
+        if email_template_id == 'email_ormeggio':
+            msg_special = 'arrival_sof'
+        else:
+            msg_special = 'ship_rec'
+        return msg_special
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px')

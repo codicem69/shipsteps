@@ -499,24 +499,31 @@ class Form(BaseComponent):
 
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
-        tbl_att =  self.db.table('shipsteps.arrival_atc')
         
-        lenPkeys_att = len(selPkeys_att)
-        file_url=[]
-        for e in range(lenPkeys_att):
-            pkeys_att=selPkeys_att[e]
-            fileurl = tbl_att.readColumns(columns='$fileurl',
-                  where='$id=:att_id',
-                    att_id=pkeys_att)
-            if fileurl is not None and fileurl !='':
-                file_url.append(fileurl)
+        #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
-        ln = len(file_url)
-        for r in range(ln):
-            fileurl = file_url[r]
-            file_path = fileurl.replace('/home','site')
-            fileSn = self.site.storageNode(file_path)
-            attcmt.append(fileSn.internal_path)
+        #lettura degli attachment
+        if selPkeys_att is not None:
+            lenPkeys_att = len(selPkeys_att) #verifichiamo la lunghezza della lista pkeys tabella allegati
+            file_url=[]
+            tbl_att =  self.db.table('shipsteps.arrival_atc') #definiamo la variabile della tabella allegati
+            #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
+            #viene appesa alla variabile lista file_url
+            for e in range(lenPkeys_att):
+                pkeys_att=selPkeys_att[e]
+                fileurl = tbl_att.readColumns(columns='$fileurl',
+                      where='$id=:att_id',
+                        att_id=pkeys_att)
+                if fileurl is not None and fileurl !='':
+                    file_url.append(fileurl)
+        
+            ln = len(file_url)
+            for r in range(ln):
+                fileurl = file_url[r]
+                file_path = fileurl.replace('/home','site')
+                fileSn = self.site.storageNode(file_path)
+                attcmt.append(fileSn.internal_path) 
+       
     
         #vecchio codice con rilevamento attachments tramite casella checkbox
        #if not record:
@@ -661,27 +668,29 @@ class Form(BaseComponent):
                     ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=record_id)
         eta = eta_arr.strftime("%d/%m/%Y, %H:%M")    
         
-        #lettura degli attachment
-        lenPkeys_att = len(selPkeys_att) #verifichiamo la lunghezza della lista pkeys tabella allegati
-        file_url=[]
-        tbl_att =  self.db.table('shipsteps.arrival_atc') #definiamo la variabile della tabella allegati
-        #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
-        #viene appesa alla variabile lista file_url
-        for e in range(lenPkeys_att):
-            pkeys_att=selPkeys_att[e]
-            fileurl = tbl_att.readColumns(columns='$fileurl',
-                  where='$id=:att_id',
-                    att_id=pkeys_att)
-            if fileurl is not None and fileurl !='':
-                file_url.append(fileurl)
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
-        ln = len(file_url)
-        for r in range(ln):
-            fileurl = file_url[r]
-            file_path = fileurl.replace('/home','site')
-            fileSn = self.site.storageNode(file_path)
-            attcmt.append(fileSn.internal_path) 
+        #lettura degli attachment
+        if selPkeys_att is not None:
+            lenPkeys_att = len(selPkeys_att) #verifichiamo la lunghezza della lista pkeys tabella allegati
+            file_url=[]
+            tbl_att =  self.db.table('shipsteps.arrival_atc') #definiamo la variabile della tabella allegati
+            #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
+            #viene appesa alla variabile lista file_url
+            for e in range(lenPkeys_att):
+                pkeys_att=selPkeys_att[e]
+                fileurl = tbl_att.readColumns(columns='$fileurl',
+                      where='$id=:att_id',
+                        att_id=pkeys_att)
+                if fileurl is not None and fileurl !='':
+                    file_url.append(fileurl)
+        
+            ln = len(file_url)
+            for r in range(ln):
+                fileurl = file_url[r]
+                file_path = fileurl.replace('/home','site')
+                fileSn = self.site.storageNode(file_path)
+                attcmt.append(fileSn.internal_path)
        #vecchio codice di lettura attachments su casella checkbox     
        #tbl_att =  self.db.table('shipsteps.arrival_atc')
        #fileurl = tbl_att.query(columns='$fileurl',
@@ -761,7 +770,7 @@ class Form(BaseComponent):
         subject='aggiornamento '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
         body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
         body_header_pec="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee_pec + '<br><br>'
-        body_footer= '<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
+        body_footer= 'Cordiali saluti<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
         if info_moor is None:
             info_moor=''
         body_msg=(sal + '<br>' + "con la presente si comunica che il nuovo ETA della " +vessel_type + ' ' + vessel_name + " è il " + eta + '<br><br>' + info_moor)
@@ -793,25 +802,35 @@ class Form(BaseComponent):
        # print(x)
 
     @public_method
-    def email_arrival_sof(self, record,email_template_id=None,servizio=[], **kwargs):
+    def email_arrival_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
         tbl_arrival = self.db.table('shipsteps.arrival')
 
         #verifichiamo che ci sia il record
         if not record:
             return
-        #leggiamo se sono stati selezionati allegati e li appendiamo alla variabile attcmt che poi sarà inserita nella creazione del nuovo messaggio    
-        tbl_att =  self.db.table('shipsteps.arrival_atc')
-        fileurl = tbl_att.query(columns='$fileurl',
-                  where='$att_email=:a_att AND $maintable_id=:mt_id',
-                    a_att='true',mt_id=record).fetch()
-        ln = len(fileurl)
+        #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
-     
-        for r in range(ln):
-            file_url = fileurl[r][0]
-            file_path = file_url.replace('/home','site')
-            fileSn = self.site.storageNode(file_path)
-            attcmt.append(fileSn.internal_path)
+        #lettura degli attachment
+        if selPkeys_att is not None:
+            lenPkeys_att = len(selPkeys_att) #verifichiamo la lunghezza della lista pkeys tabella allegati
+            file_url=[]
+            tbl_att =  self.db.table('shipsteps.arrival_atc') #definiamo la variabile della tabella allegati
+            #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
+            #viene appesa alla variabile lista file_url
+            for e in range(lenPkeys_att):
+                pkeys_att=selPkeys_att[e]
+                fileurl = tbl_att.readColumns(columns='$fileurl',
+                      where='$id=:att_id',
+                        att_id=pkeys_att)
+                if fileurl is not None and fileurl !='':
+                    file_url.append(fileurl)
+        
+            ln = len(file_url)
+            for r in range(ln):
+                fileurl = file_url[r]
+                file_path = fileurl.replace('/home','site')
+                fileSn = self.site.storageNode(file_path)
+                attcmt.append(fileSn.internal_path) 
 
         # Lettura degli account email predefiniti all'interno di Agency e Staff
         tbl_staff =  self.db.table('shipsteps.staff')
