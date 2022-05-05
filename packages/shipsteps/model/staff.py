@@ -18,9 +18,14 @@ class Table(object):
         tbl.column('is_active', dtype='B', name_long='!![en]Is active')   
         tbl.column('email_account_id',size='22', name_long='!![en]Email account'
                     ).relation('email.account.id', relation_name='', mode='foreignkey', onDelete='raise')
-        tbl.formulaColumn('fullname', """$name ||' '||$surname || '<br>' || coalesce($department ||' department <br>','') 
-                            || coalesce('mob.: ' || $telephone || '<br>', '') || coalesce('email: ' || $email || '<br>' , '') 
-                            || coalesce($note,'')""", name_long='!![en]Fullname')
+        #tbl.formulaColumn('fullname', """$name ||' '||$surname || '<br>' || coalesce($department ||' department <br>','') 
+        #                    || coalesce('mob.: ' || $telephone || '<br>', '') || coalesce('email: ' || $email || '<br>' , '') 
+        #                    || coalesce($note,'') """, name_long='!![en]Fullname')
         tbl.aliasColumn('username', '@user_id.username', name_long='!![en]Username')
-
-    
+       
+        tbl.formulaColumn('fullname',select=dict(table='shipsteps.staff',
+                                                columns="""$name ||' '||$surname || '<br>' || coalesce($department ||' department <br>','') 
+                            || coalesce('mob.: ' || $telephone || '<br>', '') || coalesce('email: ' || $email || '<br>' , '') 
+                            || coalesce($note,'') """,
+                                                where='$user_id =:env_user_id',
+                                                dtype='T',name_long='!![en]fullname'))

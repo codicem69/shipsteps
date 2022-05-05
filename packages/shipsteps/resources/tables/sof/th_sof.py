@@ -210,6 +210,7 @@ class FormSof(BaseComponent):
     @public_method
     def email_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
         record_arr=record['arrival_id']
+        
         #verifichiamo che ci sia il record
         if not record:
             return

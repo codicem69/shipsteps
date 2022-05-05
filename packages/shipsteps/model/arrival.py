@@ -50,8 +50,7 @@ class Table(object):
         
         tbl.pyColumn('saluto',name_long='!![en]Greeting', static=True)
         tbl.pyColumn('datacorrente',name_long='!![en]Current date', static=True)
-        
-        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
+       #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('carico_arr','@cargo_lu_arr.cargo_arr',name_long='Carico in arrivo')
         tbl.aliasColumn('cargo_lu_en','@cargo_lu_arr.cargo_ship_rec',name_long='!![en]Cargo L/U')
        # tbl.aliasColumn('transit_cargo','@cargo_transit_arr.transit_cargo')
@@ -299,8 +298,6 @@ class Table(object):
         for r in range (n_email):
             email_int += email_dest[r][0] + '<br>'
         return email_int
-    
-    
 
     def pyColumn_saluto(self,record,field):
         
