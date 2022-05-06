@@ -64,7 +64,9 @@ class Table(object):
         tbl.aliasColumn('email_account_id','@agency_id.@user.email_account_id')
         #tbl.aliasColumn('email_int_arr','@arrival_email.email_int')
         tbl.aliasColumn('email_int_sof','@sof_arr.@sof_email.email_int')
-        
+        tbl.aliasColumn('sailed','@time_arr.sailed')
+        tbl.formulaColumn('ets_emaildep',"""CASE WHEN $sailed IS NULL THEN :etsed || to_char($ets, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',
+                            var_etsed='<br>EXPECTED TIMES<br>------------------------------<br>ETS:...........',var_df='DD/MM/YYYY HH:MI')
         tbl.formulaColumn('eta_email',"""CASE WHEN $eta IS NOT NULL THEN :etadescr || to_char($eta, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etadescr='ETA:...........',var_df='DD/MM/YYYY HH:MI')
         tbl.formulaColumn('etb_email',"""CASE WHEN $etb IS NOT NULL THEN :etbdescr || to_char($etb, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etbdescr='ETB:...........',var_df='DD/MM/YYYY HH:MI')
         tbl.formulaColumn('etstart_email',"""CASE WHEN $et_start IS NOT NULL THEN :etstdescr || to_char($et_start, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etstdescr='ET Start ops:..',var_df='DD/MM/YYYY HH:MI')

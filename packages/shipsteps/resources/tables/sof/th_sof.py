@@ -95,12 +95,27 @@ class FormSof(BaseComponent):
         fb.field('int_sof')
         
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,*,10')
+        bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,*,10')
         btn_sof_print=bar.stampa_sof.button('Print SOF')
         btn_sof_arrivo=bar.email_arrivo.button('Email arrival')
+        btn_sof_oper=bar.email_operazioni.button('Email operations')
+        btn_sof_partenza=bar.email_partenza.button('Email departure')
         btn_sof_print.dataRpc('msg_special', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
         btn_sof_arrivo.dataRpc('msg_special', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',
-                            nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',ciao='prova',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys')
+                            nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
+                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
+        btn_sof_oper.dataRpc('msg_special', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_operations',
+                            nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
+                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
+        btn_sof_partenza.dataRpc('msg_special', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_partenza',
+                            nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
+                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
         bar.dataController("if(msgspec=='arrival_sof') {alert('Message created')}", msgspec='^msg_special')
     @public_method
     def print_sof(self, record, resultAttr=None, nome_template=None, format_page=None, **kwargs):
@@ -327,10 +342,9 @@ class FormSof(BaseComponent):
                                                           template_code=email_template_id)
         self.db.commit()
         #ritorniamo con la variabile msg_special per l'innesco del messaggio e il settaggio della checklist invio email a vero
-        if email_template_id == 'email_ormeggio':
+        if email_template_id == 'email_ormeggio' or email_template_id == 'email_operations' or email_template_id == 'email_partenza':
             msg_special = 'arrival_sof'
-        else:
-            msg_special = 'ship_rec'
+        
         return msg_special
 
     def th_options(self):
