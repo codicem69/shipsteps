@@ -64,8 +64,9 @@ class FormFromRinfusa(BaseComponent):
         #pane = form.record
         #fb = pane.formbuilder(cols=2, colswidth='20em', border_spacing='4px')
         #fb.field('arrival_id')
-        fb.div('Select for Unloading otherwise leave deselected for Loading', colspan=3)
-        fb.field('imb_sba',lbl='')
+        #fb.div('Select for Unloading otherwise leave deselected for Loading', colspan=3)
+        #fb.field('imb_sba',lbl='')
+        fb.radioButtonText(value='^.imb_sba', values='True:Unloading,False:Loading', lbl='Cargo operations: ',validate_notnull=True) 
         fb.br()   
         fb.field('navigazione', validate_notnull=True, colspan=3)
         fb.br()

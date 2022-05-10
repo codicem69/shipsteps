@@ -118,7 +118,7 @@ class Form(BaseComponent):
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly=True)
         fb.field('date')
-        fb.field('vessel_details_id' )
+        fb.field('vessel_details_id',validate_notnull=True )
         fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome')
         fb.field('visit_id')
 
@@ -128,12 +128,12 @@ class Form(BaseComponent):
         fb.field('et_start' , width='10em')
         fb.field('etc' , width='10em')
         fb.field('ets', width='10em' )
-        fb.field('draft_aft_arr', width='5em' )
-        fb.field('draft_fw_arr' , width='5em')
-        fb.field('draft_aft_dep' , width='5em')
-        fb.field('draft_fw_dep' , width='5em')
+        fb.field('draft_aft_arr', width='5em',placeholder='e.g. 4,5')
+        fb.field('draft_fw_arr' , width='5em',placeholder='e.g. 4,5')
+        fb.field('draft_aft_dep' , width='5em',placeholder='e.g. 4,5')
+        fb.field('draft_fw_dep' , width='5em',placeholder='e.g. 4,5')
         fb.field('dock_id' )
-        fb.field('info_moor',width='30em', colspan=2 )
+        fb.field('info_moor',width='30em', colspan=2 ,placeholder='e.g. Inizio ormeggio il ... ore ....')
         fb.field('master_name' )
         fb.field('n_crew' , width='5em')
         fb.field('n_passengers' , width='5em')
@@ -217,30 +217,30 @@ class Form(BaseComponent):
         #fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=3, border_spacing='4px',fld_width='10em',table='shipsteps.arrival_det',datapath='.record.@arr_details')
         fb.div('!![en]DRAFT')
         fb.br()
-        fb.field('draft_aft_arr')
-        fb.field('draft_fw_arr')
+        fb.field('draft_aft_arr',placeholder='e.g. 4,5')
+        fb.field('draft_fw_arr',placeholder='e.g. 4,5')
         fb.br()
-        fb.field('draft_aft_dep')
-        fb.field('draft_fw_dep')
+        fb.field('draft_aft_dep',placeholder='e.g. 4,5')
+        fb.field('draft_fw_dep',placeholder='e.g. 4,5')
         fb.br()
         fb.div('!![en]REMAINS')
         fb.br()
-        fb.field('ifo_arr')
-        fb.field('do_arr')
-        fb.field('lo_arr')
-        fb.field('ifo_dep')
-        fb.field('do_dep')
-        fb.field('lo_dep')
+        fb.field('ifo_arr',placeholder='e.g. mt.50')
+        fb.field('do_arr',placeholder='e.g. mt.50')
+        fb.field('lo_arr',placeholder='e.g. kgs.50')
+        fb.field('ifo_dep',placeholder='e.g. mt.50')
+        fb.field('do_dep',placeholder='e.g. mt.50')
+        fb.field('lo_dep',placeholder='e.g. kgs.50')
         fb.br()
         fb.div('FRESH WATER')
         fb.br()
-        fb.field('fw_arr')
-        fb.field('fw_dep')
+        fb.field('fw_arr',placeholder='e.g. mt.50')
+        fb.field('fw_dep',placeholder='e.g. mt.50')
         fb.br()
         fb.div('!![en]USED TUGS')
         fb.br()
-        fb.field('tug_in')
-        fb.field('tug_out')
+        fb.field('tug_in',placeholder='e.g. 1')
+        fb.field('tug_out',placeholder='e.g. 1')
 
     def emailArrival(self,pane):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
@@ -273,14 +273,14 @@ class Form(BaseComponent):
         btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
                             nome_template = 'shipsteps.arrival:check_list', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
         fb1.dataController("if(msg=='check_list') SET .checklist=true", msg='^nome_temp')
-        fb1.field('checklist', lbl='')
-        fb1.semaphore('^.checklist')
+        fb1.field('checklist', lbl='', margin_top='5px')
+        fb1.semaphore('^.checklist', margin_top='5px')
         btn_fs = fb1.Button('!![en]Print Frontespicie', width='146px')
         btn_fs.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:front_nave',format_page='A4')
         fb1.dataController("if(msg=='front_nave') SET .frontespizio=true", msg='^nome_temp')
-        fb1.field('frontespizio', lbl='')
-        fb1.semaphore('^.frontespizio')
+        fb1.field('frontespizio', lbl='', margin_top='5px')
+        fb1.semaphore('^.frontespizio', margin_top='5px')
 
         btn_cn = fb1.Button('!![en]Print Vessel folder', width='122px')
        #btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form',
@@ -290,29 +290,29 @@ class Form(BaseComponent):
         btn_cn.dataRpc('nome_temp', self.print_template, record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:cartella_doc',format_page='A3')
         fb1.dataController("if(msg=='cartella_doc') SET .cartella_nave=true", msg='^nome_temp')
-        fb1.field('cartella_nave', lbl='')
-        fb1.semaphore('^.cartella_nave')
+        fb1.field('cartella_nave', lbl='', margin_top='5px')
+        fb1.semaphore('^.cartella_nave', margin_top='5px')
 
         btn_ts = fb1.Button('!![en]Print Servicies table')
         btn_ts.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3')
         fb1.dataController("if(msg=='tab_servizi') SET .tab_servizi=true", msg='^nome_temp')
-        fb1.field('tab_servizi', lbl='')
-        fb1.semaphore('^.tab_servizi')
+        fb1.field('tab_servizi', lbl='', margin_top='5px')
+        fb1.semaphore('^.tab_servizi', margin_top='5px')
 
         btn_fc = fb1.Button('!![en]Print Cargo frontespiece')
         btn_fc.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:front_carico',format_page='A4')
         fb1.dataController("if(msg=='front_carico') SET .front_carico=true", msg='^nome_temp')
-        fb1.field('front_carico', lbl='')
-        fb1.semaphore('^.front_carico')
+        fb1.field('front_carico', lbl='', margin_top='5px')
+        fb1.semaphore('^.front_carico', margin_top='5px')
 
         btn_mn = fb1.Button('!![en]Print Vessel module',action="SET .modulo_nave=true")
         btn_mn.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:mod_nave',format_page='A4')
         fb1.dataController("if(msg=='mod_nave') SET .checklist=true", msg='^nome_temp')
-        fb1.field('modulo_nave', lbl='')
-        fb1.semaphore('^.modulo_nave')
+        fb1.field('modulo_nave', lbl='', margin_top='5px')
+        fb1.semaphore('^.modulo_nave', margin_top='5px')
 
         #definizione secondo rettangolo invio email all'interno del roundedGroup Pre Arrival
         div2=rg_prearrival.div(width='99%',height='20%',margin='auto',
@@ -332,8 +332,8 @@ class Form(BaseComponent):
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-        fb.field('email_ship_rec',lbl='')
-        fb.semaphore('^.email_ship_rec')
+        fb.field('email_ship_rec',lbl='', margin_top='5px')
+        fb.semaphore('^.email_ship_rec', margin_top='5px')
         #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
         fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
@@ -347,8 +347,8 @@ class Form(BaseComponent):
         #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
         fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_dogana',lbl='')
-        fb.semaphore('^.email_dogana')
+        fb.field('email_dogana',lbl='', margin_top='5px')
+        fb.semaphore('^.email_dogana', margin_top='5px')
 
        #uploader = fb.button('Upload more files')
        #uploader.dataController("""
@@ -368,8 +368,8 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         fb.dataController("if(msgspec=='val_imm') {SET .email_frontiera=true; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_frontiera',lbl='')
-        fb.semaphore('^.email_frontiera')
+        fb.field('email_frontiera',lbl='', margin_top='5px')
+        fb.semaphore('^.email_frontiera', margin_top='5px')
 
         btn_usma = fb.Button('!![en]Email Sanimare')
         btn_usma.dataRpc('msg_special', self.email_services,
@@ -378,8 +378,8 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_usma',lbl='')
-        fb.semaphore('^.email_usma')
+        fb.field('email_usma',lbl='', margin_top='5px')
+        fb.semaphore('^.email_usma', margin_top='5px')
 
         btn_pfso = fb.Button('!![en]Email PFSO', width='149px')
         btn_pfso.dataRpc('msg_special', self.email_services,
@@ -388,8 +388,8 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         fb.dataController("if(msgspec=='val_pfso') {SET .email_pfso=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_pfso',lbl='')
-        fb.semaphore('^.email_pfso')
+        fb.field('email_pfso',lbl='', margin_top='5px')
+        fb.semaphore('^.email_pfso', margin_top='5px')
 
         btn_pilot = fb.Button('!![en]Email Pilot/Moor')
         btn_pilot.dataRpc('msg_special', self.email_services,
@@ -398,8 +398,8 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_pilot_moor',lbl='')
-        fb.semaphore('^.email_pilot_moor')
+        fb.field('email_pilot_moor',lbl='', margin_top='5px')
+        fb.semaphore('^.email_pilot_moor', margin_top='5px')
 
         btn_tug = fb.Button('!![en]Email Tug', width='110px')
         btn_tug.dataRpc('msg_special', self.email_services,
@@ -409,8 +409,8 @@ class Form(BaseComponent):
                              cols=4,popup=True,colspan=2)]))
         fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
         #fb.dataController("alert(msg)", _if='msg',msg='^msg_special')
-        fb.field('email_tug',lbl='')
-        fb.semaphore('^.email_tug')
+        fb.field('email_tug',lbl='', margin_top='5px')
+        fb.semaphore('^.email_tug', margin_top='5px')
 
         btn_garb = fb.Button('!![en]Email Garbage', width='101px')
         btn_garb.dataRpc('msg_special', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
@@ -421,8 +421,8 @@ class Form(BaseComponent):
         #fb.dataController("alert(msg)", _if='msg',msg='^msg_select')
         fb.dataController("if(msgspec=='val_garbage') {SET .email_garbage=true ; alert('Message created');} if(msgspec=='yes') alert('You must select the record as row in the garbage form'); "
                             , msgspec='^msg_special')
-        fb.field('email_garbage',lbl='')
-        fb.semaphore('^.email_garbage')
+        fb.field('email_garbage',lbl='', margin_top='5px')
+        fb.semaphore('^.email_garbage', margin_top='5px')
         
 
         btn_chem = fb.Button('!![en]Email Chemist', width='149px')
@@ -432,8 +432,8 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_chemist',lbl='')
-        fb.semaphore('^.email_chemist')
+        fb.field('email_chemist',lbl='', margin_top='5px')
+        fb.semaphore('^.email_chemist', margin_top='5px')
 
         btn_gpg = fb.Button('!![en]Email GPG', width='105px')
         btn_gpg.dataRpc('msg_special', self.email_services,
@@ -442,8 +442,8 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         fb.dataController("if(msgspec=='val_gpg') {SET .email_gpg=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_gpg',lbl='')
-        fb.semaphore('^.email_gpg')
+        fb.field('email_gpg',lbl='', margin_top='5px')
+        fb.semaphore('^.email_gpg', margin_top='5px')
 
         btn_ens = fb.Button('!![en]Email ENS', width='110px')
         btn_ens.dataRpc('msg_special', self.email_services,
@@ -453,12 +453,12 @@ class Form(BaseComponent):
                              cols=4,popup=True,colspan=2)]))
         fb.dataController("if(msgspec=='val_ens') {SET .email_ens=true ; alert('Message created')}", msgspec='^msg_special')
        # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
-        fb.field('email_ens',lbl='')
-        fb.semaphore('^.email_ens')
+        fb.field('email_ens',lbl='', margin_top='5px')
+        fb.semaphore('^.email_ens', margin_top='5px')
 
         btn_af = fb.Button('!![en]Email Antifire', width='101px')
-        fb.field('email_antifire',lbl='')
-        fb.semaphore('^.email_antifire')
+        fb.field('email_antifire',lbl='', margin_top='5px')
+        fb.semaphore('^.email_antifire', margin_top='5px')
 
         btn_update = fb.Button('!![en]Email services<br>updating', width='149px')
         btn_update.dataRpc('msg_special', self.email_serv_upd,

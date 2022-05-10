@@ -30,9 +30,9 @@ class ViewFromGarbage(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('arrival_id')
-        r.fieldcell('ora_arr', edit=True)
-        r.fieldcell('data_arr', edit=True)
-        r.fieldcell('sosta_gg', edit=True)
+        r.fieldcell('ora_arr', edit=dict(validate_notnull=True))
+        r.fieldcell('data_arr', edit=dict(validate_notnull=True))
+        r.fieldcell('sosta_gg', edit=dict(validate_notnull=True))
         r.fieldcell('rif_alim', edit=True)
         r.fieldcell('bilge', edit=True)
         r.fieldcell('cargo_res', edit=True)

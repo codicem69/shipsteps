@@ -10,7 +10,7 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('arrival_id')
-        r.fieldcell('cheklist', semaphore=True)
+        r.fieldcell('checklist', semaphore=True)
         r.fieldcell('frontespizio')
         r.fieldcell('cartella_nave')
         r.fieldcell('modulo_nave')
@@ -44,7 +44,7 @@ class Form(BaseComponent):
         pane = form.record
         fb = pane.formbuilder(cols=2, border_spacing='4px')
         fb.field('arrival_id')
-        fb.field('cheklist')
+        fb.field('checklist')
         fb.field('frontespizio')
         fb.field('cartella_nave')
         fb.field('modulo_nave')
