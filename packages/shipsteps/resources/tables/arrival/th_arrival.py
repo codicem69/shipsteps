@@ -84,6 +84,7 @@ class Form(BaseComponent):
         self.allegatiArrivo(tc_att.contentPane(title='!![en]Attachments'))
         self.garbage(tc_att.contentPane(title='!![en]Garbage'))
         self.rinfusa(tc_att.contentPane(title='!![en]Bulk Application'))
+        self.bunker(tc_att.contentPane(title='!![en]Bunker Application'))
         
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
@@ -535,9 +536,10 @@ class Form(BaseComponent):
         pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
 
     def rinfusa(self, pane):
-        
         pane.stackTableHandler(relation='@rinfusa_arr',formResource='FormFromRinfusa')
     
+    def bunker(self, pane):   
+        pane.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker')
 
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):

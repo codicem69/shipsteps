@@ -25,6 +25,7 @@ class Menu(object):
         shipsteps.thpage(u"!![en]Garbage form", table="shipsteps.garbage", tags="")
         shipsteps.thpage(u"!![en]Charterers", table="shipsteps.charterers", tags="")
         shipsteps.thpage(u"!![en]Bulk application", table="shipsteps.rinfusa", tags="")
+        shipsteps.thpage(u"!![en]Bunker", table="shipsteps.bunker", tags="")
         shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
        # pfda = root.branch(u"pfda", tags="")
        # pfda.thpage(u"!![en]Proforma", table="pfda.proforma", tags="")

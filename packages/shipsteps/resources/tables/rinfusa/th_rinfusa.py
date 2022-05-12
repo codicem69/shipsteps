@@ -195,7 +195,8 @@ class FormFromRinfusa(BaseComponent):
         ln_serv=len(servizio)
 
         #email_d, email_cc_d, email_pec_d, email_pec_cc_d=[],[],[],[]
-        email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d='','','','',''
+        email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d=[],[],[],[],[]
+
         tbl_email_services=self.db.table('shipsteps.email_services')
         for e in range(ln_serv):
             serv=servizio[e]
@@ -203,42 +204,32 @@ class FormFromRinfusa(BaseComponent):
             email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
                                                     where='$service_for_email=:serv AND $agency_id=:ag_id', serv=serv,
                                                     ag_id=self.db.currentEnv.get('current_agency_id'))
-            #email_d.append(email_dest)
-            #email_cc_d.append(email_cc_dest)
-            #email_pec_d.append(email_pec_dest)
-            #email_pec_cc_d.append(email_pec_cc_dest)
-
-            if e < (ln_serv-1):
-                if email_dest is not None:
-                    email_d = email_d + email_dest + ','
-                if email_cc_dest is not None:
-                    email_cc_d = email_cc_d + email_cc_dest + ','
-                if email_bcc_dest is not None:
-                    email_bcc_d = email_bcc_d + email_bcc_dest + ','
-                if email_pec_dest is not None:
-                    email_pec_d = email_pec_d + email_pec_dest + ','
-                if email_pec_cc_dest is not None:
-                    email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest + ','
-            else:
-                if email_dest is not None:
-                    email_d = email_d + email_dest
-                if email_cc_dest is not None:
-                    email_cc_d = email_cc_d + email_cc_dest
-                if email_bcc_dest is not None:
-                    email_bcc_d = email_bcc_d + email_bcc_dest
-                if email_pec_dest is not None:
-                    email_pec_d = email_pec_d + email_pec_dest
-                if email_pec_cc_dest is not None:
-                    email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest
+         
+            if email_dest is not None and email_dest !='':
+                email_d.append(email_dest)
+            if email_cc_dest is not None and email_cc_dest != '':
+                email_cc_d.append(email_cc_dest)
+            if email_bcc_dest is not None and email_bcc_dest != '':    
+                email_bcc_d.append(email_bcc_dest)
+            if email_pec_dest is not None and email_pec_dest != '':
+                email_pec_d.append(email_pec_dest)
+            if email_pec_cc_dest is not None and email_pec_cc_dest !='':
+                email_pec_cc_d.append(email_pec_cc_dest)
+        #trasformiamo le liste in stringhe assegnandole alle relative variabili
+        email_to = ','.join([str(item) for item in email_d])
+        email_cc = ','.join([str(item) for item in email_cc_d])
+        email_bcc = ','.join([str(item) for item in email_bcc_d])
+        email_pec = ','.join([str(item) for item in email_pec_d])
+        email_pec_cc = ','.join([str(item) for item in email_pec_cc_d])
         
         if (email_dest) is not None:
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record,
                                                           table='shipsteps.arrival',
                                                           account_id = account_email,
-                                                          to_address=email_d,
-                                                          cc_address=email_cc_d,
-                                                          bcc_address=email_bcc_d,
+                                                          to_address=email_to,
+                                                          cc_address=email_cc,
+                                                          bcc_address=email_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id)
             self.db.commit()
@@ -248,8 +239,8 @@ class FormFromRinfusa(BaseComponent):
                                                           record_id=record,
                                                           table='shipsteps.arrival',
                                                           account_id = account_emailpec,
-                                                          to_address=email_pec_d,
-                                                          cc_address=email_pec_cc_d,
+                                                          to_address=email_pec,
+                                                          cc_address=email_pec_cc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id)
             self.db.commit()
