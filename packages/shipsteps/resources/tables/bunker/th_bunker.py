@@ -81,7 +81,7 @@ class FormFromBunker(BaseComponent):
         fb.field('lg_ditta_transp')
         fb.field('ditta_forn')
         fb.field('iscr_forn')
-        right = bc.roundedGroup(title='!![en]Transportation Society stamp', region='right', width='250px')
+        right = bc.roundedGroup(title='!![en]Transportation Company stamp', region='right', width='250px')
         right.img(src='^.stamp_transp', edit=True, crop_width='250px', crop_height='150px', 
                         placeholder=True, upload_folder='site:application', upload_filename='=.id')
         right.button('!![en]Remove image', hidden='^.stamp_transp?=!#v').dataRpc(self.deleteImage, image='=.stamp_transp')
@@ -102,12 +102,15 @@ class FormFromBunker(BaseComponent):
         self.setInClientData(value=None, path='shipsteps_arrival.form.shipsteps_bunker.form.record.stamp_transp')
 
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_bunker,email_bunker,*,10')
-        btn_bulk_print=bar.stampa_bunker.button('Print Bunker application')
-        btn_bulk_email=bar.email_bunker.button('Email Bunker application')
-        btn_bulk_print.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
+        bar = bottom.slotBar('10,stampa_cartella,stampa_bunker,email_bunker,*,10')
+        btn_cartella_print=bar.stampa_cartella.button('Print Bunker folder')
+        btn_bunker_print=bar.stampa_bunker.button('Print Bunker application')
+        btn_bunker_email=bar.email_bunker.button('Email Bunker application CP')
+        btn_cartella_print.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
+                            nome_template = 'shipsteps.bunker:cartella_bunker',format_page='A3')
+        btn_bunker_print.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.bunker:bunker',format_page='A4')
-        btn_bulk_email.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
+        btn_bunker_email.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
                             nome_template = 'shipsteps.bunker:bunker',format_page='A4')
     
     @public_method
@@ -118,7 +121,7 @@ class FormFromBunker(BaseComponent):
        #if selId is None:
        #    msg_special = 'yes'
        #    return msg_special
-
+        
         tbl_bulk = self.db.table('shipsteps.bunker')
         builder = TableTemplateToHtml(table=tbl_bulk)
 
