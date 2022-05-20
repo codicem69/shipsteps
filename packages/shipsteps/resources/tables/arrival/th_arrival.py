@@ -64,27 +64,36 @@ class Form(BaseComponent):
     def th_form(self, form):
         #pane = form.record
         #fb = pane.formbuilder(cols=2, border_spacing='4px')
-
-        bc1 = form.center.borderContainer()
-        tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
+        tc = form.center.tabContainer()
+        #bc1 = form.center.borderContainer()
+        #tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
 
         bc = tc.borderContainer(title='!![en]Arrival')
-        bc_task = tc.borderContainer(title='!![en]Task List')
-        tc_att = bc_task.tabContainer(margin='2px', region='center', height='auto')
-        bc_task2 = tc.borderContainer(title='!![en]SOF')
+        bc_att = tc.borderContainer(title='!![en]Attachments')
+        tc_task = tc.tabContainer(title='!![en]Task List',region='center')
+        bc_tasklist = tc_task.borderContainer(title='!![en]Task List', region='center')
+        tc_task = tc_task.tabContainer(title='!![en]prova')
+        tc_undertask = bc_tasklist.tabContainer(margin='2px', region='center', height='auto')
+        tc_sof = tc.borderContainer(title='!![en]SOF')
+        tc_app = tc.tabContainer(title='!![en]Applications')
+        #tc_parapon = bc_task3.tabContainer(title='pippo')
+        self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
        # tc2 = bc2.tabContainer(margin='2px', region='center', height='auto', splitter=True)
        # bc_top = bc.borderContainer(region='center',height='300px', splitter=True)
        # pane_center=bc_top.contentPane(region='center',datapath='.record', width='1200px', splitter=True)
         #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
         self.datiArrivo(bc.borderContainer(region='top',height='300px', splitter=True, background = 'lavenderblush'))
-        self.taskList(bc_task.borderContainer(title='!![en]Task list',region='top',height='50%', background = 'lavenderblush', splitter=True))
-        self.sof(bc_task2.contentPane(title='!![en]Sof',height='100%'))
+       
+        self.taskList(bc_tasklist.borderContainer(region='top',height='50%', background = 'lavenderblush', splitter=True))
+        self.sottotasklist(tc_task.contentPane(title='evviva'))
+        self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
+        
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
-        self.allegatiArrivo(tc_att.contentPane(title='!![en]Attachments'))
-        self.garbage(tc_att.contentPane(title='!![en]Garbage'))
-        self.rinfusa(tc_att.contentPane(title='!![en]Bulk Application'))
-        self.bunker(tc_att.contentPane(title='!![en]Bunker Application'))
+        
+        self.garbage(tc_undertask.contentPane(title='!![en]Garbage'))
+        self.rinfusa(tc_app.contentPane(title='!![en]Bulk Application'))
+        self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
         
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
@@ -107,7 +116,8 @@ class Form(BaseComponent):
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
 
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
-
+    def sottotasklist(self,bc):
+        bc.contentPane(region='center').div('ciao')
     def datiArrivo(self,bc):
         center = bc.roundedGroup(title='!![en]Vessel arrival', region='center',datapath='.record',width='210px', height = '100%').div(margin='10px',margin_left='2px')
         center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')

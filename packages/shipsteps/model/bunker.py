@@ -13,5 +13,16 @@ class Table(object):
         tbl.column('name_off', name_short='!![en]Official name')
         tbl.column('datetime_bunk', dtype='DH', name_short='!![en]Date/time bunker')
         tbl.column('service', name_short='!![en]Service type', values='Assistenza bunker:Assistenza bunker,Assistenza petroliera:Assistenza petroliera')
-        tbl.column('durata', dtype='N', name_short='!![en]Duration time')
+        tbl.column('durata', dtype='T', name_short='!![en]Duration time')
+        tbl.column('ditta_trasp', name_short='!![en]Transport Company ')
+        tbl.column('iscr_dt', name_short='!![en]Inscr.no. Trans/company')
+        tbl.column('lg_ditta_transp', name_short='Legale rappresentante')
+        tbl.column('ditta_forn', name_short='!![en]Supplier Company')
+        tbl.column('iscr_forn', name_short='!![en]Inscr.no. Supply/company')
+        tbl.column('stamp_transp', dtype='P', name_short='!![en]Transportation Stamp')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        tbl.aliasColumn('dati_cisterne','@bunker_righe.targa_autista')
+        tbl.formulaColumn('data_attuale',"""CASE WHEN $arrival_id <> ''THEN :currdate END""",var_currdate=self.db.workdate)
+
+
+    
