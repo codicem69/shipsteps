@@ -557,7 +557,12 @@ class Form(BaseComponent):
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
         #trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
-        lista_all=list(kwargs['allegati'].split(","))
+        #ma verifichiamo se nei kwargs gli allegati ci sono per non ritrovarci la variabile lista_all senza assegnazione
+        if email_template_id=='email_integrazione_alim' and kwargs['allegati'] is not None:
+            lista_all=list(kwargs['allegati'].split(","))
+        else:
+            lista_all=None
+        #lista_all=list(kwargs['allegati'].split(","))
         
         #lettura degli attachment
         if lista_all is not None:

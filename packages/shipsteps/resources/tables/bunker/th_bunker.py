@@ -25,8 +25,10 @@ class View(BaseComponent):
         r.fieldcell('ditta_trasp')
         r.fieldcell('iscr_dt')
         r.fieldcell('lg_ditta_transp')
+        r.fieldcell('email_transp')
         r.fieldcell('ditta_forn')
         r.fieldcell('iscr_forn')
+       
 
     def th_order(self):
         return 'arrival_id'
@@ -49,6 +51,7 @@ class Form(BaseComponent):
         fb.field('ditta_trasp')
         fb.field('iscr_dt')
         fb.field('lg_ditta_transp')
+        fb.field('email_transp')
         fb.field('ditta_forn')
         fb.field('iscr_forn')
 
@@ -68,19 +71,28 @@ class FormFromBunker(BaseComponent):
 
     def bunkerTestata(self,bc):    
         center = bc.roundedGroup(title='!![en]Bunker details',region='center',width='auto')
-        fb = center.formbuilder(cols=3, border_spacing='4px')
+        fb = center.formbuilder(cols=4, border_spacing='4px')
         #fb.field('arrival_id')
         fb.field('datetime_bunk')
         fb.field('rank_off')
         fb.field('name_off')
         fb.field('service')
         fb.field('durata')
-        fb.br()
         fb.field('ditta_trasp')
         fb.field('iscr_dt')
+        fb.br()
         fb.field('lg_ditta_transp')
+        fb.field('email_transp')
         fb.field('ditta_forn')
         fb.field('iscr_forn')
+        fb.br()
+        fb.dbSelect(dbtable='shipsteps.invoice_det',lbl='Select Invoice',auxColumns='$fullname',
+                    selected_fullname='.dati_fatt',condition="$id =:cod",condition_cod='=#FORM/parent/#FORM.record.invoice_det_id',
+                        hasDownArrow=True)
+        fb.field('dati_fatt',colspan=3, width='72em')
+        fb.br()
+        fb.field('invio_fatt', placeholder='Insert the fullstyle where to send the invoice in case is different than your Agency', colspan=4, width='69em')
+        
         right = bc.roundedGroup(title='!![en]Transportation Company stamp', region='right', width='250px')
         right.img(src='^.stamp_transp', edit=True, crop_width='250px', crop_height='150px', 
                         placeholder=True, upload_folder='site:application', upload_filename='=.id')
@@ -102,16 +114,27 @@ class FormFromBunker(BaseComponent):
         self.setInClientData(value=None, path='shipsteps_arrival.form.shipsteps_bunker.form.record.stamp_transp')
 
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_cartella,stampa_bunker,email_bunker,*,10')
+        bar = bottom.slotBar('10,stampa_cartella,stampa_bunker,email_bunker_transp,email_antifire,email_bunker,stampa_bunker_docs,*,10')
         btn_cartella_print=bar.stampa_cartella.button('Print Bunker folder')
         btn_bunker_print=bar.stampa_bunker.button('Print Bunker application')
+        btn_bunker_emailtrasp=bar.email_bunker_transp.button('Email Bunker to Transportion')
+        btn_email_antifire=bar.email_antifire.button('Email Antifire Service')
         btn_bunker_email=bar.email_bunker.button('Email Bunker application CP')
+        btn_bunker_docs=bar.stampa_bunker_docs.button('Print docs after Bunker')
         btn_cartella_print.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.bunker:cartella_bunker',format_page='A3')
         btn_bunker_print.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.bunker:bunker',format_page='A4')
         btn_bunker_email.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
-                            nome_template = 'shipsteps.bunker:bunker',format_page='A4')
+                            nome_template = 'shipsteps.bunker:bunker',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',
+                             cols=4,popup=True,colspan=2)]))
+        btn_bunker_emailtrasp.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=['trasportatore'], email_template_id='email_bunker_transp',
+                            nome_template = 'shipsteps.bunker:bunker_transp',format_page='A4')
+        btn_email_antifire.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=['antifire'], email_template_id='email_antifire',
+                            nome_template = 'shipsteps.bunker:bunker_antifire',format_page='A4')  
+        btn_bunker_docs.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=[''], email_template_id='',
+                            nome_template = 'shipsteps.bunker:bunker_docs',format_page='A4')                           
     
     @public_method
     def print_template_bunker(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
@@ -121,7 +144,10 @@ class FormFromBunker(BaseComponent):
        #if selId is None:
        #    msg_special = 'yes'
        #    return msg_special
-        
+        if email_template_id=='email_bunker_cp' and kwargs['allegati'] is not None:
+            lista_all=list(kwargs['allegati'].split(","))
+        else:
+            lista_all=None    
         tbl_bulk = self.db.table('shipsteps.bunker')
         builder = TableTemplateToHtml(table=tbl_bulk)
 
@@ -143,9 +169,16 @@ class FormFromBunker(BaseComponent):
 
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
-        if email_template_id != '':
-            self.email_services(record,email_template_id,servizio)
-       
+        if email_template_id == 'email_bunker_cp':
+            self.email_services(record,email_template_id,servizio,lista_all)
+            msg_special='val_bulk'
+            return msg_special
+        if email_template_id == 'email_bunker_transp':
+            self.email_trasportatore(record,email_template_id,servizio)
+            msg_special='val_bulk'
+            return msg_special
+        if email_template_id == 'email_antifire':
+            self.email_antifire(record,email_template_id,servizio)
         #se ritorna il valore di self.msg_pecial dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
         # il msg con il dataController
@@ -153,26 +186,51 @@ class FormFromBunker(BaseComponent):
             return msg_special
 
     @public_method
-    def email_services(self, record,email_template_id=None,servizio=[], **kwargs):
-        id_rinfusa_atc=record['id']
+    def email_services(self, record,email_template_id=None,servizio=[],lista_all=None, **kwargs):
+        id_bunker_atc=record['id']
         record=record['arrival_id']        
         if not record:
             return
-        tbl_att =  self.db.table('shipsteps.bunker_atc')
-        fileurl = tbl_att.query(columns='$fileurl',
-                  where='$maintable_id=:mt_id',mt_id=id_rinfusa_atc).fetch()
-        ln = len(fileurl)
+
+        #lettura degli attachment
         attcmt=[]
         attcmt_name=[]
+        if lista_all is not None:
+            len_allegati = len(lista_all) #verifichiamo la lunghezza della lista pkeys tabella allegati
+            file_url=[]
+            tbl_att =  self.db.table('shipsteps.bunker_atc') #definiamo la variabile della tabella allegati
+            #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
+            #viene appesa alla variabile lista file_url
+            for e in range(len_allegati):
+                pkeys_att=lista_all[e]
+                fileurl = tbl_att.readColumns(columns='$fileurl',
+                      where='$id=:att_id',
+                        att_id=pkeys_att)
+                if fileurl is not None and fileurl !='':
+                    file_url.append(fileurl)
         
-        for r in range(ln):
-            file_url = fileurl[r][0]
-            file_path = file_url.replace('/home','site')
-            fileSn = self.site.storageNode(file_path)
-            attcmt.append(fileSn.internal_path)
-            attcmt_name.append(Path(fileSn.internal_path).name)
+            ln = len(file_url)
+            for r in range(ln):
+                fileurl = file_url[r]
+                file_path = fileurl.replace('/home','site')
+                fileSn = self.site.storageNode(file_path)
+                attcmt.append(fileSn.internal_path)
+                attcmt_name.append(Path(fileSn.internal_path).name)
+       # tbl_att =  self.db.table('shipsteps.bunker_atc')
+       # fileurl = tbl_att.query(columns='$fileurl',
+       #           where='$maintable_id=:mt_id',mt_id=id_bunker_atc).fetch()
+       # ln = len(fileurl)
+       # attcmt=[]
+       # attcmt_name=[]
+       # 
+       # for r in range(ln):
+       #     file_url = fileurl[r][0]
+       #     file_path = file_url.replace('/home','site')
+       #     fileSn = self.site.storageNode(file_path)
+       #     attcmt.append(fileSn.internal_path)
+       #     attcmt_name.append(Path(fileSn.internal_path).name)
         
-        #Condizioniamo l'aggiunta dell'allegato se il servizio invio email è il garbage
+        #Condizioniamo l'aggiunta dell'allegato se il servizio invio email è per la cp
         if email_template_id=='email_bunker_cp':
             
             file_path = 'site:stampe_template/bunker.pdf'
@@ -194,7 +252,7 @@ class FormFromBunker(BaseComponent):
         
         
       
-        attcmt=archive.filename
+            attcmt=archive.filename
            #if r < (ln-1):
            #    attcmt = attcmt + fileSn.internal_path + ','
            #else:
@@ -258,6 +316,169 @@ class FormFromBunker(BaseComponent):
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record,
                                                           table='shipsteps.arrival',
+                                                          account_id = account_emailpec,
+                                                          to_address=email_pec,
+                                                          cc_address=email_pec_cc,
+                                                          attachments=attcmt,
+                                                          template_code=email_template_id)
+            self.db.commit()
+        
+        
+        if (email_dest or email_pec_dest) is not None:
+
+          # if servizio == ['capitaneria']:
+            
+            return
+
+    @public_method
+    def email_trasportatore(self, record,email_template_id=None,servizio=[], **kwargs):
+        record_id=record['arrival_id']
+        if not record:
+            return
+        #lettura del record_id della tabella arrival
+        
+        #lettura dati su tabella arrival
+        tbl_arrival = self.db.table('shipsteps.arrival')
+        vessel_type,vessel_name,eta_arr,ref_numb = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,$eta,$reference_num',
+                  where='$agency_id=:ag_id AND $id=:rec_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=record_id)
+        eta = eta_arr.strftime("%d/%m/%Y, %H:%M")    
+        
+        #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
+        attcmt=[]
+        
+         #Condizioniamo l'aggiunta dell'allegato se il servizio invio email è il garbage
+        if email_template_id=='email_bunker_transp':
+            
+            file_path = 'site:stampe_template/bunker_transp.pdf'
+            fileSn = self.site.storageNode(file_path)
+            attcmt.append(fileSn.internal_path)
+
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('shipsteps.staff')
+        account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('shipsteps.agency')
+        agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        #preleviamo dai kwargs i servizi per gli aggiornamenti
+        #services=kwargs['services']
+        #trasformiamo la stringa services in una lista
+        #servizio=list(services.split(","))
+        
+        
+        
+        now = datetime.now()
+        cur_time = now.strftime("%H:%M:%S")    
+        if cur_time < '13:00:00':
+            sal='Buongiorno,'  
+        elif cur_time < '17:00:00':
+            sal='Buon pomeriggio'
+        elif cur_time < '24:00:00':
+            sal = 'Buonasera,' 
+        elif cur_time < '04:00:00':
+            sal = 'Buona notte,'      
+       
+        consignee='a: ' + record['ditta_trasp']
+        subject='Istanza bunker '+vessel_type + ' ' + vessel_name + ' ref:' + ref_numb #record['ref_number']
+        body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
+        body_footer= 'Cordiali saluti<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
+        
+        body_msg=(sal + '<br>' + "in allegato istanza bunker del/lla " +vessel_type + ' ' + vessel_name + " che Vi preghiamo di compilare in tutte le parti mancanti" + '<br>'
+                    + "e rinviare assieme a:" + '<br><br>'+ "- Documento di riconoscimento dell'autista (fronte/retro) per l'accesso in porto" + '<br>' + "- Scheda di sicurezza prodotto" + '<br>'
+                      "- Scheda tecnica del prodotto" + '<br><br>')
+        body_html=(body_header + body_msg + body_footer )
+        #print(x)
+        email_to=record['email_transp']
+        if (email_to) is not None:
+            self.db.table('email.message').newMessage(account_id=account_email,
+                           to_address=email_to,
+                           from_address=email_mittente,
+                           subject=subject, body=body_html, 
+                           attachments=attcmt,
+                           html=True)
+            self.db.commit()
+        
+        if email_to is not None:
+            msg_special='val_upd'
+            return msg_special
+        
+    @public_method
+    def email_antifire(self, record,email_template_id=None,servizio=[], **kwargs):
+        record=record['id']
+        if not record:
+            return
+
+        #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
+        attcmt=[]
+        
+         #Condizioniamo l'aggiunta dell'allegato se il servizio invio email è il garbage
+        if email_template_id=='email_antifire':
+            
+            file_path = 'site:stampe_template/bunker_antifire.pdf'
+            fileSn = self.site.storageNode(file_path)
+            attcmt.append(fileSn.internal_path)
+        
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('shipsteps.staff')
+        account_email = tbl_staff.readColumns(columns='$email_account_id',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('shipsteps.agency')
+        account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+
+      
+        #Lettura degli indirizzi email destinatari
+        ln_serv=len(servizio)
+
+        #email_d, email_cc_d, email_pec_d, email_pec_cc_d=[],[],[],[]
+        email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d=[],[],[],[],[]
+
+        tbl_email_services=self.db.table('shipsteps.email_services')
+        for e in range(ln_serv):
+            serv=servizio[e]
+
+            email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
+                                                    where='$service_for_email=:serv AND $agency_id=:ag_id', serv=serv,
+                                                    ag_id=self.db.currentEnv.get('current_agency_id'))
+         
+            if email_dest is not None and email_dest !='':
+                email_d.append(email_dest)
+            if email_cc_dest is not None and email_cc_dest != '':
+                email_cc_d.append(email_cc_dest)
+            if email_bcc_dest is not None and email_bcc_dest != '':    
+                email_bcc_d.append(email_bcc_dest)
+            if email_pec_dest is not None and email_pec_dest != '':
+                email_pec_d.append(email_pec_dest)
+            if email_pec_cc_dest is not None and email_pec_cc_dest !='':
+                email_pec_cc_d.append(email_pec_cc_dest)
+        #trasformiamo le liste in stringhe assegnandole alle relative variabili
+        email_to = ','.join([str(item) for item in email_d])
+        email_cc = ','.join([str(item) for item in email_cc_d])
+        email_bcc = ','.join([str(item) for item in email_bcc_d])
+        email_pec = ','.join([str(item) for item in email_pec_d])
+        email_pec_cc = ','.join([str(item) for item in email_pec_cc_d])
+        
+        if (email_dest) is not None:
+            self.db.table('email.message').newMessageFromUserTemplate(
+                                                          record_id=record,
+                                                          table='shipsteps.bunker',
+                                                          account_id = account_email,
+                                                          to_address=email_to,
+                                                          cc_address=email_cc,
+                                                          bcc_address=email_bcc,
+                                                          attachments=attcmt,
+                                                          template_code=email_template_id)
+            self.db.commit()
+        
+        if (email_pec_dest) is not None:
+            self.db.table('email.message').newMessageFromUserTemplate(
+                                                          record_id=record,
+                                                          table='shipsteps.bunker',
                                                           account_id = account_emailpec,
                                                           to_address=email_pec,
                                                           cc_address=email_pec_cc,

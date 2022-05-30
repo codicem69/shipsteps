@@ -1,0 +1,984 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-05-23T17:40:19.991245+02:00</_ins_ts>
+<_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-05-23T17:54:50.954870+02:00</_mod_ts>
+<_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.bunkertemplatebunker_transp</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">bunker_transp</code>
+<objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
+<pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
+<tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.bunker</tbl>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Bunker Application to Transportation</description>
+<notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;margin-top:15px;width:100%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="text-align: center;border:1px solid" width="180px"&gt;
+					&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$virtual_stamp&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Alla CAPITANERIA DI PORTO - GUARDIA COSTIERIA di $porto&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;em&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Sezione TECNICA&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/strong&gt;&lt;br /&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div&gt;
+		&amp;nbsp;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td colspan="6"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Il sottoscritto &lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$agent_name,&lt;/strong&gt; &lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Agente raccomandatario marittimo del/della &lt;/span&gt;&lt;/span&gt;&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$imbarcazione_nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="6"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;di bandiera &lt;strong&gt;$bandiera&lt;/strong&gt;&lt;em&gt;&lt;strong&gt;, &lt;/strong&gt;&lt;/em&gt;numero IMO &lt;strong&gt;$imo &lt;/strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;ormeggiata/prevista ormeggiare nel porto di $porto presso la banchina:&lt;/span&gt;&lt;/span&gt;&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt; &lt;strong&gt;$banchina&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="6" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;CHIEDE&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="6"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;di essere autorizzato ad effettuare operazioni di bunkeraggio del seguente prodotto &lt;em&gt;(di cui si allega apposita scheda tecnica)&lt;/em&gt;:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@bunker_righe" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Nome prodotto - Categoria - Classe&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Quantit&amp;agrave;&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;Tenore di zolfo&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;Punto d&amp;#39;infiammabilit&amp;agrave;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;Combustibile&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;denaturato - SI o NO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$prodotto&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$quantity&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$zolfo&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$punto_infiam&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$denaturato&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: justify;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td width="225px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;all&amp;#39;imbarcazione che rappresento per il giorno&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot"&gt;
+						&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:11px;"&gt;$date_bunk&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td width="90px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;a partire dalle ore&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot"&gt;
+						&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$time_bunk&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td width="130px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;per la duranta presunta di&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot"&gt;
+						&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$durata&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;ore sotto il controllo&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td width="200px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del membro dell&amp;#39;equipaggio denominato&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$name_off&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td width="110px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;avente la qualifica di &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot" colspan="4"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&lt;strong&gt;$rank_off&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;div style="text-align: center;"&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;MEDIANTE&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td width="270px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;l&amp;#39;utilizzo delle seguenti autobotti appartenenti alla ditta&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot" width="280px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$ditta_trasp&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td width="65px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;iscritta al n&amp;deg;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot" colspan="4"&gt;
+						&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;$iscr_dt&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;div&gt;
+			&amp;nbsp;&amp;nbsp; &lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del registro istituito da codesta Capitaneria di Porto ai sensi dell&amp;#39;articolo 68 del Codice della Navigazione e che trasportano combustibile proveniente &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+				&lt;tbody&gt;
+					&lt;tr&gt;
+						&lt;td width="50px"&gt;
+							&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;della ditta&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td class="td_bord_bot" width="280px"&gt;
+							&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$ditta_forn&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td width="65px"&gt;
+							&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;iscritta al n&amp;deg;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td class="td_bord_bot" colspan="4"&gt;
+							&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;$iscr_forn&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; del Registro delle imprese autorizzate ad effettuare operazioni di bunkeraggio tenuto da codesta Capitaneria di Porto ai sensi del D.lgs. 205/2007&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div style="text-align: center;"&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DICHIARA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; - di essere a conoscenza delle norme contenute nel &amp;ldquo;Regolamento per le operazioni di rifornimento di combustibili liquidi ed oli lubrificanti nel &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; porto di Ortona&amp;rdquo;;&lt;br /&gt;
+			&amp;nbsp;&amp;nbsp;&amp;nbsp; - che osserver&amp;agrave; le eventuali misure aggiuntive di sicurezza che codesto Comando riterr&amp;agrave; opportuno prescrivere nell&amp;#39;atto di autorizzazione;&lt;br /&gt;
+			&amp;nbsp;&amp;nbsp;&amp;nbsp; - che i mezzi antincendio di bordo sono in perfette condizioni e pronti all&amp;#39;impiego mediante personale facente parte dell&amp;#39;equipaggio e&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; munito dei certificati prescritti dalla STCW in materia antincendio.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td width="50px"&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td valign="top" width="300px"&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;Agenzia Marittima - $agency_name&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;$agency_stamp&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td class="td_bord_top" colspan="4" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;SPAZIO RISERVATO ALLA DITTA TRASPORTATRICE DEL PRODOTTO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td width="70px"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Il sottoscritto&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td class="td_bord_bot" width="150px"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$lg_ditta_transp&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td width="160px"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;L.G. rappresentante della ditta&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td class="td_bord_bot"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$ditta_trasp&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="4"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Incaricata ad eseguire le operazioni di bunkeraggio di cui alla presente istanza da parte della ditta fornitrice denominata&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td class="td_bord_bot" colspan="2"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$ditta_forn&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="2"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del prodotto come sopra descritto per caratteristiche qualitative e quantitative.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DICHIARA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; di essere a conoscenza delle norme che disciplinano il bunkeraggio nel Porto di Ortona e di assoggettarsi e uniformarsi alle prescrizioni contenute&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; nel regolamento;&lt;br /&gt;
+		&amp;nbsp;&amp;nbsp;&amp;nbsp; Che le autobotti saranno impiegate secondo il seguente programma:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;GIORNO DI LAVORO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;TARGA VEICOLO / NOMINATIVO AUTISTA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:10px;"&gt;&amp;nbsp;&amp;nbsp; &lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Che il prodotto da consegnare &amp;egrave; conforme a quanto dichiarato nella presente istanza;&lt;br /&gt;
+		&amp;nbsp;&amp;nbsp; Che il personale autista &amp;egrave; regolarmente assunto alle nostre dipendenze/alle dipendenze della ditta che effettua il trasporto ed &amp;egrave; munito di tutti i requisiti &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp; relativi alla condotta del mezzo impiegato per il rifornimento nonch&amp;eacute; &amp;egrave; stato indottrinato circa i contenuti del &amp;ldquo;Regolamento per le operazioni di &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp; rifornimento di combustibili liquidi ed oli lubrificanti nel Porto di Ortona&amp;rdquo;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td width="350px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$porto &lt;u&gt;$data_attuale&lt;/u&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;IL RAPPRESENTANTE DELLA DITTA&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td width="350px"&gt;
+						&amp;nbsp;&lt;/td&gt;
+					&lt;td&gt;
+						&amp;nbsp;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</content>
+<metadata><author>admin</author>
+<version _T="NN"></version>
+<date _T="NN"></date>
+<is_print _T="B" _valuelabel="">True</is_print>
+<is_mail _T="NN"></is_mail>
+<is_row _T="NN"></is_row>
+<row_height _T="NN"></row_height>
+<default_letterhead _T="NN"></default_letterhead>
+<summary _T="NN"></summary>
+<email><subject _T="NN"></subject>
+<to_address _T="NN"></to_address>
+<from_address _T="NN"></from_address>
+<cc_address _T="NN"></cc_address>
+<bcc_address _T="NN"></bcc_address>
+<attachments _T="NN"></attachments></email>
+<email_compiled _T="BAG"></email_compiled></metadata>
+<varsbag><g8rn036t09 _pkey="g8rn036t09"><fieldpath dtype="::NN">imb_sba</fieldpath>
+<dtype dtype="::NN">B</dtype>
+<fieldname dtype="::NN">imb_sba</fieldname>
+<varname dtype="::NN">imb_sba</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn036t09>
+<g8rn041qfl _pkey="g8rn041qfl"><fieldpath dtype="::NN">navigazione</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">navigazione</fieldname>
+<varname dtype="::NN">navigazione</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn041qfl>
+<g8rn0501rt _pkey="g8rn0501rt"><fieldpath dtype="::NN">doc_all</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">doc_all</fieldname>
+<varname dtype="::NN">doc_all</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn0501rt>
+<g8rn1h2gix _pkey="g8rn1h2gix"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/Bandiera</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_vessel_imbarcazione_bandiera">bandiera</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn1h2gix>
+<g8rn1g3zs9 _pkey="g8rn1g3zs9"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/Nome</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_vessel_imbarcazione_nome">imbarcazione_nome</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn1g3zs9>
+<g8rn1euvk1 _pkey="g8rn1euvk1"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/Tipo</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_vessel_imbarcazione_tipo">imbarcazione_tipo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn1euvk1>
+<g8rn7vj4b5 _pkey="g8rn7vj4b5"><fieldpath dtype="::NN">@arrival_id.@agency_id.virtual_stamp</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/virtual_stamp</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_virtual_stamp">virtual_stamp</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn7vj4b5>
+<g8spf5p48h _pkey="g8spf5p48h"><fieldpath dtype="::NN">@arrival_id.@agency_id.agent_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/agent_name</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_agent_name">agent_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8spf5p48h>
+<g8rn8pook1 _pkey="g8rn8pook1"><fieldpath dtype="::NN">@arrival_id.@agency_id.agency_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/agency_name</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_agency_name">agency_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn8pook1>
+<g8sp55cg15 _pkey="g8sp55cg15"><fieldpath dtype="::NN">@arrival_id.@agency_id.address</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/address</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_address">agenzia_address</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8sp55cg15>
+<g8sp94nrdd _pkey="g8sp94nrdd"><fieldpath dtype="::NN">@arrival_id.@agency_id.tel</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/tel</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_tel">agenzia_tel</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8sp94nrdd>
+<g8sp98f6dd _pkey="g8sp98f6dd"><fieldpath dtype="::NN">@arrival_id.@agency_id.email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/email</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_email">agenzia_email</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8sp98f6dd>
+<g8sp9axpmp _pkey="g8sp9axpmp"><fieldpath dtype="::NN">@arrival_id.@agency_id.web</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/web</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_web">agenzia_web</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8sp9axpmp>
+<g8rn951k3t _pkey="g8rn951k3t"><fieldpath dtype="::NN">@arrival_id.@agency_id.fullstyle</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/fullstyle</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_fullstyle">agenzia_fullstyle</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn951k3t>
+<g8rn96r3dt _pkey="g8rn96r3dt"><fieldpath dtype="::NN">@arrival_id.@agency_id.fullname</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/user signature</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_user_signature">user_signature</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rn96r3dt>
+<g8rnasugqh _pkey="g8rnasugqh"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.imo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/imo</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_vessel_imbarcazione_imo">imo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8rnasugqh>
+<g8smyubks9 _pkey="g8smyubks9"><fieldpath dtype="::NN">@arrival_id.@agency_id.@port.descrizione</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/place/Descrizione</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_place_descrizione">porto</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8smyubks9>
+<g8tfst035d _pkey="g8tfst035d"><fieldpath dtype="::NN">data_attuale</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">data_attuale</fieldname>
+<varname dtype="::NN">data_attuale</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8tfst035d>
+<g8tgbr7ey9 _pkey="g8tgbr7ey9"><fieldpath dtype="::NN">@arrival_id.@agency_id.agency_stamp</fieldpath>
+<dtype dtype="::NN">P</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/Agency Stamp</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_agency_stamp">agency_stamp</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format dtype="::NN" _loadedValue="::NN">auto</format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g8tgbr7ey9>
+<g9prut3m41 _pkey="g9prut3m41"><fieldpath dtype="::NN">@arrival_id.@dock_id.dock_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Banchina/dock_name</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_banchina_dock_name">banchina</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9prut3m41>
+<g9psbgqahd _pkey="g9psbgqahd"><fieldpath dtype="::NN">rank_off</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">rank_off</fieldname>
+<varname dtype="::NN">rank_off</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9psbgqahd>
+<g9psbk03zt _pkey="g9psbk03zt"><fieldpath dtype="::NN">name_off</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">name_off</fieldname>
+<varname dtype="::NN">name_off</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9psbk03zt>
+<g9psbmlvrl _pkey="g9psbmlvrl"><fieldpath dtype="::NN">datetime_bunk</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">datetime_bunk</fieldname>
+<varname dtype="::NN" _loadedValue="datetime_bunk">date_bunk</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format dtype="::NN" _loadedValue="::NN">dd/MM/yyyy</format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9psbmlvrl>
+<g9ptahbcuh _pkey="g9ptahbcuh"><fieldpath dtype="::NN">datetime_bunk</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">datetime_bunk</fieldname>
+<varname dtype="::NN" _loadedValue="datetime_bunk">time_bunk</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format dtype="::NN" _loadedValue="::NN">HH:mm</format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9ptahbcuh>
+<g9ptdj96bt _pkey="g9ptdj96bt"><fieldpath dtype="::NN">durata</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">durata</fieldname>
+<varname dtype="::NN">durata</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9ptdj96bt>
+<g9qnpulvwx _pkey="g9qnpulvwx"><fieldpath dtype="::NN">ditta_trasp</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">ditta_trasp</fieldname>
+<varname dtype="::NN">ditta_trasp</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9qnpulvwx>
+<g9qnpwwca1 _pkey="g9qnpwwca1"><fieldpath dtype="::NN">iscr_dt</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">iscr_dt</fieldname>
+<varname dtype="::NN">iscr_dt</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9qnpwwca1>
+<g9qnq0504h _pkey="g9qnq0504h"><fieldpath dtype="::NN">lg_ditta_transp</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">lg_ditta_transp</fieldname>
+<varname dtype="::NN">lg_ditta_transp</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9qnq0504h>
+<g9qnq35fo9 _pkey="g9qnq35fo9"><fieldpath dtype="::NN">ditta_forn</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">ditta_forn</fieldname>
+<varname dtype="::NN">ditta_forn</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9qnq35fo9>
+<g9qo7bobip _pkey="g9qo7bobip"><fieldpath dtype="::NN">iscr_forn</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">iscr_forn</fieldname>
+<varname dtype="::NN">iscr_forn</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9qo7bobip>
+<g9pscfswyh _pkey="g9pscfswyh"><fieldpath dtype="::NN">@bunker_righe.prodotto</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">bunker_righe/prodotto</fieldname>
+<varname dtype="::NN" _loadedValue="bunker_righe_prodotto">prodotto</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9pscfswyh>
+<g9pscir6kp _pkey="g9pscir6kp"><fieldpath dtype="::NN">@bunker_righe.quantity</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">bunker_righe/quantity</fieldname>
+<varname dtype="::NN" _loadedValue="bunker_righe_quantity">quantity</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9pscir6kp>
+<g9psclplld _pkey="g9psclplld"><fieldpath dtype="::NN">@bunker_righe.zolfo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">bunker_righe/zolfo</fieldname>
+<varname dtype="::NN" _loadedValue="bunker_righe_zolfo">zolfo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9psclplld>
+<g9psd04849 _pkey="g9psd04849"><fieldpath dtype="::NN">@bunker_righe.punto_infiam</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">bunker_righe/punto_infiam</fieldname>
+<varname dtype="::NN" _loadedValue="bunker_righe_punto_infiam">punto_infiam</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9psd04849>
+<g9psd2khl5 _pkey="g9psd2khl5"><fieldpath dtype="::NN">@bunker_righe.denaturato</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">bunker_righe/denaturato</fieldname>
+<varname dtype="::NN" _loadedValue="bunker_righe_denaturato">denaturato</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9psd2khl5>
+<g9v2atvt1d _pkey="g9v2atvt1d"><fieldpath dtype="::NN">@bunker_righe.targa_autista</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">bunker_righe/targa_autista</fieldname>
+<varname dtype="::NN" _loadedValue="bunker_righe_targa_autista">targa_autista</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9v2atvt1d>
+<g9v78kb98h _pkey="g9v78kb98h"><fieldpath dtype="::NN">dati_cisterne</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">dati_cisterne</fieldname>
+<varname dtype="::NN">dati_cisterne</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9v78kb98h>
+<g9yk1ukp29 _pkey="g9yk1ukp29"><fieldpath dtype="::NN">stamp_transp</fieldpath>
+<dtype dtype="::NN">P</dtype>
+<fieldname dtype="::NN">stamp_transp</fieldname>
+<varname dtype="::NN">stamp_transp</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format dtype="::NN" _loadedValue="::NN">auto</format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g9yk1ukp29></varsbag>
+<parameters _T="BAG"></parameters>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<content_css>.td_bord_bot{
+  border-bottom: 1px solid black;
+}
+.td_bord_top{
+  border-top: 1px solid black;
+}</content_css>
+<compiled><_bunker_righe _tag="@bunker_righe">&lt;tr&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$prodotto&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$quantity&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$zolfo&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$punto_infiam&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$denaturato&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		</_bunker_righe>
+<main maintable="shipsteps.bunker" locale="it-IT" virtual_columns="@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,data_attuale,dati_cisterne" columns="$imb_sba,$navigazione,$doc_all,@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@agency_id.virtual_stamp,@arrival_id.@agency_id.agent_name,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.address,@arrival_id.@agency_id.tel,@arrival_id.@agency_id.email,@arrival_id.@agency_id.web,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,@arrival_id.@vessel_details_id.@imbarcazione_id.imo,@arrival_id.@agency_id.@port.descrizione,$data_attuale,@arrival_id.@agency_id.agency_stamp,@arrival_id.@dock_id.dock_name,$rank_off,$name_off,$datetime_bunk,$datetime_bunk,$durata,$ditta_trasp,$iscr_dt,$lg_ditta_transp,$ditta_forn,$iscr_forn,@bunker_righe.prodotto,@bunker_righe.quantity,@bunker_righe.zolfo,@bunker_righe.punto_infiam,@bunker_righe.denaturato,@bunker_righe.targa_autista,$dati_cisterne,$stamp_transp" formats='{"agency_stamp": "auto", "date_bunk": "dd/MM/yyyy", "time_bunk": "HH:mm", "stamp_transp": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"imb_sba": "B", "navigazione": "T", "doc_all": "T", "bandiera": "T", "imbarcazione_nome": "T", "imbarcazione_tipo": "T", "virtual_stamp": "T", "agent_name": "T", "agency_name": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agenzia_fullstyle": "A", "user_signature": "T", "imo": "T", "porto": "T", "data_attuale": "A", "agency_stamp": "P", "banchina": "T", "rank_off": "T", "name_off": "T", "date_bunk": "DH", "time_bunk": "DH", "durata": "N", "ditta_trasp": "T", "iscr_dt": "T", "lg_ditta_transp": "T", "ditta_forn": "T", "iscr_forn": "T", "prodotto": "T", "quantity": "T", "zolfo": "T", "punto_infiam": "T", "denaturato": "T", "targa_autista": "T", "dati_cisterne": "T", "stamp_transp": "P"}::JS'>&lt;style&gt;.td_bord_bot{
+  border-bottom: 1px solid black;
+}
+.td_bord_top{
+  border-top: 1px solid black;
+}&lt;/style&gt;&lt;div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;margin-top:15px;width:100%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="text-align: center;border:1px solid" width="180px"&gt;
+					&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@agency_id.virtual_stamp&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160; Alla CAPITANERIA DI PORTO - GUARDIA COSTIERIA di $@arrival_id.@agency_id.@port.descrizione&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;em&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; Sezione TECNICA&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/strong&gt;&lt;br&gt;
+						&amp;#160;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div&gt;
+		&amp;#160;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160; &lt;/span&gt;&lt;/span&gt;&lt;br&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td colspan="6"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Il sottoscritto &lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$@arrival_id.@agency_id.agent_name,&lt;/strong&gt; &lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Agente raccomandatario marittimo del/della &lt;/span&gt;&lt;/span&gt;&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="6"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;di bandiera &lt;strong&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera&lt;/strong&gt;&lt;em&gt;&lt;strong&gt;, &lt;/strong&gt;&lt;/em&gt;numero IMO &lt;strong&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.imo &lt;/strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;ormeggiata/prevista ormeggiare nel porto di $@arrival_id.@agency_id.@port.descrizione presso la banchina:&lt;/span&gt;&lt;/span&gt;&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt; &lt;strong&gt;$@arrival_id.@dock_id.dock_name&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="6" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;CHIEDE&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="6"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;di essere autorizzato ad effettuare operazioni di bunkeraggio del seguente prodotto &lt;em&gt;(di cui si allega apposita scheda tecnica)&lt;/em&gt;:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@bunker_righe" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Nome prodotto - Categoria - Classe&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Quantit&amp;#224;&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;Tenore di zolfo&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;Punto d'infiammabilit&amp;#224;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="1" style="text-align: center;"&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;Combustibile&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;denaturato - SI o NO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			
+$@bunker_righe
+&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: justify;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td width="225px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;all'imbarcazione che rappresento per il giorno&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot"&gt;
+						&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:11px;"&gt;$datetime_bunk^date_bunk&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td width="90px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;a partire dalle ore&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot"&gt;
+						&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$datetime_bunk^time_bunk&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td width="130px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;per la duranta presunta di&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot"&gt;
+						&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$durata&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;ore sotto il controllo&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td width="200px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del membro dell'equipaggio denominato&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$name_off&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td width="110px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;avente la qualifica di &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot" colspan="4"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&lt;strong&gt;$rank_off&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;div style="text-align: center;"&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;MEDIANTE&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td width="270px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;l'utilizzo delle seguenti autobotti appartenenti alla ditta&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot" width="280px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$ditta_trasp&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td width="65px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;iscritta al n&amp;#176;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bord_bot" colspan="4"&gt;
+						&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;$iscr_dt&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;div&gt;
+			&amp;#160;&amp;#160; &lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del registro istituito da codesta Capitaneria di Porto ai sensi dell'articolo 68 del Codice della Navigazione e che trasportano combustibile proveniente &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+				&lt;tbody&gt;
+					&lt;tr&gt;
+						&lt;td width="50px"&gt;
+							&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;della ditta&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td class="td_bord_bot" width="280px"&gt;
+							&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$ditta_forn&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td width="65px"&gt;
+							&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;iscritta al n&amp;#176;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td class="td_bord_bot" colspan="4"&gt;
+							&lt;strong&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;$iscr_forn&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160; del Registro delle imprese autorizzate ad effettuare operazioni di bunkeraggio tenuto da codesta Capitaneria di Porto ai sensi del D.lgs. 205/2007&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div style="text-align: center;"&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DICHIARA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160; - di essere a conoscenza delle norme contenute nel &amp;#8220;Regolamento per le operazioni di rifornimento di combustibili liquidi ed oli lubrificanti nel &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; porto di Ortona&amp;#8221;;&lt;br&gt;
+			&amp;#160;&amp;#160;&amp;#160; - che osserver&amp;#224; le eventuali misure aggiuntive di sicurezza che codesto Comando riterr&amp;#224; opportuno prescrivere nell'atto di autorizzazione;&lt;br&gt;
+			&amp;#160;&amp;#160;&amp;#160; - che i mezzi antincendio di bordo sono in perfette condizioni e pronti all'impiego mediante personale facente parte dell'equipaggio e&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; munito dei certificati prescritti dalla STCW in materia antincendio.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;/div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td width="50px"&gt;
+					&lt;div&gt;
+						&amp;#160;&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td valign="top" width="300px"&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;Agenzia Marittima - $@arrival_id.@agency_id.agency_name&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;$@arrival_id.@agency_id.agency_stamp^agency_stamp&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td class="td_bord_top" colspan="4" style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;SPAZIO RISERVATO ALLA DITTA TRASPORTATRICE DEL PRODOTTO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td width="70px"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Il sottoscritto&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td class="td_bord_bot" width="150px"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$lg_ditta_transp&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td width="160px"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;L.G. rappresentante della ditta&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td class="td_bord_bot"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$ditta_trasp&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="4"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Incaricata ad eseguire le operazioni di bunkeraggio di cui alla presente istanza da parte della ditta fornitrice denominata&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td class="td_bord_bot" colspan="2"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$ditta_forn&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="2"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del prodotto come sopra descritto per caratteristiche qualitative e quantitative.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DICHIARA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160; di essere a conoscenza delle norme che disciplinano il bunkeraggio nel Porto di Ortona e di assoggettarsi e uniformarsi alle prescrizioni contenute&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160; nel regolamento;&lt;br&gt;
+		&amp;#160;&amp;#160;&amp;#160; Che le autobotti saranno impiegate secondo il seguente programma:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;GIORNO DI LAVORO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="text-align: center;"&gt;
+					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;TARGA VEICOLO / NOMINATIVO AUTISTA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:10px;"&gt;&amp;#160;&amp;#160; &lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Che il prodotto da consegnare &amp;#232; conforme a quanto dichiarato nella presente istanza;&lt;br&gt;
+		&amp;#160;&amp;#160; Che il personale autista &amp;#232; regolarmente assunto alle nostre dipendenze/alle dipendenze della ditta che effettua il trasporto ed &amp;#232; munito di tutti i requisiti &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160; relativi alla condotta del mezzo impiegato per il rifornimento nonch&amp;#233; &amp;#232; stato indottrinato circa i contenuti del &amp;#8220;Regolamento per le operazioni di &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160; rifornimento di combustibili liquidi ed oli lubrificanti nel Porto di Ortona&amp;#8221;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td width="350px"&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;$@arrival_id.@agency_id.@port.descrizione &lt;u&gt;$data_attuale&lt;/u&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;IL RAPPRESENTANTE DELLA DITTA&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td width="350px"&gt;
+						&amp;#160;&lt;/td&gt;
+					&lt;td&gt;
+						&amp;#160;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;</main></compiled></data>
+<authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
+<private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
+<flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_print</flags>
+<required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
+<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>

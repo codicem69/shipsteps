@@ -17,12 +17,17 @@ class Table(object):
         tbl.column('ditta_trasp', name_short='!![en]Transport Company ')
         tbl.column('iscr_dt', name_short='!![en]Inscr.no. Trans/company')
         tbl.column('lg_ditta_transp', name_short='Legale rappresentante')
+        tbl.column('email_transp', name_short='Email trasportatore')
         tbl.column('ditta_forn', name_short='!![en]Supplier Company')
         tbl.column('iscr_forn', name_short='!![en]Inscr.no. Supply/company')
         tbl.column('stamp_transp', dtype='P', name_short='!![en]Transportation Stamp')
+        tbl.column('dati_fatt', name_short='!![en]Invoice details')
+        tbl.column('invio_fatt', name_short='!![en]Send Invoice to')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('dati_cisterne','@bunker_righe.targa_autista')
+        tbl.aliasColumn('invoice','@arrival_id.@invoice_det_id.fullname')
         tbl.formulaColumn('data_attuale',"""CASE WHEN $arrival_id <> ''THEN :currdate END""",var_currdate=self.db.workdate)
+        tbl.formulaColumn('address_inv',"""CASE WHEN $invio_fatt is null THEN @arrival_id.@agency_id.fullstyle ELSE $invio_fatt END""", dtype='T')
 
 
     
