@@ -10,3 +10,4 @@ class Table(object):
         tbl.column('punto_infiam', name_short='!![en]Flash point')
         tbl.column('denaturato', name_short='!![en]Denatured', values='SI:YES,NO:NO')
         tbl.column('targa_autista', name_short='!![en]Truck plate / Driver Name')
+        

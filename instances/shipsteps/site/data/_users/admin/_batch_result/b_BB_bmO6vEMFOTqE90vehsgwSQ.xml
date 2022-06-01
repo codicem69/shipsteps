@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><title>Stampa_Prof</title>
-<batch_id>BB_bmO6vEMFOTqE90vehsgwSQ</batch_id>
-<owner_page_id>0mkdeA9fOe2Ap5zIwDGwVA</owner_page_id>
-<note _T="NN"></note>
-<start_ts _T="DH">2022-01-10T11:29:54.136929+01:00</start_ts>
-<end_ts _T="DH">2022-01-10T11:29:54.614248+01:00</end_ts>
-<time_delta>0:00:00</time_delta>
-<result url="http://127.0.0.1:8082/_storage/home/proforma_ranalli/pfda22000001.pdf?download=True&amp;mtime=1641810595" document_name="pfda22000001" url_print='javascript:genro.openWindow("http://127.0.0.1:8082/_storage/home/proforma_ranalli/pfda22000001.pdf?mtime=1641810595","pfda22000001");' autoDestroy="600::L"></result></GenRoBag>

@@ -72,7 +72,9 @@ class Form(BaseComponent):
         bc_att = tc.borderContainer(title='!![en]Attachments')
         tc_task = tc.tabContainer(title='!![en]Task List',region='center')
         bc_tasklist = tc_task.borderContainer(title='!![en]Task List', region='center')
-        tc_task = tc_task.tabContainer(title='!![en]prova')
+       # tc_task = tc_task.tabContainer(title='!![en]Shore Pass')
+        #tc_shorepass = tc_task.tabContainer(title='!![en]Shore Pass', region='center')
+        #tc_prova = tc_task.tabContainer(title='!![en]prova')
         tc_undertask = bc_tasklist.tabContainer(margin='2px', region='center', height='auto')
         tc_sof = tc.borderContainer(title='!![en]SOF')
         tc_app = tc.tabContainer(title='!![en]Applications')
@@ -86,6 +88,7 @@ class Form(BaseComponent):
         self.datiArrivo(bc.borderContainer(region='top',height='300px', splitter=True, background = 'lavenderblush'))
        
         self.taskList(bc_tasklist.borderContainer(region='top',height='50%', background = 'lavenderblush', splitter=True))
+        self.shorepass(tc_task.contentPane(title='!![en]Shore pass'))
         self.sottotasklist(tc_task.contentPane(title='evviva'))
         self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
         
@@ -257,6 +260,7 @@ class Form(BaseComponent):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
    #def sof_cargo(self,pane):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
+    
 
     def taskList(self, bc_task):
         rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='690px', height = 'auto').div(margin='10px',margin_left='2px')
@@ -541,6 +545,9 @@ class Form(BaseComponent):
 
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
+
+    def shorepass(self, pane):
+        pane.stackTableHandler(relation='@shorepass_arr',formResource='Form')
 
     def garbage(self, pane):
         pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')

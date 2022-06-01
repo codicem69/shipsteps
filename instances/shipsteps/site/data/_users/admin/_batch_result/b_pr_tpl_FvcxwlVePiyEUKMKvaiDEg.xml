@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><title _T="NN"></title>
-<batch_id>pr_tpl_FvcxwlVePiyEUKMKvaiDEg</batch_id>
-<owner_page_id>L9zfO1hKP12KYkMwIfDUSg</owner_page_id>
-<note _T="NN"></note>
-<start_ts _T="DH">2022-01-25T11:35:05.873516+01:00</start_ts>
-<end_ts _T="DH">2022-01-25T11:35:06.904616+01:00</end_ts>
-<time_delta>0:00:01</time_delta>
-<result url="/_user/admin/output/pdf/print.pdf?download=True&amp;mtime=1643106907" document_name="print" url_print='javascript:genro.openWindow("/_user/admin/output/pdf/print.pdf?mtime=1643106907","print");' autoDestroy="600::L"></result></GenRoBag>
