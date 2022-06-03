@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-06-03T15:12:00.426100+02:00</_ins_ts>
+<_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-06-03T15:23:31.034936+02:00</_mod_ts>
+<_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatenot_rifiuti</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">not_rifiuti</code>
+<objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
+<pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
+<tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">notifica rifiuti</description>
+<notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;da: $agency_name&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;a:&amp;nbsp; $adsp_int&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$greeting,&lt;br /&gt;
+	&lt;br /&gt;
+	a seguito della comunicazione con protocollo n.9712 della Capitaneria di Porto Ortona,&lt;br /&gt;
+	&lt;br /&gt;
+	inoltriamo Notifica pre-arrivo rifiuti:&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;br /&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$imbarcazione_tipo $imbarcazione_nome&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;ETA:$eta&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;ETS:$ets&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Cordiali saluti.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$user_signature&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$agency_name&lt;br /&gt;
+	$agenzia_description&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$agenzia_address&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;tel.: $agenzia_tel&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;fax: $agenzia_fax&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$agenzia_email&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$agenzia_web&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</content>
+<metadata><author>admin</author>
+<version _T="NN"></version>
+<date _T="NN"></date>
+<is_print _T="NN"></is_print>
+<is_mail _T="B" _valuelabel="">True</is_mail>
+<is_row _T="NN"></is_row>
+<row_height _T="NN"></row_height>
+<default_letterhead _T="NN"></default_letterhead>
+<summary _T="NN"></summary>
+<email><subject _valuelabel="Oggetto">Notifica pre-arrivo rifiuti $imbarcazione_tipo $imbarcazione_nome ref:$reference_number</subject>
+<to_address _valuelabel="A">$email</to_address>
+<from_address _T="NN"></from_address>
+<cc_address _valuelabel="CC">$email_cc</cc_address>
+<bcc_address _T="NN"></bcc_address>
+<attachments _T="NN"></attachments></email>
+<email_compiled><subject>Notifica pre-arrivo rifiuti $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome ref:$reference_num</subject>
+<to_address>$email</to_address>
+<cc_address>$email_cc</cc_address></email_compiled></metadata>
+<varsbag><gadxajbpa9 _pkey="gadxajbpa9"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Tipo</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_tipo">imbarcazione_tipo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxajbpa9>
+<gadxal3lft _pkey="gadxal3lft"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_nome">imbarcazione_nome</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxal3lft>
+<gadxamj0ip _pkey="gadxamj0ip"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Bandiera</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_bandiera">imbarcazione_bandiera</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxamj0ip>
+<gadxbu5myh _pkey="gadxbu5myh"><fieldpath dtype="::NN">reference_num</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Reference number</fieldname>
+<varname dtype="::NN">reference_number</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxbu5myh>
+<gadxip9q7t _pkey="gadxip9q7t"><fieldpath dtype="::NN">adsp_int</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">adsp_int</fieldname>
+<varname dtype="::NN">adsp_int</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxip9q7t>
+<gadxivwzn5 _pkey="gadxivwzn5"><fieldpath dtype="::NN">@agency_id.agency_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/agency_name</fieldname>
+<varname dtype="::NN" _loadedValue="agenzia_agency_name">agency_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxivwzn5>
+<gadxokyizd _pkey="gadxokyizd"><fieldpath dtype="::NN">@agency_id.description</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/description</fieldname>
+<varname dtype="::NN">agenzia_description</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxokyizd>
+<gadxomvis1 _pkey="gadxomvis1"><fieldpath dtype="::NN">@agency_id.address</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/address</fieldname>
+<varname dtype="::NN">agenzia_address</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxomvis1>
+<gadxoorm61 _pkey="gadxoorm61"><fieldpath dtype="::NN">@agency_id.tel</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/tel</fieldname>
+<varname dtype="::NN">agenzia_tel</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxoorm61>
+<gadxou9tyx _pkey="gadxou9tyx"><fieldpath dtype="::NN">@agency_id.fax</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/fax</fieldname>
+<varname dtype="::NN">agenzia_fax</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxou9tyx>
+<gadxowyxc9 _pkey="gadxowyxc9"><fieldpath dtype="::NN">@agency_id.email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/email</fieldname>
+<varname dtype="::NN">agenzia_email</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxowyxc9>
+<gadxozvqhl _pkey="gadxozvqhl"><fieldpath dtype="::NN">@agency_id.web</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/web</fieldname>
+<varname dtype="::NN">agenzia_web</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxozvqhl>
+<gadxp6ysl5 _pkey="gadxp6ysl5"><fieldpath dtype="::NN">@agency_id.fullname</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/user signature</fieldname>
+<varname dtype="::NN" _loadedValue="agenzia_user_signature">user_signature</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxp6ysl5>
+<gadxlxjemp _pkey="gadxlxjemp"><fieldpath dtype="::NN">ets</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">ets</fieldname>
+<varname dtype="::NN">ets</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxlxjemp>
+<gadxlvwvdl _pkey="gadxlvwvdl"><fieldpath dtype="::NN">eta</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">eta</fieldname>
+<varname dtype="::NN">eta</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxlvwvdl>
+<gadxn0ctq9 _pkey="gadxn0ctq9"><fieldpath dtype="::NN">saluto</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Greeting</fieldname>
+<varname dtype="::NN">greeting</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gadxn0ctq9></varsbag>
+<parameters><gadxgw35d5 _pkey="gadxgw35d5"><code dtype="::NN" _loadedValue="::NN">email</code>
+<description dtype="::NN" _loadedValue="::NN">Email</description>
+<fieldtype _T="NN" dtype="::NN"></fieldtype>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<values _T="NN" dtype="::NN"></values></gadxgw35d5>
+<gadxh053zt _pkey="gadxh053zt"><code dtype="::NN" _loadedValue="::NN">email_cc</code>
+<description dtype="::NN" _loadedValue="::NN">Email cc</description>
+<fieldtype _T="NN" dtype="::NN"></fieldtype>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<values _T="NN" dtype="::NN"></values></gadxh053zt></parameters>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<content_css _T="NN"></content_css>
+<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="adsp_int,@agency_id.fullname,saluto" columns="@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,$reference_num,$adsp_int,@agency_id.agency_name,@agency_id.description,@agency_id.address,@agency_id.tel,@agency_id.fax,@agency_id.email,@agency_id.web,@agency_id.fullname,$ets,$eta,$saluto" formats='{"email": null, "email_cc": null}::JS' masks='{"email": null, "email_cc": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"imbarcazione_tipo": "T", "imbarcazione_nome": "T", "imbarcazione_bandiera": "T", "reference_number": "T", "adsp_int": "T", "agency_name": "T", "agenzia_description": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_fax": "T", "agenzia_email": "T", "agenzia_web": "T", "user_signature": "T", "ets": "DH", "eta": "DH", "greeting": "T"}::JS'>&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;da: $@agency_id.agency_name&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;a:&amp;nbsp; $adsp_int&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$saluto,&lt;br /&gt;
+	&lt;br /&gt;
+	a seguito della comunicazione con protocollo n.9712 della Capitaneria di Porto Ortona,&lt;br /&gt;
+	&lt;br /&gt;
+	inoltriamo Notifica pre-arrivo rifiuti:&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;br /&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;ETA:$eta&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;ETS:$ets&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Cordiali saluti.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$@agency_id.fullname&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$@agency_id.agency_name&lt;br /&gt;
+	$@agency_id.description&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$@agency_id.address&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;tel.: $@agency_id.tel&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;fax: $@agency_id.fax&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$@agency_id.email&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$@agency_id.web&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</main></compiled></data>
+<authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
+<private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
+<flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_mail</flags>
+<required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
+<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>

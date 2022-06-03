@@ -72,3 +72,7 @@ class Table(object):
     @metadata(mandatory=True)
     def sysRecord_capitaneria(self):
         return self.newrecord(code='cp',description_serv='capitaneria')
+    
+    @metadata(mandatory=True)
+    def sysRecord_adsp(self):
+        return self.newrecord(code='adsp',description_serv='adsp')

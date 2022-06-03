@@ -263,7 +263,8 @@ class Form(BaseComponent):
     
 
     def taskList(self, bc_task):
-        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='690px', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='550px', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_arrival = bc_task.roundedGroup(title='!![en]Arrival',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='500px', height = 'auto').div(margin='10px',margin_left='2px')
         #rg_prearrival_cp = bc_task.roundedGroup(title='!![en]Pre arrival CP',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='670px', height = 'auto',margin_top='290px').div(margin='10px',margin_left='2px')
         #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
        #tbl_staff =  self.db.table('shipsteps.staff')
@@ -330,16 +331,16 @@ class Form(BaseComponent):
         fb1.semaphore('^.modulo_nave', margin_top='5px')
 
         #definizione secondo rettangolo invio email all'interno del roundedGroup Pre Arrival
-        div2=rg_prearrival.div(width='99%',height='20%',margin='auto',
+        div2=rg_prearrival.div('<center><strong>EMAIL</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb = div2.formbuilder(colspan=4,cols=12, border_spacing='2px')
+        fb = div2.formbuilder(colspan=3,cols=9, border_spacing='2px')
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
        
         
         
-        btn_sr = fb.Button('!![en]Email Shipper/Receivers')
+        btn_sr = fb.Button('!![en]Shipper/Receivers')
         btn_sr.dataRpc('msg_special', self.email_arrival_sof,
                    record='=#FORM.record.id', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
@@ -353,7 +354,7 @@ class Form(BaseComponent):
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
         fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
         
-        btn_dog = fb.Button('!![en]Email Customs',width='105px')
+        btn_dog = fb.Button('!![en]Customs',width='80px')
         btn_dog.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['dogana','gdf','gdf roan'], email_template_id='email_dogana',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                     _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -376,7 +377,7 @@ class Form(BaseComponent):
        #                                    uploadPath=':import_queue',
        #                                    _ask=dict(title='Choose users to whom to assign files',
        #                                        fields=[dict(name='user_id', lbl='User', tag='dbselect', table='adm.user')]))
-        btn_fr = fb.Button('!![en]Email Immigration', width='110px')
+        btn_fr = fb.Button('!![en]Immigration', width='98px')
         btn_fr.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['immigration'], email_template_id='email_frontiera',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -386,7 +387,7 @@ class Form(BaseComponent):
         fb.field('email_frontiera',lbl='', margin_top='5px')
         fb.semaphore('^.email_frontiera', margin_top='5px')
 
-        btn_usma = fb.Button('!![en]Email Sanimare')
+        btn_usma = fb.Button('!![en]Sanimare',width='115px')
         btn_usma.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['sanimare'], email_template_id='email_sanimare',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -396,17 +397,7 @@ class Form(BaseComponent):
         fb.field('email_usma',lbl='', margin_top='5px')
         fb.semaphore('^.email_usma', margin_top='5px')
 
-        btn_pfso = fb.Button('!![en]Email PFSO', width='149px')
-        btn_pfso.dataRpc('msg_special', self.email_services,
-                   record='=#FORM.record.id', servizio=['pfso'], email_template_id='email_pfso',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]))
-        fb.dataController("if(msgspec=='val_pfso') {SET .email_pfso=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_pfso',lbl='', margin_top='5px')
-        fb.semaphore('^.email_pfso', margin_top='5px')
-
-        btn_pilot = fb.Button('!![en]Email Pilot/Moor')
+        btn_pilot = fb.Button('!![en]Pilot/Moor',width='80px')
         btn_pilot.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -416,7 +407,7 @@ class Form(BaseComponent):
         fb.field('email_pilot_moor',lbl='', margin_top='5px')
         fb.semaphore('^.email_pilot_moor', margin_top='5px')
 
-        btn_tug = fb.Button('!![en]Email Tug', width='110px')
+        btn_tug = fb.Button('!![en]Tug', width='98px')
         btn_tug.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -427,7 +418,7 @@ class Form(BaseComponent):
         fb.field('email_tug',lbl='', margin_top='5px')
         fb.semaphore('^.email_tug', margin_top='5px')
 
-        btn_garb = fb.Button('!![en]Email Garbage', width='101px')
+        btn_garb = fb.Button('!![en]Garbage', width='115px')
         btn_garb.dataRpc('msg_special', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
                             nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -439,8 +430,17 @@ class Form(BaseComponent):
         fb.field('email_garbage',lbl='', margin_top='5px')
         fb.semaphore('^.email_garbage', margin_top='5px')
         
+        btn_pfso = fb.Button('!![en]PFSO', width='80px')
+        btn_pfso.dataRpc('msg_special', self.email_services,
+                   record='=#FORM.record.id', servizio=['pfso'], email_template_id='email_pfso',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
+        fb.dataController("if(msgspec=='val_pfso') {SET .email_pfso=true ; alert('Message created')}", msgspec='^msg_special')
+        fb.field('email_pfso',lbl='', margin_top='5px')
+        fb.semaphore('^.email_pfso', margin_top='5px')
 
-        btn_chem = fb.Button('!![en]Email Chemist', width='149px')
+        btn_chem = fb.Button('!![en]Chemist', width='98px')
         btn_chem.dataRpc('msg_special', self.email_services,
                    record='=#FORM.record.id', servizio=['chemist'], email_template_id='email_chemist',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                     _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -450,7 +450,7 @@ class Form(BaseComponent):
         fb.field('email_chemist',lbl='', margin_top='5px')
         fb.semaphore('^.email_chemist', margin_top='5px')
 
-        btn_gpg = fb.Button('!![en]Email GPG', width='105px')
+        btn_gpg = fb.Button('!![en]GPG', width='115px')
         btn_gpg.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['gpg'], email_template_id='email_gpg',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -460,7 +460,7 @@ class Form(BaseComponent):
         fb.field('email_gpg',lbl='', margin_top='5px')
         fb.semaphore('^.email_gpg', margin_top='5px')
 
-        btn_ens = fb.Button('!![en]Email ENS', width='110px')
+        btn_ens = fb.Button('!![en]ENS', width='80px')
         btn_ens.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['ens'], email_template_id='email_ens',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -471,11 +471,23 @@ class Form(BaseComponent):
         fb.field('email_ens',lbl='', margin_top='5px')
         fb.semaphore('^.email_ens', margin_top='5px')
 
-        btn_af = fb.Button('!![en]Email Antifire', width='101px')
-        fb.field('email_antifire',lbl='', margin_top='5px')
-        fb.semaphore('^.email_antifire', margin_top='5px')
+        btn_ens = fb.Button('!![en]Garbage ADSP')
+        btn_ens.dataRpc('msg_special', self.email_services,
+                  record='=#FORM.record.id', servizio=['adsp'], email_template_id='not_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
+                             cols=4,popup=True,colspan=2)]))
+        fb.dataController("if(msgspec=='val_adsp') {SET .email_garbage_adsp=true ; alert('Message created')}", msgspec='^msg_special')
+       # fb.dataController('SET .email_ens=True',__if='msg',msg='^msg_special')
+        fb.field('email_garbage_adsp',lbl='', margin_top='5px')
+        fb.semaphore('^.email_garbage_adsp', margin_top='5px')
 
-        btn_update = fb.Button('!![en]Email services<br>updating', width='149px')
+
+       #btn_af = fb.Button('!![en]Email Antifire', width='101px')
+       #fb.field('email_antifire',lbl='', margin_top='5px')
+       #fb.semaphore('^.email_antifire', margin_top='5px')
+
+        btn_update = fb.Button('!![en]services<br>updating', width='115px')
         btn_update.dataRpc('msg_special', self.email_serv_upd,
                    record='=#FORM.record',email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the services to update and Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',
@@ -488,7 +500,7 @@ class Form(BaseComponent):
         fb.div()
         fb.div()
      
-        btn_upd_shiprec = fb.Button('!![en]Email Ship/Rec.<br>updating',width='105px')
+        btn_upd_shiprec = fb.Button('!![en]Ship/Rec.<br>updating',width='80px')
         btn_upd_shiprec.dataRpc('msg_special', self.email_arrival_sof,
                    record='=#FORM.record.id', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
@@ -542,7 +554,23 @@ class Form(BaseComponent):
        #fb_cp.semaphore('^.email_integr')
         fb.dataController("if(msgspec=='val_bulk') {alert('Message created')}", msgspec='^msg_special')
         
-
+        div_arr=rg_arrival.div(width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb_arr=div_arr.formbuilder(colspan=3,cols=9, border_spacing='1px')
+        btn_chim_cp = fb_arr.Button('!![en]Email Cert. Chimico CP')
+        btn_chim_cp.dataRpc('msg_special', self.email_services,
+                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_chimico_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
+                             cols=4,popup=True,colspan=2)]))
+        btn_chim_cp = fb_arr.Button('!![en]Email Waste derogation CP')
+        btn_chim_cp.dataRpc('msg_special', self.email_services,
+                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_deroga_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
+                             cols=4,popup=True,colspan=2)]))
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
@@ -565,7 +593,7 @@ class Form(BaseComponent):
         attcmt=[]
         #trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
         #ma verifichiamo se nei kwargs gli allegati ci sono per non ritrovarci la variabile lista_all senza assegnazione
-        if email_template_id=='email_integrazione_alim' and kwargs['allegati'] is not None:
+        if kwargs['allegati'] is not None:
             lista_all=list(kwargs['allegati'].split(","))
         else:
             lista_all=None
@@ -697,30 +725,34 @@ class Form(BaseComponent):
         
         if (email_dest or email_pec_dest) is not None:
 
-            if servizio == ['dogana','gdf','gdf roan']:
+            if email_template_id == 'email_dogana':
                 msg_special = 'val_dog'
-            elif servizio == ['immigration']:
+            elif email_template_id == 'email_frontiera':
                 msg_special = 'val_imm'
-            elif servizio == ['sanimare']:
+            elif email_template_id == 'email_sanimare':
                 msg_special = 'val_usma'
-            elif servizio == ['pfso']:
+            elif email_template_id == 'email_pfso':
                 msg_special = 'val_pfso'
-            elif servizio == ['pilot','mooringmen']:
+            elif email_template_id == 'email_pilot_moor':
                 msg_special = 'val_pil_moor'
-            elif servizio == ['tug']:
+            elif email_template_id == 'email_tug':
                 msg_special = 'val_tug'
-            elif servizio == ['garbage']:
+            elif email_template_id == 'garbage_email':
                  msg_special = 'val_garbage'
-            elif servizio == ['chemist']:
+            elif email_template_id == 'email_chemist':
                 msg_special = 'val_chemist'
-            elif servizio == ['gpg']:
+            elif email_template_id == 'email_gpg':
                 msg_special = 'val_gpg'
-            elif servizio == ['ens']:
+            elif email_template_id == 'email_ens':
                 msg_special = 'val_ens'
             elif email_template_id == 'email_garbage_cp':
                 msg_special = 'val_garb_cp'
-            elif servizio == ['capitaneria']:
+            elif email_template_id == 'email_integrazione_alim':
                 msg_special = 'val_integr'
+            elif email_template_id == 'email_chimico_cp':
+                msg_special = 'ship_rec'
+            elif email_template_id == 'not_rifiuti':
+                msg_special = 'val_adsp'
             return msg_special
     
     @public_method

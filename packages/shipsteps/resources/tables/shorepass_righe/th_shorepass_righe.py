@@ -61,7 +61,7 @@ class ViewFromShorepassRighe(BaseComponent):
    
    
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('addrow','addrow,print,10,importa_crew,10,batchAssign,10,stampa_shorepass')
+        bar = view.top.bar.replaceSlots('addrow','addrow,print,10,importa_crew,10,batchAssign,10,stampa_shorepass', datapath='#FORM.shipsteps_shorepass')
         btn_importa_crew = bar.importa_crew.paletteImporter(paletteCode='xls_importer',
                             dockButton_iconClass=False,
                             title='!!Importa crew',

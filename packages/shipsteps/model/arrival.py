@@ -261,6 +261,10 @@ class Table(object):
                                                 columns='$email_cc',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='pfso'),
                                                 dtype='T')
+        tbl.formulaColumn('adsp_int',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='adsp'),
+                                                dtype='T')
 
     def pyColumn_cargo(self,record,field):
        
