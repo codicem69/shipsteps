@@ -41,7 +41,8 @@ class ViewFromCargoLU(BaseComponent):
         r.fieldcell('description', edit=True, width='20em')
         r.fieldcell('description_it', edit=True, width='20em')
         r.fieldcell('operation', edit=True, width='5em')
-        r.fieldcell('foreign_cargo', edit=True, width='5em')
+        #r.fieldcell('foreign_cargo', edit=True, width='5em')
+        r.fieldcell('foreign_cargo', values='True:YES,False:NO',validate_notnull=True, edit=True)
         r.fieldcell('place_origin_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')
         r.fieldcell('place_dest_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')    
     

@@ -32,10 +32,11 @@ class Form(BaseComponent):
         pane = form.record
         fb = pane.formbuilder(cols=2, border_spacing='4px')
         
-        fb.field('rag_sociale' )
-        fb.field('address' )
+        fb.field('rag_sociale', width='54em',colspan=2 )
+        fb.br()
+        fb.field('address', width='30em' )
         fb.field('cap' )
-        fb.field('city' )
+        fb.field('city', width='30em' )
         fb.field('vat' )
         fb.field('cf' )
         fb.field('cod_univoco' )
@@ -43,4 +44,4 @@ class Form(BaseComponent):
 
 
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px' )
+        return dict(dialog_height='600px', dialog_width='800px' )

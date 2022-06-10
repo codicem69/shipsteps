@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-18T17:22:14.021037+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-06-03T16:52:12.037562+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-06-07T15:17:58.869935+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplateemail_frontiera</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_frontiera</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Email Frontiera</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
@@ -33,14 +33,14 @@
 	Stazza Netta / Lorda: $vessel_imbarcazione_nt / $vessel_imbarcazione_gt&lt;/span&gt;&lt;br /&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;Carico Trasportato: $cargo_onboard&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;${Carico Trasportato: $cargo_onboard}&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div row_datasource="@cargo_lu_arr"&gt;
 	&lt;span style="font-family:courier new,courier,monospace;"&gt;$carichi_sbarco_imbarchi_carico_l_u_ita&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;br /&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;Destinazione carico: $cargo_dest&lt;/span&gt;&lt;br /&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;${Destinazione carico: $cargo_dest}&lt;/span&gt;&lt;br /&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-family:courier new,courier,monospace;"&gt;Provenienza: $last_port&lt;br /&gt;
@@ -518,7 +518,7 @@
 	&amp;#160;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;Carico Trasportato: $cargo_onboard&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;${Carico Trasportato: $cargo_onboard}&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
 	&amp;#160;&lt;/div&gt;
@@ -528,7 +528,7 @@ $@cargo_lu_arr
 
 &lt;div&gt;
 	&lt;br&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;Destinazione carico: $cargo_dest&lt;/span&gt;&lt;br&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;${Destinazione carico: $cargo_dest}&lt;/span&gt;&lt;br&gt;
 	&amp;#160;&lt;/div&gt;
 
 &lt;div&gt;

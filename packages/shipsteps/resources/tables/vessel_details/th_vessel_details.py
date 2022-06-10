@@ -78,7 +78,7 @@ class Form(BaseComponent):
         fb.field('callsign', width='20em' )
         fb.field('built', width='20em' )
         fb.field('dwt', width='20em' )
-        fb.field('beam', width='20em' )
+        fb.field('beam', width='20em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:10 or 10,00' )
         fb.field('mmsi', width='20em' )
         fb.field('reg_place',lbl='Reg. place',auxColumns='@nazione_code.nome',
                         width='20em' )
@@ -105,4 +105,8 @@ class Form(BaseComponent):
         self.setInClientData(value=None, path='shipsteps_vessel_details.form.record.vess_image')
 
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px' )
+        return dict(dialog_windowRatio = 1 , annotations= True )
+
+        #return dict(dialog_height='400px', dialog_width='600px' )
+    
+       

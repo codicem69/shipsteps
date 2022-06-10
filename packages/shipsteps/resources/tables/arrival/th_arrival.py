@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+from turtle import left
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
@@ -51,10 +52,10 @@ class View(BaseComponent):
         r.fieldcell('ship_rec', width='30em')
 
     def th_order(self):
-        return 'agency_id'
+        return 'reference_num:d' 
 
     def th_query(self):
-        return dict(column='reference_num', op='contains', val='')
+        return dict(column='reference_num', op='contains', val='', runOnStart=True)
 
 
 
@@ -70,7 +71,7 @@ class Form(BaseComponent):
 
         bc = tc.borderContainer(title='!![en]Arrival')
         bc_att = tc.borderContainer(title='!![en]Attachments')
-        tc_task = tc.tabContainer(title='!![en]Task List',region='center')
+        tc_task = tc.tabContainer(title='!![en]Task List',region='center',selectedPage='^.pippo')
         bc_tasklist = tc_task.borderContainer(title='!![en]Task List', region='center')
        # tc_task = tc_task.tabContainer(title='!![en]Shore Pass')
         #tc_shorepass = tc_task.tabContainer(title='!![en]Shore Pass', region='center')
@@ -89,7 +90,7 @@ class Form(BaseComponent):
        
         self.taskList(bc_tasklist.borderContainer(region='top',height='50%', background = 'lavenderblush', splitter=True))
         self.shorepass(tc_task.contentPane(title='!![en]Shore pass'))
-        self.sottotasklist(tc_task.contentPane(title='evviva'))
+        self.services(tc_task.contentPane(title='!![en]Vessel Services',pageName='services'))
         self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
         
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
@@ -114,13 +115,16 @@ class Form(BaseComponent):
         self.car_ric(tc.contentPane(title='!![en]Shippers / Receivers'))
         self.charterers(tc.contentPane(title='!![en]Charterers'))
        # self.sof(tc.contentPane(title='!![en]Sof'))
-        self.arrival_details(tc.borderContainer(title='!![en]Arrival details', region='top', background = 'lavenderblush'))
+        self.arrival_details(tc.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'lavenderblush'))
         self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
 
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
-    def sottotasklist(self,bc):
-        bc.contentPane(region='center').div('ciao')
+    def services(self,pane):
+        #pass
+        #pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
+        pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices')
+
     def datiArrivo(self,bc):
         center = bc.roundedGroup(title='!![en]Vessel arrival', region='center',datapath='.record',width='210px', height = '100%').div(margin='10px',margin_left='2px')
         center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')
@@ -142,15 +146,15 @@ class Form(BaseComponent):
         fb.field('et_start' , width='10em')
         fb.field('etc' , width='10em')
         fb.field('ets', width='10em' )
-        fb.field('draft_aft_arr', width='5em',placeholder='e.g. 4,5')
-        fb.field('draft_fw_arr' , width='5em',placeholder='e.g. 4,5')
-        fb.field('draft_aft_dep' , width='5em',placeholder='e.g. 4,5')
-        fb.field('draft_fw_dep' , width='5em',placeholder='e.g. 4,5')
+        fb.field('draft_aft_arr', width='5em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:4 or 4,5')
+        fb.field('draft_fw_arr' , width='5em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:4 or 4,5')
+        fb.field('draft_aft_dep' , width='5em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:4 or 4,5')
+        fb.field('draft_fw_dep' , width='5em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:4 or 4,5')
         fb.field('dock_id' )
         fb.field('info_moor',width='30em', colspan=2 ,placeholder='e.g. Inizio ormeggio il ... ore ....')
         fb.field('master_name' )
-        fb.field('n_crew' , width='5em')
-        fb.field('n_passengers' , width='5em')
+        fb.field('n_crew' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
+        fb.field('n_passengers' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
         fb.br()
         fb.field('last_port',auxColumns='@nazione_code.nome' )
         fb.field('departure_lp' , width='10em')
@@ -189,7 +193,7 @@ class Form(BaseComponent):
        #fb.field('cosp', lbl='CoSP')
 
     def datiCaricoBordo(self,frame):
-        frame.simpleTextArea(title='!![en]Cargo on board',value='^.cargo_onboard',editor=True)
+        frame.simpleTextArea(title='!![en]Cargo on board',value='^.cargo_onboard',editor=True,validate_notnull=True)
 
     def datiCarico(self,pane):
         pane.inlineTableHandler(relation='@cargo_lu_arr',viewResource='ViewFromCargoLU')
@@ -207,8 +211,8 @@ class Form(BaseComponent):
         pane.stackTableHandler(relation='@sof_arr', formResource='FormSof')
 
     def arrival_details(self, bc):
-        rg_times = bc.roundedGroup(title='!![en]Arrival times',table='shipsteps.arrival_time',region='left',datapath='.record.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_details = bc.roundedGroup(title='!![en]Arrival/Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
 
         fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('eosp')
@@ -226,10 +230,15 @@ class Form(BaseComponent):
         fb.field('sailed')
         fb.field('cosp', lbl='Commenced of <br>Sea Passage',fldvalign='center')
 
-        fb = rg_details.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
+        div_draft=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DRAFT</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_draft.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
+        #fb = rg_details.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
 
         #fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=3, border_spacing='4px',fld_width='10em',table='shipsteps.arrival_det',datapath='.record.@arr_details')
-        fb.div('!![en]DRAFT')
+        #fb.div('!![en]<strong>DRAFT</strong>')
         fb.br()
         fb.field('draft_aft_arr',placeholder='e.g. 4,5')
         fb.field('draft_fw_arr',placeholder='e.g. 4,5')
@@ -237,7 +246,13 @@ class Form(BaseComponent):
         fb.field('draft_aft_dep',placeholder='e.g. 4,5')
         fb.field('draft_fw_dep',placeholder='e.g. 4,5')
         fb.br()
-        fb.div('!![en]REMAINS')
+        div_rem=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>REMAINS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_rem.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
+
+        #fb.div('!![en]<strong>REMAINS</strong>')
         fb.br()
         fb.field('ifo_arr',placeholder='e.g. mt.50')
         fb.field('do_arr',placeholder='e.g. mt.50')
@@ -246,12 +261,22 @@ class Form(BaseComponent):
         fb.field('do_dep',placeholder='e.g. mt.50')
         fb.field('lo_dep',placeholder='e.g. kgs.50')
         fb.br()
-        fb.div('FRESH WATER')
+        div_fw=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_fw.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
+        #fb.div('!![en]<strong>FRESH WATER</strong>')
         fb.br()
         fb.field('fw_arr',placeholder='e.g. mt.50')
         fb.field('fw_dep',placeholder='e.g. mt.50')
         fb.br()
-        fb.div('!![en]USED TUGS')
+        div_tug=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>USED TUGS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_tug.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
+        #fb.div('!![en]<strong>USED TUGS</strong>')
         fb.br()
         fb.field('tug_in',placeholder='e.g. 1')
         fb.field('tug_out',placeholder='e.g. 1')
@@ -262,9 +287,10 @@ class Form(BaseComponent):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
     
 
-    def taskList(self, bc_task):
-        rg_prearrival = bc_task.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='550px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_arrival = bc_task.roundedGroup(title='!![en]Arrival',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='500px', height = 'auto').div(margin='10px',margin_left='2px')
+    def taskList(self, bc_tasklist):
+        rg_prearrival = bc_tasklist.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='550px', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_arrival = bc_tasklist.roundedGroup(title='!![en]Arrival/Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='500px', height = 'auto').div(margin='10px',margin_left='2px')
+        #rg_departure = bc_tasklist.roundedGroup(title='!![en]Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='340px', height = 'auto',margin_left='350px').div(margin='10px',margin_left='2px')
         #rg_prearrival_cp = bc_task.roundedGroup(title='!![en]Pre arrival CP',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='670px', height = 'auto',margin_top='290px').div(margin='10px',margin_left='2px')
         #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
        #tbl_staff =  self.db.table('shipsteps.staff')
@@ -554,11 +580,11 @@ class Form(BaseComponent):
        #fb_cp.semaphore('^.email_integr')
         fb.dataController("if(msgspec=='val_bulk') {alert('Message created')}", msgspec='^msg_special')
         
-        div_arr=rg_arrival.div(width='99%',height='20%',margin='auto',
+        div_arr=rg_arrival.div('<center><strong>ARRIVAL</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb_arr=div_arr.formbuilder(colspan=3,cols=9, border_spacing='1px')
+        fb_arr=div_arr.formbuilder(colspan=2,cols=4, border_spacing='1px')
         btn_chim_cp = fb_arr.Button('!![en]Email Cert. Chimico CP')
         btn_chim_cp.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_chimico_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -571,6 +597,24 @@ class Form(BaseComponent):
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2)]))
+        div_dep=rg_arrival.div('<center><strong>DEPARTURE</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb_dep=div_dep.formbuilder(colspan=2,cols=4, border_spacing='1px')
+        fb_dep.Button('!![en]Vessel services', action="""{SET shipsteps_arrival.form.pippo='services';}""")
+        fb_dep.Button('!![en]GdF Departure',
+                                        action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
+                                                                               res_type:'print',
+                                                                               resource:'Partenza_Finanza',
+                                                                               pkey: pkey})""",
+                                                                               pkey='=#FORM.pkey')
+        
+        
+       
+
+       
+
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
@@ -897,7 +941,7 @@ class Form(BaseComponent):
     @public_method
     def email_arrival_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
         tbl_arrival = self.db.table('shipsteps.arrival')
-
+        
         #verifichiamo che ci sia il record
         if not record:
             return
@@ -1026,7 +1070,7 @@ class Form(BaseComponent):
     @public_method
     def print_template(self, record, resultAttr=None, nome_template=None,  nome_vs=None, format_page=None, **kwargs):
         # Crea stampa
-
+        
         tbl_arrival = self.db.table('shipsteps.arrival')
         builder = TableTemplateToHtml(table=tbl_arrival)
         #nome_template = nome_template #'shipsteps.arrival:check_list'

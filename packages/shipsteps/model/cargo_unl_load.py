@@ -21,7 +21,7 @@ class Table(object):
         tbl.column('description', name_short='!![en]Description')
         tbl.column('description_it', name_short='!![en]Description IT')
         tbl.column('operation', name_short='operation', values='U:Unloading,L:Loading')
-        tbl.column('foreign_cargo', dtype='B', name_short='!![en]Foreign cargo')
+        tbl.column('foreign_cargo', dtype='T', name_short='!![en]Foreign cargo')
         tbl.column('place_origin_goods',size='22',name_short='!![en]Place origin goods').relation('unlocode.place.id',
                                             relation_name='origingoods', mode='foreignkey', onDelete='raise')
         tbl.column('place_dest_goods',size='22',name_short='!![en]Place destination goods').relation('unlocode.place.id',
@@ -49,6 +49,6 @@ class Table(object):
                                             WHEN $operation = 'U' THEN '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Receivers: ' || @receiver_id.name || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U shiprec')
         tbl.formulaColumn('tip_cargo_dogana',"""CASE WHEN $foreign_cargo = 'True' THEN 'Merce estera da importare'
-                                                WHEN $foreign_cargo = 'False' THEN 'Merce scortata da T2L' ELSE 'Merce scortata da T2L' END""")
+                                                WHEN $foreign_cargo = 'False' THEN 'Merce scortata da T2L' ELSE '' END""")
         
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
