@@ -10,7 +10,7 @@ class View(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('_row_count')
+        r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('arrival_id')
         r.fieldcell('services_id')
         r.fieldcell('data_serv')
@@ -28,7 +28,7 @@ class ViewFromVesselServices(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('_row_count')
+        r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('services_id', hasArrowDown=True, edit=True, width='20em')
         r.fieldcell('data_serv', edit=True)
         r.fieldcell('descrizione', edit=True, width='30em')
@@ -37,6 +37,7 @@ class ViewFromVesselServices(BaseComponent):
 
     def th_order(self):
         return '_row_count'
+        
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('addrow','addrow,10,stampa_services,stampa_serv_int')
         btn_print_services=bar.stampa_services.button('!![en]Print Vessel services')

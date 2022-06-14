@@ -11,7 +11,7 @@ class View(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('_row_count')
+        r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('shorepass_id')
         r.fieldcell('name')
         r.fieldcell('surname')
@@ -40,7 +40,7 @@ class ViewFromShorepassRighe(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('_row_count')
+        r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('shorepass_id', edit=True)
         r.fieldcell('name', edit=True)
         r.fieldcell('surname', edit=True)
@@ -58,7 +58,9 @@ class ViewFromShorepassRighe(BaseComponent):
         r.fieldcell('start_time', edit=True,batch_assign=True, width='5em')
         r.fieldcell('stop_time', edit=True,batch_assign=True, width='5em')
         r.fieldcell('shorepass', edit=True)
-   
+    
+    def th_order(self):
+        return '_row_count'
    
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,importa_crew,10,batchAssign,10,stampa_shorepass')
@@ -132,8 +134,14 @@ class ViewFromShorepassRighe(BaseComponent):
         #msg_special=None
         #pkey = ','.join([str(item) for item in pkeys])
         record_id=pkeys
-        #print(x)
+        
         tbl_shorepass_righe = self.db.table('shipsteps.shorepass_righe')
+      # sp_id = kwargs['record_attr']['_pkey']
+      # sp = tbl_shorepass_righe.query(columns="$id", where='$shorepass_id=:s_id', s_id=sp_id).fetch()
+      # list_sp=[]
+      # for r in range(len(sp)):
+      #     list_sp.append(sp[r][0])
+        
         builder = TableTemplateToHtml(table=tbl_shorepass_righe)
         storagePath=[]
         n_pkeys=len(pkeys)

@@ -146,10 +146,10 @@ class Form(BaseComponent):
         fb.field('et_start' , width='10em')
         fb.field('etc' , width='10em')
         fb.field('ets', width='10em' )
-        fb.field('draft_aft_arr', width='5em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:4 or 4,5')
-        fb.field('draft_fw_arr' , width='5em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:4 or 4,5')
-        fb.field('draft_aft_dep' , width='5em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:4 or 4,5')
-        fb.field('draft_fw_dep' , width='5em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:4 or 4,5')
+        fb.field('draft_aft_arr', width='5em', placeholder='eg:4 or 4,5')
+        fb.field('draft_fw_arr' , width='5em', placeholder='eg:4 or 4,5')
+        fb.field('draft_aft_dep' , width='5em', placeholder='eg:4 or 4,5')
+        fb.field('draft_fw_dep' , width='5em', placeholder='eg:4 or 4,5')
         fb.field('dock_id' )
         fb.field('info_moor',width='30em', colspan=2 ,placeholder='e.g. Inizio ormeggio il ... ore ....')
         fb.field('master_name' )
@@ -202,7 +202,9 @@ class Form(BaseComponent):
         frame.simpleTextArea(title='!![en]Transit cargo',value='^.transit_cargo',editor=True)
 
     def car_ric(self,pane):
-        pane.inlineTableHandler(table='shipsteps.ship_rec',viewResource='ViewFromShipRec',view_store_onStart=True,export=True)
+         pane.stackTableHandler(table='shipsteps.ship_rec', formResource='Form',view_store_onStart=True)
+
+        #pane.inlineTableHandler(table='shipsteps.ship_rec',viewResource='ViewFromShipRec',view_store_onStart=True,export=True)
 
     def charterers(self,pane):
         pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True,export=True)
@@ -816,8 +818,11 @@ class Form(BaseComponent):
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
         
-        #trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
-        lista_all=list(kwargs['allegati'].split(","))
+        #verifichiamo che nei kwargs['allegati'] non abbiamo il valore nullo e trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
+        if kwargs['allegati'] is not None:
+            lista_all = list(kwargs['allegati'].split(","))
+        else:
+            lista_all = None
         
         #lettura degli attachment
         if lista_all is not None:
@@ -947,8 +952,11 @@ class Form(BaseComponent):
             return
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
-        #trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
-        lista_all=list(kwargs['allegati'].split(","))
+        #verifichiamo che nei kwargs['allegati'] non abbiamo il valore nullo e trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
+        if kwargs['allegati'] is not None:
+            lista_all = list(kwargs['allegati'].split(","))
+        else:
+            lista_all = None
         
         #lettura degli attachment
         if lista_all is not None:

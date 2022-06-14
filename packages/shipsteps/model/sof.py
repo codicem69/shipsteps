@@ -213,7 +213,7 @@ class Table(object):
         n_email = len(email_dest) 
         email_int=''                                                               
         for r in range (n_email):
-            email_int += email_dest[r][0] + '<br>'
+            email_int += str(email_dest[r][0]) + '<br>'
         return email_int
 
     def pyColumn_email_sof_cc(self,record,field):
@@ -225,7 +225,7 @@ class Table(object):
         n_email = len(email_dest) 
         email_int=''                                                               
         for r in range (n_email):
-            email_int += email_dest[r][0] + '<br>'
+            email_int += str(email_dest[r][0]) + '<br>'
         return email_int
     
     def pyColumn_email_arr_to(self,record,field):
@@ -237,7 +237,7 @@ class Table(object):
         n_email = len(email_dest) 
         email_int=''                                                               
         for r in range (n_email):
-            email_int += email_dest[r][0] + '<br>'
+            email_int += str(email_dest[r][0]) + '<br>'
         return email_int
     
     def pyColumn_email_arr_cc(self,record,field):

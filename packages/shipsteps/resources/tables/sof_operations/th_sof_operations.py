@@ -9,6 +9,7 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('sof_id')
+        r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('date')
         r.fieldcell('day')
         r.fieldcell('operations')
