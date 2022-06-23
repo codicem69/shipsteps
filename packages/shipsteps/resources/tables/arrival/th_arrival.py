@@ -207,7 +207,7 @@ class Form(BaseComponent):
         #pane.inlineTableHandler(table='shipsteps.ship_rec',viewResource='ViewFromShipRec',view_store_onStart=True,export=True)
 
     def charterers(self,pane):
-        pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True,export=True)
+        pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True)
 
     def sof(self,pane):
         pane.stackTableHandler(relation='@sof_arr', formResource='FormSof')

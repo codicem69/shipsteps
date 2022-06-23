@@ -39,26 +39,26 @@ class Table(object):
         tbl.formulaColumn('last_line_txt', """CASE WHEN $last_line is not null THEN 'Last line' || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('sailed_txt', """CASE WHEN $sailed is not null THEN 'Vessel unmoored/sailed' || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('cosp_txt', """CASE WHEN $cosp is not null THEN 'Commenced of sea passage' || '<br>' ELSE '' END""", dtype='T')
-        tbl.formulaColumn('eosp_time', """CASE WHEN $eosp is not null THEN to_char($eosp, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('aor_time', """CASE WHEN $aor is not null THEN to_char($aor, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('anchored_time', """CASE WHEN $anchored is not null THEN to_char($anchored, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('anchorup_time', """CASE WHEN $anchor_up is not null THEN to_char($anchor_up, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('pob_time', """CASE WHEN $pob is not null THEN to_char($pob, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('firstrope_time', """CASE WHEN $first_rope is not null THEN to_char($first_rope, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('moored_time', """CASE WHEN $moored is not null THEN to_char($moored, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('poff_time', """CASE WHEN $poff is not null THEN to_char($poff, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('gangway_time', """CASE WHEN $gangway is not null THEN to_char($gangway, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('freep_time', """CASE WHEN $free_p is not null THEN to_char($free_p, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('pobd_time', """CASE WHEN $pobd is not null THEN to_char($pobd, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('lastline_time', """CASE WHEN $last_line is not null THEN to_char($last_line, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('sailed_time', """CASE WHEN $sailed is not null THEN to_char($sailed, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('cosp_time', """CASE WHEN $cosp is not null THEN to_char($cosp, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH:MI')
+        tbl.formulaColumn('eosp_time', """CASE WHEN $eosp is not null THEN to_char($eosp, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('aor_time', """CASE WHEN $aor is not null THEN to_char($aor, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('anchored_time', """CASE WHEN $anchored is not null THEN to_char($anchored, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('anchorup_time', """CASE WHEN $anchor_up is not null THEN to_char($anchor_up, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('pob_time', """CASE WHEN $pob is not null THEN to_char($pob, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('firstrope_time', """CASE WHEN $first_rope is not null THEN to_char($first_rope, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('moored_time', """CASE WHEN $moored is not null THEN to_char($moored, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('poff_time', """CASE WHEN $poff is not null THEN to_char($poff, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('gangway_time', """CASE WHEN $gangway is not null THEN to_char($gangway, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('freep_time', """CASE WHEN $free_p is not null THEN to_char($free_p, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('pobd_time', """CASE WHEN $pobd is not null THEN to_char($pobd, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('lastline_time', """CASE WHEN $last_line is not null THEN to_char($last_line, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('sailed_time', """CASE WHEN $sailed is not null THEN to_char($sailed, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('cosp_time', """CASE WHEN $cosp is not null THEN to_char($cosp, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
 
-        tbl.formulaColumn('time_arr',"""coalesce('End of sea passage-------' || to_char($eosp, :df),'') || '<br>' || coalesce('Arrived on road----------' || to_char($aor, :df), '') || '<br>' ||
-                                        coalesce('Anchored-----------------' || to_char($anchored, :df),'') || '<br>' || coalesce('Anchor aweigh------------' || to_char($anchor_up, :df),'') || '<br>' ||
-                                        coalesce('Pilot on board-----------' || to_char($pob, :df),'') || '<br>' || coalesce('First rope ashore--------' || to_char($first_rope, :df),'') || '<br>' ||
-                                        coalesce('Moored-------------------' || to_char($moored, :df),'') || '<br>' || coalesce('Pilot off----------------' || to_char($poff, :df), '') || '<br>' ||
-                                        coalesce('Gangway in position------' || to_char($gangway, :df), '') || '<br>' || coalesce('Free pratique reported---' || to_char($free_p, :df), '') """,dtype='T',var_df='DD/MM/YYYY HH:MI')
-        tbl.formulaColumn('time_arr_2',"""coalesce('Sailing pilot on board---' || to_char($pobd, :df), '') || '<br>' ||  coalesce('Last line ashore---------' || to_char($last_line, :df),'') || '<br>' ||
-                                          coalesce('Vessel sailed------------' || to_char($sailed, :df),'') || '<br>' || coalesce('Commenced of sea passage-' || to_char($cosp, :df), '')""", dtype='T',var_df='DD/MM/YYYY HH:MI')
+        tbl.formulaColumn('time_arr',"""coalesce('End of sea passage-------' || to_char($eosp, :df) || '<br>','') || coalesce('Arrived on road----------' || to_char($aor, :df) || '<br>', '') ||
+                                        coalesce('Anchored-----------------' || to_char($anchored, :df) || '<br>','') || coalesce('Anchor aweigh------------' || to_char($anchor_up, :df) || '<br>' ,'') ||
+                                        coalesce('Pilot on board-----------' || to_char($pob, :df) || '<br>' ,'') || coalesce('First rope ashore--------' || to_char($first_rope, :df) || '<br>' ,'') ||
+                                        coalesce('Moored-------------------' || to_char($moored, :df) || '<br>' ,'') || coalesce('Pilot off----------------' || to_char($poff, :df) || '<br>' , '') ||
+                                        coalesce('Gangway in position------' || to_char($gangway, :df) || '<br>', '') || coalesce('Free pratique reported---' || to_char($free_p, :df), '') """,dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('time_arr_2',"""coalesce('Sailing pilot on board---' || to_char($pobd, :df) || '<br>' , '') ||  coalesce('Last line ashore---------' || to_char($last_line, :df) || '<br>' ,'') ||
+                                          coalesce('Vessel sailed------------' || to_char($sailed, :df) || '<br>' ,'') || coalesce('Commenced of sea passage-' || to_char($cosp, :df), '')""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
         

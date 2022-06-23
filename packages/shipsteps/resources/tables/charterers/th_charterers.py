@@ -8,6 +8,7 @@ class View(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
+        r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('name', width='50em')
         r.fieldcell('address', width='50em')
         r.fieldcell('city', width='50em')
@@ -22,6 +23,7 @@ class ViewFromCharterers(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
+        r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('name', width='50em', edit=True)
         r.fieldcell('address', width='50em', edit=True)
         r.fieldcell('city', width='50em', edit=True)

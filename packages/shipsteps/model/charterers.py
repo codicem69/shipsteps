@@ -1,7 +1,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('charterers', pkey='id', name_long='!![en]Charterers', name_plural='Charterers',caption_field='fullname_chrts')
-        self.sysFields(tbl)
+        self.sysFields(tbl,counter=True)
 
         tbl.column('name', name_short='!![en]Name')
         tbl.column('address', name_short='!![en]Address')
