@@ -17,6 +17,7 @@ class View(BaseComponent):
         r.fieldcell('measure_id')
         r.fieldcell('description', width='20em')
         r.fieldcell('description_it', width='20em')
+        r.fieldcell('extra_description_cp', width='20em')
         r.fieldcell('operation')
         r.fieldcell('foreign_cargo')
        
@@ -41,9 +42,10 @@ class ViewFromCargoLU(BaseComponent):
         r.fieldcell('measure_id', hasDownArrow=True,edit=True, width='5em')
         r.fieldcell('description', edit=True, width='20em')
         r.fieldcell('description_it', edit=True, width='20em')
+        r.fieldcell('extra_description_cp',edit=True, width='15em')
         r.fieldcell('operation', edit=True, width='5em')
         #r.fieldcell('foreign_cargo', edit=True, width='5em')
-        r.fieldcell('foreign_cargo', values='True:YES,False:NO',validate_notnull=True, edit=True)
+        r.fieldcell('foreign_cargo', values='True:YES,False:NO',validate_notnull=True, edit=True, width='5em')
         r.fieldcell('place_origin_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')
         r.fieldcell('place_dest_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')    
     
@@ -78,6 +80,7 @@ class Form(BaseComponent):
         fb.field('measure_id' )
         fb.field('description' )
         fb.field('description_it' )
+        fb.field('extra_description_cp' )
         fb.field('operation' )
         fb.field('foreign_cargo' )
         fb.field('place_origin_goods' )

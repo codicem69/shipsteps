@@ -20,6 +20,7 @@ class Table(object):
                     ).relation('measure.id', relation_name='cargo_lu_measure', mode='foreignkey', onDelete='raise')
         tbl.column('description', name_short='!![en]Description')
         tbl.column('description_it', name_short='!![en]Description IT')
+        tbl.column('extra_description_cp', name_short='!![en]Extra Description CP')
         tbl.column('operation', name_short='operation', values='U:Unloading,L:Loading')
         tbl.column('foreign_cargo', dtype='T', name_short='!![en]Foreign cargo')
         tbl.column('place_origin_goods',size='22',name_short='!![en]Place origin goods').relation('unlocode.place.id',

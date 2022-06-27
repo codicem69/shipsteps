@@ -1,7 +1,7 @@
 #!/usr/bin/env pythonw
 # -*- coding: UTF-8 -*-
 #
-#  Stampa domanda di accosto CP
+#  Stampa Comunicazione di Partenza CP
 
 
 from turtle import width
@@ -36,10 +36,10 @@ class Main(TableScriptToHtml):
         #layout.row(height=10).cell()
         dati_cp = layout.row(height=20, lbl_height=4, lbl_class='smallCaption')
         layout.row(height=7).cell("<div style='font-size:14pt;padding:5px;text-align: center'><strong>DOMANDA DI ACCOSTO</strong></div>::HTML")
-        dati_mandato = layout.row(height=25, lbl_height=4, lbl_class='smallCaption')
+        dati_mandato = layout.row(height=30, lbl_height=4, lbl_class='smallCaption')
         dati_nave = layout.row(height=40, lbl_height=4, lbl_class='smallCaption')
         dati_viaggio = layout.row(height=15, lbl_height=4, lbl_class='smallCaption')
-        dati_operazioni = layout.row(height=40+h_car,lbl_height=4, lbl_class='smallCaption')
+        dati_operazioni = layout.row(height=30+h_car,lbl_height=4, lbl_class='smallCaption')
         #dati_operazioni2 = layout.row( height=25, lbl_height=4, lbl_class='smallCaption')
         dati_servizi= layout.row( height=15, lbl_height=4, lbl_class='smallCaption')
         dati_extra= layout.row( height=17, lbl_height=4, lbl_class='smallCaption')
@@ -108,7 +108,8 @@ class Main(TableScriptToHtml):
     
     def datiMandato(self, row):
         mandato = ("Il/la sottoscritto/a agente raccomandatario marittimo "+self.field('@agency_id.agent_name')+" nato/a a " + self.field('@agency_id.birthplace') + " domiciliato/a presso l'agenzia Marittima " + self.field('@agency_id.agency_name') + " tel. " + self.field('@agency_id.tel') + " cell. " + self.field('@agency_id.mobile_agent') + "<br>" + "<div style='text-align: center;'> premesso<br></div>" +
-                   "di aver ricevuto mandato, ai sensi dell'art.3 Legge 04/04/1977 n.135 da: " + self.field('mandatory') +"<br>Armatore: "+self.field('@vessel_details_id.@owner_id.own_fullname')+ '::HTML' )
+                   "di aver ricevuto mandato, ai sensi dell'art.3 Legge 04/04/1977 n.135 da: " + self.field('mandatory') +"<br>Armatore: "+self.field('@vessel_details_id.@owner_id.own_fullname')+
+                    '<br>preannuncia la partenza della sottonotata nave:'+ '::HTML' )
         dati_layout = row.cell().layout(name='datiMandato', um='mm', border_color='white', lbl_class='smallCaption',
                                     lbl_height=3, style='line-height:2,5mm;')
         dati_layout.row(height=25).cell(mandato,font_size='9pt')
@@ -138,7 +139,7 @@ class Main(TableScriptToHtml):
         terza_col.row(height=5).cell(self.field('@vessel_details_id.mmsi'),font_size='9pt', font_weight='bold')
         terza_col.row(height=5).cell(self.field('@vessel_details_id.@imbarcazione_id.gt'),font_size='9pt', font_weight='bold')
         terza_col.row(height=5).cell(self.field('@vessel_details_id.@imbarcazione_id.loa'),font_size='9pt', font_weight='bold')
-        terza_col.row(height=5).cell(self.field('draft_aft_arr'),font_size='9pt', font_weight='bold')
+        terza_col.row(height=5).cell(self.field('draft_aft_dep'),font_size='9pt', font_weight='bold')
         terza_col.row(height=5).cell(self.field('@vessel_details_id.n_eliche'),font_size='9pt', font_weight='bold')
         terza_col.row(height=5).cell(self.field('@vessel_details_id.n_eliche_prua'),font_size='9pt', font_weight='bold')
 
@@ -160,7 +161,7 @@ class Main(TableScriptToHtml):
         quinta_col.row(height=5).cell(self.field('@vessel_details_id.callsign'),font_size='9pt', font_weight='bold')
         quinta_col.row(height=5).cell(self.field('@vessel_details_id.@imbarcazione_id.gt'),font_size='9pt', font_weight='bold')
         quinta_col.row(height=5).cell(self.field('@vessel_details_id.beam'),font_size='9pt', font_weight='bold')
-        quinta_col.row(height=5).cell(self.field('draft_fw_arr'),font_size='9pt', font_weight='bold')
+        quinta_col.row(height=5).cell(self.field('draft_fw_dep'),font_size='9pt', font_weight='bold')
         quinta_col.row(height=5).cell(self.field('@vessel_details_id.n_eliche_poppa'),font_size='9pt', font_weight='bold')
 
     def datiViaggio(self,row):
@@ -168,28 +169,49 @@ class Main(TableScriptToHtml):
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',width=20)
         dativiaggio= "<div style='text-align: center;padding: 10px 0;'>DATI VIAGGIO</div>" + '::HTML'
         prima_col.row(height=15).cell(dativiaggio, font_weight='bold', background='lightgrey')
-        seconda_col = row.cell(width=40).layout(name='descr2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
-                                    lbl_height=3, style='line-height:5mm;',width=40,content_class='cellheader')
-        seconda_col.row(height=5).cell('PORTO DI PROVENIENZA ', font_weight='bold', background='lightgrey')
-        seconda_col.row(height=5).cell('PREVISIONE DI ARRIVO ', font_weight='bold', background='lightgrey')
-        seconda_col.row(height=5).cell('DESTINAZIONE ', font_weight='bold', background='lightgrey')
+        seconda_col = row.cell().layout(name='descr2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
+                                   lbl_height=3, style='line-height:5mm;',content_class='cellheader')
+        cel_dest=seconda_col.row(height=5).cell('PORTO DI DESTINAZIONE', font_weight='bold', background='lightgrey',width=45)
+        col3=cel_dest.row.cell().layout(name='col3', um='mm', border_color='black', lbl_class='',
+                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
+        cel_np=col3.row().cell(self.field('nextport'),font_size='9pt', font_weight='bold')
+        col_eta_descr=cel_np.row.cell().layout(name='col_eta', um='mm', border_color='black', lbl_class='',
+                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
+        cel_eta=col_eta_descr.row().cell('ETA', font_weight='bold', background='lightgrey',width=20)
+        col_eta=cel_eta.row.cell().layout(name='col_eta', um='mm', border_color='black', lbl_class='',
+                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
+        cel_eta=col_eta.row().cell(self.field('eta_np'),font_size='9pt', font_weight='bold')
 
-        terza_col = row.cell(width=70).layout(name='descr3', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,
-                                    lbl_height=3, style='line-height:5mm;',width=70,content_class='celldata')
-        terza_col.row(height=5).cell(self.field('lastport'),font_size='9pt', font_weight='bold')
-        terza_col.row(height=5).cell(self.field('eta'),font_size='9pt', font_weight='bold')
-        terza_col.row(height=5).cell(self.field('nextport'),font_size='9pt', font_weight='bold')
+        cel_part=seconda_col.row(height=5).cell('PREVISIONE DI PARTENZA', font_weight='bold', background='lightgrey',width=45)
+        col_ets=cel_part.row.cell().layout(name='col_ets', um='mm', border_color='black', lbl_class='',
+                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
+        cel_ets=col_ets.row().cell(self.field('ets'),font_size='9pt', font_weight='bold')
 
-        quarta_col = row.cell(width=30).layout(name='descr4', um='mm', border_color='black', lbl_class='',hasBorderTop=True,hasBorderLeft=True,
-                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',width=30,content_class='cellheader')
-        quarta_col.row(height=5).cell('DATA E ORA ', font_weight='bold', background='lightgrey')
-        quarta_col.row().cell('PREVISIONE DI PARTENZA ', font_weight='bold', background='lightgrey')
+        cel_orm_descr=seconda_col.row(height=5).cell('BANCHINA DI ORMEGGIO', font_weight='bold', background='lightgrey',width=45)
+        col_orm=cel_orm_descr.row.cell().layout(name='col_orm', um='mm', border_color='black', lbl_class='',
+                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
+        col_orm.row().cell(self.field('@dock_id.dock_name'),font_size='9pt', font_weight='bold')
 
+      # seconda_col = row.cell(width=45).layout(name='descr2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
+      #                             lbl_height=3, style='line-height:5mm;',width=45,content_class='cellheader')
+      # seconda_col.row(height=5).cell('PORTO DI DESTINAZIONE ', font_weight='bold', background='lightgrey')
+      # seconda_col.row(height=5).cell('PREVISIONE DI PARTENZA ', font_weight='bold', background='lightgrey')
+      # seconda_col.row(height=5).cell('BANCHINA DI ORMEGGIO', font_weight='bold', background='lightgrey')
 
-        quinta_col = row.cell().layout(name='descr5', um='mm', border_color='black', lbl_class='',hasBorderTop=True,
-                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='celldata')
-        quinta_col.row(height=5).cell(self.field('departure_lp'),font_size='9pt', font_weight='bold')
-        quinta_col.row().cell(self.field('ets'),font_size='9pt', font_weight='bold')
+      # terza_col = row.cell(width=70).layout(name='descr3', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,
+      #                             lbl_height=3, style='line-height:5mm;',width=70,content_class='celldata')
+      # terza_col.row(height=5).cell(self.field('nextport'),font_size='9pt', font_weight='bold')
+      # terza_col.row(height=5).cell(self.field('eta'),font_size='9pt', font_weight='bold')
+      # terza_col.row(height=5).cell(self.field('@dock_id.dock_name'),font_size='9pt', font_weight='bold')
+
+      # quarta_col = row.cell(width=30).layout(name='descr4', um='mm', border_color='black', lbl_class='',hasBorderTop=True,hasBorderLeft=True,
+      #                             vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',width=30,content_class='cellheader')
+      # quarta_col.row(height=5).cell('ETA ', font_weight='bold', background='lightgrey')
+
+      # quinta_col = row.cell().layout(name='descr5', um='mm', border_color='black', lbl_class='',hasBorderTop=True,
+      #                             vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='celldata')
+      # quinta_col.row(height=5).cell(self.field('eta_np'),font_size='9pt', font_weight='bold')
+        
 
  
     def datiOperazioni(self,row):
@@ -198,7 +220,7 @@ class Main(TableScriptToHtml):
         #qui verifichiamo il numero di record relaìtivi al carico per il calcolo altezze celle e padding delle descrizioni OPERAZIONI COMMERCIALI e CARICO
         h_car=len(carico)*5
         p_car=str(len(carico)*(len(carico)*1.2))
-        p_oc=str(250+(len(carico)*(len(carico)*3)))
+        p_oc=str(200+(len(carico)*(len(carico)*3)))
         prima_col = row.cell(width=10).layout(name='Operazioni', um='mm', border_color='black', lbl_class='',hasBorderTop=True,hasBorderLeft=True,
                                     row_border=False,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',width=10)
@@ -214,7 +236,7 @@ class Main(TableScriptToHtml):
         col3.row().cell("{cargoonboard}::HTML".format(cargoonboard=self.field('cargo_onboard')+' - '+self.field('extra_cargo_onboard')),  font_weight='bold',font_size='8pt')
         col4=cel_cargo.row.cell().layout(name='col4', um='mm', border_color='black', lbl_class='',row_border=False,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader') 
-        
+       
         #con il ciclo for andiamo a prelevare i dati del carico e inseriamo le singole righe
         for c in carico.values():
             r = col4.row(height=5)
@@ -223,9 +245,9 @@ class Main(TableScriptToHtml):
             else:
                 extra_descr_car = '' 
             if c['operation'] == 'U':
-                oper = 'DA SCARICARE: '
+                oper = 'SCARICATO: '
             if c['operation'] == 'L':
-                oper = 'DA CARICARE: '   
+                oper = 'CARICATO: '   
             car = "{op}{ms}{qt} {car} {descr_cp}".format(op=oper,ms=c['@measure_id.description'],qt=c['quantity'],car=c['description_it'], descr_cp=extra_descr_car)
             r.cell(car,font_weight='bold', font_size='8pt')
         if len(carico) == 0:
@@ -243,10 +265,7 @@ class Main(TableScriptToHtml):
         col7=cel_nol.row.cell().layout(name='col7', um='mm', border_color='black', lbl_class='',
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
         col7.row(height=5).cell(self.field('chrtrs'),font_size='8pt', font_weight='bold')
-        cel_moor=seconda_col.row(height=5).cell('ORMEGGIO RICHIESTO', font_weight='bold', background='lightgrey',width=45)
-        col8=cel_moor.row.cell().layout(name='col8', um='mm', border_color='black', lbl_class='',
-                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
-        col8.row(height=5).cell(self.field('@dock_id.dock_name'),font_size='8pt', font_weight='bold')
+        
         cel_lavori=seconda_col.row(height=5).cell('Per lavori o altri motivi', font_weight='bold', background='lightgrey',width=45)
         col9=cel_lavori.row.cell().layout(name='col9', um='mm', border_color='black', lbl_class='',
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
@@ -255,16 +274,7 @@ class Main(TableScriptToHtml):
         col10=cel_notizie.row.cell().layout(name='col10', um='mm', border_color='black', lbl_class='',
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
         col10.row(height=5).cell(self.field('@extradatacp.notizie'),font_size='8pt', font_weight='bold')
-        cel_daywork=seconda_col.row(height=5).cell('GIORNI DI LAVORO', font_weight='bold', background='lightgrey',width=45)
-        col11=cel_daywork.row.cell().layout(name='col11', um='mm', border_color='black', lbl_class='',
-                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
-        cel_dw=col11.row(height=5).cell(self.field('@extradatacp.daywork'),font_size='8pt', font_weight='bold')
-        col_ol=cel_dw.row.cell().layout(name='col_ol', um='mm', border_color='black', lbl_class='',
-                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
-        col_ol.row().cell('ORARIO DI LAVORO', background='lightgrey', font_weight='bold')
-        col_tw=cel_dw.row.cell().layout(name='col_tw', um='mm', border_color='black', lbl_class='',
-                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='celldata')
-        col_tw.row().cell(self.field('@extradatacp.timework'),font_size='8pt', font_weight='bold')
+        
 
     def datiOperazioni2(self,row):
         prima_col = row.cell(width=10).layout(name='Operazioni2', um='mm', border_color='black', lbl_class='',hasBorderLeft=True,
@@ -312,15 +322,15 @@ class Main(TableScriptToHtml):
         terza_col = row.cell(width=5).layout(name='serv2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,
                                     lbl_height=3, style='line-height:5mm;',content_class='celldata')
                                 
-        if self.field('@extradatacp.pilot_arr') == 'Vero':
+        if self.field('@extradatacp.pilot_dep') == 'Vero':
             pilot='X'
         else:    
             pilot=''
-        if self.field('@extradatacp.moor_arr') == 'Vero':
+        if self.field('@extradatacp.moor_dep') == 'Vero':
             moor='X'
         else:    
             moor=''  
-        if self.field('@extradatacp.tug_arr') == 'Vero':
+        if self.field('@extradatacp.tug_dep') == 'Vero':
             tug='X'
         else:    
             tug=''        
@@ -336,19 +346,19 @@ class Main(TableScriptToHtml):
 
         quinta_col = row.cell(width=5).layout(name='serv4', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,
                                     lbl_height=3, style='line-height:5mm;',content_class='celldata')
-        if self.field('@extradatacp.pilot_arr_vhf') == 'Vero':
+        if self.field('@extradatacp.pilot_dep_vhf') == 'Vero':
             pilotvhf='X'
         else:    
             pilotvhf=''
         quinta_col.row(height=5).cell(pilotvhf,font_size='8pt', font_weight='bold', style="text-align:center")
-        quinta_col.row(height=5).cell(self.field('@extradatacp.n_moor_arr'),font_size='8pt', font_weight='bold', style="text-align:center")
-        quinta_col.row(height=5).cell(self.field('@extradatacp.n_tug_arr'),font_size='8pt', font_weight='bold', style="text-align:center")
+        quinta_col.row(height=5).cell(self.field('@extradatacp.n_moor_dep'),font_size='8pt', font_weight='bold', style="text-align:center")
+        quinta_col.row(height=5).cell(self.field('@extradatacp.n_tug_dep'),font_size='8pt', font_weight='bold', style="text-align:center")
         sesta_col = row.cell(width=30).layout(name='serv5', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
                                     lbl_height=3, style='line-height:5mm;',width=30,content_class='cellheader', background='lightgrey')
         sesta_col.row(height=5).cell('ANTINCENDIO', font_weight='bold', background='lightgrey')
         settima_col = row.cell(width=5).layout(name='serv6', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,
                                     lbl_height=3, style='line-height:5mm;',content_class='celldata')
-        if self.field('@extradatacp.antifire_arr') == 'Vero':
+        if self.field('@extradatacp.antifire_dep') == 'Vero':
             antincendio='X'
         else:    
             antincendio=''
@@ -358,7 +368,7 @@ class Main(TableScriptToHtml):
         ottava_col.row(height=5).cell('ANTINQUINAMENTO', font_weight='bold', background='lightgrey')
         nona_col = row.cell(width=5).layout(name='serv8', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,
                                     lbl_height=3, style='line-height:5mm;',content_class='celldata')
-        if self.field('@extradatacp.antipol_arr') == 'Vero':
+        if self.field('@extradatacp.antipol_dep') == 'Vero':
             antinquinamento='X'
         else:    
             antinquinamento=''

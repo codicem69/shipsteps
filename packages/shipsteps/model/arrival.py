@@ -40,7 +40,9 @@ class Table(object):
         tbl.column('invoice_det_id',size='22', name_long='!![en]Invoicing'
                     ).relation('invoice_det.id', relation_name='invoicing_arr', mode='foreignkey', onDelete='raise')
         tbl.column('cargo_onboard', name_short='!![en]Cargo on board')
+        tbl.column('extra_cargo_onboard', name_short='!![en]Extra descr. Cargo on board')
         tbl.column('transit_cargo', name_short='!![en]Transit Cargo')
+        tbl.column('extra_transit_cargo', name_short='!![en]Extra descr. Transit Cargo')
         tbl.column('nsis_prot', name_short='Nsis prot.')
         tbl.column('n_tug',size='1', name_short='!![en]Number Tug')
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
@@ -279,7 +281,7 @@ class Table(object):
         n_car = len(carico) 
         cargo=''                                                               
         for r in range (n_car):
-            cargo += ' - ' + carico[r][0] + '<br>'
+            cargo += ' - ' + str(carico[r][0]) + '<br>'
 
         return cargo
 

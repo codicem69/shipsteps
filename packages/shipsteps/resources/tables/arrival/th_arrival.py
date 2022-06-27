@@ -192,14 +192,34 @@ class Form(BaseComponent):
        #fb.field('sailed')
        #fb.field('cosp', lbl='CoSP')
 
-    def datiCaricoBordo(self,frame):
-        frame.simpleTextArea(title='!![en]Cargo on board',value='^.cargo_onboard',editor=True,validate_notnull=True)
+   #def datiCaricoBordo(self,frame):
+   #    frame.simpleTextArea(title='!![en]Cargo on board',value='^.cargo_onboard',editor=True,validate_notnull=True)
+    def datiCaricoBordo(self,bc):
+        center = bc.roundedGroup(title='!![en]Cargo on board', region='center', height = '100%').div(margin='10px',margin_left='2px')
+        fb = center.formbuilder(cols=3, border_spacing='4px')
+        fb.field('cargo_onboard', tag='simpleTextArea',height='50px', colspan=3)
+        fb.div("""EXTRA CARGO ON BOARD DESCRIPTION:<br>
+                  - Se trattasi di merci pericolose precisare la classe IMO<br>
+                  - se trattasi di merci secche pericolose indicare per esteso l'esatta denominazione tecnica e la classe di pericolosità<br>
+                  - se trattasi di altre merci secche, precisare se alla rinfusa e l'appendice di appartenenza (A-B-C) qualora soggette al D.M. 22.07.1991 + IMSBC CODE<br>
+                  - se trattasi di merce rientrante nelle categorie inquinanti di cui alla Legge 979/1982 specificare tutti I dati relativi al proprietario""", colspan=3)
+        fb.field('extra_cargo_onboard', tag='simpleTextArea',height='25px',colspan=3)
 
     def datiCarico(self,pane):
         pane.inlineTableHandler(relation='@cargo_lu_arr',viewResource='ViewFromCargoLU')
 
-    def datiCaricoTransit(self,frame):
-        frame.simpleTextArea(title='!![en]Transit cargo',value='^.transit_cargo',editor=True)
+    def datiCaricoTransit(self,bc):
+        center = bc.roundedGroup(title='!![en]Transit cargo', region='center', height = '100%').div(margin='10px',margin_left='2px')
+        fb = center.formbuilder(cols=3, border_spacing='4px')
+        fb.field('transit_cargo', tag='simpleTextArea',height='50px', colspan=3)
+        fb.div("""EXTRA TRANSIT CARGO DESCRIPTION:<br>
+                  - Se trattasi di merci pericolose precisare la classe IMO<br>
+                  - se trattasi di merci secche pericolose indicare per esteso l'esatta denominazione tecnica e la classe di pericolosità<br>
+                  - se trattasi di altre merci secche, precisare se alla rinfusa e l'appendice di appartenenza (A-B-C) qualora soggette al D.M. 22.07.1991 + IMSBC CODE<br>
+                  - se trattasi di merce rientrante nelle categorie inquinanti di cui alla Legge 979/1982 specificare tutti I dati relativi al proprietario""", colspan=3)
+        fb.field('extra_transit_cargo', tag='simpleTextArea',height='25px',colspan=3)
+   #def datiCaricoTransit(self,frame):
+   #    frame.simpleTextArea(title='!![en]Transit cargo',value='^.transit_cargo',editor=True)
 
     def car_ric(self,pane):
          pane.stackTableHandler(table='shipsteps.ship_rec', formResource='Form',view_store_onStart=True)
@@ -214,7 +234,8 @@ class Form(BaseComponent):
 
     def arrival_details(self, bc):
         rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_details = bc.roundedGroup(title='!![en]Arrival/Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_details = bc.roundedGroup(title='!![en]Arrival/Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='550px', height = '100%', margin_left='350px').div(margin='10px',margin_left='2px')
+        rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
 
         fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('eosp')
@@ -252,15 +273,17 @@ class Form(BaseComponent):
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb = div_rem.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
+        fb = div_rem.formbuilder(cols=2, border_spacing='4px',fld_width='10em')
 
         #fb.div('!![en]<strong>REMAINS</strong>')
         fb.br()
         fb.field('ifo_arr',placeholder='e.g. mt.50')
-        fb.field('do_arr',placeholder='e.g. mt.50')
-        fb.field('lo_arr',placeholder='e.g. kgs.50')
         fb.field('ifo_dep',placeholder='e.g. mt.50')
+
+        fb.field('do_arr',placeholder='e.g. mt.50')
         fb.field('do_dep',placeholder='e.g. mt.50')
+
+        fb.field('lo_arr',placeholder='e.g. kgs.50')
         fb.field('lo_dep',placeholder='e.g. kgs.50')
         fb.br()
         div_fw=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
@@ -282,6 +305,30 @@ class Form(BaseComponent):
         fb.br()
         fb.field('tug_in',placeholder='e.g. 1')
         fb.field('tug_out',placeholder='e.g. 1')
+
+        fb = rg_extra.formbuilder(cols=2, border_spacing='4px',fld_width='10em')
+        fb.field('lavori', width='20em', colspan=2)
+        fb.br()
+        fb.field('notizie', width='20em', colspan=2)
+        fb.br()
+        fb.field('pilot_arr')
+        fb.field('pilot_arr_vhf')
+        fb.field('antifire_arr')
+        fb.field('antipol_arr')
+        fb.field('moor_arr')
+        fb.field('n_moor_arr')
+        fb.field('tug_arr')
+        fb.field('n_tug_arr')
+        fb.field('daywork')
+        fb.field('timework')
+        fb.field('pilot_dep')
+        fb.field('pilot_dep_vhf')
+        fb.field('antifire_dep')
+        fb.field('antipol_dep')
+        fb.field('moor_dep')
+        fb.field('n_moor_dep')
+        fb.field('tug_dep')
+        fb.field('n_tug_dep')
 
     def emailArrival(self,pane):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
