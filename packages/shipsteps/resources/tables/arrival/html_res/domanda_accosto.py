@@ -117,7 +117,7 @@ class Main(TableScriptToHtml):
     def datiNave(self, row):
         prima_col = row.cell(width=20).layout(name='Nave', um='mm', border_color='black', lbl_class='',hasBorderTop=True,hasBorderLeft=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',width=20)
-        datinave= "<div style='text-align: center;padding: 65px 0;'>DATI NAVE</div>" + '::HTML'
+        datinave= "<div style='text-align: center;text-decoration:underline;padding: 65px 0;'>DATI NAVE</div>" + '::HTML'
         prima_col.row(height=40).cell(datinave, font_weight='bold', background='lightgrey')
         seconda_col = row.cell(width=35).layout(name='descrNave', um='mm', border_color='black',lbl_class='smallCaption',hasBorderTop=True,
                                     hasBorderLeft=True,lbl_height=3, style='line-height:5mm;',width=35,content_class='cellheader')
@@ -166,7 +166,7 @@ class Main(TableScriptToHtml):
     def datiViaggio(self,row):
         prima_col = row.cell(width=20).layout(name='Viaggio', um='mm', border_color='black', lbl_class='',hasBorderTop=True,hasBorderLeft=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',width=20)
-        dativiaggio= "<div style='text-align: center;padding: 10px 0;'>DATI VIAGGIO</div>" + '::HTML'
+        dativiaggio= "<div style='text-align: center;text-decoration:underline;padding: 10px 0;'>DATI VIAGGIO</div>" + '::HTML'
         prima_col.row(height=15).cell(dativiaggio, font_weight='bold', background='lightgrey')
         seconda_col = row.cell(width=40).layout(name='descr2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
                                     lbl_height=3, style='line-height:5mm;',width=40,content_class='cellheader')
@@ -202,7 +202,7 @@ class Main(TableScriptToHtml):
         prima_col = row.cell(width=10).layout(name='Operazioni', um='mm', border_color='black', lbl_class='',hasBorderTop=True,hasBorderLeft=True,
                                     row_border=False,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',width=10)
-        datioper= "<div style='text-align: center;padding: "+p_oc+"% 0;-webkit-transform: rotate(-90deg);'>OPERAZIONI COMMERCIALI</div>" + '::HTML'
+        datioper= "<div style='text-align: center;text-decoration:underline;padding: "+p_oc+"% 0;-webkit-transform: rotate(-90deg);'>OPERAZIONI COMMERCIALI</div>" + '::HTML'
         prima_col.row().cell(datioper, font_weight='bold', background='lightgrey')
         seconda_col = row.cell().layout(name='descr2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=False,hasBorderLeft=True,
                                     lbl_height=3, style='line-height:5mm;',content_class='cellheader')
@@ -301,7 +301,7 @@ class Main(TableScriptToHtml):
     def datiServizi(self,row):
         prima_col = row.cell(width=25).layout(name='Servizi', um='mm', border_color='black', lbl_class='',hasBorderTop=True,hasBorderLeft=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',width=25)
-        servizi= "<div style='text-align: center;padding: 10px 0;'>DATI<br>SERVIZI</div>" + '::HTML'
+        servizi= "<div style='text-align: center;text-decoration:underline;padding: 10px 0;'>DATI<br>SERVIZI</div>" + '::HTML'
         prima_col.row().cell(servizi, font_weight='bold', background='lightgrey')
         seconda_col = row.cell(width=35).layout(name='serv1', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
                                     lbl_height=3, style='line-height:5mm;',width=35,content_class='cellheader', background='lightgrey')
