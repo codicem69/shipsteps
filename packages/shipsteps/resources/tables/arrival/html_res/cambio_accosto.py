@@ -389,6 +389,6 @@ class Main(TableScriptToHtml):
        #     r.cell(self.toText(p['prezzo_totale'], format=self.currencyFormat), width=30, content_class='aligned_right')
 #
     def outputDocName(self, ext=''):
-        return 'Domanda_Accosto.{ext}'.format(ext=ext)
+        return 'Cambio_Accosto.{ext}'.format(ext=ext)
 
         #return 'Scheda cliente_{cliente}.{ext}'.format(cliente=self.record['reference_num'], ext=ext)

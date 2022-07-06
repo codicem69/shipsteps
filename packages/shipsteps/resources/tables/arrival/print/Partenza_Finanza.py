@@ -1,9 +1,9 @@
 from gnr.web.batch.btcprint import BaseResourcePrint
 
-caption = 'Partenza Nave'
+caption = 'Partenza Nave GdF'
 
 class Main(BaseResourcePrint):
-    batch_title = 'Partenza Finanza'
+    batch_title = 'Partenza Finanza GdF'
     html_res = 'html_res/stampa_partenza_finanza'
     batch_immediate = 'print'
 
