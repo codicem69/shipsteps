@@ -1,0 +1,30 @@
+.celldata{padding-left:4px;}
+.cellheader{text-align:center;
+    padding:0px;
+}
+.cellheader_p2{text-align:center;
+    padding:2px;
+}
+.cellheader_p2t{text-align:center;
+    padding-left:1px;
+    padding-top:2px;
+}
+.cellheader_sp{text-align:center;
+    padding:10px;
+}
+.cellheader_datacert{padding:2px;
+}
+.l_c{padding-top:40px;
+    padding-left:4px;
+}
+.cellcenter{text-align:center;
+}
+.cell_att_doc{text-align:center;
+    padding-top:20px;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+width: 12%;
+}

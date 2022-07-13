@@ -28,7 +28,7 @@ class View(BaseComponent):
         return 'arrival_id'
 
     def th_query(self):
-        return dict(column='aor', op='contains', val='')
+        return dict(column='arrival_id', op='contains', val='')
 
 
 

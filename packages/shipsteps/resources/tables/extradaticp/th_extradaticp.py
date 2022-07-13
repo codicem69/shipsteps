@@ -10,7 +10,7 @@ class View(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('arrival_id')
         r.fieldcell('lavori')
-        r.fieldcell('notizie)')
+        r.fieldcell('notizie')
         r.fieldcell('pilot_arr')
         r.fieldcell('pilot_arr_vhf')
         r.fieldcell('antifire_arr')

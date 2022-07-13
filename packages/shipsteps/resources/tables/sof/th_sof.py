@@ -42,23 +42,23 @@ class ViewFromSof(BaseComponent):
         r.fieldcell('ship_rec')
         r.fieldcell('intestazione_sof', edit=True)
 
-class Form(BaseComponent):
-
-    def th_form(self, form):
-        pane = form.record
-        fb = pane.formbuilder(cols=2, border_spacing='4px')
-        fb.field('arrival_id')
-        fb.field('sof_n')
-        fb.field('nor_tend')
-        fb.field('nor_rec')
-        fb.field('nor_acc')
-        fb.field('ops_commenced')
-        fb.field('ops_completed')
-        fb.field('doc_onboard')
-        fb.field('int_sof')
+#class Form(BaseComponent):
+#
+#    def th_form(self, form):
+#        pane = form.record
+#        fb = pane.formbuilder(cols=2, border_spacing='4px')
+#        fb.field('arrival_id')
+#        fb.field('sof_n')
+#        fb.field('nor_tend')
+#        fb.field('nor_rec')
+#        fb.field('nor_acc')
+#        fb.field('ops_commenced')
+#        fb.field('ops_completed')
+#        fb.field('doc_onboard')
+#        fb.field('int_sof')
         
 
-class FormSof(BaseComponent):
+class Form(BaseComponent):
     py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor'
     def th_form(self, form):
         bc = form.center.borderContainer()
@@ -92,7 +92,7 @@ class FormSof(BaseComponent):
         fb.field('ops_completed')
         fb.field('doc_onboard')
         fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2, tag='textArea')
-        fb.field('int_sof')
+        fb.field('int_sof', placeholder='eg.: Fiore Srl')
         
     def th_bottom_custom(self, bottom):
         bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,*,10')

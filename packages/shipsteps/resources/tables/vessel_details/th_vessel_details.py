@@ -20,6 +20,7 @@ class View(BaseComponent):
         r.fieldcell('reg_place')
         r.fieldcell('reg_num',width='10em')
         r.fieldcell('ex_name')
+        r.fieldcell('type')
         r.fieldcell('n_eliche',width='5em')
         r.fieldcell('n_eliche_poppa',width='5em')
         r.fieldcell('n_eliche_prua',width='5em')
@@ -47,6 +48,7 @@ class Form(BaseComponent):
         tc = bc.tabContainer(margin='2px',region='center')
         self.NoteNave(tc.contentPane(title='Vessel Note',datapath='.record'))
         self.allegatiNave(tc.contentPane(title='Attachments'))
+        self.docNave(tc.contentPane(title='Ships docs'))
    
     #def vesselDetails(self, bc):
     #   bc.contentPane(region='center')
@@ -93,6 +95,7 @@ class Form(BaseComponent):
         fb.field('n_eliche_poppa', width='5em' )
         fb.field('n_eliche_prua', width='5em' )
         fb.field('ex_name', width='40em',colspan=2 )
+        fb.field('type',width='40em',colspan=2, values="Portarinfuse liquide,Portarinfuse secche,Portacontainer,Trasp. specializzato,Nave per Merci varie,Nave per Passeggeri,Navi da crociera,Attività Off Shore,Chiatta carichi secchi,Altre navi", tag='filteringSelect')
       
 
         right = bc.roundedGroup(region='right',title='Vessel Immagine',width='600px')
@@ -106,6 +109,9 @@ class Form(BaseComponent):
 
     def allegatiNave(self,pane):
         pane.attachmentGrid(viewResource='ViewFromVesselDocs')
+    
+    def docNave(self,pane):
+        pane.inlineTableHandler(title='!![en]Ships Docs',relation='@ship_docs',viewResource='ViewFromDoc')
         
     @public_method
     def deleteImage(self, image=None, **kwargs):

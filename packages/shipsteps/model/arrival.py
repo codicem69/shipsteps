@@ -342,4 +342,5 @@ class Table(object):
     def randomValues(self):
         return dict(date = dict(sorted=True))
 
-    
+    def menu_dynamicMenuContent_prova(self,**kwargs):
+        return self.query(where='$date.month=:this_month',this_month=self.db.workdate.month).fetch()

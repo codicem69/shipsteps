@@ -230,7 +230,7 @@ class Form(BaseComponent):
         pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True)
 
     def sof(self,pane):
-        pane.stackTableHandler(relation='@sof_arr', formResource='FormSof')
+        pane.stackTableHandler(relation='@sof_arr')#, formResource='FormSof')
 
     def arrival_details(self, bc):
         rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')

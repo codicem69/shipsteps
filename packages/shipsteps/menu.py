@@ -31,8 +31,20 @@ class Menu(object):
         shipsteps.thpage(u"!![en]Vessel services", table="shipsteps.vessel_services", tags="")
         shipsteps.thpage(u"!![en]ExtradataCP", table="shipsteps.extradaticp", tags="")
         shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
+        ultimi_arrivi = shipsteps.branch('!!Ultimi arrivi')
+        self.ultimi_arr(ultimi_arrivi)
+
        # pfda = root.branch(u"pfda", tags="")
        # pfda.thpage(u"!![en]Proforma", table="pfda.proforma", tags="")
        # shipsteps.packageBranch('Gestione utenti',pkg='adm',
         #                      branchMethod='userSubmenu',
         #                      branch_parametro=3)
+    def ultimi_arr(self, ultimi_arrivi, **kwargs):
+        ultimi_arrivi.thpage(u"Sof", table="shipsteps.sof", tags="")
+        ua=ultimi_arrivi.tableBranch('Ultimi arrivi',table='shipsteps.arrival',
+                              query_limit=5,
+                              query_order_by='$reference_num',
+                              branchId='prova',
+                              cacheTime=5)
+
+

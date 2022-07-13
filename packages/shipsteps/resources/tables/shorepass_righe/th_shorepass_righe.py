@@ -77,7 +77,7 @@ class ViewFromShorepassRighe(BaseComponent):
                       _onResult="genro.publish('xls_importer_onResult',result);",
                       _onError="genro.publish('xls_importer_onResult',{error:error});")
         btn_print_shorepass.dataRpc('msg_special', self.print_template_shorepass,record='=#FORM.record',pkeys='=#FORM.shipsteps_shorepass_righe.view.grid.currentSelectedPkeys',servizio=[],
-                            nome_template = 'shipsteps.shorepass_righe:shorepass_righe',format_page='A4')
+                            nome_template = 'shipsteps.shorepass_righe:shorepass_righe',format_page='A4',_lockScreen=dict(message='Please Wait'))
     def th_order(self):
         return '_row_count'
 
