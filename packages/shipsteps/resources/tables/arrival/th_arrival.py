@@ -70,6 +70,7 @@ class Form(BaseComponent):
         #tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
 
         bc = tc.borderContainer(title='!![en]Arrival')
+        bc_extracp = tc.borderContainer(title='!![en]Extra dati CP')
         bc_att = tc.borderContainer(title='!![en]Attachments')
         tc_task = tc.tabContainer(title='!![en]Task List',region='center',selectedPage='^.pippo')
         bc_tasklist = tc_task.borderContainer(title='!![en]Task List', region='center')
@@ -80,15 +81,17 @@ class Form(BaseComponent):
         tc_sof = tc.borderContainer(title='!![en]SOF')
         tc_app = tc.tabContainer(title='!![en]Applications')
         #tc_parapon = bc_task3.tabContainer(title='pippo')
+        self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = 'seashell'))
+    
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
        # tc2 = bc2.tabContainer(margin='2px', region='center', height='auto', splitter=True)
        # bc_top = bc.borderContainer(region='center',height='300px', splitter=True)
        # pane_center=bc_top.contentPane(region='center',datapath='.record', width='1200px', splitter=True)
         #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
-        self.datiArrivo(bc.borderContainer(region='top',height='300px', splitter=True, background = 'lavenderblush'))
+        self.datiArrivo(bc.borderContainer(region='top',height='300px', splitter=True, background = 'seashell'))
        
-        self.taskList(bc_tasklist.borderContainer(region='top',height='50%', background = 'lavenderblush', splitter=True))
+        self.taskList(bc_tasklist.borderContainer(region='top',height='50%', background = 'seashell', splitter=True))
         self.shorepass(tc_task.contentPane(title='!![en]Shore pass'))
         self.services(tc_task.contentPane(title='!![en]Vessel Services',pageName='services'))
         self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
@@ -115,11 +118,66 @@ class Form(BaseComponent):
         self.car_ric(tc.contentPane(title='!![en]Shippers / Receivers'))
         self.charterers(tc.contentPane(title='!![en]Charterers'))
        # self.sof(tc.contentPane(title='!![en]Sof'))
-        self.arrival_details(tc.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'lavenderblush'))
+        self.arrival_details(tc.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell'))
         self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
 
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
+    def extraDatiCP(self, bc):
+        rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
+        div_arrival=rg_extra.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>ARRIVAL</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_arrival.formbuilder(cols=5, border_spacing='4px',fld_width='10em')
+        fb.radioButtonText(value='^.motivo_viaggio', values='op_com:Operazioni_Commerciali,altro:Altro', lbl='Motivo Viaggio: ',validate_notnull=True,width='20em',lbl_class='align_right')
+        fb.radioButtonText(value='^.tipo_viaggio', values='linea:Di_Linea,occ:Occasionale', lbl='Tipo Viaggio: ',validate_notnull=True, width='20em')
+        fb.field('mot_appr', width='20em', colspan=2)
+        fb.br()
+        fb.field('lavori', width='20em', colspan=2)
+        fb.field('notizie', width='20em', colspan=2)
+        fb.br()
+        fb.field('pilot_arr')
+        fb.field('pilot_arr_vhf')
+        fb.field('antifire_arr')
+        fb.field('antipol_arr')
+        fb.br()
+        fb.field('moor_arr')
+        fb.field('n_moor_arr')
+        fb.field('tug_arr')
+        fb.field('n_tug_arr')
+        fb.br()
+        fb.field('daywork')
+        fb.field('timework')
+        fb.br()
+        fb.field('naz_cte')
+        fb.field('n_ita')
+        fb.field('n_com')
+        fb.field('n_excom')
+        fb.br()
+        fb.field('n_car_mcycle')
+        fb.field('n_comm_veic')
+
+        div_departure=rg_extra.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DEPARTURE</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_departure.formbuilder(cols=5, border_spacing='4px',fld_width='10em')
+        fb.field('pilot_dep')
+        fb.field('pilot_dep_vhf')
+        fb.field('antifire_dep')
+        fb.field('antipol_dep')
+        fb.br()
+        fb.field('moor_dep')
+        fb.field('n_moor_dep')
+        fb.field('tug_dep')
+        fb.field('n_tug_dep')
+        fb.br()
+        fb.field('n_pax_dep')
+        fb.field('n_pax_sba_imb')
+        fb.field('n_carmcycle_imbsba')
+        fb.field('n_commveic_imbsba')
+
     def services(self,pane):
         #pass
         #pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
@@ -307,8 +365,9 @@ class Form(BaseComponent):
         fb.field('tug_out',placeholder='e.g. 1')
 
         fb = rg_extra.formbuilder(cols=2, border_spacing='4px',fld_width='10em')
+        fb.radioButtonText(value='^.motivo_viaggio', values='op_com:Operazioni_Commerciali,altro:Altro', lbl='Motivo Viaggio: ',validate_notnull=True,width='20em')
+        fb.radioButtonText(value='^.tipo_viaggio', values='linea:Di_Linea,occ:Occasionale', lbl='Tipo Viaggio: ',validate_notnull=True, width='20em')
         fb.field('lavori', width='20em', colspan=2)
-        fb.br()
         fb.field('notizie', width='20em', colspan=2)
         fb.br()
         fb.field('pilot_arr')
@@ -338,7 +397,7 @@ class Form(BaseComponent):
 
     def taskList(self, bc_tasklist):
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='550px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_arrival = bc_tasklist.roundedGroup(title='!![en]Arrival/Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='500px', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_arrival = bc_tasklist.roundedGroup(title='!![en]Arrival/Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='520px', height = 'auto').div(margin='10px',margin_left='2px')
         #rg_departure = bc_tasklist.roundedGroup(title='!![en]Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='340px', height = 'auto',margin_left='350px').div(margin='10px',margin_left='2px')
         #rg_prearrival_cp = bc_task.roundedGroup(title='!![en]Pre arrival CP',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='670px', height = 'auto',margin_top='290px').div(margin='10px',margin_left='2px')
         #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')

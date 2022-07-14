@@ -94,7 +94,8 @@ class Main(TableScriptToHtml):
                                 lbl="""12. Breve descrizione del viaggio (scali precedenti e successivi, precisare dove verrà sbarcato il carico restante) 
                                        Brief particulars of voyage (previous and subsequent ports of call; underline where remaining cargo will be discharged)"""
                                        ,content_class='cellheader_sp')
-        col1.row(height=10).cell(self.parameter('motivo_approdo'), font_weight='bold', lbl="12/a. Motivo Approdo")
+                                           
+        col1.row(height=10).cell(self.field('@extradatacp.mot_appr'), font_weight='bold', lbl="12/a. Motivo Approdo")
         
         #dati carico
         cargoonboard='A BORDO: ' + str(self.field('cargo_onboard')+'<br>')

@@ -17,8 +17,8 @@ class Main(BaseResourcePrint):
 
         fb = pane.formbuilder(cols=2,border_spacing='3px')
 
-        fb.textbox(value='^.car_deck', lbl='!![en]Cargo on deck',default='NIL',validate_notnull=True)
-        fb.textbox(value='^.pax_sba', lbl='!![en]Passengers disembarked',default='0',validate_notnull=True)
+        fb.textbox(value='^.car_deck', lbl='!![en]Cargo on deck',default='NIL',validate_notnull=True,colspan=2,width='36em')
+        fb.textbox(value='^.pax_sba', lbl='!![en]Passengers to disembark',default='0',validate_notnull=True)
         fb.textbox(value='^.hazmat', lbl='HAZMAT',default='NIL',validate_notnull=True)
-        fb.textbox(value='^.evento_str', lbl='!![en]Extraordinary event or demage',default='NIL',validate_notnull=True)
+        fb.textbox(value='^.evento_str', lbl='!![en]Extraordinary event or demage',default='NIL',validate_notnull=True, colspan=2, width='36em')
         fb.dateTextBox(value='^.data_att', lbl='Data doc.',default=self.db.workdate, validate_notnull=True)

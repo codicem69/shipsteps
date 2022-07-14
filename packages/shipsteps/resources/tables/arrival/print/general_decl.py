@@ -11,7 +11,7 @@ class Main(BaseResourcePrint):
 
         fb = pane.formbuilder(cols=2,border_spacing='3px')
 
-        fb.textbox(value='^.motivo_approdo', lbl='Motivo approdo',validate_notnull=True, colspan=2, width='40em')
+        #fb.textbox(value='^.motivo_approdo', lbl='Motivo approdo',validate_notnull=True, colspan=2, width='40em')
         fb.textbox(value='^.cargo_decl', lbl='Cargo declaration',default='1',validate_notnull=True)
         fb.textbox(value='^.store_list', lbl='Store list',default='1',validate_notnull=True)
         fb.textbox(value='^.crew_list', lbl='Crew list',default='1',validate_notnull=True)

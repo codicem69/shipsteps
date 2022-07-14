@@ -167,9 +167,12 @@ class Main(TableScriptToHtml):
         col_ta.row(height=4).cell('Sopratassa - Overduties', lbl="")
 
     def datiGenaral6(self, row, vess_docs):
+        ta_issued,ta_date,ta_expire = '','',''
+        sta_issued,sta_date,sta_expire = '','',''
+
         for c in vess_docs.values():
             if c['cert'] == '21_ta':
-                ta_issued = c['@issued.citta_nazione']
+                ta_issued = c['@issued.citta_nazione']       
                 if c['date_cert']:
                     ta_date = c['date_cert'].strftime("%d/%m/%Y")
                 else:
@@ -179,7 +182,7 @@ class Main(TableScriptToHtml):
                 else:
                     ta_expire = ''
             if c['cert'] == '22_sta':
-                sta_issued = c['@issued.citta_nazione']
+                sta_issued = c['@issued.citta_nazione']    
                 if c['date_cert']:
                     sta_date = c['date_cert'].strftime("%d/%m/%Y")
                 else:
