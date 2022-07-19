@@ -5,7 +5,7 @@ class Menu(object):
         shipsteps.thpage(u"!![en]Task list", table="shipsteps.tasklist", tags="")
         shipsteps.thpage(u"!![en]Operations SOF", table="shipsteps.sof_operations", tags="")
         shipsteps.thpage(u"email_sof", table="shipsteps.email_sof", tags="")
-        shipsteps.thpage(u"sof", table="shipsteps.sof", tags="", formResource="FormSof")
+        shipsteps.thpage(u"sof", table="shipsteps.sof", tags="")
         shipsteps.thpage(u"sof_cargo", table="shipsteps.sof_cargo", tags="")
         shipsteps.thpage(u"!![en]Invoice details", table="shipsteps.invoice_det", tags="")
         shipsteps.thpage(u"Sof tanks", table="shipsteps.sof_tanks", tags="")

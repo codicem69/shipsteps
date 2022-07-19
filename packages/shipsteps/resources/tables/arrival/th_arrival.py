@@ -27,7 +27,7 @@ class View(BaseComponent):
         r.fieldcell('draft_fw_arr', width='5em')
         r.fieldcell('draft_aft_dep', width='5em')
         r.fieldcell('draft_fw_dep', width='5em')
-        r.fieldcell('n_tug',width='4em')
+        r.fieldcell('firma_div',width='4em')
         r.fieldcell('mandatory')
         r.fieldcell('dock_id', width='5em')
         r.fieldcell('info_moor')
@@ -230,9 +230,9 @@ class Form(BaseComponent):
         fb.field('date_end')
         fb.field('n_gpg')
 
-        fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='10em')
+        fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='10em',lblpos='T')
         fb.field('nsis_prot')
-        fb.field('n_tug')
+        fb.field('firma_div', tag='textArea')
 
        #fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='8em')
        ##fb.field('arrival_id')

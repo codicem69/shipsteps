@@ -36,10 +36,12 @@ class Main(TableScriptToHtml):
         for c in carico.values():
             if c['operation'] == 'U':
                 y += 1
+                car += "{ms}{qt} {car}<br>".format(ms=c['@measure_id.description'],qt=c['quantity'],car=c['description_it'])
                 #oper = 'DA SCARICARE: '
             if c['operation'] is None:
                 oper=''
-            car += "{ms}{qt} {car}<br>".format(ms=c['@measure_id.description'],qt=c['quantity'],car=c['description_it'])
+            if car == '':
+                car='NIL'
         if len(carico) == 0:
             car ='NIL'
         if y == 1:
