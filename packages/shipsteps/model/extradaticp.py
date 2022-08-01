@@ -45,3 +45,5 @@ class Table(object):
         
 
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        tbl.formulaColumn('mot_viaggio',"""CASE WHEN $motivo_viaggio = 'op_com' THEN 'Operazioni commerciali' ELSE 'Altro' END""" )
+        tbl.formulaColumn('tip_viaggio',"""CASE WHEN $tipo_viaggio = 'linea' THEN 'di Linea' ELSE 'Occasionale' END""" )

@@ -12,6 +12,9 @@
 .cellheader_sp{text-align:center;
     padding:10px;
 }
+.cellheader_pt{text-align:center;
+    padding-top:10px;
+}
 .cellheader_datacert{padding:2px;
 }
 .l_c{padding-top:40px;

@@ -1,0 +1,607 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-24T13:01:16.582444+01:00</_ins_ts>
+<_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-02-24T17:34:30.921259+01:00</_mod_ts>
+<_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatemandato</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">mandato</code>
+<objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
+<pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
+<tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Mandato</description>
+<notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;strong&gt;&lt;span style="font-size:22px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_agency_name&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;strong&gt;&lt;span style="font-size:22px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:18px;"&gt;$agenzia_description&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;br /&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_address&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;${tel: $agenzia_tel}&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_email&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_web&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: right;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div style="text-align: center;"&gt;
+	&lt;span style="font-size:20px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$immigration_int&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div style="text-align: center;"&gt;
+	&lt;span style="font-size:18px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;OGGETTO: comunicazione arrivo $vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div style="text-align: center;"&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;br /&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;br /&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Per gli eventuali controlli della Polizia di Frontiera che codesto Ufficio riterr&amp;agrave; opportuno eseguire,&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:14px;width: 150px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;si comunica che in data/ore&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="width: 150px;"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$etb&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:14px;width:150px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;egrave; previsto l&amp;#39;ormeggio&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="5"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;della sottoindicata motonave per la quale si descrivono le seguenti notizie:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;br /&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:75%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;NOMINATIVO:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$vessel_imbarcazione_nome&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;BANDIERA:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$vessel_imbarcazione_bandiera&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;EQUIPAGGIO N.:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;${$n_crew&amp;nbsp;&amp;nbsp; (VEDI LISTA ALLEGATA)}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PROVENIENTE DAL PORTO DI:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$last_port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;br /&gt;
+	&lt;table cellpadding="1" cellspacing="1" row_datasource="@cargo_lu_arr" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$carichi_sbarco_imbarchi_carico_l_u_ita&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:75%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;BANCHINA DI ORMEGGIO:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$banchina_dock_name&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PREVISTA PARTENZA:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$ets&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PER IL PORTO DI:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$next_port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;br /&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:75%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ULTIMI DIECI PORTI D&amp;#39;ATTRACCO:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;(VEDASI LISTA ALLEGATA)&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;VARIE:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;${Destinzaione carico: $cargo_dest}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; I UNDERSIGNED MASTER OF $vessel_imbarcazione_tipo $vessel_imbarcazione_nome &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; DECLARES THAT THERE ARE NO CLANDESTINES ON BOARD&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ORTONA $data_documento&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; THE MASTER&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</content>
+<metadata><author>admin</author>
+<version _T="NN"></version>
+<date _T="NN"></date>
+<is_print _T="B" _valuelabel="">True</is_print>
+<is_mail _T="B" _valuelabel="">False</is_mail>
+<is_row _T="NN"></is_row>
+<row_height _T="NN"></row_height>
+<default_letterhead _T="NN"></default_letterhead>
+<summary _T="NN"></summary>
+<email><subject _T="NN"></subject>
+<to_address _T="NN"></to_address>
+<from_address _T="NN"></from_address>
+<cc_address _T="NN"></cc_address>
+<bcc_address _T="NN"></bcc_address>
+<attachments _T="NN"></attachments></email>
+<email_compiled _T="BAG"></email_compiled></metadata>
+<varsbag><g7couwd0bl _pkey="g7couwd0bl"><fieldpath dtype="::NN">@agency_id.agency_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/agency_name</fieldname>
+<varname dtype="::NN">agenzia_agency_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7couwd0bl>
+<g7coux6ue9 _pkey="g7coux6ue9"><fieldpath dtype="::NN">@agency_id.description</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/description</fieldname>
+<varname dtype="::NN">agenzia_description</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7coux6ue9>
+<g7couxzghl _pkey="g7couxzghl"><fieldpath dtype="::NN">@agency_id.address</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/address</fieldname>
+<varname dtype="::NN">agenzia_address</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7couxzghl>
+<g7couyu4nl _pkey="g7couyu4nl"><fieldpath dtype="::NN">@agency_id.tel</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/tel</fieldname>
+<varname dtype="::NN">agenzia_tel</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7couyu4nl>
+<g7cov03kgh _pkey="g7cov03kgh"><fieldpath dtype="::NN">@agency_id.email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/email</fieldname>
+<varname dtype="::NN">agenzia_email</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cov03kgh>
+<g7cov0yjfd _pkey="g7cov0yjfd"><fieldpath dtype="::NN">@agency_id.web</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/web</fieldname>
+<varname dtype="::NN">agenzia_web</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cov0yjfd>
+<g7cov8i929 _pkey="g7cov8i929"><fieldpath dtype="::NN">@agency_id.@port.citta_nazione</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Agenzia/place/citta_nazione</fieldname>
+<varname dtype="::NN">agenzia_place_citta_nazione</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cov8i929>
+<g7covkk349 _pkey="g7covkk349"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Tipo</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_tipo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7covkk349>
+<g7covlnug1 _pkey="g7covlnug1"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_nome</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7covlnug1>
+<g7covmwwcx _pkey="g7covmwwcx"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Bandiera</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_bandiera</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7covmwwcx>
+<g7cowpo1o1 _pkey="g7cowpo1o1"><fieldpath dtype="::NN">etb</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">etb</fieldname>
+<varname dtype="::NN">etb</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cowpo1o1>
+<g7cowtb8nt _pkey="g7cowtb8nt"><fieldpath dtype="::NN">ets</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">ets</fieldname>
+<varname dtype="::NN">ets</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cowtb8nt>
+<g7coxkrpjd _pkey="g7coxkrpjd"><fieldpath dtype="::NN">@dock_id.dock_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Banchina/dock_name</fieldname>
+<varname dtype="::NN">banchina_dock_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7coxkrpjd>
+<g7coxqwim1 _pkey="g7coxqwim1"><fieldpath dtype="::NN">master_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">master_name</fieldname>
+<varname dtype="::NN">master_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7coxqwim1>
+<g7coxsdcm9 _pkey="g7coxsdcm9"><fieldpath dtype="::NN">n_crew</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">n_crew</fieldname>
+<varname dtype="::NN">n_crew</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7coxsdcm9>
+<g7coydfkwx _pkey="g7coydfkwx"><fieldpath dtype="::NN">@last_port.citta_nazione</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">place/citta_nazione</fieldname>
+<varname dtype="::NN" _loadedValue="place_citta_nazione">last_port</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7coydfkwx>
+<g7coyyf8m9 _pkey="g7coyyf8m9"><fieldpath dtype="::NN">@next_port.citta_nazione</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">place/citta_nazione</fieldname>
+<varname dtype="::NN" _loadedValue="place_citta_nazione">next_port</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7coyyf8m9>
+<g7cp667e35 _pkey="g7cp667e35"><fieldpath dtype="::NN">immigration_int</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">immigration_int</fieldname>
+<varname dtype="::NN">immigration_int</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cp667e35>
+<g7cp0jae5d _pkey="g7cp0jae5d"><fieldpath dtype="::NN">@cargo_lu_arr.cargo_lu_en_ita</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Carichi sbarco/imbarchi/Carico L/U ITA</fieldname>
+<varname dtype="::NN">carichi_sbarco_imbarchi_carico_l_u_ita</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cp0jae5d>
+<g7cozobich _pkey="g7cozobich"><fieldpath dtype="::NN">cargo_dest</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">cargo_dest</fieldname>
+<varname dtype="::NN">cargo_dest</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cozobich></varsbag>
+<parameters><g7cx1o34m9 _pkey="g7cx1o34m9"><code dtype="::NN" _loadedValue="datadoc">data_documento</code>
+<description dtype="::NN">Data documento</description>
+<fieldtype dtype="::NN" _displayedValue="Date" _loadedValue="::NN">D</fieldtype>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<values _T="NN" dtype="::NN"></values></g7cx1o34m9></parameters>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<content_css></content_css>
+<compiled><_cargo_lu_arr _tag="@cargo_lu_arr">&lt;tr&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$cargo_lu_en_ita&amp;#160;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		</_cargo_lu_arr>
+<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.@port.citta_nazione,@last_port.citta_nazione,@next_port.citta_nazione,immigration_int,@cargo_lu_arr.cargo_lu_en_ita" columns="@agency_id.agency_name,@agency_id.description,@agency_id.address,@agency_id.tel,@agency_id.email,@agency_id.web,@agency_id.@port.citta_nazione,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,$etb,$ets,@dock_id.dock_name,$master_name,$n_crew,@last_port.citta_nazione,@next_port.citta_nazione,$immigration_int,@cargo_lu_arr.cargo_lu_en_ita,$cargo_dest" formats='{"data_documento": null}::JS' masks='{"data_documento": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "agenzia_description": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agenzia_place_citta_nazione": "A", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "etb": "DH", "ets": "DH", "banchina_dock_name": "T", "master_name": "T", "n_crew": "N", "last_port": "A", "next_port": "A", "immigration_int": "T", "carichi_sbarco_imbarchi_carico_l_u_ita": "T", "cargo_dest": "T"}::JS'>&lt;div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&amp;#160;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;strong&gt;&lt;span style="font-size:22px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@agency_id.agency_name&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;strong&gt;&lt;span style="font-size:22px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:18px;"&gt;$@agency_id.description&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;br&gt;
+						&amp;#160;&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@agency_id.address&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;${tel: $@agency_id.tel}&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@agency_id.email&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@agency_id.web&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: right;"&gt;
+		&amp;#160;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div style="text-align: center;"&gt;
+	&lt;span style="font-size:20px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$immigration_int&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div style="text-align: center;"&gt;
+	&lt;span style="font-size:18px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;OGGETTO: comunicazione arrivo $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div style="text-align: center;"&gt;
+	&amp;#160;&lt;/div&gt;
+
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;br&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;br&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Per gli eventuali controlli della Polizia di Frontiera che codesto Ufficio riterr&amp;#224; opportuno eseguire,&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:14px;width: 150px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;si comunica che in data/ore&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="width: 150px;"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$etb&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:14px;width:150px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#232; previsto l'ormeggio&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; &lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="5"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;della sottoindicata motonave per la quale si descrivono le seguenti notizie:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+				&lt;td&gt;
+					&amp;#160;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;br&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:75%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;NOMINATIVO:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;BANDIERA:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@vessel_details_id.@imbarcazione_id.bandiera&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;EQUIPAGGIO N.:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;${$n_crew&amp;#160;&amp;#160; (VEDI LISTA ALLEGATA)}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PROVENIENTE DAL PORTO DI:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@last_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;br&gt;
+	&lt;table cellpadding="1" cellspacing="1" row_datasource="@cargo_lu_arr" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+		&lt;tbody&gt;
+			
+$@cargo_lu_arr
+&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:75%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;BANCHINA DI ORMEGGIO:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@dock_id.dock_name&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PREVISTA PARTENZA:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$ets&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PER IL PORTO DI:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@next_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;br&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:75%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ULTIMI DIECI PORTI D'ATTRACCO:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;(VEDASI LISTA ALLEGATA)&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td style="width: 200px;border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;VARIE:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td style="border-bottom: 1px solid black;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;${Destinzaione carico: $cargo_dest}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+	&amp;#160;&amp;#160;&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; I UNDERSIGNED MASTER OF $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; DECLARES THAT THERE ARE NO CLANDESTINES ON BOARD&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; ORTONA $data_documento&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; THE MASTER&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</main></compiled></data>
+<authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
+<private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
+<flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_print</flags>
+<required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
+<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>

@@ -2,7 +2,7 @@ class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('shorepass_righe', pkey='id', name_long='shorepass_righe', name_plural='shorepass_righe',caption_field='id', 
                                          partition_agency_id='agency_id', order_by='_row_count')
-        self.sysFields(tbl,counter=True)
+        self.sysFields(tbl,counter='shorepass_id')
 
         tbl.column('shorepass_id',size='22', name_long='shorepass_id'
                     ).relation('shorepass.id', relation_name='shorepass_righe', mode='foreignkey', onDelete='cascade')

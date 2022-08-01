@@ -267,7 +267,7 @@ class Main(TableScriptToHtml):
         col1.row(height=13).cell('Tipo di certificato<br>Type of Certificate::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
         col2.row(height=13).cell('Rilasciato a<br>Issued at::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
         col3.row(height=13).cell('il<br>on::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
-        col4.row(height=13).cell('Valido fino<br>Valid until::HTML', lbl="",font_weight='bold', style='line-height:3mm;')
+        col4.row(height=13).cell('Valido fino<br>Valid until::HTML', lbl="",font_weight='bold', style='line-height:3mm;',content_class='cellheader_pt')
         col5.row(height=13).cell('Visita annuale a<br>annual survey at::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
         col6.row(height=13).cell('Data visita annuale annual surv. date', lbl="",font_weight='bold')
         col7.row(height=13).cell('Note<br>Notes::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')

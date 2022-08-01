@@ -92,15 +92,22 @@ class Form(BaseComponent):
         self.datiArrivo(bc.borderContainer(region='top',height='300px', splitter=True, background = 'seashell'))
        
         self.taskList(bc_tasklist.borderContainer(region='top',height='50%', background = 'seashell', splitter=True))
-        self.shorepass(tc_task.contentPane(title='!![en]Shore pass'))
-        self.services(tc_task.contentPane(title='!![en]Vessel Services',pageName='services'))
-        self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
+        #self.shorepass(tc_task.contentPane(title='!![en]Shore pass'))
+        #self.services(tc_task.contentPane(title='!![en]Vessel Services',pageName='services'))
+        
+        tc_task.contentPane(title='!![en]Shore pass',pageName='shore_pass').remote(self.shorePassLazyMode)
+        tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode)
+        
+        #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
+        tc_sof.contentPane(title='!![en]Sof',height='100%').remote(self.sofLazyMode)
         
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
         
         self.garbage(tc_undertask.contentPane(title='!![en]Garbage'))
-        self.rinfusa(tc_app.contentPane(title='!![en]Bulk Application'))
-        self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
+        #self.rinfusa(tc_app.contentPane(title='!![en]Bulk Application'))
+        tc_app.contentPane(title='!![en]Bulk Application',pageName='bulk_application').remote(self.rinfusaLazyMode)
+        #self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
+        tc_app.contentPane(title='!![en]Bunker Application',pageName='bunker_application').remote(self.bunkerLazyMode)
         
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
@@ -115,11 +122,14 @@ class Form(BaseComponent):
         self.datiCaricoBordo(tc_car.contentPane(title='!![en]Cargo onboard',datapath='.record'))
         self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
         self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
-        self.car_ric(tc.contentPane(title='!![en]Shippers / Receivers'))
-        self.charterers(tc.contentPane(title='!![en]Charterers'))
+        #self.car_ric(tc.contentPane(title='!![en]Shippers / Receivers'))
+        tc.contentPane(title='!![en]Shippers / Receivers', pageName='shippers_receivers').remote(self.car_ricLazyMode)
+        #self.charterers(tc.contentPane(title='!![en]Charterers'))
+        tc.contentPane(title='!![en]Charterers', pageName='charterers').remote(self.charterersLazyMode)
        # self.sof(tc.contentPane(title='!![en]Sof'))
         self.arrival_details(tc.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell'))
-        self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
+       # self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
+        tc.contentPane(title='!![en]Email Arrival',pageName='email_arrival').remote(self.emailArrivalLazyMode)
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
 
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
@@ -177,6 +187,11 @@ class Form(BaseComponent):
         fb.field('n_pax_sba_imb')
         fb.field('n_carmcycle_imbsba')
         fb.field('n_commveic_imbsba')
+
+    @public_method
+    def servicesLazyMode(self,pane):
+        pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',
+                                view_store__onBuilt=True)
 
     def services(self,pane):
         #pass
@@ -278,22 +293,31 @@ class Form(BaseComponent):
         fb.field('extra_transit_cargo', tag='simpleTextArea',height='25px',colspan=3)
    #def datiCaricoTransit(self,frame):
    #    frame.simpleTextArea(title='!![en]Transit cargo',value='^.transit_cargo',editor=True)
+    @public_method
+    def car_ricLazyMode(self,pane):
+         pane.stackTableHandler(table='shipsteps.ship_rec', formResource='Form',view_store_onStart=True,view_store__onBuilt=True)
 
     def car_ric(self,pane):
          pane.stackTableHandler(table='shipsteps.ship_rec', formResource='Form',view_store_onStart=True)
 
         #pane.inlineTableHandler(table='shipsteps.ship_rec',viewResource='ViewFromShipRec',view_store_onStart=True,export=True)
-
+    @public_method
+    def charterersLazyMode(self,pane):
+        pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True,view_store__onBuilt=True)
     def charterers(self,pane):
         pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True)
+
+    @public_method
+    def sofLazyMode(self,pane):
+        pane.stackTableHandler(relation='@sof_arr',view_store__onBuilt=True)
 
     def sof(self,pane):
         pane.stackTableHandler(relation='@sof_arr')#, formResource='FormSof')
 
     def arrival_details(self, bc):
         rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_details = bc.roundedGroup(title='!![en]Arrival/Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='550px', height = '100%', margin_left='350px').div(margin='10px',margin_left='2px')
-        rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
+        rg_details = bc.roundedGroup(title='!![en]Arrival/Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='550px', height = '100%').div(margin='10px',margin_left='2px')
+        #rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
 
         fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('eosp')
@@ -364,30 +388,34 @@ class Form(BaseComponent):
         fb.field('tug_in',placeholder='e.g. 1')
         fb.field('tug_out',placeholder='e.g. 1')
 
-        fb = rg_extra.formbuilder(cols=2, border_spacing='4px',fld_width='10em')
-        fb.radioButtonText(value='^.motivo_viaggio', values='op_com:Operazioni_Commerciali,altro:Altro', lbl='Motivo Viaggio: ',validate_notnull=True,width='20em')
-        fb.radioButtonText(value='^.tipo_viaggio', values='linea:Di_Linea,occ:Occasionale', lbl='Tipo Viaggio: ',validate_notnull=True, width='20em')
-        fb.field('lavori', width='20em', colspan=2)
-        fb.field('notizie', width='20em', colspan=2)
-        fb.br()
-        fb.field('pilot_arr')
-        fb.field('pilot_arr_vhf')
-        fb.field('antifire_arr')
-        fb.field('antipol_arr')
-        fb.field('moor_arr')
-        fb.field('n_moor_arr')
-        fb.field('tug_arr')
-        fb.field('n_tug_arr')
-        fb.field('daywork')
-        fb.field('timework')
-        fb.field('pilot_dep')
-        fb.field('pilot_dep_vhf')
-        fb.field('antifire_dep')
-        fb.field('antipol_dep')
-        fb.field('moor_dep')
-        fb.field('n_moor_dep')
-        fb.field('tug_dep')
-        fb.field('n_tug_dep')
+      # fb = rg_extra.formbuilder(cols=2, border_spacing='4px',fld_width='10em')
+      # fb.radioButtonText(value='^.motivo_viaggio', values='op_com:Operazioni_Commerciali,altro:Altro', lbl='Motivo Viaggio: ',validate_notnull=True,width='20em')
+      # fb.radioButtonText(value='^.tipo_viaggio', values='linea:Di_Linea,occ:Occasionale', lbl='Tipo Viaggio: ',validate_notnull=True, width='20em')
+      # fb.field('lavori', width='20em', colspan=2)
+      # fb.field('notizie', width='20em', colspan=2)
+      # fb.br()
+      # fb.field('pilot_arr')
+      # fb.field('pilot_arr_vhf')
+      # fb.field('antifire_arr')
+      # fb.field('antipol_arr')
+      # fb.field('moor_arr')
+      # fb.field('n_moor_arr')
+      # fb.field('tug_arr')
+      # fb.field('n_tug_arr')
+      # fb.field('daywork')
+      # fb.field('timework')
+      # fb.field('pilot_dep')
+      # fb.field('pilot_dep_vhf')
+      # fb.field('antifire_dep')
+      # fb.field('antipol_dep')
+      # fb.field('moor_dep')
+      # fb.field('n_moor_dep')
+      # fb.field('tug_dep')
+      # fb.field('n_tug_dep')
+
+    @public_method
+    def emailArrivalLazyMode(self,pane):
+        pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival',view_store__onBuilt=True)
 
     def emailArrival(self,pane):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
@@ -774,15 +802,28 @@ class Form(BaseComponent):
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
+    @public_method
+    def shorePassLazyMode(self,pane):
+        pane.stackTableHandler(relation='@shorepass_arr',formResource='Form',view_store__onBuilt=True)
+
+
     def shorepass(self, pane):
         pane.stackTableHandler(relation='@shorepass_arr',formResource='Form')
 
     def garbage(self, pane):
         pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
 
+    @public_method
+    def rinfusaLazyMode(self,pane):
+        pane.stackTableHandler(relation='@rinfusa_arr',formResource='FormFromRinfusa',view_store__onBuilt=True)
+
     def rinfusa(self, pane):
         pane.stackTableHandler(relation='@rinfusa_arr',formResource='FormFromRinfusa')
     
+    @public_method
+    def bunkerLazyMode(self,pane):
+        pane.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker',view_store__onBuilt=True)
+
     def bunker(self, pane):   
         pane.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker')
 
