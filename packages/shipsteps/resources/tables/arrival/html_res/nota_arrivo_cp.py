@@ -322,4 +322,6 @@ class Main(TableScriptToHtml):
         col3.row(height=15).cell("""<img src="%s" width="100" height="100">::HTML""" %timbro,lbl='')
 
     def outputDocName(self, ext=''):
-        return 'Nota_arrivo.{ext}'.format(ext=ext)
+        vessel = self.record['@vessel_details_id.@imbarcazione_id.nome']
+        return 'Nota_arrivo_{vessel}.{ext}'.format(vessel=vessel,ext=ext)
+        #return 'Nota_arrivo.{ext}'.format(ext=ext)

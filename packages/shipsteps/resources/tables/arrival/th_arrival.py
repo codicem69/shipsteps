@@ -7,6 +7,7 @@ from gnr.core.gnrdecorator import public_method
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
 from gnr.core.gnrlang import GnrException
+import os.path
 
 class View(BaseComponent):
 
@@ -16,9 +17,10 @@ class View(BaseComponent):
         r.fieldcell('reference_num', width='7em')
         r.fieldcell('visit_id',width='8em')
         r.fieldcell('nsis_prot',width='8em')
+        r.fieldcell('voy_n', width='6em')
         r.fieldcell('date')
         r.fieldcell('vessel_details_id', width='15em')
-        r.fieldcell('eta', width='5em')
+        r.fieldcell('eta', width='5em', Short=True)
         r.fieldcell('etb', width='5em')
         r.fieldcell('et_start', width='5em')
         r.fieldcell('etc', width='5em')
@@ -118,8 +120,11 @@ class Form(BaseComponent):
         #tc_sof = tc.tabContainer(title='!![en]SOF',margin='2px', region='center', height='450px', splitter=True)
         #tc_r = bc_top.tabContainer(margin='2px', region='right', width='25%')#, width='25%', splitter=True)
         #self.gpg(tc_r.contentPane(title='!![en]GPG'))
+        tc_under_car = tc_car.tabContainer(title='!![en]Cargo onboard')
+        #self.datiCaricoBordo(tc_car.contentPane(title='!![en]Cargo onboard',datapath='.record'))
+        self.carbordoArr(tc_under_car.contentPane(title='!![en]Cargo onboard on arrival',datapath='.record'))
+        self.carbordoDep(tc_under_car.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
 
-        self.datiCaricoBordo(tc_car.contentPane(title='!![en]Cargo onboard',datapath='.record'))
         self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
         self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
         #self.car_ric(tc.contentPane(title='!![en]Shippers / Receivers'))
@@ -133,6 +138,27 @@ class Form(BaseComponent):
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
 
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
+    def carbordoArr(self,bc):
+        center = bc.roundedGroup(title='!![en]Cargo on board on arrival', region='center', height = '100%').div(margin='10px',margin_left='2px')
+        fb = center.formbuilder(cols=3, border_spacing='4px')
+        fb.field('cargo_onboard', tag='simpleTextArea',height='50px', colspan=3)
+        fb.div("""EXTRA CARGO ON BOARD DESCRIPTION:<br>
+                  - Se trattasi di merci pericolose precisare la classe IMO<br>
+                  - se trattasi di merci secche pericolose indicare per esteso l'esatta denominazione tecnica e la classe di pericolosità<br>
+                  - se trattasi di altre merci secche, precisare se alla rinfusa e l'appendice di appartenenza (A-B-C) qualora soggette al D.M. 22.07.1991 + IMSBC CODE<br>
+                  - se trattasi di merce rientrante nelle categorie inquinanti di cui alla Legge 979/1982 specificare tutti I dati relativi al proprietario""", colspan=3)
+        fb.field('extra_cargo_onboard', tag='simpleTextArea',height='25px',colspan=3)
+    def carbordoDep(self,bc):
+        center = bc.roundedGroup(title='!![en]Cargo on board on departure', region='center', height = '100%').div(margin='10px',margin_left='2px')
+        fb = center.formbuilder(cols=3, border_spacing='4px')
+        fb.field('cargo_onboard_dep', tag='simpleTextArea',height='50px', colspan=3)
+        fb.div("""EXTRA CARGO ON BOARD DESCRIPTION:<br>
+                  - Se trattasi di merci pericolose precisare la classe IMO<br>
+                  - se trattasi di merci secche pericolose indicare per esteso l'esatta denominazione tecnica e la classe di pericolosità<br>
+                  - se trattasi di altre merci secche, precisare se alla rinfusa e l'appendice di appartenenza (A-B-C) qualora soggette al D.M. 22.07.1991 + IMSBC CODE<br>
+                  - se trattasi di merce rientrante nelle categorie inquinanti di cui alla Legge 979/1982 specificare tutti I dati relativi al proprietario""", colspan=3)
+        fb.field('extra_cargo_onboard_dep', tag='simpleTextArea',height='25px',colspan=3)
+    
     def extraDatiCP(self, bc):
         rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
         div_arrival=rg_extra.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>ARRIVAL</strong>',width='99%',height='20%',margin='auto',
@@ -144,8 +170,9 @@ class Form(BaseComponent):
         fb.radioButtonText(value='^.tipo_viaggio', values='linea:Di_Linea,occ:Occasionale', lbl='Tipo Viaggio: ',validate_notnull=True, width='20em')
         fb.field('mot_appr', width='20em', colspan=2)
         fb.br()
-        fb.field('lavori', width='20em', colspan=2)
-        fb.field('notizie', width='20em', colspan=2)
+        fb.field('lavori', width='40em', colspan=2)
+        fb.br()
+        fb.field('notizie', width='40em', colspan=2)
         fb.br()
         fb.field('pilot_arr')
         fb.field('pilot_arr_vhf')
@@ -157,7 +184,7 @@ class Form(BaseComponent):
         fb.field('tug_arr')
         fb.field('n_tug_arr')
         fb.br()
-        fb.field('daywork')
+        fb.field('daywork', placeholder='eg. 3 giorni')
         fb.field('timework')
         fb.br()
         fb.field('naz_cte')
@@ -165,8 +192,8 @@ class Form(BaseComponent):
         fb.field('n_com')
         fb.field('n_excom')
         fb.br()
-        fb.field('n_car_mcycle')
-        fb.field('n_comm_veic')
+        fb.field('carmcycle_arr')
+        fb.field('commveic_arr')
 
         div_departure=rg_extra.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DEPARTURE</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
@@ -183,10 +210,23 @@ class Form(BaseComponent):
         fb.field('tug_dep')
         fb.field('n_tug_dep')
         fb.br()
-        fb.field('n_pax_dep')
-        fb.field('n_pax_sba_imb')
-        fb.field('n_carmcycle_imbsba')
-        fb.field('n_commveic_imbsba')
+        fb.field('pax_dep')
+        fb.field('pax_trans')
+        fb.field('pax_sba')
+        fb.field('pax_imb')
+        fb.br()
+        fb.field('carmcycle_dep')
+        fb.field('carmcycle_trans')
+        fb.field('carmcycle_sba')
+        fb.field('carmcycle_imb')
+        fb.br()
+        fb.field('commveic_dep')
+        fb.field('commveic_trans')
+        fb.field('commveic_sba')
+        fb.field('commveic_imb')
+        fb.br()
+        fb.field('car_imb',colspan=2, tag='textArea', width='36em')
+        fb.field('car_sba',colspan=2, tag='textArea', width='36em')
 
     @public_method
     def servicesLazyMode(self,pane):
@@ -202,7 +242,7 @@ class Form(BaseComponent):
         center = bc.roundedGroup(title='!![en]Vessel arrival', region='center',datapath='.record',width='210px', height = '100%').div(margin='10px',margin_left='2px')
         center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')
         center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
-        center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px', height = '50%', margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
+        center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px',margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]Times',table='shipsteps.arrival_time',region='center',datapath='.record.@time_arr',width='245px', height = '350px', margin_left='1385px').div(margin='10px',margin_left='2px')
 
         fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
@@ -233,7 +273,7 @@ class Form(BaseComponent):
         fb.field('departure_lp' , width='10em')
         fb.field('next_port',auxColumns='@nazione_code.nome' )
         fb.field('eta_np' , width='10em')
-        fb.br()
+        fb.field('voy_n', width='10')
         fb.field('mandatory', colspan=3 , width='47em')
         fb.field('cargo_dest', colspan=2, width='29em' )
         fb.br()
@@ -245,7 +285,7 @@ class Form(BaseComponent):
         fb.field('date_end')
         fb.field('n_gpg')
 
-        fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='10em',lblpos='T')
+        fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='18em',lblpos='T')
         fb.field('nsis_prot')
         fb.field('firma_div', tag='textArea')
 
@@ -316,7 +356,8 @@ class Form(BaseComponent):
 
     def arrival_details(self, bc):
         rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_details = bc.roundedGroup(title='!![en]Arrival/Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='550px', height = '100%').div(margin='10px',margin_left='2px')
+        rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
+        rg_details_dep = bc.roundedGroup(title='!![en]Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
         #rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
 
         fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
@@ -339,55 +380,63 @@ class Form(BaseComponent):
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb = div_draft.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
-        #fb = rg_details.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
-
-        #fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=3, border_spacing='4px',fld_width='10em',table='shipsteps.arrival_det',datapath='.record.@arr_details')
-        #fb.div('!![en]<strong>DRAFT</strong>')
-        fb.br()
+        fb = div_draft.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('draft_aft_arr',placeholder='e.g. 4,5')
         fb.field('draft_fw_arr',placeholder='e.g. 4,5')
-        fb.br()
+   
+        div_draft=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DRAFT</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_draft.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('draft_aft_dep',placeholder='e.g. 4,5')
         fb.field('draft_fw_dep',placeholder='e.g. 4,5')
-        fb.br()
+
         div_rem=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>REMAINS</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb = div_rem.formbuilder(cols=2, border_spacing='4px',fld_width='10em')
-
-        #fb.div('!![en]<strong>REMAINS</strong>')
-        fb.br()
+        fb = div_rem.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('ifo_arr',placeholder='e.g. mt.50')
-        fb.field('ifo_dep',placeholder='e.g. mt.50')
-
         fb.field('do_arr',placeholder='e.g. mt.50')
-        fb.field('do_dep',placeholder='e.g. mt.50')
-
         fb.field('lo_arr',placeholder='e.g. kgs.50')
+       
+        div_rem=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>REMAINS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_rem.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('ifo_dep',placeholder='e.g. mt.50')
+        fb.field('do_dep',placeholder='e.g. mt.50')
         fb.field('lo_dep',placeholder='e.g. kgs.50')
-        fb.br()
+
         div_fw=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb = div_fw.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
-        #fb.div('!![en]<strong>FRESH WATER</strong>')
-        fb.br()
+        fb = div_fw.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('fw_arr',placeholder='e.g. mt.50')
+ 
+        div_fw=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_fw.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('fw_dep',placeholder='e.g. mt.50')
-        fb.br()
+
         div_tug=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>USED TUGS</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb = div_tug.formbuilder(cols=3, border_spacing='4px',fld_width='10em')
-        #fb.div('!![en]<strong>USED TUGS</strong>')
-        fb.br()
+        fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('tug_in',placeholder='e.g. 1')
+     
+        div_tug=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>USED TUGS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('tug_out',placeholder='e.g. 1')
-
       # fb = rg_extra.formbuilder(cols=2, border_spacing='4px',fld_width='10em')
       # fb.radioButtonText(value='^.motivo_viaggio', values='op_com:Operazioni_Commerciali,altro:Altro', lbl='Motivo Viaggio: ',validate_notnull=True,width='20em')
       # fb.radioButtonText(value='^.tipo_viaggio', values='linea:Di_Linea,occ:Occasionale', lbl='Tipo Viaggio: ',validate_notnull=True, width='20em')
@@ -720,6 +769,7 @@ class Form(BaseComponent):
                              if(msgspec=='val_imm') {SET .email_frontiera=true; alert(msg_txt);}
                              if(msgspec=='val_dog') {SET .email_dogana=true ; alert(msg_txt);}
                              if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert(msg_txt);} if(msgspec=='no_email') {alert('You must insert destination email as TO or BCC');} if(msgspec=='no_sof') {alert('You must select the SOF or you must create new one');}
+                             if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') {alert('You must first print Nota Arrivo');} if(msg=='fal1_arr_no') {alert('You must first print Fal1 arrival');} if(msg=='fal1arr_notarr') {alert('You must first print Fal1 arrival and Nota Arrivo');}
                              if(msg=='mod_nave') {SET .checklist=true;}
                              if(msg=='front_carico') {SET .front_carico=true;}
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
@@ -790,10 +840,29 @@ class Form(BaseComponent):
                                                                                resource:'general_decl',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
+        btn_nota_arr=fb_extra.Button('Nota Arrivo',
+                                        action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
+                                                                               res_type:'print',
+                                                                               resource:'nota_arrivo',
+                                                                               pkey: pkey});""",
+                                                                               pkey='=#FORM.pkey')
+        btn_arrivo = fb_extra.Button('!![en]Email arrival', width='115px')
+        btn_arrivo.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',servizio=['capitaneria_nsw'], email_template_id='email_arrivo_cp',
+                            nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
+        fb_extra.br()
         btn_fal1_dep=fb_extra.Button('!![en]Fal1 Departure',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'general_decl_dep',
+                                                                               pkey: pkey});""",
+                                                                               pkey='=#FORM.pkey')
+        btn_nota_dep=fb_extra.Button('Dich.Intergr.Partenza',
+                                        action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
+                                                                               res_type:'print',
+                                                                               resource:'dichiarazione_partenza',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
         #fb_extra.dataController("""genro.publish("floating_message",{message:'prova'), messageType:"message"}""")
@@ -828,10 +897,17 @@ class Form(BaseComponent):
         pane.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker')
 
     @public_method
-    def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
+    def email_services(self, record,email_template_id=None,servizio=[],nome_temp=None,fal1_path=None,notacp_path=None,**kwargs):
+    #def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None,**kwargs):
     
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
+
+        #se il servizio è mod61_arr
+        if nome_temp == 'mod61_arr':
+            attcmt.append(fal1_path)
+            attcmt.append(notacp_path)
+
         #trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
         #ma verifichiamo se nei kwargs gli allegati ci sono per non ritrovarci la variabile lista_all senza assegnazione
        
@@ -994,6 +1070,8 @@ class Form(BaseComponent):
                 msg_special = 'ship_rec'
             elif email_template_id == 'not_rifiuti':
                 msg_special = 'val_adsp'
+            elif email_template_id == 'email_arrivo_cp':
+                msg_special = 'val_mod61arr'
             return msg_special
     
     @public_method
@@ -1272,7 +1350,7 @@ class Form(BaseComponent):
         return msg_special
 
     @public_method
-    def print_template(self, record, resultAttr=None, nome_template=None,  nome_vs=None, format_page=None, **kwargs):
+    def print_template(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[],  nome_vs=None, format_page=None, **kwargs):
         # Crea stampa
         
         tbl_arrival = self.db.table('shipsteps.arrival')
@@ -1280,35 +1358,77 @@ class Form(BaseComponent):
         #nome_template = nome_template #'shipsteps.arrival:check_list'
 
         nome_temp = nome_template.replace('shipsteps.arrival:','')
-        nome_file = '{cl_id}.pdf'.format(
+        if nome_template == 'shipsteps.arrival:mod61_arr':
+            nome_file = '{cl_id}.pdf'.format(
                     cl_id=nome_temp +'_' + nome_vs)
-
+        else:
+            nome_file = '{cl_id}.pdf'.format(
+                    cl_id=nome_temp)
         #nome_file_st = 'laboratorio_piazza_sta_{cl_id}.pdf'.format(
         #    cl_id=self.avatar.user_id)
         template = self.loadTemplate(nome_template)  # nome del template
         pdfpath = self.site.storageNode('home:stampe_template', nome_file)
-       # print(x)
+        
        #tbl_template=self.db.table('adm.htmltemplate')
        #letterhead = tbl_template.readColumns(columns='$id',
        #          where='$name=:tp_name', tp_name='A3_orizz')
         # (pdfpath.internal_path)
-        if kwargs:
-            letterhead=kwargs['letterhead_id']
-        else:
-            letterhead=''
+        #print(x)
+       #if kwargs:
+       #    letterhead=kwargs['letterhead_id']
+       #else:
+       #    letterhead=''
+        
+        #Verifichiamo nel caso stampa sia del mod61_arr se ci sono i file da allegare in cartella altrimenti ritorniamo con il msg di errore
+        if nome_temp == 'mod61_arr':
+            nome_fal1arr = 'Fal1_arr_' + nome_vs
+            nome_notarr = 'Nota_arrivo_' + nome_vs
+            fal1_path = self.site.site_path+'/stampe_template/'+nome_fal1arr+'.pdf'
+            notacp_path = self.site.site_path+'/stampe_template/'+nome_notarr+'.pdf'
+            if not os.path.isfile(fal1_path):
+                fal1_arrival = 'no'
+            else:
+                fal1_arrival = 'yes'    
+            if not os.path.isfile(notacp_path):
+                nota_arrivo = 'no'
+            else:
+                nota_arrivo = 'yes'
+           
+            if fal1_arrival == 'no' and nota_arrivo == 'no':
+                nome_temp = 'fal1arr_notarr'  
+                return nome_temp      
+            elif fal1_arrival=='no':
+                nome_temp = 'fal1_arr_no'
+                return nome_temp
+            elif nota_arrivo == 'no':
+                nome_temp='nota_arr_no'
+                return nome_temp
 
-        builder(record=record, template=template,letterhead_id=letterhead)
+        builder(record=record, template=template)#,letterhead_id=letterhead)
         if format_page=='A3':
             builder.page_format='A3'
             builder.page_width=427
             builder.page_height=290
 
         result = builder.writePdf(pdfpath=pdfpath)
-        #print(x)
+        
         self.setInClientData(path='gnr.clientprint',
                              value=result.url(timestamp=datetime.now()), fired=True)
+       #inseriamo nella tabella di attachment il mod61_arr 
+       #if nome_temp == 'mod61_arr':
+       #    tbl_arrival_atc = self.db.table('shipsteps.arrival_atc')
+       #    if not tbl_arrival_atc.checkDuplicate(maintable_id=record,description=nome_file):
+       #        
+       #        tbl_arrival_atc.addAttachment(maintable_id=record,
+       #                                     origin_filepath=pdfpath,
+       #                                     description=nome_file,
+       #                                     copyFile=True)
 
-        return nome_temp
+        #inviamo l'email se si tratta di mod61_arr e rispetta le condizioni dei file da allegare
+        if nome_temp == 'mod61_arr':
+            if  fal1_arrival == 'yes' and nota_arrivo == 'yes':
+                self.email_services(record,email_template_id,servizio, nome_temp,fal1_path,notacp_path, **kwargs)
+                return nome_temp
 
     @public_method
     def print_template_garbage(self, record, resultAttr=None,selId=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
@@ -1339,12 +1459,13 @@ class Form(BaseComponent):
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
         self.email_services(record,email_template_id,servizio, **kwargs)
-        #se ritorna il valore di self.msg_pecial dalla funzione sopra lanciata self.email_services
+        #se ritorna il valore di self.msg_special dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
         # il msg con il dataController
         msg_special='val_garbage'
         return msg_special
 
+    
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
    

@@ -144,10 +144,10 @@ class Main(TableScriptToHtml):
 
         col1.row(h_row).cell(car + '::HTML', font_weight='bold', lbl="Carico imbarcato - Tipo di carico – Merci pericolose / Cargo loaded – Type of cargo – Dangerous goods")
         col1.row(height=7).cell(self.parameter('car_deck'), font_weight='bold', lbl="Carico imbarcato sopra coperta - Tipo di carico / Cargo loaded  on Deck – Type of cargo")
-        cel_pass=col1.row(7).cell(self.field('@extradatacp.n_pax_dep'), font_weight='bold', lbl="Passeggieri a bordo – Passengers on board")
+        cel_pass=col1.row(7).cell(self.field('@extradatacp.pax_dep'), font_weight='bold', lbl="Passeggieri a bordo – Passengers on board")
         col_pass=cel_pass.row.cell().layout(name='col2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderLeft=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:2mm;font-size:8pt;',content_class='cellheader_p2')
-        col_pass.row(height=7).cell(self.parameter('pax_imb'), font_weight='bold', lbl='Passeggeri imbarcati – Passengers embarked')
+        col_pass.row(height=7).cell(self.field('@extradatacp.pax_imb'), font_weight='bold', lbl='Passeggeri imbarcati – Passengers embarked')
         cel_arr=col1.row(height=7).cell(self.field('ets'), font_weight='bold', lbl="Prevista partenza – Expected departure")
         col_arr=cel_arr.row.cell(width=140).layout(name='col2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderLeft=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:2mm;font-size:8pt;',width=140,content_class='cellheader_p2')
@@ -196,4 +196,6 @@ class Main(TableScriptToHtml):
 
 
     def outputDocName(self, ext=''):
-        return 'Dich_integrativa_partenza.{ext}'.format(ext=ext)
+        vessel = self.record['@vessel_details_id.@imbarcazione_id.nome']
+        return 'Dich_integrativa_partenza_{vessel}.{ext}'.format(vessel=vessel,ext=ext)
+        #return 'Dich_integrativa_partenza.{ext}'.format(ext=ext)

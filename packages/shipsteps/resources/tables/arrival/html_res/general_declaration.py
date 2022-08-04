@@ -179,6 +179,7 @@ class Main(TableScriptToHtml):
         firma.row(height=15).cell("(*) Solo all'arrivo<br>on arrival only::HTML", content_class='aligned_right')
         
     def outputDocName(self, ext=''):
-        return 'Fal1_arr.{ext}'.format(ext=ext)
+        vessel = self.record['@vessel_details_id.@imbarcazione_id.nome']
+        return 'Fal1_arr_{vessel}.{ext}'.format(vessel=vessel,ext=ext)
 
        
