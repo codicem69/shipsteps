@@ -90,6 +90,10 @@ class Table(object):
                                                 columns='$consignee',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='capitaneria'),
                                                 dtype='T')
+        tbl.formulaColumn('cp_intnsw',select=dict(table='shipsteps.email_services',
+                                                columns='$consignee',
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='capitaneria_nsw'),
+                                                dtype='T')
         tbl.formulaColumn('dog_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='dogana'),

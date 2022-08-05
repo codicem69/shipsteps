@@ -770,6 +770,7 @@ class Form(BaseComponent):
                              if(msgspec=='val_dog') {SET .email_dogana=true ; alert(msg_txt);}
                              if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert(msg_txt);} if(msgspec=='no_email') {alert('You must insert destination email as TO or BCC');} if(msgspec=='no_sof') {alert('You must select the SOF or you must create new one');}
                              if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') {alert('You must first print Nota Arrivo');} if(msg=='fal1_arr_no') {alert('You must first print Fal1 arrival');} if(msg=='fal1arr_notarr') {alert('You must first print Fal1 arrival and Nota Arrivo');}
+                             if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') {alert('You must first print Dich. integrativa di partenza');} if(msg=='fal1_dep_no') {alert('You must first print Fal1 departure');} if(msg=='fal1dep_notapart') {alert('You must first print Fal1 departure and Dich. integrativa di partenza');} if(msg=='no_sailed') {alert('You must first insert ets date and time');}
                              if(msg=='mod_nave') {SET .checklist=true;}
                              if(msg=='front_carico') {SET .front_carico=true;}
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
@@ -865,6 +866,12 @@ class Form(BaseComponent):
                                                                                resource:'dichiarazione_partenza',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
+        btn_departure = fb_extra.Button('!![en]Email Departure', width='115px')
+        btn_departure.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',servizio=['capitaneria_nsw'], email_template_id='email_partenza_cp',
+                            nome_template = 'shipsteps.arrival:mod61_dep',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
         #fb_extra.dataController("""genro.publish("floating_message",{message:'prova'), messageType:"message"}""")
        #genro.publish("floating_message",{message:"Email ready to be sent", messageType:"message"});
     
@@ -897,17 +904,26 @@ class Form(BaseComponent):
         pane.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker')
 
     @public_method
-    def email_services(self, record,email_template_id=None,servizio=[],nome_temp=None,fal1_path=None,notacp_path=None,**kwargs):
+    def email_services(self,record,email_template_id=None,servizio=[],nome_temp=None,**kwargs):
     #def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None,**kwargs):
     
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
-
-        #se il servizio è mod61_arr
+        
+        #se il servizio è mod61_arr appendiamo agli attachments il fal1_arr e la nota_arrivo e il mod61
         if nome_temp == 'mod61_arr':
-            attcmt.append(fal1_path)
-            attcmt.append(notacp_path)
-
+            attcmt.append(self.fal1_path)
+            attcmt.append(self.notacp_path)
+            file_path_mod61 = 'site:stampe_template/mod61_arr_'+self.vessel_name+'.pdf'
+            fileSn_mod61 = self.site.storageNode(file_path_mod61)
+            attcmt.append(fileSn_mod61.internal_path)
+        #se il servizio è mod61_dep appendiamo agli attachments il fal1_dep e la dichiarazione integrativa di partenza e il mod61
+        if nome_temp == 'mod61_dep':
+            attcmt.append(self.fal1_path)
+            attcmt.append(self.notacp_path)
+            file_path_mod61 = 'site:stampe_template/mod61_dep_'+self.vessel_name+'.pdf'
+            fileSn_mod61 = self.site.storageNode(file_path_mod61)
+            attcmt.append(fileSn_mod61.internal_path)
         #trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
         #ma verifichiamo se nei kwargs gli allegati ci sono per non ritrovarci la variabile lista_all senza assegnazione
        
@@ -1072,6 +1088,8 @@ class Form(BaseComponent):
                 msg_special = 'val_adsp'
             elif email_template_id == 'email_arrivo_cp':
                 msg_special = 'val_mod61arr'
+            elif email_template_id == 'email_partenza_cp':
+                msg_special = 'val_mod61dep'
             return msg_special
     
     @public_method
@@ -1352,13 +1370,13 @@ class Form(BaseComponent):
     @public_method
     def print_template(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[],  nome_vs=None, format_page=None, **kwargs):
         # Crea stampa
-        
+        self.vessel_name = nome_vs
         tbl_arrival = self.db.table('shipsteps.arrival')
         builder = TableTemplateToHtml(table=tbl_arrival)
         #nome_template = nome_template #'shipsteps.arrival:check_list'
 
         nome_temp = nome_template.replace('shipsteps.arrival:','')
-        if nome_template == 'shipsteps.arrival:mod61_arr':
+        if nome_template == 'shipsteps.arrival:mod61_arr' or nome_template == 'shipsteps.arrival:mod61_dep':
             nome_file = '{cl_id}.pdf'.format(
                     cl_id=nome_temp +'_' + nome_vs)
         else:
@@ -1383,13 +1401,13 @@ class Form(BaseComponent):
         if nome_temp == 'mod61_arr':
             nome_fal1arr = 'Fal1_arr_' + nome_vs
             nome_notarr = 'Nota_arrivo_' + nome_vs
-            fal1_path = self.site.site_path+'/stampe_template/'+nome_fal1arr+'.pdf'
-            notacp_path = self.site.site_path+'/stampe_template/'+nome_notarr+'.pdf'
-            if not os.path.isfile(fal1_path):
+            self.fal1_path = self.site.site_path+'/stampe_template/'+nome_fal1arr+'.pdf'
+            self.notacp_path = self.site.site_path+'/stampe_template/'+nome_notarr+'.pdf'
+            if not os.path.isfile(self.fal1_path):
                 fal1_arrival = 'no'
             else:
                 fal1_arrival = 'yes'    
-            if not os.path.isfile(notacp_path):
+            if not os.path.isfile(self.notacp_path):
                 nota_arrivo = 'no'
             else:
                 nota_arrivo = 'yes'
@@ -1402,6 +1420,34 @@ class Form(BaseComponent):
                 return nome_temp
             elif nota_arrivo == 'no':
                 nome_temp='nota_arr_no'
+                return nome_temp
+        
+        if nome_temp == 'mod61_dep':
+            sailed= self.db.table('shipsteps.arrival').readColumns(columns="$ets", where='$id=:a_id',a_id=record)
+            if sailed is None:
+                nome_temp = 'no_sailed'
+                return nome_temp
+            nome_fal1dep = 'Fal1_dep_' + nome_vs
+            nome_notdep = 'Dich_integrativa_partenza_' + nome_vs
+            self.fal1_path = self.site.site_path+'/stampe_template/'+nome_fal1dep+'.pdf'
+            self.notacp_path = self.site.site_path+'/stampe_template/'+nome_notdep+'.pdf'
+            if not os.path.isfile(self.fal1_path):
+                fal1_departure = 'no'
+            else:
+                fal1_departure = 'yes'    
+            if not os.path.isfile(self.notacp_path):
+                nota_partenza = 'no'
+            else:
+                nota_partenza = 'yes'
+           
+            if fal1_departure == 'no' and nota_partenza == 'no':
+                nome_temp = 'fal1dep_notapart'  
+                return nome_temp      
+            elif fal1_departure=='no':
+                nome_temp = 'fal1_dep_no'
+                return nome_temp
+            elif nota_partenza == 'no':
+                nome_temp='nota_part_no'
                 return nome_temp
 
         builder(record=record, template=template)#,letterhead_id=letterhead)
@@ -1427,7 +1473,12 @@ class Form(BaseComponent):
         #inviamo l'email se si tratta di mod61_arr e rispetta le condizioni dei file da allegare
         if nome_temp == 'mod61_arr':
             if  fal1_arrival == 'yes' and nota_arrivo == 'yes':
-                self.email_services(record,email_template_id,servizio, nome_temp,fal1_path,notacp_path, **kwargs)
+                self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
+                return nome_temp
+        #inviamo l'email se si tratta di mod61_dep e rispetta le condizioni dei file da allegare
+        if nome_temp == 'mod61_dep':
+            if  fal1_departure == 'yes' and nota_partenza == 'yes':
+                self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
                 return nome_temp
 
     @public_method

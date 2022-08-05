@@ -55,9 +55,9 @@ class Main(TableScriptToHtml):
         layout.row(height=15).cell("""<img src="http://127.0.0.1:8082/_storage/site/image/LogoCP.jpg" style="width: 84px; height: 71px;::HTML""",content_class="center")
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong> </strong></div>::HTML")
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong><u>CAPITANERIA DI PORTO DI "+porto.upper()+"</u></strong></div>::HTML")
-        layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong>ALTRE INFORMAZIONI AD USO DELL’AUTORITÀ MARITTIMA</strong></div>::HTML")
-        layout.row(height=3).cell("<div style='font-size:6pt;padding:1px;text-align: center'><strong>Other information for Maritime Authority</strong></div>::HTML")
-        layout.row(height=7).cell("<div style='font-size:8pt;padding:1px;text-align: center'>SPAZIO RISERVATO ALL’UFFICIO – PRATICA DI ARRIVO<br>Reserved to Office – Arrival</div>::HTML").layout(name='col1', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,hasBorderRight=True,
+        layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong>DICHIARAZIONE INTEGRATIVA DI PARTENZA</strong></div>::HTML")
+        layout.row(height=3).cell("<div style='font-size:6pt;padding:1px;text-align: center'><strong>Additional Declaration of Departure</strong></div>::HTML")
+        layout.row(height=7).cell("<div style='font-size:8pt;padding:1px;text-align: center'>SPAZIO RISERVATO ALL’UFFICIO – PRATICA DI PARTENZA<br>Reserved to Office – Departure</div>::HTML").layout(name='col1', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,hasBorderRight=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
         dati_gd1 = layout.row(height=36,lbl_height=2, lbl_class='smallCaption')
         dati_gd2 = layout.row(height=6,lbl_height=2, lbl_class='smallCaption')
@@ -88,16 +88,15 @@ class Main(TableScriptToHtml):
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;font-size:8pt;',content_class='celldata')
         col2 =  row.cell().layout(name='col2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:4mm;font-size:8pt;',content_class='celldata')
-        reg_arr = """Ricevuta il______________<br>Alle ore________________<br>N________registro ARRIVI<br><br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;___________________________
+        reg_arr = """Ricevuta il______________<br>Alle ore________________<br>N________registro PARTENZE<br>N________registro ARRIVI<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;___________________________
         <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&ensp;(timbro e firma dell’ Autorità marittima) ::HTML"""
 
         col1.row(height=35).cell(reg_arr, lbl='')
-        cel_port=col2.row(height=5).cell("TRIBUTI SPECIALI PAGATI:", lbl='')
+        cel_port=col2.row(height=10).cell("(ART.179 CODICE DELLA NAVIGAZIONE)<br>(ART.179 CODE OF NAVIGATION)::HTML", lbl='')
 
-        tributi = """- Euro 5,17&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Attestazione N.__________<br>- Euro 31,00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                    del___________________<br>- Euro 62,00<br>- Euro 124,00<br><br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;___________________________
+        tributi = """<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(Eventuale) Rivisto Partire <br><br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;___________________________
         <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&ensp;(timbro e firma dell’ Autorità marittima)""" + '::HTML'
-        col2.row(height=30).cell(tributi, lbl="")
+        col2.row(height=25).cell(tributi, lbl="")
 
 
     def datiGeneral2(self, row):
@@ -140,7 +139,7 @@ class Main(TableScriptToHtml):
                                     vertical_align= 'middle',lbl_height=3, style='line-height:3mm;font-size:8pt;',content_class='cellheader')
         owner=str(self.field('@vessel_details_id.@owner_id.own_name')) + ' - ' + str(self.field('@vessel_details_id.@owner_id.address_own')) + '::HTML'
         col1.row(height=7).cell(owner, font_weight='bold', lbl="Nome armatore - Nazionalità e indirizzo / Ship Owner  – Nationality and address")
-        col1.row(height=7).cell(car + '::HTML', font_weight='bold', lbl="Carico imbarcato - Tipo di carico – Merci pericolose / Cargo loaded – Type of cargo – Dangerous goods")
+        col1.row(height=7).cell(self.field('cargo_onboard_dep') + '::HTML', font_weight='bold', lbl="Carico a bordo - Tipo di carico – Merci pericolose / Cargo on board – Type of cargo – Dangerous goods")
 
         col1.row(h_row).cell(car + '::HTML', font_weight='bold', lbl="Carico imbarcato - Tipo di carico – Merci pericolose / Cargo loaded – Type of cargo – Dangerous goods")
         col1.row(height=7).cell(self.parameter('car_deck'), font_weight='bold', lbl="Carico imbarcato sopra coperta - Tipo di carico / Cargo loaded  on Deck – Type of cargo")
