@@ -48,6 +48,7 @@ class Table(object):
         tbl.column('extra_transit_cargo', name_short='!![en]Extra descr. Transit Cargo')
         tbl.column('nsis_prot', name_short='Nsis prot.')
         tbl.column('firma_div', name_short='!![en]Different signature agency')
+        tbl.column('acqua', name_short='!![en]Water supply qt.')
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
         tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
@@ -55,6 +56,7 @@ class Table(object):
         
         tbl.pyColumn('saluto',name_long='!![en]Greeting', static=True)
         tbl.pyColumn('datacorrente',name_long='!![en]Current date', static=True)
+        tbl.pyColumn('sostanave',name_long='!![en]Sosta nave', static=True)
        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('n_tug_arr','@extradatacp.n_tug_arr')
         tbl.aliasColumn('n_tug_dep','@extradatacp.n_tug_dep')
@@ -336,6 +338,22 @@ class Table(object):
         data_lavoro=self.db.workdate
         
         return data_lavoro
+
+    def pyColumn_sostanave(self,record,field):
+        pkey=record['id']
+        moored = self.db.table('shipsteps.arrival_time').readColumns(columns='$moored', where='$arrival_id=:a_id', a_id=pkey)
+        if moored is None:
+            return 'no moored time'
+
+        ets = record['ets']
+        tempo_trascorso = ets - moored
+        days=divmod(tempo_trascorso.total_seconds(), 86400)[0]
+        hours=divmod(tempo_trascorso.total_seconds(), 3600)[0]
+        minutes=divmod(tempo_trascorso.total_seconds(), 60)[0]
+        tot_hours = hours-(days*24)
+        remain_minutes=((minutes*60)-((days*86400)+(tot_hours*3600)))/60
+        sosta=str(days) + ' giorni, ' + str(tot_hours) + ' ore, ' + str(remain_minutes) + ' minuti'
+        return sosta    
 
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),date = self.db.workdate)

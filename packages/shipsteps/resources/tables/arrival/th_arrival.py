@@ -8,6 +8,7 @@ from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
 from gnr.core.gnrlang import GnrException
 import os.path
+from gnr.core.gnrbag import Bag
 
 class View(BaseComponent):
 
@@ -344,6 +345,7 @@ class Form(BaseComponent):
     @public_method
     def charterersLazyMode(self,pane):
         pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True,view_store__onBuilt=True)
+        #pane.stackTableHandler(table='shipsteps.charterers', formResource='Form',view_store_onStart=True,view_store__onBuilt=True)
     def charterers(self,pane):
         pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True)
 
@@ -474,21 +476,9 @@ class Form(BaseComponent):
 
     def taskList(self, bc_tasklist):
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='550px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_arrival = bc_tasklist.roundedGroup(title='!![en]Arrival/Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='520px', height = 'auto').div(margin='10px',margin_left='2px')
-        #rg_departure = bc_tasklist.roundedGroup(title='!![en]Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='340px', height = 'auto',margin_left='350px').div(margin='10px',margin_left='2px')
-        #rg_prearrival_cp = bc_task.roundedGroup(title='!![en]Pre arrival CP',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='670px', height = 'auto',margin_top='290px').div(margin='10px',margin_left='2px')
-        #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='auto', height = 'auto').div(margin='10px',margin_left='2px')
-       #tbl_staff =  self.db.table('shipsteps.staff')
-       #account_email = tbl_staff.readColumns(columns='$email_account_id',
-       #          where='$agency_id=:ag_id',
-       #            ag_id=self.db.currentEnv.get('current_agency_id'))
-       #tbl_agency =  self.db.table('shipsteps.agency')
-       #account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
-       #          where='$id=:ag_id',
-       #            ag_id=self.db.currentEnv.get('current_agency_id'))
-        #,fld_width='10em')
-        #fb.field('arrival_id')
-
+        rg_arrival = bc_tasklist.roundedGroup(title='!![en]Arrival/Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='520px', height = '100%', margin_left='550px').div(margin='10px',margin_left='2px')
+        rg_extra = bc_tasklist.roundedGroup(title='!![en]Extra',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='520px', height = '100%', margin_left='520px').div(margin='10px',margin_left='2px')
+       
         #definizione primo rettangolo di stampa all'interno del roundedGroup Pre Arrival
         div1=rg_prearrival.div(width='99%',height='20%',margin='auto',
                         padding='2px',
@@ -771,6 +761,7 @@ class Form(BaseComponent):
                              if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert(msg_txt);} if(msgspec=='no_email') {alert('You must insert destination email as TO or BCC');} if(msgspec=='no_sof') {alert('You must select the SOF or you must create new one');}
                              if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') {alert('You must first print Nota Arrivo');} if(msg=='fal1_arr_no') {alert('You must first print Fal1 arrival');} if(msg=='fal1arr_notarr') {alert('You must first print Fal1 arrival and Nota Arrivo');}
                              if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') {alert('You must first print Dich. integrativa di partenza');} if(msg=='fal1_dep_no') {alert('You must first print Fal1 departure');} if(msg=='fal1dep_notapart') {alert('You must first print Fal1 departure and Dich. integrativa di partenza');} if(msg=='no_sailed') {alert('You must first insert ets date and time');}
+                             if(msg=='intfat') genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});
                              if(msg=='mod_nave') {SET .checklist=true;}
                              if(msg=='front_carico') {SET .front_carico=true;}
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
@@ -778,9 +769,8 @@ class Form(BaseComponent):
                              if(msg=='front_nave') {SET .frontespizio=true;}
                              if(msg=='check_list') {SET .checklist=true;}""",msgspec='^msg_special', msg='^nome_temp',msg_txt = 'Email ready to be sent')
 
-
-
-
+        #if(msg=='intfat') {alert(msg_txt);} if(msg=='no_int'){genro.publish('floating_message',{message:"manca l'intestazione: inseriscila",messageType:'error',duration_out:6});}
+        #if(msg=='ws') {alert(msg_txt);}
         div_arr=rg_arrival.div('<center><strong>ARRIVAL</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
@@ -874,7 +864,47 @@ class Form(BaseComponent):
                              cols=4,popup=True,colspan=2)]))
         #fb_extra.dataController("""genro.publish("floating_message",{message:'prova'), messageType:"message"}""")
        #genro.publish("floating_message",{message:"Email ready to be sent", messageType:"message"});
+
+        div_extra=rg_extra.div('<center><strong>EXTRA</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb_extra=div_extra.formbuilder(colspan=2,cols=4, border_spacing='1px')
+        #btn_intfat = fb_extra.Button('!![en]Intestazione Fatt', width='115px')
+        #btn_intfat.dataRpc('nome_temp', self.email_intfat,record='=#FORM.record',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
+
+        dlg = rg_extra.dialog(nodeId='mydialog',style='width:600px;height:150px;',title='Intestazione fattura',closable=True)
+        dlg.span('Intestazione fatt: ')
+        
+        dlg.span().simpleTextArea(value='^intfat', width='40em', height='50px')
+        dlg.hr()
+        btn_dlg=dlg.button('Visualizza Intestazione')
+        btn_dlg1=dlg.button('Email Intestazione fattura')
+        
+        btn_dlg1.dataRpc('nome_temp', self.email_intfat,record='=#FORM.record',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
+        fb_extra.button('Intestazione Fatt', action="genro.wdgById('mydialog').show()")
+        btn_dlg.dataRpc('intfat',self.intfat,record='=#FORM.record')
+        
+        dlgws = rg_extra.dialog(nodeId='dialog_ws',style='width:300px;height:100px;',title='Water supply',closable=True)
+        dlgws.span('Quantity mt.: ')
+        dlgws.span().textbox(value='^.acqua',table='shipsteps.arrival', columns='$acqua', width='10em')
+        dlgws.hr()
+        btn_dlgws=dlgws.button('Email request ws')
+        btn_dlgws.dataRpc('nome_temp', self.email_ws,record='=#FORM.record',servizio=['ws'], email_template_id='email_water_supply',
+                            nome_template = 'shipsteps.arrival:water_supply',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            _onResult="""if(result=='no_int'){genro.publish('floating_message',{message:"manca l'intestazione: inseriscila",messageType:'error',duration_out:6});}
+                                         if(result=='ws')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")#this.form.save();
+                                         #this.form.reload()""")
+        fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()")
     
+    @public_method
+    def intfat(self,record, **kwargs):  
+        intfat_id = record['invoice_det_id']
+        tbl_invoice = self.db.table('shipsteps.invoice_det')
+        int_fat = tbl_invoice.readColumns(columns="""$rag_sociale ||' '|| coalesce($address, '') ||' '|| coalesce($cap,'') ||' '|| coalesce($city,'') || coalesce(' Vat: ' || $vat,'') || 
+                                     coalesce(' unique code: ' || $cod_univoco,'') || coalesce(' pec: ' || $pec,'') AS rag_soc""", where='$id=:id_inv',id_inv=intfat_id)
+        return int_fat
+
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
 
@@ -926,11 +956,17 @@ class Form(BaseComponent):
             attcmt.append(fileSn_mod61.internal_path)
         #trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
         #ma verifichiamo se nei kwargs gli allegati ci sono per non ritrovarci la variabile lista_all senza assegnazione
-       
-        if kwargs['allegati']:
-            lista_all=list(kwargs['allegati'].split(","))
-        else:
-            lista_all=None
+        
+        for chiavi in kwargs.keys():
+            if chiavi=='allegati':
+                if kwargs['allegati']:
+                    lista_all=list(kwargs['allegati'].split(","))
+                else:
+                    lista_all=None
+       #if kwargs['allegati']:
+       #    lista_all=list(kwargs['allegati'].split(","))
+       #else:
+       #    lista_all=None
         
         #lettura degli attachment
         if lista_all:
@@ -1090,6 +1126,8 @@ class Form(BaseComponent):
                 msg_special = 'val_mod61arr'
             elif email_template_id == 'email_partenza_cp':
                 msg_special = 'val_mod61dep'
+            elif email_template_id == 'email_water_supply':
+                msg_special = 'val_ws'
             return msg_special
     
     @public_method
@@ -1234,6 +1272,171 @@ class Form(BaseComponent):
             msg_special='val_upd'
             return msg_special
        # print(x)
+
+    @public_method
+    def email_intfat(self, record, **kwargs):
+        
+        if not record:
+            return
+        #lettura del record_id della tabella arrival
+        record_id=record['id']
+        vessel_type = record['@vessel_details_id.@imbarcazione_id.tipo']
+        vessel_name = record['@vessel_details_id.@imbarcazione_id.nome']
+        intfat_id = record['invoice_det_id']
+        tbl_invoice = self.db.table('shipsteps.invoice_det')
+        int_fat = tbl_invoice.readColumns(columns="""$rag_sociale ||' '|| coalesce($address, '') ||' '|| coalesce($cap,'') ||' '|| coalesce($city,'') || coalesce(' Vat: ' || $vat,'') || 
+                                     coalesce(' unique code: ' || $cod_univoco,'') || coalesce(' pec: ' || $pec,'') AS rag_soc""", where='$id=:id_inv',id_inv=intfat_id)
+        #rag_soc,indirizzo,cap,citta,vat,cf,cod_un,pec = tbl_invoice.readColumns(columns='$rag_sociale,$address,$cap,$city,$vat,$cf,$cod_univoco,$pec', where='$id=:id_inv',id_inv=intfat_id)
+        if int_fat == [None, None, None, None, None, None, None]:
+            nome_temp='no_int'
+            return nome_temp
+        
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('shipsteps.staff')
+        account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('shipsteps.agency')
+        agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        
+        
+        now = datetime.now()
+        cur_time = now.strftime("%H:%M:%S")    
+        if cur_time < '13:00:00':
+            sal='Buongiorno,'  
+        elif cur_time < '17:00:00':
+            sal='Buon pomeriggio'
+        elif cur_time < '24:00:00':
+            sal = 'Buonasera,' 
+        elif cur_time < '04:00:00':
+            sal = 'Buona notte,'      
+       
+        subject='Intestazione fatture '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
+        #body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
+        body_footer= 'Cordiali saluti<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
+        
+        body_msg=("""<span style="font-family:courier new,courier,monospace;">""" + sal + '<br>' + "con la presente siamo a girarVi intestazione fatture per " +vessel_type + ' ' + vessel_name + " :" + '<br><br>' +
+                        int_fat + '<br><br>')
+        body_html=(body_msg + body_footer )
+        #print(x)
+        
+        self.db.table('email.message').newMessage(account_id=account_email,
+                           to_address='',
+                           from_address=email_mittente,
+                           subject=subject, body=body_html, 
+                           cc_address='',
+                           html=True)
+        self.db.commit()
+        
+        msg_special='intfat'
+        return msg_special
+
+    @public_method
+    def email_ws(self, record, **kwargs):
+        result = Bag()
+        if not record:
+            return
+        #lettura del record_id della tabella arrival
+        record_id=record['id']
+        vessel_type = record['@vessel_details_id.@imbarcazione_id.tipo']
+        vessel_name = record['@vessel_details_id.@imbarcazione_id.nome']
+        intfat_id = record['invoice_det_id']
+        qt_ws = record['@arr_tasklist.acqua']
+        tbl_invoice = self.db.table('shipsteps.invoice_det')
+        int_fat = tbl_invoice.readColumns(columns="""$rag_sociale ||' '|| coalesce($address, '') ||' '|| coalesce($cap,'') ||' '|| coalesce($city,'') || coalesce(' Vat: ' || $vat,'') || 
+                                     coalesce(' unique code: ' || $cod_univoco,'') || coalesce(' pec: ' || $pec,'') AS rag_soc""", where='$id=:id_inv',id_inv=intfat_id)
+        #rag_soc,indirizzo,cap,citta,vat,cf,cod_un,pec = tbl_invoice.readColumns(columns='$rag_sociale,$address,$cap,$city,$vat,$cf,$cod_univoco,$pec', where='$id=:id_inv',id_inv=intfat_id)
+        if int_fat == [None, None, None, None, None, None, None]:
+            nome_temp='no_int'
+            result['int'] = 'no'
+           
+            return nome_temp
+        
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('shipsteps.staff')
+        account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('shipsteps.agency')
+        agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        #preleviamo dai kwargs i servizi per gli aggiornamenti
+        servizio=kwargs['servizio']
+        #trasformiamo la stringa services in una lista
+        #servizio=list(services.split(","))
+        #troviamo la lunghezza della variabile servizio
+        #print(x)
+        ln_serv=len(servizio)
+        #assegnamo le varibili liste per inserire successivamente i risultati della ricerca sulla tabella email_services
+        destinatario,destinatario_pec,email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d=[],[],[],[],[],[],[]
+        #definiamo la variabile contentente la tabella email_services
+        tbl_email_services=self.db.table('shipsteps.email_services')
+        #con il ciclo for ad ogni passaggio otteniamo il nome del servizio che passeremo alla query e i risultati saranno appesi alle liste
+        for e in range(ln_serv):
+            serv=servizio[e]
+
+            dest,email_dest, email_cc_dest,email_bcc_dest = tbl_email_services.readColumns(columns="""$consignee,$email,$email_cc,$email_bcc""",
+                                                    where="$service_for_email_id=:serv AND $agency_id=:ag_id", serv=serv,
+                                                    ag_id=self.db.currentEnv.get('current_agency_id'))
+            dest_pec,email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$consignee,$email_pec,$email_cc_pec""",
+                                                    where='$service_for_email_id=:serv AND $agency_id=:ag_id AND $email_pec IS NOT NULL', serv=serv,
+                                                    ag_id=self.db.currentEnv.get('current_agency_id'))
+            if dest is not None and dest !='':
+                destinatario.append('a: ' + dest)
+            if dest_pec is not None and dest_pec !='':
+                destinatario_pec.append('a: ' + dest_pec)
+            if email_dest is not None and email_dest !='':
+                email_d.append(email_dest)
+            if email_cc_dest is not None and email_cc_dest != '':
+                email_cc_d.append(email_cc_dest)
+            if email_bcc_dest is not None and email_bcc_dest != '':    
+                email_bcc_d.append(email_bcc_dest)
+            if email_pec_dest is not None and email_pec_dest != '':
+                email_pec_d.append(email_pec_dest)
+            if email_pec_cc_dest is not None and email_pec_cc_dest !='':
+                email_pec_cc_d.append(email_pec_cc_dest)
+        #trasformiamo le liste in stringhe assegnandole alle relative variabili
+        consignee='<br>'.join([str(item) for item in destinatario])
+        consignee_pec='<br>'.join([str(item) for item in destinatario_pec])
+        email_to = ','.join([str(item) for item in email_d])
+        email_cc = ','.join([str(item) for item in email_cc_d])
+        email_bcc = ','.join([str(item) for item in email_bcc_d])
+        email_pec = ','.join([str(item) for item in email_pec_d])
+        email_pec_cc = ','.join([str(item) for item in email_pec_cc_d])
+        
+        now = datetime.now()
+        cur_time = now.strftime("%H:%M:%S")    
+        if cur_time < '13:00:00':
+            sal='Buongiorno,'  
+        elif cur_time < '17:00:00':
+            sal='Buon pomeriggio'
+        elif cur_time < '24:00:00':
+            sal = 'Buonasera,' 
+        elif cur_time < '04:00:00':
+            sal = 'Buona notte,'      
+        
+        subject='Richiesta fornitura acqua '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
+        #body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
+        body_footer= 'Cordiali saluti<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
+        
+        body_msg=("""<span style="font-family:courier new,courier,monospace;">""" + sal + '<br>' + "con la presente siamo a richiederVi fornitura di tonn."+qt_ws +" di acqua poatbile per " +vessel_type + ' ' + vessel_name + " :" + '<br><br>' +
+                       'Potete fatturare a:<br>' + int_fat + '<br><br> e inviare a:<br>' + agency_name + '<br><br>')
+        body_html=(body_msg + body_footer )
+        #print(x)
+        
+        self.db.table('email.message').newMessage(account_id=account_email,
+                           to_address=email_to,
+                           from_address=email_mittente,
+                           subject=subject, body=body_html, 
+                           cc_address=email_cc,
+                           html=True)
+        self.db.commit()
+        
+        msg_special='ws'
+        return msg_special
 
     @public_method
     def email_arrival_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
