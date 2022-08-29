@@ -1,0 +1,37 @@
+class Table(object):
+    def config_db(self,pkg):
+        tbl=pkg.table('certsanimare', pkey='id', name_long='!![en]Renew certificate Sanimare', 
+                        name_plural='!![en]Renew certificates Sanimare',caption_field='id', partition_agency_id='agency_id')
+        self.sysFields(tbl)
+
+        tbl.column('arrival_id',size='22', name_long='arrival_id'
+                    ).relation('arrival.id', relation_name='certusma_arr', mode='foreignkey', onDelete='cascade')
+        tbl.column('xconto', name_short='!![en]On behalf')
+        tbl.column('docagent', name_short='!![en]Agent document')
+        tbl.column('doc_n', name_short='!![en]Doc. no.')
+        tbl.column('issuedby', name_short='!![en]Issued by')
+        tbl.column('datedoc', dtype='D', name_short='!![en]Issued date')
+        tbl.column('navigation', name_short='!![en]Type of navigation')
+        tbl.column('sanification', dtype='B', name_short='!![en]Sanification')
+        tbl.column('san_nsis', name_short='!![en]Sanification nsis code')
+        tbl.column('medicines', dtype='B', name_short='!![en]Medicines box')
+        tbl.column('tab_medicine', name_short='!![en]Medicine table')
+        tbl.column('med_nsis', name_short='!![en]Medicines nsis code')
+        tbl.column('waterbox', dtype='B', name_short='!![en]Water boxes')
+        tbl.column('water_nsis', name_short='!![en]Water boxes nsis code')
+        tbl.column('reg_narcotics', dtype='B', name_short='!![en]Narcotics register')
+        tbl.column('narcotics_nsis', name_short='!![en]Narcotics nsis code')
+        tbl.column('newreg_narcotics', dtype='B', name_short='!![en]Issue Narcotics register')
+        tbl.column('newnarcotics_nsis', name_short='!![en]Issue Narcotics reg nsis code')
+        tbl.column('destroy_med', dtype='B', name_short='!![en]Destroy medicines')
+        tbl.column('destroymed_nsis', name_short='!![en]Destroy medicines nsis code')
+        tbl.column('visit_date', dtype='D', name_short='!![en]Visit date')
+        tbl.column('date', dtype='D', name_short='!![en]Application date')
+        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+
+        tbl.formulaColumn('sanification_x',"""CASE WHEN $sanification = 'true' THEN 'X' ELSE '' END""")
+        tbl.formulaColumn('medicines_x',"""CASE WHEN $medicines = 'true' THEN 'X' ELSE '' END""")
+        tbl.formulaColumn('waterbox_x',"""CASE WHEN $waterbox = 'true' THEN 'X' ELSE '' END""")
+        tbl.formulaColumn('reg_narcotics_x',"""CASE WHEN $reg_narcotics = 'true' THEN 'X' ELSE '' END""")
+        tbl.formulaColumn('newreg_narcotics_x',"""CASE WHEN $newreg_narcotics = 'true' THEN 'X' ELSE '' END""")
+        tbl.formulaColumn('destroy_med_x',"""CASE WHEN $destroy_med = 'true' THEN 'X' ELSE '' END""")

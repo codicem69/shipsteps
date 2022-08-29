@@ -30,6 +30,7 @@ class Menu(object):
         shipsteps.thpage(u"!![en]Shorepass righe", table="shipsteps.shorepass_righe", tags="")
         shipsteps.thpage(u"!![en]Vessel services", table="shipsteps.vessel_services", tags="")
         shipsteps.thpage(u"!![en]ExtradataCP", table="shipsteps.extradaticp", tags="")
+        shipsteps.thpage(u"!![en]Certificati sanimare", table="shipsteps.certsanimare", tags="")
         shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
         ultimi_arrivi = shipsteps.branch('!!Ultimi arrivi')
         self.ultimi_arr(ultimi_arrivi)

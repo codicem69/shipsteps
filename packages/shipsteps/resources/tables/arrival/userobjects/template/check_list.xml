@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-01-19T17:38:43.357950+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-01-19T17:55:01.955642+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-08-26T10:28:28.419997+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatecheck_list</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">check_list</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Check list</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;pre&gt;
-&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:12px;"&gt;Check list Arrivo Nave - $vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;
+&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:12px;"&gt;    Check list Arrivo Nave - $vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;
 &lt;span style="font-family: arial, helvetica, sans-serif;"&gt;    RICHIEDERE VISIT ID (la richiesta pu&amp;ograve; essere inoltrata fino ad un massimo di 10 giorni antecedenti l&amp;#39; ETA)
     Farsi Inviare dati nave, Assicurazione inquinamento idrocarburi (da GT 1000) e assicurazione crediti marittimi (da GT 300)
     Inviare documenti pre-arrival e eventuali documenti per istanza sbarco rinfusa alla nave
@@ -38,7 +38,7 @@
     Ritirare in Capitaneria Autorizzazione sbarco/imbarco Rinfusa
     Inviare Richiesta Mantenimento Rifiuti a Bordo con allegato Garbage form (dopo ormeggio o prima dell&amp;#39;ormeggio in caso di sosta breve)
     Fare aggiornamenti arrivo nave in Capitaneria (Port Notification) e altri enti.
-&lt;strong&gt;MODULI NECESSARI A BORDO ALL&amp;rsquo;ARRIVO NAVE&lt;/strong&gt;
+&lt;strong&gt;    MODULI NECESSARI A BORDO ALL&amp;rsquo;ARRIVO NAVE&lt;/strong&gt;
     Preparare cartella arrivo nave con i dati di arrivo e tabella servizi
     Preparare modulo arrivo nave x G.d.F. e Polizia di Frontiera
     Preparare modulo rapportino di arrivo x Capitaneria
@@ -47,7 +47,7 @@
     Preparare moduli x Sanimare Pescara (provenienza ExtraUE)
     Preparare shore pass (in caso di marittimi ExtraUE)
     Preparare versamento x capitaneria
-&lt;strong&gt;A BORDO  -  &lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eca (Emission Control Areas) la nave deve fare il cambiodel fuel da fuel oil a gasoil prima dell&amp;rsquo;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;                            &lt;/strong&gt;
+&lt;strong&gt;    A BORDO  -  &lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eca (Emission Control Areas) la nave deve fare il cambiodel fuel da fuel oil a gasoil prima dell&amp;rsquo;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;                            &lt;/strong&gt;
     Prendere orari arrivo e dati necessari x comunicazioni
     Compilare rapportino arrivo x Capitaneria
     Compilare modulo x G.d.F. e Polizia di Frontiera
@@ -58,7 +58,7 @@
     Far vistare alla Finanza manifest of goods o copia polizza di carico in caso di sbarco
     Dare Shore pass con copia ultimi 10 porti e nota di arrivo alla Polizia di Frontiera (in caso di marittimi ExtraUE)
     Ritirare Documenti Carico
-&lt;strong&gt;A TERRA&lt;/strong&gt;
+&lt;strong&gt;    A TERRA&lt;/strong&gt;
     Inviare a mezzo fax lettera di prontezza ai ricevitori/caricatori
     Fare comunicazioni Armatore e Ricevitori/Caricatori
     Fare fax a G.d.F. e Polizia di Frontiera (consegnare fax galetta G.d.F.)
@@ -66,7 +66,7 @@
     Fare manifesto merci arrivate x Dogana (bandiera straniera)
     Preparare Stato dei fatti
     Inviare a Sanimare copie documenti firmati dal comando nave
-&lt;strong&gt;PRIMA DELLA PARTENZA NAVE&lt;/strong&gt;
+&lt;strong&gt;    PRIMA DELLA PARTENZA NAVE&lt;/strong&gt;
     &lt;em&gt;&lt;strong&gt;Ricevere Fondi dall&amp;#39;Armatore &amp;ndash; art.3 Legge 04/04/1977 n.135&lt;/strong&gt;&lt;/em&gt;
     Ricevere via email dalla Capitaneria Deroga Rifiuti
     Inviare Comunicazione di partenza alla Capitaneria (12 ore prima)
@@ -123,7 +123,7 @@
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css></content_css>
 <compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="" columns="@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.tipo" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_nome": "T", "vessel_imbarcazione_tipo": "T"}::JS'>&lt;pre&gt;
-&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:12px;"&gt;Check list Arrivo Nave - $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;
+&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:12px;"&gt;    Check list Arrivo Nave - $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;
 &lt;span style="font-family: arial, helvetica, sans-serif;"&gt;    RICHIEDERE VISIT ID (la richiesta pu&amp;ograve; essere inoltrata fino ad un massimo di 10 giorni antecedenti l&amp;#39; ETA)
     Farsi Inviare dati nave, Assicurazione inquinamento idrocarburi (da GT 1000) e assicurazione crediti marittimi (da GT 300)
     Inviare documenti pre-arrival e eventuali documenti per istanza sbarco rinfusa alla nave
@@ -149,7 +149,7 @@
     Ritirare in Capitaneria Autorizzazione sbarco/imbarco Rinfusa
     Inviare Richiesta Mantenimento Rifiuti a Bordo con allegato Garbage form (dopo ormeggio o prima dell&amp;#39;ormeggio in caso di sosta breve)
     Fare aggiornamenti arrivo nave in Capitaneria (Port Notification) e altri enti.
-&lt;strong&gt;MODULI NECESSARI A BORDO ALL&amp;rsquo;ARRIVO NAVE&lt;/strong&gt;
+&lt;strong&gt;    MODULI NECESSARI A BORDO ALL&amp;rsquo;ARRIVO NAVE&lt;/strong&gt;
     Preparare cartella arrivo nave con i dati di arrivo e tabella servizi
     Preparare modulo arrivo nave x G.d.F. e Polizia di Frontiera
     Preparare modulo rapportino di arrivo x Capitaneria
@@ -158,7 +158,7 @@
     Preparare moduli x Sanimare Pescara (provenienza ExtraUE)
     Preparare shore pass (in caso di marittimi ExtraUE)
     Preparare versamento x capitaneria
-&lt;strong&gt;A BORDO  -  &lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eca (Emission Control Areas) la nave deve fare il cambiodel fuel da fuel oil a gasoil prima dell&amp;rsquo;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;                            &lt;/strong&gt;
+&lt;strong&gt;    A BORDO  -  &lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eca (Emission Control Areas) la nave deve fare il cambiodel fuel da fuel oil a gasoil prima dell&amp;rsquo;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;                            &lt;/strong&gt;
     Prendere orari arrivo e dati necessari x comunicazioni
     Compilare rapportino arrivo x Capitaneria
     Compilare modulo x G.d.F. e Polizia di Frontiera
@@ -169,7 +169,7 @@
     Far vistare alla Finanza manifest of goods o copia polizza di carico in caso di sbarco
     Dare Shore pass con copia ultimi 10 porti e nota di arrivo alla Polizia di Frontiera (in caso di marittimi ExtraUE)
     Ritirare Documenti Carico
-&lt;strong&gt;A TERRA&lt;/strong&gt;
+&lt;strong&gt;    A TERRA&lt;/strong&gt;
     Inviare a mezzo fax lettera di prontezza ai ricevitori/caricatori
     Fare comunicazioni Armatore e Ricevitori/Caricatori
     Fare fax a G.d.F. e Polizia di Frontiera (consegnare fax galetta G.d.F.)
@@ -177,7 +177,7 @@
     Fare manifesto merci arrivate x Dogana (bandiera straniera)
     Preparare Stato dei fatti
     Inviare a Sanimare copie documenti firmati dal comando nave
-&lt;strong&gt;PRIMA DELLA PARTENZA NAVE&lt;/strong&gt;
+&lt;strong&gt;    PRIMA DELLA PARTENZA NAVE&lt;/strong&gt;
     &lt;em&gt;&lt;strong&gt;Ricevere Fondi dall&amp;#39;Armatore &amp;ndash; art.3 Legge 04/04/1977 n.135&lt;/strong&gt;&lt;/em&gt;
     Ricevere via email dalla Capitaneria Deroga Rifiuti
     Inviare Comunicazione di partenza alla Capitaneria (12 ore prima)

@@ -83,9 +83,12 @@ class Form(BaseComponent):
         tc_undertask = bc_tasklist.tabContainer(margin='2px', region='center', height='auto')
         tc_sof = tc.borderContainer(title='!![en]SOF')
         tc_app = tc.tabContainer(title='!![en]Applications')
+        tc_usma = tc.borderContainer(title='!![en]Sanimare certificates')
         #tc_parapon = bc_task3.tabContainer(title='pippo')
         self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = 'seashell'))
-    
+        #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
+        tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%',pageName='sanimare_cert').remote(self.usmaCertLazyMode)
+
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
        # tc2 = bc2.tabContainer(margin='2px', region='center', height='auto', splitter=True)
        # bc_top = bc.borderContainer(region='center',height='300px', splitter=True)
@@ -251,7 +254,7 @@ class Form(BaseComponent):
         fb.field('reference_num', readOnly=True)
         fb.field('date')
         fb.field('vessel_details_id',validate_notnull=True )
-        fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome')
+        fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome',order_by='$data DESC')
         fb.field('visit_id')
 
         fb = center1.formbuilder(cols=5, border_spacing='4px',lblpos='T',fldalign='left')
@@ -463,7 +466,51 @@ class Form(BaseComponent):
       # fb.field('n_moor_dep')
       # fb.field('tug_dep')
       # fb.field('n_tug_dep')
-
+    @public_method
+    def usmaCertLazyMode(self,pane):
+        #pane.inlineTableHandler(title='!![en]Renewal/Issue certificates',relation='@certusma_arr',viewResource='ViewFromCertusma',view_store__onBuilt=True)
+        pane.stackTableHandler(relation='@certusma_arr',formResource='FormFromCertusma',view_store__onBuilt=True)
+    def usmaCert2(self,bc_usma):
+        rg_certusma = bc_usma.roundedGroup(title='!![en]Renewal/Issue certificates',table='shipsteps.certsanimare',region='center',datapath='.record.@certusma_arr',width='100%', height = '100%').div(margin='10px',margin_left='2px')
+        fb = rg_certusma.formbuilder(cols=4, border_spacing='4px',fld_width='10em')
+        fb.field('xconto',width='30em', placeholder='Es. per conto comando nave M/V...', colspan=4)  
+        fb.field('docagent', placeholder="Es. Carta d'Identità")
+        fb.field('doc_n')
+        fb.field('issuedby', width='15em')
+        fb.field('datedoc')
+        fb.field('navigation', width='30em', colspan=4)
+        div1=rg_certusma.div(width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb1=div1.formbuilder(colspan=3,cols=9, border_spacing='1px')
+        fb1.field('sanification',lbl='')
+        fb1.div('SANIFICAZIONE / ESENZIONE SANIFICAZIONE', width='30em', colspan=2)
+        fb1.field('san_nsis', lbl='!![en]NSIS Code')
+        fb1.br()
+        fb1.field('medicines',lbl='')
+        fb1.div('CASSETTA MEDICINALE / FARMACIA DI BORDO (TAB)', width='30em')
+        fb1.field('tab_medicine', width='6em')
+        fb1.field('med_nsis', lbl='!![en]NSIS Code')
+        fb1.br()
+        fb1.field('waterbox',lbl='')
+        fb1.div('CASSE ACQUA POTABILE', width='30em', colspan=2)
+        fb1.field('water_nsis', lbl='!![en]NSIS Code')
+        fb1.br()
+        fb1.field('reg_narcotics',lbl='')
+        fb1.div('VIDIMAZIONE REGISTRO STUPEFACENTI', width='30em', colspan=2)
+        fb1.field('narcotics_nsis', lbl='!![en]NSIS Code')
+        fb1.br()
+        fb1.field('newreg_narcotics',lbl='')
+        fb1.div('RILASCIO E/O CHIUSURA REGISTRO STUPEFACENTI', width='30em', colspan=2)
+        fb1.field('newnarcotics_nsis', lbl='!![en]NSIS Code')
+        fb1.br()
+        fb1.field('destroy_med',lbl='')
+        fb1.div('DISTRUZIONE FARMACI STUPEFACENTI SCADUTI', width='30em', colspan=2)
+        fb1.field('destroymed_nsis', lbl='!![en]NSIS Code')
+        fb2=rg_certusma.formbuilder(cols=9,colspan=9, border_spacing='4px',fld_width='10em')
+        fb2.field('visit_date')
+        fb2.field('date')
     @public_method
     def emailArrivalLazyMode(self,pane):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival',view_store__onBuilt=True)
