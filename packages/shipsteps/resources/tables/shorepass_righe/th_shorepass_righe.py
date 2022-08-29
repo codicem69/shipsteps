@@ -78,6 +78,8 @@ class ViewFromShorepassRighe(BaseComponent):
                       _onError="genro.publish('xls_importer_onResult',{error:error});")
         btn_print_shorepass.dataRpc('msg_special', self.print_template_shorepass,record='=#FORM.record',pkeys='=#FORM.shipsteps_shorepass_righe.view.grid.currentSelectedPkeys',servizio=[],
                             nome_template = 'shipsteps.shorepass_righe:shorepass_righe',format_page='A4',_lockScreen=dict(message='Please Wait'))
+        bar.dataController("""if(msgspec=='noshorepass') genro.publish("floating_message",{message:msg_txt, messageType:"error"});""",msgspec='^msg_special', msg_txt = 'You must select the record or more records')
+
     def th_order(self):
         return '_row_count'
 
@@ -144,7 +146,11 @@ class ViewFromShorepassRighe(BaseComponent):
         
         builder = TableTemplateToHtml(table=tbl_shorepass_righe)
         storagePath=[]
-        n_pkeys=len(pkeys)
+        if pkeys is None:
+            msg_special = 'noshorepass'
+            return msg_special
+        else:    
+            n_pkeys=len(pkeys)
         for r in range(n_pkeys):
             nome_temp = nome_template.replace('shipsteps.shorepass_righe:','')+str(r)
             nome_file = '{cl_id}.pdf'.format(

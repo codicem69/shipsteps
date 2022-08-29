@@ -347,7 +347,7 @@ class Form(BaseComponent):
         #pane.inlineTableHandler(table='shipsteps.ship_rec',viewResource='ViewFromShipRec',view_store_onStart=True,export=True)
     @public_method
     def charterersLazyMode(self,pane):
-        pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True,view_store__onBuilt=True)
+        pane.inlineTableHandler(table='shipsteps.charterers',datapath='#FORM.charterers',parentForm=False,saveButton=True,semaphore=True,viewResource='ViewFromCharterers',view_store_onStart=True,view_store__onBuilt=True)
         #pane.stackTableHandler(table='shipsteps.charterers', formResource='Form',view_store_onStart=True,view_store__onBuilt=True)
     def charterers(self,pane):
         pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True)
