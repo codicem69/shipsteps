@@ -14,7 +14,7 @@ class ViewFromVesselDocs(BaseComponent):
         
         r.fieldcell('description', edit=True)
         r.fieldcell('expire_date', name='Expire date', edit=True, width='5em')
-        r.fieldcell('att_email', name='Att. Email', edit=True, width='5em')
+        r.fieldcell('att_email', name='Att. Email Accosto CP', edit=True, width='5em')
         r.fieldcell('__ins_ts', width='auto')
         r.fieldcell('fileurl', width='10em')
         r.fieldcell('mimetype')

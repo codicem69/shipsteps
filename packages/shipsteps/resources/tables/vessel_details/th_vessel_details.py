@@ -28,7 +28,7 @@ class View(BaseComponent):
         #r.fieldcell('vess_image')
 
     def th_order(self):
-        return 'imbarcazione_id'
+        return '@imbarcazione_id.nome'
 
     def th_query(self):
         return dict(column='id', op='contains', val='')

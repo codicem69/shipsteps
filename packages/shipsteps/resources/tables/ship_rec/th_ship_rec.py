@@ -25,6 +25,9 @@ class ViewFromShipRec(BaseComponent):
         r.fieldcell('name', width='50em',edit=True)
         r.fieldcell('address', width='50em',edit=True)
         r.fieldcell('city', width='50em',edit=True)
+    
+    def th_order(self):
+        return 'name'
 
 class Form(BaseComponent):
     def th_form(self,form):

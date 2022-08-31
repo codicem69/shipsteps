@@ -3,7 +3,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('ship_doc', pkey='id', name_long='ship_doc', name_plural='ship_doc',caption_field='cert', order_by='_row_count')
-        self.sysFields(tbl, counter=True)
+        self.sysFields(tbl, counter='vessel_details')
 
         tbl.column('vessel_details',size='22',name_short='!![en]vessel details'
                     ).relation('vessel_details.id',relation_name='ship_docs', mode='foreignkey', onDelete='cascade')

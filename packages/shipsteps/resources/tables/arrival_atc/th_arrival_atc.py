@@ -13,7 +13,7 @@ class ViewFromArrivalAtc(BaseComponent):
         r = struct.view().rows()
 
         r.fieldcell('description', edit=True)
-        r.fieldcell('att_email', edit=True)
+        r.fieldcell('att_email', name='Att. Email Accosto CP', edit=True)
         r.fieldcell('mimetype')
         #r.fieldcell('filepath')
 

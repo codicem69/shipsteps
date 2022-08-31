@@ -203,7 +203,7 @@ class FormFromCertusma(BaseComponent):
         # il msg con il dataController
             msg_special='certsanimare'
             return msg_special
-
+    
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[], **kwargs):
         id_rinfusa_atc=record['id']

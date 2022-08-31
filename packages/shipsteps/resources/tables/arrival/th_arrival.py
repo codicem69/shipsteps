@@ -131,10 +131,10 @@ class Form(BaseComponent):
 
         self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
         self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
-        #self.car_ric(tc.contentPane(title='!![en]Shippers / Receivers'))
-        tc.contentPane(title='!![en]Shippers / Receivers', pageName='shippers_receivers').remote(self.car_ricLazyMode)
-        #self.charterers(tc.contentPane(title='!![en]Charterers'))
-        tc.contentPane(title='!![en]Charterers', pageName='charterers').remote(self.charterersLazyMode)
+        
+      # tc.contentPane(title='!![en]Shippers / Receivers', pageName='shippers_receivers').remote(self.car_ricLazyMode)
+      # tc.contentPane(title='!![en]Charterers', pageName='charterers').remote(self.charterersLazyMode)
+
        # self.sof(tc.contentPane(title='!![en]Sof'))
         self.arrival_details(tc.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell'))
        # self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
@@ -335,8 +335,7 @@ class Form(BaseComponent):
                   - se trattasi di altre merci secche, precisare se alla rinfusa e l'appendice di appartenenza (A-B-C) qualora soggette al D.M. 22.07.1991 + IMSBC CODE<br>
                   - se trattasi di merce rientrante nelle categorie inquinanti di cui alla Legge 979/1982 specificare tutti I dati relativi al proprietario""", colspan=3)
         fb.field('extra_transit_cargo', tag='simpleTextArea',height='25px',colspan=3)
-   #def datiCaricoTransit(self,frame):
-   #    frame.simpleTextArea(title='!![en]Transit cargo',value='^.transit_cargo',editor=True)
+   
     @public_method
     def car_ricLazyMode(self,pane):
          pane.stackTableHandler(table='shipsteps.ship_rec', formResource='Form',view_store_onStart=True,view_store__onBuilt=True)
@@ -344,11 +343,11 @@ class Form(BaseComponent):
     def car_ric(self,pane):
          pane.stackTableHandler(table='shipsteps.ship_rec', formResource='Form',view_store_onStart=True)
 
-        #pane.inlineTableHandler(table='shipsteps.ship_rec',viewResource='ViewFromShipRec',view_store_onStart=True,export=True)
+        
     @public_method
     def charterersLazyMode(self,pane):
         pane.inlineTableHandler(table='shipsteps.charterers',datapath='#FORM.charterers',parentForm=False,saveButton=True,semaphore=True,viewResource='ViewFromCharterers',view_store_onStart=True,view_store__onBuilt=True)
-        #pane.stackTableHandler(table='shipsteps.charterers', formResource='Form',view_store_onStart=True,view_store__onBuilt=True)
+        
     def charterers(self,pane):
         pane.inlineTableHandler(table='shipsteps.charterers',viewResource='ViewFromCharterers',view_store_onStart=True)
 
@@ -791,33 +790,59 @@ class Form(BaseComponent):
 
         #fb.dataController("if(msgspec=='val_bulk')alert(msg_txt);",msgspec='^msg_special',msg_txt = 'Email ready to be sent')
         fb.dataController("""if(msgspec=='val_bulk'){alert(msg_txt);} if(msgspec=='val_garb_cp'){SET .email_garbage_cp=true ; alert(msg_txt);}
-                             if(msgspec=='val_integr') {SET .email_integr=true ; alert(msg_txt);}
-                             if(msgspec=='ship_rec_upd') {alert(msg_txt);} if(msgspec=='no_email') {alert('You must insert destination email as TO or BCC');} if(msgspec=='no_sof') {alert('You must select the SOF or you must create new one');}
-                             if(msgspec=='val_upd') {alert(msg_txt);}
-                             if(msgspec=='val_adsp') {SET .email_garbage_adsp=true ; alert(msg_txt);}
-                             if(msgspec=='val_ens') {SET .email_ens=true ; alert(msg_txt);}
-                             if(msgspec=='val_gpg') {SET .email_gpg=true ; alert(msg_txt);}
-                             if(msgspec=='val_chemist') {SET .email_chemist=true ; alert(msg_txt);}
-                             if(msgspec=='val_pfso') {SET .email_pfso=true ; alert(msg_txt);}
-                             if(msgspec=='val_garbage') {SET .email_garbage=true ; alert(msg_txt);} if(msgspec=='yes') {alert('You must select the record as row in the garbage form');}
-                             if(msgspec=='val_tug') {SET .email_tug=true ; alert(msg_txt);}
-                             if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert(msg_txt);}
-                             if(msgspec=='val_usma') {SET .email_usma=true ; alert(msg_txt);}
-                             if(msgspec=='val_imm') {SET .email_frontiera=true; alert(msg_txt);}
-                             if(msgspec=='val_dog') {SET .email_dogana=true ; alert(msg_txt);}
-                             if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert(msg_txt);} if(msgspec=='no_email') {alert('You must insert destination email as TO or BCC');} if(msgspec=='no_sof') {alert('You must select the SOF or you must create new one');}
-                             if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') {alert('You must first print Nota Arrivo');} if(msg=='fal1_arr_no') {alert('You must first print Fal1 arrival');} if(msg=='fal1arr_notarr') {alert('You must first print Fal1 arrival and Nota Arrivo');}
-                             if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') {alert('You must first print Dich. integrativa di partenza');} if(msg=='fal1_dep_no') {alert('You must first print Fal1 departure');} if(msg=='fal1dep_notapart') {alert('You must first print Fal1 departure and Dich. integrativa di partenza');} if(msg=='no_sailed') {alert('You must first insert ets date and time');}
-                             if(msg=='intfat') genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});
+                             if(msgspec=='val_integr') {SET .email_integr=true ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='ship_rec_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"}); if(msgspec=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msgspec=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
+                             if(msgspec=='val_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
+                             if(msgspec=='val_adsp') {SET .email_garbage_adsp=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='val_ens') {SET .email_ens=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='val_gpg') {SET .email_gpg=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='val_chemist') {SET .email_chemist=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='val_pfso') {SET .email_pfso=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='val_garbage') {SET .email_garbage=true ;alert(msg_txt);} if(msgspec=='yes') genro.publish("floating_message",{message:'You must select the record as row in the garbage form', messageType:"error"});
+                             if(msgspec=='val_tug') {SET .email_tug=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='val_usma') {SET .email_usma=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='val_imm') {SET .email_frontiera=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='val_dog') {SET .email_dogana=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='ship_rec') {SET .email_ship_rec=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msgspec=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msgspec=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
+                             if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') genro.publish("floating_message",{message:'You must first print Nota Arrivo', messageType:"error"}); if(msg=='fal1_arr_no') genro.publish("floating_message",{message:'You must first print Fal1 arrival', messageType:"error"}); if(msg=='fal1arr_notarr') genro.publish("floating_message",{message:'You must first print Fal1 arrival and Nota Arrivo', messageType:"error"});
+                             if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') genro.publish("floating_message",{message:'You must first print Dich. integrativa di partenza', messageType:"error"}); if(msg=='fal1_dep_no') genro.publish("floating_message",{message:'You must first print Fal1 departure', messageType:"error"}); if(msg=='fal1dep_notapart') genro.publish("floating_message",{message:'You must first print Fal1 departure and Dich. integrativa di partenza', messageType:"error"}); if(msg=='no_sailed') genro.publish("floating_message",{message:'You must first insert ets date and time', messageType:"error"});
+                             if(msg=='intfat') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
                              if(msg=='mod_nave') {SET .checklist=true;}
                              if(msg=='front_carico') {SET .front_carico=true;}
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
                              if(msg=='cartella_doc') {SET .cartella_nave=true;}
                              if(msg=='front_nave') {SET .frontespizio=true;}
-                             if(msg=='check_list') {SET .checklist=true;}""",msgspec='^msg_special', msg='^nome_temp',msg_txt = 'Email ready to be sent')
+                             if(msg=='check_list') {SET .checklist=true;}"""
+                             ,msgspec='^msg_special', msg='^nome_temp',msg_txt = 'Email ready to be sent')
 
-        #if(msg=='intfat') {alert(msg_txt);} if(msg=='no_int'){genro.publish('floating_message',{message:"manca l'intestazione: inseriscila",messageType:'error',duration_out:6});}
-        #if(msg=='ws') {alert(msg_txt);}
+       #fb.dataController("""if(msgspec=='val_bulk'){alert(msg_txt);} if(msgspec=='val_garb_cp'){SET .email_garbage_cp=true ; alert(msg_txt);}
+       #                     if(msgspec=='val_integr') {SET .email_integr=true ; alert(msg_txt);}
+       #                     if(msgspec=='ship_rec_upd') {alert(msg_txt);} if(msgspec=='no_email') {alert('You must insert destination email as TO or BCC');} if(msgspec=='no_sof') {alert('You must select the SOF or you must create new one');}
+       #                     if(msgspec=='val_upd') {alert(msg_txt);}
+       #                     if(msgspec=='val_adsp') {SET .email_garbage_adsp=true ; alert(msg_txt);}
+       #                     if(msgspec=='val_ens') {SET .email_ens=true ; alert(msg_txt);}
+       #                     if(msgspec=='val_gpg') {SET .email_gpg=true ; alert(msg_txt);}
+       #                     if(msgspec=='val_chemist') {SET .email_chemist=true ; alert(msg_txt);}
+       #                     if(msgspec=='val_pfso') {SET .email_pfso=true ; alert(msg_txt);}
+       #                     if(msgspec=='val_garbage') {SET .email_garbage=true ; alert(msg_txt);} if(msgspec=='yes') {alert('You must select the record as row in the garbage form');}
+       #                     if(msgspec=='val_tug') {SET .email_tug=true ; alert(msg_txt);}
+       #                     if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert(msg_txt);}
+       #                     if(msgspec=='val_usma') {SET .email_usma=true ; alert(msg_txt);}
+       #                     if(msgspec=='val_imm') {SET .email_frontiera=true; alert(msg_txt);}
+       #                     if(msgspec=='val_dog') {SET .email_dogana=true ; alert(msg_txt);}
+       #                     if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert(msg_txt);} if(msgspec=='no_email') {alert('You must insert destination email as TO or BCC');} if(msgspec=='no_sof') {alert('You must select the SOF or you must create new one');}
+       #                     if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') {alert('You must first print Nota Arrivo');} if(msg=='fal1_arr_no') {alert('You must first print Fal1 arrival');} if(msg=='fal1arr_notarr') {alert('You must first print Fal1 arrival and Nota Arrivo');}
+       #                     if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') {alert('You must first print Dich. integrativa di partenza');} if(msg=='fal1_dep_no') {alert('You must first print Fal1 departure');} if(msg=='fal1dep_notapart') {alert('You must first print Fal1 departure and Dich. integrativa di partenza');} if(msg=='no_sailed') {alert('You must first insert ets date and time');}
+       #                     if(msg=='intfat') genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});
+       #                     if(msg=='mod_nave') {SET .checklist=true;}
+       #                     if(msg=='front_carico') {SET .front_carico=true;}
+       #                     if(msg=='tab_servizi') {SET .tab_servizi=true;}
+       #                     if(msg=='cartella_doc') {SET .cartella_nave=true;}
+       #                     if(msg=='front_nave') {SET .frontespizio=true;}
+       #                     if(msg=='check_list') {SET .checklist=true;}""",msgspec='^msg_special', msg='^nome_temp',msg_txt = 'Email ready to be sent')
+
+        
         div_arr=rg_arrival.div('<center><strong>ARRIVAL</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
@@ -948,8 +973,8 @@ class Form(BaseComponent):
     def intfat(self,record, **kwargs):  
         intfat_id = record['invoice_det_id']
         tbl_invoice = self.db.table('shipsteps.invoice_det')
-        int_fat = tbl_invoice.readColumns(columns="""$rag_sociale ||' '|| coalesce($address, '') ||' '|| coalesce($cap,'') ||' '|| coalesce($city,'') || coalesce(' Vat: ' || $vat,'') || 
-                                     coalesce(' unique code: ' || $cod_univoco,'') || coalesce(' pec: ' || $pec,'') AS rag_soc""", where='$id=:id_inv',id_inv=intfat_id)
+        int_fat = tbl_invoice.readColumns(columns="""$rag_sociale || coalesce(' - '|| $address, '') || coalesce(' - '|| $cap,'') || coalesce(' - '|| $city,'') || coalesce(' - Vat: ' || $vat,'') || 
+                                     coalesce(' - unique code: ' || $cod_univoco,'') || coalesce(' - pec: ' || $pec,'') AS rag_soc""", where='$id=:id_inv',id_inv=intfat_id)
         return int_fat
 
     def allegatiArrivo(self,pane):
@@ -1331,8 +1356,8 @@ class Form(BaseComponent):
         vessel_name = record['@vessel_details_id.@imbarcazione_id.nome']
         intfat_id = record['invoice_det_id']
         tbl_invoice = self.db.table('shipsteps.invoice_det')
-        int_fat = tbl_invoice.readColumns(columns="""$rag_sociale ||' '|| coalesce($address, '') ||' '|| coalesce($cap,'') ||' '|| coalesce($city,'') || coalesce(' Vat: ' || $vat,'') || 
-                                     coalesce(' unique code: ' || $cod_univoco,'') || coalesce(' pec: ' || $pec,'') AS rag_soc""", where='$id=:id_inv',id_inv=intfat_id)
+        int_fat = tbl_invoice.readColumns(columns="""$rag_sociale || coalesce(' - '|| $address, '') || coalesce(' - '|| $cap,'') || coalesce(' - '|| $city,'') || coalesce(' - Vat: ' || $vat,'') || 
+                                     coalesce(' - unique code: ' || $cod_univoco,'') || coalesce(' - pec: ' || $pec,'') AS rag_soc""", where='$id=:id_inv',id_inv=intfat_id)
         #rag_soc,indirizzo,cap,citta,vat,cf,cod_un,pec = tbl_invoice.readColumns(columns='$rag_sociale,$address,$cap,$city,$vat,$cf,$cod_univoco,$pec', where='$id=:id_inv',id_inv=intfat_id)
         if int_fat == [None, None, None, None, None, None, None]:
             nome_temp='no_int'
@@ -1730,6 +1755,8 @@ class Form(BaseComponent):
             if  fal1_departure == 'yes' and nota_partenza == 'yes':
                 self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
                 return nome_temp
+        
+        return nome_temp
 
     @public_method
     def print_template_garbage(self, record, resultAttr=None,selId=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
