@@ -1,18 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-24T13:01:16.582444+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-02-24T17:34:30.921259+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-09-01T09:20:02.446270+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplateform_immigration</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">form_immigration</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Form Immigration</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
@@ -415,7 +415,7 @@
 			&lt;/tr&gt;
 		</_cargo_lu_arr>
 <main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.@port.citta_nazione,@last_port.citta_nazione,@next_port.citta_nazione,immigration_int,@cargo_lu_arr.cargo_lu_en_ita" columns="@agency_id.agency_name,@agency_id.description,@agency_id.address,@agency_id.tel,@agency_id.email,@agency_id.web,@agency_id.@port.citta_nazione,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,$etb,$ets,@dock_id.dock_name,$master_name,$n_crew,@last_port.citta_nazione,@next_port.citta_nazione,$immigration_int,@cargo_lu_arr.cargo_lu_en_ita,$cargo_dest" formats='{"data_documento": null}::JS' masks='{"data_documento": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "agenzia_description": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agenzia_place_citta_nazione": "A", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "etb": "DH", "ets": "DH", "banchina_dock_name": "T", "master_name": "T", "n_crew": "N", "last_port": "A", "next_port": "A", "immigration_int": "T", "carichi_sbarco_imbarchi_carico_l_u_ita": "T", "cargo_dest": "T"}::JS'>&lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-23T17:23:38.127921+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-06-03T17:00:05.012656+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-09-01T09:18:00.406945+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplateform_gdf</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">form_gdf</code>
@@ -12,7 +12,7 @@
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Form GdF</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
@@ -50,7 +50,7 @@
 		&amp;nbsp;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="width: 300px;"&gt;
@@ -157,7 +157,7 @@
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;div&gt;
-		&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@cargo_lu_arr" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@cargo_lu_arr" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td&gt;
@@ -165,7 +165,7 @@
 				&lt;/tr&gt;
 			&lt;/tbody&gt;
 		&lt;/table&gt;
-		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td style="width: 300px;"&gt;
@@ -206,14 +206,14 @@
 			&lt;/tbody&gt;
 		&lt;/table&gt;
 		&lt;div&gt;
-			&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp; IL COMANDANTE DICHIARA DI NON AVERE CLANDESTINI A BORDO&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; the Master&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; IL COMANDANTE DICHIARA DI NON AVERE CLANDESTINI A BORDO&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp; the Master&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&amp;nbsp;&amp;nbsp;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt; THE MASTER DECLARES NOT TO HAVE CLANDESTINES ONBOARD &lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt; THE MASTER DECLARES NOT TO HAVE CLANDESTINES ONBOARD &lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;/div&gt;
 	&lt;div&gt;
 		&amp;nbsp;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp; ORTONA, L&amp;Igrave; $data_doc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ORTONA, L&amp;Igrave; $data_doc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
 		&amp;nbsp;&lt;/div&gt;
 	&lt;div&gt;
@@ -223,7 +223,7 @@
 	&lt;div&gt;
 		&amp;nbsp;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; PROVVEDIMENTI ADOTTATI: ESEGUITA VISITA SOMMARIA A BORDO - V&amp;deg; la G.d.F.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; PROVVEDIMENTI ADOTTATI: ESEGUITA VISITA SOMMARIA A BORDO - V&amp;deg; la G.d.F.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;</content>
@@ -646,7 +646,7 @@
 				&lt;/tr&gt;
 			</_cargo_lu_arr>
 <main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.fullname,nextport,lastport,prox_port,owners,workport,@vessel_details_id.@reg_place.citta_nazione,gdf_int,ship_or_rec,@cargo_lu_arr.cargo_lu_en_ita" columns="@agency_id.agency_name,@agency_id.description,@agency_id.address,@agency_id.tel,@agency_id.fax,@agency_id.email,@agency_id.web,@agency_id.fullname,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,@vessel_details_id.@imbarcazione_id.loa,@vessel_details_id.@imbarcazione_id.gt,@vessel_details_id.@imbarcazione_id.nt,@vessel_details_id.@imbarcazione_id.imo,@vessel_details_id.callsign,@vessel_details_id.beam,$eta,$etb,$ets,@dock_id.dock_name,$cargo_dest,$nextport,$lastport,$cargo_onboard,$transit_cargo,$prox_port,$owners,$workport,$master_name,$n_crew,$n_passengers,@vessel_details_id.ex_name,@vessel_details_id.reg_num,@vessel_details_id.@reg_place.citta_nazione,$gdf_int,$ship_or_rec,@cargo_lu_arr.cargo_lu_en_ita,@agency_id.@port.@nazione_code.nome" formats='{"data_doc": null}::JS' masks='{"data_doc": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "agenzia_description": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_fax": "T", "agenzia_email": "T", "agenzia_web": "T", "agenzia_user_signature": "T", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "vessel_imbarcazione_loa": "T", "vessel_imbarcazione_gt": "T", "vessel_imbarcazione_nt": "T", "vessel_imbarcazione_imo": "T", "vessel_callsign": "A", "vessel_beam": "T", "eta": "DH", "etb": "DH", "ets": "DH", "banchina_dock_name": "T", "cargo_dest": "T", "next_port": "T", "last_port": "T", "cargo_onboard": "T", "transit_cargo": "T", "prox_port": "A", "owners_full_name": "T", "workport": "T", "master_name": "T", "n_crew": "N", "n_passengers": "N", "vessel_ex_name": "T", "vessel_reg_num": "T", "vessel_place_citta_nazione": "A", "gdf_int": "T", "ship_or_rec": "T", "carichi_sbarco_imbarchi_carico_l_u_ita": "T", "agenzia_nazione": "T"}::JS'>&lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
@@ -685,7 +685,7 @@
 &lt;/div&gt;
 
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="width: 300px;"&gt;
@@ -792,13 +792,13 @@
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;div&gt;
-		&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@cargo_lu_arr" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@cargo_lu_arr" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				
 $@cargo_lu_arr
 &lt;/tbody&gt;
 		&lt;/table&gt;
-		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td style="width: 300px;"&gt;
@@ -839,14 +839,14 @@ $@cargo_lu_arr
 			&lt;/tbody&gt;
 		&lt;/table&gt;
 		&lt;div&gt;
-			&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&amp;#160;&amp;#160; IL COMANDANTE DICHIARA DI NON AVERE CLANDESTINI A BORDO&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160;&amp;#160; the Master&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; IL COMANDANTE DICHIARA DI NON AVERE CLANDESTINI A BORDO&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160; &amp;#160;&amp;#160; the Master&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&amp;#160;&amp;#160;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt; THE MASTER DECLARES NOT TO HAVE CLANDESTINES ONBOARD &lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&amp;#160; &amp;#160; &amp;#160;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt; THE MASTER DECLARES NOT TO HAVE CLANDESTINES ONBOARD &lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;/div&gt;
 	&lt;div&gt;
 		&amp;#160;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160; ORTONA, L&amp;#204; $data_doc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; ORTONA, L&amp;#204; $data_doc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
 		&amp;#160;&lt;/div&gt;
 	&lt;div&gt;
@@ -856,7 +856,7 @@ $@cargo_lu_arr
 	&lt;div&gt;
 		&amp;#160;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160; PROVVEDIMENTI ADOTTATI: ESEGUITA VISITA SOMMARIA A BORDO - V&amp;#176; la G.d.F.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; PROVVEDIMENTI ADOTTATI: ESEGUITA VISITA SOMMARIA A BORDO - V&amp;#176; la G.d.F.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;div&gt;

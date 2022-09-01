@@ -1,46 +1,51 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-11T18:38:15.227884+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-02-11T18:38:15.227927+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-09-01T09:28:57.448972+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatefront_carico</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">front_carico</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Frontespizio Carico</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
-<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:48px;"&gt;CARICO&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&lt;span style="font-size:36px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div style="text-align: center;"&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div row_datasource="@cargo_lu_arr" style="text-align: center;"&gt;
-	&lt;span style="font-size:24px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$carichi_sbarco_imbarchi_carico_l_u_shiprec&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;</content>
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div id="divCargo" name="divCargo" style="outline:1px solid;padding:5px;margin:20px;
+  outline-offset:-10px;height:1040px"&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:48px;"&gt;CARICO&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;span style="font-size:36px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div row_datasource="@cargo_lu_arr" style="text-align: center;"&gt;
+		&lt;span style="font-size:24px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$carichi_sbarco_imbarchi_carico_l_u_shiprec&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</content>
 <metadata><author>admin</author>
 <version _T="NN"></version>
 <date _T="NN"></date>
@@ -91,51 +96,43 @@
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css></content_css>
 <compiled><_cargo_lu_arr _tag="@cargo_lu_arr">&lt;div row_datasource="@cargo_lu_arr" style="text-align: center;"&gt;
-	&lt;span style="font-size:24px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$cargo_ship_rec&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;</_cargo_lu_arr>
-<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@cargo_lu_arr.cargo_ship_rec" columns="@vessel_details_id.@imbarcazione_id.tipo,@cargo_lu_arr.cargo_ship_rec,@vessel_details_id.@imbarcazione_id.nome" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_tipo": "T", "carichi_sbarco_imbarchi_carico_l_u_shiprec": "T", "vessel_imbarcazione_nome": "T"}::JS'>&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
+		&lt;span style="font-size:24px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$cargo_ship_rec&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;</_cargo_lu_arr>
+<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@cargo_lu_arr.cargo_ship_rec" columns="@vessel_details_id.@imbarcazione_id.tipo,@cargo_lu_arr.cargo_ship_rec,@vessel_details_id.@imbarcazione_id.nome" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_tipo": "T", "carichi_sbarco_imbarchi_carico_l_u_shiprec": "T", "vessel_imbarcazione_nome": "T"}::JS'>&lt;div id="divCargo" name="divCargo" style="outline:1px solid;padding:5px;margin:20px;
+  outline-offset:-10px;height:1040px"&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:48px;"&gt;CARICO&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;span style="font-size:36px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;#160;&lt;/div&gt;
+	
+$@cargo_lu_arr
+&lt;/div&gt;
 
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:48px;"&gt;CARICO&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&lt;span style="font-size:36px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div style="text-align: center;"&gt;
-	&amp;#160;&lt;/div&gt;
-
-
-$@cargo_lu_arr</main></compiled></data>
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;</main></compiled></data>
 <authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
 <private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
 <quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
