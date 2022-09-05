@@ -5,7 +5,7 @@ class Table(object):
     def config_db(self,pkg):
         
         tbl=pkg.table('arrival', pkey='id', name_long='!![en]Arrival', name_plural='!![en]Arrivals',
-                                 caption_field='arrival_data', partition_agency_id='agency_id', static=True)
+                                 caption_field='arrival_data', partition_agency_id='agency_id')
         self.sysFields(tbl,counter=True)
 
         tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
