@@ -866,7 +866,9 @@ class Form(BaseComponent):
         fb_arr.br()
         
         btn_fsan = fb_arr.Button('!![en]Dichiarazione Sanimare')
-        btn_fsan.dataRpc('nome_temp', self.apridoc,record='=#FORM.record', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
+        btn_fsan.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='DichSanimare', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
+        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore')
+        btn_intfiore.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='InterferenzeFiore', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
         fb_arr.br()
         btn_chim_cp = fb_arr.Button('!![en]Email Cert. Chimico CP')
         btn_chim_cp.dataRpc('msg_special', self.email_services,
@@ -1816,9 +1818,10 @@ class Form(BaseComponent):
         return msg_special
     
     @public_method
-    def apridoc(self,record, **kwargs):
+    def apridoc(self,record,nome_form=None, **kwargs):
         workport=record['workport']
         eta=record['eta'].strftime("%d/%m/%Y")
+        etb=record['etb'].strftime("%d/%m/%Y")
         lastport=record['lastport']
         nextport=record['nextport']
         vesselname=record['vesselname']
@@ -1830,7 +1833,7 @@ class Form(BaseComponent):
         pax_n=str(record['n_passengers'])
         vessel_details_id=record['vessel_details_id']
         workdate = self.db.workdate.strftime("%d/%m/%Y")
-
+        
         #cerchiamo nella tabella certificati nave la sanitation
         tbl_shipsdoc = self.db.table('shipsteps.ship_doc')
         san_place_id,san_date=tbl_shipsdoc.readColumns(columns="$issued,to_char($date_cert,:df)", where='$cert=:cert and $vessel_details=:vess_det', 
@@ -1841,18 +1844,24 @@ class Form(BaseComponent):
         san_place=tbl_place.readColumns(columns="$descrizione || ' - ' || @nazione_code.nome", where='$id=:place_id', place_id=san_place_id)
        
         
+        if nome_form=='DichSanimare':
+            nome_file = 'DichSanimare.docx'
+            file_sn_out = self.site.storageNode('home:form_standard', 'DichSanimare_filled.docx')
+        if nome_form == 'InterferenzeFiore':
+            nome_file = 'InterferenzeFiore.docx'
+            file_sn_out = self.site.storageNode('home:form_standard', 'InterferenzeFiore_filled.docx')    
         
-        nome_file = 'DichSanimare.docx'
         file_sn = self.site.storageNode('home:form_standard', nome_file)
         template_file_path = file_sn.internal_path
         #template_file_path = '/home/tommaso/Documenti/Linux/Python/ModificaDocx/test.docx'
-        file_sn_out = self.site.storageNode('home:form_standard', 'DichSanimare_filled.docx')
+        
         output_file_path = file_sn_out.internal_path
         #output_file_path = '/home/tommaso/Documenti/Linux/Python/ModificaDocx/result.docx'
         
         variables = {
             "${porto}": workport,
             "${date_arr}": eta,
+            "${etb}": etb,
             "${nome_imb}": vesselname,
             "${imo}": imo,
             "${last_port}": lastport,
