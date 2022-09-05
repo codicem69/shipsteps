@@ -9,6 +9,9 @@ from datetime import datetime
 from gnr.core.gnrlang import GnrException
 import os.path
 from gnr.core.gnrbag import Bag
+from docx import Document
+import os
+import subprocess #per apertura file tramite programma di sistema
 
 class View(BaseComponent):
 
@@ -63,9 +66,12 @@ class View(BaseComponent):
 
 
 class Form(BaseComponent):
+    
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
 
     def th_form(self, form):
+    
+        form.store.handler('load',virtual_columns='$workport')
         #pane = form.record
         #fb = pane.formbuilder(cols=2, border_spacing='4px')
         tc = form.center.tabContainer()
@@ -848,6 +854,20 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_arr=div_arr.formbuilder(colspan=2,cols=4, border_spacing='1px')
+        btn_fgdf_cp = fb_arr.Button('!![en]Form GdF')
+        btn_fgdf_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
+                            nome_template = 'shipsteps.arrival:form_gdf', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
+        btn_fimm_cp = fb_arr.Button('!![en]Form Immigration')
+        btn_fimm_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
+                            nome_template = 'shipsteps.arrival:form_immigration', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
+        btn_fprov_cp = fb_arr.Button('!![en]Form Provisions')
+        btn_fprov_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
+                            nome_template = 'shipsteps.arrival:form_provisions', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
+        fb_arr.br()
+        
+        btn_fsan = fb_arr.Button('!![en]Dichiarazione Sanimare')
+        btn_fsan.dataRpc('nome_temp', self.apridoc,record='=#FORM.record', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
+        fb_arr.br()
         btn_chim_cp = fb_arr.Button('!![en]Email Cert. Chimico CP')
         btn_chim_cp.dataRpc('msg_special', self.email_services,
                   record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_chimico_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -934,6 +954,7 @@ class Form(BaseComponent):
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
+
         #fb_extra.dataController("""genro.publish("floating_message",{message:'prova'), messageType:"message"}""")
        #genro.publish("floating_message",{message:"Email ready to be sent", messageType:"message"});
 
@@ -968,6 +989,7 @@ class Form(BaseComponent):
                                          if(result=='ws')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")#this.form.save();
                                          #this.form.reload()""")
         fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()")
+    
     
     @public_method
     def intfat(self,record, **kwargs):  
@@ -1792,6 +1814,85 @@ class Form(BaseComponent):
         # il msg con il dataController
         msg_special='val_garbage'
         return msg_special
+    
+    @public_method
+    def apridoc(self,record, **kwargs):
+        workport=record['workport']
+        eta=record['eta'].strftime("%d/%m/%Y")
+        lastport=record['lastport']
+        nextport=record['nextport']
+        vesselname=record['vesselname']
+        flag=record['flag']
+        imo=record['imo']
+        gt=record['tsl']
+        master_name=record['master_name']
+        crew_n=str(record['n_crew'])
+        pax_n=str(record['n_passengers'])
+        vessel_details_id=record['vessel_details_id']
+        workdate = self.db.workdate.strftime("%d/%m/%Y")
+
+        #cerchiamo nella tabella certificati nave la sanitation
+        tbl_shipsdoc = self.db.table('shipsteps.ship_doc')
+        san_place_id,san_date=tbl_shipsdoc.readColumns(columns="$issued,to_char($date_cert,:df)", where='$cert=:cert and $vessel_details=:vess_det', 
+                                                        cert='06_sanitation',vess_det=vessel_details_id, df='DD/MM/YYYY')
+
+        #tramite l'id del luogo di rilascio del certificato andiamo a cercare nella tabella degli unlocode il place
+        tbl_place = self.db.table('unlocode.place')
+        san_place=tbl_place.readColumns(columns="$descrizione || ' - ' || @nazione_code.nome", where='$id=:place_id', place_id=san_place_id)
+       
+        
+        
+        nome_file = 'DichSanimare.docx'
+        file_sn = self.site.storageNode('home:form_standard', nome_file)
+        template_file_path = file_sn.internal_path
+        #template_file_path = '/home/tommaso/Documenti/Linux/Python/ModificaDocx/test.docx'
+        file_sn_out = self.site.storageNode('home:form_standard', 'DichSanimare_filled.docx')
+        output_file_path = file_sn_out.internal_path
+        #output_file_path = '/home/tommaso/Documenti/Linux/Python/ModificaDocx/result.docx'
+        
+        variables = {
+            "${porto}": workport,
+            "${date_arr}": eta,
+            "${nome_imb}": vesselname,
+            "${imo}": imo,
+            "${last_port}": lastport,
+            "${next_port}": nextport,
+            "${flag}": flag,
+            "${master_name}": master_name,
+            "${gt}": gt,
+            "${sanitation_place}": san_place,
+            "${date_sanitation}": str(san_date),
+            "${crew_n}": crew_n,
+            "${pax_n}": pax_n,
+            "${current_date}": workdate,
+            "${medico}": "/////",
+        }
+
+        template_document = Document(template_file_path)
+
+        for variable_key, variable_value in variables.items():
+            for paragraph in template_document.paragraphs:
+                self.replace_text_in_paragraph(paragraph, variable_key, variable_value)
+
+            for table in template_document.tables:
+                for col in table.columns:
+                    for cell in col.cells:
+                        for paragraph in cell.paragraphs:
+                            self.replace_text_in_paragraph(paragraph, variable_key, variable_value)
+        
+        template_document.save(output_file_path)
+        #apriamo direttamente il file salvato con il programma standard di sistema
+        filename=output_file_path
+        subprocess.call(('xdg-open', filename))
+
+    def replace_text_in_paragraph(self,paragraph, key, value):
+        if key in paragraph.text:
+            inline = paragraph.runs
+            for item in inline:
+                if key in item.text:
+                    item.text = item.text.replace(key, value)
+        
+
 
     
     def th_options(self):

@@ -1,0 +1,1471 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-02T10:03:19.320133+02:00</_ins_ts>
+<_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-09-02T16:37:54.549140+02:00</_mod_ts>
+<_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplateform_provisions</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">form_provisions</code>
+<objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
+<pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
+<tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Form Provisions</description>
+<notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:24px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$agenzia_agency_name&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_description&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div style="text-align: right;"&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_address&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;tel: $agenzia_tel&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_email&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_web&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;MANIFEST OF CARGO, PROVISIONS AND STORES&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: justify;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td class="td_bottom" colspan="2"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$vessel_imbarcazione_tipo&amp;nbsp; $vessel_imbarcazione_nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Flag&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$vessel_imbarcazione_bandiera&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;NT&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$vessel_imbarcazione_nt&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Name of Master&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$master_name&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;with a crew of&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$n_crew&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" colspan="2"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;including Master,&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;and&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$n_passengers&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;passengers. Arrived From&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$last_port&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;on the&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$etb&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;with a cargo of&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td colspan="5" class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$cargo_onboard&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;div&gt;
+			&amp;nbsp;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;table border="1" cellpadding="1" cellspacing="1" class="bordo" style="border-collapse:collapse;margin-left:20px;width:720px;"&gt;
+				&lt;tbody&gt;
+					&lt;tr&gt;
+						&lt;td colspan="3" style="text-align: center;" width="300px"&gt;
+							&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;&lt;strong&gt;DESCRIPTION&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;" width="90px"&gt;
+							&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;QUANTITY&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;td colspan="3" style="text-align: center;" width="250px"&gt;
+							&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;DESCRIPTION&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;" width="90px"&gt;
+							&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;QUANTITY&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td colspan="3" style="text-align: center;"&gt;
+							&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Generi di suggello - Items under seal&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td colspan="3" style="text-align: center;"&gt;
+							&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Generi in cosegna al Comandante - Items deliverd to the Master&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Liquori spiriti&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Assorted spirits&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;" width="45px"&gt;
+							&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Liquori spiriti&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Assorted spirits&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;" width="45px"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Sigarette&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cigarettes&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Sigarette&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cigarettes&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Sigari&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cigars&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Sigari&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cigars&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tabacco&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tobacco&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tabacco&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tobacco&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cartine&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cartine papers&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cartine&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cartine Papers&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+			&lt;div&gt;
+				&lt;table border="1" cellpadding="1" cellspacing="1" class="bordo_top" style="border-collapse:collapse;margin-left:20px;width:355px;"&gt;
+					&lt;tbody&gt;
+						&lt;tr&gt;
+							&lt;td colspan="3" style="text-align: center;" width="300px"&gt;
+								&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Coperta - Macchina&amp;nbsp;&amp;nbsp;&amp;nbsp; Deck &amp; Engine&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;" width="90px"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;QUANTITY&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td width="105px"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Gasolio&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Diesel oil&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;" width="45px"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Olio combustibile&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Fuel oil&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Olio lubrificante&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Lub oil&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+					&lt;/tbody&gt;
+				&lt;/table&gt;
+				&lt;div&gt;
+					&amp;nbsp;&lt;/div&gt;
+				&lt;div&gt;
+					&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
+						&lt;tbody&gt;
+							&lt;tr&gt;
+								&lt;td&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Visto arrivare alle ore&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td style="border-bottom: 1px solid black;" width="90px"&gt;
+									&amp;nbsp;&lt;/td&gt;
+								&lt;td style="text-align: center;"&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;del&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td colspan="2" style="border-bottom: 1px solid black;"&gt;
+									&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$etb&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;/tr&gt;
+							&lt;tr&gt;
+								&lt;td width="265px"&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eseguita visita sommaria a bordo alle ore&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td style="border-bottom: 1px solid black;"&gt;
+									&amp;nbsp;&lt;/td&gt;
+								&lt;td style="text-align: center;"&gt;
+									&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;del&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td style="border-bottom: 1px solid black;"&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$etb&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;senza rilievi.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;/tr&gt;
+						&lt;/tbody&gt;
+					&lt;/table&gt;
+					&lt;br /&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ORTONA, L&amp;Igrave; $etb&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</content>
+<metadata><author>admin</author>
+<version _T="NN"></version>
+<date _T="NN"></date>
+<is_print _T="B" _valuelabel="">True</is_print>
+<is_mail _T="NN"></is_mail>
+<is_row _T="NN"></is_row>
+<row_height _T="NN"></row_height>
+<default_letterhead _T="NN"></default_letterhead>
+<summary _T="NN"></summary>
+<email><subject _T="NN"></subject>
+<to_address _T="NN"></to_address>
+<from_address _T="NN"></from_address>
+<cc_address _T="NN"></cc_address>
+<bcc_address _T="NN"></bcc_address>
+<attachments _T="NN"></attachments></email>
+<email_compiled _T="BAG"></email_compiled></metadata>
+<varsbag><g7bt2ykhp5 _pkey="g7bt2ykhp5"><fieldpath dtype="::NN">@agency_id.agency_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/agency_name</fieldname>
+<varname dtype="::NN">agenzia_agency_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt2ykhp5>
+<g7bt31c8qx _pkey="g7bt31c8qx"><fieldpath dtype="::NN">@agency_id.description</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/description</fieldname>
+<varname dtype="::NN">agenzia_description</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt31c8qx>
+<g7bt32odrt _pkey="g7bt32odrt"><fieldpath dtype="::NN">@agency_id.address</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/address</fieldname>
+<varname dtype="::NN">agenzia_address</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt32odrt>
+<g7bt33irwp _pkey="g7bt33irwp"><fieldpath dtype="::NN">@agency_id.tel</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/tel</fieldname>
+<varname dtype="::NN">agenzia_tel</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt33irwp>
+<g7bt34k0yh _pkey="g7bt34k0yh"><fieldpath dtype="::NN">@agency_id.fax</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/fax</fieldname>
+<varname dtype="::NN">agenzia_fax</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt34k0yh>
+<g7bt35kaih _pkey="g7bt35kaih"><fieldpath dtype="::NN">@agency_id.email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/email</fieldname>
+<varname dtype="::NN">agenzia_email</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt35kaih>
+<g7bt36u829 _pkey="g7bt36u829"><fieldpath dtype="::NN">@agency_id.web</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/web</fieldname>
+<varname dtype="::NN">agenzia_web</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt36u829>
+<g7bt3gvhgp _pkey="g7bt3gvhgp"><fieldpath dtype="::NN">@agency_id.fullname</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/user signature</fieldname>
+<varname dtype="::NN">agenzia_user_signature</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt3gvhgp>
+<g7bt4x9vyh _pkey="g7bt4x9vyh"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Tipo</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_tipo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt4x9vyh>
+<g7bt4zf74x _pkey="g7bt4zf74x"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_nome</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt4zf74x>
+<g7bt512rfd _pkey="g7bt512rfd"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Bandiera</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_bandiera</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt512rfd>
+<g7bt5by2m9 _pkey="g7bt5by2m9"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.loa</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/LOA</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_loa</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt5by2m9>
+<g7bt5dc7eh _pkey="g7bt5dc7eh"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.gt</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/GT</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_gt</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt5dc7eh>
+<g7bt5eiu4h _pkey="g7bt5eiu4h"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nt</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/NT</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_nt</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt5eiu4h>
+<g7bt5fpn0p _pkey="g7bt5fpn0p"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.imo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/imo</fieldname>
+<varname dtype="::NN">vessel_imbarcazione_imo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt5fpn0p>
+<g7bt5j9q4p _pkey="g7bt5j9q4p"><fieldpath dtype="::NN">@vessel_details_id.callsign</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Vessel/callsign</fieldname>
+<varname dtype="::NN">vessel_callsign</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt5j9q4p>
+<g7bt5lbaa1 _pkey="g7bt5lbaa1"><fieldpath dtype="::NN">@vessel_details_id.beam</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/beam</fieldname>
+<varname dtype="::NN">vessel_beam</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt5lbaa1>
+<g7bt61zq0p _pkey="g7bt61zq0p"><fieldpath dtype="::NN">eta</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">eta</fieldname>
+<varname dtype="::NN">eta</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt61zq0p>
+<g7bt62z9c9 _pkey="g7bt62z9c9"><fieldpath dtype="::NN">etb</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">etb</fieldname>
+<varname dtype="::NN">etb</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format dtype="::NN" _loadedValue="::NN">dd/MM/yy</format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt62z9c9>
+<g7bt64b53t _pkey="g7bt64b53t"><fieldpath dtype="::NN">ets</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">ets</fieldname>
+<varname dtype="::NN">ets</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt64b53t>
+<g7bt6aiaa9 _pkey="g7bt6aiaa9"><fieldpath dtype="::NN">@dock_id.dock_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Banchina/dock_name</fieldname>
+<varname dtype="::NN">banchina_dock_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt6aiaa9>
+<g7bt74e1wp _pkey="g7bt74e1wp"><fieldpath dtype="::NN">cargo_dest</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">cargo_dest</fieldname>
+<varname dtype="::NN">cargo_dest</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt74e1wp>
+<g7bt7orukp _pkey="g7bt7orukp"><fieldpath dtype="::NN">nextport</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Next port</fieldname>
+<varname dtype="::NN">next_port</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt7orukp>
+<g7bt7n6atd _pkey="g7bt7n6atd"><fieldpath dtype="::NN">lastport</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Last port</fieldname>
+<varname dtype="::NN">last_port</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt7n6atd>
+<g7bt77dwmh _pkey="g7bt77dwmh"><fieldpath dtype="::NN">cargo_onboard</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">cargo_onboard</fieldname>
+<varname dtype="::NN">cargo_onboard</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt77dwmh>
+<g7bt78ny15 _pkey="g7bt78ny15"><fieldpath dtype="::NN">transit_cargo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">transit_cargo</fieldname>
+<varname dtype="::NN">transit_cargo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt78ny15>
+<g7bt86krvl _pkey="g7bt86krvl"><fieldpath dtype="::NN">prox_port</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">prox_port</fieldname>
+<varname dtype="::NN">prox_port</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt86krvl>
+<g7bt7xxky1 _pkey="g7bt7xxky1"><fieldpath dtype="::NN">owners</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Owners full name</fieldname>
+<varname dtype="::NN">owners_full_name</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bt7xxky1>
+<g7btkhkl0p _pkey="g7btkhkl0p"><fieldpath dtype="::NN">workport</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">workport</fieldname>
+<varname dtype="::NN">workport</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7btkhkl0p>
+<g7bu3qf9qx _pkey="g7bu3qf9qx"><fieldpath dtype="::NN">master_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">master_name</fieldname>
+<varname dtype="::NN">master_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bu3qf9qx>
+<g7bu3sb6yp _pkey="g7bu3sb6yp"><fieldpath dtype="::NN">n_crew</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">n_crew</fieldname>
+<varname dtype="::NN">n_crew</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bu3sb6yp>
+<g7bu3thtop _pkey="g7bu3thtop"><fieldpath dtype="::NN">n_passengers</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">n_passengers</fieldname>
+<varname dtype="::NN">n_passengers</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bu3thtop>
+<g7bu55chw1 _pkey="g7bu55chw1"><fieldpath dtype="::NN">@vessel_details_id.ex_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/ex_name</fieldname>
+<varname dtype="::NN">vessel_ex_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bu55chw1>
+<g7bu7inf4p _pkey="g7bu7inf4p"><fieldpath dtype="::NN">@vessel_details_id.reg_num</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/reg_num</fieldname>
+<varname dtype="::NN">vessel_reg_num</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bu7inf4p>
+<g7bucv1imx _pkey="g7bucv1imx"><fieldpath dtype="::NN">@vessel_details_id.@reg_place.citta_nazione</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Vessel/place/citta_nazione</fieldname>
+<varname dtype="::NN">vessel_place_citta_nazione</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7bucv1imx>
+<g7buldmc95 _pkey="g7buldmc95"><fieldpath dtype="::NN">gdf_int</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">gdf_int</fieldname>
+<varname dtype="::NN">gdf_int</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7buldmc95>
+<g7cjit3rhd _pkey="g7cjit3rhd"><fieldpath dtype="::NN">ship_or_rec</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Ship or Rec</fieldname>
+<varname dtype="::NN">ship_or_rec</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cjit3rhd>
+<g7cjm8w2y9 _pkey="g7cjm8w2y9"><fieldpath dtype="::NN">@cargo_lu_arr.cargo_lu_en_ita</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Carichi sbarco/imbarchi/Carico L/U ITA</fieldname>
+<varname dtype="::NN">carichi_sbarco_imbarchi_carico_l_u_ita</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g7cjm8w2y9>
+<gae0drwfu9 _pkey="gae0drwfu9"><fieldpath>@agency_id.@port.@nazione_code.nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/place/nazione/Nome</fieldname>
+<varname dtype="::NN" _loadedValue="agenzia_place_nazione_nome">agenzia_nazione</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gae0drwfu9></varsbag>
+<parameters _T="BAG"></parameters>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<content_css>.bordo {
+border: 2px solid black;
+}
+.bordo_top {
+ border :2px solid black;
+ border-top: none; 
+}
+.td_bottom{ 
+  border-bottom: 1px solid black;
+}</content_css>
+<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.fullname,nextport,lastport,prox_port,owners,workport,@vessel_details_id.@reg_place.citta_nazione,gdf_int,ship_or_rec,@cargo_lu_arr.cargo_lu_en_ita" columns="@agency_id.agency_name,@agency_id.description,@agency_id.address,@agency_id.tel,@agency_id.fax,@agency_id.email,@agency_id.web,@agency_id.fullname,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,@vessel_details_id.@imbarcazione_id.loa,@vessel_details_id.@imbarcazione_id.gt,@vessel_details_id.@imbarcazione_id.nt,@vessel_details_id.@imbarcazione_id.imo,@vessel_details_id.callsign,@vessel_details_id.beam,$eta,$etb,$ets,@dock_id.dock_name,$cargo_dest,$nextport,$lastport,$cargo_onboard,$transit_cargo,$prox_port,$owners,$workport,$master_name,$n_crew,$n_passengers,@vessel_details_id.ex_name,@vessel_details_id.reg_num,@vessel_details_id.@reg_place.citta_nazione,$gdf_int,$ship_or_rec,@cargo_lu_arr.cargo_lu_en_ita,@agency_id.@port.@nazione_code.nome" formats='{"etb": "dd/MM/yy"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "agenzia_description": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_fax": "T", "agenzia_email": "T", "agenzia_web": "T", "agenzia_user_signature": "T", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "vessel_imbarcazione_loa": "T", "vessel_imbarcazione_gt": "T", "vessel_imbarcazione_nt": "T", "vessel_imbarcazione_imo": "T", "vessel_callsign": "A", "vessel_beam": "T", "eta": "DH", "etb": "DH", "ets": "DH", "banchina_dock_name": "T", "cargo_dest": "T", "next_port": "T", "last_port": "T", "cargo_onboard": "T", "transit_cargo": "T", "prox_port": "A", "owners_full_name": "T", "workport": "T", "master_name": "T", "n_crew": "N", "n_passengers": "N", "vessel_ex_name": "T", "vessel_reg_num": "T", "vessel_place_citta_nazione": "A", "gdf_int": "T", "ship_or_rec": "T", "carichi_sbarco_imbarchi_carico_l_u_ita": "T", "agenzia_nazione": "T"}::JS'>&lt;style&gt;.bordo {
+border: 2px solid black;
+}
+.bordo_top {
+ border :2px solid black;
+ border-top: none; 
+}
+.td_bottom{ 
+  border-bottom: 1px solid black;
+}&lt;/style&gt;&lt;div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:24px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@agency_id.agency_name&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@agency_id.description&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div style="text-align: right;"&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@agency_id.address&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@agency_id.@port.@nazione_code.nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;tel: $@agency_id.tel&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@agency_id.email&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@agency_id.web&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div style="text-align: right;"&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+	&lt;div style="text-align: center;"&gt;
+		&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;MANIFEST OF CARGO, PROVISIONS AND STORES&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;div style="text-align: center;"&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div style="text-align: justify;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
+			&lt;tbody&gt;
+				&lt;tr&gt;
+					&lt;td class="td_bottom" colspan="2"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.tipo&amp;nbsp; $@vessel_details_id.@imbarcazione_id.nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Flag&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.bandiera&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;NT&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.nt&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Name of Master&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$master_name&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;with a crew of&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$n_crew&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" colspan="2"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;including Master,&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;and&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$n_passengers&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;passengers. Arrived From&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$lastport&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td class="td_bottom" style="text-align: center;"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;on the&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$etb^etb&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+				&lt;tr&gt;
+					&lt;td class="td_bottom"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;with a cargo of&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td colspan="5" class="td_bottom"&gt;
+						&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$cargo_onboard&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;/tr&gt;
+			&lt;/tbody&gt;
+		&lt;/table&gt;
+		&lt;div&gt;
+			&amp;nbsp;&lt;/div&gt;
+		&lt;div&gt;
+			&lt;table border="1" cellpadding="1" cellspacing="1" class="bordo" style="border-collapse:collapse;margin-left:20px;width:720px;"&gt;
+				&lt;tbody&gt;
+					&lt;tr&gt;
+						&lt;td colspan="3" style="text-align: center;" width="300px"&gt;
+							&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;&lt;strong&gt;DESCRIPTION&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;" width="90px"&gt;
+							&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;QUANTITY&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;td colspan="3" style="text-align: center;" width="250px"&gt;
+							&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;DESCRIPTION&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;" width="90px"&gt;
+							&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;QUANTITY&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td colspan="3" style="text-align: center;"&gt;
+							&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Generi di suggello - Items under seal&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td colspan="3" style="text-align: center;"&gt;
+							&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Generi in cosegna al Comandante - Items deliverd to the Master&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Liquori spiriti&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Assorted spirits&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;" width="45px"&gt;
+							&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Liquori spiriti&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Assorted spirits&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;" width="45px"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Sigarette&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cigarettes&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Sigarette&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cigarettes&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Sigari&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cigars&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Sigari&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cigars&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tabacco&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tobacco&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tabacco&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tobacco&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cartine&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cartine papers&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cartine&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Cartine Papers&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td style="text-align: center;"&gt;
+							&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;n.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+						&lt;td&gt;
+							&amp;nbsp;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+			&lt;div&gt;
+				&lt;table border="1" cellpadding="1" cellspacing="1" class="bordo_top" style="border-collapse:collapse;margin-left:20px;width:355px;"&gt;
+					&lt;tbody&gt;
+						&lt;tr&gt;
+							&lt;td colspan="3" style="text-align: center;" width="300px"&gt;
+								&lt;strong&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Coperta - Macchina&amp;nbsp;&amp;nbsp;&amp;nbsp; Deck &amp; Engine&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;" width="90px"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;QUANTITY&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td width="105px"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Gasolio&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Diesel oil&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;" width="45px"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Olio combustibile&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Fuel oil&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Olio lubrificante&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Lub oil&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td style="text-align: center;"&gt;
+								&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;kg.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+							&lt;td&gt;
+								&amp;nbsp;&lt;/td&gt;
+						&lt;/tr&gt;
+					&lt;/tbody&gt;
+				&lt;/table&gt;
+				&lt;div&gt;
+					&amp;nbsp;&lt;/div&gt;
+				&lt;div&gt;
+					&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
+						&lt;tbody&gt;
+							&lt;tr&gt;
+								&lt;td&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Visto arrivare alle ore&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td style="border-bottom: 1px solid black;" width="90px"&gt;
+									&amp;nbsp;&lt;/td&gt;
+								&lt;td style="text-align: center;"&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;del&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td colspan="2" style="border-bottom: 1px solid black;"&gt;
+									&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$etb^etb&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;/tr&gt;
+							&lt;tr&gt;
+								&lt;td width="265px"&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eseguita visita sommaria a bordo alle ore&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td style="border-bottom: 1px solid black;"&gt;
+									&amp;nbsp;&lt;/td&gt;
+								&lt;td style="text-align: center;"&gt;
+									&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;del&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td style="border-bottom: 1px solid black;"&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$etb^etb&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+								&lt;td&gt;
+									&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;senza rilievi.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+							&lt;/tr&gt;
+						&lt;/tbody&gt;
+					&lt;/table&gt;
+					&lt;br /&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ORTONA, L&amp;Igrave; $etb^etb&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</main></compiled></data>
+<authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
+<private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
+<flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_print</flags>
+<required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
+<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>

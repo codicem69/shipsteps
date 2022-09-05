@@ -5,7 +5,7 @@ class Table(object):
     def config_db(self,pkg):
         
         tbl=pkg.table('arrival', pkey='id', name_long='!![en]Arrival', name_plural='!![en]Arrivals',
-                                 caption_field='arrival_data', partition_agency_id='agency_id')
+                                 caption_field='arrival_data', partition_agency_id='agency_id', static=True)
         self.sysFields(tbl,counter=True)
 
         tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
@@ -75,6 +75,10 @@ class Table(object):
         #tbl.aliasColumn('email_int_arr','@arrival_email.email_int')
         tbl.aliasColumn('email_int_sof','@sof_arr.@sof_email.email_int')
         tbl.aliasColumn('sailed','@time_arr.sailed')
+        tbl.aliasColumn('vesselname','@vessel_details_id.vessel_name')
+        tbl.aliasColumn('flag','@vessel_details_id.flag')
+        tbl.aliasColumn('tsl','@vessel_details_id.tsl')
+        tbl.aliasColumn('imo','@vessel_details_id.imo')
         tbl.formulaColumn('ets_emaildep',"""CASE WHEN $sailed IS NULL THEN :etsed || to_char($ets, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',
                             var_etsed='<br>EXPECTED TIMES<br>------------------------------<br>ETS:...........',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('eta_email',"""CASE WHEN $eta IS NOT NULL THEN :etadescr || to_char($eta, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etadescr='ETA:...........',var_df='DD/MM/YYYY HH24:MI')

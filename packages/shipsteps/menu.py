@@ -1,6 +1,8 @@
 # encoding: utf-8
 class Menu(object):
     def config(self,root,**kwargs):
+        user=self.db.currentEnv.get('user')
+        
         shipsteps = root.branch(u"shipsteps", tags="")
         shipsteps.thpage(u"!![en]Task list", table="shipsteps.tasklist", tags="")
         shipsteps.thpage(u"!![en]Operations SOF", table="shipsteps.sof_operations", tags="")
@@ -34,5 +36,8 @@ class Menu(object):
         shipsteps.webpage("!![en]Shippers/Receivers/Charterers", filepath="/shipsteps/cruscotto")
         shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
         shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")
+        if user != 'admin':
+            shipsteps = root.branch(u"shipsteps", tags="")
+            shipsteps.thpage(u"!![en]Arrivals", table="shipsteps.arrival", tags="")
 
 

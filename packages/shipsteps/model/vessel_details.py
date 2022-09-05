@@ -23,4 +23,6 @@ class Table(object):
         tbl.column('vess_image', dtype='P', name_short='!![en]Vessel photo')
         tbl.aliasColumn('vessel_name','@imbarcazione_id.nome',name_long='!![en]Vessel Name')
         tbl.aliasColumn('imo', '@imbarcazione_id.imo', name_long='IMO')
+        tbl.aliasColumn('flag', '@imbarcazione_id.bandiera', name_long='!![en]Flag')
+        tbl.aliasColumn('tsl', '@imbarcazione_id.gt', name_long='GT')
         tbl.formulaColumn('vessel_descr',"$vessel_name || ' - IMO ' || $imo")

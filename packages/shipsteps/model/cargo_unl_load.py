@@ -37,8 +37,8 @@ class Table(object):
         tbl.formulaColumn('cargo_sof', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || coalesce('BL no.' || $bln, '') || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' 
                                             WHEN $operation = 'U' THEN '-Unloading cargo: ' || coalesce('BL no.' || $bln, '') || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico Sof')
-        tbl.formulaColumn('cargo_lu_en_ita', """CASE WHEN $operation = 'L' THEN '-Carico da imbarcare: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description_it || '<br>' 
-                                            WHEN $operation = 'U' THEN '-Carico da sbarcare: ' || @measure_id.description || ' ' || $quantity || ' ' || $description_it || '<br>' ELSE 'NIL' END """,
+        tbl.formulaColumn('cargo_lu_en_ita', """CASE WHEN $operation = 'L' THEN '-Carico da imbarcare / Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description_it || '<br>' 
+                                            WHEN $operation = 'U' THEN '-Carico da sbarcare / Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description_it || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U ITA')
         tbl.formulaColumn('ship_rec', "coalesce('s: '|| @shipper_id.name,'') || coalesce(' - r: ' || @receiver_id.name,'')")
         tbl.formulaColumn('ship_or_rec', """CASE WHEN $operation = 'L' THEN 'Shipper/Caricatore: ' || @shipper_id.name WHEN $operation = 'U' THEN 'Receiver/Ricevitore: ' || @receiver_id.name ELSE '' END """,
