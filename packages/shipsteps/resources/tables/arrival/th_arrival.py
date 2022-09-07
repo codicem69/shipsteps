@@ -89,10 +89,12 @@ class Form(BaseComponent):
         tc_undertask = bc_tasklist.tabContainer(margin='2px', region='center', height='auto')
         tc_sof = tc.borderContainer(title='!![en]SOF')
         tc_app = tc.tabContainer(title='!![en]Applications')
+        tc_bl = tc.borderContainer(title='!![en]Loading Cargoes')
         tc_usma = tc.borderContainer(title='!![en]Sanimare certificates')
         #tc_parapon = bc_task3.tabContainer(title='pippo')
         self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = 'seashell'))
         #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
+        tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%',pageName='sanimare_cert').remote(self.cargodocsCertLazyMode)
         tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%',pageName='sanimare_cert').remote(self.usmaCertLazyMode)
 
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
@@ -471,6 +473,11 @@ class Form(BaseComponent):
       # fb.field('n_moor_dep')
       # fb.field('tug_dep')
       # fb.field('n_tug_dep')
+
+    @public_method
+    def cargodocsCertLazyMode(self,pane):
+        pane.stackTableHandler(relation='@cargodocs_arr',formResource='FormFromCargodocs',view_store__onBuilt=True)
+
     @public_method
     def usmaCertLazyMode(self,pane):
         #pane.inlineTableHandler(title='!![en]Renewal/Issue certificates',relation='@certusma_arr',viewResource='ViewFromCertusma',view_store__onBuilt=True)

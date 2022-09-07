@@ -19,6 +19,8 @@ class GnrCustomWebPage(object):
                                                 overflow='hidden'))
         self.charterers(tc.contentPane(title='!![en]Charterers',datapath='.charterers',
                                                 overflow='hidden',_onStart=True))
+        self.cons_notify(tc.contentPane(title='!![en]Consigne/Notify',datapath='.consnotify',
+                                                overflow='hidden',_onStart=True))                                                
 
     def charterers(self,pane):
         pane.iframe(src='/sys/thpage/shipsteps/charterers',
@@ -27,5 +29,10 @@ class GnrCustomWebPage(object):
 
     def shiprec(self,pane):
         pane.iframe(src='/sys/thpage/shipsteps/ship_rec',
+                    src_th_viewResource='View',
+                    height='100%',width='100%',border=0)
+
+    def cons_notify(self,pane):
+        pane.iframe(src='/sys/thpage/shipsteps/consignee',
                     src_th_viewResource='View',
                     height='100%',width='100%',border=0)

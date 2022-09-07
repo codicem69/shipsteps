@@ -33,6 +33,8 @@ class Menu(object):
         shipsteps.thpage(u"!![en]Vessel services", table="shipsteps.vessel_services", tags="")
         shipsteps.thpage(u"!![en]ExtradataCP", table="shipsteps.extradaticp", tags="")
         shipsteps.thpage(u"!![en]Certificati sanimare", table="shipsteps.certsanimare", tags="")
+        shipsteps.thpage(u"!![en]Loading Cargo docs", table="shipsteps.cargo_docs", tags="")
+        shipsteps.thpage(u"!![en]Bill of lading", table="shipsteps.billoflading", tags="")
         shipsteps.webpage("!![en]Shippers/Receivers/Charterers", filepath="/shipsteps/cruscotto")
         shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
         shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")
