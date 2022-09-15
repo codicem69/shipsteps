@@ -116,7 +116,8 @@ class Form(BaseComponent):
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-        bar.dataController("if(msgspec=='arrival_sof') {alert('Message created')}", msgspec='^msg_special')
+        bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^msg_special',msg_txt = 'Email ready to be sent')
+        
     @public_method
     def print_sof(self, record, resultAttr=None, nome_template=None, format_page=None, **kwargs):
         #msg_special=None
