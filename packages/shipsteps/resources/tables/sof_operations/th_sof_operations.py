@@ -28,8 +28,8 @@ class ViewFromSofOperations(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('date',edit=True)
-        r.fieldcell('day',edit=True)
-        r.fieldcell('operations',edit=True, width='40em')
+        r.fieldcell('day',edit=True, width='7em')
+        r.fieldcell('operations',edit=True, width='50em')
         r.fieldcell('from',edit=True, width='5em')
         r.fieldcell('to',edit=True, width='5em')
     
