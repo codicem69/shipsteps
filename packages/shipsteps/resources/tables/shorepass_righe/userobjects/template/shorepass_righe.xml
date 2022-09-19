@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-05-31T17:59:23.654222+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-13T12:31:55.959560+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-06-08T15:37:52.036881+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-09-16T18:35:45.983136+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.shorepass_righetemplateshorepass_righe</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">shorepass_righe</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.shorepass_righe</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">shorepass</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
@@ -72,23 +72,19 @@
 						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Validit&amp;agrave; /&lt;em&gt; Expire date&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td style="text-align: center;border-bottom: 1px solid black;"&gt;
-					&lt;div&gt;
-						&amp;nbsp;&lt;/div&gt;
-					&lt;div&gt;
-						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$expire&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
-				&lt;/td&gt;
+					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:10px;"&gt;$expire&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;"&gt;
-					&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;dalle ore / &lt;em&gt;from hours&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;em&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;from h.&lt;/span&gt;&lt;/span&gt;&lt;/em&gt;&lt;/td&gt;
 				&lt;td style="text-align: center;"&gt;
 					&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$start_time&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;"&gt;
-					&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;alle ore / &lt;em&gt;to hours&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;em&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;to h.&lt;/span&gt;&lt;/span&gt;&lt;/em&gt;&lt;/td&gt;
 				&lt;td style="text-align: center;"&gt;
-					&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$stop_time&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$stop_time&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="2" style="text-align: center;"&gt;
@@ -165,7 +161,7 @@
 					&lt;div style="text-align: center;"&gt;
 						&amp;nbsp;&lt;/div&gt;
 					&lt;div style="text-align: center;"&gt;
-						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$eta&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$data_attuale&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
@@ -425,16 +421,16 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></ga9mi6urrl>
-<gabfptyr3l _pkey="gabfptyr3l"><fieldpath dtype="::NN">@nationality.nome</fieldpath>
+<ga9mia85d5 _pkey="ga9mia85d5"><fieldpath dtype="::NN">nationality</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">nazione/Nome</fieldname>
-<varname dtype="::NN" _loadedValue="nazione_nome">nationality</varname>
+<fieldname dtype="::NN">nationality</fieldname>
+<varname dtype="::NN">nationality</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gabfptyr3l>
+<editable _T="NN" dtype="::NN"></editable></ga9mia85d5>
 <ga9miiuzy9 _pkey="ga9miiuzy9"><fieldpath dtype="::NN">id_doc</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">id_doc</fieldname>
@@ -465,151 +461,137 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></ga9minr3gh>
-<gaar09z7wp _pkey="gaar09z7wp"><fieldpath dtype="::NN">@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.nome</fieldpath>
+<gdlue5qkm9 _pkey="gdlue5qkm9"><fieldpath>@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.nome</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">shorepass_id/arrival_id/Vessel/imbarcazione/Nome</fieldname>
 <varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_vessel_imbarcazione_nome">imbarcazione_nome</varname>
 <virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar09z7wp>
-<gaar0r6nah _pkey="gaar0r6nah"><fieldpath dtype="::NN">@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gdlue5qkm9>
+<gdluejkskp _pkey="gdluejkskp"><fieldpath>@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">shorepass_id/arrival_id/Vessel/imbarcazione/Bandiera</fieldname>
 <varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_vessel_imbarcazione_bandiera">imbarcazione_bandiera</varname>
 <virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar0r6nah>
-<gaar1zf4rl _pkey="gaar1zf4rl"><fieldpath dtype="::NN">@shorepass_id.data_arr</fieldpath>
-<dtype dtype="::NN">D</dtype>
-<fieldname dtype="::NN">shorepass_id/data_arr</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_data_arr">eta</varname>
+<mask _T="NN" dtype="::NN"></mask></gdluejkskp>
+<gdluf7sku1 _pkey="gdluf7sku1"><fieldpath>@shorepass_id.@arrival_id.eta</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/eta</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_eta">eta</varname>
 <virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar1zf4rl>
-<gaar2g17mp _pkey="gaar2g17mp"><fieldpath dtype="::NN">@shorepass_id.data_part</fieldpath>
-<dtype dtype="::NN">D</dtype>
-<fieldname dtype="::NN">shorepass_id/data_part</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_data_part">ets</varname>
+<mask _T="NN" dtype="::NN"></mask></gdluf7sku1>
+<gdlufpu9q1 _pkey="gdlufpu9q1"><fieldpath>@shorepass_id.@arrival_id.ets</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/ets</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_ets">ets</varname>
 <virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar2g17mp>
-<gaar5ijne9 _pkey="gaar5ijne9"><fieldpath dtype="::NN">@shorepass_id.@arrival_id.@agency_id.@port.descrizione</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/place/Descrizione</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_place_descrizione">port</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar5ijne9>
-<gaar6ez9ch _pkey="gaar6ez9ch"><fieldpath dtype="::NN">@shorepass_id.data_attuale</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">shorepass_id/data_attuale</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_data_attuale">data_attuale</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar6ez9ch>
-<gaar7257q1 _pkey="gaar7257q1"><fieldpath dtype="::NN">@shorepass_id.@arrival_id.@agency_id.agency_name</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/agency_name</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_agency_name">agency_name</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar7257q1>
-<gaar7bo4mp _pkey="gaar7bo4mp"><fieldpath dtype="::NN">@shorepass_id.@arrival_id.@agency_id.address</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/address</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_address">agenzia_address</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar7bo4mp>
-<gaar7lvo41 _pkey="gaar7lvo41"><fieldpath dtype="::NN">@shorepass_id.@arrival_id.@agency_id.tel</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/tel</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_tel">agenzia_tel</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar7lvo41>
-<gaar7uu3d5 _pkey="gaar7uu3d5"><fieldpath dtype="::NN">@shorepass_id.@arrival_id.@agency_id.email</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/email</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_email">agenzia_email</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaar7uu3d5>
-<gaarcjiy1t _pkey="gaarcjiy1t"><fieldpath dtype="::NN">@shorepass_id.@arrival_id.@agency_id.web</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/web</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_web">agenzia_web</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaarcjiy1t>
-<gaarfg37xt _pkey="gaarfg37xt"><fieldpath dtype="::NN">stop_time</fieldpath>
-<dtype dtype="::NN">H</dtype>
-<fieldname dtype="::NN">stop_time</fieldname>
-<varname dtype="::NN">stop_time</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaarfg37xt>
-<gaarfe6l9d _pkey="gaarfe6l9d"><fieldpath dtype="::NN">start_time</fieldpath>
-<dtype dtype="::NN">H</dtype>
-<fieldname dtype="::NN">start_time</fieldname>
-<varname dtype="::NN">start_time</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaarfe6l9d>
-<gaarfbpar5 _pkey="gaarfbpar5"><fieldpath dtype="::NN">expire</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gdlufpu9q1>
+<gdlukccdj5 _pkey="gdlukccdj5"><fieldpath>expire</fieldpath>
 <dtype dtype="::NN">D</dtype>
 <fieldname dtype="::NN">expire</fieldname>
 <varname dtype="::NN">expire</varname>
 <virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gaarfbpar5></varsbag>
+<mask _T="NN" dtype="::NN"></mask></gdlukccdj5>
+<gdlun9246h _pkey="gdlun9246h"><fieldpath>start_time</fieldpath>
+<dtype dtype="::NN">H</dtype>
+<fieldname dtype="::NN">start_time</fieldname>
+<varname dtype="::NN">start_time</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gdlun9246h>
+<gdlunc5fw9 _pkey="gdlunc5fw9"><fieldpath>stop_time</fieldpath>
+<dtype dtype="::NN">H</dtype>
+<fieldname dtype="::NN">stop_time</fieldname>
+<varname dtype="::NN">stop_time</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gdlunc5fw9>
+<gdlua6t6tl _pkey="gdlua6t6tl"><fieldpath>@shorepass_id.@arrival_id.@agency_id.@port.descrizione</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/place/Descrizione</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_place_descrizione">port</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gdlua6t6tl>
+<gdlube6ok1 _pkey="gdlube6ok1"><fieldpath>@shorepass_id.@arrival_id.datacorrente</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/Current date</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_current_date">data_attuale</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gdlube6ok1>
+<gdlu8hny81 _pkey="gdlu8hny81"><fieldpath>@shorepass_id.@arrival_id.@agency_id.address</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/address</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_address">agenzia_address</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gdlu8hny81>
+<gdlu90b3hl _pkey="gdlu90b3hl"><fieldpath>@shorepass_id.@arrival_id.@agency_id.tel</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/tel</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_tel">agenzia_tel</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gdlu90b3hl>
+<gdlu9b9yrl _pkey="gdlu9b9yrl"><fieldpath>@shorepass_id.@arrival_id.@agency_id.email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/email</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_email">agenzia_email</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gdlu9b9yrl>
+<gdlu9k55i9 _pkey="gdlu9k55i9"><fieldpath>@shorepass_id.@arrival_id.@agency_id.web</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/web</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_web">agenzia_web</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gdlu9k55i9>
+<gdlu6249kp _pkey="gdlu6249kp"><fieldpath>@shorepass_id.@arrival_id.@agency_id.agency_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/Agenzia/agency_name</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_agenzia_agency_name">agency_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gdlu6249kp></varsbag>
 <parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css>.td_fix{width:200px;
 }</content_css>
-<compiled><main maintable="shipsteps.shorepass_righe" locale="it-IT" virtual_columns="@shorepass_id.data_attuale" columns="$name,$surname,$birth_date,@nationality.nome,$id_doc,$id_doc_n,$rank,@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera,@shorepass_id.data_arr,@shorepass_id.data_part,@shorepass_id.@arrival_id.@agency_id.@port.descrizione,@shorepass_id.data_attuale,@shorepass_id.@arrival_id.@agency_id.agency_name,@shorepass_id.@arrival_id.@agency_id.address,@shorepass_id.@arrival_id.@agency_id.tel,@shorepass_id.@arrival_id.@agency_id.email,@shorepass_id.@arrival_id.@agency_id.web,$stop_time,$start_time,$expire" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"name": "T", "surname": "T", "birth_date": "T", "nationality": "T", "id_doc": "T", "id_doc_n": "T", "rank": "T", "imbarcazione_nome": "T", "imbarcazione_bandiera": "T", "eta": "D", "ets": "D", "port": "T", "data_attuale": "A", "agency_name": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "stop_time": "H", "start_time": "H", "expire": "D"}::JS'>&lt;style&gt;.td_fix{width:200px;
+<compiled><main maintable="shipsteps.shorepass_righe" locale="it-IT" virtual_columns="@shorepass_id.@arrival_id.datacorrente" columns="$name,$surname,$birth_date,$nationality,$id_doc,$id_doc_n,$rank,@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera,@shorepass_id.@arrival_id.eta,@shorepass_id.@arrival_id.ets,$expire,$start_time,$stop_time,@shorepass_id.@arrival_id.@agency_id.@port.descrizione,@shorepass_id.@arrival_id.datacorrente,@shorepass_id.@arrival_id.@agency_id.address,@shorepass_id.@arrival_id.@agency_id.tel,@shorepass_id.@arrival_id.@agency_id.email,@shorepass_id.@arrival_id.@agency_id.web,@shorepass_id.@arrival_id.@agency_id.agency_name" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"name": "T", "surname": "T", "birth_date": "T", "nationality": "T", "id_doc": "T", "id_doc_n": "T", "rank": "T", "imbarcazione_nome": "T", "imbarcazione_bandiera": "T", "eta": "DH", "ets": "DH", "expire": "D", "start_time": "H", "stop_time": "H", "port": "T", "data_attuale": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agency_name": "T"}::JS'>&lt;style&gt;.td_fix{width:200px;
 }&lt;/style&gt;&lt;div&gt;
 	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:15px;margin-top:20px;margin-right:15px;width:98%;"&gt;
 		&lt;tbody&gt;
@@ -671,23 +653,19 @@
 						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Validit&amp;agrave; /&lt;em&gt; Expire date&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td style="text-align: center;border-bottom: 1px solid black;"&gt;
-					&lt;div&gt;
-						&amp;nbsp;&lt;/div&gt;
-					&lt;div&gt;
-						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$expire&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
-				&lt;/td&gt;
+					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:10px;"&gt;$expire&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;"&gt;
-					&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;dalle ore / &lt;em&gt;from hours&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;em&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;from h.&lt;/span&gt;&lt;/span&gt;&lt;/em&gt;&lt;/td&gt;
 				&lt;td style="text-align: center;"&gt;
 					&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$start_time&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;"&gt;
-					&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;alle ore / &lt;em&gt;to hours&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;em&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;to h.&lt;/span&gt;&lt;/span&gt;&lt;/em&gt;&lt;/td&gt;
 				&lt;td style="text-align: center;"&gt;
-					&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$stop_time&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$stop_time&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="2" style="text-align: center;"&gt;
@@ -764,7 +742,7 @@
 					&lt;div style="text-align: center;"&gt;
 						&amp;nbsp;&lt;/div&gt;
 					&lt;div style="text-align: center;"&gt;
-						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@shorepass_id.data_arr&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@shorepass_id.@arrival_id.datacorrente&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
@@ -842,7 +820,7 @@
 					&lt;div&gt;
 						&amp;nbsp;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@nationality.nome&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$nationality&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
@@ -856,7 +834,7 @@
 					&lt;div&gt;
 						&amp;nbsp;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@shorepass_id.data_arr&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@shorepass_id.@arrival_id.eta&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td&gt;
 					&lt;div&gt;
@@ -882,7 +860,7 @@
 					&lt;div&gt;
 						&amp;nbsp;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@shorepass_id.data_part&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@shorepass_id.@arrival_id.ets&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td&gt;
 					&lt;div&gt;

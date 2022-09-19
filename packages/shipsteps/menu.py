@@ -12,6 +12,15 @@ class Menu(object):
             shipsteps.webpage("!![en]Shippers/Receivers/Charterers", filepath="/shipsteps/cruscotto")
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")
+            proforma_da = root.branch(u"proforma da", tags="")
+            proforma_da.thpage(u"clienti", table="pfda.cliente", tags="", formResource="FormCliente")
+            proforma_da.thpage(u"imbarcazione", table="pfda.imbarcazione", tags="")
+            proforma_da.thpage(u"proforma", table="pfda.proforma", tags="", viewResource="ViewProforma")
+            proforma_da.thpage(u"tariffe", table="pfda.tariffe", tags="")
+            proforma_da.thpage(u"tariffe_tipo", table="pfda.tariffa_tipo", tags="")
+            proforma_da.thpage(u"File for email", table="pfda.fileforemail", tags="")
+            proforma_da.lookups(u"Tabelle Ausiliarie", lookup_manager="pfda")
+
         else:
             shipsteps = root.branch(u"shipsteps", tags="")
             shipsteps.thpage(u"!![en]Task list", table="shipsteps.tasklist", tags="")

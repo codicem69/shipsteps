@@ -12,7 +12,9 @@
         <pfda pkgcode="pfda:pfda"/>
 		<shipsteps pkgcode="shipsteps"/>
 	</packages>
+
 	<menu package="*"/>
+
 	<authentication pkg="gnrcore:sys">
 		<py_auth defaultTags="user" pkg="adm" method="authenticate"/>
 	</authentication>
