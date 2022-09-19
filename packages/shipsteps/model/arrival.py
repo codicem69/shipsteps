@@ -81,11 +81,17 @@ class Table(object):
         tbl.aliasColumn('imo','@vessel_details_id.imo')
         tbl.formulaColumn('ets_emaildep',"""CASE WHEN $sailed IS NULL THEN :etsed || to_char($ets, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',
                             var_etsed='<br>EXPECTED TIMES<br>------------------------------<br>ETS:...........',var_df='DD/MM/YYYY HH24:MI')
-        tbl.formulaColumn('eta_email',"""CASE WHEN $eta IS NOT NULL THEN :etadescr || to_char($eta, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etadescr='ETA:...........',var_df='DD/MM/YYYY HH24:MI')
-        tbl.formulaColumn('etb_email',"""CASE WHEN $etb IS NOT NULL THEN :etbdescr || to_char($etb, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etbdescr='ETB:...........',var_df='DD/MM/YYYY HH24:MI')
-        tbl.formulaColumn('etstart_email',"""CASE WHEN $et_start IS NOT NULL THEN :etstdescr || to_char($et_start, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etstdescr='ET Start ops:..',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('eta_email',"""CASE WHEN @time_arr.aor IS NULL AND $eta IS NOT NULL THEN :etadescr || to_char($eta, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etadescr='ETA:...........',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('etb_email',"""CASE WHEN @time_arr.moored IS NULL AND $etb IS NOT NULL THEN :etbdescr || to_char($etb, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etbdescr='ETB:...........',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('etstart_email',"""CASE WHEN @sof_arr.ops_commenced IS NULL AND $et_start IS NOT NULL THEN :etstdescr || to_char($et_start, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etstdescr='ET Start ops:..',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('etc_email',"""CASE WHEN $etc IS NOT NULL THEN :etcdescr || to_char($etc, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etcdescr='ETC:...........',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('ets_email',"""CASE WHEN $ets IS NOT NULL THEN :etsdescr || to_char($ets, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etsdescr='ETS:...........',var_df='DD/MM/YYYY HH24:MI')
+
+       #tbl.formulaColumn('eta_email',"""CASE WHEN $eta IS NOT NULL THEN :etadescr || to_char($eta, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etadescr='ETA:...........',var_df='DD/MM/YYYY HH24:MI')
+       #tbl.formulaColumn('etb_email',"""CASE WHEN $etb IS NOT NULL THEN :etbdescr || to_char($etb, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etbdescr='ETB:...........',var_df='DD/MM/YYYY HH24:MI')
+       #tbl.formulaColumn('etstart_email',"""CASE WHEN $et_start IS NOT NULL THEN :etstdescr || to_char($et_start, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etstdescr='ET Start ops:..',var_df='DD/MM/YYYY HH24:MI')
+       #tbl.formulaColumn('etc_email',"""CASE WHEN $etc IS NOT NULL THEN :etcdescr || to_char($etc, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etcdescr='ETC:...........',var_df='DD/MM/YYYY HH24:MI')
+       #tbl.formulaColumn('ets_email',"""CASE WHEN $ets IS NOT NULL THEN :etsdescr || to_char($ets, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etsdescr='ETS:...........',var_df='DD/MM/YYYY HH24:MI')
 
         tbl.formulaColumn('arrival_data',"$reference_num || ' - ' || @vessel_details_id.@imbarcazione_id.nome || ' - ' || coalesce($visit_id,'')", dtype='T')    
         tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )

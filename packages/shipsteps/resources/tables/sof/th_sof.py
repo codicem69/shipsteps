@@ -92,6 +92,7 @@ class Form(BaseComponent):
         fb.field('ops_completed')
         fb.field('doc_onboard')
         fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2, tag='textArea')
+        fb.field('onbehalf', width='15em', placeholder='insert the name of society')
         fb.field('int_sof', placeholder='eg.: Fiore Srl')
         
     def th_bottom_custom(self, bottom):
