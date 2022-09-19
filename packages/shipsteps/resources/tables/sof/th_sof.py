@@ -232,15 +232,22 @@ class Form(BaseComponent):
             return
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
+
+        #verifichiamo che nei kwargs['allegati'] non abbiamo il valore nullo e trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
+        if kwargs['allegati'] is not None:
+            lista_all = list(kwargs['allegati'].split(","))
+        else:
+            lista_all = None
+        
         #lettura degli attachment
-        if selPkeys_att is not None:
-            lenPkeys_att = len(selPkeys_att) #verifichiamo la lunghezza della lista pkeys tabella allegati
+        if lista_all is not None:
+            len_allegati = len(lista_all) #verifichiamo la lunghezza della lista pkeys tabella allegati
             file_url=[]
             tbl_att =  self.db.table('shipsteps.arrival_atc') #definiamo la variabile della tabella allegati
             #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
             #viene appesa alla variabile lista file_url
-            for e in range(lenPkeys_att):
-                pkeys_att=selPkeys_att[e]
+            for e in range(len_allegati):
+                pkeys_att=lista_all[e]
                 fileurl = tbl_att.readColumns(columns='$fileurl',
                       where='$id=:att_id',
                         att_id=pkeys_att)
@@ -252,7 +259,7 @@ class Form(BaseComponent):
                 fileurl = file_url[r]
                 file_path = fileurl.replace('/home','site')
                 fileSn = self.site.storageNode(file_path)
-                attcmt.append(fileSn.internal_path) 
+                attcmt.append(fileSn.internal_path)
 
         # Lettura degli account email predefiniti all'interno di Agency e Staff
         tbl_staff =  self.db.table('shipsteps.staff')
