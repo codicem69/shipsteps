@@ -50,8 +50,11 @@ class Main(TableScriptToHtml):
             h_row = y * 3.6
 
         porto = self.field('@agency_id.@port.descrizione')
-
-        layout.row(height=15).cell("""<img src="http://127.0.0.1:8082/_storage/site/image/LogoCP.jpg" style="width: 84px; height: 71px;::HTML""",content_class="center")
+        logo_cp=self.db.application.getPreference('logo_cp',pkg='shipsteps')
+        logocp=self.page.externalUrl(logo_cp)
+        #logocp=self.page.externalUrl('/_storage/site/image/logo_cc.jpg?_pc=450&v_x=2&v_y=-4.5&v_z=1&v_r=0&v_h=100&v_w=100')
+        layout.row(height=15).cell("""<img src="%s" style="width: 84px; height: 71px;::HTML""" %logocp ,content_class="center")
+        #layout.row(height=15).cell("""<img src="http://127.0.0.1:8082/_storage/site/image/LogoCP.jpg" style="width: 84px; height: 71px;::HTML""",content_class="center")
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong> </strong></div>::HTML")
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong><u>CAPITANERIA DI PORTO DI "+porto.upper()+"</u></strong></div>::HTML")
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong>ALTRE INFORMAZIONI AD USO DELL’AUTORITÀ MARITTIMA</strong></div>::HTML")
@@ -98,7 +101,7 @@ class Main(TableScriptToHtml):
         cel_port=col2.row(height=5).cell("TRIBUTI SPECIALI PAGATI:", lbl='')
 
         tributi = """- Euro 5,17&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Attestazione N.__________<br>- Euro 31,00&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-                    del___________________<br>- Euro 62,00<br>- Euro 124,00<br><br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;___________________________
+                    del___________________<br>- Euro 62,00<br>- Euro 124,00<br><br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;___________________________
         <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&ensp;(timbro e firma dell’ Autorità marittima)""" + '::HTML'
         col2.row(height=30).cell(tributi, lbl="")
 

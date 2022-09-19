@@ -51,8 +51,10 @@ class Main(TableScriptToHtml):
             h_row = y * 3.6
 
         porto = self.field('@agency_id.@port.descrizione')
-
-        layout.row(height=15).cell("""<img src="http://127.0.0.1:8082/_storage/site/image/LogoCP.jpg" style="width: 84px; height: 71px;::HTML""",content_class="center")
+        logo_cp=self.db.application.getPreference('logo_cp',pkg='shipsteps')
+        logocp=self.page.externalUrl(logo_cp)
+        layout.row(height=15).cell("""<img src="%s" style="width: 84px; height: 71px;::HTML""" %logocp ,content_class="center")
+        #layout.row(height=15).cell("""<img src="http://127.0.0.1:8082/_storage/site/image/LogoCP.jpg" style="width: 84px; height: 71px;::HTML""",content_class="center")
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong> </strong></div>::HTML")
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong><u>CAPITANERIA DI PORTO DI "+porto.upper()+"</u></strong></div>::HTML")
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong>DICHIARAZIONE INTEGRATIVA DI PARTENZA</strong></div>::HTML")

@@ -56,6 +56,8 @@ class Table(object):
         tbl.pyColumn('saluto',name_long='!![en]Greeting', static=True)
         tbl.pyColumn('datacorrente',name_long='!![en]Current date', static=True)
         tbl.pyColumn('sostanave',name_long='!![en]Sosta nave', static=True)
+        tbl.pyColumn('logocc',name_long='!![en]Logo CC', static=True, dtype='P')
+        tbl.pyColumn('logocp',name_long='!![en]Logo CP', static=True, dtype='P')
        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('n_tug_arr','@extradatacp.n_tug_arr')
         tbl.aliasColumn('n_tug_dep','@extradatacp.n_tug_dep')
@@ -363,6 +365,14 @@ class Table(object):
         remain_minutes=((minutes*60)-((days*86400)+(tot_hours*3600)))/60
         sosta=str(days) + ' giorni, ' + str(tot_hours) + ' ore, ' + str(remain_minutes) + ' minuti'
         return sosta    
+
+    def pyColumn_logocc(self,record,field):
+        logocc = self.db.application.getPreference('logo_cc',pkg='shipsteps')
+        return logocc
+
+    def pyColumn_logocp(self,record,field):
+        logocp = self.db.application.getPreference('logo_cp',pkg='shipsteps')
+        return logocp
 
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),date = self.db.workdate)
