@@ -2,10 +2,12 @@
 class Menu(object):
     def config(self,root,**kwargs):
         user=self.db.currentEnv.get('user')
+
         if user != 'admin':
             shipsteps = root.branch(u"shipsteps", tags="")
             shipsteps.thpage(u"!![en]Arrivals", table="shipsteps.arrival", tags="")
             shipsteps.thpage(u"!![en]Vessel details", table="shipsteps.vessel_details", tags="")
+            shipsteps.thpage(u"!!Messages", table="email.message", tags="")
             shipsteps.thpage(u"!![en]Services emails", table="shipsteps.email_services", tags="")
             shipsteps.thpage(u"!![en]Agencies", table="shipsteps.agency", tags="")
             shipsteps.thpage(u"!![en]Staff", table="shipsteps.staff", tags="")
@@ -20,9 +22,19 @@ class Menu(object):
             proforma_da.thpage(u"tariffe_tipo", table="pfda.tariffa_tipo", tags="")
             proforma_da.thpage(u"File for email", table="pfda.fileforemail", tags="")
             proforma_da.lookups(u"Tabelle Ausiliarie", lookup_manager="pfda")
+            unlocode = root.branch(u"Unlocode", tags="")
+            unlocode.thpage(u"Località", table="unlocode.place", tags="")
+            unlocode.thpage(u"Nazione", table="unlocode.nazione", tags="")
 
         else:
+            #administration = root.branch(u"Amministrazione sistema")
+
             shipsteps = root.branch(u"shipsteps", tags="")
+            shipsteps.packageBranch('Amministrazione sistema',pkg='adm')
+            shipsteps.packageBranch('System',pkg='sys')
+            shipsteps.packageBranch('Email',pkg='email')
+            shipsteps.packageBranch('Proforma da',pkg='pfda')
+            shipsteps.packageBranch('Unlocode',pkg='unlocode')
             shipsteps.thpage(u"!![en]Task list", table="shipsteps.tasklist", tags="")
             shipsteps.thpage(u"!![en]Operations SOF", table="shipsteps.sof_operations", tags="")
             shipsteps.thpage(u"email_sof", table="shipsteps.email_sof", tags="")
