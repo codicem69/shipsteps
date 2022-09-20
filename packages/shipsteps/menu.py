@@ -12,6 +12,7 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Agencies", table="shipsteps.agency", tags="")
             shipsteps.thpage(u"!![en]Staff", table="shipsteps.staff", tags="")
             shipsteps.webpage("!![en]Shippers/Receivers/Charterers", filepath="/shipsteps/cruscotto")
+            shipsteps.thpage(u"!![en]Arrival logs", table="shipsteps.protocollo", tags="")
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")
             proforma_da = root.branch(u"proforma da", tags="")
@@ -67,6 +68,7 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Loading Cargo docs", table="shipsteps.cargo_docs", tags="")
             shipsteps.thpage(u"!![en]Bill of lading", table="shipsteps.billoflading", tags="")
             shipsteps.webpage("!![en]Shippers/Receivers/Charterers", filepath="/shipsteps/cruscotto")
+            shipsteps.thpage(u"!![en]Arrival logs", table="shipsteps.protocollo", tags="")
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")
 
