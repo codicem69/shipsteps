@@ -17,7 +17,7 @@ class Table(object):
 
     def counter_prot_n(self,record=None):
         #2021/000001
-        return dict(format='$K$YY/$NNN',code='A',  period='YY', date_field='data', showOnLoad=True, date_tolerant=True,recycle=True)
+        return dict(format='$K$YY/$NNN',code='A',  period='YY', date_field='data', showOnLoad=True, date_tolerant=True)
     
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),data = self.db.workdate)
