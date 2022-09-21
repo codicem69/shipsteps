@@ -12,15 +12,13 @@ class Table(object):
         tbl.column('data_prat', dtype='D', name_short='!![en]Pratique date')
         tbl.column('prot_n', name_short='!![en]Log number')
         tbl.column('fald_n', name_short='!![en]Folder no.')
+        tbl.column('arrival_id',size='22', name_long='arrival_id'
+                    ).relation('arrival.id', relation_name='prot_arr', mode='foreignkey', onDelete='raise')
         tbl.column('description', name_short='!![en]Description')
-        tbl.pyColumn('datacorrente',name_long='!![en]Current date', static=True)
-
+        
     def counter_prot_n(self,record=None):
         #2021/000001
         return dict(format='$K$YY/$NNN',code='A',  period='YY', date_field='data', showOnLoad=True, date_tolerant=True)
     
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),data = self.db.workdate)
-
-    def pyColumn_datacorrente(self,record,field):
-        data_lavoro=self.db.workdate

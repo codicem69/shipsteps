@@ -14,6 +14,7 @@ class View(BaseComponent):
         r.fieldcell('data_prat', width='6em')
         r.fieldcell('prot_n',width='6em')
         r.fieldcell('fald_n')
+        r.fieldcell('arrival_id')
         r.fieldcell('description', width='50em')
 
     def th_order(self):
@@ -35,9 +36,11 @@ class Form(BaseComponent):
         fb.field('data_prat')
         fb.field('prot_n')
         fb.field('fald_n')
-        fb.dbSelect(dbtable='shipsteps.arrival',lbl='!![en]Arrival',auxColumns='$arrival_data',
-                    selected_arrival_data='.description',order_by='$arrival_data DESC',
-                        hasDownArrow=True, width='28em', colspan=2)
+        fb.br()
+        fb.field('arrival_id',order_by='$arrival_data DESC', hasDownArrow=True, width='50em',colspan=2,selected_cargo_descr='.description')
+        #fb.dbSelect(dbtable='shipsteps.arrival',lbl='!![en]Arrival',auxColumns='$arrival_data',
+        #            selected_arrival_data='.description',order_by='$arrival_data DESC',
+        #                hasDownArrow=True, width='28em', colspan=2)
         fb.br()
         fb.field('description', width='50em',colspan=2)
 

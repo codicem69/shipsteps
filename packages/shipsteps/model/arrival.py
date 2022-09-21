@@ -64,6 +64,7 @@ class Table(object):
         tbl.aliasColumn('caricoarrivo','@cargo_lu_arr.cargo_lu_en_ita',name_long='caricoarrivo')
         tbl.aliasColumn('chrtrs','@cargo_lu_arr.@charterers_id.name',name_long='Noleggiatore')
         tbl.aliasColumn('carico_arr','@cargo_lu_arr.cargo_arr',name_long='Carico in arrivo')
+        tbl.aliasColumn('cargo_descr','@cargo_lu_arr.cargo_descr',name_long='Descrizione Carico')
         tbl.aliasColumn('cargo_lu_en','@cargo_lu_arr.cargo_ship_rec',name_long='!![en]Cargo L/U')
        # tbl.aliasColumn('transit_cargo','@cargo_transit_arr.transit_cargo')
         tbl.aliasColumn('ship_rec','@cargo_lu_arr.ship_rec',name_long='!![en]Shipper/Receivers')
