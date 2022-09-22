@@ -140,7 +140,7 @@ class ViewFromShorepassRighe(BaseComponent):
         #leggiamo dalla tabella shorepass_righe tutti gli id che hanno selezionato la colonna shorepass
         tbl_shorepass_righe = self.db.table('shipsteps.shorepass_righe')
         shorepass = tbl_shorepass_righe.query(columns="$id,$name", where='$shorepass = TRUE AND $shorepass_id=:s_id',
-                                                                    s_id=record_id).fetch()
+                                                                    s_id=record_id, order_by='$_row_count').fetch()
         
         builder = TableTemplateToHtml(table=tbl_shorepass_righe)
         storagePath=[]
