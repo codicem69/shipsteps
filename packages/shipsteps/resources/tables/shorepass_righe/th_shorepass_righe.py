@@ -57,7 +57,7 @@ class ViewFromShorepassRighe(BaseComponent):
         r.fieldcell('expire', edit=True,batch_assign=True, width='7em')
         r.fieldcell('start_time', edit=True,batch_assign=True, width='5em')
         r.fieldcell('stop_time', edit=True,batch_assign=True, width='5em')
-        r.fieldcell('shorepass', edit=True)
+        r.fieldcell('shorepass', edit=True,batch_assign=True)
     
     def th_order(self):
         return '_row_count'
@@ -78,7 +78,7 @@ class ViewFromShorepassRighe(BaseComponent):
                       _onError="genro.publish('xls_importer_onResult',{error:error});")
         btn_print_shorepass.dataRpc('msg_special', self.print_template_shorepass,record='=#FORM.record',pkeys='=#FORM.shipsteps_shorepass_righe.view.grid.currentSelectedPkeys',servizio=[],
                             nome_template = 'shipsteps.shorepass_righe:shorepass_righe',format_page='A4',_lockScreen=dict(message='Please Wait'))
-        bar.dataController("""if(msgspec=='noshorepass') genro.publish("floating_message",{message:msg_txt, messageType:"error"});""",msgspec='^msg_special', msg_txt = 'You must select the record or more records')
+        bar.dataController("""if(msgspec=='noshorepass') genro.publish("floating_message",{message:msg_txt, messageType:"error"});""",msgspec='^msg_special', msg_txt = 'You must select the shorepass column record or more records')
 
     def th_order(self):
         return '_row_count'
@@ -135,22 +135,20 @@ class ViewFromShorepassRighe(BaseComponent):
     def print_template_shorepass(self, record,pkeys=None, resultAttr=None, nome_template=None, servizio=[] , format_page=None, **kwargs):
         #msg_special=None
         #pkey = ','.join([str(item) for item in pkeys])
-        record_id=pkeys
-        
+        #leggiamo il record id dello shorepass
+        record_id=record['id']
+        #leggiamo dalla tabella shorepass_righe tutti gli id che hanno selezionato la colonna shorepass
         tbl_shorepass_righe = self.db.table('shipsteps.shorepass_righe')
-      # sp_id = kwargs['record_attr']['_pkey']
-      # sp = tbl_shorepass_righe.query(columns="$id", where='$shorepass_id=:s_id', s_id=sp_id).fetch()
-      # list_sp=[]
-      # for r in range(len(sp)):
-      #     list_sp.append(sp[r][0])
+        shorepass = tbl_shorepass_righe.query(columns="$id,$name", where='$shorepass = TRUE AND $shorepass_id=:s_id',
+                                                                    s_id=record_id).fetch()
         
         builder = TableTemplateToHtml(table=tbl_shorepass_righe)
         storagePath=[]
-        if pkeys is None:
+        if shorepass is None or shorepass == []:
             msg_special = 'noshorepass'
             return msg_special
-        else:    
-            n_pkeys=len(pkeys)
+        else:       
+            n_pkeys=len(shorepass)
         for r in range(n_pkeys):
             nome_temp = nome_template.replace('shipsteps.shorepass_righe:','')+str(r)
             nome_file = '{cl_id}.pdf'.format(
@@ -159,24 +157,54 @@ class ViewFromShorepassRighe(BaseComponent):
             template = self.loadTemplate(nome_template)  # nome del template
             pdfpath = self.site.storageNode('/tmp:template',nome_file)#('home:stampe_template', nome_file)
             storagePath.append(pdfpath.fullpath)
-            record=pkeys[r]
+            record=shorepass[r][0]
             builder(record=record, template=template)
-            
-           
-        
-            #builder(record=record_id, template=template)
         
             if format_page=='A3':
                 builder.page_format='A3'
                 builder.page_width=427
                 builder.page_height=290
-            #print(x)
             filepdf=builder.writePdf(pdfpath=pdfpath)
-       # print(x)  
+
         builder.pdf_handler.joinPdf(storagePath,'home:stampe_template/shorepass.pdf')
         shorepass = self.site.storageNode('home:stampe_template', 'shorepass.pdf' )
         self.setInClientData(path='gnr.clientprint',
-                              value=shorepass.url(timestamp=datetime.now()), fired=True)
+                              value=shorepass.url(timestamp=datetime.now()), fired=True)  
+    
+      # builder = TableTemplateToHtml(table=tbl_shorepass_righe)
+      # storagePath=[]
+      # 
+      # if pkeys is None or pkeys == []:
+      #     msg_special = 'noshorepass'
+      #     return msg_special
+      # else:    
+      #     n_pkeys=len(pkeys)
+      # for r in range(n_pkeys):
+      #     nome_temp = nome_template.replace('shipsteps.shorepass_righe:','')+str(r)
+      #     nome_file = '{cl_id}.pdf'.format(
+      #                 cl_id=nome_temp)
+
+      #     template = self.loadTemplate(nome_template)  # nome del template
+      #     pdfpath = self.site.storageNode('/tmp:template',nome_file)#('home:stampe_template', nome_file)
+      #     storagePath.append(pdfpath.fullpath)
+      #     record=pkeys[r]
+      #     builder(record=record, template=template)
+      #     
+      #    
+      # 
+      #     #builder(record=record_id, template=template)
+      # 
+      #     if format_page=='A3':
+      #         builder.page_format='A3'
+      #         builder.page_width=427
+      #         builder.page_height=290
+      #     
+      #     filepdf=builder.writePdf(pdfpath=pdfpath)
+      # 
+      # builder.pdf_handler.joinPdf(storagePath,'home:stampe_template/shorepass.pdf')
+      # shorepass = self.site.storageNode('home:stampe_template', 'shorepass.pdf' )
+      # self.setInClientData(path='gnr.clientprint',
+      #                       value=shorepass.url(timestamp=datetime.now()), fired=True)
         
 
 class Form(BaseComponent):

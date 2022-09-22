@@ -21,9 +21,9 @@ class Table(object):
         tbl.column('id_doc_state',size='2',name_short='!![en]State identity doc').relation('unlocode.nazione.code',relation_name='docstate_sp', mode='foreignkey', onDelete='raise')
         #tbl.column('id_doc_state', name_short='State identity doc')
         tbl.column('expire_id_doc', name_short='Expiry identity doc')
-        tbl.column('expire', dtype='D', name_short='expire',batch_assign=True)
-        tbl.column('start_time', dtype='H', name_short='start time',batch_assign=True)
-        tbl.column('stop_time', dtype='H', name_short='stop time',batch_assign=True)
+        tbl.column('expire', dtype='D', name_short='expire')
+        tbl.column('start_time', dtype='H', name_short='start time')
+        tbl.column('stop_time', dtype='H', name_short='stop time')
         tbl.column('shorepass', dtype='B', name_short='shorepass', default=True)
         tbl.aliasColumn('agency_id','@shorepass_id.@arrival_id.agency_id')
 

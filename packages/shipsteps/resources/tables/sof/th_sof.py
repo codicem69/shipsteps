@@ -349,6 +349,7 @@ class Form(BaseComponent):
                                                           bcc_address=email_arr_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id)
+        
         self.db.commit()
         #ritorniamo con la variabile msg_special per l'innesco del messaggio e il settaggio della checklist invio email a vero
         if email_template_id == 'email_ormeggio' or email_template_id == 'email_operations' or email_template_id == 'email_partenza':
