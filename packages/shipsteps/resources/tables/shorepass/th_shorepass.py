@@ -40,7 +40,7 @@ class Form(BaseComponent):
     def shorepassRighe(self,bc):
         center = bc.contentPane(region='center',width='500px')#, datapath='shipsteps_shorepass_righe')
         
-        center.inlineTableHandler(relation='@shorepass_righe',viewResource='ViewFromShorepassRighe')
+        center.inlineTableHandler(relation='@shorepass_righe',viewResource='ViewFromShorepassRighe', export=True)
         
 
 
