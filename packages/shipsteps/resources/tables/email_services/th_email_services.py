@@ -29,10 +29,18 @@ class View(BaseComponent):
 
 
 class Form(BaseComponent):
-
+    py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
+    
     def th_form(self, form):
-        pane = form.record
-        fb = pane.formbuilder(cols=2, border_spacing='4px')
+        bc = form.center.borderContainer()
+        #bc = tc.borderContainer(title='Form')
+        self.EmailServiceTestata(bc.borderContainer(region='top',datapath='.record',height='380px', splitter=True))
+        self.EmailServiceCenter(bc.contentPane(region='center'))
+
+    def EmailServiceTestata(self,bc):    
+        #pane = form.record
+        center = bc.roundedGroup(title='!![en]Email services',region='center',width='auto')
+        fb = center.formbuilder(cols=2, border_spacing='4px')
         fb.field('agency_id', width='10em')
         fb.br()
         fb.field('service_for_email_id')
@@ -41,18 +49,20 @@ class Form(BaseComponent):
         fb.br()
         fb.div("!![en]Insert the emails separate by commas",font_weight='bold', margin_top='10px')
         fb.br()
-        fb.field('email',width='40em', height='10em',tag='textarea')
+        fb.field('email',width='40em', height='5em',tag='textarea')
         
-        fb.field('email_cc',width='40em', height='10em',tag='textarea')
-        fb.field('email_bcc',width='40em', height='10em',tag='textarea')
+        fb.field('email_cc',width='40em', height='5em',tag='textarea')
+        fb.field('email_bcc',width='40em', height='5em',tag='textarea')
         fb.br()
         fb.div("!![en]Insert the emails separate by commas",font_weight='bold', margin_top='10px')
         fb.br()
-        fb.field('email_pec',width='40em', height='10em',tag='textarea')
+        fb.field('email_pec',width='40em', height='5em',tag='textarea')
         
-        fb.field('email_cc_pec',width='40em', height='10em',tag='textarea')
+        fb.field('email_cc_pec',width='40em', height='5em',tag='textarea')
         #fb.field('port')
 
+    def EmailServiceCenter(self,pane):
+        pane.attachmentGrid(viewResource='ViewFromEmailServicesAtc')
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px')

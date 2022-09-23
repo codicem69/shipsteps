@@ -111,7 +111,7 @@ class Form(BaseComponent):
         pane.attachmentGrid(viewResource='ViewFromVesselDocs')
     
     def docNave(self,pane):
-        pane.inlineTableHandler(title='!![en]Ships Docs',relation='@ship_docs',viewResource='ViewFromDoc')
+        pane.inlineTableHandler(title='!![en]Ships Docs',relation='@ship_docs',viewResource='ViewFromDoc', export=True)
         
     @public_method
     def deleteImage(self, image=None, **kwargs):

@@ -1093,7 +1093,27 @@ class Form(BaseComponent):
                 fileSn = self.site.storageNode(file_path)
                 attcmt.append(fileSn.internal_path)
        
+        #lettura degli attachment in email_service_atc
+        #verifichiamo il numero di servizi
+        ln_serv=len(servizio)
+        #definiamo le tabelle su cui effettuare le ricerche
+        tbl_emailservices = self.db.table('shipsteps.email_services')
+        tbl_emailserv_atc = self.db.table('shipsteps.email_services_atc')
+        #leggiamo prima gli id dei servizi su email_services così passiamo gli id alla tabella di attachment per la lettura dell'url
+        #per poi trasformarlo nel giusto path che appendiamo agli attachment dell'email
+        for e in range(ln_serv):
+            serv=servizio[e]
+            service_id = tbl_emailservices.readColumns(columns="$id", where='$service_for_email=:serv', serv=serv)
         
+        
+            att_services = tbl_emailserv_atc.query(columns="$filepath", where='$maintable_id=:m_id' ,
+                                                                    m_id=service_id).fetch()
+            if att_services	!= []:
+                file_url = att_services[e][0]
+                file_path = file_url.replace('/home','site')
+                fileSn = self.site.storageNode(file_path)
+                attcmt.append(fileSn.internal_path)
+          
         #vecchio codice con rilevamento attachments tramite casella checkbox
        #if not record:
        #    return
