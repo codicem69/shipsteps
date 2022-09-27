@@ -818,9 +818,12 @@ class Form(BaseComponent):
                              if(msgspec=='val_imm') {SET .email_frontiera=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msgspec=='val_dog') {SET .email_dogana=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msgspec=='ship_rec') {SET .email_ship_rec=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msgspec=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msgspec=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
+                             if(msgspec=='val_deroga_gb') {alert(msg_txt);}
+                             if(msgspec=='no_moored') {genro.publish("floating_message",{message:'You must insert in arrival times date and time of vessel moored', messageType:"error"});}
                              if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') genro.publish("floating_message",{message:'You must first print Nota Arrivo', messageType:"error"}); if(msg=='fal1_arr_no') genro.publish("floating_message",{message:'You must first print Fal1 arrival', messageType:"error"}); if(msg=='fal1arr_notarr') genro.publish("floating_message",{message:'You must first print Fal1 arrival and Nota Arrivo', messageType:"error"});
                              if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') genro.publish("floating_message",{message:'You must first print Dich. integrativa di partenza', messageType:"error"}); if(msg=='fal1_dep_no') genro.publish("floating_message",{message:'You must first print Fal1 departure', messageType:"error"}); if(msg=='fal1dep_notapart') genro.publish("floating_message",{message:'You must first print Fal1 departure and Dich. integrativa di partenza', messageType:"error"}); if(msg=='no_sailed') genro.publish("floating_message",{message:'You must first insert ets date and time', messageType:"error"});
                              if(msg=='intfat') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
+                             if(msg=='no_sanitation') genro.publish("floating_message",{message:'you must insert sanitation certificate in the ships docs', messageType:"error"});
                              if(msg=='mod_nave') {SET .checklist=true;}
                              if(msg=='front_carico') {SET .front_carico=true;}
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
@@ -884,8 +887,10 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2)]))
         btn_chim_cp = fb_arr.Button('!![en]Email Waste derogation CP')
-        btn_chim_cp.dataRpc('msg_special', self.email_services,
-                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_deroga_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+        btn_chim_cp.dataRpc('msg_special', self.print_template_derogagb,
+                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
+                            nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                            moored='=#FORM.record.@time_arr.moored',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2)]))
@@ -1135,6 +1140,11 @@ class Form(BaseComponent):
             file_path_gb = 'site:stampe_template/garbage_request.pdf'
             fileSn_gb = self.site.storageNode(file_path_gb)
             attcmt.append(fileSn_gb.internal_path)
+        #Condizioniamo l'aggiunta dell'allegato se il servizio invio email è la deroga rifiuti
+        if email_template_id == 'email_deroga_garbage':
+            file_path_gb = 'site:stampe_template/deroga_rifiuti.pdf'
+            fileSn_gb = self.site.storageNode(file_path_gb)
+            attcmt.append(fileSn_gb.internal_path)    
            #if r < (ln-1):
            #    attcmt = attcmt + fileSn.internal_path + ','
            #else:
@@ -1251,6 +1261,8 @@ class Form(BaseComponent):
                 msg_special = 'val_mod61dep'
             elif email_template_id == 'email_water_supply':
                 msg_special = 'val_ws'
+            elif email_template_id == 'email_deroga_garbage':
+                msg_special = 'val_deroga_gb'    
             return msg_special
     
     @public_method
@@ -1843,6 +1855,41 @@ class Form(BaseComponent):
         # il msg con il dataController
         msg_special='val_garbage'
         return msg_special
+
+    @public_method
+    def print_template_derogagb(self, record, resultAttr=None,selId=None,moored=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
+        #msg_special=None
+        #facciamo arrivare alla variabile moored la datetime dell'ormeggio e se non presente torna indietro il messaggio no_moored per far scattare il dataController
+        if moored is None or moored == '':
+            msg_special = 'no_moored'
+            return msg_special
+
+        tbl_arrival = self.db.table('shipsteps.arrival')
+        builder = TableTemplateToHtml(table=tbl_arrival)
+
+        nome_temp = nome_template.replace('shipsteps.arrival:','')
+        nome_file = '{cl_id}.pdf'.format(
+                    cl_id=nome_temp)
+
+        template = self.loadTemplate(nome_template)  # nome del template
+        pdfpath = self.site.storageNode('home:stampe_template', nome_file)
+
+        builder(record=record, template=template)
+        if format_page=='A3':
+            builder.page_format='A3'
+            builder.page_width=427
+            builder.page_height=290
+
+        result = builder.writePdf(pdfpath=pdfpath)
+
+        self.setInClientData(path='gnr.clientprint',
+                              value=result.url(timestamp=datetime.now()), fired=True)
+        self.email_services(record,email_template_id,servizio, **kwargs)
+        #se ritorna il valore di self.msg_special dalla funzione sopra lanciata self.email_services
+        # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
+        # il msg con il dataController
+        msg_special='val_deroga_gb'
+        return msg_special    
     
     @public_method
     def apridoc(self,record,nome_form=None, **kwargs):
@@ -1860,32 +1907,26 @@ class Form(BaseComponent):
         pax_n=str(record['n_passengers'])
         vessel_details_id=record['vessel_details_id']
         workdate = self.db.workdate.strftime("%d/%m/%Y")
-        
-        #cerchiamo nella tabella certificati nave la sanitation
-        tbl_shipsdoc = self.db.table('shipsteps.ship_doc')
-        san_place_id,san_date=tbl_shipsdoc.readColumns(columns="$issued,to_char($date_cert,:df)", where='$cert=:cert and $vessel_details=:vess_det', 
-                                                        cert='06_sanitation',vess_det=vessel_details_id, df='DD/MM/YYYY')
-
-        #tramite l'id del luogo di rilascio del certificato andiamo a cercare nella tabella degli unlocode il place
-        tbl_place = self.db.table('unlocode.place')
-        san_place=tbl_place.readColumns(columns="$descrizione || ' - ' || @nazione_code.nome", where='$id=:place_id', place_id=san_place_id)
-       
-        
         if nome_form=='DichSanimare':
+            #cerchiamo nella tabella certificati nave la sanitation
+            tbl_shipsdoc = self.db.table('shipsteps.ship_doc')
+            sanitation = tbl_shipsdoc.query(columns="$issued,to_char($date_cert,:df)", where='$cert=:cert and $vessel_details=:vess_det', 
+                                                            cert='06_sanitation',vess_det=vessel_details_id, df='DD/MM/YYYY').fetch() 
+            if sanitation == []:
+                nome_temp ='no_sanitation'
+                return nome_temp
+            san_place_id = sanitation[0][0]
+            san_date = sanitation[0][1]
+            #san_place_id,san_date=tbl_shipsdoc.readColumns(columns="$issued,to_char($date_cert,:df)", where='$cert=:cert and $vessel_details=:vess_det', 
+            #                                                cert='06_sanitation',vess_det=vessel_details_id, df='DD/MM/YYYY')
+            #tramite l'id del luogo di rilascio del certificato andiamo a cercare nella tabella degli unlocode il place
+            tbl_place = self.db.table('unlocode.place')
+            san_place=tbl_place.readColumns(columns="$descrizione || ' - ' || @nazione_code.nome", where='$id=:place_id', place_id=san_place_id)
+        
             nome_file = 'DichSanimare.docx'
             file_sn_out = self.site.storageNode('home:form_standard', 'DichSanimare_filled.docx')
-        if nome_form == 'InterferenzeFiore':
-            nome_file = 'InterferenzeFiore.docx'
-            file_sn_out = self.site.storageNode('home:form_standard', 'InterferenzeFiore_filled.docx')    
-        
-        file_sn = self.site.storageNode('home:form_standard', nome_file)
-        template_file_path = file_sn.internal_path
-        #template_file_path = '/home/tommaso/Documenti/Linux/Python/ModificaDocx/test.docx'
-        
-        output_file_path = file_sn_out.internal_path
-        #output_file_path = '/home/tommaso/Documenti/Linux/Python/ModificaDocx/result.docx'
-        
-        variables = {
+           
+            variables = {
             "${porto}": workport,
             "${date_arr}": eta,
             "${etb}": etb,
@@ -1902,7 +1943,22 @@ class Form(BaseComponent):
             "${pax_n}": pax_n,
             "${current_date}": workdate,
             "${medico}": "/////",
-        }
+            }
+        if nome_form == 'InterferenzeFiore':
+            nome_file = 'InterferenzeFiore.docx'
+            file_sn_out = self.site.storageNode('home:form_standard', 'InterferenzeFiore_filled.docx')    
+            variables = {
+            "${etb}": etb,
+            "${nome_imb}": vesselname,
+            }
+        file_sn = self.site.storageNode('home:form_standard', nome_file)
+        template_file_path = file_sn.internal_path
+        #template_file_path = '/home/tommaso/Documenti/Linux/Python/ModificaDocx/test.docx'
+        
+        output_file_path = file_sn_out.internal_path
+        #output_file_path = '/home/tommaso/Documenti/Linux/Python/ModificaDocx/result.docx'
+        
+        
 
         template_document = Document(template_file_path)
 
