@@ -46,8 +46,8 @@ class ViewFromCargoLU(BaseComponent):
         r.fieldcell('operation', edit=True, width='5em')
         #r.fieldcell('foreign_cargo', edit=True, width='5em')
         r.fieldcell('foreign_cargo', values='True:YES,False:NO',validate_notnull=True, edit=True, width='5em')
-        r.fieldcell('place_origin_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')
-        r.fieldcell('place_dest_goods',auxColumns='@nazione_code.nome' , edit=True, width='10em')    
+        r.fieldcell('place_origin_goods',auxColumns='@nazione_code.nome,$unlocode' , edit=True, width='10em')
+        r.fieldcell('place_dest_goods',auxColumns='@nazione_code.nome,$unlocode' , edit=True, width='10em')    
     
     def th_order(self):
         return 'bln'

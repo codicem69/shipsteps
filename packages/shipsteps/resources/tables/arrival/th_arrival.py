@@ -281,9 +281,9 @@ class Form(BaseComponent):
         fb.field('n_crew' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
         fb.field('n_passengers' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
         fb.br()
-        fb.field('last_port',auxColumns='@nazione_code.nome' )
+        fb.field('last_port',auxColumns='@nazione_code.nome,$unlocode' )
         fb.field('departure_lp' , width='10em')
-        fb.field('next_port',auxColumns='@nazione_code.nome' )
+        fb.field('next_port',auxColumns='@nazione_code.nome,$unlocode' )
         fb.field('eta_np' , width='10em')
         fb.field('voy_n', width='10')
         fb.field('mandatory', colspan=3 , width='47em')
@@ -1211,6 +1211,7 @@ class Form(BaseComponent):
                                                           bcc_address=email_bcc_d,
                                                           attachments=attcmt,
                                                           template_code=email_template_id)
+            #print(x)
             self.db.commit()
 
         if (email_pec_dest) is not None:
