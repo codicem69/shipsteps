@@ -86,9 +86,12 @@ class FormFromRinfusa(BaseComponent):
    
     
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_bulk,email_bulk,*,10')
+        bar = bottom.slotBar('10,stampa_bulk_folder,stampa_bulk,email_bulk,*,10')
+        btn_bulkfolder_print=bar.stampa_bulk_folder.button('Print Bulk folder')
         btn_bulk_print=bar.stampa_bulk.button('Print Bulk application')
         btn_bulk_email=bar.email_bulk.button('Email Bulk application')
+        btn_bulkfolder_print.dataRpc('msg_special', self.print_template_bulk,record='=#FORM.record',servizio=[], email_template_id='',
+                            nome_template = 'shipsteps.rinfusa:cartella_rinfusa',format_page='A3')
         btn_bulk_print.dataRpc('msg_special', self.print_template_bulk,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4')
         btn_bulk_email.dataRpc('msg_special', self.print_template_bulk,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
