@@ -876,20 +876,20 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb_arr=div_arr.formbuilder(colspan=2,cols=4, border_spacing='1px')
         btn_fgdf_cp = fb_arr.Button('!![en]Form GdF')
-        btn_fgdf_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
+        btn_fgdf_cp.dataRpc('', self.print_template,record='=#FORM.record.id',
                             nome_template = 'shipsteps.arrival:form_gdf', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
         btn_fimm_cp = fb_arr.Button('!![en]Form Immigration')
-        btn_fimm_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
-                            nome_template = 'shipsteps.arrival:form_immigration', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
+        btn_fimm_cp.dataRpc('', self.print_template,record='=#FORM.record.id', nome_template = 'shipsteps.arrival:form_immigration', 
+                                         nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4', only_print='yes')
         btn_fprov_cp = fb_arr.Button('!![en]Form Provisions')
-        btn_fprov_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
+        btn_fprov_cp.dataRpc('', self.print_template,record='=#FORM.record.id',
                             nome_template = 'shipsteps.arrival:form_provisions', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
         fb_arr.br()
         
         btn_fsan = fb_arr.Button('!![en]Dichiarazione Sanimare')
         btn_fsan.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='DichSanimare', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
         btn_intfiore = fb_arr.Button('!![en]CheckList Fiore')
-        btn_intfiore.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='InterferenzeFiore', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
+        btn_intfiore.dataRpc('', self.apridoc,record='=#FORM.record',nome_form='InterferenzeFiore', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
         fb_arr.br()
         btn_chim_cp = fb_arr.Button('!![en]Email Cert. Chimico CP')
         btn_chim_cp.dataRpc('msg_special', self.email_services,
@@ -1836,11 +1836,15 @@ class Form(BaseComponent):
                 self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
                 return nome_temp
         #inviamo l'email se si tratta di immigration form e rispetta le condizioni dei file da allegare
-        if nome_temp == 'form_immigration':
+        if kwargs:
+            for chiave in kwargs.keys():
+                if chiave == 'only_print':
+                    if kwargs['only_print'] == 'yes':
+                        return
+        if nome_temp == 'form_immigration' :
             self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
             return nome_temp        
-        
-        return nome_temp
+       
 
     @public_method
     def print_template_garbage(self, record, resultAttr=None,selId=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
