@@ -648,8 +648,9 @@ class Form(BaseComponent):
        #                                    _ask=dict(title='Choose users to whom to assign files',
        #                                        fields=[dict(name='user_id', lbl='User', tag='dbselect', table='adm.user')]))
         btn_fr = fb.Button('!![en]Immigration', width='98px')
-        btn_fr.dataRpc('msg_special', self.email_services,
+        btn_fr.dataRpc('msg_special', self.print_template,
                    record='=#FORM.record.id', servizio=['immigration'], email_template_id='email_frontiera',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                   nome_template = 'shipsteps.arrival:form_immigration', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
@@ -825,7 +826,7 @@ class Form(BaseComponent):
                              if(msgspec=='val_tug') {SET .email_tug=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msgspec=='val_usma') {SET .email_usma=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='val_imm') {SET .email_frontiera=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msgspec=='form_immigration') {SET .email_frontiera=true; alert(msg_txt);}
                              if(msgspec=='val_dog') {SET .email_dogana=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msgspec=='ship_rec') {SET .email_ship_rec=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msgspec=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msgspec=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msgspec=='val_deroga_gb') {alert(msg_txt);}
@@ -1072,6 +1073,11 @@ class Form(BaseComponent):
             file_path_mod61 = 'site:stampe_template/mod61_dep_'+self.vessel_name+'.pdf'
             fileSn_mod61 = self.site.storageNode(file_path_mod61)
             attcmt.append(fileSn_mod61.internal_path)
+        #se il servizio è form_immigration appendiamo agli attachments il form immigration
+        if nome_temp == 'form_immigration':
+            file_path_imm = 'site:stampe_template/form_immigration.pdf'
+            fileSn_imm = self.site.storageNode(file_path_imm)
+            attcmt.append(fileSn_imm.internal_path)    
         #trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
         #ma verifichiamo se nei kwargs gli allegati ci sono per non ritrovarci la variabile lista_all senza assegnazione
         
@@ -1829,6 +1835,10 @@ class Form(BaseComponent):
             if  fal1_departure == 'yes' and nota_partenza == 'yes':
                 self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
                 return nome_temp
+        #inviamo l'email se si tratta di immigration form e rispetta le condizioni dei file da allegare
+        if nome_temp == 'form_immigration':
+            self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
+            return nome_temp        
         
         return nome_temp
 
