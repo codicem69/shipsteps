@@ -70,11 +70,11 @@ class FormFromCargodocs(BaseComponent):
         bar = bottom.slotBar('10,stampa_cargoman,20,stampa_mates,*,10')
         btn_cm_print=bar.stampa_cargoman.button('Print Cargo Manifest')
         btn_mr_print=bar.stampa_mates.button("Print Mate's Receipt")
-        btn_cm_print.dataRpc('msg_special', self.print_template,record='=#FORM.record',nome_template = 'shipsteps.cargo_docs:cargo_manifest',
+        btn_cm_print.dataRpc('', self.print_template,record='=#FORM.record',nome_template = 'shipsteps.cargo_docs:cargo_manifest',
         _ask=dict(title='!![en]Select the letterhead',fields=[dict(name='letterhead', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$name',
                              table='adm.htmltemplate')]))
-        btn_mr_print.dataRpc('msg_special', self.print_template,record='=#FORM.record',nome_template = 'shipsteps.cargo_docs:mates_receipt',
+        btn_mr_print.dataRpc('', self.print_template,record='=#FORM.record',nome_template = 'shipsteps.cargo_docs:mates_receipt',
         _ask=dict(title='!![en]Select the letterhead',fields=[dict(name='letterhead', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$name',
                              table='adm.htmltemplate')]))

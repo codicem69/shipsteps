@@ -90,11 +90,11 @@ class FormFromRinfusa(BaseComponent):
         btn_bulkfolder_print=bar.stampa_bulk_folder.button('Print Bulk folder')
         btn_bulk_print=bar.stampa_bulk.button('Print Bulk application')
         btn_bulk_email=bar.email_bulk.button('Email Bulk application')
-        btn_bulkfolder_print.dataRpc('msg_special', self.print_template_bulk,record='=#FORM.record',servizio=[], email_template_id='',
+        btn_bulkfolder_print.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.rinfusa:cartella_rinfusa',format_page='A3')
-        btn_bulk_print.dataRpc('msg_special', self.print_template_bulk,record='=#FORM.record',servizio=[], email_template_id='',
+        btn_bulk_print.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4')
-        btn_bulk_email.dataRpc('msg_special', self.print_template_bulk,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
+        btn_bulk_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
                             nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4')
     @public_method
     def print_template_bulk(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
@@ -132,8 +132,8 @@ class FormFromRinfusa(BaseComponent):
         #se ritorna il valore di self.msg_pecial dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
         # il msg con il dataController
-            msg_special='val_bulk'
-            return msg_special
+            nome_temp='val_bulk'
+            return nome_temp
 
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[], **kwargs):

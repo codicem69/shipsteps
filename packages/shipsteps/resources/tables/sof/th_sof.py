@@ -101,23 +101,23 @@ class Form(BaseComponent):
         btn_sof_arrivo=bar.email_arrivo.button('Email arrival')
         btn_sof_oper=bar.email_operazioni.button('Email operations')
         btn_sof_partenza=bar.email_partenza.button('Email departure')
-        btn_sof_print.dataRpc('msg_special', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
-        btn_sof_arrivo.dataRpc('msg_special', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',
+        btn_sof_print.dataRpc('nome_temp', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
+        btn_sof_arrivo.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-        btn_sof_oper.dataRpc('msg_special', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_operations',
+        btn_sof_oper.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_operations',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-        btn_sof_partenza.dataRpc('msg_special', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_partenza',
+        btn_sof_partenza.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_partenza',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-        bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^msg_special',msg_txt = 'Email ready to be sent')
+        bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^nome_temp',msg_txt = 'Email ready to be sent')
         
     @public_method
     def print_sof(self, record, resultAttr=None, nome_template=None, format_page=None, **kwargs):
@@ -276,8 +276,8 @@ class Form(BaseComponent):
         if kwargs:
             sof_id=kwargs['record_attr']['_pkey']
             if sof_id is None:
-                msg_special='no_sof'
-                return msg_special
+                nome_temp='no_sof'
+                return nome_temp
         else:
             return
         #inizializziamo le variabili per le email
@@ -332,11 +332,11 @@ class Form(BaseComponent):
         email_arr_to=','.join([str(item) for item in email_a_to])
         email_arr_cc=','.join([str(item) for item in email_a_cc])                    
         email_arr_bcc=','.join([str(item) for item in email_a_bcc])
-        #verifichiamo che non mancano email destinatari TO e CCN altrimenti ritorniamo con la variabile msg_special che innesca il messaggio
+        #verifichiamo che non mancano email destinatari TO e CCN altrimenti ritorniamo con la variabile nome_temp che innesca il messaggio
         #verifichiamo se non presente l'email to allora inseriamo l'email del mittente
         if email_arr_to == email_arr_bcc == '':  
-            msg_special = 'no_email'
-            return msg_special
+            nome_temp = 'no_email'
+            return nome_temp
         elif email_arr_to =='':    
             email_arr_to=email_mittente 
         #creiamo il nuovo messaggio e con il db.commit lo salviamo nella tabella di uscita email pronto per l'invio                                        
@@ -351,11 +351,11 @@ class Form(BaseComponent):
                                                           template_code=email_template_id)
         
         self.db.commit()
-        #ritorniamo con la variabile msg_special per l'innesco del messaggio e il settaggio della checklist invio email a vero
+        #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero
         if email_template_id == 'email_ormeggio' or email_template_id == 'email_operations' or email_template_id == 'email_partenza':
-            msg_special = 'arrival_sof'
+            nome_temp = 'arrival_sof'
         
-        return msg_special
+        return nome_temp
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px')

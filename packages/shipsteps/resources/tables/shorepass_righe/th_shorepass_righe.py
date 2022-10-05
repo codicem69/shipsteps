@@ -76,9 +76,9 @@ class ViewFromShorepassRighe(BaseComponent):
         bar.dataRpc(self.importaCrew, subscribe_import_clienti=True,record='=#FORM.record',
                       _onResult="genro.publish('xls_importer_onResult',result);",
                       _onError="genro.publish('xls_importer_onResult',{error:error});")
-        btn_print_shorepass.dataRpc('msg_special', self.print_template_shorepass,record='=#FORM.record',pkeys='=#FORM.shipsteps_shorepass_righe.view.grid.currentSelectedPkeys',servizio=[],
+        btn_print_shorepass.dataRpc('nome_temp', self.print_template_shorepass,record='=#FORM.record',pkeys='=#FORM.shipsteps_shorepass_righe.view.grid.currentSelectedPkeys',servizio=[],
                             nome_template = 'shipsteps.shorepass_righe:shorepass_righe',format_page='A4',_lockScreen=dict(message='Please Wait'))
-        bar.dataController("""if(msgspec=='noshorepass') genro.publish("floating_message",{message:msg_txt, messageType:"error"});""",msgspec='^msg_special', msg_txt = 'You must select the shorepass column record or more records')
+        bar.dataController("""if(msgspec=='noshorepass') genro.publish("floating_message",{message:msg_txt, messageType:"error"});""",msgspec='^nome_temp', msg_txt = 'You must select the shorepass column record or more records')
 
     def th_order(self):
         return '_row_count'
@@ -145,8 +145,8 @@ class ViewFromShorepassRighe(BaseComponent):
         builder = TableTemplateToHtml(table=tbl_shorepass_righe)
         storagePath=[]
         if shorepass is None or shorepass == []:
-            msg_special = 'noshorepass'
-            return msg_special
+            nome_temp = 'noshorepass'
+            return nome_temp
         else:       
             n_pkeys=len(shorepass)
         for r in range(n_pkeys):

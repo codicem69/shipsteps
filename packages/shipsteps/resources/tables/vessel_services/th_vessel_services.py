@@ -41,10 +41,10 @@ class ViewFromVesselServices(BaseComponent):
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('addrow','addrow,10,stampa_services,stampa_serv_int')
         btn_print_services=bar.stampa_services.button('!![en]Print Vessel services')
-        btn_print_services.dataRpc('msg_special', self.print_template_services,record='=#FORM.record',servizio=[],
+        btn_print_services.dataRpc('', self.print_template_services,record='=#FORM.record',servizio=[],
                             nome_template = 'shipsteps.arrival:vess_serv',format_page='A4')
         btn_print_services_int=bar.stampa_serv_int.button('!![en]Print Vessel services private')
-        btn_print_services_int.dataRpc('msg_special', self.print_template_services,record='=#FORM.record',servizio=[],
+        btn_print_services_int.dataRpc('', self.print_template_services,record='=#FORM.record',servizio=[],
                             nome_template = 'shipsteps.arrival:vess_serv_int',format_page='A4')
 
     @public_method

@@ -38,10 +38,10 @@ class ViewFromSofEmail(BaseComponent):
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,copia_email,10,batchAssign')
         btn_copia_email=bar.copia_email.button('Copia Email')
-        btn_copia_email.dataRpc('msg_special',self.copiaemail, record='=#FORM.record',_ask=dict(title='!![en]Select the Shiipers/Receivers',
+        btn_copia_email.dataRpc('nome_temp',self.copiaemail, record='=#FORM.record',_ask=dict(title='!![en]Select the Shiipers/Receivers',
                                fields=[dict(name='shiprec', lbl='!![en]Shippers/Receivers', tag='dbSelect',
                                table='shipsteps.ship_rec', columns='$id', hasDownArrow=True)]))
-        bar.dataController("if(msgspec=='no_email') {alert('No emails found, please insert the emails in the Shippers/Receivers table')}", msgspec='^msg_special')
+        bar.dataController("if(msgspec=='no_email') {alert('No emails found, please insert the emails in the Shippers/Receivers table')}", msgspec='^nome_temp')
     
     @public_method
     def copiaemail(self, record=None, **kwargs):
@@ -52,8 +52,8 @@ class ViewFromSofEmail(BaseComponent):
         email_to= tbl_email_sof.query(columns="$dest,$description,$email,$email_type",
                                                     where='$ship_rec_id=:s_id', s_id=shiprec_id).fetch() 
         if email_to == []:
-            msg_special = 'no_email'
-            return msg_special
+            nome_temp = 'no_email'
+            return nome_temp
 
         for e in range(len(email_to)):
             

@@ -611,7 +611,7 @@ class Form(BaseComponent):
         
         
         btn_sr = fb.Button('!![en]Shipper/Receivers')
-        btn_sr.dataRpc('msg_special', self.email_arrival_sof,
+        btn_sr.dataRpc('nome_temp', self.email_arrival_sof,
                    record='=#FORM.record.id', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
@@ -620,19 +620,19 @@ class Form(BaseComponent):
                              cols=4,popup=True,colspan=2)]))
         fb.field('email_ship_rec',lbl='', margin_top='5px')
         fb.semaphore('^.email_ship_rec', margin_top='5px')
-        #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
+        #datacontroller verifica il valore della variabile nome_temp di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
       #  fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
         
         btn_dog = fb.Button('!![en]Customs',width='80px')
-        btn_dog.dataRpc('msg_special', self.email_services,
+        btn_dog.dataRpc('nome_temp', self.email_services,
                    record='=#FORM.record.id', servizio=['dogana','gdf','gdf roan'], email_template_id='email_dogana',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                     _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-        #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
+        #datacontroller verifica il valore della variabile nome_temp di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
-       # fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Message created')}", msgspec='^msg_special')
+       # fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Message created')}", msgspec='^nome_temp')
         fb.field('email_dogana',lbl='', margin_top='5px')
         fb.semaphore('^.email_dogana', margin_top='5px')
 
@@ -648,28 +648,28 @@ class Form(BaseComponent):
        #                                    _ask=dict(title='Choose users to whom to assign files',
        #                                        fields=[dict(name='user_id', lbl='User', tag='dbselect', table='adm.user')]))
         btn_fr = fb.Button('!![en]Immigration', width='98px')
-        btn_fr.dataRpc('msg_special', self.print_template,
+        btn_fr.dataRpc('nome_temp', self.print_template,
                    record='=#FORM.record.id', servizio=['immigration'], email_template_id='email_frontiera',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    nome_template = 'shipsteps.arrival:form_immigration', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-       # fb.dataController("if(msgspec=='val_imm') {SET .email_frontiera=true; alert('Message created')}", msgspec='^msg_special')
+       # fb.dataController("if(msgspec=='val_imm') {SET .email_frontiera=true; alert('Message created')}", msgspec='^nome_temp')
         fb.field('email_frontiera',lbl='', margin_top='5px')
         fb.semaphore('^.email_frontiera', margin_top='5px')
 
         btn_usma = fb.Button('!![en]Sanimare',width='115px')
-        btn_usma.dataRpc('msg_special', self.email_services,
+        btn_usma.dataRpc('nome_temp', self.email_services,
                    record='=#FORM.record.id', servizio=['sanimare'], email_template_id='email_sanimare',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-       # fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Message created')}", msgspec='^msg_special')
+       # fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Message created')}", msgspec='^nome_temp')
         fb.field('email_usma',lbl='', margin_top='5px')
         fb.semaphore('^.email_usma', margin_top='5px')
 
         btn_pilot = fb.Button('!![en]Pilot/Moor',width='80px')
-        btn_pilot.dataRpc('msg_special', self.email_services,
+        btn_pilot.dataRpc('nome_temp', self.email_services,
                    record='=#FORM.record.id', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -679,7 +679,7 @@ class Form(BaseComponent):
         fb.semaphore('^.email_pilot_moor', margin_top='5px')
 
         btn_tug = fb.Button('!![en]Tug', width='98px')
-        btn_tug.dataRpc('msg_special', self.email_services,
+        btn_tug.dataRpc('nome_temp', self.email_services,
                    record='=#FORM.record.id', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -690,7 +690,7 @@ class Form(BaseComponent):
         fb.semaphore('^.email_tug', margin_top='5px')
 
         btn_garb = fb.Button('!![en]Garbage', width='115px')
-        btn_garb.dataRpc('msg_special', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
+        btn_garb.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
                             nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -702,7 +702,7 @@ class Form(BaseComponent):
         fb.semaphore('^.email_garbage', margin_top='5px')
         
         btn_pfso = fb.Button('!![en]PFSO', width='80px')
-        btn_pfso.dataRpc('msg_special', self.email_services,
+        btn_pfso.dataRpc('nome_temp', self.email_services,
                    record='=#FORM.record.id', servizio=['pfso'], email_template_id='email_pfso',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -712,7 +712,7 @@ class Form(BaseComponent):
         fb.semaphore('^.email_pfso', margin_top='5px')
 
         btn_chem = fb.Button('!![en]Chemist', width='98px')
-        btn_chem.dataRpc('msg_special', self.email_services,
+        btn_chem.dataRpc('nome_temp', self.email_services,
                    record='=#FORM.record.id', servizio=['chemist'], email_template_id='email_chemist',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                     _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -722,7 +722,7 @@ class Form(BaseComponent):
         fb.semaphore('^.email_chemist', margin_top='5px')
 
         btn_gpg = fb.Button('!![en]GPG', width='115px')
-        btn_gpg.dataRpc('msg_special', self.email_services,
+        btn_gpg.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record.id', servizio=['gpg'], email_template_id='email_gpg',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -732,7 +732,7 @@ class Form(BaseComponent):
         fb.semaphore('^.email_gpg', margin_top='5px')
 
         btn_ens = fb.Button('!![en]ENS', width='80px')
-        btn_ens.dataRpc('msg_special', self.email_services,
+        btn_ens.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record.id', servizio=['ens'], email_template_id='email_ens',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -743,7 +743,7 @@ class Form(BaseComponent):
         fb.semaphore('^.email_ens', margin_top='5px')
 
         btn_ens = fb.Button('!![en]Garbage ADSP')
-        btn_ens.dataRpc('msg_special', self.email_services,
+        btn_ens.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record.id', servizio=['adsp'], email_template_id='not_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
@@ -759,7 +759,7 @@ class Form(BaseComponent):
        #fb.semaphore('^.email_antifire', margin_top='5px')
 
         btn_update = fb.Button('!![en]services<br>updating', width='115px')
-        btn_update.dataRpc('msg_special', self.email_serv_upd,
+        btn_update.dataRpc('nome_temp', self.email_serv_upd,
                    record='=#FORM.record',email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the services to update and Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',
                              table='shipsteps.services_for_email', columns='$description_serv',#values='dogana,gdf,gdf roan,pilot,mooringmen,tug,immigration,sanimare,pfso,garbage,chemist,gpg',
@@ -772,7 +772,7 @@ class Form(BaseComponent):
         fb.div()
      
         btn_upd_shiprec = fb.Button('!![en]Ship/Rec.<br>updating',width='80px')
-        btn_upd_shiprec.dataRpc('msg_special', self.email_arrival_sof,
+        btn_upd_shiprec.dataRpc('nome_temp', self.email_arrival_sof,
                    record='=#FORM.record.id', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
@@ -790,7 +790,7 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb2 = div3.formbuilder(colspan=3,cols=9, border_spacing='2px')
         btn_integr = fb2.Button('!![en]Email Alimentary integration')
-        btn_integr.dataRpc('msg_special', self.email_services,
+        btn_integr.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_integrazione_alim',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -801,7 +801,7 @@ class Form(BaseComponent):
         fb2.semaphore('^.email_integr', margin_top='6px')
 
         btn_garb_cp = fb2.Button('!![en]Email Garbage form')
-        btn_garb_cp.dataRpc('msg_special', self.email_services,
+        btn_garb_cp.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_garbage_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -813,24 +813,24 @@ class Form(BaseComponent):
         
 
         #fb.dataController("if(msgspec=='val_bulk')alert(msg_txt);",msgspec='^msg_special',msg_txt = 'Email ready to be sent')
-        fb.dataController("""if(msgspec=='val_bulk'){alert(msg_txt);} if(msgspec=='val_garb_cp'){SET .email_garbage_cp=true ; alert(msg_txt);}
-                             if(msgspec=='val_integr') {SET .email_integr=true ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='ship_rec_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"}); if(msgspec=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msgspec=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
-                             if(msgspec=='val_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
-                             if(msgspec=='val_adsp') {SET .email_garbage_adsp=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='val_ens') {SET .email_ens=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='val_gpg') {SET .email_gpg=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='val_chemist') {SET .email_chemist=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='val_pfso') {SET .email_pfso=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='val_garbage') {SET .email_garbage=true ;alert(msg_txt);} if(msgspec=='yes') genro.publish("floating_message",{message:'You must select the record as row in the garbage form', messageType:"error"});
-                             if(msgspec=='val_tug') {SET .email_tug=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='val_usma') {SET .email_usma=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='form_immigration') {SET .email_frontiera=true; alert(msg_txt);}
-                             if(msgspec=='val_dog') {SET .email_dogana=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msgspec=='ship_rec') {SET .email_ship_rec=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msgspec=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msgspec=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
-                             if(msgspec=='val_deroga_gb') {alert(msg_txt);}
-                             if(msgspec=='no_moored') {genro.publish("floating_message",{message:'You must insert in arrival times date and time of vessel moored', messageType:"error"});}
+        fb.dataController("""if(msg=='val_bulk'){alert(msg_txt);} if(msg=='val_garb_cp'){SET .email_garbage_cp=true ; alert(msg_txt);}
+                             if(msg=='val_integr') {SET .email_integr=true ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='ship_rec_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"}); if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
+                             if(msg=='val_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
+                             if(msg=='val_adsp') {SET .email_garbage_adsp=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_ens') {SET .email_ens=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_gpg') {SET .email_gpg=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_chemist') {SET .email_chemist=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_pfso') {SET .email_pfso=true ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_garbage') {SET .email_garbage=true ;alert(msg_txt);} if(msg=='yes') genro.publish("floating_message",{message:'You must select the record as row in the garbage form', messageType:"error"});
+                             if(msg=='val_tug') {SET .email_tug=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_pil_moor') {SET .email_pilot_moor=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_usma') {SET .email_usma=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='form_immigration') {SET .email_frontiera=true; alert(msg_txt);}
+                             if(msg=='val_dog') {SET .email_dogana=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='ship_rec') {SET .email_ship_rec=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
+                             if(msg=='val_deroga_gb') {alert(msg_txt);}
+                             if(msg=='no_moored') {genro.publish("floating_message",{message:'You must insert in arrival times date and time of vessel moored', messageType:"error"});}
                              if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') genro.publish("floating_message",{message:'You must first print Nota Arrivo', messageType:"error"}); if(msg=='fal1_arr_no') genro.publish("floating_message",{message:'You must first print Fal1 arrival', messageType:"error"}); if(msg=='fal1arr_notarr') genro.publish("floating_message",{message:'You must first print Fal1 arrival and Nota Arrivo', messageType:"error"});
                              if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') genro.publish("floating_message",{message:'You must first print Dich. integrativa di partenza', messageType:"error"}); if(msg=='fal1_dep_no') genro.publish("floating_message",{message:'You must first print Fal1 departure', messageType:"error"}); if(msg=='fal1dep_notapart') genro.publish("floating_message",{message:'You must first print Fal1 departure and Dich. integrativa di partenza', messageType:"error"}); if(msg=='no_sailed') genro.publish("floating_message",{message:'You must first insert ets date and time', messageType:"error"});
                              if(msg=='intfat') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
@@ -841,7 +841,7 @@ class Form(BaseComponent):
                              if(msg=='cartella_doc') {SET .cartella_nave=true;}
                              if(msg=='front_nave') {SET .frontespizio=true;}
                              if(msg=='check_list') {SET .checklist=true;}"""
-                             ,msgspec='^msg_special', msg='^nome_temp',msg_txt = 'Email ready to be sent')
+                             ,msg='^nome_temp',msg_txt = 'Email ready to be sent')
 
        #fb.dataController("""if(msgspec=='val_bulk'){alert(msg_txt);} if(msgspec=='val_garb_cp'){SET .email_garbage_cp=true ; alert(msg_txt);}
        #                     if(msgspec=='val_integr') {SET .email_integr=true ; alert(msg_txt);}
@@ -892,13 +892,13 @@ class Form(BaseComponent):
         btn_intfiore.dataRpc('', self.apridoc,record='=#FORM.record',nome_form='InterferenzeFiore', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
         fb_arr.br()
         btn_chim_cp = fb_arr.Button('!![en]Email Cert. Chimico CP')
-        btn_chim_cp.dataRpc('msg_special', self.email_services,
+        btn_chim_cp.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_chimico_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2)]))
         btn_chim_cp = fb_arr.Button('!![en]Email Waste derogation CP')
-        btn_chim_cp.dataRpc('msg_special', self.print_template_derogagb,
+        btn_chim_cp.dataRpc('nome_temp', self.print_template_derogagb,
                   record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
                             nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                             moored='=#FORM.record.@time_arr.moored',
@@ -1245,42 +1245,42 @@ class Form(BaseComponent):
         if (email_dest or email_pec_dest) is not None:
 
             if email_template_id == 'email_dogana':
-                msg_special = 'val_dog'
+                nome_temp = 'val_dog'
             elif email_template_id == 'email_frontiera':
-                msg_special = 'val_imm'
+                nome_temp = 'val_imm'
             elif email_template_id == 'email_sanimare':
-                msg_special = 'val_usma'
+                nome_temp = 'val_usma'
             elif email_template_id == 'email_pfso':
-                msg_special = 'val_pfso'
+                nome_temp = 'val_pfso'
             elif email_template_id == 'email_pilot_moor':
-                msg_special = 'val_pil_moor'
+                nome_temp = 'val_pil_moor'
             elif email_template_id == 'email_tug':
-                msg_special = 'val_tug'
+                nome_temp = 'val_tug'
             elif email_template_id == 'garbage_email':
-                 msg_special = 'val_garbage'
+                nome_temp = 'val_garbage'
             elif email_template_id == 'email_chemist':
-                msg_special = 'val_chemist'
+                nome_temp = 'val_chemist'
             elif email_template_id == 'email_gpg':
-                msg_special = 'val_gpg'
+                nome_temp = 'val_gpg'
             elif email_template_id == 'email_ens':
-                msg_special = 'val_ens'
+                nome_temp = 'val_ens'
             elif email_template_id == 'email_garbage_cp':
-                msg_special = 'val_garb_cp'
+                nome_temp = 'val_garb_cp'
             elif email_template_id == 'email_integrazione_alim':
-                msg_special = 'val_integr'
+                nome_temp = 'val_integr'
             elif email_template_id == 'email_chimico_cp':
-                msg_special = 'ship_rec'
+                nome_temp = 'ship_rec'
             elif email_template_id == 'not_rifiuti':
-                msg_special = 'val_adsp'
+                nome_temp = 'val_adsp'
             elif email_template_id == 'email_arrivo_cp':
-                msg_special = 'val_mod61arr'
+                nome_temp = 'val_mod61arr'
             elif email_template_id == 'email_partenza_cp':
-                msg_special = 'val_mod61dep'
+                nome_temp = 'val_mod61dep'
             elif email_template_id == 'email_water_supply':
-                msg_special = 'val_ws'
+                nome_temp = 'val_ws'
             elif email_template_id == 'email_deroga_garbage':
-                msg_special = 'val_deroga_gb'    
-            return msg_special
+                nome_temp = 'val_deroga_gb'    
+            return nome_temp
     
     @public_method
     def email_serv_upd(self, record,email_template_id=None,selPkeys_att=None, **kwargs):
@@ -1421,8 +1421,8 @@ class Form(BaseComponent):
                            html=True)
             self.db.commit()
         if (email_dest or email_pec_dest) is not None:
-            msg_special='val_upd'
-            return msg_special
+            nome_temp='val_upd'
+            return nome_temp
        # print(x)
 
     @public_method
@@ -1482,8 +1482,8 @@ class Form(BaseComponent):
                            html=True)
         self.db.commit()
         
-        msg_special='intfat'
-        return msg_special
+        nome_temp='intfat'
+        return nome_temp
 
     @public_method
     def email_ws(self, record, **kwargs):
@@ -1587,8 +1587,8 @@ class Form(BaseComponent):
                            html=True)
         self.db.commit()
         
-        msg_special='ws'
-        return msg_special
+        nome_temp='ws'
+        return nome_temp
 
     @public_method
     def email_arrival_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
@@ -1641,8 +1641,8 @@ class Form(BaseComponent):
         if kwargs:
             sof_id=kwargs['sof_id']
             if sof_id is None:
-                msg_special='no_sof'
-                return msg_special
+                nome_temp='no_sof'
+                return nome_temp
         else:
             return
         #inizializziamo le variabili per le email
@@ -1697,11 +1697,11 @@ class Form(BaseComponent):
         email_arr_to=','.join([str(item) for item in email_a_to])
         email_arr_cc=','.join([str(item) for item in email_a_cc])                    
         email_arr_bcc=','.join([str(item) for item in email_a_bcc])
-        #verifichiamo che non mancano email destinatari TO e CCN altrimenti ritorniamo con la variabile msg_special che innesca il messaggio
+        #verifichiamo che non mancano email destinatari TO e CCN altrimenti ritorniamo con la variabile nome_temp che innesca il messaggio
         #verifichiamo se non presente l'email to allora inseriamo l'email del mittente
         if email_arr_to == email_arr_bcc == '':  
-            msg_special = 'no_email'
-            return msg_special
+            nome_temp = 'no_email'
+            return nome_temp
         elif email_arr_to =='':    
             email_arr_to=email_mittente 
         #creiamo il nuovo messaggio e con il db.commit lo salviamo nella tabella di uscita email pronto per l'invio                                        
@@ -1715,12 +1715,12 @@ class Form(BaseComponent):
                                                           attachments=attcmt,
                                                           template_code=email_template_id)
         self.db.commit()
-        #ritorniamo con la variabile msg_special per l'innesco del messaggio e il settaggio della checklist invio email a vero
+        #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero
         if email_template_id == 'email_updating_shiprec':
-            msg_special = 'ship_rec_upd'
+            nome_temp = 'ship_rec_upd'
         else:
-            msg_special = 'ship_rec'
-        return msg_special
+            nome_temp = 'ship_rec'
+        return nome_temp
 
     @public_method
     def print_template(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[],  nome_vs=None, format_page=None, **kwargs):
@@ -1844,15 +1844,15 @@ class Form(BaseComponent):
         if nome_temp == 'form_immigration' :
             self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
             return nome_temp        
-       
+        return nome_temp
 
     @public_method
     def print_template_garbage(self, record, resultAttr=None,selId=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
         selPkeys_att=kwargs['selPkeys_att']
         if selId is None:
-            msg_special = 'yes'
-            return msg_special
+            nome_temp = 'yes'
+            return nome_temp
 
         tbl_garbage = self.db.table('shipsteps.garbage')
         builder = TableTemplateToHtml(table=tbl_garbage)
@@ -1875,19 +1875,19 @@ class Form(BaseComponent):
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
         self.email_services(record,email_template_id,servizio, **kwargs)
-        #se ritorna il valore di self.msg_special dalla funzione sopra lanciata self.email_services
-        # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
+        #se ritorna il valore di nome_temp dalla funzione sopra lanciata self.email_services
+        # facciamo ritornare il valore di nome_temp alla chiamata iniziale del bottone di stampa per far scattare
         # il msg con il dataController
-        msg_special='val_garbage'
-        return msg_special
+        nome_temp='val_garbage'
+        return nome_temp
 
     @public_method
     def print_template_derogagb(self, record, resultAttr=None,selId=None,moored=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
         #facciamo arrivare alla variabile moored la datetime dell'ormeggio e se non presente torna indietro il messaggio no_moored per far scattare il dataController
         if moored is None or moored == '':
-            msg_special = 'no_moored'
-            return msg_special
+            nome_temp = 'no_moored'
+            return nome_temp
 
         tbl_arrival = self.db.table('shipsteps.arrival')
         builder = TableTemplateToHtml(table=tbl_arrival)
@@ -1910,11 +1910,11 @@ class Form(BaseComponent):
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
         self.email_services(record,email_template_id,servizio, **kwargs)
-        #se ritorna il valore di self.msg_special dalla funzione sopra lanciata self.email_services
+        #se ritorna il valore di nome_temp dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
         # il msg con il dataController
-        msg_special='val_deroga_gb'
-        return msg_special    
+        nome_temp='val_deroga_gb'
+        return nome_temp    
     
     @public_method
     def apridoc(self,record,nome_form=None, **kwargs):

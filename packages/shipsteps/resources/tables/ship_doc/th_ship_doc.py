@@ -47,8 +47,8 @@ class ViewFromDoc(BaseComponent):
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,certificati,10,batchAssign')
         btn_certificati=bar.certificati.button('!![en]Insert certificates')
-        btn_certificati.dataRpc('msg_special',self.insertCert, record='=#FORM.record')
-        bar.dataController("if(msgspec=='presenti') genro.publish('floating_message',{message:'Certificates already inserted', messageType:'error'});", msgspec='^msg_special')
+        btn_certificati.dataRpc('nome_temp',self.insertCert, record='=#FORM.record')
+        bar.dataController("if(msgspec=='presenti') genro.publish('floating_message',{message:'Certificates already inserted', messageType:'error'});", msgspec='^nome_temp')
 
     @public_method
     def insertCert(self, record=None, **kwargs):
@@ -61,8 +61,8 @@ class ViewFromDoc(BaseComponent):
         shipdoc = tbl_shipdoc.query(columns="$cert", where='$vessel_details=:vd', vd=vess_det_id).fetch() 
         
         if len(shipdoc) >= 21:
-            msg_special = 'presenti'
-            return msg_special 
+            nome_temp = 'presenti'
+            return nome_temp
 
         for e in range(len(certificati)):
             

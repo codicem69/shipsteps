@@ -152,9 +152,9 @@ class FormFromCertusma(BaseComponent):
         bar = bottom.slotBar('10,stampa_richiesta,email_richiesta,*,10')
         btn_cert_print=bar.stampa_richiesta.button('Print Certificate application')
         btn_cert_email=bar.email_richiesta.button('Email Certificate application')
-        btn_cert_print.dataRpc('msg_special', self.print_template_bulk,record='=#FORM.record',servizio=[], email_template_id='',
+        btn_cert_print.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.certsanimare:cert_sanimare',format_page='A4')
-        btn_cert_email.dataRpc('msg_special', self.print_template_bulk,record='=#FORM.record',servizio=['sanimare'], email_template_id='email_cert_sanimare',
+        btn_cert_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=['sanimare'], email_template_id='email_cert_sanimare',
                             nome_template = 'shipsteps.certsanimare:cert_sanimare',format_page='A4',_ask=dict(title='!![en]Select the Attachments',
                              fields=[dict(name='allegati_nave', lbl='!![en]Vessel Attachments', tag='checkboxtext',
                              table='shipsteps.vessel_details_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.vessel_details_id',width='22em',
@@ -162,7 +162,7 @@ class FormFromCertusma(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
        # bar.dataController("""if(msgspec=='certsanimare') {alert(msg_txt)};""",msgspec='^msg_special', msg_txt = 'Email ready to be sent')
-        bar.dataController("""if(msgspec=='certsanimare') genro.publish("floating_message",{message:msg_txt, messageType:"message"});""",msgspec='^msg_special', msg_txt = 'Email ready to be sent')
+        bar.dataController("""if(msgspec=='certsanimare') genro.publish("floating_message",{message:msg_txt, messageType:"message"});""",msgspec='^nome_temp', msg_txt = 'Email ready to be sent')
         
     @public_method
     def print_template_bulk(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
@@ -201,8 +201,8 @@ class FormFromCertusma(BaseComponent):
         #se ritorna il valore di self.msg_pecial dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
         # il msg con il dataController
-            msg_special='certsanimare'
-            return msg_special
+            nome_temp='certsanimare'
+            return nome_temp
     
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[], **kwargs):
