@@ -73,7 +73,8 @@ class View(BaseComponent):
     def th_query(self):
         return dict(column='reference_num', op='contains', val='', runOnStart=True)
 
-
+    def th_options(self):
+        return dict(view_preview_tpl='dati_nave')
 
 class Form(BaseComponent):
     
