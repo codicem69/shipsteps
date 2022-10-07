@@ -58,6 +58,7 @@ class Table(object):
         tbl.pyColumn('sostanave',name_long='!![en]Sosta nave', static=True)
         tbl.pyColumn('logocc',name_long='!![en]Logo CC', static=True, dtype='P')
         tbl.pyColumn('logocp',name_long='!![en]Logo CP', static=True, dtype='P')
+        tbl.pyColumn('privacy',name_long='!![en]Privacy email', static=True, dtype='T')
        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('n_tug_arr','@extradatacp.n_tug_arr')
         tbl.aliasColumn('n_tug_dep','@extradatacp.n_tug_dep')
@@ -374,6 +375,10 @@ class Table(object):
     def pyColumn_logocp(self,record,field):
         logocp = self.db.application.getPreference('logo_cp',pkg='shipsteps')
         return logocp
+
+    def pyColumn_privacy(self,record,field):
+        privacy_email = self.db.application.getPreference('privacy_email',pkg='shipsteps')
+        return privacy_email    
 
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),date = self.db.workdate)

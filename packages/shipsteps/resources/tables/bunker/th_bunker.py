@@ -121,19 +121,19 @@ class FormFromBunker(BaseComponent):
         btn_email_antifire=bar.email_antifire.button('Email Antifire Service')
         btn_bunker_email=bar.email_bunker.button('Email Bunker application CP')
         btn_bunker_docs=bar.stampa_bunker_docs.button('Print docs after Bunker')
-        btn_cartella_print.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
+        btn_cartella_print.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.bunker:cartella_bunker',format_page='A3')
-        btn_bunker_print.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
+        btn_bunker_print.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.bunker:bunker',format_page='A4')
-        btn_bunker_email.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
+        btn_bunker_email.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
                             nome_template = 'shipsteps.bunker:bunker',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',
                              cols=4,popup=True,colspan=2)]))
-        btn_bunker_emailtrasp.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=['trasportatore'], email_template_id='email_bunker_transp',
+        btn_bunker_emailtrasp.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['trasportatore'], email_template_id='email_bunker_transp',
                             nome_template = 'shipsteps.bunker:bunker_transp',format_page='A4')
-        btn_email_antifire.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=['antifire'], email_template_id='email_antifire',
+        btn_email_antifire.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['antifire'], email_template_id='email_antifire',
                             nome_template = 'shipsteps.bunker:bunker_antifire',format_page='A4')  
-        btn_bunker_docs.dataRpc('msg_special', self.print_template_bunker,record='=#FORM.record',servizio=[''], email_template_id='',
+        btn_bunker_docs.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=[''], email_template_id='',
                             nome_template = 'shipsteps.bunker:bunker_docs',format_page='A4')                           
     
     @public_method
@@ -171,19 +171,19 @@ class FormFromBunker(BaseComponent):
                               value=result.url(timestamp=datetime.now()), fired=True)
         if email_template_id == 'email_bunker_cp':
             self.email_services(record,email_template_id,servizio,lista_all)
-            msg_special='val_bulk'
-            return msg_special
+            nome_temp='val_bulk'
+            return nome_temp
         if email_template_id == 'email_bunker_transp':
             self.email_trasportatore(record,email_template_id,servizio)
-            msg_special='val_bulk'
-            return msg_special
+            nome_temp='val_bulk'
+            return nome_temp
         if email_template_id == 'email_antifire':
             self.email_antifire(record,email_template_id,servizio)
         #se ritorna il valore di self.msg_pecial dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
         # il msg con il dataController
-            msg_special='val_bulk'
-            return msg_special
+            nome_temp='val_bulk'
+            return nome_temp
 
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[],lista_all=None, **kwargs):
@@ -402,8 +402,8 @@ class FormFromBunker(BaseComponent):
             self.db.commit()
         
         if email_to is not None:
-            msg_special='val_upd'
-            return msg_special
+            nome_temp='val_upd'
+            return nome_temp
         
     @public_method
     def email_antifire(self, record,email_template_id=None,servizio=[], **kwargs):
