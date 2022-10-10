@@ -546,8 +546,8 @@ class Form(BaseComponent):
 
     def taskList(self, bc_tasklist):
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='550px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_arrival = bc_tasklist.roundedGroup(title='!![en]Arrival/Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='520px', height = '100%', margin_left='550px').div(margin='10px',margin_left='2px')
-        rg_extra = bc_tasklist.roundedGroup(title='!![en]Extra',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='520px', height = '100%', margin_left='520px').div(margin='10px',margin_left='2px')
+        rg_arrival = bc_tasklist.roundedGroup(title='!![en]Arrival/Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='560px', height = '100%', margin_left='550px').div(margin='10px',margin_left='2px')
+        rg_extra = bc_tasklist.roundedGroup(title='!![en]Extra',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='520px', height = '100%', margin_left='560px').div(margin='10px',margin_left='2px')
        
         #definizione primo rettangolo di stampa all'interno del roundedGroup Pre Arrival
         div1=rg_prearrival.div(width='99%',height='20%',margin='auto',
@@ -802,16 +802,16 @@ class Form(BaseComponent):
         fb2.field('email_integr', lbl='', margin_top='6px')
         fb2.semaphore('^.email_integr', margin_top='6px')
 
-        btn_garb_cp = fb2.Button('!![en]Email Garbage form')
-        btn_garb_cp.dataRpc('nome_temp', self.email_services,
-                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_garbage_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        #btn_garb_cp = fb2.Button('!![en]Email Garbage form')
+        #btn_garb_cp.dataRpc('nome_temp', self.email_services,
+        #          record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_garbage_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+        #          _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+        #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+        #                     cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         #fb2.dataController("if(msgspec=='val_garb_cp') {SET .email_garbage_cp=true ; alert(msg_txt)}", msgspec='^msg_special',msg_txt = 'Email ready to be sent')
        
-        fb2.field('email_garbage_cp', lbl='', margin_top='6px')
-        fb2.semaphore('^.email_garbage_cp', margin_top='6px')
+        #fb2.field('email_garbage_cp', lbl='', margin_top='6px')
+        #fb2.semaphore('^.email_garbage_cp', margin_top='6px')
         
 
         #fb.dataController("if(msgspec=='val_bulk')alert(msg_txt);",msgspec='^msg_special',msg_txt = 'Email ready to be sent')
@@ -831,7 +831,8 @@ class Form(BaseComponent):
                              if(msg=='form_immigration') {SET .email_frontiera=true; alert(msg_txt);}
                              if(msg=='val_dog') {SET .email_dogana=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec') {SET .email_ship_rec=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
-                             if(msg=='val_deroga_gb') {alert(msg_txt);}
+                             if(msg=='val_chemist_cp') {SET .email_certchim_cp=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_deroga_gb') if(msg=='val_deroga_gb'){SET .email_garbage_cp=true ; alert(msg_txt);}
                              if(msg=='no_moored') {genro.publish("floating_message",{message:'You must insert in arrival times date and time of vessel moored', messageType:"error"});}
                              if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') genro.publish("floating_message",{message:'You must first print Nota Arrivo', messageType:"error"}); if(msg=='fal1_arr_no') genro.publish("floating_message",{message:'You must first print Fal1 arrival', messageType:"error"}); if(msg=='fal1arr_notarr') genro.publish("floating_message",{message:'You must first print Fal1 arrival and Nota Arrivo', messageType:"error"});
                              if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') genro.publish("floating_message",{message:'You must first print Dich. integrativa di partenza', messageType:"error"}); if(msg=='fal1_dep_no') genro.publish("floating_message",{message:'You must first print Fal1 departure', messageType:"error"}); if(msg=='fal1dep_notapart') genro.publish("floating_message",{message:'You must first print Fal1 departure and Dich. integrativa di partenza', messageType:"error"}); if(msg=='no_sailed') genro.publish("floating_message",{message:'You must first insert ets date and time', messageType:"error"});
@@ -842,7 +843,12 @@ class Form(BaseComponent):
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
                              if(msg=='cartella_doc') {SET .cartella_nave=true;}
                              if(msg=='front_nave') {SET .frontespizio=true;}
-                             if(msg=='check_list') {SET .checklist=true;}"""
+                             if(msg=='check_list') {SET .checklist=true;}
+                             if(msg=='form_gdf') {SET .form_gdf=true;}
+                             if(msg=='form_immigration_print') {SET .form_immigration=true;}
+                             if(msg=='form_provisions') {SET .form_provision=true;}
+                             if(msg=='DichSanimare') {SET .form_sanimare=true;}
+                             if(msg=='InterferenzeFiore') {SET .form_checklist_f=true;}"""
                              ,msg='^nome_temp',msg_txt = 'Email ready to be sent')
 
        #fb.dataController("""if(msgspec=='val_bulk'){alert(msg_txt);} if(msgspec=='val_garb_cp'){SET .email_garbage_cp=true ; alert(msg_txt);}
@@ -876,29 +882,51 @@ class Form(BaseComponent):
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb_arr=div_arr.formbuilder(colspan=2,cols=4, border_spacing='1px')
-        btn_fgdf_cp = fb_arr.Button('!![en]Form GdF')
-        btn_fgdf_cp.dataRpc('', self.print_template,record='=#FORM.record.id',
-                            nome_template = 'shipsteps.arrival:form_gdf', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
-        btn_fimm_cp = fb_arr.Button('!![en]Form Immigration')
-        btn_fimm_cp.dataRpc('', self.print_template,record='=#FORM.record.id', nome_template = 'shipsteps.arrival:form_immigration', 
-                                         nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4', only_print='yes')
+        fb_arr=div_arr.formbuilder(colspan=3,cols=9, border_spacing='1px')
+        btn_fgdf_cp = fb_arr.Button('!![en]Form GdF',width='142px')
+        btn_fgdf_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
+                            nome_template = 'shipsteps.arrival:form_gdf', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            format_page='A4',_onResult="this.form.save();")
+        fb_arr.field('form_gdf', lbl='', margin_top='6px')
+        fb_arr.semaphore('^.form_gdf', margin_top='6px')
+
+        btn_fimm_cp = fb_arr.Button('!![en]Form Immigration',width='162px')
+        btn_fimm_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_template = 'shipsteps.arrival:form_immigration', 
+                                         nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4', 
+                                         only_print='yes',_onResult="this.form.save();")
+        fb_arr.field('form_immigration', lbl='', margin_top='6px')
+        fb_arr.semaphore('^.form_immigration', margin_top='6px')
+
         btn_fprov_cp = fb_arr.Button('!![en]Form Provisions')
-        btn_fprov_cp.dataRpc('', self.print_template,record='=#FORM.record.id',
-                            nome_template = 'shipsteps.arrival:form_provisions', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4')
-        fb_arr.br()
+        btn_fprov_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
+                            nome_template = 'shipsteps.arrival:form_provisions', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            format_page='A4',_onResult="this.form.save();")
+        fb_arr.field('form_provision', lbl='', margin_top='6px')
+        fb_arr.semaphore('^.form_provision', margin_top='6px')
+
+        #fb_arr.br()
         
         btn_fsan = fb_arr.Button('!![en]Dichiarazione Sanimare')
-        btn_fsan.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='DichSanimare', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
-        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore')
-        btn_intfiore.dataRpc('', self.apridoc,record='=#FORM.record',nome_form='InterferenzeFiore', _virtual_column='lastport,nextport,vesselname,flag,imo,tsl')
+        btn_fsan.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='DichSanimare', 
+                                        _virtual_column='lastport,nextport,vesselname,flag,imo,tsl',_onResult="this.form.save();")
+        fb_arr.field('form_sanimare', lbl='', margin_top='6px')
+        fb_arr.semaphore('^.form_sanimare', margin_top='6px')
+
+        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',width='162px')
+        btn_intfiore.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='InterferenzeFiore', 
+                                          _virtual_column='lastport,nextport,vesselname,flag,imo,tsl',_onResult="this.form.save();")
+        fb_arr.field('form_checklist_f', lbl='', margin_top='6px')
+        fb_arr.semaphore('^.form_checklist_f', margin_top='6px')
         fb_arr.br()
         btn_chim_cp = fb_arr.Button('!![en]Email Cert. Chimico CP')
         btn_chim_cp.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_chimico_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
-                             cols=4,popup=True,colspan=2)]))
+                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        fb_arr.field('email_certchim_cp', lbl='', margin_top='6px')
+        fb_arr.semaphore('^.email_certchim_cp', margin_top='6px')
+
         btn_chim_cp = fb_arr.Button('!![en]Email Waste derogation CP')
         btn_chim_cp.dataRpc('nome_temp', self.print_template_derogagb,
                   record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
@@ -906,7 +934,10 @@ class Form(BaseComponent):
                             moored='=#FORM.record.@time_arr.moored',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
-                             cols=4,popup=True,colspan=2)]))
+                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        fb_arr.field('email_garbage_cp', lbl='', margin_top='6px')
+        fb_arr.semaphore('^.email_garbage_cp', margin_top='6px')
+
         div_dep=rg_arrival.div('<center><strong>DEPARTURE</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
@@ -944,38 +975,38 @@ class Form(BaseComponent):
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
         fb_extra.br()
-        btn_fal1_arr=fb_extra.Button('!![en]Fal1 Arrival',
+        btn_fal1_arr=fb_extra.Button('!![en]Fal1 Arrival',width='149px',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'general_decl',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_nota_arr=fb_extra.Button('Nota Arrivo',
+        btn_nota_arr=fb_extra.Button('Nota Arrivo',width='138px',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'nota_arrivo',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_arrivo = fb_extra.Button('!![en]Email arrival', width='115px')
+        btn_arrivo = fb_extra.Button('!![en]Email arrival', width='182px')
         btn_arrivo.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',servizio=['capitaneria_nsw'], email_template_id='email_arrivo_cp',
                             nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         fb_extra.br()
-        btn_fal1_dep=fb_extra.Button('!![en]Fal1 Departure',
+        btn_fal1_dep=fb_extra.Button('!![en]Fal1 Departure',width='149px',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'general_decl_dep',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_nota_dep=fb_extra.Button('Dich.Intergr.Partenza',
+        btn_nota_dep=fb_extra.Button('Dich.Intergr.Partenza',width='138px',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'dichiarazione_partenza',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_departure = fb_extra.Button('!![en]Email Departure', width='115px')
+        btn_departure = fb_extra.Button('!![en]Email Departure', width='182px')
         btn_departure.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',servizio=['capitaneria_nsw'], email_template_id='email_partenza_cp',
                             nome_template = 'shipsteps.arrival:mod61_dep',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -1271,7 +1302,7 @@ class Form(BaseComponent):
             elif email_template_id == 'email_integrazione_alim':
                 nome_temp = 'val_integr'
             elif email_template_id == 'email_chimico_cp':
-                nome_temp = 'ship_rec'
+                nome_temp = 'val_chemist_cp'
             elif email_template_id == 'not_rifiuti':
                 nome_temp = 'val_adsp'
             elif email_template_id == 'email_arrivo_cp':
@@ -1842,7 +1873,8 @@ class Form(BaseComponent):
             for chiave in kwargs.keys():
                 if chiave == 'only_print':
                     if kwargs['only_print'] == 'yes':
-                        return
+                        nome_temp = 'form_immigration_print'
+                        return nome_temp
         if nome_temp == 'form_immigration' :
             self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
             return nome_temp        
@@ -2003,6 +2035,7 @@ class Form(BaseComponent):
         #apriamo direttamente il file salvato con il programma standard di sistema
         filename=output_file_path
         subprocess.call(('xdg-open', filename))
+        return nome_form
 
     def replace_text_in_paragraph(self,paragraph, key, value):
         if key in paragraph.text:
