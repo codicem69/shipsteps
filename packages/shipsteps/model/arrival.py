@@ -50,8 +50,8 @@ class Table(object):
         tbl.column('firma_div', name_short='!![en]Different signature agency')
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
-        tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
-        tbl.pyColumn('email_arr_cc',name_long='!![en]Email arrival cc', static=True)
+        #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
+        #tbl.pyColumn('email_arr_cc',name_long='!![en]Email arrival cc', static=True)
         
         tbl.pyColumn('saluto',name_long='!![en]Greeting', static=True)
         tbl.pyColumn('datacorrente',name_long='!![en]Current date', static=True)
@@ -293,7 +293,10 @@ class Table(object):
                                                 columns='$consignee',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='adsp'),
                                                 dtype='T')
-
+        tbl.formulaColumn('email_arr_to',select=dict(table='shipsteps.email_arr', columns="""string_agg($dest || ' ' || $description || '<br>','')""",
+                                                    where='$arrival_id=#THIS.id and $dest=:to',to='to', limit=1,ignoreMissing=True))
+        tbl.formulaColumn('email_arr_cc',select=dict(table='shipsteps.email_arr', columns="""string_agg($dest || ' ' || $description ||'<br>','')""",
+                                                    where='$arrival_id=#THIS.id and $dest=:to',to='cc', limit=1,ignoreMissing=True))                                                    
     def pyColumn_cargo(self,record,field):
        
         pkey=record['id']
@@ -309,29 +312,29 @@ class Table(object):
 
         return cargo
 
-    def pyColumn_email_arr_to(self,record,field):
-        
-        pkey=record['pkey']
-        email_dest = self.db.table('shipsteps.email_arr').query(columns="""$dest || ' ' || $description""",
-                                                                    where='$arrival_id=:a_id and $dest=:to' ,
-                                                                    a_id=pkey, to='to').fetch()                                    
-        n_email = len(email_dest) 
-        email_int=''                                                               
-        for r in range (n_email):
-            email_int += email_dest[r][0] + '<br>'
-        return email_int
-    
-    def pyColumn_email_arr_cc(self,record,field):
-        
-        pkey=record['pkey']
-        email_dest = self.db.table('shipsteps.email_arr').query(columns="""$dest || ' ' || $description""",
-                                                                    where='$arrival_id=:a_id and $dest=:to' ,
-                                                                    a_id=pkey, to='cc').fetch()                                    
-        n_email = len(email_dest) 
-        email_int=''                                                               
-        for r in range (n_email):
-            email_int += email_dest[r][0] + '<br>'
-        return email_int
+    #def pyColumn_email_arr_to(self,record,field):
+    #    
+    #    pkey=record['pkey']
+    #    email_dest = self.db.table('shipsteps.email_arr').query(columns="""$dest || ' ' || $description""",
+    #                                                                where='$arrival_id=:a_id and $dest=:to' ,
+    #                                                                a_id=pkey, to='to').fetch()                                    
+    #    n_email = len(email_dest) 
+    #    email_int=''                                                               
+    #    for r in range (n_email):
+    #        email_int += email_dest[r][0] + '<br>'
+    #    return email_int
+    #
+    #def pyColumn_email_arr_cc(self,record,field):
+    #    
+    #    pkey=record['pkey']
+    #    email_dest = self.db.table('shipsteps.email_arr').query(columns="""$dest || ' ' || $description""",
+    #                                                                where='$arrival_id=:a_id and $dest=:to' ,
+    #                                                                a_id=pkey, to='cc').fetch()                                    
+    #    n_email = len(email_dest) 
+    #    email_int=''                                                               
+    #    for r in range (n_email):
+    #        email_int += email_dest[r][0] + '<br>'
+    #    return email_int
 
     def pyColumn_saluto(self,record,field):
         
