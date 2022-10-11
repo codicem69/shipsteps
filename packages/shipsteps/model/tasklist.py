@@ -8,7 +8,7 @@ class Table(object):
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='arr_tasklist', mode='foreignkey', onDelete='cascade', one_one='*')
-        tbl.column('checklist', dtype='B', name_short='Check list',default=False)
+        tbl.column('checklist', dtype='B', name_short='Check list')
         tbl.column('frontespizio', dtype='B', name_short='!![en]Vessel Frontispiece')
         tbl.column('cartella_nave', dtype='B', name_short='!![en]Vessel folder')
         tbl.column('modulo_nave', dtype='B', name_short='!![en]Vessel Module')
