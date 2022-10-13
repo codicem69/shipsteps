@@ -595,7 +595,7 @@ class Form(BaseComponent):
         fb1.field('front_carico', lbl='', margin_top='5px')
         fb1.semaphore('^.front_carico', margin_top='5px')
 
-        btn_mn = fb1.Button('!![en]Print Vessel module',action="SET .modulo_nave=true")
+        btn_mn = fb1.Button('!![en]Print Vessel module')
         btn_mn.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',_onResult="this.form.save();")
        # fb1.dataController("if(msg=='mod_nave') SET .checklist=true", msg='^nome_temp')
@@ -840,7 +840,7 @@ class Form(BaseComponent):
                              if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') genro.publish("floating_message",{message:'You must first print Dich. integrativa di partenza', messageType:"error"}); if(msg=='fal1_dep_no') genro.publish("floating_message",{message:'You must first print Fal1 departure', messageType:"error"}); if(msg=='fal1dep_notapart') genro.publish("floating_message",{message:'You must first print Fal1 departure and Dich. integrativa di partenza', messageType:"error"}); if(msg=='no_sailed') genro.publish("floating_message",{message:'You must first insert ets date and time', messageType:"error"});
                              if(msg=='intfat') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
                              if(msg=='no_sanitation') genro.publish("floating_message",{message:'you must insert sanitation certificate in the ships docs', messageType:"error"});
-                             if(msg=='mod_nave') {SET .checklist=true;}
+                             if(msg=='mod_nave') {SET .modulo_nave=true;}
                              if(msg=='front_carico') {SET .front_carico=true;}
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
                              if(msg=='cartella_doc') {SET .cartella_nave=true;}
