@@ -97,7 +97,7 @@ class Table(object):
        #tbl.formulaColumn('etc_email',"""CASE WHEN $etc IS NOT NULL THEN :etcdescr || to_char($etc, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etcdescr='ETC:...........',var_df='DD/MM/YYYY HH24:MI')
        #tbl.formulaColumn('ets_email',"""CASE WHEN $ets IS NOT NULL THEN :etsdescr || to_char($ets, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etsdescr='ETS:...........',var_df='DD/MM/YYYY HH24:MI')
 
-        tbl.formulaColumn('arrival_data',"$reference_num || ' - ' || @vessel_details_id.@imbarcazione_id.nome || ' - ' || coalesce($visit_id,'')", dtype='T', static=True)    
+        tbl.formulaColumn('arrival_data',"$reference_num || ' - ' || @vessel_details_id.@imbarcazione_id.nome || coalesce(' - ' || $visit_id,'') || coalesce(' - ' || to_char($etb,:df),'')", dtype='T',var_df='DD/MM/YYYY', static=True)    
         tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )
         
         #formule column per email servizi

@@ -832,6 +832,8 @@ class Form(BaseComponent):
                              if(msg=='val_dog') {SET .email_dogana=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec') {SET .email_ship_rec=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msg=='val_chemist_cp') {SET .email_certchim_cp=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_tributi') {SET .email_tributi_cp=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='vess_serv') {SET .form_services=true;} this.form.save();
                              if(msg=='val_deroga_gb') if(msg=='val_deroga_gb'){SET .email_garbage_cp=true ; alert(msg_txt);}
                              if(msg=='no_moored') {genro.publish("floating_message",{message:'You must insert in arrival times date and time of vessel moored', messageType:"error"});}
                              if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') genro.publish("floating_message",{message:'You must first print Nota Arrivo', messageType:"error"}); if(msg=='fal1_arr_no') genro.publish("floating_message",{message:'You must first print Fal1 arrival', messageType:"error"}); if(msg=='fal1arr_notarr') genro.publish("floating_message",{message:'You must first print Fal1 arrival and Nota Arrivo', messageType:"error"});
@@ -942,14 +944,29 @@ class Form(BaseComponent):
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb_dep=div_dep.formbuilder(colspan=2,cols=4, border_spacing='1px')
+        fb_dep=div_dep.formbuilder(colspan=3,cols=9, border_spacing='1px')
         fb_dep.Button('!![en]Vessel services', action="""{SET shipsteps_arrival.form.pippo='services';}""")
-        fb_dep.Button('!![en]GdF Departure',
-                                        action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
+        fb_dep.field('form_services', lbl='', margin_top='6px')
+        fb_dep.semaphore('^.form_services', margin_top='6px')
+
+        fb_dep.Button('!![en]GdF Departure',action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Partenza_Finanza',
-                                                                               pkey: pkey})""",
+                                                                               pkey: pkey})
+                                                                               {SET .form_gdfdep=true;}
+                                                                               this.form.save();""",
                                                                                pkey='=#FORM.pkey')
+        fb_dep.field('form_gdfdep', lbl='', margin_top='6px')
+        fb_dep.semaphore('^.form_gdfdep', margin_top='6px')    
+
+        btn_trib_cp = fb_dep.Button('!![en]Email tributi CP')
+        btn_trib_cp.dataRpc('nome_temp', self.email_services,
+                  record='=#FORM.record.id', servizio=['capitaneria_nsw'], email_template_id='email_tributi_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
+                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")         
+        fb_dep.field('email_tributi_cp', lbl='', margin_top='6px')
+        fb_dep.semaphore('^.email_tributi_cp', margin_top='6px')                                                                      
         div_extra=rg_arrival.div('<center><strong>EXTRA NSW FORMS</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
@@ -1312,7 +1329,9 @@ class Form(BaseComponent):
             elif email_template_id == 'email_water_supply':
                 nome_temp = 'val_ws'
             elif email_template_id == 'email_deroga_garbage':
-                nome_temp = 'val_deroga_gb'    
+                nome_temp = 'val_deroga_gb'   
+            elif email_template_id == 'email_tributi_cp':
+                nome_temp = 'val_tributi'  
             return nome_temp
     
     @public_method
