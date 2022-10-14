@@ -949,14 +949,14 @@ class Form(BaseComponent):
         fb_dep.field('form_services', lbl='', margin_top='6px')
         fb_dep.semaphore('^.form_services', margin_top='6px')
 
-        fb_dep.Button('!![en]GdF Departure',action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
+        fb_dep.Button('!![en]Form GdF Departure',action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Partenza_Finanza',
                                                                                pkey: pkey})
                                                                                {SET .form_gdfdep=true;}
                                                                                this.form.save();""",
                                                                                pkey='=#FORM.pkey')
-        fb_dep.field('form_gdfdep', lbl='', margin_top='6px')
+        fb_dep.field('form_gdfdep', lbl='', margin_top='6px', default_value=True)
         fb_dep.semaphore('^.form_gdfdep', margin_top='6px')    
 
         btn_trib_cp = fb_dep.Button('!![en]Email tributi CP')
@@ -966,12 +966,16 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")         
         fb_dep.field('email_tributi_cp', lbl='', margin_top='6px')
-        fb_dep.semaphore('^.email_tributi_cp', margin_top='6px')                                                                      
+        fb_dep.semaphore('^.email_tributi_cp', margin_top='6px')    
+        
+        #rg_arrival.div('&nbsp').field('nsw', table='shipsteps.tasklist', label='NSW', lbl='Sistema NSW')                                                           
+        rg_arrival.div('&nbsp').checkbox(value='^.nsw', label='NSW', lbl='Sistema NSW')                                                           
         div_extra=rg_arrival.div('<center><strong>EXTRA NSW FORMS</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
-                        margin_top='1px',margin_left='4px')
+                        margin_top='1px',margin_left='4px', hidden='^.nsw?=!#v')
         fb_extra=div_extra.formbuilder(colspan=2,cols=4, border_spacing='1px')
+        
         btn_accosto=fb_extra.Button('!![en]Email Domanda Accosto',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',

@@ -38,6 +38,7 @@ class Table(object):
         tbl.column('form_services', dtype='B', name_short='!![en]Form services')
         tbl.column('form_gdfdep', dtype='B', name_short='!![en]Form GdF dep')
         tbl.column('email_tributi_cp', dtype='B', name_short='!![en]Email Tributi CP')
+        tbl.column('nsw', dtype='B', name_short='!![en]NSW')
         tbl.column('acqua', name_short='!![en]Water qt.')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('email_account','@arrival_id.email_account_id')
