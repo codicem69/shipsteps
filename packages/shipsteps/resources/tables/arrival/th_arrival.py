@@ -94,7 +94,7 @@ class Form(BaseComponent):
         bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>')
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
         tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^.tabname')
-        bc_tasklist = tc_task.borderContainer(title='!![en]Task List', region='center')
+        bc_tasklist = tc_task.borderContainer(title="<div style='color:red;'>Task list</div>", region='center')#title='!![en]Task List'
         tc_arrtimes = tc.tabContainer(title='!![en]<strong>Arrival Times</strong>')
        # tc_task = tc_task.tabContainer(title='!![en]Shore Pass')
         #tc_shorepass = tc_task.tabContainer(title='!![en]Shore Pass', region='center')
@@ -147,7 +147,7 @@ class Form(BaseComponent):
         #self.gpg(tc_r.contentPane(title='!![en]GPG'))
         tc_under_car = tc_car.tabContainer(title='!![en]Cargo onboard')
         #self.datiCaricoBordo(tc_car.contentPane(title='!![en]Cargo onboard',datapath='.record'))
-        self.carbordoArr(tc_under_car.contentPane(title='!![en]Cargo onboard on arrival',datapath='.record'))
+        self.carbordoArr(tc_under_car.contentPane(title="!![en]Cargo onboard on arrival",datapath='.record'))
         self.carbordoDep(tc_under_car.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
 
         self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
@@ -164,7 +164,7 @@ class Form(BaseComponent):
 
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
     def carbordoArr(self,bc):
-        center = bc.roundedGroup(title='!![en]Cargo on board on arrival', region='center', height = '100%').div(margin='10px',margin_left='2px')
+        center = bc.roundedGroup(title='!![en]Cargo on board on arrival', region='center', height = '100%', background='seashell').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=3, border_spacing='4px')
         fb.field('cargo_onboard', tag='simpleTextArea',height='50px', colspan=3)
         fb.div("""EXTRA CARGO ON BOARD DESCRIPTION:<br>
@@ -174,7 +174,7 @@ class Form(BaseComponent):
                   - se trattasi di merce rientrante nelle categorie inquinanti di cui alla Legge 979/1982 specificare tutti I dati relativi al proprietario""", colspan=3)
         fb.field('extra_cargo_onboard', tag='simpleTextArea',height='25px',colspan=3)
     def carbordoDep(self,bc):
-        center = bc.roundedGroup(title='!![en]Cargo on board on departure', region='center', height = '100%').div(margin='10px',margin_left='2px')
+        center = bc.roundedGroup(title='!![en]Cargo on board on departure', region='center', height = '100%',background='aliceblue').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=3, border_spacing='4px')
         fb.field('cargo_onboard_dep', tag='simpleTextArea',height='50px', colspan=3)
         fb.div("""EXTRA CARGO ON BOARD DESCRIPTION:<br>
@@ -1070,7 +1070,6 @@ class Form(BaseComponent):
                                          if(result=='ws')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")#this.form.save();
                                          #this.form.reload()""")
         fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()")
-    
     
     @public_method
     def intfat(self,record, **kwargs):  
