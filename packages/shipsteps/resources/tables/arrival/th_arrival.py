@@ -89,19 +89,21 @@ class Form(BaseComponent):
         #bc1 = form.center.borderContainer()
         #tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
 
-        bc = tc.borderContainer(title='!![en]Arrival')
-        bc_extracp = tc.borderContainer(title='!![en]Extra dati CP')
-        bc_att = tc.borderContainer(title='!![en]Attachments')
-        tc_task = tc.tabContainer(title='!![en]Task List',region='center',selectedPage='^.pippo')
+        bc = tc.borderContainer(title='!![en]<strong>Arrival</strong>')
+        tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center')
+        bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>')
+        bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
+        tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^.tabname')
         bc_tasklist = tc_task.borderContainer(title='!![en]Task List', region='center')
+        tc_arrtimes = tc.tabContainer(title='!![en]<strong>Arrival Times</strong>')
        # tc_task = tc_task.tabContainer(title='!![en]Shore Pass')
         #tc_shorepass = tc_task.tabContainer(title='!![en]Shore Pass', region='center')
         #tc_prova = tc_task.tabContainer(title='!![en]prova')
         tc_undertask = bc_tasklist.tabContainer(margin='2px', region='center', height='auto')
-        tc_sof = tc.borderContainer(title='!![en]SOF')
-        tc_app = tc.tabContainer(title='!![en]Applications')
-        tc_bl = tc.borderContainer(title='!![en]Loading Cargoes')
-        tc_usma = tc.borderContainer(title='!![en]Sanimare certificates')
+        tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>')
+        tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
+        tc_bl = tc.borderContainer(title='!![en]<strong>Loading Cargoes</strong>')
+        tc_usma = tc.borderContainer(title='!![en]<strong>Sanimare certificates</strong>')
         #tc_parapon = bc_task3.tabContainer(title='pippo')
         self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = 'seashell'))
         #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
@@ -114,9 +116,9 @@ class Form(BaseComponent):
        # pane_center=bc_top.contentPane(region='center',datapath='.record', width='1200px', splitter=True)
         #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
-        self.datiArrivo(bc.borderContainer(region='top',height='300px', splitter=True, background = 'seashell'))
+        self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = 'seashell'))
        
-        self.taskList(bc_tasklist.borderContainer(region='top',height='50%', background = 'seashell', splitter=True))
+        self.taskList(bc_tasklist.borderContainer(region='top',height='65%', background = 'seashell', splitter=True))
         #self.shorepass(tc_task.contentPane(title='!![en]Shore pass'))
         #self.services(tc_task.contentPane(title='!![en]Vessel Services',pageName='services'))
         
@@ -139,7 +141,7 @@ class Form(BaseComponent):
         #self.gpg(bc.borderContainer(region='center',datapath='.@gpg_arr',height='300px', splitter=True, background = 'lavenderblush'))
 
         tc = bc.tabContainer(margin='2px', region='center', height='auto', splitter=True)
-        tc_car = tc.tabContainer(title='!![en]Cargo',margin='2px', region='center', height='auto', splitter=True)
+       # tc_car = tc.tabContainer(title='!![en]Cargo',margin='2px', region='center', height='auto', splitter=True)
         #tc_sof = tc.tabContainer(title='!![en]SOF',margin='2px', region='center', height='450px', splitter=True)
         #tc_r = bc_top.tabContainer(margin='2px', region='right', width='25%')#, width='25%', splitter=True)
         #self.gpg(tc_r.contentPane(title='!![en]GPG'))
@@ -155,7 +157,7 @@ class Form(BaseComponent):
       # tc.contentPane(title='!![en]Charterers', pageName='charterers').remote(self.charterersLazyMode)
 
        # self.sof(tc.contentPane(title='!![en]Sof'))
-        self.arrival_details(tc.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell'))
+        self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell'))
        # self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
         tc.contentPane(title='!![en]Email Arrival',pageName='email_arrival').remote(self.emailArrivalLazyMode)
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
@@ -945,7 +947,7 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_dep=div_dep.formbuilder(colspan=3,cols=9, border_spacing='1px')
-        fb_dep.Button('!![en]Vessel services', action="""{SET shipsteps_arrival.form.pippo='services';}""")
+        fb_dep.Button('!![en]Vessel services', action="""{SET shipsteps_arrival.form.tabname='services';}""")
         fb_dep.field('form_services', lbl='', margin_top='6px')
         fb_dep.semaphore('^.form_services', margin_top='6px')
 
@@ -956,7 +958,7 @@ class Form(BaseComponent):
                                                                                {SET .form_gdfdep=true;}
                                                                                this.form.save();""",
                                                                                pkey='=#FORM.pkey')
-        fb_dep.field('form_gdfdep', lbl='', margin_top='6px', default_value=True)
+        fb_dep.field('form_gdfdep', lbl='', margin_top='6px')
         fb_dep.semaphore('^.form_gdfdep', margin_top='6px')    
 
         btn_trib_cp = fb_dep.Button('!![en]Email tributi CP')
