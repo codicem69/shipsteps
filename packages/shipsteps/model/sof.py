@@ -66,10 +66,10 @@ class Table(object):
         
         tbl.formulaColumn('time_sof', """coalesce('NOR tendered-------------' || to_char($nor_tend, :df) || '<br>', '') || coalesce('NOR received-------------' || to_char($nor_rec, :df) || '<br>','') ||
                                          coalesce('NOR accepted-------------' || $nor_acc || '<br>', '') || coalesce($ops_commenced_email || to_char($ops_commenced, :df) || '<br>','') || 
-                                         coalesce($ops_completed_email || to_char(ops_completed, :df) || '<br>','') || coalesce(:onboard || to_char($doc_onboard,:df),'')""",var_onboard="Documents on board-------",var_df='DD/MM/YYYY HH24:MI')
+                                         coalesce($ops_completed_email || to_char(ops_completed, :df) || '<br>','') || coalesce(:onboard || to_char($doc_onboard,:df) || '<br>','')""",var_onboard="Documents on board-------",var_df='DD/MM/YYYY HH24:MI')
         #tbl.formulaColumn('portlog_time',"""CASE WHEN $timearr is not null OR $time_sof is not null OR $timearr2 is not null THEN 
         #                                    'PORTLOG<br>------------------------------<br>' || $timearr || '<br>' || $time_sof || '<br>' || $timearr2 || '<br>' END""")
-        tbl.formulaColumn('portlog_time',"""CASE WHEN $timearr !='' THEN 'PORTLOG<br>------------------------------<br>' || coalesce($timearr || '<br>','') || coalesce($time_sof || '<br>','') || coalesce($timearr2 || '<br>','') END""")
+        tbl.formulaColumn('portlog_time',"""CASE WHEN $timearr !='' THEN 'PORTLOG<br>------------------------------<br>' || coalesce($timearr,'') || coalesce($time_sof ,'') || coalesce($timearr2 ,'') END""")
         tbl.formulaColumn('intestazione_sof',"""CASE WHEN $int_sof is null THEN $agencyname 
                                                 WHEN $int_sof = '' THEN $agencyname ELSE $int_sof END""" )
         tbl.formulaColumn('email_sof_to',select=dict(table='shipsteps.email_sof', columns="""string_agg($dest || ' ' || $description || '<br>', '')""",
