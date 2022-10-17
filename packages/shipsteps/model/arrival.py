@@ -99,7 +99,10 @@ class Table(object):
 
         tbl.formulaColumn('arrival_data',"$reference_num || ' - ' || @vessel_details_id.@imbarcazione_id.nome || coalesce(' - ' || $visit_id,'') || coalesce(' - ' || to_char($etb,:df),'')", dtype='T',var_df='DD/MM/YYYY', static=True)    
         tbl.formulaColumn('prox_port', """CASE WHEN $nextport = 'ORDER - ORDINI' THEN '' ELSE $nextport END""" )
-        
+        tbl.formulaColumn('totcargo', select=dict(table='shipsteps.cargo_unl_load',
+                                                columns="""@measure_id.description || ' ' || SUM($quantity) """,
+                                                where='$arrival_id=#THIS.id', group_by='@measure_id.description'),
+                                    dtype='N',name_long='Tot_Carico')
         #formule column per email servizi
         tbl.formulaColumn('cp_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
