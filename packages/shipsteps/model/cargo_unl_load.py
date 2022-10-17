@@ -8,7 +8,7 @@ class Table(object):
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='cargo_lu_arr', mode='foreignkey', onDelete='cascade')
-        tbl.column('bln', size=':5', name_short='BL no.')
+        tbl.column('bln', size=':20', name_short='BL no.')
         tbl.column('shipper_id',size='22', name_long='!![en]Shippers'
                     ).relation('ship_rec.id', relation_name='cargo_lu_ship', mode='foreignkey', onDelete='raise')
         tbl.column('receiver_id',size='22', name_long='!![en]Receivers'
