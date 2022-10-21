@@ -33,7 +33,7 @@ class ViewFromCargoLU(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         #r.fieldcell('arrival_id')
-        r.fieldcell('bln', hasDownArrow=True,edit=True, width='3em')
+        r.fieldcell('bln', hasDownArrow=True,edit=True, width='7em')
         r.fieldcell('shipper_id', hasDownArrow=True,edit=True, width='20em')
         r.fieldcell('receiver_id', hasDownArrow=True,edit=True, width='20em')
         r.fieldcell('charterers_id', hasDownArrow=True,edit=True, width='20em')

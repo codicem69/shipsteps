@@ -13,6 +13,7 @@ from docx import Document
 import os
 import subprocess #per apertura file tramite programma di sistema
 
+
 class View(BaseComponent):
 
     def th_struct(self,struct):
@@ -695,11 +696,17 @@ class Form(BaseComponent):
 
         btn_garb = fb.Button('!![en]Garbage', width='115px')
         btn_garb.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
-                            nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                            nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',                            
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
-       
+                            table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                            cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+
+                           #_ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
+                           # table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='garb',alternatePkey='consignee',
+                           # validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                           # table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                           # cols=4,popup=True,colspan=2)]))
+
         #fb.dataController("if(msgspec=='val_garbage') {SET .email_garbage=true ; alert('Message created');} if(msgspec=='yes') alert('You must select the record as row in the garbage form'); "
         #                    , msgspec='^msg_special')
         fb.field('email_garbage',lbl='', margin_top='5px')
@@ -1135,13 +1142,18 @@ class Form(BaseComponent):
             attcmt.append(fileSn_imm.internal_path)    
         #trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
         #ma verifichiamo se nei kwargs gli allegati ci sono per non ritrovarci la variabile lista_all senza assegnazione
-        
+        services = None
         for chiavi in kwargs.keys():
             if chiavi=='allegati':
                 if kwargs['allegati']:
                     lista_all=list(kwargs['allegati'].split(","))
                 else:
                     lista_all=None
+            if chiavi=='services':
+                if kwargs['services']:
+                    services=kwargs['services']
+                
+                         
        #if kwargs['allegati']:
        #    lista_all=list(kwargs['allegati'].split(","))
        #else:
@@ -1244,10 +1256,11 @@ class Form(BaseComponent):
             email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
                                                     where='$service_for_email=:serv AND $agency_id=:ag_id', serv=serv,
                                                     ag_id=self.db.currentEnv.get('current_agency_id'))
-            #email_d.append(email_dest)
-            #email_cc_d.append(email_cc_dest)
-            #email_pec_d.append(email_pec_dest)
-            #email_pec_cc_d.append(email_pec_cc_dest)
+
+           #email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
+           #                                        where='$service_for_email=:serv AND $agency_id=:ag_id AND $consignee=:cons', serv=serv,cons=services,
+           #                                        ag_id=self.db.currentEnv.get('current_agency_id'))                                                    
+           
 
             if e < (ln_serv-1):
                 if email_dest is not None:
@@ -1282,7 +1295,7 @@ class Form(BaseComponent):
                                                           bcc_address=email_bcc_d,
                                                           attachments=attcmt,
                                                           template_code=email_template_id)
-            #print(x)
+            
             self.db.commit()
 
         if (email_pec_dest) is not None:
@@ -1872,6 +1885,7 @@ class Form(BaseComponent):
         
         self.setInClientData(path='gnr.clientprint',
                              value=result.url(timestamp=datetime.now()), fired=True)
+                               
        #inseriamo nella tabella di attachment il mod61_arr 
        #if nome_temp == 'mod61_arr':
        #    tbl_arrival_atc = self.db.table('shipsteps.arrival_atc')
@@ -2058,7 +2072,25 @@ class Form(BaseComponent):
         template_document.save(output_file_path)
         #apriamo direttamente il file salvato con il programma standard di sistema
         filename=output_file_path
-        subprocess.call(('xdg-open', filename))
+       
+       # subprocess.call(('xdg-open', filename))
+        
+      # path=self.site.site_path + str('/form_standard')
+      # doc_path=filename
+      # subprocess.call(['libreoffice',
+      #          # '--headless',
+      #          '--convert-to',
+      #          'pdf',
+      #          '--outdir',
+      #          path,
+      #          doc_path])
+      # nome_file = nome_form + str('.pdf')         
+        path_pdf = self.site.storageNode('home:form_standard', nome_file)
+        #path_pdf=path + str('/') + nome_form + str('.pdf')
+        result=self.site.storageNode(path_pdf)
+        self.setInClientData(path='gnr.clientprint',
+                              value=result.url(), fired=True)
+        #print(x)
         return nome_form
 
     def replace_text_in_paragraph(self,paragraph, key, value):
