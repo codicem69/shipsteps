@@ -107,13 +107,17 @@ class Main(TableScriptToHtml):
 
 
         #con il ciclo for andiamo a prelevare i dati del carico e inseriamo le singole righe
-        car=''
+        car,oper='',''
         for c in carico.values():
             if c['operation'] == 'U':
-                oper = 'DA SCARICARE: '
-            if c['operation'] == 'L':
-                oper = 'DA CARICARE: '   
-            car += "{op}{ms}{qt} {car}<br>".format(op=oper,ms=c['@measure_id.description'],qt=c['quantity'],car=c['description_it'])
+                oper += 'DA SCARICARE: '
+                car += "{op}{ms}{qt} {car}<br>".format(op=oper,ms=c['@measure_id.description'],qt=str(c['quantity']),car=c['description_it'])
+            elif c['operation'] == 'L':
+                oper += 'DA CARICARE: '
+                car += "{op}{ms}{qt} {car}<br>".format(op=oper,ms=c['@measure_id.description'],qt=str(c['quantity']),car=c['description_it'])
+            else:
+                car=''
+        
         if len(carico) == 0:
             car ='NIL'
 

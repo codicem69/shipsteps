@@ -1,6 +1,7 @@
 # encoding: utf-8
 from datetime import datetime
 
+
 class Table(object):
     def config_db(self,pkg):
         
@@ -210,7 +211,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('garbage_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='garbage'),
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $consignee =:services', 
+                                                serv='garbage',limit=1),
                                                 dtype='T')
         tbl.formulaColumn('garbage_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
@@ -300,6 +302,7 @@ class Table(object):
                                                     where='$arrival_id=#THIS.id and $dest=:to',to='to', limit=1,ignoreMissing=True))
         tbl.formulaColumn('email_arr_cc',select=dict(table='shipsteps.email_arr', columns="""string_agg($dest || ' ' || $description ||'<br>','')""",
                                                     where='$arrival_id=#THIS.id and $dest=:to',to='cc', limit=1,ignoreMissing=True))                                                    
+   
     def pyColumn_cargo(self,record,field):
        
         pkey=record['id']
