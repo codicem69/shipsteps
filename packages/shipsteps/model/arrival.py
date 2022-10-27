@@ -211,7 +211,7 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('garbage_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $consignee =:services', 
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', 
                                                 serv='garbage',limit=1),
                                                 dtype='T')
         tbl.formulaColumn('garbage_email',select=dict(table='shipsteps.email_services',
