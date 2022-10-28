@@ -102,7 +102,7 @@ class Form(BaseComponent):
      
         right.img(src='^.vess_image', edit=True, crop_width='600px', crop_height='250px', 
                         placeholder=True, upload_folder='site:vessel', upload_filename='=.id')
-        right.button('!![en]Remove image', hidden='^.vess_image?=!#v').dataRpc(self.deleteImage, image='=.vess_image')
+        #right.button('!![en]Remove image', hidden='^.vess_image?=!#v').dataRpc(self.deleteImage, image='=.vess_image')
   
     def NoteNave(self,frame):
         frame.simpleTextArea(title='Extra',value='^.vess_note',editor=True)
@@ -113,11 +113,11 @@ class Form(BaseComponent):
     def docNave(self,pane):
         pane.inlineTableHandler(title='!![en]Ships Docs',relation='@ship_docs',viewResource='ViewFromDoc', export=True)
         
-    @public_method
-    def deleteImage(self, image=None, **kwargs):
-        image_path = self.sitepath + re.sub('/_storage/site', '',image).split('?',1)[0]
-        os.remove(image_path)
-        self.setInClientData(value=None, path='shipsteps_vessel_details.form.record.vess_image')
+   #@public_method
+   #def deleteImage(self, image=None, **kwargs):
+   #    image_path = self.sitepath + re.sub('/_storage/site', '',image).split('?',1)[0]
+   #    os.remove(image_path)
+   #    self.setInClientData(value=None, path='shipsteps_vessel_details.form.record.vess_image')
 
     def th_options(self):
         return dict(dialog_windowRatio = 1 , annotations= True )

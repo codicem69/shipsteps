@@ -2021,6 +2021,7 @@ class Form(BaseComponent):
             san_place=tbl_place.readColumns(columns="$descrizione || ' - ' || @nazione_code.nome", where='$id=:place_id', place_id=san_place_id)
         
             nome_file = 'DichSanimare.docx'
+            nome_file_out = 'DichSanimare_filled.docx'
             file_sn_out = self.site.storageNode('home:form_standard', 'DichSanimare_filled.docx')
            
             variables = {
@@ -2043,6 +2044,7 @@ class Form(BaseComponent):
             }
         if nome_form == 'InterferenzeFiore':
             nome_file = 'InterferenzeFiore.docx'
+            nome_file_out = 'InterferenzeFiore_filled.docx'
             file_sn_out = self.site.storageNode('home:form_standard', 'InterferenzeFiore_filled.docx')    
             variables = {
             "${etb}": etb,
@@ -2084,8 +2086,9 @@ class Form(BaseComponent):
       #          '--outdir',
       #          path,
       #          doc_path])
-      # nome_file = nome_form + str('.pdf')         
-        path_pdf = self.site.storageNode('home:form_standard', nome_file)
+      # nome_file = nome_form + str('.pdf')  
+              
+        path_pdf = self.site.storageNode('home:form_standard', nome_file_out)
         #path_pdf=path + str('/') + nome_form + str('.pdf')
         result=self.site.storageNode(path_pdf)
         self.setInClientData(path='gnr.clientprint',
