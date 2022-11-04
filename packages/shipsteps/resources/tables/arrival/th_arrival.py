@@ -841,6 +841,7 @@ class Form(BaseComponent):
                              if(msg=='val_dog') {SET .email_dogana=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec') {SET .email_ship_rec=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msg=='val_chemist_cp') {SET .email_certchim_cp=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_ricrifiuti') {SET .email_ric_rifiuti_cp=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_tributi') {SET .email_tributi_cp=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='vess_serv') {SET .form_services=true;} this.form.save();
                              if(msg=='val_deroga_gb') if(msg=='val_deroga_gb'){SET .email_garbage_cp=true ; alert(msg_txt);}
@@ -954,6 +955,15 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_dep=div_dep.formbuilder(colspan=3,cols=9, border_spacing='1px')
+
+        btn_rif_cp = fb_dep.Button('!![en]Email Ricevuta rifiuti CP')
+        btn_rif_cp.dataRpc('nome_temp', self.email_services,
+                  record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_ricevutarifiuti_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
+                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        fb_dep.field('email_ric_rifiuti_cp', lbl='', margin_top='6px')
+        fb_dep.semaphore('^.email_ric_rifiuti_cp', margin_top='6px')
         fb_dep.Button('!![en]Vessel services', action="""{SET shipsteps_arrival.form.tabname='services';}""")
         fb_dep.field('form_services', lbl='', margin_top='6px')
         fb_dep.semaphore('^.form_services', margin_top='6px')
@@ -1323,9 +1333,7 @@ class Form(BaseComponent):
             elif email_template_id == 'email_pilot_moor':
                 nome_temp = 'val_pil_moor'
             elif email_template_id == 'email_tug':
-                nome_temp = 'val_tug'
-            elif email_template_id == 'garbage_email':
-                nome_temp = 'val_garbage'
+                nome_temp = 'val_tributi'  
             elif email_template_id == 'email_chemist':
                 nome_temp = 'val_chemist'
             elif email_template_id == 'email_gpg':
@@ -1347,7 +1355,9 @@ class Form(BaseComponent):
             elif email_template_id == 'email_water_supply':
                 nome_temp = 'val_ws'
             elif email_template_id == 'email_deroga_garbage':
-                nome_temp = 'val_deroga_gb'   
+                nome_temp = 'val_deroga_gb'  
+            elif email_template_id == 'email_ricevutarifiuti_cp':
+                nome_temp = 'val_ricrifiuti'       
             elif email_template_id == 'email_tributi_cp':
                 nome_temp = 'val_tributi'  
             return nome_temp

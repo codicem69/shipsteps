@@ -27,6 +27,7 @@ class Table(object):
         tbl.aliasColumn('cargo_sof', '@sof_cargo_sof.@cargo_unl_load_id.cargo_sof',name_long='!![en]Cargo sof')
        # tbl.aliasColumn('carico_del_sof', '@sof_cargo_sof.carico_del_sof',name_long='!![en]Cargo on sof')
         tbl.aliasColumn('cargo_op', '@sof_cargo_sof.@cargo_unl_load_id.operation',name_long='!![en]Cago operation')
+        tbl.aliasColumn('receivers_name', '@sof_cargo_sof.@cargo_unl_load_id.@receiver_id.name',name_long='!![en]Receivers name')
         tbl.aliasColumn('shiprec_sofcargo','@sof_cargo_sof.ship_rec')
         tbl.aliasColumn('agencyname','@arrival_id.@agency_id.agency_name')
         tbl.aliasColumn('timearr','@arrival_id.@time_arr.time_arr')

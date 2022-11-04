@@ -12,6 +12,7 @@ class Table(object):
         
         tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@cargo_unl_load_id.ship_rec')
+ 
         
         
     
