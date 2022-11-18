@@ -77,6 +77,9 @@ class Table(object):
                                                     where='$sof_id=#THIS.id and $dest=:to',to='to', limit=1,ignoreMissing=True))
         tbl.formulaColumn('email_sof_cc',select=dict(table='shipsteps.email_sof', columns="""string_agg($dest || ' ' || $description ||'<br>', '')""",
                                                     where='$sof_id=#THIS.id and $dest=:to',to='cc', limit=1,ignoreMissing=True))
+        tbl.formulaColumn('fullstyle_for_rec',"""CASE WHEN $firma_diversa IS NULL OR $firma_diversa = '' THEN @arrival_id.@agency_id.fullstyle 
+                                                 ELSE $firma_diversa END""", dtype='T')
+        tbl.aliasColumn('firma_diversa','@arrival_id.firma_div')
         tbl.aliasColumn('email_arr_to','@arrival_id.email_arr_to')
         tbl.aliasColumn('email_arr_cc','@arrival_id.email_arr_cc')
 
