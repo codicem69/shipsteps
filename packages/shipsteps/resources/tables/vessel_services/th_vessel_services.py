@@ -82,6 +82,7 @@ class ViewFromVesselServices(BaseComponent):
         self.setInClientData(path='gnr.clientprint',
                              value=result.url(timestamp=datetime.now()), fired=True)
         return nome_temp
+        
 class Form(BaseComponent):
 
     def th_form(self, form):

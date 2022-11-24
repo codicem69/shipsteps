@@ -107,16 +107,16 @@ class Table(object):
         #formule column per email servizi
         tbl.formulaColumn('cp_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='capitaneria'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='capitaneria'),
+                                                limit=1,dtype='T')
         tbl.formulaColumn('cp_intnsw',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='capitaneria_nsw'),
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='capitaneria_nsw'),
                                                 dtype='T')
         tbl.formulaColumn('dog_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='dogana'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='dogana'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('dog_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='dogana'),
@@ -127,8 +127,8 @@ class Table(object):
                                                 dtype='T')                                               
         tbl.formulaColumn('gdfroan_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='gdf roan'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='gdf roan'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('gdfroan_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='gdf roan'),
@@ -139,8 +139,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('gdf_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='gdf'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='gdf'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('gdf_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='gdf'),
@@ -151,8 +151,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('immigration_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='immigration'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='immigration'),
+                                                limit=1,dtype='T')
         tbl.formulaColumn('immigration_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='immigration'),
@@ -163,8 +163,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('usma_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='sanimare'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='sanimare'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('usma_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='sanimare'),
@@ -175,8 +175,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('pilot_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='pilot'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='pilot'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('pilot_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='pilot'),
@@ -187,8 +187,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('moor_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='mooringmen'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='mooringmen'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('moor_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='mooringmen'),
@@ -199,8 +199,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('tug_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='tug'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='tug'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('tug_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='tug'),
@@ -211,21 +211,21 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('garbage_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', 
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, 
                                                 serv='garbage',limit=1),
-                                                dtype='T')
+                                                dtype='T', static=True)
         tbl.formulaColumn('garbage_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='garbage'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='garbage'),
+                                                limit=1,dtype='T')
         tbl.formulaColumn('garbage_email_cc',select=dict(table='shipsteps.email_services',
                                                 columns='$email_cc',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='garbage'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='garbage'),
+                                                limit=1,dtype='T')
         tbl.formulaColumn('chemist_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='chemist'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='chemist'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('chemist_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='chemist'),
@@ -236,8 +236,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('water_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='water supply'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='water supply'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('water_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='water supply'),
@@ -248,8 +248,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('antifire_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='antifire'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='antifire'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('antifire_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='antifire'),
@@ -260,8 +260,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('ens_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='ens'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='ens'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('ens_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='ens'),
@@ -272,8 +272,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('gpg_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='gpg'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='gpg'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('gpg_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='gpg'),
@@ -284,8 +284,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('pfso_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='pfso'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='pfso'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('pfso_email',select=dict(table='shipsteps.email_services',
                                                 columns='$email',
                                                 where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='pfso'),
@@ -296,8 +296,8 @@ class Table(object):
                                                 dtype='T')
         tbl.formulaColumn('adsp_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
-                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id', serv='adsp'),
-                                                dtype='T')
+                                                where='$service_for_email=:serv AND $agency_id=#THIS.agency_id AND $default=:df', df=True, serv='adsp'),
+                                                limit=1, dtype='T')
         tbl.formulaColumn('email_arr_to',select=dict(table='shipsteps.email_arr', columns="""string_agg($dest || ' ' || $description || '<br>','')""",
                                                     where='$arrival_id=#THIS.id and $dest=:to',to='to', limit=1,ignoreMissing=True))
         tbl.formulaColumn('email_arr_cc',select=dict(table='shipsteps.email_arr', columns="""string_agg($dest || ' ' || $description ||'<br>','')""",

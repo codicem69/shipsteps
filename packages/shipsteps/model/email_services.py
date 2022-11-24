@@ -15,6 +15,7 @@ class Table(object):
         tbl.column('email_bcc', name_short='Email bcc')
         tbl.column('email_pec', name_short='Email pec')
         tbl.column('email_cc_pec', name_short='Email cc pec')
+        tbl.column('default', name_short='Default', dtype='B')
 
     #    tbl.column('port',size='22',name_short='!![en]Port').relation('unlocode.place.id',relation_name='port_email_unlocode', 
     #                                                                    mode='foreignkey', onDelete='raise')

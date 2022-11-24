@@ -6,6 +6,9 @@ from gnr.core.gnrdecorator import public_method
 
 class ViewFromEmailServicesAtc(BaseComponent):
 
+    def th_hiddencolumns(self):
+        return '$fileurl,$is_foreign_document'
+
     def th_struct(self,struct):
         r = struct.view().rows()
         

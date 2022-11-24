@@ -94,8 +94,20 @@ class FormFromRinfusa(BaseComponent):
                             nome_template = 'shipsteps.rinfusa:cartella_rinfusa',format_page='A3')
         btn_bulk_print.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4')
-        btn_bulk_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
-                            nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4')
+        #definiamo la tabella email_services per poi riprenderla sui dataRpc dei bottoni
+        tbl_email_services = self.db.table('shipsteps.email_services')                            
+        #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
+        serv_len=len(service_for_email)
+        if serv_len > 1:                    
+            btn_bulk_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
+                                nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4',
+                                _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True)]))
+        else:
+            btn_bulk_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
+                    nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4')                                
     @public_method
     def print_template_bulk(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
@@ -127,7 +139,7 @@ class FormFromRinfusa(BaseComponent):
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
         if email_template_id != '':
-            self.email_services(record,email_template_id,servizio)
+            self.email_services(record,email_template_id,servizio, **kwargs)
        
         #se ritorna il valore di self.msg_pecial dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
@@ -192,21 +204,36 @@ class FormFromRinfusa(BaseComponent):
         account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-
-      
+        #leggiamo nei kwargs il servizio richiesto per invio email
+        services = None
+        for chiavi in kwargs.keys():
+            if chiavi=='services':
+                if kwargs['services']:
+                    services=kwargs['services']
         #Lettura degli indirizzi email destinatari
         ln_serv=len(servizio)
-
+        #definiamo le tabelle su cui effettuare le ricerche
+        tbl_emailservices = self.db.table('shipsteps.email_services')
+        #preleviamo il nome esatto del servizio service_for_email_id
+        service_for_email_id = tbl_emailservices.readColumns(columns="$service_for_email_id", where='$service_for_email=:serv AND $consignee=:cons', serv=servizio[0], cons=services)
+        #aggiorniamo a true la colonna default del servizio richiesto
+        tbl_emailservices.batchUpdate(dict(default=True),
+                                    where='$consignee=:cons', cons=services)                         
+        #aggiorniamo a false la colonna default degli eventuali servizi aggiunti non richiesti
+        tbl_emailservices.batchUpdate(dict(default=False),
+                                    where='$consignee != :cons AND $service_for_email_id =:servizio',cons=services, servizio=service_for_email_id)  
+                                                                  
+        self.db.commit()
         #email_d, email_cc_d, email_pec_d, email_pec_cc_d=[],[],[],[]
         email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d=[],[],[],[],[]
-
+        #print(x)
         tbl_email_services=self.db.table('shipsteps.email_services')
         for e in range(ln_serv):
             serv=servizio[e]
 
             email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
-                                                    where='$service_for_email=:serv AND $agency_id=:ag_id', serv=serv,
-                                                    ag_id=self.db.currentEnv.get('current_agency_id'))
+                                                    where='$service_for_email=:serv AND $agency_id=:ag_id AND $consignee=:cons', serv=serv,
+                                                    ag_id=self.db.currentEnv.get('current_agency_id'), cons=services)
          
             if email_dest is not None and email_dest !='':
                 email_d.append(email_dest)

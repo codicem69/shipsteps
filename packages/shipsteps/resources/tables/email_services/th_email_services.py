@@ -16,6 +16,7 @@ class View(BaseComponent):
         r.fieldcell('email_bcc')
         r.fieldcell('email_pec')
         r.fieldcell('email_cc_pec')
+        r.fieldcell('default')
         
 
         #r.fieldcell('port')
@@ -59,6 +60,7 @@ class Form(BaseComponent):
         fb.field('email_pec',width='40em', height='5em',tag='textarea')
         
         fb.field('email_cc_pec',width='40em', height='5em',tag='textarea')
+        fb.field('default')
         #fb.field('port')
 
     def EmailServiceCenter(self,pane):

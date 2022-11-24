@@ -233,7 +233,10 @@ class Main(TableScriptToHtml):
         cel_cargo=seconda_col.row(height=h_car).cell(daticar, font_weight='bold', background='lightgrey',width=30)
         col3=cel_cargoonboard.row.cell().layout(name='col3', um='mm', border_color='black', lbl_class='',
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
-        col3.row().cell("{cargoonboard}::HTML".format(cargoonboard=self.field('cargo_onboard')+' - '+self.field('extra_cargo_onboard')),  font_weight='bold',font_size='8pt')
+        extra_cargo_onboard = ''
+        if self.field('extra_cargo_onboard') is not None and self.field('extra_cargo_onboard') != '':
+            extra_cargo_onboard = ' - ' + self.field('extra_cargo_onboard')                                             
+        col3.row().cell("{cargoonboard}::HTML".format(cargoonboard=self.field('cargo_onboard') + extra_cargo_onboard),  font_weight='bold',font_size='8pt')
         col4=cel_cargo.row.cell().layout(name='col4', um='mm', border_color='black', lbl_class='',row_border=False,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader') 
        
@@ -246,9 +249,23 @@ class Main(TableScriptToHtml):
                 extra_descr_car = '' 
             if c['operation'] == 'U':
                 oper = 'SCARICATO: '
-            if c['operation'] == 'L':
+            elif c['operation'] == 'L':
                 oper = 'CARICATO: '   
-            car = "{op}{ms}{qt} {car} {descr_cp}".format(op=oper,ms=c['@measure_id.description'],qt=c['quantity'],car=c['description_it'], descr_cp=extra_descr_car)
+            else:
+                oper = ''    
+            if c['@measure_id.description'] is not None:
+                cargo_ms = c['@measure_id.description']
+            else:
+                cargo_ms = ''
+            if c['quantity'] is not None:
+                quantity=c['quantity']
+            else:
+                quantity='' 
+            if c['description_it'] is not None and c['description_it'] != '':
+                car_description = c['description_it']
+            else:
+                car_description = 'NIL'      
+            car = "{op}{ms}{qt} {car} {descr_cp}".format(op=oper,ms=cargo_ms,qt=quantity,car=car_description, descr_cp=extra_descr_car)
             r.cell(car,font_weight='bold', font_size='8pt')
         if len(carico) == 0:
             r = terza_col.row(h_car)
@@ -256,7 +273,10 @@ class Main(TableScriptToHtml):
         cel_cargotransit=seconda_col.row(height=5).cell('CARICO IN TRANSITO (**)', font_weight='bold', background='lightgrey', width=40)
         col5=cel_cargotransit.row.cell().layout(name='col5', um='mm', border_color='black', lbl_class='',
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader') 
-        col5.row().cell("{cargotransit}::HTML".format(cargotransit=self.field('transit_cargo')+' - '+self.field('extra_transit_cargo')),font_size='8pt', font_weight='bold')
+        extra_cargo_transit = ''
+        if self.field('extra_transit_cargo') is not None and self.field('extra_transit_cargo') !='':
+            extra_cargo_transit = ' - ' + self.field('extra_transit_cargo')                                    
+        col5.row().cell("{cargotransit}::HTML".format(cargotransit=self.field('transit_cargo') + extra_cargo_transit),font_size='8pt', font_weight='bold')
         cel_ric_car=seconda_col.row(height=5).cell('RICEVITORE/CARICATORE', font_weight='bold', background='lightgrey',width=45)
         col6=cel_ric_car.row.cell().layout(name='col6', um='mm', border_color='black', lbl_class='',
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')

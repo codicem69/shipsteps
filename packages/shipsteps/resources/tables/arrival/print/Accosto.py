@@ -102,7 +102,7 @@ class Main(BaseResourcePrint):
                     ag_id=self.db.currentEnv.get('current_agency_id'))
 
         #Lettura degli indirizzi email destinatari
-        servizio=['cp']
+        servizio=['cpnsw']
 
         ln_serv=len(servizio)
 
