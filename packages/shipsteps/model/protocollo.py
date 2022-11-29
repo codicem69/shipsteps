@@ -11,7 +11,9 @@ class Table(object):
         tbl.column('data', dtype='D', name_short='!![en]date')
         tbl.column('data_prat', dtype='D', name_short='!![en]Pratique date')
         tbl.column('prot_n', name_short='!![en]Log number')
-        tbl.column('fald_n', name_short='!![en]Folder no.')
+        tbl.column('fald_n',size='22', name_long='!![en]Folder'
+                    ).relation('faldone.id', relation_name='numero_faldone', mode='foreignkey', onDelete='raise')
+        #tbl.column('fald_n', name_short='!![en]Folder no.')
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='prot_arr', mode='foreignkey', onDelete='raise')
         tbl.column('description', name_short='!![en]Description')

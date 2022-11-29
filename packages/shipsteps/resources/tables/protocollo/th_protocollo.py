@@ -35,7 +35,7 @@ class Form(BaseComponent):
         fb.field('data')
         fb.field('data_prat')
         fb.field('prot_n')
-        fb.field('fald_n')
+        fb.field('fald_n',hasDownArrow=True)
         fb.br()
         fb.field('arrival_id',order_by='$arrival_data DESC', hasDownArrow=True, width='50em',colspan=2,selected_cargo_descr='.description')
         #fb.dbSelect(dbtable='shipsteps.arrival',lbl='!![en]Arrival',auxColumns='$arrival_data',
