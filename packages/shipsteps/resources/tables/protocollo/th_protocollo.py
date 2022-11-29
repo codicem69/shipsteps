@@ -18,7 +18,7 @@ class View(BaseComponent):
         r.fieldcell('description', width='50em')
 
     def th_order(self):
-        return '_row_count'
+        return '_row_count:d'
 
     def th_query(self):
         return dict(column='_row_count', op='contains', val='')
