@@ -5,6 +5,7 @@ class Table(object):
     def config_db(self,pkg):
         tbl =  pkg.table('agency',pkey='id',name_long='!![en]Agency',name_plural='!![en]Agencies',caption_field='agency_name',lookup=False)
         self.sysFields(tbl)
+        tbl.column('code', size=':2', name_short='code')
         tbl.column('agency_name',name_short='!![en]Agency Name')
         tbl.column('description',name_short='!![en]Description Agency')
         tbl.column('address',name_short='!![en]address')

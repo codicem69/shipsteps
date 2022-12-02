@@ -5,7 +5,7 @@ class Table(object):
         
         tbl=pkg.table('protocollo', pkey='id', name_long='!![en]Arrival log', name_plural='!![en]Arrival logs',
                                  caption_field='prot_n', partition_agency_id='agency_id')
-        self.sysFields(tbl,counter=True)
+        self.sysFields(tbl,counter='agency_id')
         tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
                                     'agency.id',relation_name='name_agency', mode='foreignkey', onDelete='raise')
         tbl.column('data', dtype='D', name_short='!![en]date')
@@ -20,7 +20,11 @@ class Table(object):
         
     def counter_prot_n(self,record=None):
         #2021/000001
-        return dict(format='$K$YY/$NNN',code='A',  period='YY', date_field='data', showOnLoad=True, date_tolerant=True)
-    
+        tbl_agency = self.db.table('shipsteps.agency')
+        codice = tbl_agency.readColumns(columns='$code', where = '$id =:ag_id', ag_id=record['agency_id'])
+        
+        return dict(format='$K$YY/$NNN',code=codice,  period='YY', date_field='data', showOnLoad=True, date_tolerant=True)
+       
+
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),data = self.db.workdate)

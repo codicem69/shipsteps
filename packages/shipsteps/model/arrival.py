@@ -368,14 +368,15 @@ class Table(object):
             return 'no moored time'
 
         ets = record['ets']
-        tempo_trascorso = ets - moored
-        days=divmod(tempo_trascorso.total_seconds(), 86400)[0]
-        hours=divmod(tempo_trascorso.total_seconds(), 3600)[0]
-        minutes=divmod(tempo_trascorso.total_seconds(), 60)[0]
-        tot_hours = hours-(days*24)
-        remain_minutes=((minutes*60)-((days*86400)+(tot_hours*3600)))/60
-        sosta=str(days) + ' giorni, ' + str(tot_hours) + ' ore, ' + str(remain_minutes) + ' minuti'
-        return sosta    
+        if ets is not None:
+            tempo_trascorso = ets - moored
+            days=divmod(tempo_trascorso.total_seconds(), 86400)[0]
+            hours=divmod(tempo_trascorso.total_seconds(), 3600)[0]
+            minutes=divmod(tempo_trascorso.total_seconds(), 60)[0]
+            tot_hours = hours-(days*24)
+            remain_minutes=((minutes*60)-((days*86400)+(tot_hours*3600)))/60
+            sosta=str(days) + ' giorni, ' + str(tot_hours) + ' ore, ' + str(remain_minutes) + ' minuti'
+            return sosta    
 
     def pyColumn_logocc(self,record,field):
         logocc = self.db.application.getPreference('logo_cc',pkg='shipsteps')
@@ -398,7 +399,9 @@ class Table(object):
 
     def counter_reference_num(self,record=None):
         #2021/000001
-        return dict(format='$K$YYYY/$NNNNNN', code='A', period='YYYY', date_field='date', showOnLoad=True, date_tolerant=True)
+        tbl_agency = self.db.table('shipsteps.agency')
+        codice = tbl_agency.readColumns(columns='$code', where = '$id =:ag_id', ag_id=record['agency_id'])
+        return dict(format='$K$YYYY/$NNNNNN', code=codice, period='YYYY', date_field='date', showOnLoad=True, date_tolerant=True)
 
     def randomValues(self):
         return dict(date = dict(sorted=True))
