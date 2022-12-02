@@ -20,7 +20,7 @@ class View(BaseComponent):
         r = struct.view().rows()
         arrival = r.columnset('colset_arrival', name='Arrival', color='white',background='DarkSlateBlue', font_weight='bold')
         arrival.fieldcell('agency_id', width='7em')
-        arrival.fieldcell('reference_num', width='7em')
+        arrival.fieldcell('reference_num', width='8em')
         arrival.fieldcell('visit_id',width='8em')
         arrival.fieldcell('nsis_prot',width='8em')
         arrival.fieldcell('voy_n', width='4em')
