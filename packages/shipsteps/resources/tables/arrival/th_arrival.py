@@ -161,9 +161,11 @@ class Form(BaseComponent):
         self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell'))
        # self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
         tc.contentPane(title='!![en]Email Arrival',pageName='email_arrival').remote(self.emailArrivalLazyMode)
+        self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
 
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
+
     def carbordoArr(self,bc):
         center = bc.roundedGroup(title='!![en]Cargo on board on arrival', region='center', height = '100%', background='seashell').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=3, border_spacing='4px')
@@ -540,6 +542,9 @@ class Form(BaseComponent):
     @public_method
     def emailArrivalLazyMode(self,pane):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival',view_store__onBuilt=True)
+
+    def NoteArrival(self,frame):
+        frame.simpleTextArea(title='Arrival note',value='^.note',editor=True)
 
     def emailArrival(self,pane):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')

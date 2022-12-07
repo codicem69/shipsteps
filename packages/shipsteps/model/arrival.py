@@ -49,6 +49,7 @@ class Table(object):
         tbl.column('extra_transit_cargo', name_short='!![en]Extra descr. Transit Cargo')
         tbl.column('nsis_prot', name_short='Nsis prot.')
         tbl.column('firma_div', name_short='!![en]Different signature agency')
+        tbl.column('note', name_short='!![en]note')
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
