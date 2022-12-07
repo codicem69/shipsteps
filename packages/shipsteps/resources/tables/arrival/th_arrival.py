@@ -1049,21 +1049,21 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb_arr=div_arr.formbuilder(colspan=3,cols=9, border_spacing='1px')
         btn_fgdf_cp = fb_arr.Button('!![en]Form GdF',width='162px')
-        btn_fgdf_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
+        btn_fgdf_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record',
                             nome_template = 'shipsteps.arrival:form_gdf', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             format_page='A4',_onResult="this.form.save();")
         fb_arr.field('form_gdf', lbl='', margin_top='6px')
         fb_arr.semaphore('^.form_gdf', margin_top='6px')
 
         btn_fimm_cp = fb_arr.Button('!![en]Form Immigration',width='142px')
-        btn_fimm_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id', nome_template = 'shipsteps.arrival:form_immigration', 
+        btn_fimm_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_template = 'shipsteps.arrival:form_immigration', 
                                          nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4', 
                                          only_print='yes',_onResult="this.form.save();")
         fb_arr.field('form_immigration', lbl='', margin_top='6px')
         fb_arr.semaphore('^.form_immigration', margin_top='6px')
 
         btn_fprov_cp = fb_arr.Button('!![en]Form Provisions')
-        btn_fprov_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record.id',
+        btn_fprov_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record',
                             nome_template = 'shipsteps.arrival:form_provisions', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             format_page='A4',_onResult="this.form.save();")
         fb_arr.field('form_provision', lbl='', margin_top='6px')
