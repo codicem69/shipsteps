@@ -1,15 +1,32 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><menu path="menu.py" ext="py"><en_operations_sof base="Operations SOF"></en_operations_sof>
-<en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
+<GenRoBag><menu path="menu.py" ext="py"><en_arrivals base="Arrivals" it="Arrivi"></en_arrivals>
+<en_vessel_details base="Vessel details"></en_vessel_details>
+<en_messages fr="Messages" de="Nachrichten" en="Messages" it="Messaggi" base="Messages"></en_messages>
 <en_services_emails base="Services emails"></en_services_emails>
-<en_cargoes_unloding_loading base="Cargoes unloding/loading" it="Carichi sbarco/imbarchi"></en_cargoes_unloding_loading>
-<en_arrival_times base="arrival times"></en_arrival_times>
 <en_agencies base="Agencies" it="Agenzie"></en_agencies>
 <en_staff base="Staff"></en_staff>
+<en_shippers_receivers_charterers base="Shippers/Receivers/Charterers"></en_shippers_receivers_charterers>
+<en_folder base="Folder"></en_folder>
+<en_arrival_logs base="Arrival logs"></en_arrival_logs>
+<en_email fr="Email" de="E-Mail-" en="Email" it="Email" base="Email"></en_email>
 <en_arrival_details base="Arrival details"></en_arrival_details>
-<en_vessel_details base="Vessel details"></en_vessel_details>
+<en_arrival_times base="arrival times"></en_arrival_times>
+<en_bill_of_lading base="Bill of lading"></en_bill_of_lading>
+<en_bulk_application base="Bulk application"></en_bulk_application>
+<en_bunker base="Bunker"></en_bunker>
+<en_certificati_sanimare base="Certificati sanimare"></en_certificati_sanimare>
+<en_cargoes_unloding_loading base="Cargoes unloding/loading" it="Carichi sbarco/imbarchi"></en_cargoes_unloding_loading>
+<en_charterers base="Charterers"></en_charterers>
+<en_extradatacp base="ExtradataCP"></en_extradatacp>
+<en_garbage_form base="Garbage form"></en_garbage_form>
+<en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
+<en_loading_cargo_docs base="Loading Cargo docs"></en_loading_cargo_docs>
 <en_owners base="Owners" it="Armatori"></en_owners>
-<en_arrivals base="Arrivals" it="Arrivi"></en_arrivals></menu>
+<en_shorepass base="Shorepass"></en_shorepass>
+<en_shorepass_righe base="Shorepass righe"></en_shorepass_righe>
+<en_operations_sof base="Operations SOF"></en_operations_sof>
+<en_task_list base="Task list"></en_task_list>
+<en_vessel_services base="Vessel services"></en_vessel_services></menu>
 <model><agency path="model/agency.py" ext="py"><en_agency base="Agency" it="Agenzia"></en_agency>
 <en_agencies base="Agencies" it="Agenzie"></en_agencies>
 <en_agency_name base="Agency Name" it="Nome agenzia"></en_agency_name>
@@ -30,7 +47,10 @@
 <en_residential_city base="Residential city" it="Città di residenza"></en_residential_city>
 <en_virtual_stamp_description base="Virtual stamp description" it="Descrizione bollo virtuale"></en_virtual_stamp_description>
 <en_port base="Port" it="Porto"></en_port>
-<en_user_signature base="user signature"></en_user_signature></agency>
+<en_email_pec_account base="Email pec account"></en_email_pec_account>
+<en_agency_stamp base="Agency Stamp"></en_agency_stamp>
+<en_user_signature base="user signature"></en_user_signature>
+<en_name_ag base="name ag"></en_name_ag></agency>
 <arrival path="model/arrival.py" ext="py"><en_arrival base="Arrival" it="Arrivo"></en_arrival>
 <en_arrivals base="Arrivals" it="Arrivi"></en_arrivals>
 <en_agency base="Agency" it="Agenzia"></en_agency>
@@ -57,14 +77,30 @@
 <en_departure_last_port base="Departure last port" it="Partenza ultimo porto"></en_departure_last_port>
 <en_next_port base="Next port"></en_next_port>
 <en_eta_next_port base="ETA next port"></en_eta_next_port>
+<en_voy_no_ base="Voy no."></en_voy_no_>
 <en_cargo_destination base="Cargo destination" it="Destinazione carico"></en_cargo_destination>
 <en_invoicing base="Invoicing" it="Fatturazione"></en_invoicing>
 <en_cargo_on_board base="Cargo on board" it="Carico a bordo"></en_cargo_on_board>
+<en_extra_descr_cargo_on_board base="Extra descr. Cargo on board"></en_extra_descr_cargo_on_board>
 <en_transit_cargo base="Transit Cargo" it="Carico in transito"></en_transit_cargo>
+<en_extra_descr_transit_cargo base="Extra descr. Transit Cargo"></en_extra_descr_transit_cargo>
+<en_different_signature_agency base="Different signature agency"></en_different_signature_agency>
+<en_note fr="Note" de="Note" en="Note" it="Note" base="note"></en_note>
 <en_cargo base="Cargo" it="Carico"></en_cargo>
+<en_email_arrival_to base="Email arrival to"></en_email_arrival_to>
+<en_email_arrival_cc base="Email arrival cc"></en_email_arrival_cc>
+<en_greeting base="Greeting"></en_greeting>
+<en_current_date base="Current date"></en_current_date>
+<en_sosta_nave base="Sosta nave"></en_sosta_nave>
+<en_logo_cc base="Logo CC"></en_logo_cc>
+<en_logo_cp base="Logo CP"></en_logo_cp>
+<en_privacy_email base="Privacy email"></en_privacy_email>
 <en_cargo_l_u base="Cargo L/U"></en_cargo_l_u>
 <en_shipper_receivers base="Shipper/Receivers"></en_shipper_receivers>
-<en_cargo_total base="Cargo total" it="Totale carico"></en_cargo_total></arrival>
+<en_cargo_total base="Cargo total" it="Totale carico"></en_cargo_total>
+<en_owners_full_name base="Owners full name"></en_owners_full_name>
+<en_ship_or_rec base="Ship or Rec"></en_ship_or_rec></arrival>
+<arrival_atc path="model/arrival_atc.py" ext="py"><en_email_attached base="Email attached"></en_email_attached></arrival_atc>
 <arrival_det path="model/arrival_det.py" ext="py"><en_arrival_details base="Arrival details"></en_arrival_details>
 <en_draft_aft_arrival base="Draft AFT arrival"></en_draft_aft_arrival>
 <en_draft_fw_arrival base="Draft FW arrival"></en_draft_fw_arrival>
@@ -95,16 +131,88 @@
 <en_last_line base="Last line"></en_last_line>
 <en_vessel_sailed base="Vessel sailed"></en_vessel_sailed>
 <en_commenced_of_sea_pass base="Commenced of sea pass"></en_commenced_of_sea_pass></arrival_time>
+<billoflading path="model/billoflading.py" ext="py"><en_bill_of_lading base="Bill of lading"></en_bill_of_lading>
+<en_b_l_no_ base="B/L no."></en_b_l_no_>
+<en_shippers base="Shippers" it="Caricatori"></en_shippers>
+<en_consignee base="Consignee"></en_consignee>
+<en_notify base="Notify"></en_notify>
+<en_marks_and_no_ base="Marks and no."></en_marks_and_no_>
+<en_no_packs base="No.packs"></en_no_packs>
+<en_description_of_goods base="Description of goods"></en_description_of_goods>
+<en_measure base="measure"></en_measure>
+<en_quantity base="Quantity"></en_quantity></billoflading>
+<bunker path="model/bunker.py" ext="py"><en_official_rank base="Official rank"></en_official_rank>
+<en_official_name base="Official name"></en_official_name>
+<en_date_time_bunker base="Date/time bunker"></en_date_time_bunker>
+<en_service_type base="Service type"></en_service_type>
+<en_duration_time base="Duration time"></en_duration_time>
+<en_transport_company_ base="Transport Company "></en_transport_company_>
+<en_inscr_no_trans_company base="Inscr.no. Trans/company"></en_inscr_no_trans_company>
+<en_supplier_company base="Supplier Company"></en_supplier_company>
+<en_inscr_no_supply_company base="Inscr.no. Supply/company"></en_inscr_no_supply_company>
+<en_transportation_stamp base="Transportation Stamp"></en_transportation_stamp>
+<en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
+<en_send_invoice_to base="Send Invoice to"></en_send_invoice_to></bunker>
+<bunker_atc path="model/bunker_atc.py" ext="py"><en_expire_date fr="Date D'Expiration" de="Ablaufdatum" en="Expire Date" it="Data Di Scadenza" base="Expire date"></en_expire_date></bunker_atc>
+<bunker_righe path="model/bunker_righe.py" ext="py"><en_product_category_class base="Product/Category/Class"></en_product_category_class>
+<en_quantity base="Quantity"></en_quantity>
+<en_sulfur_content base="Sulfur content"></en_sulfur_content>
+<en_flash_point base="Flash point"></en_flash_point>
+<en_denatured base="Denatured"></en_denatured>
+<en_truck_plate_driver_name base="Truck plate / Driver Name"></en_truck_plate_driver_name></bunker_righe>
+<cargo_docs path="model/cargo_docs.py" ext="py"><en_loading_cargo_docs base="Loading Cargo docs"></en_loading_cargo_docs>
+<en_cargo_man_n_ base="Cargo man.n."></en_cargo_man_n_>
+<en_freight base="Freight"></en_freight>
+<en_place_of_destination base="Place of destination"></en_place_of_destination>
+<en_departure_date base="Departure date"></en_departure_date></cargo_docs>
 <cargo_unl_load path="model/cargo_unl_load.py" ext="py"><en_cargo_unloding_loading base="Cargo unloding/loading" it="Carico sbarco/imbarco"></en_cargo_unloding_loading>
 <en_cargoes_unloding_loading base="Cargoes unloding/loading" it="Carichi sbarco/imbarchi"></en_cargoes_unloding_loading>
 <en_shippers base="Shippers" it="Caricatori"></en_shippers>
 <en_receivers base="Receivers" it="Ricevitori"></en_receivers>
+<en_charterers base="Charterers"></en_charterers>
 <en_quantity base="Quantity"></en_quantity>
 <en_measure base="measure"></en_measure>
 <en_description base="Description" en="Description" it="Descrizione"></en_description>
 <en_description_it base="Description IT"></en_description_it>
+<en_extra_description_cp base="Extra Description CP"></en_extra_description_cp>
 <en_foreign_cargo base="Foreign cargo" it="Merce estera"></en_foreign_cargo>
+<en_place_origin_goods base="Place origin goods"></en_place_origin_goods>
+<en_place_destination_goods base="Place destination goods"></en_place_destination_goods>
+<en_last_port base="Last port"></en_last_port>
+<en_next_port base="Next port"></en_next_port>
 <en_cargo_total base="Cargo total" it="Totale carico"></en_cargo_total></cargo_unl_load>
+<certsanimare path="model/certsanimare.py" ext="py"><en_renew_certificate_sanimare base="Renew certificate Sanimare"></en_renew_certificate_sanimare>
+<en_renew_certificates_sanimare base="Renew certificates Sanimare"></en_renew_certificates_sanimare>
+<en_on_behalf base="On behalf"></en_on_behalf>
+<en_agent_document base="Agent document"></en_agent_document>
+<en_doc_no_ base="Doc. no."></en_doc_no_>
+<en_issued_by base="Issued by"></en_issued_by>
+<en_issued_date base="Issued date"></en_issued_date>
+<en_type_of_navigation base="Type of navigation"></en_type_of_navigation>
+<en_sanification base="Sanification"></en_sanification>
+<en_sanification_nsis_code base="Sanification nsis code"></en_sanification_nsis_code>
+<en_medicines_box base="Medicines box"></en_medicines_box>
+<en_medicine_table base="Medicine table"></en_medicine_table>
+<en_medicines_nsis_code base="Medicines nsis code"></en_medicines_nsis_code>
+<en_water_boxes base="Water boxes"></en_water_boxes>
+<en_water_boxes_nsis_code base="Water boxes nsis code"></en_water_boxes_nsis_code>
+<en_narcotics_register base="Narcotics register"></en_narcotics_register>
+<en_narcotics_nsis_code base="Narcotics nsis code"></en_narcotics_nsis_code>
+<en_issue_narcotics_register base="Issue Narcotics register"></en_issue_narcotics_register>
+<en_issue_narcotics_reg_nsis_code base="Issue Narcotics reg nsis code"></en_issue_narcotics_reg_nsis_code>
+<en_destroy_medicines base="Destroy medicines"></en_destroy_medicines>
+<en_destroy_medicines_nsis_code base="Destroy medicines nsis code"></en_destroy_medicines_nsis_code>
+<en_visit_date base="Visit date"></en_visit_date>
+<en_application_date base="Application date"></en_application_date></certsanimare>
+<charterers path="model/charterers.py" ext="py"><en_charterers base="Charterers"></en_charterers>
+<en_name fr="Nom" de="Name" en="Name" it="Nome" base="Name"></en_name>
+<en_address base="Address" it="indirizzo"></en_address>
+<en_city_place base="City-Place" it="Città - Nazione"></en_city_place></charterers>
+<consignee path="model/consignee.py" ext="py"><en_consignee_notify base="Consignee-Notify"></en_consignee_notify>
+<en_name fr="Nom" de="Name" en="Name" it="Nome" base="Name"></en_name>
+<en_address base="Address" it="indirizzo"></en_address>
+<en_city_place base="City-Place" it="Città - Nazione"></en_city_place>
+<en_extra_info base="Extra info"></en_extra_info></consignee>
 <dock path="model/dock.py" ext="py"><en_dock base="Dock" it="Banchina"></en_dock>
 <en_docks base="Docks" it="Banchine"></en_docks>
 <en_dock_name base="Dock name" it="Nome banchina"></en_dock_name>
@@ -114,13 +222,71 @@
 <en_email_type base="Email type"></en_email_type></email_arr>
 <email_services path="model/email_services.py" ext="py"><en_services_email base="Services email"></en_services_email>
 <en_services_emails base="Services emails"></en_services_emails>
-<en_consignee base="Consignee"></en_consignee>
+<en_header_consignee base="Header Consignee"></en_header_consignee>
 <en_port base="Port" it="Porto"></en_port></email_services>
+<email_shiprec path="model/email_shiprec.py" ext="py"><en_destination base="Destination"></en_destination>
+<en_email_description base="Email description"></en_email_description>
+<en_email_type base="Email type"></en_email_type></email_shiprec>
 <email_sof path="model/email_sof.py" ext="py"><en_destination base="Destination"></en_destination>
 <en_email_description base="Email description"></en_email_description>
 <en_email_type base="Email type"></en_email_type></email_sof>
+<extradaticp path="model/extradaticp.py" ext="py"><en_extra_data_cp base="Extra data CP"></en_extra_data_cp>
+<en_pilot_on_arrival base="Pilot on arrival"></en_pilot_on_arrival>
+<en_pilot_vhf_on_arrival base="Pilot VHF on arrival"></en_pilot_vhf_on_arrival>
+<en_antifire_on_arrival base="Antifire on arrival"></en_antifire_on_arrival>
+<en_antipollution_on_arrival base="Antipollution on arrival"></en_antipollution_on_arrival>
+<en_moor_on_arrival base="Moor on arrival"></en_moor_on_arrival>
+<en_no_moor_on_arrival base="No. moor on arrival"></en_no_moor_on_arrival>
+<en_tug_on_arrival base="Tug on arrival"></en_tug_on_arrival>
+<en_no_tug_on_arrival base="No. Tug on arrival"></en_no_tug_on_arrival>
+<en_days_of_work base="Days of work"></en_days_of_work>
+<en_time_work base="Time work"></en_time_work>
+<en_pilot_on_departure base="Pilot on departure"></en_pilot_on_departure>
+<en_pilot_vhf_on_departure base="Pilot VHF on departure"></en_pilot_vhf_on_departure>
+<en_antifire_on_departure base="Antifire on departure"></en_antifire_on_departure>
+<en_antipollution_on_departure base="Antipollution on departure"></en_antipollution_on_departure>
+<en_moor_on_departure base="Moor on departure"></en_moor_on_departure>
+<en_no_moor_on_departure base="No. moor on departure"></en_no_moor_on_departure>
+<en_tug_on_departure base="Tug on departure"></en_tug_on_departure>
+<en_no_tug_on_departure base="No. Tug on departure"></en_no_tug_on_departure>
+<en_master_nationality base="Master nationality"></en_master_nationality>
+<en_number_of_italian base="Number of italian"></en_number_of_italian>
+<en_number_of_comunitary base="Number of comunitary"></en_number_of_comunitary>
+<en_number_of_extra_comunitary base="Number of extra comunitary"></en_number_of_extra_comunitary>
+<en_pax_onboard base="Pax onboard"></en_pax_onboard>
+<en_pax_transit base="Pax transit"></en_pax_transit>
+<en_pax_disembarked base="Pax Disembarked"></en_pax_disembarked>
+<en_pax_embarked base="Pax Embarked"></en_pax_embarked>
+<en_car_motorcycle_on_board base="Car/Motorcycle on board"></en_car_motorcycle_on_board>
+<en_car_motorcycle_transit base="Car/Motorcycle transit"></en_car_motorcycle_transit>
+<en_car_motorcycle_unloaded base="Car/Motorcycle unloaded"></en_car_motorcycle_unloaded>
+<en_car_motorcycle_loaded base="Car/Motorcycle loaded"></en_car_motorcycle_loaded>
+<en_commercial_vehicles_onboard base="Commercial Vehicles onboard"></en_commercial_vehicles_onboard>
+<en_commercial_vehicles_transit base="Commercial Vehicles transit"></en_commercial_vehicles_transit>
+<en_commercial_vehicles_unloaded base="Commercial Vehicles unloaded"></en_commercial_vehicles_unloaded>
+<en_commercial_vehicles_loaded base="Commercial Vehicles loaded"></en_commercial_vehicles_loaded>
+<en_cargo_loaded base="Cargo loaded"></en_cargo_loaded>
+<en_cargo_unloaded base="Cargo unloaded"></en_cargo_unloaded></extradaticp>
+<faldone path="model/faldone.py" ext="py"><en_number base="Number"></en_number>
+<en_date_from base="Date from"></en_date_from>
+<en_date_to base="Date to"></en_date_to></faldone>
+<garbage path="model/garbage.py" ext="py"><en_garbage_form base="Garbage form"></en_garbage_form>
+<en_arrival_time base="Arrival time"></en_arrival_time>
+<en_arrival_date base="Arrival date"></en_arrival_date>
+<en_period_of_stay base="Period of stay"></en_period_of_stay>
+<en_food_waste base="Food waste"></en_food_waste>
+<en_bilge_waste base="Bilge waste"></en_bilge_waste>
+<en_cargo_residues base="Cargo residues"></en_cargo_residues>
+<en_other base="Other"></en_other>
+<en_specify_other base="Specify other"></en_specify_other>
+<en_sending_invoice base="Sending invoice"></en_sending_invoice>
+<en_workdate fr="Workdate" de="Workdate" en="Workdate" it="Data di lavoro" base="Workdate"></en_workdate></garbage>
 <gpg path="model/gpg.py" ext="py"><en_start_date_hour base="Start date hour"></en_start_date_hour>
 <en_end_date_hour base="End date hour"></en_end_date_hour></gpg>
+<integrazione path="model/integrazione.py" ext="py"><en_integration base="integration"></en_integration>
+<en_charterers base="Charterers"></en_charterers>
+<en_place_origin_goods base="Place origin goods"></en_place_origin_goods>
+<en_place_destination_goods base="Place destination goods"></en_place_destination_goods></integrazione>
 <invoice_det path="model/invoice_det.py" ext="py"><en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
 <en_company_name base="Company name" it="Rag. sociale agenzia"></en_company_name>
 <en_address base="Address" it="indirizzo"></en_address>
@@ -134,6 +300,36 @@
 <en_owners base="Owners" it="Armatori"></en_owners>
 <en_owner_name fr="Le nom du propriétaire" de="Besitzer der Datei" en="Owner name" it="Nome armatore" base="Owner name"></en_owner_name>
 <en_owner_address base="Owner address" it="Indirizzo armatore"></en_owner_address></owner>
+<protocollo path="model/protocollo.py" ext="py"><en_arrival_log base="Arrival log"></en_arrival_log>
+<en_arrival_logs base="Arrival logs"></en_arrival_logs>
+<en_agency base="Agency" it="Agenzia"></en_agency>
+<en_date base="date" de="Datum" en="Date" fr="Date" it="Data"></en_date>
+<en_pratique_date base="Pratique date"></en_pratique_date>
+<en_log_number base="Log number"></en_log_number>
+<en_folder base="Folder"></en_folder>
+<en_folder_no_ base="Folder no."></en_folder_no_>
+<en_description base="Description" en="Description" it="Descrizione"></en_description></protocollo>
+<rinfusa path="model/rinfusa.py" ext="py"><en_unloading_loading base="Unloading/Loading"></en_unloading_loading>
+<en_navigation base="Navigation" de="Navigation" en="Navigation" fr="Navigation" it="Navigazione"></en_navigation>
+<en_attached_docs base="Attached docs"></en_attached_docs></rinfusa>
+<rinfusa_atc path="model/rinfusa_atc.py" ext="py"><en_expire_date fr="Date D'Expiration" de="Ablaufdatum" en="Expire Date" it="Data Di Scadenza" base="Expire date"></en_expire_date></rinfusa_atc>
+<services path="model/services.py" ext="py"><en_service base="Service"></en_service>
+<en_services base="Services"></en_services>
+<en_service_description base="Service description"></en_service_description></services>
+<services_for_email path="model/services_for_email.py" ext="py"><en_service_for_email base="Service for email"></en_service_for_email>
+<en_services_for_email base="Services for email"></en_services_for_email>
+<en_code base="Code" en="Code" it="Codice"></en_code>
+<en_service_description base="Service description"></en_service_description></services_for_email>
+<ship_cert path="model/ship_cert.py" ext="py"><en_code base="Code" en="Code" it="Codice"></en_code>
+<en_certificate base="Certificate"></en_certificate></ship_cert>
+<ship_doc path="model/ship_doc.py" ext="py"><en_vessel_details base="vessel details"></en_vessel_details>
+<en_certificate base="Certificate"></en_certificate>
+<en_place_of_issue base="Place of issue"></en_place_of_issue>
+<en_issue_date base="Issue date"></en_issue_date>
+<en_expire_cert_ base="Expire cert."></en_expire_cert_>
+<en_annual_visit_place base="Annual visit place"></en_annual_visit_place>
+<en_annual_visit_date base="Annual visit date"></en_annual_visit_date>
+<en_notes fr="Remarques" de="Aufzeichnungen" en="Notes" it="Note" base="Notes"></en_notes></ship_doc>
 <ship_rec path="model/ship_rec.py" ext="py"><en_shipper_receiver base="Shipper-Receiver" it="Caricatore-Ricevitore"></en_shipper_receiver>
 <en_name fr="Nom" de="Name" en="Name" it="Nome" base="Name"></en_name>
 <en_address base="Address" it="indirizzo"></en_address>
@@ -144,7 +340,13 @@
 <en_nt base="NT"></en_nt>
 <en_flag base="Flag"></en_flag>
 <en_loa base="LOA"></en_loa></shipdoc>
-<sof path="model/sof.py" ext="py"><en_nor_tendered base="NOR tendered"></en_nor_tendered>
+<shorepass path="model/shorepass.py" ext="py"><en_arrival_date base="Arrival date"></en_arrival_date>
+<en_departure_date base="Departure date"></en_departure_date></shorepass>
+<shorepass_righe path="model/shorepass_righe.py" ext="py"><en_nationality base="Nationality"></en_nationality>
+<en_country_of_birth base="Country of birth"></en_country_of_birth>
+<en_state_identity_doc base="State identity doc"></en_state_identity_doc></shorepass_righe>
+<sof path="model/sof.py" ext="py"><en_sof_n_ base="SOF n."></en_sof_n_>
+<en_nor_tendered base="NOR tendered"></en_nor_tendered>
 <en_nor_received base="NOR received"></en_nor_received>
 <en_nor_accepted base="NOR accepted"></en_nor_accepted>
 <en_load_unload_commenced base="Load/Unload commenced"></en_load_unload_commenced>
@@ -152,7 +354,20 @@
 <en_documents_onboard base="Documents onboard"></en_documents_onboard>
 <en_receivers_shippers_remarks base="Receivers / Shippers Remarks"></en_receivers_shippers_remarks>
 <en_master_remarks base="Master Remarks"></en_master_remarks>
-<en_note_sof base="Note SOF"></en_note_sof></sof>
+<en_note_sof base="Note SOF"></en_note_sof>
+<en_on_behalf base="On behalf"></en_on_behalf>
+<en_sof_header base="Sof header"></en_sof_header>
+<en_cargo_sof base="Cargo sof"></en_cargo_sof>
+<en_cargo_on_sof base="Cargo on sof"></en_cargo_on_sof>
+<en_cago_operation base="Cago operation"></en_cago_operation>
+<en_receivers_name base="Receivers name"></en_receivers_name>
+<en_shipper_or_receiver base="Shipper or Receiver"></en_shipper_or_receiver>
+<en_shipper_or_receiver_bl base="Shipper or Receiver BL"></en_shipper_or_receiver_bl>
+<en_email_sof_to base="Email sof to"></en_email_sof_to>
+<en_email_sof_cc base="Email sof cc"></en_email_sof_cc>
+<en_email_arrival_to base="Email arrival to"></en_email_arrival_to>
+<en_email_arrival_cc base="Email arrival cc"></en_email_arrival_cc>
+<en_totcarico base="Totcarico"></en_totcarico></sof>
 <sof_operations path="model/sof_operations.py" ext="py"><en_operation_sof base="Operation SOF"></en_operation_sof>
 <en_operations_sof base="Operations SOF"></en_operations_sof>
 <en_date base="Date" de="Datum" en="Date" fr="Date" it="Data"></en_date>
@@ -177,42 +392,304 @@
 <en_e_mail base="E-mail"></en_e_mail>
 <en_profile_photo base="Profile photo"></en_profile_photo>
 <en_is_active base="Is active"></en_is_active>
+<en_email_account base="Email account"></en_email_account>
 <en_fullname base="Fullname"></en_fullname>
 <en_username fr="Nom d'utilisateur" de="Benutzername" en="Username" it="Nome utente" base="Username"></en_username></staff>
+<tasklist path="model/tasklist.py" ext="py"><en_task_list base="Task list"></en_task_list>
+<en_vessel_frontispiece base="Vessel Frontispiece"></en_vessel_frontispiece>
+<en_vessel_folder base="Vessel folder"></en_vessel_folder>
+<en_vessel_module base="Vessel Module"></en_vessel_module>
+<en_services_table base="Services table"></en_services_table>
+<en_cargo_frontispiece base="Cargo Frontispiece"></en_cargo_frontispiece>
+<en_email_shipper_receivers base="Email Shipper/Receivers"></en_email_shipper_receivers>
+<en_email_custom_gdf base="Email Custom GdF"></en_email_custom_gdf>
+<en_email_immigration base="Email Immigration"></en_email_immigration>
+<en_email_pilot_moor base="Email Pilot Moor"></en_email_pilot_moor>
+<en_email_tug base="Email Tug"></en_email_tug>
+<en_email_garbage base="Email Garbage"></en_email_garbage>
+<en_email_chemist base="Email Chemist"></en_email_chemist>
+<en_email_antifire base="Email Antifire"></en_email_antifire>
+<en_email_garbage_adsp base="Email Garbage ADSP"></en_email_garbage_adsp>
+<en_email_alimentary_integration base="Email Alimentary integration"></en_email_alimentary_integration>
+<en_email_parismou_notification base="Email ParisMOU notification"></en_email_parismou_notification>
+<en_form_gdf base="Form GdF"></en_form_gdf>
+<en_immigration_form base="Immigration form"></en_immigration_form>
+<en_form_provision base="Form Provision"></en_form_provision>
+<en_sanimare_declaration base="Sanimare declaration"></en_sanimare_declaration>
+<en_checklist_fiore base="Checklist Fiore"></en_checklist_fiore>
+<en_email_cert_chimico_hm base="Email Cert.Chimico HM"></en_email_cert_chimico_hm>
+<en_email_lps_hm base="Email LPS HM"></en_email_lps_hm>
+<en_email_garbage_hm base="Email Garbage HM"></en_email_garbage_hm>
+<en_form_services base="Form services"></en_form_services>
+<en_form_gdf_dep base="Form GdF dep"></en_form_gdf_dep>
+<en_email_ricevuta_rifiuti_cp base="Email ricevuta rifiuti CP"></en_email_ricevuta_rifiuti_cp>
+<en_email_tributi_cp base="Email Tributi CP"></en_email_tributi_cp>
+<en_nsw base="NSW"></en_nsw>
+<en_water_qt_ base="Water qt."></en_water_qt_>
+<en_service_name base="service name"></en_service_name></tasklist>
 <vessel_details path="model/vessel_details.py" ext="py"><en_vessel_details base="Vessel details"></en_vessel_details>
 <en_call_sign base="Call sign"></en_call_sign>
 <en_built base="Built"></en_built>
 <en_beam base="Beam"></en_beam>
 <en_registarion_place base="Registarion place"></en_registarion_place>
 <en_registration_no_ base="Registration no."></en_registration_no_>
+<en_propellers_no_ base="Propellers no."></en_propellers_no_>
+<en_stern_propellers_no_ base="Stern propellers no."></en_stern_propellers_no_>
+<en_bow_propellers_no_ base="Bow propellers no."></en_bow_propellers_no_>
 <en_ex_name base="Ex name"></en_ex_name>
+<en_type_of_ship base="Type of ship"></en_type_of_ship>
 <en_note fr="Note" de="Note" en="Note" it="Note" base="Note"></en_note>
 <en_vessel_photo base="Vessel photo"></en_vessel_photo>
-<en_vessel_name base="Vessel Name" it="Nome nave"></en_vessel_name></vessel_details>
-<vessel_details_atc path="model/vessel_details_atc.py" ext="py"><en_expire_date fr="Date D'Expiration" de="Ablaufdatum" en="Expire Date" it="Data Di Scadenza" base="Expire date"></en_expire_date></vessel_details_atc></model>
-<resources><tables><arrival><th_arrival path="resources/tables/arrival/th_arrival.py" ext="py"><en_cargo base="Cargo" it="Carico"></en_cargo>
-<en_sof base="SOF"></en_sof>
+<en_vessel_name base="Vessel Name" it="Nome nave"></en_vessel_name>
+<en_flag base="Flag"></en_flag></vessel_details>
+<vessel_details_atc path="model/vessel_details_atc.py" ext="py"><en_expire_date fr="Date D'Expiration" de="Ablaufdatum" en="Expire Date" it="Data Di Scadenza" base="Expire date"></en_expire_date>
+<en_email_attached base="Email attached"></en_email_attached></vessel_details_atc>
+<vessel_services path="model/vessel_services.py" ext="py"><en_vessel_services base="Vessel services"></en_vessel_services>
+<en_service_type base="Service type"></en_service_type>
+<en_service_date base="Service date"></en_service_date>
+<en_service_description base="Service description"></en_service_description>
+<en_internal_note base="Internal note"></en_internal_note></vessel_services></model>
+<resources><preference path="resources/preference.py" ext="py"><en_remarks base="Remarks"></en_remarks>
+<en_logos base="Logos"></en_logos>
+<en_email_privacy base="Email Privacy"></en_email_privacy></preference>
+<tables><agency><th_agency path="resources/tables/agency/th_agency.py" ext="py"><en_agency_stamp base="Agency stamp"></en_agency_stamp>
+<en_remove_image base="Remove image"></en_remove_image></th_agency></agency>
+<arrival><print><dichiarazione_partenza path="resources/tables/arrival/print/dichiarazione_partenza.py" ext="py"><en_cargo_on_deck base="Cargo on deck"></en_cargo_on_deck>
+<en_passengers_embarked base="Passengers embarked"></en_passengers_embarked></dichiarazione_partenza>
+<nota_arrivo path="resources/tables/arrival/print/nota_arrivo.py" ext="py"><en_cargo_on_deck base="Cargo on deck"></en_cargo_on_deck>
+<en_passengers_to_disembark base="Passengers to disembark"></en_passengers_to_disembark>
+<en_extraordinary_event_or_demage base="Extraordinary event or demage"></en_extraordinary_event_or_demage></nota_arrivo></print>
+<th_arrival path="resources/tables/arrival/th_arrival.py" ext="py"><en_strong_arrival_strong_ _tag="en__strong_arrival_strong_" base="&lt;strong&gt;Arrival&lt;/strong&gt;" it="::NN"></en_strong_arrival_strong_>
+<en_strong_cargo_strong_ _tag="en__strong_cargo_strong_" base="&lt;strong&gt;Cargo&lt;/strong&gt;" it="::NN"></en_strong_cargo_strong_>
+<en_strong_extra_dati_cp_strong_ _tag="en__strong_extra_dati_cp_strong_" base="&lt;strong&gt;Extra dati CP&lt;/strong&gt;"></en_strong_extra_dati_cp_strong_>
+<en_strong_attachments_strong_ _tag="en__strong_attachments_strong_" base="&lt;strong&gt;Attachments&lt;/strong&gt;" it="::NN"></en_strong_attachments_strong_>
+<en_strong_task_list_strong_ _tag="en__strong_task_list_strong_" base="&lt;strong&gt;Task List&lt;/strong&gt;"></en_strong_task_list_strong_>
+<en_task_list base="Task List"></en_task_list>
+<en_strong_arrival_times_strong_ _tag="en__strong_arrival_times_strong_" base="&lt;strong&gt;Arrival Times&lt;/strong&gt;"></en_strong_arrival_times_strong_>
+<en_shore_pass base="Shore Pass"></en_shore_pass>
+<en_prova base="prova"></en_prova>
+<en_strong_sof_strong_ _tag="en__strong_sof_strong_" base="&lt;strong&gt;SOF&lt;/strong&gt;"></en_strong_sof_strong_>
+<en_strong_applications_strong_ _tag="en__strong_applications_strong_" base="&lt;strong&gt;Applications&lt;/strong&gt;" it="::NN"></en_strong_applications_strong_>
+<en_strong_loading_cargoes_strong_ _tag="en__strong_loading_cargoes_strong_" base="&lt;strong&gt;Loading Cargoes&lt;/strong&gt;"></en_strong_loading_cargoes_strong_>
+<en_strong_sanimare_certificates_strong_ _tag="en__strong_sanimare_certificates_strong_" base="&lt;strong&gt;Sanimare certificates&lt;/strong&gt;"></en_strong_sanimare_certificates_strong_>
+<en_renew_certificates_sanimare base="Renew certificates Sanimare"></en_renew_certificates_sanimare>
+<en_loading_cargoes base="Loading Cargoes"></en_loading_cargoes>
+<en_attachments base="Attachments" de="Zubehör" en="Attachments" fr="Pièces jointes" it="Allegati"></en_attachments>
+<en_vessel_services base="Vessel Services"></en_vessel_services>
+<en_sof base="Sof"></en_sof>
+<en_garbage base="Garbage"></en_garbage>
+<en_bulk_application base="Bulk Application"></en_bulk_application>
+<en_bunker_application base="Bunker Application"></en_bunker_application>
+<en_cargo base="Cargo" it="Carico"></en_cargo>
 <en_gpg base="GPG"></en_gpg>
-<en_cargo_onboard base="Cargo onboard"></en_cargo_onboard>
-<en_cargo_loading_unloading base="Cargo loading / unloading"></en_cargo_loading_unloading>
+<en_cargo_onboard base="Cargo onboard" it="Carico a bordo"></en_cargo_onboard>
+<en_cargo_onboard_on_arrival base="Cargo onboard on arrival" it="Carico a bordo all'arrivo"></en_cargo_onboard_on_arrival>
+<en_cargo_onboard_on_departure base="Cargo onboard on departure" it="Carico a bordo in partenza"></en_cargo_onboard_on_departure>
+<en_cargo_loading_unloading base="Cargo loading / unloading" it="Carico imbarco/sbarco"></en_cargo_loading_unloading>
 <en_transit_cargo base="Transit cargo" it="Carico in transito"></en_transit_cargo>
 <en_shippers_receivers base="Shippers / Receivers"></en_shippers_receivers>
-<en_arrival_details base="Arrival details"></en_arrival_details>
+<en_charterers base="Charterers"></en_charterers>
+<en_arrival_departure_details base="Arrival/Departure details"></en_arrival_departure_details>
 <en_email_arrival base="Email Arrival"></en_email_arrival>
 <en_sof_cargo base="Sof_Cargo"></en_sof_cargo>
+<en_cargo_on_board_on_arrival base="Cargo on board on arrival" it="Carico a bordo all'arrivo"></en_cargo_on_board_on_arrival>
+<en_cargo_on_board_on_departure base="Cargo on board on departure" it="Carico a bordo in partenza"></en_cargo_on_board_on_departure>
+<en_extra_data_cp_on_arrival_departure base="Extra data CP on Arrival/Departure"></en_extra_data_cp_on_arrival_departure>
 <en_vessel_arrival base="Vessel arrival"></en_vessel_arrival>
+<en_arrival_details base="Arrival details"></en_arrival_details>
 <en_special_security_guards base="Special security guards"></en_special_security_guards>
+<en_extra base="EXTRA"></en_extra>
 <en_times base="Times"></en_times>
 <en_cargo_on_board base="Cargo on board" it="Carico a bordo"></en_cargo_on_board>
-<en_arrival_times base="Arrival times"></en_arrival_times>
-<en_draft base="DRAFT"></en_draft>
-<en_remains base="REMAINS"></en_remains>
-<en_used_tugs base="USED TUGS"></en_used_tugs></th_arrival></arrival>
-<email_services><th_email_services path="resources/tables/email_services/th_email_services.py" ext="py"><en_insert_the_emails_separate_by_commas base="Insert the emails separate by commas" it="Inserisci l'emails separate dalla virgola"></en_insert_the_emails_separate_by_commas></th_email_services></email_services>
+<en_arrival_departure_times base="Arrival/Departure times"></en_arrival_departure_times>
+<en_departure_details base="Departure details"></en_departure_details>
+<en_renewal_issue_certificates base="Renewal/Issue certificates"></en_renewal_issue_certificates>
+<en_nsis_code base="NSIS Code"></en_nsis_code>
+<en_pre_arrival base="Pre arrival"></en_pre_arrival>
+<en_arrival_departure base="Arrival/Departure"></en_arrival_departure>
+<en_print_check_list base="Print Check list"></en_print_check_list>
+<en_print_frontespicie base="Print Frontespicie"></en_print_frontespicie>
+<en_print_vessel_folder base="Print Vessel folder"></en_print_vessel_folder>
+<en_choose_lettehead_to_use_with_this_form base="Choose lettehead to use with this form"></en_choose_lettehead_to_use_with_this_form>
+<en_letterhead fr="Tête" de="Briefkopf" en="Letterhead" it="Carta intestata" base="Letterhead"></en_letterhead>
+<en_print_servicies_table base="Print Servicies table"></en_print_servicies_table>
+<en_print_cargo_frontespiece base="Print Cargo frontespiece"></en_print_cargo_frontespiece>
+<en_print_vessel_module base="Print Vessel module"></en_print_vessel_module>
+<en_shipper_receivers base="Shipper/Receivers"></en_shipper_receivers>
+<en_select_the_sof_and_attachments base="Select the SOF and Attachments"></en_select_the_sof_and_attachments>
+<en_customs base="Customs"></en_customs>
+<en_select_the_services base="Select the services"></en_select_the_services>
+<en_services base="Services"></en_services>
+<en_select_the_attachments base="Select the Attachments"></en_select_the_attachments>
+<en_upload_many_files_and_assign_them_to_users base="Upload many files and assign them to users"></en_upload_many_files_and_assign_them_to_users>
+<en_immigration base="Immigration"></en_immigration>
+<en_sanimare base="Sanimare"></en_sanimare>
+<en_pilot_moor base="Pilot/Moor"></en_pilot_moor>
+<en_tug base="Tug"></en_tug>
+<en_pfso base="PFSO"></en_pfso>
+<en_chemist base="Chemist"></en_chemist>
+<en_ens base="ENS"></en_ens>
+<en_garbage_adsp base="Garbage ADSP"></en_garbage_adsp>
+<en_email_antifire base="Email Antifire"></en_email_antifire>
+<en_lps_request base="LPS request"></en_lps_request>
+<en_select_the_services_and_the_attachments_to_send_br_free_pratique_sanitary_br_sanimare_declaration_br_crew_list_br_sanitation_certificate_br_last_3_csr base="Select the services and the Attachments to send:&lt;br&gt;Free-pratique-sanitary&lt;br&gt;Sanimare declaration&lt;br&gt;Crew list&lt;br&gt;Sanitation certificate&lt;br&gt;Last 3 CSR"></en_select_the_services_and_the_attachments_to_send_br_free_pratique_sanitary_br_sanimare_declaration_br_crew_list_br_sanitation_certificate_br_last_3_csr>
+<en_select_the_attachments_to_send_br_free_pratique_sanitary_br_sanimare_declaration_br_crew_list_br_sanitation_certificate_br_last_3_csr base="Select the Attachments to send:&lt;br&gt;Free-pratique-sanitary&lt;br&gt;Sanimare declaration&lt;br&gt;Crew list&lt;br&gt;Sanitation certificate&lt;br&gt;Last 3 CSR"></en_select_the_attachments_to_send_br_free_pratique_sanitary_br_sanimare_declaration_br_crew_list_br_sanitation_certificate_br_last_3_csr>
+<en_services_br_updating base="services&lt;br&gt;updating"></en_services_br_updating>
+<en_select_the_services_to_update_and_attachments base="Select the services to update and Attachments"></en_select_the_services_to_update_and_attachments>
+<en_ship_rec_br_updating base="Ship/Rec.&lt;br&gt;updating"></en_ship_rec_br_updating>
+<en_email_alimentary_integration base="Email Alimentary integration"></en_email_alimentary_integration>
+<en_email_pmou_notification base="Email PMOU notification"></en_email_pmou_notification>
+<en_email_garbage_form base="Email Garbage form"></en_email_garbage_form>
+<en_form_gdf base="Form GdF"></en_form_gdf>
+<en_form_immigration base="Form Immigration"></en_form_immigration>
+<en_form_provisions base="Form Provisions"></en_form_provisions>
+<en_dichiarazione_sanimare base="Dichiarazione Sanimare"></en_dichiarazione_sanimare>
+<en_checklist_fiore base="CheckList Fiore"></en_checklist_fiore>
+<en_email_lps_cp base="Email LPS CP"></en_email_lps_cp>
+<en_email_cert_chimico_cp base="Email Cert. Chimico CP"></en_email_cert_chimico_cp>
+<en_email_waste_derogation_cp base="Email Waste derogation CP"></en_email_waste_derogation_cp>
+<en_email_ricevuta_rifiuti_cp base="Email Ricevuta rifiuti CP"></en_email_ricevuta_rifiuti_cp>
+<en_form_gdf_departure base="Form GdF Departure"></en_form_gdf_departure>
+<en_email_tributi_cp base="Email tributi CP"></en_email_tributi_cp>
+<en_email_domanda_accosto base="Email Domanda Accosto"></en_email_domanda_accosto>
+<en_email_cambio_accosto base="Email Cambio Accosto"></en_email_cambio_accosto>
+<en_email_comunicazione_partenza base="Email Comunicazione Partenza"></en_email_comunicazione_partenza>
+<en_fal1_arrival base="Fal1 Arrival"></en_fal1_arrival>
+<en_fal1_departure base="Fal1 Departure"></en_fal1_departure>
+<en_email_departure base="Email Departure"></en_email_departure>
+<en_intestazione_fatt base="Intestazione Fatt"></en_intestazione_fatt></th_arrival>
+<th_arrival_test path="resources/tables/arrival/th_arrival_test.py" ext="py"><en_strong_arrival_strong_ _tag="en__strong_arrival_strong_" base="&lt;strong&gt;Arrival&lt;/strong&gt;" it="::NN"></en_strong_arrival_strong_>
+<en_strong_cargo_strong_ _tag="en__strong_cargo_strong_" base="&lt;strong&gt;Cargo&lt;/strong&gt;" it="::NN"></en_strong_cargo_strong_>
+<en_strong_extra_dati_cp_strong_ _tag="en__strong_extra_dati_cp_strong_" base="&lt;strong&gt;Extra dati CP&lt;/strong&gt;"></en_strong_extra_dati_cp_strong_>
+<en_strong_attachments_strong_ _tag="en__strong_attachments_strong_" base="&lt;strong&gt;Attachments&lt;/strong&gt;" it="::NN"></en_strong_attachments_strong_>
+<en_strong_task_list_strong_ _tag="en__strong_task_list_strong_" base="&lt;strong&gt;Task List&lt;/strong&gt;"></en_strong_task_list_strong_>
+<en_task_list base="Task List"></en_task_list>
+<en_strong_arrival_times_strong_ _tag="en__strong_arrival_times_strong_" base="&lt;strong&gt;Arrival Times&lt;/strong&gt;"></en_strong_arrival_times_strong_>
+<en_shore_pass base="Shore Pass"></en_shore_pass>
+<en_prova base="prova"></en_prova>
+<en_strong_sof_strong_ _tag="en__strong_sof_strong_" base="&lt;strong&gt;SOF&lt;/strong&gt;"></en_strong_sof_strong_>
+<en_strong_applications_strong_ _tag="en__strong_applications_strong_" base="&lt;strong&gt;Applications&lt;/strong&gt;" it="::NN"></en_strong_applications_strong_>
+<en_strong_loading_cargoes_strong_ _tag="en__strong_loading_cargoes_strong_" base="&lt;strong&gt;Loading Cargoes&lt;/strong&gt;"></en_strong_loading_cargoes_strong_>
+<en_strong_sanimare_certificates_strong_ _tag="en__strong_sanimare_certificates_strong_" base="&lt;strong&gt;Sanimare certificates&lt;/strong&gt;"></en_strong_sanimare_certificates_strong_>
+<en_renew_certificates_sanimare base="Renew certificates Sanimare"></en_renew_certificates_sanimare>
+<en_loading_cargoes base="Loading Cargoes"></en_loading_cargoes>
+<en_attachments base="Attachments" de="Zubehör" en="Attachments" fr="Pièces jointes" it="Allegati"></en_attachments>
+<en_vessel_services base="Vessel Services"></en_vessel_services>
+<en_sof base="Sof"></en_sof>
+<en_garbage base="Garbage"></en_garbage>
+<en_bulk_application base="Bulk Application"></en_bulk_application>
+<en_bunker_application base="Bunker Application"></en_bunker_application>
+<en_cargo base="Cargo" it="Carico"></en_cargo>
+<en_gpg base="GPG"></en_gpg>
+<en_cargo_onboard base="Cargo onboard" it="Carico a bordo"></en_cargo_onboard>
+<en_cargo_onboard_on_arrival base="Cargo onboard on arrival" it="Carico a bordo all'arrivo"></en_cargo_onboard_on_arrival>
+<en_cargo_onboard_on_departure base="Cargo onboard on departure" it="Carico a bordo in partenza"></en_cargo_onboard_on_departure>
+<en_cargo_loading_unloading base="Cargo loading / unloading" it="Carico imbarco/sbarco"></en_cargo_loading_unloading>
+<en_transit_cargo base="Transit cargo" it="Carico in transito"></en_transit_cargo>
+<en_shippers_receivers base="Shippers / Receivers"></en_shippers_receivers>
+<en_charterers base="Charterers"></en_charterers>
+<en_arrival_departure_details base="Arrival/Departure details"></en_arrival_departure_details>
+<en_email_arrival base="Email Arrival"></en_email_arrival>
+<en_sof_cargo base="Sof_Cargo"></en_sof_cargo>
+<en_cargo_on_board_on_arrival base="Cargo on board on arrival" it="Carico a bordo all'arrivo"></en_cargo_on_board_on_arrival>
+<en_cargo_on_board_on_departure base="Cargo on board on departure" it="Carico a bordo in partenza"></en_cargo_on_board_on_departure>
+<en_extra_data_cp_on_arrival_departure base="Extra data CP on Arrival/Departure"></en_extra_data_cp_on_arrival_departure>
+<en_vessel_arrival base="Vessel arrival"></en_vessel_arrival>
+<en_arrival_details base="Arrival details"></en_arrival_details>
+<en_special_security_guards base="Special security guards"></en_special_security_guards>
+<en_extra base="EXTRA"></en_extra>
+<en_times base="Times"></en_times>
+<en_cargo_on_board base="Cargo on board" it="Carico a bordo"></en_cargo_on_board>
+<en_arrival_departure_times base="Arrival/Departure times"></en_arrival_departure_times>
+<en_departure_details base="Departure details"></en_departure_details>
+<en_renewal_issue_certificates base="Renewal/Issue certificates"></en_renewal_issue_certificates>
+<en_nsis_code base="NSIS Code"></en_nsis_code>
+<en_pre_arrival base="Pre arrival"></en_pre_arrival>
+<en_arrival_departure base="Arrival/Departure"></en_arrival_departure>
+<en_print_check_list base="Print Check list"></en_print_check_list>
+<en_print_frontespicie base="Print Frontespicie"></en_print_frontespicie>
+<en_print_vessel_folder base="Print Vessel folder"></en_print_vessel_folder>
+<en_choose_lettehead_to_use_with_this_form base="Choose lettehead to use with this form"></en_choose_lettehead_to_use_with_this_form>
+<en_letterhead fr="Tête" de="Briefkopf" en="Letterhead" it="Carta intestata" base="Letterhead"></en_letterhead>
+<en_print_servicies_table base="Print Servicies table"></en_print_servicies_table>
+<en_print_cargo_frontespiece base="Print Cargo frontespiece"></en_print_cargo_frontespiece>
+<en_print_vessel_module base="Print Vessel module"></en_print_vessel_module>
+<en_shipper_receivers base="Shipper/Receivers"></en_shipper_receivers>
+<en_select_the_sof_and_attachments base="Select the SOF and Attachments"></en_select_the_sof_and_attachments>
+<en_customs base="Customs"></en_customs>
+<en_select_the_attachments base="Select the Attachments"></en_select_the_attachments>
+<en_upload_many_files_and_assign_them_to_users base="Upload many files and assign them to users"></en_upload_many_files_and_assign_them_to_users>
+<en_immigration base="Immigration"></en_immigration>
+<en_sanimare base="Sanimare"></en_sanimare>
+<en_pilot_moor base="Pilot/Moor"></en_pilot_moor>
+<en_tug base="Tug"></en_tug>
+<en_select_the_services base="Select the services"></en_select_the_services>
+<en_services base="Services"></en_services>
+<en_pfso base="PFSO"></en_pfso>
+<en_chemist base="Chemist"></en_chemist>
+<en_ens base="ENS"></en_ens>
+<en_garbage_adsp base="Garbage ADSP"></en_garbage_adsp>
+<en_email_antifire base="Email Antifire"></en_email_antifire>
+<en_services_br_updating base="services&lt;br&gt;updating"></en_services_br_updating>
+<en_select_the_services_to_update_and_attachments base="Select the services to update and Attachments"></en_select_the_services_to_update_and_attachments>
+<en_ship_rec_br_updating base="Ship/Rec.&lt;br&gt;updating"></en_ship_rec_br_updating>
+<en_email_alimentary_integration base="Email Alimentary integration"></en_email_alimentary_integration>
+<en_email_garbage_form base="Email Garbage form"></en_email_garbage_form>
+<en_form_gdf base="Form GdF"></en_form_gdf>
+<en_form_immigration base="Form Immigration"></en_form_immigration>
+<en_form_provisions base="Form Provisions"></en_form_provisions>
+<en_dichiarazione_sanimare base="Dichiarazione Sanimare"></en_dichiarazione_sanimare>
+<en_checklist_fiore base="CheckList Fiore"></en_checklist_fiore>
+<en_email_cert_chimico_cp base="Email Cert. Chimico CP"></en_email_cert_chimico_cp>
+<en_email_waste_derogation_cp base="Email Waste derogation CP"></en_email_waste_derogation_cp>
+<en_form_gdf_departure base="Form GdF Departure"></en_form_gdf_departure>
+<en_email_tributi_cp base="Email tributi CP"></en_email_tributi_cp>
+<en_email_domanda_accosto base="Email Domanda Accosto"></en_email_domanda_accosto>
+<en_email_cambio_accosto base="Email Cambio Accosto"></en_email_cambio_accosto>
+<en_email_comunicazione_partenza base="Email Comunicazione Partenza"></en_email_comunicazione_partenza>
+<en_fal1_arrival base="Fal1 Arrival"></en_fal1_arrival>
+<en_fal1_departure base="Fal1 Departure"></en_fal1_departure>
+<en_email_departure base="Email Departure"></en_email_departure>
+<en_intestazione_fatt base="Intestazione Fatt"></en_intestazione_fatt></th_arrival_test></arrival>
+<bunker><th_bunker path="resources/tables/bunker/th_bunker.py" ext="py"><en_bunker_details base="Bunker details"></en_bunker_details>
+<en_transportation_company_stamp base="Transportation Company stamp"></en_transportation_company_stamp>
+<en_remove_image base="Remove image"></en_remove_image>
+<en_select_the_services_br_select_the_attachments_br_insert_the_safety_data_sheets_and_antifire_request_confirmation base="Select the services&lt;br&gt;Select the Attachments&lt;br&gt;Insert the safety data sheets and antifire request confirmation"></en_select_the_services_br_select_the_attachments_br_insert_the_safety_data_sheets_and_antifire_request_confirmation>
+<en_services base="Services"></en_services>
+<en_attachments base="Attachments" de="Zubehör" en="Attachments" fr="Pièces jointes" it="Allegati"></en_attachments>
+<en_select_the_attachments_br_insert_the_safety_data_sheets_and_antifire_request_confirmation base="Select the Attachments&lt;br&gt;Insert the safety data sheets and antifire request confirmation"></en_select_the_attachments_br_insert_the_safety_data_sheets_and_antifire_request_confirmation>
+<en_select_the_services base="Select the services"></en_select_the_services></th_bunker></bunker>
+<cargo_docs><th_cargo_docs path="resources/tables/cargo_docs/th_cargo_docs.py" ext="py"><en_loading_cargo_docs base="Loading Cargo docs"></en_loading_cargo_docs>
+<en_select_place base="Select place"></en_select_place>
+<en_select_the_letterhead base="Select the letterhead"></en_select_the_letterhead>
+<en_letterhead fr="Tête" de="Briefkopf" en="Letterhead" it="Carta intestata" base="Letterhead"></en_letterhead></th_cargo_docs></cargo_docs>
+<certsanimare><th_certsanimare path="resources/tables/certsanimare/th_certsanimare.py" ext="py"><en_nsis_code base="NSIS Code"></en_nsis_code>
+<en_select_the_attachments base="Select the Attachments"></en_select_the_attachments>
+<en_vessel_attachments base="Vessel Attachments"></en_vessel_attachments>
+<en_arrival_attachments base="Arrival Attachments"></en_arrival_attachments></th_certsanimare></certsanimare>
+<email_services><th_email_services path="resources/tables/email_services/th_email_services.py" ext="py"><en_email_services base="Email services"></en_email_services>
+<en_insert_the_emails_separate_by_commas base="Insert the emails separate by commas" it="Inserisci l'emails separate dalla virgola"></en_insert_the_emails_separate_by_commas></th_email_services></email_services>
+<email_sof><th_email_sof path="resources/tables/email_sof/th_email_sof.py" ext="py"><en_select_the_shiipers_receivers base="Select the Shiipers/Receivers"></en_select_the_shiipers_receivers>
+<en_shippers_receivers base="Shippers/Receivers"></en_shippers_receivers></th_email_sof></email_sof>
+<protocollo><th_protocollo path="resources/tables/protocollo/th_protocollo.py" ext="py"><en_arrival base="Arrival" it="Arrivo"></en_arrival></th_protocollo></protocollo>
+<rinfusa><th_rinfusa path="resources/tables/rinfusa/th_rinfusa.py" ext="py"><en_select_the_services base="Select the services"></en_select_the_services>
+<en_services base="Services"></en_services></th_rinfusa></rinfusa>
+<ship_doc><th_ship_doc path="resources/tables/ship_doc/th_ship_doc.py" ext="py"><en_insert_certificates base="Insert certificates"></en_insert_certificates></th_ship_doc></ship_doc>
+<shorepass><th_shorepass path="resources/tables/shorepass/th_shorepass.py" ext="py"><en_shorepass_details base="Shorepass details"></en_shorepass_details></th_shorepass></shorepass>
+<shorepass_righe><th_shorepass_righe path="resources/tables/shorepass_righe/th_shorepass_righe.py" ext="py"><en_importa_crew base="Importa crew"></en_importa_crew></th_shorepass_righe></shorepass_righe>
 <sof><th_sof path="resources/tables/sof/th_sof.py" ext="py"><en_remarks base="Remarks"></en_remarks>
+<en_on_behalf_sippers_receivers base="On behalf Sippers/Receivers"></en_on_behalf_sippers_receivers>
 <en_tank_times base="Tank times"></en_tank_times>
+<en_select_the_attachments base="Select the Attachments"></en_select_the_attachments>
+<en_attachments base="Attachments" de="Zubehör" en="Attachments" fr="Pièces jointes" it="Allegati"></en_attachments>
 <en_master_remarks base="Master Remarks"></en_master_remarks>
 <en_note_general_remarks base="Note / General Remarks"></en_note_general_remarks></th_sof></sof>
 <sof_cargo><th_sof_cargo path="resources/tables/sof_cargo/th_sof_cargo.py" ext="py"><en_cargo base="Cargo" it="Carico"></en_cargo></th_sof_cargo></sof_cargo>
 <staff><th_staff path="resources/tables/staff/th_staff.py" ext="py"><en_remove_image base="Remove image"></en_remove_image></th_staff></staff>
-<vessel_details><th_vessel_details path="resources/tables/vessel_details/th_vessel_details.py" ext="py"><en_remove_image base="Remove image"></en_remove_image></th_vessel_details></vessel_details></tables></resources></GenRoBag>
+<vessel_details><th_vessel_details path="resources/tables/vessel_details/th_vessel_details.py" ext="py"><en_remove_image base="Remove image"></en_remove_image>
+<en_ships_docs base="Ships Docs"></en_ships_docs></th_vessel_details></vessel_details>
+<vessel_services><th_vessel_services path="resources/tables/vessel_services/th_vessel_services.py" ext="py"><en_print_vessel_services base="Print Vessel services"></en_print_vessel_services>
+<en_print_vessel_services_private base="Print Vessel services private"></en_print_vessel_services_private></th_vessel_services></vessel_services></tables></resources>
+<webpages><cruscotto path="webpages/cruscotto.py" ext="py"><en_shippers_receivers base="Shippers/Receivers"></en_shippers_receivers>
+<en_charterers base="Charterers"></en_charterers>
+<en_consigne_notify base="Consigne/Notify"></en_consigne_notify></cruscotto></webpages></GenRoBag>
