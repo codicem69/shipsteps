@@ -553,9 +553,11 @@ class Form(BaseComponent):
     
 
     def taskList(self, bc_tasklist):
-        rg_prearrival = bc_tasklist.roundedGroup(title='!![en]Pre arrival',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='550px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_arrival = bc_tasklist.roundedGroup(title='!![en]Arrival/Departure',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='560px', height = '100%', margin_left='550px').div(margin='10px',margin_left='2px')
-        rg_extra = bc_tasklist.roundedGroup(title='!![en]Extra',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='520px', height = '100%', margin_left='560px').div(margin='10px',margin_left='2px')
+        rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%').div(margin='10px',margin_left='2px')
+        rg_prearrival2 = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival - Email</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = 'auto', margin_left='220px').div(margin='10px',margin_left='2px')
+        rg_arrival = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='440px').div(margin='10px',margin_left='2px')
+        rg_arrival_nsw = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure NSW</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='680px').div(margin='10px',margin_left='2px')
+        rg_extra = bc_tasklist.roundedGroup(title='!![en]<strong>Extra</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='480px').div(margin='10px',margin_left='2px')
         
         #definiamo la tabella email_services per poi riprenderla sui dataRpc dei bottoni
         tbl_email_services = self.db.table('shipsteps.email_services')
@@ -565,23 +567,51 @@ class Form(BaseComponent):
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb1=div1.formbuilder(colspan=3,cols=9, border_spacing='1px')
+        fb1=div1.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
 
-        btn_cl = fb1.Button('!![en]Print Check list',width='122px')
+        btn_cl = fb1.Button('!![en]Print Check list')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.checklist',button=btn_cl.js_widget)
         btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record',
                             nome_template = 'shipsteps.arrival:check_list', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             format_page='A4',_onResult="this.form.save();")
       #  fb1.dataController("if(msg=='check_list') SET .checklist=true", msg='^nome_temp')
         fb1.field('checklist', lbl='', margin_top='5px')
         fb1.semaphore('^.checklist?=#v==true?true:false', margin_top='5px')
-        btn_fs = fb1.Button('!![en]Print Frontespicie', width='146px')
+        btn_fs = fb1.Button('!![en]Print Frontespicie')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.frontespizio',button=btn_fs.js_widget)
         btn_fs.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:front_nave',format_page='A4',_onResult="this.form.save();")
        # fb1.dataController("if(msg=='front_nave') SET .frontespizio=true", msg='^nome_temp')
         fb1.field('frontespizio', lbl='', margin_top='5px')
         fb1.semaphore('^.frontespizio?=#v==true?true:false', margin_top='5px')
 
-        btn_cn = fb1.Button('!![en]Print Vessel folder', width='122px')
+        btn_mn = fb1.Button('!![en]Print Vessel module')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.modulo_nave',button=btn_mn.js_widget)
+        btn_mn.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',_onResult="this.form.save();")
+       # fb1.dataController("if(msg=='mod_nave') SET .checklist=true", msg='^nome_temp')
+        fb1.field('modulo_nave', lbl='', margin_top='5px')
+        fb1.semaphore('^.modulo_nave?=#v==true?true:false', margin_top='5px')
+
+        btn_cn = fb1.Button('!![en]Print Vessel folder')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.cartella_nave',button=btn_cn.js_widget)
+       #fb1.dataController("""var id = button.id; console.log(id);
+       #                if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+       #                else if (ca==false){document.getElementById(id).style.backgroundColor = 'salmon';}
+       #                else {document.getElementById(id).style.backgroundColor = 'lightgrey';}
+       #                """, ca='^.cartella_nave',button=btn_cn.js_widget)                
        #btn_cn.dataRpc(None, self.print_template,record='=#FORM.record.id',_ask=dict(title='!![en]Choose lettehead to use with this form',
        #                                        fields=[dict(name='letterhead_id', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
        #                                        hasDownArrow=True, auxColumns='$name', table='adm.htmltemplate')]), nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
@@ -593,6 +623,10 @@ class Form(BaseComponent):
         fb1.semaphore('^.cartella_nave?=#v==true?true:false', margin_top='5px')
 
         btn_ts = fb1.Button('!![en]Print Servicies table')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.tab_servizi',button=btn_ts.js_widget)
         btn_ts.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',_onResult="this.form.save();")
        # fb1.dataController("if(msg=='tab_servizi') SET .tab_servizi=true", msg='^nome_temp')
@@ -600,30 +634,31 @@ class Form(BaseComponent):
         fb1.semaphore('^.tab_servizi?=#v==true?true:false', margin_top='5px')
 
         btn_fc = fb1.Button('!![en]Print Cargo frontespiece')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.front_carico',button=btn_fc.js_widget)
         btn_fc.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:front_carico',format_page='A4',_onResult="this.form.save();")
        # fb1.dataController("if(msg=='front_carico') SET .front_carico=true", msg='^nome_temp')
         fb1.field('front_carico', lbl='', margin_top='5px')
         fb1.semaphore('^.front_carico?=#v==true?true:false', margin_top='5px')
 
-        btn_mn = fb1.Button('!![en]Print Vessel module')
-        btn_mn.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',_onResult="this.form.save();")
-       # fb1.dataController("if(msg=='mod_nave') SET .checklist=true", msg='^nome_temp')
-        fb1.field('modulo_nave', lbl='', margin_top='5px')
-        fb1.semaphore('^.modulo_nave?=#v==true?true:false', margin_top='5px')
-
         #definizione secondo rettangolo invio email all'interno del roundedGroup Pre Arrival
-        div2=rg_prearrival.div('<center><strong>EMAIL</strong>',width='99%',height='20%',margin='auto',
+        div2=rg_prearrival2.div('<center><strong></strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb = div2.formbuilder(colspan=3,cols=9, border_spacing='2px')
+        fb = div2.formbuilder(colspan=1,cols=3, border_spacing='1px', colswidth='4px')
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
        
         
         
-        btn_sr = fb.Button('!![en]Shipper/Receivers')
+        btn_sr = fb.Button('!![en]Shipper/Receivers', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_ship_rec',button=btn_sr.js_widget)
         btn_sr.dataRpc('nome_temp', self.email_arrival_sof,
                    record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
@@ -640,7 +675,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dog').fetch()
         serv_len=len(service_for_email)
-        btn_dog = fb.Button('!![en]Customs',width='80px')
+        btn_dog = fb.Button('!![en]Customs/GdF', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_dogana',button=btn_dog.js_widget)
         if serv_len > 1:
             btn_dog.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['dogana','gdf','gdf roan'], email_template_id='email_dogana',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -675,7 +714,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Immigration ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='imm').fetch()
         serv_len=len(service_for_email)
-        btn_fr = fb.Button('!![en]Immigration', width='98px')
+        btn_fr = fb.Button('!![en]Immigration', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_frontiera',button=btn_fr.js_widget)
         if serv_len > 1:
             btn_fr.dataRpc('nome_temp', self.print_template,
                        record='=#FORM.record', servizio=['immigration'], email_template_id='email_frontiera',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -698,7 +741,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Sanimare ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
-        btn_usma = fb.Button('!![en]Sanimare',width='115px')
+        btn_usma = fb.Button('!![en]Sanimare', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_usma',button=btn_usma.js_widget)
         if serv_len > 1:
             btn_usma.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['sanimare'], email_template_id='email_sanimare',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -717,7 +764,11 @@ class Form(BaseComponent):
         fb.field('email_usma',lbl='', margin_top='5px')
         fb.semaphore('^.email_usma?=#v==true?true:false', margin_top='5px')
 
-        btn_pilot = fb.Button('!![en]Pilot/Moor',width='80px')
+        btn_pilot = fb.Button('!![en]Pilot/Moor', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_pilot_moor',button=btn_pilot.js_widget)
         btn_pilot.dataRpc('nome_temp', self.email_services,
                    record='=#FORM.record', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -727,7 +778,11 @@ class Form(BaseComponent):
         fb.field('email_pilot_moor',lbl='', margin_top='5px')
         fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
 
-        btn_tug = fb.Button('!![en]Tug', width='98px')
+        btn_tug = fb.Button('!![en]Tug', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_tug',button=btn_tug.js_widget)
         btn_tug.dataRpc('nome_temp', self.email_services,
                    record='=#FORM.record', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -741,8 +796,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi garbage ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='garb').fetch()
         serv_len=len(service_for_email)
-        btn_garb = fb.Button('!![en]Garbage', width='115px')
-
+        btn_garb = fb.Button('!![en]Garbage pick-up', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_garbage',button=btn_garb.js_widget)
         if serv_len > 1:
             agency=self.db.currentEnv.get('current_agency_id')
                         
@@ -779,7 +837,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi PFSO ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pfso').fetch()
         serv_len=len(service_for_email)
-        btn_pfso = fb.Button('!![en]PFSO', width='80px')
+        btn_pfso = fb.Button('!![en]PFSO', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_pfso',button=btn_pfso.js_widget)
         if serv_len > 1:
             btn_pfso.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pfso'], email_template_id='email_pfso',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -800,7 +862,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Chimico di porto ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='chem').fetch()
         serv_len=len(service_for_email)
-        btn_chem = fb.Button('!![en]Chemist', width='98px')
+        btn_chem = fb.Button('!![en]Chemist', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_chemist',button=btn_chem.js_widget)
         if serv_len >1:
             btn_chem.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['chemist'], email_template_id='email_chemist',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -816,12 +882,16 @@ class Form(BaseComponent):
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")                                 
         #fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_chemist',lbl='', margin_top='5px')
+        fb.field('email_chemist',lbl='')
         fb.semaphore('^.email_chemist?=#v==true?true:false', margin_top='5px')
         #verifichiamo quanti servizi GPG ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='gpg').fetch()
         serv_len=len(service_for_email)
-        btn_gpg = fb.Button('!![en]GPG', width='115px')
+        btn_gpg = fb.Button('!![en]GPG', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_gpg',button=btn_gpg.js_widget)
         if serv_len > 1:
             btn_gpg.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['gpg'], email_template_id='email_gpg',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -840,7 +910,11 @@ class Form(BaseComponent):
         fb.field('email_gpg',lbl='', margin_top='5px')
         fb.semaphore('^.email_gpg?=#v==true?true:false', margin_top='5px')
 
-        btn_ens = fb.Button('!![en]ENS', width='80px')
+        btn_ens = fb.Button('!![en]ENS', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_ens',button=btn_ens.js_widget)
         btn_ens.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record', servizio=['ens'], email_template_id='email_ens',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -851,8 +925,12 @@ class Form(BaseComponent):
         fb.field('email_ens',lbl='', margin_top='5px')
         fb.semaphore('^.email_ens?=#v==true?true:false', margin_top='5px')
 
-        btn_ens = fb.Button('!![en]Garbage ADSP')
-        btn_ens.dataRpc('nome_temp', self.email_services,
+        btn_gbadsp = fb.Button('!![en]Garbage ADSP', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_garbage_adsp',button=btn_gbadsp.js_widget)
+        btn_gbadsp.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record', servizio=['adsp'], email_template_id='not_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
@@ -869,7 +947,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Sanimare ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
-        btn_riclps = fb.Button('!![en]LPS request',width='115px')
+        btn_riclps = fb.Button('!![en]LPS request', width='10em')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_ric_lps',button=btn_riclps.js_widget)
         if serv_len > 1:
             btn_riclps.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['sanimare'], email_template_id='email_ric_lps',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -889,7 +971,7 @@ class Form(BaseComponent):
         fb.field('email_ric_lps',lbl='', margin_top='5px')
         fb.semaphore('^.email_ric_lps?=#v==true?true:false', margin_top='5px')
 
-        btn_update = fb.Button('!![en]services<br>updating', width='80px')
+        btn_update = fb.Button('!![en]Services updating', width='10em')
         btn_update.dataRpc('nome_temp', self.email_serv_upd,
                    record='=#FORM.record',email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the services to update and Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',
@@ -902,7 +984,7 @@ class Form(BaseComponent):
         fb.div()
         fb.div()
      
-        btn_upd_shiprec = fb.Button('!![en]Ship/Rec.<br>updating',width='98px')
+        btn_upd_shiprec = fb.Button('!![en]Ship/Rec. updating', width='10em')
         btn_upd_shiprec.dataRpc('nome_temp', self.email_arrival_sof,
                    record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
@@ -915,15 +997,19 @@ class Form(BaseComponent):
        
         #fb.dataController("if(msgspec=='ship_rec_upd') {alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
         
-        div3=rg_prearrival.div('<center><strong>Harbour Master - Docs before vessel arrival</strong>',width='99%',height='20%',margin='auto',
+        div3=rg_prearrival.div('<center><strong><br>Email to Harbour Master <br> Docs before vessel arrival<br></strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb2 = div3.formbuilder(colspan=3,cols=9, border_spacing='2px')
+        fb2 = div3.formbuilder(colspan=1,cols=3, border_spacing='2px',fld_width='150px')
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_integr = fb2.Button('!![en]Email Alimentary integration')
+        btn_integr = fb2.Button('!![en]Alimentary integration')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_integr',button=btn_integr.js_widget)
         if serv_len >1:
             btn_integr.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_integrazione_alim',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -946,7 +1032,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_pmou = fb2.Button('!![en]Email PMOU notification')
+        btn_pmou = fb2.Button('!![en]PMOU notification')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_pmou',button=btn_pmou.js_widget)
         if serv_len >1:
             btn_pmou.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_pmou',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -956,7 +1046,7 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         else:    
-            btn_integr.dataRpc('nome_temp', self.email_services,
+            btn_pmou.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_pmou',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
@@ -1052,15 +1142,23 @@ class Form(BaseComponent):
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb_arr=div_arr.formbuilder(colspan=3,cols=9, border_spacing='1px')
-        btn_fgdf_cp = fb_arr.Button('!![en]Form GdF',width='162px')
+        fb_arr=div_arr.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='14em')
+        btn_fgdf_cp = fb_arr.Button('!![en]Form GdF')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.form_gdf',button=btn_fgdf_cp.js_widget)
         btn_fgdf_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record',
                             nome_template = 'shipsteps.arrival:form_gdf', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             format_page='A4',_onResult="this.form.save();")
         fb_arr.field('form_gdf', lbl='', margin_top='6px')
         fb_arr.semaphore('^.form_gdf?=#v==true?true:false', margin_top='6px')
 
-        btn_fimm_cp = fb_arr.Button('!![en]Form Immigration',width='142px')
+        btn_fimm_cp = fb_arr.Button('!![en]Form Immigration')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.form_immigration',button=btn_fimm_cp.js_widget)
         btn_fimm_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_template = 'shipsteps.arrival:form_immigration', 
                                          nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4', 
                                          only_print='yes',_onResult="this.form.save();")
@@ -1068,6 +1166,10 @@ class Form(BaseComponent):
         fb_arr.semaphore('^.form_immigration?=#v==true?true:false', margin_top='6px')
 
         btn_fprov_cp = fb_arr.Button('!![en]Form Provisions')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.form_provision',button=btn_fprov_cp.js_widget)
         btn_fprov_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record',
                             nome_template = 'shipsteps.arrival:form_provisions', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             format_page='A4',_onResult="this.form.save();")
@@ -1076,13 +1178,21 @@ class Form(BaseComponent):
 
         #fb_arr.br()
         
-        btn_fsan = fb_arr.Button('!![en]Dichiarazione Sanimare', width='162px')
+        btn_fsan = fb_arr.Button('!![en]Sanimare declaration')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.form_sanimare',button=btn_fsan.js_widget)
         btn_fsan.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='DichSanimare', 
                                         _virtual_column='lastport,nextport,vesselname,flag,imo,tsl',_onResult="this.form.save();")
         fb_arr.field('form_sanimare', lbl='', margin_top='6px')
         fb_arr.semaphore('^.form_sanimare?=#v==true?true:false', margin_top='6px')
 
-        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',width='142px')
+        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.form_checklist_f',button=btn_intfiore.js_widget)
         btn_intfiore.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='InterferenzeFiore', 
                                           _virtual_column='lastport,nextport,vesselname,flag,imo,tsl',_onResult="this.form.save();")
         fb_arr.field('form_checklist_f', lbl='', margin_top='6px')
@@ -1091,7 +1201,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_lps_cp = fb_arr.Button('!![en]Email LPS CP', width='162px')
+        btn_lps_cp = fb_arr.Button('!![en]Email LPS CP')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_lps_cp',button=btn_lps_cp.js_widget)
         if serv_len > 1:
             btn_lps_cp.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_lps_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1113,7 +1227,11 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_chim_cp = fb_arr.Button('!![en]Email Cert. Chimico CP')
+        btn_chim_cp = fb_arr.Button('!![en]Email Chemist Cert. CP')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_certchim_cp',button=btn_chim_cp.js_widget)
         if serv_len > 1:
             btn_chim_cp.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_chimico_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1136,9 +1254,13 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         fb_arr.br()
-        btn_chim_cp = fb_arr.Button('!![en]Email Waste derogation CP')
+        btn_der_cp = fb_arr.Button('!![en]Email Waste derogation CP')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_garbage_cp',button=btn_der_cp.js_widget)
         if serv_len > 1:
-            btn_chim_cp.dataRpc('nome_temp', self.print_template_derogagb,
+            btn_der_cp.dataRpc('nome_temp', self.print_template_derogagb,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
                                 nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                                 moored='=#FORM.record.@time_arr.moored',
@@ -1148,7 +1270,7 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         else:                         
-            btn_chim_cp.dataRpc('nome_temp', self.print_template_derogagb,
+            btn_der_cp.dataRpc('nome_temp', self.print_template_derogagb,
                       record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
                                 nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                                 moored='=#FORM.record.@time_arr.moored',
@@ -1163,11 +1285,15 @@ class Form(BaseComponent):
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb_dep=div_dep.formbuilder(colspan=3,cols=9, border_spacing='1px')
+        fb_dep=div_dep.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='14em')
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_rif_cp = fb_dep.Button('!![en]Email Ricevuta rifiuti CP')
+        btn_rif_cp = fb_dep.Button('!![en]Email Waste Receipt CP')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_ric_rifiuti_cp',button=btn_rif_cp.js_widget)
         if serv_len > 1:
             btn_rif_cp.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_ricevutarifiuti_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1184,23 +1310,35 @@ class Form(BaseComponent):
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         fb_dep.field('email_ric_rifiuti_cp', lbl='', margin_top='6px')
         fb_dep.semaphore('^.email_ric_rifiuti_cp?=#v==true?true:false', margin_top='6px')
-        fb_dep.Button('!![en]Vessel services', action="""{SET shipsteps_arrival.form.tabname='services';}""")
+        btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET shipsteps_arrival.form.tabname='services';}""")
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.form_services',button=btn_vs.js_widget)
         fb_dep.field('form_services', lbl='', margin_top='6px')
         fb_dep.semaphore('^.form_services?=#v==true?true:false', margin_top='6px')
 
-        fb_dep.Button('!![en]Form GdF Departure',action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
+        btn_fgdf=fb_dep.Button('!![en]Form GdF Departure',action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Partenza_Finanza',
                                                                                pkey: pkey})
                                                                                {SET .form_gdfdep=true;}
                                                                                this.form.save();""",
                                                                                pkey='=#FORM.pkey')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.form_gdfdep',button=btn_fgdf.js_widget)                                                                               
         fb_dep.field('form_gdfdep', lbl='', margin_top='6px')
         fb_dep.semaphore('^.form_gdfdep?=#v==true?true:false', margin_top='6px')    
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cpnsw').fetch()
         serv_len=len(service_for_email)
-        btn_trib_cp = fb_dep.Button('!![en]Email tributi CP', width='144px')
+        btn_trib_cp = fb_dep.Button('!![en]Email Tributes CP')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_tributi_cp',button=btn_trib_cp.js_widget)
         if serv_len > 1:
             btn_trib_cp.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria_nsw'], email_template_id='email_tributi_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1219,65 +1357,75 @@ class Form(BaseComponent):
         fb_dep.semaphore('^.email_tributi_cp?=#v==true?true:false', margin_top='6px')    
         
         #rg_arrival.div('&nbsp').field('nsw', table='shipsteps.tasklist', label='NSW', lbl='Sistema NSW')                                                           
-        rg_arrival.div('&nbsp').checkbox(value='^.nsw', label='NSW', lbl='Sistema NSW')                                                           
-        div_extra=rg_arrival.div('<center><strong>EXTRA NSW FORMS</strong>',width='99%',height='20%',margin='auto',
+        rg_arrival_nsw.div('&nbsp').checkbox(value='^.nsw', label='NSW', lbl='Sistema NSW')                                                           
+        div_nsw=rg_arrival_nsw.div('<center><strong>NSW</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px', hidden='^.nsw?=!#v')
-        fb_extra=div_extra.formbuilder(colspan=2,cols=4, border_spacing='1px')
+        fb_nsw=div_nsw.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
         
-        btn_accosto=fb_extra.Button('!![en]Email Domanda Accosto',
+        btn_accosto=fb_nsw.Button('!![en]Email Domanda Accosto',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Accosto',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
 
-        btn_cambio_accosto=fb_extra.Button('!![en]Email Cambio Accosto',
+        btn_cambio_accosto=fb_nsw.Button('!![en]Email Cambio Accosto',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Cambio_accosto',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_com_partenza=fb_extra.Button('!![en]Email Comunicazione Partenza',
+        btn_com_partenza=fb_nsw.Button('!![en]Email Comunicazione Partenza',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Partenza',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        fb_extra.br()
-        btn_fal1_arr=fb_extra.Button('!![en]Fal1 Arrival',width='149px',
+       
+        div_nsw2=rg_arrival_nsw.div('<center><strong>NSW ARRIVAL</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px', hidden='^.nsw?=!#v')
+        fb_nsw2=div_nsw2.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
+
+        btn_fal1_arr=fb_nsw2.Button('!![en]Fal1 Arrival',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'general_decl',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_nota_arr=fb_extra.Button('Nota Arrivo',width='138px',
+        btn_nota_arr=fb_nsw2.Button('Nota Arrivo',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'nota_arrivo',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_arrivo = fb_extra.Button('!![en]Email arrival', width='182px')
+        btn_arrivo = fb_nsw2.Button('!![en]Email arrival')
         btn_arrivo.dataRpc('nome_temp', self.print_template,record='=#FORM.record',servizio=['capitaneria_nsw'], email_template_id='email_arrivo_cp',
                             nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-        fb_extra.br()
-        btn_fal1_dep=fb_extra.Button('!![en]Fal1 Departure',width='149px',
+        div_nsw3=rg_arrival_nsw.div('<center><strong>NSW DEPARTURE</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px', hidden='^.nsw?=!#v')
+        fb_nsw3=div_nsw3.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
+        btn_fal1_dep=fb_nsw3.Button('!![en]Fal1 Departure',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'general_decl_dep',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_nota_dep=fb_extra.Button('Dich.Intergr.Partenza',width='138px',
+        btn_nota_dep=fb_nsw3.Button('Dich.Intergr.Partenza',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'dichiarazione_partenza',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_departure = fb_extra.Button('!![en]Email Departure', width='182px')
+        btn_departure = fb_nsw3.Button('!![en]Email Departure')
         btn_departure.dataRpc('nome_temp', self.print_template,record='=#FORM.record',servizio=['capitaneria_nsw'], email_template_id='email_partenza_cp',
                             nome_template = 'shipsteps.arrival:mod61_dep',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -1291,7 +1439,7 @@ class Form(BaseComponent):
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
-        fb_extra=div_extra.formbuilder(colspan=2,cols=4, border_spacing='1px')
+        fb_extra=div_extra.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
         #btn_intfat = fb_extra.Button('!![en]Intestazione Fatt', width='115px')
         #btn_intfat.dataRpc('nome_temp', self.email_intfat,record='=#FORM.record',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
 
@@ -1304,7 +1452,7 @@ class Form(BaseComponent):
         btn_dlg1=dlg.button('Email Intestazione fattura')
         
         btn_dlg1.dataRpc('nome_temp', self.email_intfat,record='=#FORM.record',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
-        fb_extra.button('Intestazione Fatt', action="genro.wdgById('mydialog').show()")
+        fb_extra.button('Intestazione Fatture', action="genro.wdgById('mydialog').show()")
         btn_dlg.dataRpc('intfat',self.intfat,record='=#FORM.record')
         
         dlgws = rg_extra.dialog(nodeId='dialog_ws',style='width:300px;height:100px;',title='Water supply',closable=True)
@@ -1623,7 +1771,7 @@ class Form(BaseComponent):
             elif email_template_id == 'email_pilot_moor':
                 nome_temp = 'val_pil_moor'
             elif email_template_id == 'email_tug':
-                nome_temp = 'val_tributi'  
+                nome_temp = 'val_tug'  
             elif email_template_id == 'email_chemist':
                 nome_temp = 'val_chemist'
             elif email_template_id == 'email_gpg':
