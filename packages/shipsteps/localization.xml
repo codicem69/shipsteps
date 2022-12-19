@@ -553,7 +553,7 @@
 <en_email_chemist_cert_cp base="Email Chemist Cert. CP" it="Email Cert. Chimico CP"></en_email_chemist_cert_cp>
 <en_email_waste_derogation_cp base="Email Waste derogation CP" it="Email Deroga Rifiuti"></en_email_waste_derogation_cp>
 <en_email_waste_receipt_cp base="Email Waste Receipt CP" it="Email Ricevuta rifiuti CP"></en_email_waste_receipt_cp>
-<en_form_gdf_departure base="Form GdF Departure"></en_form_gdf_departure>
+<en_form_gdf_departure base="Form GdF Departure" it="Form GdF Partenza nave"></en_form_gdf_departure>
 <en_email_tributes_cp base="Email Tributes CP" it="Email Tributi CP"></en_email_tributes_cp>
 <en_email_domanda_accosto base="Email Domanda Accosto"></en_email_domanda_accosto>
 <en_email_cambio_accosto base="Email Cambio Accosto"></en_email_cambio_accosto>
@@ -652,7 +652,7 @@
 <en_email_cert_chimico_cp base="Email Cert. Chimico CP"></en_email_cert_chimico_cp>
 <en_email_waste_derogation_cp base="Email Waste derogation CP" it="Email Deroga Rifiuti"></en_email_waste_derogation_cp>
 <en_email_ricevuta_rifiuti_cp base="Email Ricevuta rifiuti CP"></en_email_ricevuta_rifiuti_cp>
-<en_form_gdf_departure base="Form GdF Departure"></en_form_gdf_departure>
+<en_form_gdf_departure base="Form GdF Departure" it="Form GdF Partenza nave"></en_form_gdf_departure>
 <en_email_tributi_cp base="Email tributi CP"></en_email_tributi_cp>
 <en_email_domanda_accosto base="Email Domanda Accosto"></en_email_domanda_accosto>
 <en_email_cambio_accosto base="Email Cambio Accosto"></en_email_cambio_accosto>

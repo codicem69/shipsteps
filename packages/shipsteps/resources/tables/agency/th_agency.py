@@ -9,7 +9,7 @@ class View(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('code', width='3em',validate_notnull=True)
+        r.fieldcell('code', width='3em')
         r.fieldcell('agency_name')
         r.fieldcell('description')
         r.fieldcell('address')

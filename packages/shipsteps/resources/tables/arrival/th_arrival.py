@@ -132,6 +132,7 @@ class Form(BaseComponent):
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
         
         self.garbage(tc_undertask.contentPane(title='!![en]Garbage'))
+        self.tributi(tc_undertask.contentPane(title='!![en]Tributes HM'))
         #self.rinfusa(tc_app.contentPane(title='!![en]Bulk Application'))
         tc_app.contentPane(title='!![en]Bulk Application',pageName='bulk_application').remote(self.rinfusaLazyMode)
         #self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
@@ -644,6 +645,18 @@ class Form(BaseComponent):
         fb1.field('front_carico', lbl='', margin_top='5px')
         fb1.semaphore('^.front_carico?=#v==true?true:false', margin_top='5px')
 
+        btn_trib = fb1.Button('!![en]Tributes')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.tributi_cp',button=btn_trib.js_widget)                     
+        btn_trib.dataRpc('nome_temp', self.print_template_tributi,record='=#FORM.record',servizio=['tributi'], 
+                                format_page='A4',selId='=#FORM.shipsteps_tributi_cp.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',                            
+                                _ask=dict(title='!![en]Select the type of payment',fields=[dict(name='tip_versamento', lbl='!![en]Type of payment', tag='filteringSelect',hasDownArrow=True,
+                                values='bonifico:Bonifico,bollettino:Bollettino postale',
+                                validate_notnull=True,cols=4,popup=True,colspan=2)]),_onResult="this.form.save()")
+        fb1.field('tributi_cp', lbl='', margin_top='5px')
+        fb1.semaphore('^.tributi_cp?=#v==true?true:false', margin_top='5px')
         #definizione secondo rettangolo invio email all'interno del roundedGroup Pre Arrival
         div2=rg_prearrival2.div('<center><strong></strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
@@ -1104,6 +1117,7 @@ class Form(BaseComponent):
                              if(msg=='cartella_doc') {SET .cartella_nave=true;}
                              if(msg=='front_nave') {SET .frontespizio=true;}
                              if(msg=='check_list') {SET .checklist=true;}
+                             if(msg=='tributi_cp') {SET .tributi_cp=true;} if(msg=='no_tributi') genro.publish("floating_message",{message:'You must select the record as row in the tribute form', messageType:"error"});
                              if(msg=='form_gdf') {SET .form_gdf=true;}
                              if(msg=='form_immigration_print') {SET .form_immigration=true;}
                              if(msg=='form_provisions') {SET .form_provision=true;}
@@ -1488,6 +1502,9 @@ class Form(BaseComponent):
 
     def garbage(self, pane):
         pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
+
+    def tributi(self, pane):
+        pane.inlineTableHandler(relation='@tributi_arr',viewResource='ViewFromTributi')
 
     @public_method
     def rinfusaLazyMode(self,pane):
@@ -2407,6 +2424,47 @@ class Form(BaseComponent):
         # il msg con il dataController
         nome_temp='val_garbage'
         return nome_temp
+
+    @public_method
+    def print_template_tributi(self, record, resultAttr=None,selId=None, servizio=[] , format_page=None, **kwargs):
+        #msg_special=None
+        selPkeys_att=kwargs['selPkeys_att']
+        versamento=kwargs['tip_versamento']
+        if versamento == 'bonifico':
+            nome_template = 'shipsteps.tributi_cp:bonifico'
+        if versamento == 'bollettino':
+            nome_template = 'shipsteps.tributi_cp:bollettino'     
+        if selId is None:
+            nome_temp = 'no_tributi'
+            return nome_temp
+        
+        tbl_tributi_cp = self.db.table('shipsteps.tributi_cp')
+        builder = TableTemplateToHtml(table=tbl_tributi_cp)
+
+        nome_temp = nome_template.replace('shipsteps.tributi_cp:','')
+        nome_file = '{cl_id}.pdf'.format(
+                    cl_id=nome_temp)
+
+        template = self.loadTemplate(nome_template)  # nome del template
+        pdfpath = self.site.storageNode('home:stampe_template', nome_file)
+        
+        builder(record=selId, template=template)
+        if format_page=='A3':
+            builder.page_format='A3'
+            builder.page_width=427
+            builder.page_height=290
+        if versamento == 'bollettino':
+            builder.page_format='A4'
+            builder.page_width=297
+            builder.page_height=210 
+            builder.page_orientation='H'      
+        
+        result = builder.writePdf(pdfpath=pdfpath)
+
+        self.setInClientData(path='gnr.clientprint',
+                              value=result.url(timestamp=datetime.now()), fired=True)
+        nome_temp='tributi_cp'
+        return nome_temp    
 
     @public_method
     def print_template_derogagb(self, record, resultAttr=None,selId=None,moored=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):

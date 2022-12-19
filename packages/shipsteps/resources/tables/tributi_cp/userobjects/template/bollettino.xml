@@ -1,0 +1,475 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-12-16T11:53:31.800831+01:00</_ins_ts>
+<_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-12-19T11:05:08.433632+01:00</_mod_ts>
+<_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.tributi_cptemplatebollettino</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">bollettino</code>
+<objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
+<pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
+<tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.tributi_cp</tbl>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Bollettino postale</description>
+<notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div class="page"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" class="table" style="border-collapse:collapse;margin-top:20px;margin-left:20px;width:96%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr class="tr"&gt;
+				&lt;td width="460px"&gt;
+					&lt;div&gt;
+						&lt;table border="0" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-top:5px;width:100%;"&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td&gt;
+										&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="color:#ffffff;"&gt;&lt;span style="font-size:24px;"&gt;&lt;span style="background-color:#000000;"&gt;&amp;nbsp;&amp;euro;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; &lt;span style="font-size:10px;"&gt;sul C/C n.&lt;strong&gt;$cc_posta&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+									&lt;td&gt;
+										&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:24px;"&gt;&amp;nbsp;&lt;/span&gt;di Euro&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+									&lt;td class="td_bord" style="text-align: right;"&gt;
+										&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:24px;"&gt;&amp;nbsp;&lt;/span&gt;$importo&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+						&lt;div&gt;
+							&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;IMPORTO IN LETTERE &lt;strong&gt;$imp_lettere&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;table border="0" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-top:5px;width:100%;"&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td&gt;
+										&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="color:#ffffff;"&gt;&lt;span style="font-size:24px;"&gt;&lt;span style="background-color:#000000;"&gt;&amp;nbsp;&amp;euro;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:10px;"&gt; sul C/C n.&lt;strong&gt;$cc_posta&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+									&lt;td&gt;
+										&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:24px;"&gt;&amp;nbsp;&lt;/span&gt;di Euro&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+									&lt;td class="td_bord" style="text-align: right;"&gt;
+										&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:24px;"&gt;&amp;nbsp;&lt;/span&gt;$importo&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+						&lt;div&gt;
+							&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;IMPORTO IN LETTERE &lt;strong&gt;$imp_lettere&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr class="tr"&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;INTESTATO A&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;table border="1" cellpadding="1" cellspacing="1" class="td_round" style="border-collapse:collapse;height:35px;width:100%;"&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td&gt;
+										&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$beneficiario&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+						&lt;div&gt;
+							&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:9px;"&gt;CAUSALE&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;div&gt;
+							&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:35px;width:100%;"&gt;
+								&lt;tbody&gt;
+									&lt;tr&gt;
+										&lt;td&gt;
+											&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$causale&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+									&lt;/tr&gt;
+								&lt;/tbody&gt;
+							&lt;/table&gt;
+							&lt;div&gt;
+								&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ESEGUITO DA&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+							&lt;div&gt;
+								&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:100px;width:50%;"&gt;
+									&lt;tbody&gt;
+										&lt;tr&gt;
+											&lt;td valign="top"&gt;
+												&lt;div&gt;
+													&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agency_name&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+												&lt;div&gt;
+													&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agency_address&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+											&lt;/td&gt;
+										&lt;/tr&gt;
+									&lt;/tbody&gt;
+								&lt;/table&gt;
+								&lt;span style="font-size:8px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; BOLLO DELL&amp;#39;UFFICIO POSTALE&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;INTESTATO A&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:35px;width:100%;"&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td&gt;
+										&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$beneficiario&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+						&lt;div&gt;
+							&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;CAUSALE&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;div&gt;
+							&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:35px;width:100%;"&gt;
+								&lt;tbody&gt;
+									&lt;tr&gt;
+										&lt;td&gt;
+											&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$causale&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+									&lt;/tr&gt;
+								&lt;/tbody&gt;
+							&lt;/table&gt;
+							&lt;div&gt;
+								&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ESEGUITO DA&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+							&lt;div&gt;
+								&lt;div&gt;
+									&lt;table border="0" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:100px;width:100%;"&gt;
+										&lt;tbody&gt;
+											&lt;tr&gt;
+												&lt;td width="240px"&gt;
+													&amp;nbsp;&lt;/td&gt;
+												&lt;td valign="top"&gt;
+													&lt;div&gt;
+														&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agency_name&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+													&lt;div&gt;
+														&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agency_address&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+												&lt;/td&gt;
+											&lt;/tr&gt;
+										&lt;/tbody&gt;
+									&lt;/table&gt;
+									&lt;div&gt;
+										&lt;span style="font-size:8px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; BOLLO DELL&amp;#39;UFFICIO POSTALE&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr class="tr"&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</content>
+<metadata><author>admin</author>
+<version _T="NN"></version>
+<date _T="NN"></date>
+<is_print _T="B" _valuelabel="">True</is_print>
+<is_mail _T="NN"></is_mail>
+<is_row _T="NN"></is_row>
+<row_height _T="NN"></row_height>
+<default_letterhead _T="NN"></default_letterhead>
+<summary _T="NN"></summary>
+<email><subject _T="NN"></subject>
+<to_address _T="NN"></to_address>
+<from_address _T="NN"></from_address>
+<cc_address _T="NN"></cc_address>
+<bcc_address _T="NN"></bcc_address>
+<attachments _T="NN"></attachments></email>
+<email_compiled _T="BAG"></email_compiled></metadata>
+<varsbag><ggdx4yr8rd _pkey="ggdx4yr8rd"><fieldpath dtype="::NN">@beneficiario_id.@agency_id.agency_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">beneficiario_id/Agenzia/agency_name</fieldname>
+<varname dtype="::NN" _loadedValue="beneficiario_id_agenzia_agency_name">agency_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></ggdx4yr8rd>
+<gge31oo2b5 _pkey="gge31oo2b5"><fieldpath dtype="::NN">@arrival_id.@agency_id.address</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">arrival_id/Agenzia/address</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_agenzia_address">agency_address</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gge31oo2b5>
+<ggdx50vkg1 _pkey="ggdx50vkg1"><fieldpath dtype="::NN">@beneficiario_id.beneficiario</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">beneficiario_id/beneficiario</fieldname>
+<varname dtype="::NN" _loadedValue="beneficiario_id_beneficiario">beneficiario</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></ggdx50vkg1>
+<ggdx52sazd _pkey="ggdx52sazd"><fieldpath dtype="::NN">@beneficiario_id.cc_posta</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">beneficiario_id/cc_posta</fieldname>
+<varname dtype="::NN" _loadedValue="beneficiario_id_cc_posta">cc_posta</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></ggdx52sazd>
+<ggdyktas41 _pkey="ggdyktas41"><fieldpath dtype="::NN">importo</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">importo</fieldname>
+<varname dtype="::NN">importo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></ggdyktas41>
+<gge9i21vch _pkey="gge9i21vch"><fieldpath dtype="::NN">imp_lettere</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">imp_lettere</fieldname>
+<varname dtype="::NN">imp_lettere</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gge9i21vch>
+<gge2umop1l _pkey="gge2umop1l"><fieldpath dtype="::NN">causale</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">causale</fieldname>
+<varname dtype="::NN">causale</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gge2umop1l></varsbag>
+<parameters _T="BAG"></parameters>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<content_css>.table {
+   border-right: solid 1px white;
+   border-left: 1px solid white; 
+}
+.td_bord{
+  border: 1px solid black;
+}
+.tr {
+  border: none;
+}
+
+.page {
+    /*width: 210mm;
+    min-height: 297mm;*/
+    width:297mm;
+    min-height:210mm;
+    margin: 0mm auto;
+
+@page {
+    size: A4;
+    margin: 0;
+}
+@media print {
+    html, body {
+        width: 297mm;
+        height: 210mm;        
+    }
+    .page {
+        margin: 0;
+        width: initial;
+        min-height: initial;
+        page-break-after: always;
+    }
+}</content_css>
+<compiled><main maintable="shipsteps.tributi_cp" locale="it-IT" virtual_columns="" columns="@beneficiario_id.@agency_id.agency_name,@arrival_id.@agency_id.address,@beneficiario_id.beneficiario,@beneficiario_id.cc_posta,$importo,$imp_lettere,$causale" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"agency_name": "T", "agency_address": "T", "beneficiario": "T", "cc_posta": "T", "importo": "N", "imp_lettere": "T", "causale": "T"}::JS'>&lt;style&gt;.table {
+   border-right: solid 1px white;
+   border-left: 1px solid white; 
+}
+.td_bord{
+  border: 1px solid black;
+}
+.tr {
+  border: none;
+}
+
+.page {
+    /*width: 210mm;
+    min-height: 297mm;*/
+    width:297mm;
+    min-height:210mm;
+    margin: 0mm auto;
+
+@page {
+    size: A4;
+    margin: 0;
+}
+@media print {
+    html, body {
+        width: 297mm;
+        height: 210mm;        
+    }
+    .page {
+        margin: 0;
+        width: initial;
+        min-height: initial;
+        page-break-after: always;
+    }
+}
+&lt;/style&gt;&lt;div class="page"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" class="table" style="border-collapse:collapse;margin-top:20px;margin-left:20px;width:96%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr class="tr"&gt;
+				&lt;td width="460px"&gt;
+					&lt;div&gt;
+						&lt;table border="0" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-top:5px;width:100%;"&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td&gt;
+										&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="color:#ffffff;"&gt;&lt;span style="font-size:24px;"&gt;&lt;span style="background-color:#000000;"&gt;&amp;nbsp;&amp;euro;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; &lt;span style="font-size:10px;"&gt;sul C/C n.&lt;strong&gt;$@beneficiario_id.cc_posta&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+									&lt;td&gt;
+										&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:24px;"&gt;&amp;nbsp;&lt;/span&gt;di Euro&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+									&lt;td class="td_bord" style="text-align: right;"&gt;
+										&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:24px;"&gt;&amp;nbsp;&lt;/span&gt;$importo&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+						&lt;div&gt;
+							&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;IMPORTO IN LETTERE &lt;strong&gt;$imp_lettere&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;table border="0" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-top:5px;width:100%;"&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td&gt;
+										&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="color:#ffffff;"&gt;&lt;span style="font-size:24px;"&gt;&lt;span style="background-color:#000000;"&gt;&amp;nbsp;&amp;euro;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:10px;"&gt; sul C/C n.&lt;strong&gt;$@beneficiario_id.cc_posta&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+									&lt;td&gt;
+										&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:24px;"&gt;&amp;nbsp;&lt;/span&gt;di Euro&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+									&lt;td class="td_bord" style="text-align: right;"&gt;
+										&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:24px;"&gt;&amp;nbsp;&lt;/span&gt;$importo&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+						&lt;div&gt;
+							&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;IMPORTO IN LETTERE &lt;strong&gt;$imp_lettere&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr class="tr"&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;INTESTATO A&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;table border="1" cellpadding="1" cellspacing="1" class="td_round" style="border-collapse:collapse;height:35px;width:100%;"&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td&gt;
+										&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@beneficiario_id.beneficiario&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+						&lt;div&gt;
+							&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:9px;"&gt;CAUSALE&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;div&gt;
+							&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:35px;width:100%;"&gt;
+								&lt;tbody&gt;
+									&lt;tr&gt;
+										&lt;td&gt;
+											&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$causale&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+									&lt;/tr&gt;
+								&lt;/tbody&gt;
+							&lt;/table&gt;
+							&lt;div&gt;
+								&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;ESEGUITO DA&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+							&lt;div&gt;
+								&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:100px;width:50%;"&gt;
+									&lt;tbody&gt;
+										&lt;tr&gt;
+											&lt;td valign="top"&gt;
+												&lt;div&gt;
+													&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@beneficiario_id.@agency_id.agency_name&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+												&lt;div&gt;
+													&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@agency_id.address&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+											&lt;/td&gt;
+										&lt;/tr&gt;
+									&lt;/tbody&gt;
+								&lt;/table&gt;
+								&lt;span style="font-size:8px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; BOLLO DELL&amp;#39;UFFICIO POSTALE&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;INTESTATO A&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:35px;width:100%;"&gt;
+							&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td&gt;
+										&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@beneficiario_id.beneficiario&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+								&lt;/tr&gt;
+							&lt;/tbody&gt;
+						&lt;/table&gt;
+						&lt;div&gt;
+							&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;CAUSALE&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;div&gt;
+							&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:35px;width:100%;"&gt;
+								&lt;tbody&gt;
+									&lt;tr&gt;
+										&lt;td&gt;
+											&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$causale&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+									&lt;/tr&gt;
+								&lt;/tbody&gt;
+							&lt;/table&gt;
+							&lt;div&gt;
+								&lt;span style="font-size:9px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ESEGUITO DA&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+							&lt;div&gt;
+								&lt;div&gt;
+									&lt;table border="0" cellpadding="1" cellspacing="1" style="border-collapse:collapse;height:100px;width:100%;"&gt;
+										&lt;tbody&gt;
+											&lt;tr&gt;
+												&lt;td width="240px"&gt;
+													&amp;nbsp;&lt;/td&gt;
+												&lt;td valign="top"&gt;
+													&lt;div&gt;
+														&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@beneficiario_id.@agency_id.agency_name&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+													&lt;div&gt;
+														&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@agency_id.address&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+												&lt;/td&gt;
+											&lt;/tr&gt;
+										&lt;/tbody&gt;
+									&lt;/table&gt;
+									&lt;div&gt;
+										&lt;span style="font-size:8px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; BOLLO DELL&amp;#39;UFFICIO POSTALE&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr class="tr"&gt;
+				&lt;td&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&amp;nbsp;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</main></compiled></data>
+<authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
+<private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" as="t0_quicklist"></quicklist>
+<flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_print</flags>
+<required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
+<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>

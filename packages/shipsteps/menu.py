@@ -72,6 +72,7 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Operations SOF", table="shipsteps.sof_operations", tags="")
             shipsteps.thpage(u"!![en]Staff", table="shipsteps.staff", tags="")
             shipsteps.thpage(u"!![en]Task list", table="shipsteps.tasklist", tags="")
+            shipsteps.thpage(u"!![en]Tributes", table="shipsteps.tributi_cp", tags="")
             shipsteps.thpage(u"!![en]Vessel details", table="shipsteps.vessel_details", tags="")
             shipsteps.thpage(u"!![en]Vessel services", table="shipsteps.vessel_services", tags="")
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
