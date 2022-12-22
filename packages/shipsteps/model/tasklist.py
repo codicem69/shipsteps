@@ -14,7 +14,7 @@ class Table(object):
         tbl.column('modulo_nave', dtype='B', name_short='!![en]Vessel Module')
         tbl.column('tab_servizi', dtype='B', name_short='!![en]Services table')
         tbl.column('front_carico', dtype='B', name_short='!![en]Cargo Frontispiece')
-        tbl.column('tributi_cp', dtype='B', name_short='!![en]Tributi CP')
+        #tbl.column('tributi_cp', dtype='B', name_short='!![en]Tributi CP')
         tbl.column('email_ship_rec', dtype='B', name_short='!![en]Email Shipper/Receivers')
         tbl.column('email_dogana', dtype='B', name_short='!![en]Email Custom GdF')
         tbl.column('email_frontiera', dtype='B', name_short='!![en]Email Immigration')

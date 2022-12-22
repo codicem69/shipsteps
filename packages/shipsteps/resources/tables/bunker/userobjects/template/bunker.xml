@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-05-12T16:42:50.915851+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-13T12:31:55.818578+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-05-20T16:45:13.446485+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-12-22T15:57:21.741741+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.bunkertemplatebunker</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">bunker</code>
@@ -12,7 +12,7 @@
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Bunker Application</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;margin-top:15px;width:100%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:100%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;border:1px solid" width="180px"&gt;
@@ -32,7 +32,7 @@
 &lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
@@ -54,7 +54,7 @@
 	&lt;/table&gt;
 &lt;/div&gt;
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@bunker_righe" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@bunker_righe" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td colspan="1" style="text-align: center;"&gt;
@@ -87,7 +87,7 @@
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;div style="text-align: justify;"&gt;
-		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td width="225px"&gt;
@@ -107,7 +107,7 @@
 				&lt;/tr&gt;
 			&lt;/tbody&gt;
 		&lt;/table&gt;
-		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td width="200px"&gt;
@@ -123,7 +123,7 @@
 		&lt;/table&gt;
 		&lt;div style="text-align: center;"&gt;
 			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;MEDIANTE&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td width="270px"&gt;
@@ -138,9 +138,9 @@
 			&lt;/tbody&gt;
 		&lt;/table&gt;
 		&lt;div&gt;
-			&amp;nbsp;&amp;nbsp; &lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del registro istituito da codesta Capitaneria di Porto ai sensi dell&amp;#39;articolo 68 del Codice della Navigazione e che trasportano combustibile proveniente &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del registro istituito da codesta Capitaneria di Porto ai sensi dell&amp;#39;articolo 68 del Codice della Navigazione e che trasportano combustibile proveniente &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 				&lt;tbody&gt;
 					&lt;tr&gt;
 						&lt;td width="50px"&gt;
@@ -154,19 +154,19 @@
 					&lt;/tr&gt;
 				&lt;/tbody&gt;
 			&lt;/table&gt;
-			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; del Registro delle imprese autorizzate ad effettuare operazioni di bunkeraggio tenuto da codesta Capitaneria di Porto ai sensi del D.lgs. 205/2007&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; del Registro delle imprese autorizzate ad effettuare operazioni di bunkeraggio tenuto da codesta Capitaneria di Porto ai sensi del D.lgs. 205/2007&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div style="text-align: center;"&gt;
 			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DICHIARA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; - di essere a conoscenza delle norme contenute nel &amp;ldquo;Regolamento per le operazioni di rifornimento di combustibili liquidi ed oli lubrificanti nel &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; - di essere a conoscenza delle norme contenute nel &amp;ldquo;Regolamento per le operazioni di rifornimento di combustibili liquidi ed oli lubrificanti nel &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; porto di Ortona&amp;rdquo;;&lt;br /&gt;
-			&amp;nbsp;&amp;nbsp;&amp;nbsp; - che osserver&amp;agrave; le eventuali misure aggiuntive di sicurezza che codesto Comando riterr&amp;agrave; opportuno prescrivere nell&amp;#39;atto di autorizzazione;&lt;br /&gt;
-			&amp;nbsp;&amp;nbsp;&amp;nbsp; - che i mezzi antincendio di bordo sono in perfette condizioni e pronti all&amp;#39;impiego mediante personale facente parte dell&amp;#39;equipaggio e&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &amp;nbsp;&amp;nbsp; porto di Ortona&amp;rdquo;;&lt;br /&gt;
+			&amp;nbsp;&amp;nbsp; &amp;nbsp;&amp;nbsp; - che osserver&amp;agrave; le eventuali misure aggiuntive di sicurezza che codesto Comando riterr&amp;agrave; opportuno prescrivere nell&amp;#39;atto di autorizzazione;&lt;br /&gt;
+			&amp;nbsp; &amp;nbsp; &amp;nbsp; - che i mezzi antincendio di bordo sono in perfette condizioni e pronti all&amp;#39;impiego mediante personale facente parte dell&amp;#39;equipaggio e&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; munito dei certificati prescritti dalla STCW in materia antincendio.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; munito dei certificati prescritti dalla STCW in materia antincendio.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;/div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td width="50px"&gt;
@@ -192,7 +192,7 @@
 	&lt;/table&gt;
 &lt;/div&gt;
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td class="td_bord_top" colspan="4" style="text-align: center;"&gt;
@@ -223,13 +223,13 @@
 	&lt;div style="text-align: center;"&gt;
 		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DICHIARA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; di essere a conoscenza delle norme che disciplinano il bunkeraggio nel Porto di Ortona e di assoggettarsi e uniformarsi alle prescrizioni contenute&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; di essere a conoscenza delle norme che disciplinano il bunkeraggio nel Porto di Ortona e di assoggettarsi e uniformarsi alle prescrizioni contenute&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp; nel regolamento;&lt;br /&gt;
-		&amp;nbsp;&amp;nbsp;&amp;nbsp; Che le autobotti saranno impiegate secondo il seguente programma:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp; &amp;nbsp;&amp;nbsp; nel regolamento;&lt;br /&gt;
+		&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Che le autobotti saranno impiegate secondo il seguente programma:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;"&gt;
@@ -246,14 +246,14 @@
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:10px;"&gt;&amp;nbsp;&amp;nbsp; &lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Che il prodotto da consegnare &amp;egrave; conforme a quanto dichiarato nella presente istanza;&lt;br /&gt;
-		&amp;nbsp;&amp;nbsp; Che il personale autista &amp;egrave; regolarmente assunto alle nostre dipendenze/alle dipendenze della ditta che effettua il trasporto ed &amp;egrave; munito di tutti i requisiti &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:10px;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Che il prodotto da consegnare &amp;egrave; conforme a quanto dichiarato nella presente istanza;&lt;br /&gt;
+		&amp;nbsp; &amp;nbsp; &amp;nbsp; Che il personale autista &amp;egrave; regolarmente assunto alle nostre dipendenze/alle dipendenze della ditta che effettua il trasporto ed &amp;egrave; munito di tutti i requisiti &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp; relativi alla condotta del mezzo impiegato per il rifornimento nonch&amp;eacute; &amp;egrave; stato indottrinato circa i contenuti del &amp;ldquo;Regolamento per le operazioni di &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; relativi alla condotta del mezzo impiegato per il rifornimento nonch&amp;eacute; &amp;egrave; stato indottrinato circa i contenuti del &amp;ldquo;Regolamento per le operazioni di &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp; rifornimento di combustibili liquidi ed oli lubrificanti nel Porto di Ortona&amp;rdquo;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; rifornimento di combustibili liquidi ed oli lubrificanti nel Porto di Ortona&amp;rdquo;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td width="350px"&gt;
@@ -676,6 +676,14 @@
 }
 .td_bord_top{
   border-top: 1px solid black;
+}
+td {
+  line-height: 0.8;
+  position: relative;
+}
+div  {
+  line-height: 0.8;
+  position: relative;
 }</content_css>
 <compiled><_bunker_righe _tag="@bunker_righe">&lt;tr&gt;
 				&lt;td colspan="1" style="text-align: center;"&gt;
@@ -695,8 +703,16 @@
 }
 .td_bord_top{
   border-top: 1px solid black;
+}
+td {
+  line-height: 0.8;
+  position: relative;
+}
+div  {
+  line-height: 0.8;
+  position: relative;
 }&lt;/style&gt;&lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;margin-top:15px;width:100%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:100%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;border:1px solid" width="180px"&gt;
@@ -717,7 +733,7 @@
 
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160; &lt;/span&gt;&lt;/span&gt;&lt;br&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
@@ -740,7 +756,7 @@
 &lt;/div&gt;
 
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@bunker_righe" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@bunker_righe" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td colspan="1" style="text-align: center;"&gt;
@@ -763,7 +779,7 @@ $@bunker_righe
 &lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;div style="text-align: justify;"&gt;
-		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td width="225px"&gt;
@@ -783,7 +799,7 @@ $@bunker_righe
 				&lt;/tr&gt;
 			&lt;/tbody&gt;
 		&lt;/table&gt;
-		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td width="200px"&gt;
@@ -799,7 +815,7 @@ $@bunker_righe
 		&lt;/table&gt;
 		&lt;div style="text-align: center;"&gt;
 			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;MEDIANTE&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td width="270px"&gt;
@@ -814,9 +830,9 @@ $@bunker_righe
 			&lt;/tbody&gt;
 		&lt;/table&gt;
 		&lt;div&gt;
-			&amp;#160;&amp;#160; &lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del registro istituito da codesta Capitaneria di Porto ai sensi dell'articolo 68 del Codice della Navigazione e che trasportano combustibile proveniente &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; &lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;del registro istituito da codesta Capitaneria di Porto ai sensi dell'articolo 68 del Codice della Navigazione e che trasportano combustibile proveniente &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+			&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 				&lt;tbody&gt;
 					&lt;tr&gt;
 						&lt;td width="50px"&gt;
@@ -830,19 +846,19 @@ $@bunker_righe
 					&lt;/tr&gt;
 				&lt;/tbody&gt;
 			&lt;/table&gt;
-			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160; del Registro delle imprese autorizzate ad effettuare operazioni di bunkeraggio tenuto da codesta Capitaneria di Porto ai sensi del D.lgs. 205/2007&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; del Registro delle imprese autorizzate ad effettuare operazioni di bunkeraggio tenuto da codesta Capitaneria di Porto ai sensi del D.lgs. 205/2007&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div style="text-align: center;"&gt;
 			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DICHIARA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160; - di essere a conoscenza delle norme contenute nel &amp;#8220;Regolamento per le operazioni di rifornimento di combustibili liquidi ed oli lubrificanti nel &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; - di essere a conoscenza delle norme contenute nel &amp;#8220;Regolamento per le operazioni di rifornimento di combustibili liquidi ed oli lubrificanti nel &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; porto di Ortona&amp;#8221;;&lt;br&gt;
-			&amp;#160;&amp;#160;&amp;#160; - che osserver&amp;#224; le eventuali misure aggiuntive di sicurezza che codesto Comando riterr&amp;#224; opportuno prescrivere nell'atto di autorizzazione;&lt;br&gt;
-			&amp;#160;&amp;#160;&amp;#160; - che i mezzi antincendio di bordo sono in perfette condizioni e pronti all'impiego mediante personale facente parte dell'equipaggio e&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160; &amp;#160;&amp;#160; porto di Ortona&amp;#8221;;&lt;br&gt;
+			&amp;#160;&amp;#160; &amp;#160;&amp;#160; - che osserver&amp;#224; le eventuali misure aggiuntive di sicurezza che codesto Comando riterr&amp;#224; opportuno prescrivere nell'atto di autorizzazione;&lt;br&gt;
+			&amp;#160; &amp;#160; &amp;#160; - che i mezzi antincendio di bordo sono in perfette condizioni e pronti all'impiego mediante personale facente parte dell'equipaggio e&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;div&gt;
-			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; munito dei certificati prescritti dalla STCW in materia antincendio.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; munito dei certificati prescritti dalla STCW in materia antincendio.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;/div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td width="50px"&gt;
@@ -869,7 +885,7 @@ $@bunker_righe
 &lt;/div&gt;
 
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td class="td_bord_top" colspan="4" style="text-align: center;"&gt;
@@ -900,14 +916,14 @@ $@bunker_righe
 	&lt;div style="text-align: center;"&gt;
 		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DICHIARA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160; di essere a conoscenza delle norme che disciplinano il bunkeraggio nel Porto di Ortona e di assoggettarsi e uniformarsi alle prescrizioni contenute&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; di essere a conoscenza delle norme che disciplinano il bunkeraggio nel Porto di Ortona e di assoggettarsi e uniformarsi alle prescrizioni contenute&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160; nel regolamento;&lt;br&gt;
-		&amp;#160;&amp;#160;&amp;#160; Che le autobotti saranno impiegate secondo il seguente programma:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160; &amp;#160;&amp;#160; nel regolamento;&lt;br&gt;
+		&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; Che le autobotti saranno impiegate secondo il seguente programma:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;"&gt;
@@ -924,14 +940,14 @@ $@bunker_righe
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:10px;"&gt;&amp;#160;&amp;#160; &lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Che il prodotto da consegnare &amp;#232; conforme a quanto dichiarato nella presente istanza;&lt;br&gt;
-		&amp;#160;&amp;#160; Che il personale autista &amp;#232; regolarmente assunto alle nostre dipendenze/alle dipendenze della ditta che effettua il trasporto ed &amp;#232; munito di tutti i requisiti &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:10px;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; &lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Che il prodotto da consegnare &amp;#232; conforme a quanto dichiarato nella presente istanza;&lt;br&gt;
+		&amp;#160; &amp;#160; &amp;#160; Che il personale autista &amp;#232; regolarmente assunto alle nostre dipendenze/alle dipendenze della ditta che effettua il trasporto ed &amp;#232; munito di tutti i requisiti &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160; relativi alla condotta del mezzo impiegato per il rifornimento nonch&amp;#233; &amp;#232; stato indottrinato circa i contenuti del &amp;#8220;Regolamento per le operazioni di &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160; &amp;#160; &amp;#160; relativi alla condotta del mezzo impiegato per il rifornimento nonch&amp;#233; &amp;#232; stato indottrinato circa i contenuti del &amp;#8220;Regolamento per le operazioni di &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160; rifornimento di combustibili liquidi ed oli lubrificanti nel Porto di Ortona&amp;#8221;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; rifornimento di combustibili liquidi ed oli lubrificanti nel Porto di Ortona&amp;#8221;.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;width:98%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td width="350px"&gt;

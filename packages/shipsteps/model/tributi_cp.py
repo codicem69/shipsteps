@@ -12,4 +12,5 @@ class Table(object):
         tbl.column('causale', name_short='!![en]Reason',values='Capo XV Capitolo 2170 Tabella "D" tributi speciali')
         tbl.column('importo', dtype='N', name_short='!![en]Amount', format='#,###.00')
         tbl.column('imp_lettere', name_short='!![en]Amount letter')
+        tbl.column('emesso', dtype='B', name_short='!![en]Issued')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')

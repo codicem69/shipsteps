@@ -4,7 +4,7 @@ class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('sof_operations', pkey='id', name_long='!![en]Operation SOF', name_plural='!![en]Operations SOF',
                                         caption_field='id', partition_agency_id='agency_id', order_by='_row_count')
-        self.sysFields(tbl, counter=True)
+        self.sysFields(tbl, counter='sof_id')
 
         tbl.column('sof_id',size='22', name_long='sof_id'
                     ).relation('sof.id', relation_name='sof_operations', mode='foreignkey', onDelete='cascade')

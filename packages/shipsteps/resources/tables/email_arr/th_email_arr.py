@@ -30,6 +30,8 @@ class ViewFromEmailArrival(BaseComponent):
         r.fieldcell('email',  edit=dict(validate_notnull=True), width='20em')
         r.fieldcell('email_type', edit=dict(validate_notnull=True))
 
+    def th_options(self):
+        return dict(grid_selfDragRows=True)
 
 class Form(BaseComponent):
 

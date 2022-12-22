@@ -35,6 +35,9 @@ class ViewFromSofEmail(BaseComponent):
     def th_order(self):
         return '_row_count'
 
+    def th_options(self):
+        return dict(grid_selfDragRows=True)
+
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,copia_email,10,batchAssign')
         btn_copia_email=bar.copia_email.button('Copia Email')
