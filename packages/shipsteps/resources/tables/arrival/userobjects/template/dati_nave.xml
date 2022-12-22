@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-10-06T09:01:49.020724+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-10-06T09:20:12.883140+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-12-22T16:53:18.173174+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatedati_nave</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">dati_nave</code>
@@ -17,6 +17,10 @@
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;${&lt;em&gt;IMO:&lt;/em&gt; &lt;strong&gt;$imo&lt;/strong&gt;}${ &lt;em&gt;- MMSI:&lt;/em&gt; &lt;strong&gt;$mmsi&lt;/strong&gt;}${ &lt;em&gt;- CALL SIGN:&lt;/em&gt; &lt;strong&gt;$callsign&lt;/strong&gt;}&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	${&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;LOA:&lt;/em&gt; &lt;strong&gt;$loa}&lt;/strong&gt;${ -&lt;em&gt; BEAM:&lt;/em&gt; &lt;strong&gt;$beam&lt;/strong&gt;}&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
@@ -250,6 +254,10 @@
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;${&lt;em&gt;IMO:&lt;/em&gt; &lt;strong&gt;$@vessel_details_id.@imbarcazione_id.imo&lt;/strong&gt;}${ &lt;em&gt;- MMSI:&lt;/em&gt; &lt;strong&gt;$@vessel_details_id.@imbarcazione_id.@vessel_details.mmsi&lt;/strong&gt;}${ &lt;em&gt;- CALL SIGN:&lt;/em&gt; &lt;strong&gt;$@vessel_details_id.@imbarcazione_id.@vessel_details.callsign&lt;/strong&gt;}&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	${&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;LOA:&lt;/em&gt; &lt;strong&gt;$@vessel_details_id.@imbarcazione_id.loa}&lt;/strong&gt;${ -&lt;em&gt; BEAM:&lt;/em&gt; &lt;strong&gt;$@vessel_details_id.@imbarcazione_id.@vessel_details.beam&lt;/strong&gt;}&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
