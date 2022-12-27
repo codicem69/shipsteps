@@ -75,7 +75,7 @@ class View(BaseComponent):
         return dict(column='reference_num', op='contains', val='', runOnStart=True)
 
     def th_options(self):
-        return dict(view_preview_tpl='dati_nave')
+        return dict(view_preview_tpl='dati_nave', delrow=False)
 
 class Form(BaseComponent):
     
@@ -278,7 +278,7 @@ class Form(BaseComponent):
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly=True)
         fb.field('date')
-        fb.field('vessel_details_id',validate_notnull=True )
+        fb.field('vessel_details_id',validate_notnull=True) 
         fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome',order_by='$data DESC')
         fb.field('visit_id')
 
@@ -336,6 +336,7 @@ class Form(BaseComponent):
 
    #def datiCaricoBordo(self,frame):
    #    frame.simpleTextArea(title='!![en]Cargo on board',value='^.cargo_onboard',editor=True,validate_notnull=True)
+
     def datiCaricoBordo(self,bc):
         center = bc.roundedGroup(title='!![en]Cargo on board', region='center', height = '100%').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=3, border_spacing='4px')
@@ -2579,7 +2580,7 @@ class Form(BaseComponent):
 
     
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px')
+        return dict(dialog_height='400px', dialog_width='600px', delrow=False)
    
     
     
