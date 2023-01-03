@@ -75,7 +75,8 @@ class View(BaseComponent):
         return dict(column='reference_num', op='contains', val='', runOnStart=True)
 
     def th_options(self):
-        if 'admin' in self.db.currentEnv.get('userTags') or 'superadmin' in self.db.currentEnv.get('userTags') or '_DEV_' in self.db.currentEnv.get('userTags'):
+        usertags = self.db.currentEnv.get('userTags')
+        if 'admin' in usertags or 'superadmin' in usertags or '_DEV_' in usertags:
             del_row = True
         else:
             del_row = False
