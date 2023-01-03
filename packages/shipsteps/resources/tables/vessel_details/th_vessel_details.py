@@ -74,7 +74,7 @@ class Form(BaseComponent):
 
     def vesselName(self, bc):
        
-        bc.contentPane(region='left', width='20%').linkerBox('imbarcazione_id',label='Vessel name',margin='2px',openIfEmpty=True, validate_notnull=True,
+        bc.contentPane(region='left', width='15%').linkerBox('imbarcazione_id',label='Vessel name',margin='2px',openIfEmpty=True, validate_notnull=True,
                                                     columns='$nome',
                                                     auxColumns='$tipo,$bandiera,$imo',
                                                     newRecordOnly=False,formResource='Form',
@@ -82,7 +82,7 @@ class Form(BaseComponent):
         center= bc.roundedGroup(region='center',title='Vessel Details').div(margin='10px',margin_right='20px')
         fb = center.formbuilder(cols=2, border_spacing='4px')        
         fb.field('owner_id',lbl='Owner',auxColumns='$own_name',
-                        hasDownArrow=True, width='40em', colspan='2')
+                        hasDownArrow=True, width='100%', colspan=2)
         fb.br()
         #fb.field('imo', width='20em' )
         fb.field('callsign', width='10em' )
@@ -98,8 +98,8 @@ class Form(BaseComponent):
         fb.br()
         fb.field('n_eliche_poppa', width='5em' )
         fb.field('n_eliche_prua', width='5em' )
-        fb.field('ex_name', width='40em',colspan=2 )
-        fb.field('type',width='40em',colspan=2, values="Portarinfuse liquide,Portarinfuse secche,Portacontainer,Trasp. specializzato,Nave per Merci varie,Nave per Passeggeri,Navi da crociera,Attività Off Shore,Chiatta carichi secchi,Altre navi", tag='filteringSelect')
+        fb.field('ex_name', width='100%',colspan=2 )
+        fb.field('type',width='100%',colspan=2, values="Portarinfuse liquide,Portarinfuse secche,Portacontainer,Trasp. specializzato,Nave per Merci varie,Nave per Passeggeri,Navi da crociera,Attività Off Shore,Chiatta carichi secchi,Altre navi", tag='filteringSelect')
       
 
         right = bc.roundedGroup(region='right',title='Vessel Immagine',width='600px')
