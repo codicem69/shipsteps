@@ -15,7 +15,7 @@ import subprocess #per apertura file tramite programma di sistema
 
 
 class View(BaseComponent):
-
+    
     def th_struct(self,struct):
         r = struct.view().rows()
         arrival = r.columnset('colset_arrival', name='Arrival', color='white',background='DarkSlateBlue', font_weight='bold')
@@ -75,8 +75,14 @@ class View(BaseComponent):
         return dict(column='reference_num', op='contains', val='', runOnStart=True)
 
     def th_options(self):
-        return dict(view_preview_tpl='dati_nave', delrow=False)
+        if 'admin' in self.db.currentEnv.get('userTags') or 'superadmin' in self.db.currentEnv.get('userTags') or '_DEV_' in self.db.currentEnv.get('userTags'):
+            del_row = True
+        else:
+            del_row = False
 
+        return dict(view_preview_tpl='dati_nave', delrow=del_row)
+
+        
 class Form(BaseComponent):
     
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
@@ -2580,7 +2586,7 @@ class Form(BaseComponent):
 
     
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px', delrow=False)
+        return dict(dialog_height='400px', dialog_width='600px')
    
     
     
