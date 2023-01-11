@@ -21,7 +21,7 @@ class Table(object):
     def counter_prot_n(self,record=None):
         #2021/000001
         tbl_agency = self.db.table('shipsteps.agency')
-        codice = tbl_agency.readColumns(columns='$code', where = '$id =:ag_id', ag_id=record['agency_id'])
+        codice = tbl_agency.readColumns(columns='$code', where = '$id =:ag_id', ag_id=self.db.currentEnv.get('current_agency_id'))
         
         return dict(format='$K$YY/$NNN',code=codice,  period='YY', date_field='data', showOnLoad=True, date_tolerant=True)
        
