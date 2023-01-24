@@ -54,7 +54,7 @@ class Form(BaseComponent):
         center = bc.roundedGroup(region='center', title='Agency details').div(margin='10px',margin_right='20px')
         #center= bc.contentPane(region='center',title='Virtual stamp description').div(margin='10px',margin_right='20px')
                
-        fb = center.formbuilder(cols=2, border_spacing='4px')
+        fb = center.formbuilder(cols=2, border_spacing='4px',fld_width='30em')
         fb.field('code', placeholder='Max 2 letters' )
         fb.field('agency_name' )
         fb.field('description' )
@@ -77,13 +77,13 @@ class Form(BaseComponent):
         fb.field('emailpec_account_id', hasDownArrow=True )
 
         fb.field('port' ,colspan=2)
-
-        right = bc.roundedGroup(region='right',title='!![en]Agency stamp',width='20%')
+        fb.br()
+        right = bc.roundedGroup(region='right',title='!![en]Agency stamp',width='400px')
         #right = bc.roundedGroup(region='right',title='!![en]Agency stamp', width='20%', height='100%', margin='10px',margin_right='20px')
         #cp=right.contentPane()
-        right.img(src='^.agency_stamp', edit=True, crop_width='100px', crop_height='100px', 
-                        placeholder=True, upload_folder='site:image', upload_filename='=.id')
-        right.button('!![en]Remove image', hidden='^.agency_stamp?=!#v').dataRpc(self.deleteImage, image='=.agency_stamp')
+        right.img(src='^.agency_stamp', edit=True, crop_width='100px', crop_height='100px', border='2px dotted silver',
+                        placeholder=True, upload_folder='site:image', upload_filename='=.id', width='100px', height='100px')
+        #right.button('!![en]Remove image', hidden='^.agency_stamp?=!#v').dataRpc(self.deleteImage, image='=.agency_stamp')
 
    #def BolloVirtuale(self,frame):
    #    frame.simpleTextArea(title='Virtual stamp',value='^.virtual_stamp',editor=True)
@@ -91,8 +91,8 @@ class Form(BaseComponent):
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
 
-    @public_method
-    def deleteImage(self, image=None, **kwargs):
-        image_path = self.sitepath + re.sub('/_storage/site', '',image).split('?',1)[0]
-        os.remove(image_path)
-        self.setInClientData(value=None, path='shipsteps_staff.form.record.agency_stamp')
+    #@public_method
+    #def deleteImage(self, image=None, **kwargs):
+    #    image_path = self.sitepath + re.sub('/_storage/site', '',image).split('?',1)[0]
+    #    os.remove(image_path)
+    #    self.setInClientData(value=None, path='shipsteps_staff.form.record.agency_stamp')

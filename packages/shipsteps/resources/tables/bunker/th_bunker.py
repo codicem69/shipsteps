@@ -137,12 +137,12 @@ class FormFromBunker(BaseComponent):
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',
-                                 cols=4,popup=True,colspan=2)])) 
+                                 cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')])) 
         else:
             btn_bunker_email.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
                                 nome_template = 'shipsteps.bunker:bunker',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',
-                                 cols=4,popup=True,colspan=2)]))
+                                 cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]))
         btn_bunker_emailtrasp.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['trasportatore'], email_template_id='email_bunker_transp',
                             nome_template = 'shipsteps.bunker:bunker_transp',format_page='A4')
         #verifichiamo quanti servizi Antifire ci sono, nel caso più di uno apparirà la dbSelect per la scelta
@@ -216,6 +216,13 @@ class FormFromBunker(BaseComponent):
         if not record:
             return
 
+        #leggiamo nei kwargs la tipologia dell'allegato se zip oppure non compresso
+        type_atc = None
+        for chiavi in kwargs.keys():    
+            if chiavi=='type_atc':
+                if kwargs['type_atc']:
+                    type_atc=kwargs['type_atc']  
+
         #lettura degli attachment
         attcmt=[]
         attcmt_name=[]
@@ -276,7 +283,12 @@ class FormFromBunker(BaseComponent):
         
         
       
-            attcmt=archive.filename
+            if type_atc == 'zip':
+                attcmt=archive.filename
+            elif type_atc == 'unzip':
+                attcmt
+            else:
+                attcmt=archive.filename  
            #if r < (ln-1):
            #    attcmt = attcmt + fileSn.internal_path + ','
            #else:

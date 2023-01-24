@@ -144,6 +144,7 @@ class Form(BaseComponent):
         tc_app.contentPane(title='!![en]Bulk Application',pageName='bulk_application').remote(self.rinfusaLazyMode)
         #self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
         tc_app.contentPane(title='!![en]Bunker Application',pageName='bunker_application').remote(self.bunkerLazyMode)
+        tc_app.contentPane(title='!![en]Certificates Application',pageName='certificates_application').remote(self.certificateLazyMode)
         
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
@@ -1527,6 +1528,10 @@ class Form(BaseComponent):
 
     def bunker(self, pane):   
         pane.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker')
+
+    @public_method
+    def certificateLazyMode(self,pane):
+        pane.stackTableHandler(relation='@istanza_cert_arr',formResource='FormFromCertificates',view_store__onBuilt=True)
 
     @public_method
     def email_services(self,record,email_template_id=None,servizio=[],nome_temp=None,**kwargs):
