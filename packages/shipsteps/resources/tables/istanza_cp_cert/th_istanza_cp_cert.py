@@ -80,7 +80,7 @@ class FormFromCertificates(BaseComponent):
         fb.field('navigazione', placeholder='Tipo di navigazione abilitata', colspan=2, width='100%')
         fb.field('servizio',colspan=2 , width='100%')
         fb.radioButtonText(value='^.motivo_istanza', values='Rilascio:Rilascio,Rinnovo:Rinnovo,convalida per visita periodica:Visita periodica, convalida per visita occasionale:Visita occasionale', 
-                           lbl='Cargo operations: ',validate_notnull=True, colspan=2, width='100%') 
+                           lbl='!![en]Reason for application: ',validate_notnull=True, colspan=2, width='100%') 
         fb.field('note', tag='simpleTextArea',editor=True, height='50px', colspan=2, width='100%', placeholder='inserire informazioni utili a riguardo del certificato/provvedimento richiesto')
         fb.div('ALLEGATI', font_weight='bold',colspan=2)
         fb.div("""Inserire ad esempio:<br>n.1 marca da bollo da € 16,00;<br>n.1 Attestazione di versamento di € xx,xx eseguito sul C/C 123456 Capo XV Capitolo 2170

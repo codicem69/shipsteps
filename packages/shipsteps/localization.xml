@@ -14,14 +14,15 @@
 <en_bill_of_lading base="Bill of lading"></en_bill_of_lading>
 <en_bulk_application base="Bulk application"></en_bulk_application>
 <en_bunker base="Bunker"></en_bunker>
-<en_certificati_sanimare base="Certificati sanimare"></en_certificati_sanimare>
 <en_cargoes_unloding_loading base="Cargoes unloding/loading" it="Carichi sbarco/imbarchi"></en_cargoes_unloding_loading>
 <en_charterers base="Charterers"></en_charterers>
 <en_extradatacp base="ExtradataCP"></en_extradatacp>
 <en_garbage_form base="Garbage form"></en_garbage_form>
+<en_harbour_master_certificates base="Harbour Master certificates"></en_harbour_master_certificates>
 <en_invoice_details base="Invoice details" it="Dettagli fattura"></en_invoice_details>
 <en_loading_cargo_docs base="Loading Cargo docs"></en_loading_cargo_docs>
 <en_owners base="Owners" it="Armatori"></en_owners>
+<en_sanimare_certificates base="Sanimare certificates"></en_sanimare_certificates>
 <en_shorepass base="Shorepass"></en_shorepass>
 <en_shorepass_righe base="Shorepass righe"></en_shorepass_righe>
 <en_operations_sof base="Operations SOF"></en_operations_sof>
@@ -190,7 +191,7 @@
 <en_cargo_total base="Cargo total" it="Totale carico"></en_cargo_total></cargo_unl_load>
 <certsanimare path="model/certsanimare.py" ext="py"><en_renew_certificate_sanimare base="Renew certificate Sanimare"></en_renew_certificate_sanimare>
 <en_renew_certificates_sanimare base="Renew certificates Sanimare"></en_renew_certificates_sanimare>
-<en_on_behalf base="On behalf"></en_on_behalf>
+<en_on_behalf base="On behalf" it="In qualità di / per conto di"></en_on_behalf>
 <en_agent_document base="Agent document" it="Documento Agente"></en_agent_document>
 <en_doc_no_ base="Doc. no."></en_doc_no_>
 <en_issued_by base="Issued by"></en_issued_by>
@@ -209,7 +210,7 @@
 <en_issue_narcotics_reg_nsis_code base="Issue Narcotics reg nsis code"></en_issue_narcotics_reg_nsis_code>
 <en_destroy_medicines base="Destroy medicines"></en_destroy_medicines>
 <en_destroy_medicines_nsis_code base="Destroy medicines nsis code"></en_destroy_medicines_nsis_code>
-<en_visit_date base="Visit date"></en_visit_date>
+<en_visit_date base="Visit date" it="Data visita"></en_visit_date>
 <en_application_date base="Application date"></en_application_date></certsanimare>
 <charterers path="model/charterers.py" ext="py"><en_charterers base="Charterers"></en_charterers>
 <en_name fr="Nom" de="Name" en="Name" it="Nome" base="Name"></en_name>
@@ -302,6 +303,16 @@
 <en_vat_number base="Vat number" it="Partita IVA"></en_vat_number>
 <en_fiscal_code base="Fiscal code" it="Codice fiscale"></en_fiscal_code>
 <en_unique_code base="Unique code" it="Codice univoco"></en_unique_code></invoice_det>
+<istanza_cp_cert path="model/istanza_cp_cert.py" ext="py"><en_visit_date base="Visit date" it="Data visita"></en_visit_date>
+<en_contact base="Contact" it="Contatto"></en_contact>
+<en_on_behalf base="On behalf" it="In qualità di / per conto di"></en_on_behalf>
+<en_class_registry base="Class registry"></en_class_registry>
+<en_certificate base="Certificate"></en_certificate>
+<en_navigation_type base="Navigation type"></en_navigation_type>
+<en_service base="Service" it="Servizio"></en_service>
+<en_reason_for_application base="Reason for application" it="Motivo dell'istanza"></en_reason_for_application>
+<en_notes fr="Remarques" de="Aufzeichnungen" en="Notes" it="Note" base="Notes"></en_notes>
+<en_attachments base="Attachments" de="Zubehör" en="Attachments" fr="Pièces jointes" it="Allegati"></en_attachments></istanza_cp_cert>
 <measure path="model/measure.py" ext="py"><en_description base="Description" en="Description" it="Descrizione"></en_description></measure>
 <owner path="model/owner.py" ext="py"><en_owner base="Owner" it="Armatore"></en_owner>
 <en_owners base="Owners" it="Armatori"></en_owners>
@@ -320,7 +331,7 @@
 <en_navigation base="Navigation" de="Navigation" en="Navigation" fr="Navigation" it="Navigazione"></en_navigation>
 <en_attached_docs base="Attached docs"></en_attached_docs></rinfusa>
 <rinfusa_atc path="model/rinfusa_atc.py" ext="py"><en_expire_date fr="Date D'Expiration" de="Ablaufdatum" en="Expire Date" it="Data Di Scadenza" base="Expire date"></en_expire_date></rinfusa_atc>
-<services path="model/services.py" ext="py"><en_service base="Service"></en_service>
+<services path="model/services.py" ext="py"><en_service base="Service" it="Servizio"></en_service>
 <en_services base="Services"></en_services>
 <en_service_description base="Service description"></en_service_description></services>
 <services_for_email path="model/services_for_email.py" ext="py"><en_service_for_email base="Service for email"></en_service_for_email>
@@ -362,7 +373,7 @@
 <en_receivers_shippers_remarks base="Receivers / Shippers Remarks"></en_receivers_shippers_remarks>
 <en_master_remarks base="Master Remarks"></en_master_remarks>
 <en_note_sof base="Note SOF"></en_note_sof>
-<en_on_behalf base="On behalf"></en_on_behalf>
+<en_on_behalf base="On behalf" it="In qualità di / per conto di"></en_on_behalf>
 <en_sof_header base="Sof header"></en_sof_header>
 <en_cargo_sof base="Cargo sof"></en_cargo_sof>
 <en_cargo_on_sof base="Cargo on sof"></en_cargo_on_sof>
@@ -494,6 +505,7 @@
 <en_tributes_hm base="Tributes HM" it="Tributi"></en_tributes_hm>
 <en_bulk_application base="Bulk Application"></en_bulk_application>
 <en_bunker_application base="Bunker Application"></en_bunker_application>
+<en_certificates_application base="Certificates Application"></en_certificates_application>
 <en_cargo base="Cargo" it="Carico"></en_cargo>
 <en_gpg base="GPG"></en_gpg>
 <en_cargo_onboard base="Cargo onboard" it="Carico a bordo"></en_cargo_onboard>
@@ -684,6 +696,7 @@
 <en_select_the_services_br_select_the_attachments_br_insert_the_safety_data_sheets_and_antifire_request_confirmation base="Select the services&lt;br&gt;Select the Attachments&lt;br&gt;Insert the safety data sheets and antifire request confirmation"></en_select_the_services_br_select_the_attachments_br_insert_the_safety_data_sheets_and_antifire_request_confirmation>
 <en_services base="Services"></en_services>
 <en_attachments base="Attachments" de="Zubehör" en="Attachments" fr="Pièces jointes" it="Allegati"></en_attachments>
+<en_type_atc base="Type atc"></en_type_atc>
 <en_select_the_attachments_br_insert_the_safety_data_sheets_and_antifire_request_confirmation base="Select the Attachments&lt;br&gt;Insert the safety data sheets and antifire request confirmation"></en_select_the_attachments_br_insert_the_safety_data_sheets_and_antifire_request_confirmation>
 <en_select_the_services base="Select the services"></en_select_the_services></th_bunker></bunker>
 <cargo_docs><th_cargo_docs path="resources/tables/cargo_docs/th_cargo_docs.py" ext="py"><en_loading_cargo_docs base="Loading Cargo docs"></en_loading_cargo_docs>
@@ -698,9 +711,15 @@
 <en_insert_the_emails_separate_by_commas base="Insert the emails separate by commas" it="Inserisci l'emails separate dalla virgola"></en_insert_the_emails_separate_by_commas></th_email_services></email_services>
 <email_sof><th_email_sof path="resources/tables/email_sof/th_email_sof.py" ext="py"><en_select_the_shiipers_receivers base="Select the Shiipers/Receivers"></en_select_the_shiipers_receivers>
 <en_shippers_receivers base="Shippers/Receivers"></en_shippers_receivers></th_email_sof></email_sof>
+<istanza_cp_cert><th_istanza_cp_cert path="resources/tables/istanza_cp_cert/th_istanza_cp_cert.py" ext="py"><en_reason_for_application_ base="Reason for application: " it="Motivo dell'istanza"></en_reason_for_application_>
+<en_attachments base="Attachments" de="Zubehör" en="Attachments" fr="Pièces jointes" it="Allegati"></en_attachments>
+<en_select_the_services base="Select the services"></en_select_the_services>
+<en_services base="Services"></en_services>
+<en_type_atc base="Type atc"></en_type_atc></th_istanza_cp_cert></istanza_cp_cert>
 <protocollo><th_protocollo path="resources/tables/protocollo/th_protocollo.py" ext="py"><en_arrival base="Arrival" it="Arrivo"></en_arrival></th_protocollo></protocollo>
 <rinfusa><th_rinfusa path="resources/tables/rinfusa/th_rinfusa.py" ext="py"><en_select_the_services base="Select the services"></en_select_the_services>
-<en_services base="Services"></en_services></th_rinfusa></rinfusa>
+<en_services base="Services"></en_services>
+<en_type_atc base="Type atc"></en_type_atc></th_rinfusa></rinfusa>
 <ship_doc><th_ship_doc path="resources/tables/ship_doc/th_ship_doc.py" ext="py"><en_insert_certificates base="Insert certificates"></en_insert_certificates></th_ship_doc></ship_doc>
 <shorepass><th_shorepass path="resources/tables/shorepass/th_shorepass.py" ext="py"><en_shorepass_details base="Shorepass details"></en_shorepass_details></th_shorepass></shorepass>
 <shorepass_righe><th_shorepass_righe path="resources/tables/shorepass_righe/th_shorepass_righe.py" ext="py"><en_importa_crew base="Importa crew"></en_importa_crew></th_shorepass_righe></shorepass_righe>
