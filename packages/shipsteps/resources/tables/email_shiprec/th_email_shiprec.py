@@ -39,6 +39,7 @@ class ViewFromEmailShiprec(BaseComponent):
     
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('#','#,importer')
+        
 class Form(BaseComponent):
 
     def th_form(self, form):

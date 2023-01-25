@@ -6,6 +6,7 @@ from gnr.core.gnrdecorator import public_method
 from gnr.core.gnrbag import Bag
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
+from gnr.core.gnrlang import GnrException
 
 class View(BaseComponent):
 
@@ -108,14 +109,20 @@ class ViewFromShorepassRighe(BaseComponent):
 
         for row in reader():
             if row['nationality']: 
+                if len(row['nationality']) > 2:
+                    raise GnrException('Nationality unlocode max 2 letters')
                 paese_id = paesi.get(row['nationality']).get('code') 
             else: 
                 paese_id = None 
             if row['birth_country']:
+                if len(row['birth_country']) > 2:
+                    raise GnrException('Birth Country unlocode max 2 letters')
                 birthcountry = paesi.get(row['birth_country']).get('code')
             else:
                 birthcountry = None
             if row['doc_state']:
+                if len(row['doc_state']) > 2:
+                    raise GnrException('Doc. State unlocode max 2 letters')
                 stateid = paesi.get(row['doc_state']).get('code')
             else:
                 stateid = None
