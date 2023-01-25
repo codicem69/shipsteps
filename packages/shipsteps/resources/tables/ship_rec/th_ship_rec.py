@@ -44,7 +44,7 @@ class Form(BaseComponent):
         fb.field('city' )
 
     def emailShiprec(self,pane):
-        pane.inlineTableHandler(title='Email Shippers Receivers', relation='@email_shiprec',viewResource='ViewFromEmailShiprec')
+        pane.inlineTableHandler(title='Email Shippers Receivers', relation='@email_shiprec',viewResource='ViewFromEmailShiprec',export=True, xls_importer=True)
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )

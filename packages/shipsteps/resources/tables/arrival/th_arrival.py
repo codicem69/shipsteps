@@ -75,6 +75,7 @@ class View(BaseComponent):
         return dict(column='reference_num', op='contains', val='', runOnStart=True)
 
     def th_options(self):
+        #se l'utente connesso ha i privilegi di admin/superadmin/sviluppatore visualizzerà il tasto - per la cancellazione del record
         usertags = self.db.currentEnv.get('userTags')
         if 'admin' in usertags or 'superadmin' in usertags or '_DEV_' in usertags:
             del_row = True

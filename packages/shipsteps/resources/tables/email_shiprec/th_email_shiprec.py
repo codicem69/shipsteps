@@ -36,7 +36,9 @@ class ViewFromEmailShiprec(BaseComponent):
         
     def th_query(self):
         return dict(column='_row_count', op='contains', val='')
-
+    
+    def th_view(self,view):
+        bar = view.top.bar.replaceSlots('#','#,importer')
 class Form(BaseComponent):
 
     def th_form(self, form):
