@@ -561,7 +561,6 @@ class Form(BaseComponent):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
    #def sof_cargo(self,pane):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
-    
 
     def taskList(self, bc_tasklist):
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%').div(margin='10px',margin_left='2px')

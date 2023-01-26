@@ -5,6 +5,7 @@ class Menu(object):
 
         if user != 'admin':
             shipsteps = root.branch(u"shipsteps", tags="")
+            shipsteps.thpage(u"!![en]Send Pre-Arrivals", table="shipsteps.prearrivals", tags="")
             shipsteps.thpage(u"!![en]Arrivals", table="shipsteps.arrival", tags="")
             shipsteps.thpage(u"!![en]Vessel details", table="shipsteps.vessel_details", tags="")
             #shipsteps.thpage(u"!!Messages", table="email.message", tags="")
@@ -14,6 +15,7 @@ class Menu(object):
             shipsteps.webpage("!![en]Shippers/Receivers/Charterers", filepath="/shipsteps/cruscotto")
             shipsteps.thpage(u"!![en]Folder", table="shipsteps.faldone", tags="")
             shipsteps.thpage(u"!![en]Arrival logs", table="shipsteps.protocollo", tags="")
+            shipsteps.thpage(u"!![en]Pre-Arrivals files", table="shipsteps.prearrivals_default",formResource='FormFromPrearrival_df', tags="")
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")
             email = root.branch(u"!![en]Email", tags="")
@@ -61,10 +63,12 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Loading Cargo docs", table="shipsteps.cargo_docs", tags="")
             shipsteps.thpage(u"!![en]Owners", table="shipsteps.owner", tags="")
             shipsteps.thpage(u"!![en]Sanimare certificates", table="shipsteps.certsanimare", tags="")
+            shipsteps.thpage(u"!![en]Send Pre-Arrivals", table="shipsteps.prearrivals", tags="")
             shipsteps.thpage(u"!![en]Services emails", table="shipsteps.email_services", tags="")
             shipsteps.thpage(u"Shipdocs", table="shipsteps.shipdoc", tags="")
             shipsteps.thpage(u"Shippers-Receivers", table="shipsteps.ship_rec", tags="")
             shipsteps.webpage("!![en]Shippers/Receivers/Charterers", filepath="/shipsteps/cruscotto")
+            shipsteps.thpage(u"!![en]Pre-Arrivals files", table="shipsteps.prearrivals_default",formResource='FormFromPrearrival_df', tags="")
             shipsteps.thpage(u"!![en]Shorepass", table="shipsteps.shorepass", tags="")
             shipsteps.thpage(u"!![en]Shorepass righe", table="shipsteps.shorepass_righe", tags="")
             shipsteps.thpage(u"sof", table="shipsteps.sof", tags="")

@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><menu path="menu.py" ext="py"><en_arrivals base="Arrivals" it="Arrivi"></en_arrivals>
+<GenRoBag><menu path="menu.py" ext="py"><en_send_pre_arrivals base="Send Pre-Arrivals" it="Invio Pre-Arrivals"></en_send_pre_arrivals>
+<en_arrivals base="Arrivals" it="Arrivi"></en_arrivals>
 <en_vessel_details base="Vessel details"></en_vessel_details>
 <en_messages fr="Messages" de="Nachrichten" en="Messages" it="Messaggi" base="Messages"></en_messages>
 <en_services_emails base="Services emails"></en_services_emails>
@@ -8,6 +9,7 @@
 <en_shippers_receivers_charterers base="Shippers/Receivers/Charterers"></en_shippers_receivers_charterers>
 <en_folder base="Folder"></en_folder>
 <en_arrival_logs base="Arrival logs"></en_arrival_logs>
+<en_pre_arrivals_files base="Pre-Arrivals files"></en_pre_arrivals_files>
 <en_email fr="Email" de="E-Mail-" en="Email" it="Email" base="Email"></en_email>
 <en_arrival_details base="Arrival details"></en_arrival_details>
 <en_arrival_times base="arrival times"></en_arrival_times>
@@ -318,6 +320,22 @@
 <en_owners base="Owners" it="Armatori"></en_owners>
 <en_owner_name fr="Le nom du propriétaire" de="Besitzer der Datei" en="Owner name" it="Nome armatore" base="Owner name"></en_owner_name>
 <en_owner_address base="Owner address" it="Indirizzo armatore"></en_owner_address></owner>
+<prearrivals path="model/prearrivals.py" ext="py"><en_pre_arrival base="Pre-Arrival"></en_pre_arrival>
+<en_pre_arrivals base="Pre-Arrivals"></en_pre_arrivals>
+<en_port base="Port" it="Porto"></en_port>
+<en_vessel base="Vessel"></en_vessel>
+<en_email_to base="Email to"></en_email_to>
+<en_email_cc base="Email cc"></en_email_cc>
+<en_prearrivals_description base="PreArrivals description"></en_prearrivals_description>
+<en_send_date base="Send date" it="Data invio"></en_send_date>
+<en_privacy_email base="Privacy email"></en_privacy_email>
+<en_fullname base="fullname"></en_fullname></prearrivals>
+<prearrivals_default path="model/prearrivals_default.py" ext="py"><en_pre_arrival_default base="Pre-Arrival default"></en_pre_arrival_default>
+<en_pre_arrivals_default base="Pre-Arrivals default"></en_pre_arrivals_default>
+<en_port base="Port" it="Porto"></en_port>
+<en_description base="Description" en="Description" it="Descrizione"></en_description>
+<en_email_subject base="Email Subject"></en_email_subject>
+<en_email_body base="Email Body"></en_email_body></prearrivals_default>
 <protocollo path="model/protocollo.py" ext="py"><en_arrival_log base="Arrival log"></en_arrival_log>
 <en_arrival_logs base="Arrival logs"></en_arrival_logs>
 <en_agency base="Agency" it="Agenzia"></en_agency>
@@ -716,6 +734,10 @@
 <en_select_the_services base="Select the services"></en_select_the_services>
 <en_services base="Services"></en_services>
 <en_type_atc base="Type atc"></en_type_atc></th_istanza_cp_cert></istanza_cp_cert>
+<prearrivals><th_prearrivals path="resources/tables/prearrivals/th_prearrivals.py" ext="py"><en_insert_the_emails_separate_by_commas base="Insert the emails separate by commas" it="Inserisci l'emails separate dalla virgola"></en_insert_the_emails_separate_by_commas>
+<en_email_pre_arrivals base="Email Pre-Arrivals"></en_email_pre_arrivals>
+<en_select_if_you_want_a_zipped_file base="Select if you want a zipped file"></en_select_if_you_want_a_zipped_file>
+<en_type_atc base="Type atc"></en_type_atc></th_prearrivals></prearrivals>
 <protocollo><th_protocollo path="resources/tables/protocollo/th_protocollo.py" ext="py"><en_arrival base="Arrival" it="Arrivo"></en_arrival></th_protocollo></protocollo>
 <rinfusa><th_rinfusa path="resources/tables/rinfusa/th_rinfusa.py" ext="py"><en_select_the_services base="Select the services"></en_select_the_services>
 <en_services base="Services"></en_services>
