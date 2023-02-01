@@ -109,14 +109,14 @@ class Form(BaseComponent):
         #tc_shorepass = tc_task.tabContainer(title='!![en]Shore Pass', region='center')
         #tc_prova = tc_task.tabContainer(title='!![en]prova')
         tc_undertask = bc_tasklist.tabContainer(margin='2px', region='center', height='auto',selectedPage='^.tabname')
-        tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>')
+        tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
         tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
         tc_bl = tc.borderContainer(title='!![en]<strong>Loading Cargoes</strong>')
         tc_usma = tc.borderContainer(title='!![en]<strong>Sanimare certificates</strong>')
         #tc_parapon = bc_task3.tabContainer(title='pippo')
         self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = 'seashell'))
         #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
-        tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%',pageName='sanimare_cert').remote(self.cargodocsCertLazyMode)
+        tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%',pageName='cargodocs').remote(self.cargodocsCertLazyMode)
         tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%',pageName='sanimare_cert').remote(self.usmaCertLazyMode)
 
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
@@ -135,11 +135,11 @@ class Form(BaseComponent):
         tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode)
         
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
-        tc_sof.contentPane(title='!![en]Sof',height='100%').remote(self.sofLazyMode)
+        tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode)
         
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
         
-        self.garbage(tc_undertask.contentPane(title='!![en]Garbage'))
+        self.garbage(tc_undertask.contentPane(title='!![en]Garbage', pageName='garbage'))
         self.tributi(tc_undertask.contentPane(title='!![en]Tributes HM',pageName='tributi'))
         #self.rinfusa(tc_app.contentPane(title='!![en]Bulk Application'))
         tc_app.contentPane(title='!![en]Bulk Application',pageName='bulk_application').remote(self.rinfusaLazyMode)

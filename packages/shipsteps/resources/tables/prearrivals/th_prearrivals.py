@@ -3,7 +3,6 @@
 
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
-from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
 import zipfile
 import os

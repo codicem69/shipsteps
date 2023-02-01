@@ -41,6 +41,10 @@ class Table(object):
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
         #tbl.pyColumn('email_arr_cc',name_long='!![en]Email arrival cc', static=True)
         #tbl.pyColumn('totcarico',name_long='!![en]Totcarico', static=True)
+        tbl.formulaColumn('tot_cargo_sof',select=dict(table='shipsteps.cargo_unl_load',
+                                                columns='SUM($quantity)',
+                                                where='$id=#THIS.@sof_cargo_sof.cargo_unl_load_id'),
+                                    dtype='N',name_long='!![en]Cargo total', format='#,###.000',static='True')
         tbl.formulaColumn('int_carico',"""CASE WHEN $cargo_sof <>'NIL' THEN 'CARGO DETAILS<br>' || :carsof ELSE '' END""",dtype='T',var_carsof='------------------------------<br>')
         tbl.formulaColumn('sof_det',"$sof_n || '-' || @arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
         tbl.formulaColumn('nor_tend_txt', """CASE WHEN $nor_tend is not null THEN 'NOR tendered' || '<br>'  ELSE '' END""", dtype='T')

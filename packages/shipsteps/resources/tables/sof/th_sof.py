@@ -63,10 +63,11 @@ class Form(BaseComponent):
     def th_form(self, form):
         bc = form.center.borderContainer()
         self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='110px', background='lightgrey', splitter=True))
-        tc = bc.tabContainer(region = 'center',margin='2px')
+        tc = bc.tabContainer(region = 'center',margin='2px',selectedPage='^.tabname')
         
-        self.cargoSof(tc.contentPane(title='Cargo SOF'))
-        self.operationsSof(tc.contentPane(title='SOF Operations'))
+        self.cargoSof(tc.contentPane(title='Cargo SOF', pageName='sof_cargo'))
+        self.operationsSof(tc.contentPane(title='SOF Operations',pageName='operations'))
+        self.dailyOperations(tc.contentPane(title='SOF Daily Operations',pageName='daily_op'))
 
         tc_rem = tc.tabContainer(title='!![en]Remarks',margin='2px',tabPosition='left-h')#, region='center', height='450px', splitter=True)
         
@@ -80,7 +81,9 @@ class Form(BaseComponent):
         self.emailSof(tc.contentPane(title='Email SOF'))
         self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
         self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
-
+        #tc.dataController("""{SET #THIS.tabname='operations';}""")
+        #form.data('tabop','op')
+        
     def datiSof(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=4, border_spacing='4px',fld_width='10em')
         #fb.field('arrival_id')
@@ -94,7 +97,27 @@ class Form(BaseComponent):
         fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2, tag='textArea')
         fb.field('onbehalf', width='15em', placeholder='insert the name of society')
         fb.field('int_sof', placeholder='eg.: Fiore Srl')
+        #fb.dataController("""if(tab=='op'){SET #FORM.tabname='operations';alert(msg_txt);}""",tab='op',msg_txt='fatto', _onStart=True)
+        #fb.data('#FORM.tabname', "operations")
+        #fb.dataController("""if(^#FORM.shipsteps_sof_cargo.view.count.total>0){SET #FORM.tabname=operations;}""")
+        fb.dataRpc('#FORM.tabname', self.checkCargoSof,  record='=#FORM.record',rec_id='^#FORM.record.id',
+                    _if='rec_id',tabname='=#FORM.tabname')
+
+    @public_method
+    def checkCargoSof(self,record,**kwargs):
         
+        tabname=kwargs['tabname']
+        record_id = record['id']
+        tbl_sof_cargo = self.db.table('shipsteps.sof_cargo')
+        sof_cargo = tbl_sof_cargo.query(columns='$id',where = '$sof_id = :sof_id',sof_id=record_id).fetch()
+        if sof_cargo and tabname=='sof_cargo':
+            return 'operations'
+        elif tabname == 'sof_cargo':
+            return 'sof_cargo'
+        elif tabname== 'daily_op':
+            return 'daily_op'        
+        #print(x)
+
     def th_bottom_custom(self, bottom):
         bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,*,10')
         btn_sof_print=bar.stampa_sof.button('Print SOF')
@@ -111,12 +134,14 @@ class Form(BaseComponent):
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]))
+                             cols=4,popup=True,colspan=2),dict(name='template', lbl='Email Template',tag='filteringSelect', value='^.template', 
+                             values='email_operations:without total mov,email_operations_mov:with total mov')]))
         btn_sof_partenza.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_partenza',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]))
+                             cols=4,popup=True,colspan=2),dict(name='template', lbl='Email Template',tag='filteringSelect', value='^.template', 
+                             values='email_partenza:without total mov,email_partenza_mov:with total mov')]))
         bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^nome_temp',msg_txt = 'Email ready to be sent')
         
     @public_method
@@ -160,7 +185,8 @@ class Form(BaseComponent):
     def operationsSof(self,pane):
         pane.inlineTableHandler(relation='@sof_operations',viewResource='ViewFromSofOperations')
 
-    
+    def dailyOperations(self,pane):
+        pane.inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp')
 
     def remarks_cte(self,frame):
         frame.simpleTextArea(title='!![en]Master Remarks',value='^.remarks_cte',editor=True)
@@ -227,7 +253,6 @@ class Form(BaseComponent):
     @public_method
     def email_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
         record_arr=record['arrival_id']
-        
         #verifichiamo che ci sia il record
         if not record:
             return
@@ -240,6 +265,9 @@ class Form(BaseComponent):
         else:
             lista_all = None
         
+        #verifichiamo nei kwargs['template'] il valore assegnato dalla nostra scelta al lancio dell'email ossia l'email_template_id
+        email_template_id=kwargs['template']
+
         #lettura degli attachment
         if lista_all is not None:
             len_allegati = len(lista_all) #verifichiamo la lunghezza della lista pkeys tabella allegati
@@ -352,7 +380,8 @@ class Form(BaseComponent):
         
         self.db.commit()
         #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero
-        if email_template_id == 'email_ormeggio' or email_template_id == 'email_operations' or email_template_id == 'email_partenza':
+        #if email_template_id == 'email_ormeggio' or email_template_id == 'email_operations' or email_template_id == 'email_operations_mov' or email_template_id == 'email_partenza':
+        if email_template_id != '' or email_template_id != None:
             nome_temp = 'arrival_sof'
         
         return nome_temp
