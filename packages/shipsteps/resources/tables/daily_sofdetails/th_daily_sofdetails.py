@@ -67,7 +67,7 @@ class Form(BaseComponent):
         fb.field('tot_progressivo')
         fb.field('shortage_surplus')
         fb.field('perc_short_surpl')
-        fb.dataController("this.form.save();",_if='^.qt_mov')
+        
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px')
