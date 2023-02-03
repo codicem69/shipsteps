@@ -99,7 +99,7 @@ class Table(object):
                                                 limit=1,dtype='N'))                                                
         tbl.aliasColumn('measure','@sof_daily.@measure_id.description')
         tbl.aliasColumn('place_origin_goods','@sof_cargo_sof.@cargo_unl_load_id.@place_origin_goods.citta_nazione')
-        
+
     def pyColumn_carico_del_sof(self,record,field):
         p_key=record['id']
         #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
@@ -135,8 +135,8 @@ class Table(object):
         p_key=record['id']
         #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
         carico = self.db.table('shipsteps.sof_cargo').query(columns="""@cargo_unl_load_id.@measure_id.description, @cargo_unl_load_id.quantity,@cargo_unl_load_id.description,
-                                                                     coalesce('BL no.' || @cargo_unl_load_id.bln,''),coalesce(' Dated ' || @cargo_unl_load_id.@place_origin_goods.citta_nazione,'')""",
-                                                                where='sof_id=:sofid',sofid=p_key).fetch()
+                                                                     coalesce('BL no.' || @cargo_unl_load_id.bln,''),coalesce(' Dated ' || to_char(@cargo_unl_load_id.bl_date, :df),'') || coalesce(' ' || @cargo_unl_load_id.@place_origin_goods.citta_nazione,'')""",
+                                                                where='sof_id=:sofid',sofid=p_key,df='DD/MM/YYYY').fetch()
         #print(x)                                                                
         cargo=''
         for c in range(len(carico)):
