@@ -65,9 +65,9 @@ class Form(BaseComponent):
         self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='110px', background='lightgrey', splitter=True))
         tc = bc.tabContainer(region = 'center',margin='2px',selectedPage='^.tabname')
         
-        self.cargoSof(tc.contentPane(title='Cargo SOF', pageName='sof_cargo'))
-        self.operationsSof(tc.contentPane(title='SOF Operations',pageName='operations'))
-        self.dailyOperations(tc.contentPane(title='SOF Daily Operations',pageName='daily_op'))
+        self.cargoSof(tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo'))
+        self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
+        self.dailyOperations(tc.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
 
         tc_rem = tc.tabContainer(title='!![en]Remarks',margin='2px',tabPosition='left-h')#, region='center', height='450px', splitter=True)
         
@@ -81,6 +81,7 @@ class Form(BaseComponent):
         self.emailSof(tc.contentPane(title='Email SOF'))
         self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
         self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
+        self.editLop(tc.framePane(title='!![EN]Edit LOP', datapath='#FORM.editPagine'))
         #tc.dataController("""{SET #THIS.tabname='operations';}""")
         #form.data('tabop','op')
         
@@ -234,6 +235,21 @@ class Form(BaseComponent):
                           border='1px solid silver',
                           letterhead_id='^#FORM.record.htmlbag.letterhead_id',
                           datasource='#FORM.record',printAction=True)
+
+    def editLop(self, frame):
+        bar = frame.top.slotBar('10, lett_select,*',height='20px',border_bottom='1px solid silver')
+        fb = bar.lett_select.formbuilder(cols=2,datapath='#FORM.record.htmlbag_lop')
+        fb.dbselect('^.letterhead_id',table='adm.htmltemplate',lbl='carta intestata',hasDownArrow=True)
+        fb.button('Get Html Lop Doc').dataRpc('#FORM.record.htmlbag_lop.source',self.db.table('shipsteps.sof').getHTMLDoc,
+                                            sof_id='=#FORM.pkey',
+                                            record_template='lop',
+                                            letterhead='.letterhead_id')
+        
+        frame.pagedEditor(value='^#FORM.record.htmlbag_lop.source',pagedText='^#FORM.record.htmlbag_lop.output',
+                          border='1px solid silver',
+                          letterhead_id='^#FORM.record.htmlbag_lop.letterhead_id',
+                          datasource='#FORM.record',printAction=True)
+
     def Sofpdf(self,frame):
         self.printDisplay(frame,resource='shipsteps.sof:html_res/sof_template')
 

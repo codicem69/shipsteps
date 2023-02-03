@@ -22,6 +22,7 @@ class Table(object):
         tbl.column('onbehalf', name_short='!![en]On behalf')
         tbl.column('int_sof', name_short='!![en]Sof header')
         tbl.column('htmlbag', dtype='X', name_long='HTML Doc Bag')
+        tbl.column('htmlbag_lop', dtype='X', name_long='HTML Doc LOP Bag')
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@sof_cargo_sof.ship_rec')
         tbl.aliasColumn('cargo_sof', '@sof_cargo_sof.@cargo_unl_load_id.cargo_sof',name_long='!![en]Cargo sof')
@@ -36,6 +37,7 @@ class Table(object):
         tbl.pyColumn('shiprec',name_long='!![en]Shipper or Receiver')
         tbl.pyColumn('shiprec_bl',name_long='!![en]Shipper or Receiver BL')
         tbl.pyColumn('carico_del_sof',name_long='!![en]Cargo on sof')
+        tbl.pyColumn('carico_sofbl',name_long='!![en]Cargo on sof BL')
         #tbl.pyColumn('email_sof_to',name_long='!![en]Email sof to', static=True)
         #tbl.pyColumn('email_sof_cc',name_long='!![en]Email sof cc', static=True)
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
@@ -86,7 +88,18 @@ class Table(object):
         tbl.aliasColumn('firma_diversa','@arrival_id.firma_div')
         tbl.aliasColumn('email_arr_to','@arrival_id.email_arr_to')
         tbl.aliasColumn('email_arr_cc','@arrival_id.email_arr_cc')
-
+        tbl.formulaColumn('this_port','UPPER(@arrival_id.@agency_id.@port.descrizione)')
+        tbl.formulaColumn('tot_mov',select=dict(table='shipsteps.daily_sofdetails',
+                                                columns="$tot_progressivo",
+                                                where='$sof_id=#THIS.id',order_by='$date_op DESC',
+                                                limit=1,dtype='N'))
+        tbl.formulaColumn('shortage',select=dict(table='shipsteps.daily_sofdetails',
+                                                columns="$shortage_surplus",
+                                                where='$sof_id=#THIS.id',order_by='$date_op DESC',
+                                                limit=1,dtype='N'))                                                
+        tbl.aliasColumn('measure','@sof_daily.@measure_id.description')
+        tbl.aliasColumn('place_origin_goods','@sof_cargo_sof.@cargo_unl_load_id.@place_origin_goods.citta_nazione')
+        
     def pyColumn_carico_del_sof(self,record,field):
         p_key=record['id']
         #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
@@ -111,6 +124,33 @@ class Table(object):
                 totale_carico += '- Tot. loading cargo: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>' 
             else:
                 totale_carico =''
+        #inseriamo in un unica variabile tutti i dati relativi al carico sopra calcolati
+        if cargo != '' or totale_carico != '':
+            descr_carico = cargo + '<br>' + totale_carico
+        else:
+            descr_carico = ''
+        return descr_carico
+
+    def pyColumn_carico_sofbl(self,record,field):
+        p_key=record['id']
+        #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
+        carico = self.db.table('shipsteps.sof_cargo').query(columns="""@cargo_unl_load_id.@measure_id.description, @cargo_unl_load_id.quantity,@cargo_unl_load_id.description,
+                                                                     coalesce('BL no.' || @cargo_unl_load_id.bln,''),coalesce(' Dated ' || @cargo_unl_load_id.@place_origin_goods.citta_nazione,'')""",
+                                                                where='sof_id=:sofid',sofid=p_key).fetch()
+        #print(x)                                                                
+        cargo=''
+        for c in range(len(carico)):
+            if c in range(0,len(carico)-1):
+                cargo += '- ' + str(carico[c][0]) + ' ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + str(carico[c][4]) + '<br>'
+            else:
+                cargo += '- ' + str(carico[c][0]) + ' ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + str(carico[c][4])
+        #prepariamo i dati per il totale carico
+        tot_carico = self.db.table('shipsteps.sof_cargo').query(columns="@cargo_unl_load_id.operation, @cargo_unl_load_id.@measure_id.description, SUM(@cargo_unl_load_id.quantity)",
+                                                                where='sof_id=:sofid',sofid=p_key, group_by='@cargo_unl_load_id.@measure_id.description,@cargo_unl_load_id.operation').fetch()
+        totale_carico=''
+        for c in range(len(tot_carico)):
+            totale_carico += '-Total Bill of lading quantity: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>'
+            
         #inseriamo in un unica variabile tutti i dati relativi al carico sopra calcolati
         if cargo != '' or totale_carico != '':
             descr_carico = cargo + '<br>' + totale_carico

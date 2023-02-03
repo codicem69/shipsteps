@@ -20,4 +20,8 @@ class Table(object):
         tbl.formulaColumn('daily_mov',"""'daily cargo discharged  -' || @measure_id.description || ' ' || $qt_mov || '<br>' ||
                                          'total cargo discharged   ' || @measure_id.description || ' ' || $tot_progressivo || '<br>' ||
                                          'remain to be discharged ' || @measure_id.description || ' ' || $shortage_surplus """)
+        tbl.formulaColumn('tot_mov',select=dict(table='shipsteps.daily_sofdetails',
+                                                columns='$tot_progressivo',
+                                                where='$id=#THIS.id', order_by='$_row_count DESC'),
+                                                limit=1,dtype='N')
         
