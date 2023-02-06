@@ -37,8 +37,10 @@ class ViewFromSofDailyOp(BaseComponent):
         r.fieldcell('totcargo')
         #r.fieldcell('tot_progressivo')
         r.cell('tot_progres',formula='+=qt_mov', format='#,###.000', name='!![en]Total Quantity Handled', dtype='N')
-        r.cell('shortage',formula='totcargo-tot_progres', format='#,###.000', name='!![en]Shortage / Surplus', dtype='N')
-        r.cell('shortage_perc',formula='shortage/totcargo*100', format='#,###.000', name='!![en]Shortage / Surplus %', dtype='N')
+        r.cell('shortage',formula='-totcargo+tot_progres', format='#,###.000', name='!![en]Shortage / Surplus', dtype='N',name_style='color:red',
+                          range_alto='value>0',range_alto_style='color:black;font-weight:bold;',range_basso='value<0',range_basso_style='font-weight:bold;color:red;')
+        r.cell('shortage_perc',formula='shortage>=0?shortage/totcargo*100:-shortage/totcargo*100', format='#,###.000', name='Shortage / Surplus %', dtype='N', 
+                               range_alto='shortage>0',range_alto_style='color:black;font-weight:bold;',range_basso='shortage<0',range_basso_style='font-weight:bold;color:red;')
         
     @public_method
     def th_remoteRowController(self,row=None,field=None,**kwargs):
