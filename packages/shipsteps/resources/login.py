@@ -12,3 +12,4 @@ class LoginComponent(BaseComponent):
 
         rootenv['current_agency_id'] = agency_id 
         rootenv['current_port'] = port
+
