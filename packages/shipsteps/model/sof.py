@@ -13,6 +13,8 @@ class Table(object):
         tbl.column('nor_tend', dtype='DH', name_short='!![en]NOR tendered')
         tbl.column('nor_rec', dtype='DH', name_short='!![en]NOR received')
         tbl.column('nor_acc', dtype='T', name_short='!![en]NOR accepted')
+        tbl.column('customs_commenced', dtype='DH', name_short='!![en]Customs formalities commenced')
+        tbl.column('customs_completed', dtype='DH', name_short='!![en]Customs formalities completed')
         tbl.column('ops_commenced', dtype='DH', name_short='!![en]Load/Unload commenced')
         tbl.column('ops_completed', dtype='DH', name_short='!![en]Load/Unload completed')
         tbl.column('doc_onboard', dtype='DH', name_short='!![en]Documents onboard')
@@ -52,18 +54,24 @@ class Table(object):
         tbl.formulaColumn('nor_tend_txt', """CASE WHEN $nor_tend is not null THEN 'NOR tendered' || '<br>'  ELSE '' END""", dtype='T')
         tbl.formulaColumn('nor_rec_txt', """CASE WHEN $nor_rec is not null THEN 'NOR received' || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('nor_acc_txt', """CASE WHEN $nor_acc is not null THEN 'NOR acceppted' || '<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('customs_commenced_txt', """CASE WHEN $customs_commenced is not null THEN 'Customs formalities commenced '  || '<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('customs_completed_txt', """CASE WHEN $customs_completed is not null THEN 'Customs formalities completed '  || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('ops_commenced_txt', """CASE WHEN $ops_commenced is not null AND $cargo_op = 'U' THEN 'Unloading commenced '  || '<br>' 
                                                   WHEN $ops_commenced is not null AND $cargo_op = 'L' THEN 'Loading commenced ' || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('ops_completed_txt', """CASE WHEN $ops_completed is not null AND $cargo_op = 'U' THEN 'Unloading completed '  || '<br>'
                                                   WHEN $ops_completed is not null AND $cargo_op = 'L' THEN 'Loading completed ' || '<br>' ELSE '' END""", dtype='T')
-        tbl.formulaColumn('ops_commenced_email', """CASE WHEN $ops_commenced is not null AND $cargo_op = 'U' THEN 'Unloading commenced------'
-                                                  WHEN $ops_commenced is not null AND $cargo_op = 'L' THEN 'Loading commenced--------' ELSE '' END""", dtype='T')
-        tbl.formulaColumn('ops_completed_email', """CASE WHEN $ops_completed is not null AND $cargo_op = 'U' THEN 'Unloading completed------'
-                                                  WHEN $ops_completed is not null AND $cargo_op = 'L' THEN 'Loading completed--------' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('customs_commenced_email', """CASE WHEN $customs_commenced is not null THEN 'Customs formalities commenced-' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('customs_completed_email', """CASE WHEN $customs_completed is not null THEN 'Customs formalities completed-' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('ops_commenced_email', """CASE WHEN $ops_commenced is not null AND $cargo_op = 'U' THEN 'Unloading commenced-----------'
+                                                  WHEN $ops_commenced is not null AND $cargo_op = 'L' THEN 'Loading commenced-------------' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('ops_completed_email', """CASE WHEN $ops_completed is not null AND $cargo_op = 'U' THEN 'Unloading completed-----------'
+                                                  WHEN $ops_completed is not null AND $cargo_op = 'L' THEN 'Loading completed-------------' ELSE '' END""", dtype='T')
         tbl.formulaColumn('doc_onboard_txt', """CASE WHEN $doc_onboard is not null THEN  :onboard  || '<br>' END""",  dtype='T', var_onboard="cargo's documents on board ")
         tbl.formulaColumn('nor_tend_time', """CASE WHEN $nor_tend is not null THEN to_char($nor_tend, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('nor_rec_time', """CASE WHEN $nor_rec is not null THEN to_char($nor_rec, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('nor_acc_time', """CASE WHEN $nor_acc is not null THEN $nor_acc || '<br>'  ELSE '' END""", dtype='T')
+        tbl.formulaColumn('customs_commenced_time', """CASE WHEN $customs_commenced is not null THEN to_char($customs_commenced, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('customs_completed_time', """CASE WHEN $customs_completed is not null THEN to_char($customs_completed, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('ops_commenced_time', """CASE WHEN $ops_commenced is not null THEN to_char($ops_commenced, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('ops_completed_time', """CASE WHEN $ops_completed is not null THEN to_char($ops_completed, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('doc_onboard_time', """CASE WHEN $doc_onboard is not null THEN to_char($doc_onboard, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
@@ -71,9 +79,10 @@ class Table(object):
         tbl.formulaColumn('note_txt', """CASE WHEN $note is not null THEN 'Notes/Rain Times/General Reamarks' || '<br>'  ELSE '' END""", dtype='T')
         
         
-        tbl.formulaColumn('time_sof', """coalesce('NOR tendered-------------' || to_char($nor_tend, :df) || '<br>', '') || coalesce('NOR received-------------' || to_char($nor_rec, :df) || '<br>','') ||
-                                         coalesce('NOR accepted-------------' || $nor_acc || '<br>', '') || coalesce($ops_commenced_email || to_char($ops_commenced, :df) || '<br>','') || 
-                                         coalesce($ops_completed_email || to_char(ops_completed, :df) || '<br>','') || coalesce(:onboard || to_char($doc_onboard,:df) || '<br>','')""",var_onboard="Documents on board-------",var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('time_sof', """coalesce('NOR tendered------------------' || to_char($nor_tend, :df) || '<br>', '') || coalesce('NOR received------------------' || to_char($nor_rec, :df) || '<br>','') ||
+                                         coalesce('NOR accepted------------------' || $nor_acc || '<br>', '') || coalesce($customs_commenced_email || to_char($customs_commenced, :df) || '<br>','') ||
+                                         coalesce($customs_completed_email || to_char($customs_completed, :df) || '<br>','') || coalesce($ops_commenced_email || to_char($ops_commenced, :df) || '<br>','') || 
+                                         coalesce($ops_completed_email || to_char(ops_completed, :df) || '<br>','') || coalesce(:onboard || to_char($doc_onboard,:df) || '<br>','')""",var_onboard="Documents on board------------",var_df='DD/MM/YYYY HH24:MI')
         #tbl.formulaColumn('portlog_time',"""CASE WHEN $timearr is not null OR $time_sof is not null OR $timearr2 is not null THEN 
         #                                    'PORTLOG<br>------------------------------<br>' || $timearr || '<br>' || $time_sof || '<br>' || $timearr2 || '<br>' END""")
         tbl.formulaColumn('portlog_time',"""CASE WHEN $timearr !='' THEN 'PORTLOG<br>------------------------------<br>' || coalesce($timearr,'') || coalesce($time_sof ,'') || coalesce($timearr2 ,'') END""")
