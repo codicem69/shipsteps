@@ -282,7 +282,8 @@ class Form(BaseComponent):
             lista_all = None
         
         #verifichiamo nei kwargs['template'] il valore assegnato dalla nostra scelta al lancio dell'email ossia l'email_template_id
-        email_template_id=kwargs['template']
+        if 'template' in kwargs.keys():
+            email_template_id=kwargs['template']
 
         #lettura degli attachment
         if lista_all is not None:
