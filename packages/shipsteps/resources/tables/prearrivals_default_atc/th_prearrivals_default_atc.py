@@ -13,6 +13,7 @@ class View(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('description')
         r.fieldcell('mimetype')
+        r.fieldcell('__ins_ts')
 
     def th_order(self):
         return '_row_count'
