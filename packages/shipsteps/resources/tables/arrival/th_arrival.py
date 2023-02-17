@@ -83,7 +83,7 @@ class View(BaseComponent):
         else:
             del_row = False
 
-        return dict(view_preview_tpl='dati_nave', delrow=del_row)
+        return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
 
         
 class Form(BaseComponent):

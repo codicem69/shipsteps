@@ -14,7 +14,7 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('port')
-        r.fieldcell('vessel_details_id', width='30em')
+        r.fieldcell('imbarcazione_id', width='30em')
         r.fieldcell('email_to')
         r.fieldcell('email_cc')
         r.fieldcell('prearr_descr')
@@ -35,7 +35,7 @@ class Form(BaseComponent):
         pane = form.record
         fb = pane.formbuilder(cols=2, border_spacing='4px', fld_width='30em')
         fb.field('port', colspan=2)
-        fb.field('vessel_details_id', colspan=2, hasDownArrow=True)
+        fb.field('imbarcazione_id', colspan=2, hasDownArrow=True)
         fb.div("!![en]Insert the emails separate by commas",font_weight='bold', margin_top='10px')
         fb.br()
         fb.field('email_to', colspan=2,tag='textarea', height='5em')

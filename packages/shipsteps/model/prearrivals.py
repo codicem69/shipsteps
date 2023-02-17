@@ -7,8 +7,10 @@ class Table(object):
         self.sysFields(tbl)
 
         tbl.column('port',size='22',name_short='!![en]Port').relation('unlocode.place.id',relation_name='port_prearr', mode='foreignkey', onDelete='raise')
-        tbl.column('vessel_details_id',size='22',name_long='!![en]Vessel',validate_notnull=True).relation(
-                                    'vessel_details.id',relation_name='vessel_name', mode='foreignkey', onDelete='raise')
+        tbl.column('imbarcazione_id', size='22', name_short='!![en]Vessel name').relation('pfda.imbarcazione.id',relation_name='imb_prearr', 
+                                                                                          mode='foreignkey', onDelete='raise')
+        #tbl.column('vessel_details_id',size='22',name_long='!![en]Vessel',validate_notnull=True).relation(
+        #                            'vessel_details.id',relation_name='vessel_name', mode='foreignkey', onDelete='raise')
         tbl.column('email_to', name_short='!![en]Email to')
         tbl.column('email_cc', name_short='!![en]Email cc')
         tbl.column('prearr_descr',size='22',name_long='!![en]PreArrivals description',validate_notnull=True).relation(
@@ -22,7 +24,7 @@ class Table(object):
                                                 where='$user_id =:env_user_id',
                                                 dtype='T',name_long='!![en]fullname'))
         tbl.aliasColumn('agency_fullstyle','@port.@portag_unlocode.fullstyle')
-        tbl.aliasColumn('vessel_name','@vessel_details_id.@imbarcazione_id.nome')
+        tbl.aliasColumn('vessel_name','@imbarcazione_id.nome')
 
     def defaultValues(self):
         return dict(port=self.db.currentEnv.get('current_port'))
