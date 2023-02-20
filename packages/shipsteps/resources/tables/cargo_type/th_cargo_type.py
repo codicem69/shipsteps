@@ -29,7 +29,7 @@ class Form(BaseComponent):
         tc = bc.tabContainer(region='center')
         th = tc.contentPane(title='!![en]Cargo type').plainTableHandler(relation='@cargotype',pbl_classes=True,
                                                                 margin='2px')
-        form.htree.relatedTableHandler(th, dropOnRoot=False, inherited=True)
+        #form.htree.relatedTableHandler(th, dropOnRoot=False, inherited=True)
 
 
 
