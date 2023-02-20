@@ -19,8 +19,6 @@ class View(BaseComponent):
     def th_query(self):
         return dict(column='port', op='contains', val='')
 
-
-
 class Form(BaseComponent):
 
     def th_form(self, form):

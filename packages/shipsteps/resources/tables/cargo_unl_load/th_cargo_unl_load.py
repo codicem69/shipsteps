@@ -44,6 +44,7 @@ class ViewFromCargoLU(BaseComponent):
         r.fieldcell('measure_id', hasDownArrow=True,edit=True, width='5em')
         r.fieldcell('description', edit=True, width='20em')
         r.fieldcell('description_it', edit=True, width='20em')
+        r.fieldcell('cargo_type_id', edit=True, width='10em', hasDownArrow=True)
         r.fieldcell('extra_description_cp',edit=True, width='15em')
         r.fieldcell('operation', edit=True, width='5em')
         #r.fieldcell('foreign_cargo', edit=True, width='5em')

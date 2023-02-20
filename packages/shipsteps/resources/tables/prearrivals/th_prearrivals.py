@@ -28,7 +28,6 @@ class View(BaseComponent):
         return dict(column='port', op='contains', val='')
 
 
-
 class Form(BaseComponent):
 
     def th_form(self, form):

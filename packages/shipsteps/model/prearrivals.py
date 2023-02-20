@@ -32,3 +32,5 @@ class Table(object):
     def pyColumn_privacy(self,record,field):
         privacy_email = self.db.application.getPreference('privacy_email',pkg='shipsteps')
         return privacy_email        
+    
+   

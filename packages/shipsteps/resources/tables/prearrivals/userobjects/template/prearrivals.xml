@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-01-26T11:41:33.485959+01:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-01-26T17:25:29.416813+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-01-26T15:33:55.597277+01:00</_mod_ts>
-<_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">tommaso</_ins_user>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-02-17T12:23:12.958865+01:00</_mod_ts>
+<_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.prearrivalstemplateprearrivals</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">prearrivals</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
@@ -40,7 +40,7 @@
 <cc_address _T="NN"></cc_address>
 <bcc_address _T="NN"></bcc_address>
 <attachments _T="NN"></attachments></email>
-<email_compiled><subject>$@prearr_descr.subject_email - $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome</subject></email_compiled></metadata>
+<email_compiled><subject>$@prearr_descr.subject_email - $@imbarcazione_id.tipo $@imbarcazione_id.nome</subject></email_compiled></metadata>
 <varsbag><ghn41g14wh _pkey="ghn41g14wh"><fieldpath>@port_id.descrizione</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">place/Descrizione</fieldname>
@@ -50,24 +50,24 @@
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask></ghn41g14wh>
-<ghn41u5ga9 _pkey="ghn41u5ga9"><fieldpath>@vessel_details_id.@imbarcazione_id.nome</fieldpath>
+<gibek3h7lt _newrecord="True::B" _pkey="gibek3h7lt"><fieldpath>@imbarcazione_id.nome</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
-<varname dtype="::NN" _loadedValue="vessel_imbarcazione_nome">imbarcazione_nome</varname>
+<fieldname dtype="::NN">imbarcazione/Nome</fieldname>
+<varname dtype="::NN">imbarcazione_nome</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN"></required_columns>
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></ghn41u5ga9>
-<ghn41t64oh _pkey="ghn41t64oh"><fieldpath>@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gibek3h7lt>
+<gibek72cix _newrecord="True::B" _pkey="gibek72cix"><fieldpath>@imbarcazione_id.tipo</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/Tipo</fieldname>
-<varname dtype="::NN" _loadedValue="vessel_imbarcazione_tipo">imbarcazione_tipo</varname>
+<fieldname dtype="::NN">imbarcazione/Tipo</fieldname>
+<varname dtype="::NN">imbarcazione_tipo</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN"></required_columns>
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></ghn41t64oh>
+<mask _T="NN" dtype="::NN"></mask></gibek72cix>
 <ghn428glt5 _pkey="ghn428glt5"><fieldpath>email_cc</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">email_cc</fieldname>
@@ -134,7 +134,7 @@
 <parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css _T="NN"></content_css>
-<compiled><main maintable="shipsteps.prearrivals" locale="it-IT" virtual_columns="privacy,fullname,agency_fullstyle" columns="@port_id.descrizione,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.tipo,$email_cc,$email_to,@prearr_descr.subject_email,@prearr_descr.body_email,$privacy,$fullname,$agency_fullstyle" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"port": "T", "imbarcazione_nome": "T", "imbarcazione_tipo": "T", "email_cc": "T", "email_to": "T", "subject_email": "T", "body_email": "T", "privacy_email": "T", "fullname": "A", "agency_fullstyle": "T"}::JS'>&lt;div&gt;
+<compiled><main maintable="shipsteps.prearrivals" locale="it-IT" virtual_columns="privacy,fullname,agency_fullstyle" columns="@port_id.descrizione,@imbarcazione_id.nome,@imbarcazione_id.tipo,$email_cc,$email_to,@prearr_descr.subject_email,@prearr_descr.body_email,$privacy,$fullname,$agency_fullstyle" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"port": "T", "imbarcazione_nome": "T", "imbarcazione_tipo": "T", "email_cc": "T", "email_to": "T", "subject_email": "T", "body_email": "T", "privacy_email": "T", "fullname": "A", "agency_fullstyle": "T"}::JS'>&lt;div&gt;
 	&lt;span style="font-size:11px;"&gt;$@prearr_descr.body_email&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
