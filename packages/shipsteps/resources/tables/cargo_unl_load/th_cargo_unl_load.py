@@ -14,7 +14,7 @@ class View(BaseComponent):
         r.fieldcell('bl_date', edit=True, width='5em')
         r.fieldcell('shipper_id', width='30em')
         r.fieldcell('receiver_id', width='30em')
-        r.fieldcell('quantity')
+        r.fieldcell('quantity', totalize=True)
         r.fieldcell('measure_id')
         r.fieldcell('description', width='20em')
         r.fieldcell('description_it', width='20em')
