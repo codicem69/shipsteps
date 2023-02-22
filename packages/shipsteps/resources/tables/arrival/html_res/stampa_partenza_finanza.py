@@ -19,7 +19,7 @@ class Main(TableScriptToHtml):
     def schedaCliente(self):
         self.paperpage = self.getNewPage()
         layout = self.paperpage.layout(
-                            um='mm',top=5,left=4,right=4, bottom=3,
+                            um='mm',top=10,left=14,right=4, bottom=3,
                             border_width=0,
                             font_family='Helvetica',
                             font_size='9pt',
