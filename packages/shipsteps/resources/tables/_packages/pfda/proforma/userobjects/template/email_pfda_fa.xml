@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2021-12-17T11:21:55.410873+01:00</_ins_ts>
+<_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2021-12-17T11:21:55.410894+01:00</_mod_ts>
+<_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">pfda.proformatemplateemail_pfda_fa</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_pfda_fa</code>
+<objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
+<pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">pfda</pkg>
+<tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">pfda.proforma</tbl>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">EMAIL PFDA firma aut</description>
+<notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;many thanks for your request.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Here attached our best proforma d/a for&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$imbarcazione_tipo $imbarcazione_nome - GT $imbarcazione_gt - NT $imbarcazione_nt - LOA $imbarcazione_loa - $cargo at Ortona Port&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;PLEASE LET US KNOW HOW THE D/A AND INVOICES MUST BE HEADED AND MAILED.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;ORTONA PORT RESTRICTIONS:&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;MAX DRAFT m.6,80 - MAX LOA m.200 (NORD NUOVA QUAY)&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;MAX DRAFT m.5,70 - MAX LOA m.180 (RIVA QUAY)&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Water density 1,025&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;NORMAL WORKING DAY FROM MONDAY TO FRIDAY H.0730-1200 1330-1700&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Also attached Ortona Port general info.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Ranalli S.r.l.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Via Porto snc&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;66026 Ortona (Ch) - Italy&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;tel. +39 085 9064600&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;fax +39 085 9064178&lt;/span&gt;&lt;/div&gt;</content>
+<metadata><author>admin</author>
+<version _T="NN"></version>
+<date _T="NN"></date>
+<is_print _T="B" _valuelabel="">True</is_print>
+<is_mail _T="B" _valuelabel="">True</is_mail>
+<is_row _T="NN"></is_row>
+<row_height _T="NN"></row_height>
+<default_letterhead _T="NN"></default_letterhead>
+<summary _T="NN"></summary>
+<email><subject _valuelabel="Soggetto">PFDA $imbarcazione_tipo $imbarcazione_nome @ Ortona Port</subject>
+<to_address _valuelabel="A">$cliente_email</to_address>
+<from_address _T="NN"></from_address>
+<cc_address _valuelabel="CC">$cliente_email_cc</cc_address>
+<bcc_address _valuelabel="BCC">ortona@ranalli.com</bcc_address>
+<attachments _valuelabel="Allegati">/home/tommaso/sviluppo/genropy_projects/pfda/instances/pfda/site/proforma_ranalli/$pathtopdf,/media/formtom/DocNavi/general information ortona port.pdf</attachments></email>
+<email_compiled><subject>PFDA $@imbarcazione_id.tipo $@imbarcazione_id.nome @ Ortona Port</subject>
+<to_address>$@cliente_id.email</to_address>
+<cc_address>$@cliente_id.email_cc</cc_address>
+<bcc_address>ortona@ranalli.com</bcc_address>
+<attachments>/home/tommaso/sviluppo/genropy_projects/pfda/instances/pfda/site/proforma_ranalli/$pathtopdf,/media/formtom/DocNavi/general information ortona port.pdf</attachments></email_compiled></metadata>
+<varsbag><g303u0jyw9 _pkey="g303u0jyw9"><fieldpath>@imbarcazione_id.tipo</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Imbarcazione/Tipo</fieldname>
+<varname dtype="::NN">imbarcazione_tipo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303u0jyw9>
+<g303u6lr69 _pkey="g303u6lr69"><fieldpath>@cliente_id.email</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Cliente/Email</fieldname>
+<varname dtype="::NN">cliente_email</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303u6lr69>
+<g303ua0ycx _pkey="g303ua0ycx"><fieldpath>@cliente_id.email_cc</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Cliente/Email cc</fieldname>
+<varname dtype="::NN">cliente_email_cc</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303ua0ycx>
+<g303ufg981 _pkey="g303ufg981"><fieldpath>cargo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Cargo</fieldname>
+<varname dtype="::NN">cargo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303ufg981>
+<g303uvezt5 _pkey="g303uvezt5"><fieldpath>@imbarcazione_id.nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Imbarcazione/Nome</fieldname>
+<varname dtype="::NN">imbarcazione_nome</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303uvezt5>
+<g303vhd3hd _pkey="g303vhd3hd"><fieldpath>pathtopdf</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">pathtopdf</fieldname>
+<varname dtype="::NN">pathtopdf</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303vhd3hd>
+<g303vc7syh _pkey="g303vc7syh"><fieldpath>@imbarcazione_id.bandiera</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Imbarcazione/Bandiera</fieldname>
+<varname dtype="::NN">imbarcazione_bandiera</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303vc7syh>
+<g303v8f2w1 _pkey="g303v8f2w1"><fieldpath>@imbarcazione_id.loa</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Imbarcazione/LOA</fieldname>
+<varname dtype="::NN">imbarcazione_loa</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303v8f2w1>
+<g303v63gux _pkey="g303v63gux"><fieldpath>@imbarcazione_id.nt</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Imbarcazione/NT</fieldname>
+<varname dtype="::NN">imbarcazione_nt</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303v63gux>
+<g303v4oew9 _pkey="g303v4oew9"><fieldpath>@imbarcazione_id.gt</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Imbarcazione/GT</fieldname>
+<varname dtype="::NN">imbarcazione_gt</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g303v4oew9></varsbag>
+<parameters _T="BAG"></parameters>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<compiled><main maintable="pfda.proforma" locale="it-IT" virtual_columns="" columns="@imbarcazione_id.tipo,@cliente_id.email,@cliente_id.email_cc,$cargo,@imbarcazione_id.nome,$pathtopdf,@imbarcazione_id.bandiera,@imbarcazione_id.loa,@imbarcazione_id.nt,@imbarcazione_id.gt" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"imbarcazione_tipo": "A", "cliente_email": "T", "cliente_email_cc": "T", "cargo": "T", "imbarcazione_nome": "T", "pathtopdf": "T", "imbarcazione_bandiera": "T", "imbarcazione_loa": "T", "imbarcazione_nt": "T", "imbarcazione_gt": "T"}::JS'>&lt;html&gt;&lt;body&gt;&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;many thanks for your request.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Here attached our best proforma d/a for&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$@imbarcazione_id.tipo $@imbarcazione_id.nome - GT $@imbarcazione_id.gt - NT $@imbarcazione_id.nt - LOA $@imbarcazione_id.loa - $cargo at Ortona Port&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;PLEASE LET US KNOW HOW THE D/A AND INVOICES MUST BE HEADED AND MAILED.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;ORTONA PORT RESTRICTIONS:&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;MAX DRAFT m.6,80 - MAX LOA m.200 (NORD NUOVA QUAY)&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;MAX DRAFT m.5,70 - MAX LOA m.180 (RIVA QUAY)&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Water density 1,025&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;NORMAL WORKING DAY FROM MONDAY TO FRIDAY H.0730-1200 1330-1700&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Also attached Ortona Port general info.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Ranalli S.r.l.&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;Via Porto snc&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;66026 Ortona (Ch) - Italy&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;tel. +39 085 9064600&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;fax +39 085 9064178&lt;/span&gt;&lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;</main></compiled></data>
+<authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
+<private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
+<flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_mail,is_print</flags>
+<required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
+<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>

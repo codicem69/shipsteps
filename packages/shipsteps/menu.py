@@ -28,6 +28,7 @@ class Menu(object):
             proforma_da.thpage(u"servizi", table="pfda.servizi", tags="")
             proforma_da.thpage(u"tariffe", table="pfda.tariffe", tags="")
             proforma_da.thpage(u"tariffe_tipo", table="pfda.tariffa_tipo", tags="")
+            proforma_da.thpage(u"Tariffe servizi portuali", table="pfda.tariffeportuali", tags="")
             proforma_da.thpage(u"File for email", table="pfda.fileforemail", tags="")
             proforma_da.lookups(u"Tabelle Ausiliarie", lookup_manager="pfda")
             unlocode = root.branch(u"Unlocode", tags="")
