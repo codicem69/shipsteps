@@ -33,9 +33,9 @@ class ViewFromSofDailyOp(BaseComponent):
         r.fieldcell('date_op', edit=True)#, edit=dict(tag='dbSelect', table='shipsteps.sof_operations',rowcaption='$date', condition='$sof_id=:sofid', 
                                #condition_sofid='=#FORM.record.id',alternatePkey='date', hasDownArrow=True))
         r.fieldcell('measure_id',edit=True, width='5em')
+        #r.fieldcell('qt_mov',edit=True)
         r.fieldcell('qt_mov',edit=dict(remoteRowController=True))
         r.fieldcell('totcargo')
-        #r.fieldcell('tot_progressivo')
         r.cell('tot_progres',formula='+=qt_mov', format='#,###.000', name='!![en]Total Quantity Handled', dtype='N')
         r.cell('shortage',formula='-totcargo+tot_progres', format='#,###.000', name='!![en]Shortage / Surplus', dtype='N',name_style='color:red',
                           range_alto='value>0',range_alto_style='color:black;font-weight:bold;',range_basso='value<0',range_basso_style='font-weight:bold;color:red;')
@@ -45,10 +45,18 @@ class ViewFromSofDailyOp(BaseComponent):
     @public_method
     def th_remoteRowController(self,row=None,field=None,**kwargs):
         field=field
-        tot_cargo = kwargs['row_attr']['totcargo']
+        tbl_sof_cargo = self.db.table('shipsteps.sof_cargo')
+        sof_id=kwargs['row_attr']['sof_id']
+        cargo_id = tbl_sof_cargo.query(columns="$cargo_unl_load_id",
+                                        where='$sof_id=:sof_id',sof_id=sof_id).fetch()   
+        n_cargo = len(cargo_id) 
+        tot_cargo=0        
+        tbl_cargo = self.db.table('shipsteps.cargo_unl_load')                                                       
+        for r in range (n_cargo):
+            tot_cargo += tbl_cargo.readColumns(columns='$quantity', where='$id=:cargo_id', cargo_id=cargo_id[r][0])
         tot_progressivo = kwargs['row_attr']['tot_progres']
-        shortage_surplus = tot_cargo - tot_progressivo
-        perc_short_surpl = shortage_surplus/tot_cargo*100
+        shortage_surplus = float(tot_cargo) - tot_progressivo
+        perc_short_surpl = shortage_surplus/float(tot_cargo)*100
         row['tot_progressivo']=tot_progressivo
         row['shortage_surplus']=shortage_surplus
         row['perc_short_surpl']=perc_short_surpl
@@ -56,7 +64,10 @@ class ViewFromSofDailyOp(BaseComponent):
 
     def th_order(self):
         return '_row_count'
-   
+    
+    def th_options(self):
+        return dict(grid_selfDragRows=True)
+    
 class Form(BaseComponent):
 
     def th_form(self, form):

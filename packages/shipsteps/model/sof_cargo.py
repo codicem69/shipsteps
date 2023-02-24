@@ -12,10 +12,7 @@ class Table(object):
         
         tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@cargo_unl_load_id.ship_rec')
-        tbl.formulaColumn('tot_cargo',select=dict(table='shipsteps.cargo_unl_load',
-                                                columns='SUM($quantity)',
-                                                where='$id=#THIS.cargo_unl_load_id'),
-                                    dtype='N',name_long='!![en]Cargo total', format='#,###.000',static='True')
+        
         
         
     
