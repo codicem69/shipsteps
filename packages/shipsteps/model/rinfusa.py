@@ -1,7 +1,7 @@
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('rinfusa', pkey='id', name_long='rinfusa', name_plural='rinfuse',caption_field='id', partition_agency_id='agency_id')
+        tbl=pkg.table('rinfusa', pkey='id', name_long='rinfusa', name_plural='rinfuse',caption_field='id')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -11,7 +11,7 @@ class Table(object):
         tbl.column('navigazione', name_short='!![en]Navigation', values='Internazionale:Internazionale,Nazionale:Nazionale')
         tbl.column('doc_all', name_short='!![en]Attached docs')
         
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.formulaColumn('nulla_osta',"""CASE WHEN $imb_sba = 'True' THEN 'allo sbarco' WHEN $imb_sba = 'False' THEN :sba END""",var_sba="all'imbarco")
         tbl.formulaColumn('piano_imb_sba',"""CASE WHEN $imb_sba = 'True' THEN 'scaricazione' WHEN $imb_sba = 'False' THEN 'caricazione' END""")
         tbl.formulaColumn('load_unl_plan',"""CASE WHEN $imb_sba = 'True' THEN 'unloading plan' WHEN $imb_sba = 'False' THEN 'loading plan' END""")

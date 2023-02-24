@@ -3,7 +3,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('tributi_cp', pkey='id', name_long='!![en]Tributes HM', 
-                        name_plural='!![en]Tributes HM',caption_field='id', partition_agency_id='agency_id')
+                        name_plural='!![en]Tributes HM',caption_field='id')
         self.sysFields(tbl)
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='tributi_arr', mode='foreignkey', onDelete='cascade')
@@ -13,4 +13,4 @@ class Table(object):
         tbl.column('importo', dtype='N', name_short='!![en]Amount', format='#,###.00')
         tbl.column('imp_lettere', name_short='!![en]Amount letter')
         tbl.column('emesso', dtype='B', name_short='!![en]Issued')
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')

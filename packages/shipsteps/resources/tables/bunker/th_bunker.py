@@ -295,11 +295,11 @@ class FormFromBunker(BaseComponent):
            #    attcmt = attcmt + fileSn.internal_path
         
         # Lettura degli account email predefiniti all'interno di Agency e Staff
-        tbl_staff =  self.db.table('shipsteps.staff')
+        tbl_staff =  self.db.table('agz.staff')
         account_email = tbl_staff.readColumns(columns='$email_account_id',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-        tbl_agency =  self.db.table('shipsteps.agency')
+        tbl_agency =  self.db.table('agz.agency')
         account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
@@ -407,11 +407,11 @@ class FormFromBunker(BaseComponent):
             attcmt.append(fileSn.internal_path)
 
         # Lettura degli account email predefiniti all'interno di Agency e Staff
-        tbl_staff =  self.db.table('shipsteps.staff')
+        tbl_staff =  self.db.table('agz.staff')
         account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-        tbl_agency =  self.db.table('shipsteps.agency')
+        tbl_agency =  self.db.table('agz.agency')
         agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
@@ -474,11 +474,11 @@ class FormFromBunker(BaseComponent):
             attcmt.append(fileSn.internal_path)
         
         # Lettura degli account email predefiniti all'interno di Agency e Staff
-        tbl_staff =  self.db.table('shipsteps.staff')
+        tbl_staff =  self.db.table('agz.staff')
         account_email = tbl_staff.readColumns(columns='$email_account_id',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-        tbl_agency =  self.db.table('shipsteps.agency')
+        tbl_agency =  self.db.table('agz.agency')
         account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))

@@ -3,7 +3,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('arrival_det', pkey='id', name_long='!![en]Arrival details', name_plural='!![en]Arrival details',
-                                     caption_field='id', partition_agency_id='agency_id')
+                                     caption_field='id')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -22,7 +22,7 @@ class Table(object):
         tbl.column('do_dep', size=':15', name_short='!![en]Diesel Oil departure')
         tbl.column('lo_dep', size=':15', name_short='!![en]Lub Oil departure')
         tbl.column('fw_dep', size=':15', name_short='!![en]Fresh Water departure')
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.formulaColumn('robarr_int',"""CASE WHEN $ifo_arr is not null OR $do_arr is not null OR $lo_arr is not null OR $fw_arr is not null THEN
                                         '<br>R.O.B. ON ARRIVAL<br>------------------------------<br>' ELSE '' END""", dtype='T' )
         tbl.formulaColumn('robdep_int',"""CASE WHEN $ifo_dep is not null OR $do_dep is not null OR $lo_dep is not null OR $fw_dep is not null THEN

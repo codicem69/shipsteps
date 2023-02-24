@@ -3,7 +3,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('sof_operations', pkey='id', name_long='!![en]Operation SOF', name_plural='!![en]Operations SOF',
-                                        caption_field='id', partition_agency_id='agency_id', order_by='_row_count')
+                                        caption_field='id', order_by='_row_count')
         self.sysFields(tbl, counter='sof_id')
 
         tbl.column('sof_id',size='22', name_long='sof_id'
@@ -13,6 +13,6 @@ class Table(object):
         tbl.column('operations', name_short='!![en]Operations')
         tbl.column('from', dtype='H', name_short='!![en]From')
         tbl.column('to', dtype='H', name_short='!![en]To')
-        tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
         tbl.formulaColumn('operation_int',"""CASE WHEN $date is not null THEN '<br>OPERATIONS<br>------------------------------' END""", dtype='T')
         

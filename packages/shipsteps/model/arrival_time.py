@@ -4,7 +4,7 @@ import datetime
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('arrival_time', pkey='id', name_long='!![en]arrival times', name_plural='!![en]arrival times',
-                                      caption_field='aor', partition_agency_id='agency_id')
+                                      caption_field='aor')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -23,7 +23,7 @@ class Table(object):
         tbl.column('last_line', dtype='DH', name_short='!![en]Last line')
         tbl.column('sailed', dtype='DH', name_short='!![en]Vessel sailed')
         tbl.column('cosp', dtype='DH', name_short='!![en]Commenced of sea pass')
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+       # tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         
 
         tbl.formulaColumn('sosta_gg', """'Giorni ' || EXTRACT(DAY FROM TO_TIMESTAMP(to_char(@arrival_id.ets,:df), 'YYYY-MM-DD')-TO_TIMESTAMP(to_char($moored,:df), 'YYYY-MM-DD'))""",var_df='YYYY-MM-DD HH24:MI')

@@ -1631,11 +1631,11 @@ class Form(BaseComponent):
            #    attcmt = attcmt + fileSn.internal_path
 
         # Lettura degli account email predefiniti all'interno di Agency e Staff
-        tbl_staff =  self.db.table('shipsteps.staff')
+        tbl_staff =  self.db.table('agz.staff')
         account_email = tbl_staff.readColumns(columns='$email_account_id',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-        tbl_agency =  self.db.table('shipsteps.agency')
+        tbl_agency =  self.db.table('agz.agency')
         account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
@@ -1840,11 +1840,11 @@ class Form(BaseComponent):
                 attcmt.append(fileSn.internal_path)
 
         # Lettura degli account email predefiniti all'interno di Agency e Staff
-        tbl_staff =  self.db.table('shipsteps.staff')
+        tbl_staff =  self.db.table('agz.staff')
         account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-        tbl_agency =  self.db.table('shipsteps.agency')
+        tbl_agency =  self.db.table('agz.agency')
         agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
@@ -1906,7 +1906,7 @@ class Form(BaseComponent):
         subject='aggiornamento '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
         body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
         body_header_pec="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee_pec + '<br><br>'
-        body_footer= 'Cordiali saluti<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
+        body_footer= '<br>Cordiali saluti<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
         if info_moor is None:
             info_moor=''
         body_msg=(sal + '<br>' + "con la presente si comunica che il nuovo ETA della " +vessel_type + ' ' + vessel_name + " è il " + eta + '<br><br>' + info_moor)
@@ -1956,11 +1956,11 @@ class Form(BaseComponent):
             return nome_temp
         
         # Lettura degli account email predefiniti all'interno di Agency e Staff
-        tbl_staff =  self.db.table('shipsteps.staff')
+        tbl_staff =  self.db.table('agz.staff')
         account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-        tbl_agency =  self.db.table('shipsteps.agency')
+        tbl_agency =  self.db.table('agz.agency')
         agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
@@ -2019,11 +2019,11 @@ class Form(BaseComponent):
             return nome_temp
         
         # Lettura degli account email predefiniti all'interno di Agency e Staff
-        tbl_staff =  self.db.table('shipsteps.staff')
+        tbl_staff =  self.db.table('agz.staff')
         account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-        tbl_agency =  self.db.table('shipsteps.agency')
+        tbl_agency =  self.db.table('agz.agency')
         agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
@@ -2140,11 +2140,11 @@ class Form(BaseComponent):
                 attcmt.append(fileSn.internal_path) 
 
         # Lettura degli account email predefiniti all'interno di Agency e Staff
-        tbl_staff =  self.db.table('shipsteps.staff')
+        tbl_staff =  self.db.table('agz.staff')
         account_email,email_mittente = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-        tbl_agency =  self.db.table('shipsteps.agency')
+        tbl_agency =  self.db.table('agz.agency')
         account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))

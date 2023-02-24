@@ -2,7 +2,7 @@
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('sof_tanks', pkey='id', name_long='Sof tanks', name_plural='Sof tanks',caption_field='id', partition_agency_id='agency_id')
+        tbl=pkg.table('sof_tanks', pkey='id', name_long='Sof tanks', name_plural='Sof tanks',caption_field='id')
         self.sysFields(tbl)
 
         tbl.column('sof_id',size='22', name_long='sof_id'
@@ -15,7 +15,7 @@ class Table(object):
         tbl.column('hose_conn', dtype='DH', name_short='!![en]Hoses connected')
         tbl.column('hose_disconn', dtype='DH', name_short='!![en]Hoses disconnected')
         tbl.column('average', size=':15', dtype='T', name_short='!![en]Average rate')
-        tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
 
         tbl.formulaColumn('start_insp_txt', """CASE WHEN $start_insp is not null THEN 'Inspection commenced' || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('stop_insp_txt', """CASE WHEN $stop_insp is not null THEN 'Inspection completed' || '<br>' ELSE '' END""", dtype='T')

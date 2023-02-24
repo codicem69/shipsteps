@@ -1,6 +1,6 @@
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('istanza_cp_cert', pkey='id', name_long='istanza_cp certificato', name_plural='istanza cp certificati',caption_field='id', partition_agency_id='agency_id')
+        tbl=pkg.table('istanza_cp_cert', pkey='id', name_long='istanza_cp certificato', name_plural='istanza cp certificati',caption_field='id')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -15,4 +15,4 @@ class Table(object):
         tbl.column('motivo_istanza', name_short='!![en]Reason for application')
         tbl.column('note', name_short='!![en]Notes')
         tbl.column('allegati', name_short='!![en]Attachments')
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+

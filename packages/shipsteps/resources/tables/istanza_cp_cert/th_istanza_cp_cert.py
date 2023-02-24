@@ -217,11 +217,11 @@ class FormFromCertificates(BaseComponent):
            #    attcmt = attcmt + fileSn.internal_path
         
         # Lettura degli account email predefiniti all'interno di Agency e Staff
-        tbl_staff =  self.db.table('shipsteps.staff')
+        tbl_staff =  self.db.table('agz.staff')
         account_email = tbl_staff.readColumns(columns='$email_account_id',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
-        tbl_agency =  self.db.table('shipsteps.agency')
+        tbl_agency =  self.db.table('agz.agency')
         account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
                   where='$id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))

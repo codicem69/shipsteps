@@ -4,7 +4,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('garbage', pkey='id', name_long='!![en]Garbage form', 
-                        name_plural='!![en]Garbage form',caption_field='id', partition_agency_id='agency_id')
+                        name_plural='!![en]Garbage form',caption_field='id')
         self.sysFields(tbl)
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='garbage_arr', mode='foreignkey', onDelete='cascade')
@@ -17,7 +17,7 @@ class Table(object):
         tbl.column('altro', dtype='B', name_short='!![en]Other')
         tbl.column('altro_spec', name_short='!![en]Specify other')
         tbl.column('invio_fat', name_short='!![en]Sending invoice')
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.pyColumn('datalavoro',name_long='!![en]Workdate', static=True)
         tbl.aliasColumn('agency_fullstyle','@arrival_id.@agency_id.fullstyle')
         tbl.formulaColumn('sped_fat',"""CASE WHEN $invio_fat <> '' THEN $invio_fat ELSE $agency_fullstyle END""")

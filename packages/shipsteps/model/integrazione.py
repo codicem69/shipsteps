@@ -1,7 +1,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('integrazione', pkey='id', name_long='!![en]integration', name_plural='!![en]integration',
-                        caption_field='cargo_unload_id', partition_agency_id='agency_id')
+                        caption_field='cargo_unload_id')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_short='arrival_id'
@@ -13,5 +13,5 @@ class Table(object):
                                             relation_name='place_origingoods', mode='foreignkey', onDelete='raise')
         tbl.column('place_dest_goods',size='22',name_short='!![en]Place destination goods').relation('unlocode.place.id',
                                             relation_name='place_destgoods', mode='foreignkey', onDelete='raise')                                            
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+
         

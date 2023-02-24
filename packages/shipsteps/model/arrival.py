@@ -6,11 +6,11 @@ class Table(object):
     def config_db(self,pkg):
         
         tbl=pkg.table('arrival', pkey='id', name_long='!![en]Arrival', name_plural='!![en]Arrivals',
-                                 caption_field='arrival_data', partition_agency_id='agency_id')
+                                 caption_field='arrival_data')
         self.sysFields(tbl,counter=True)
 
-        tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
-                                    'agency.id',relation_name='agency_id_name', mode='foreignkey', onDelete='raise')
+        #tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
+        #                            'agz.agency.id',relation_name='agency_id_name', mode='foreignkey', onDelete='raise')
         tbl.column('reference_num',name_long='!![en]Reference number')
         tbl.column('date',dtype='D',name_long='!![en]Date')
         tbl.column('pfda_id',size='22',name_short='!![en]Pfda no.').relation('pfda.proforma.id',relation_name='pfda_arr', mode='foreignkey', onDelete='raise')
@@ -400,7 +400,7 @@ class Table(object):
 
     def counter_reference_num(self,record=None):
         #2021/000001
-        tbl_agency = self.db.table('shipsteps.agency')
+        tbl_agency = self.db.table('agz.agency')
         codice = tbl_agency.readColumns(columns='$code', where = '$id =:ag_id', ag_id=record['agency_id'])
         return dict(format='$K$YYYY/$NNNNNN', code=codice, period='YYYY', date_field='date', showOnLoad=True, date_tolerant=True)
 

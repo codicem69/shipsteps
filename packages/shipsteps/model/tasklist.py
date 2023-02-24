@@ -3,7 +3,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('tasklist', pkey='id', name_long='!![en]Task list', name_plural='!![en]Task list',
-                                     caption_field='id', partition_agency_id='agency_id')
+                                     caption_field='id')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -46,7 +46,7 @@ class Table(object):
         tbl.column('nsw', dtype='B', name_short='!![en]NSW')
         tbl.column('acqua', name_short='!![en]Water qt.')
         tbl.column('nome_servizio', name_short='!![en]service name')
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('email_account','@arrival_id.email_account_id')
         
    

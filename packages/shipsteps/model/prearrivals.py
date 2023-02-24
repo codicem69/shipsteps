@@ -17,7 +17,7 @@ class Table(object):
                                     'prearrivals_default.id',relation_name='prearr_df_descr', mode='foreignkey', onDelete='raise')
         tbl.column('data_invio', dtype='DH', name_short='!![en]Send date')
         tbl.pyColumn('privacy',name_long='!![en]Privacy email', static=True, dtype='T')
-        tbl.formulaColumn('fullname',select=dict(table='shipsteps.staff',
+        tbl.formulaColumn('fullname',select=dict(table='agz.staff',
                                                 columns="""$name ||' '||$surname || '<br>' || coalesce($department ||' department <br>','') 
                             || coalesce('mob.: ' || $telephone || '<br>', '') || coalesce('email: ' || $email || '<br>' , '') 
                             || coalesce($note,'') """,

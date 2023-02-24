@@ -4,7 +4,7 @@ from email.policy import default
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('extradaticp', pkey='id', name_long='!![en]Extra data CP', name_plural='!![en]Extra data CP',
-                                      caption_field='id', partition_agency_id='agency_id')
+                                      caption_field='id')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -54,6 +54,6 @@ class Table(object):
         tbl.column('car_sba', name_short='!![en]Cargo unloaded')
         
 
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.formulaColumn('mot_viaggio',"""CASE WHEN $motivo_viaggio = 'op_com' THEN 'Operazioni commerciali' ELSE 'Altro' END""" )
         tbl.formulaColumn('tip_viaggio',"""CASE WHEN $tipo_viaggio = 'linea' THEN 'di Linea' ELSE 'Occasionale' END""" )

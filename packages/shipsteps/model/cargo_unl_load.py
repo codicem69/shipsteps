@@ -3,7 +3,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('cargo_unl_load', pkey='id', name_long='!![en]Cargo unloding/loading', 
-                        name_plural='!![en]Cargoes unloding/loading',caption_field='cargo_arr', partition_agency_id='agency_id')
+                        name_plural='!![en]Cargoes unloding/loading',caption_field='cargo_arr')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -58,4 +58,4 @@ class Table(object):
         tbl.formulaColumn('tip_cargo_dogana',"""CASE WHEN $foreign_cargo = 'True' THEN 'Merce estera da importare'
                                                 WHEN $foreign_cargo = 'False' THEN 'Merce scortata da T2L' ELSE '' END""")
         
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')

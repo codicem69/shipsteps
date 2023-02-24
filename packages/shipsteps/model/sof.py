@@ -4,7 +4,7 @@ from gnr.web.gnrbaseclasses import TableTemplateToHtml
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('sof', pkey='id', name_long='sof', name_plural='sof',caption_field='sof_det', partition_agency_id='agency_id')
+        tbl=pkg.table('sof', pkey='id', name_long='sof', name_plural='sof',caption_field='sof_det')
         self.sysFields(tbl,counter=True)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -25,7 +25,7 @@ class Table(object):
         tbl.column('int_sof', name_short='!![en]Sof header')
         tbl.column('htmlbag', dtype='X', name_long='HTML Doc Bag')
         tbl.column('htmlbag_lop', dtype='X', name_long='HTML Doc LOP Bag')
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@sof_cargo_sof.ship_rec')
         tbl.aliasColumn('cargo_sof', '@sof_cargo_sof.@cargo_unl_load_id.cargo_sof',name_long='!![en]Cargo sof')
        # tbl.aliasColumn('carico_del_sof', '@sof_cargo_sof.carico_del_sof',name_long='!![en]Cargo on sof')

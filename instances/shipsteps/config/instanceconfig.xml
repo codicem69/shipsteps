@@ -7,10 +7,10 @@
 		<gnrcore_sys pkgcode="gnrcore:sys"/>
 		<gnrcore_adm pkgcode="gnrcore:adm"/>
         <gnrcore_email pkgcode="gnrcore:email"/>
-
         <unlocode pkgcode="unlocode:unlocode"/>
         <pfda pkgcode="pfda:pfda"/>
 		<shipsteps pkgcode="shipsteps"/>
+		<agz pkgcode="agz:agz"/>
 	</packages>
 
 	<!-- <menu package="*"/> -->

@@ -4,10 +4,9 @@ class Table(object):
     def config_db(self,pkg):
         
         tbl=pkg.table('protocollo', pkey='id', name_long='!![en]Arrival log', name_plural='!![en]Arrival logs',
-                                 caption_field='prot_n', partition_agency_id='agency_id')
+                                 caption_field='prot_n')
         self.sysFields(tbl,counter='agency_id')
-        tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
-                                    'agency.id',relation_name='name_agency', mode='foreignkey', onDelete='raise')
+
         tbl.column('data', dtype='D', name_short='!![en]date')
         tbl.column('data_prat', dtype='D', name_short='!![en]Pratique date')
         tbl.column('prot_n', name_short='!![en]Log number')

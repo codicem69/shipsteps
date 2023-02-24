@@ -1,7 +1,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('shorepass_righe', pkey='id', name_long='shorepass_righe', name_plural='shorepass_righe',caption_field='id', 
-                                         partition_agency_id='agency_id', order_by='_row_count')
+                                         order_by='_row_count')
         self.sysFields(tbl,counter='shorepass_id')
 
         tbl.column('shorepass_id',size='22', name_long='shorepass_id'
@@ -25,7 +25,7 @@ class Table(object):
         tbl.column('start_time', dtype='H', name_short='start time')
         tbl.column('stop_time', dtype='H', name_short='stop time')
         tbl.column('shorepass', dtype='B', name_short='shorepass', default=True)
-        tbl.aliasColumn('agency_id','@shorepass_id.@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@shorepass_id.@arrival_id.agency_id')
 
     def importer_con_nazioni(self, reader): 
         paesi =    self.db.table('unlocode.nazione').query(columns='$nome,$code').fetchAsDict('code') 

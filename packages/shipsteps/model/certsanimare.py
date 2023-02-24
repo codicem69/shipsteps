@@ -1,7 +1,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('certsanimare', pkey='id', name_long='!![en]Renew certificate Sanimare', 
-                        name_plural='!![en]Renew certificates Sanimare',caption_field='id', partition_agency_id='agency_id')
+                        name_plural='!![en]Renew certificates Sanimare',caption_field='id')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
@@ -27,7 +27,7 @@ class Table(object):
         tbl.column('destroymed_nsis', name_short='!![en]Destroy medicines nsis code')
         tbl.column('visit_date', dtype='D', name_short='!![en]Visit date')
         tbl.column('date', dtype='D', name_short='!![en]Application date')
-        tbl.aliasColumn('agency_id','@arrival_id.agency_id')
+        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
 
         tbl.formulaColumn('sanification_x',"""CASE WHEN $sanification = 'true' THEN 'X' ELSE '' END""")
         tbl.formulaColumn('medicines_x',"""CASE WHEN $medicines = 'true' THEN 'X' ELSE '' END""")
