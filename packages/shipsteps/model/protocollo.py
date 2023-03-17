@@ -4,9 +4,9 @@ class Table(object):
     def config_db(self,pkg):
         
         tbl=pkg.table('protocollo', pkey='id', name_long='!![en]Arrival log', name_plural='!![en]Arrival logs',
-                                 caption_field='prot_n')
+                                 caption_field='prot_n', partition_agency_id='agency_id')
         self.sysFields(tbl,counter='agency_id')
-
+        
         tbl.column('data', dtype='D', name_short='!![en]date')
         tbl.column('data_prat', dtype='D', name_short='!![en]Pratique date')
         tbl.column('prot_n', name_short='!![en]Log number')
@@ -19,7 +19,7 @@ class Table(object):
         
     def counter_prot_n(self,record=None):
         #2021/000001
-        tbl_agency = self.db.table('shipsteps.agency')
+        tbl_agency = self.db.table('agz.agency')
         codice = tbl_agency.readColumns(columns='$code', where = '$id =:ag_id', ag_id=self.db.currentEnv.get('current_agency_id'))
         
         return dict(format='$K$YY/$NNN',code=codice,  period='YY', date_field='data', showOnLoad=True, date_tolerant=True)

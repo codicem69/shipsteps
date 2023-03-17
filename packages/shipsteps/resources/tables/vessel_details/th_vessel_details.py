@@ -90,7 +90,7 @@ class Form(BaseComponent):
         fb.field('dwt', width='10em' )
         fb.field('beam', width='10em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:10 or 10,00' )
         fb.field('mmsi', width='10em' )
-        fb.field('reg_place',lbl='Reg. place',auxColumns='@nazione_code.nome',
+        fb.field('reg_place',lbl='Reg. place',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome',
                         width='10em' )
         fb.field('reg_num', width='10em' )
         fb.br()

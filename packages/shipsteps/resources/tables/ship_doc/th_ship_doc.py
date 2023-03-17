@@ -31,7 +31,7 @@ class ViewFromDoc(BaseComponent):
         r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         #r.fieldcell('vessel_details')
         r.fieldcell('cert', width='30em', edit=True, hasArrowDown=True, order_by='code')
-        r.fieldcell('issued',auxColumns='@nazione_code.nome,$unlocode',limit=20, edit=True,batch_assign=True)
+        r.fieldcell('issued',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode',limit=20, edit=True,batch_assign=True)
         r.fieldcell('date_cert', edit=True,batch_assign=True)
         r.fieldcell('expire', edit=True,batch_assign=True)
         r.fieldcell('annual_place',auxColumns='@nazione_code.nome,$unlocode',limit=20, edit=True,batch_assign=True)

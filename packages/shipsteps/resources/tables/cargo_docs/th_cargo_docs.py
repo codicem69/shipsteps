@@ -54,7 +54,7 @@ class FormFromCargodocs(BaseComponent):
         #fb = pane.formbuilder(cols=2, border_spacing='4px')
         fb.field('cargoman_n', readOnly=True)
         fb.field('freight', width='50.5em',colspan=2)
-        fb.dbSelect(dbtable='unlocode.place',lbl='!![en]Select place',auxColumns='@nazione_code.nome',
+        fb.dbSelect(dbtable='unlocode.place',lbl='!![en]Select place',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome',
                     selected_citta_nazione='.destination')
         fb.field('destination', width='25em')
         fb.field('departure')
