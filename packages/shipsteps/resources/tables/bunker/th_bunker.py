@@ -95,8 +95,8 @@ class FormFromBunker(BaseComponent):
         
         right = bc.roundedGroup(title='!![en]Transportation Company stamp', region='right', width='250px')
         right.img(src='^.stamp_transp', edit=True, crop_width='250px', crop_height='150px', 
-                        placeholder=True, upload_folder='site:application', upload_filename='=.id')
-        right.button('!![en]Remove image', hidden='^.stamp_transp?=!#v').dataRpc(self.deleteImage, image='=.stamp_transp')
+                        placeholder=True, upload_folder='*') #upload_folder='site:application', upload_filename='=.id')
+        #right.button('!![en]Remove image', hidden='^.stamp_transp?=!#v').dataRpc(self.deleteImage, image='=.stamp_transp')
 
     def bunker_att(self,pane):
         #center = pane.roundedGroup(title='Allegati rinfusa',region='center',width='50%')

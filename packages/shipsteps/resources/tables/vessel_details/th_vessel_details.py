@@ -74,7 +74,7 @@ class Form(BaseComponent):
 
     def vesselName(self, bc):
        
-        bc.contentPane(region='left', width='15%').linkerBox('imbarcazione_id',label='Vessel name',margin='2px',openIfEmpty=True, validate_notnull=True,
+        bc.contentPane(region='left', width='12%').linkerBox('imbarcazione_id',label='Vessel name',margin='2px',openIfEmpty=True, validate_notnull=True,
                                                     columns='$nome',
                                                     auxColumns='$tipo,$bandiera,$imo',
                                                     newRecordOnly=False,formResource='Form',
@@ -102,10 +102,10 @@ class Form(BaseComponent):
         fb.field('type',width='100%',colspan=2, values="Portarinfuse liquide,Portarinfuse secche,Portacontainer,Trasp. specializzato,Nave per Merci varie,Nave per Passeggeri,Navi da crociera,Attività Off Shore,Chiatta carichi secchi,Altre navi", tag='filteringSelect')
       
 
-        right = bc.roundedGroup(region='right',title='Vessel Immagine',width='600px')
+        right = bc.roundedGroup(region='right',title='Vessel Immagine',width='550px')
      
         right.img(src='^.vess_image', edit=True, crop_width='600px', crop_height='250px', 
-                        placeholder=True, upload_folder='site:vessel', upload_filename='=.id')
+                        placeholder=True, upload_folder='*')
         #right.button('!![en]Remove image', hidden='^.vess_image?=!#v').dataRpc(self.deleteImage, image='=.vess_image')
   
     def NoteNave(self,frame):

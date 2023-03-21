@@ -186,7 +186,7 @@ class Main(TableScriptToHtml):
         stamp=self.parameter('vess_stamp')
         
         timbro=self.page.externalUrl(stamp)
-        col_data.row(height=25).cell("""<img src="%s" width="auto" height="auto">::HTML""" %timbro, font_weight='bold', lbl="Firma del Comandante, dell’agente o del funzionario autorizzato – Signature by master, authorized agent or officer")
+        col_data.row(height=25).cell("""<img src="%s" width="auto" height="130mm">::HTML""" %timbro, font_weight='bold', lbl="Firma del Comandante, dell’agente o del funzionario autorizzato – Signature by master, authorized agent or officer")
 
     def datiAutorita(self, row):
         col1 = row.cell().layout(name='col1', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
