@@ -66,7 +66,7 @@ class Form(BaseComponent):
     py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor'
     def th_form(self, form):
         bc = form.center.borderContainer()
-        self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='110px', background='lightgrey', splitter=True))
+        self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='130px', background='lightgrey', splitter=True))
         tc = bc.tabContainer(region = 'center',margin='2px',selectedPage='^.tabname')
         
         self.cargoSof(tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo'))
