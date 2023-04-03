@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-13T12:31:55.765732+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-26T15:47:55.905906+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-10-13T17:25:49.434297+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-03-28T18:33:35.881376+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatemod_nave</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">mod_nave</code>
@@ -92,7 +92,7 @@
 				&lt;td style="text-align: center;background: #5e5e5e;"&gt;
 					&lt;span style="color:#ffffff;"&gt;&lt;span style="font-size:14px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Voy n.&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="text-align: center;"&gt;
-					&amp;nbsp;&lt;/td&gt;
+					&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$voy_n&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="2" style="text-align: center;background: #5e5e5e;"&gt;
@@ -166,13 +166,13 @@
 &lt;table border="0" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
 	&lt;tbody&gt;
 		&lt;tr&gt;
-			&lt;td class= "td_wb" style="text-align: center;"&gt;
+			&lt;td class="td_wb" style="text-align: center;"&gt;
 				&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="background-color:#d3d3d3;"&gt;T I M E S&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 		&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
 &lt;div&gt;
-	&lt;table  border="3" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
+	&lt;table border="3" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;"&gt;
@@ -541,16 +541,16 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g6esb98o0p>
-<g6esba27ah _pkey="g6esba27ah"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/Bandiera</fieldname>
-<varname dtype="::NN">vessel_imbarcazione_bandiera</varname>
-<virtual_column _T="NN"></virtual_column>
+<gjin2u6ptd _newrecord="True::B" _pkey="gjin2u6ptd"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@flag.codename</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Flag/codename</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_flag_codename">vessel_imbarcazione_bandiera</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g6esba27ah>
+<editable _T="NN" dtype="::NN"></editable></gjin2u6ptd>
 <g6esbavp0p _pkey="g6esbavp0p"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.loa</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Vessel/imbarcazione/LOA</fieldname>
@@ -880,7 +880,16 @@
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8gkrs236p></varsbag>
+<editable _T="NN" dtype="::NN"></editable></g8gkrs236p>
+<ggkg9nk62x _pkey="ggkg9nk62x"><fieldpath>voy_n</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">voy_n</fieldname>
+<varname dtype="::NN">voy_n</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></ggkg9nk62x></varsbag>
 <parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css>td {
@@ -903,7 +912,7 @@
 				&lt;/td&gt;
 			&lt;/tr&gt;
 		</_cargo_lu_arr>
-<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@vessel_details_id.@owner_id.own_fullname,cargo_lu_en,@cargo_lu_arr.@shipper_id.fullname_sr,@cargo_lu_arr.@receiver_id.fullname_sr" columns="@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,@vessel_details_id.@imbarcazione_id.loa,@vessel_details_id.@imbarcazione_id.gt,@vessel_details_id.@imbarcazione_id.nt,@vessel_details_id.@imbarcazione_id.imo,@vessel_details_id.callsign,@vessel_details_id.built,@vessel_details_id.dwt,@vessel_details_id.beam,@vessel_details_id.mmsi,@vessel_details_id.@reg_place.descrizione,@vessel_details_id.reg_num,$draft_aft_arr,$draft_fw_arr,$master_name,$n_crew,$n_passengers,@last_port.descrizione,@next_port.descrizione,$mandatory,@dock_id.dock_name,@vessel_details_id.@owner_id.own_fullname,$transit_cargo,$cargo_onboard,$cargo_lu_en,@cargo_lu_arr.bln,@cargo_lu_arr.@measure_id.description,@cargo_lu_arr.quantity,@cargo_lu_arr.description_it,@cargo_lu_arr.operation,@cargo_lu_arr.@shipper_id.fullname_sr,@cargo_lu_arr.@receiver_id.fullname_sr,@vessel_details_id.vess_note,$visit_id" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "vessel_imbarcazione_loa": "T", "vessel_imbarcazione_gt": "T", "vessel_imbarcazione_nt": "T", "vessel_imbarcazione_imo": "T", "vessel_callsign": "A", "vessel_built": "A", "vessel_dwt": "T", "vessel_beam": "T", "vessel_mmsi": "T", "vessel_place_iscrizione": "T", "vessel_reg_num": "T", "draft_aft_arr": "N", "draft_fw_arr": "N", "master_name": "T", "n_crew": "N", "n_passengers": "N", "last_port": "T", "next_port": "T", "mandatory": "T", "dock_name": "T", "ownwer_fullname": "A", "transit_cargo": "T", "cargo_onboard": "T", "cargo_l_u": "T", "bl_n": "A", "measure_cargo": "T", "cargo_mov_quantity": "N", "cargo_mov_description_it": "T", "cargo_mov_operation": "T", "fullname_shippers": "A", "fullname_receivers": "A", "vessel_vess_note": "T", "visit_id": "T"}::JS'>&lt;style&gt;td {
+<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@vessel_details_id.@imbarcazione_id.@flag.codename,@vessel_details_id.@owner_id.own_fullname,cargo_lu_en,@cargo_lu_arr.@shipper_id.fullname_sr,@cargo_lu_arr.@receiver_id.fullname_sr" columns="@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.@flag.codename,@vessel_details_id.@imbarcazione_id.loa,@vessel_details_id.@imbarcazione_id.gt,@vessel_details_id.@imbarcazione_id.nt,@vessel_details_id.@imbarcazione_id.imo,@vessel_details_id.callsign,@vessel_details_id.built,@vessel_details_id.dwt,@vessel_details_id.beam,@vessel_details_id.mmsi,@vessel_details_id.@reg_place.descrizione,@vessel_details_id.reg_num,$draft_aft_arr,$draft_fw_arr,$master_name,$n_crew,$n_passengers,@last_port.descrizione,@next_port.descrizione,$mandatory,@dock_id.dock_name,@vessel_details_id.@owner_id.own_fullname,$transit_cargo,$cargo_onboard,$cargo_lu_en,@cargo_lu_arr.bln,@cargo_lu_arr.@measure_id.description,@cargo_lu_arr.quantity,@cargo_lu_arr.description_it,@cargo_lu_arr.operation,@cargo_lu_arr.@shipper_id.fullname_sr,@cargo_lu_arr.@receiver_id.fullname_sr,@vessel_details_id.vess_note,$visit_id,$voy_n" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "A", "vessel_imbarcazione_loa": "T", "vessel_imbarcazione_gt": "T", "vessel_imbarcazione_nt": "T", "vessel_imbarcazione_imo": "T", "vessel_callsign": "A", "vessel_built": "A", "vessel_dwt": "T", "vessel_beam": "T", "vessel_mmsi": "T", "vessel_place_iscrizione": "T", "vessel_reg_num": "T", "draft_aft_arr": "N", "draft_fw_arr": "N", "master_name": "T", "n_crew": "N", "n_passengers": "N", "last_port": "T", "next_port": "T", "mandatory": "T", "dock_name": "T", "ownwer_fullname": "A", "transit_cargo": "T", "cargo_onboard": "T", "cargo_l_u": "T", "bl_n": "A", "measure_cargo": "T", "cargo_mov_quantity": "N", "cargo_mov_description_it": "T", "cargo_mov_operation": "T", "fullname_shippers": "A", "fullname_receivers": "A", "vessel_vess_note": "T", "visit_id": "T", "voy_n": "T"}::JS'>&lt;style&gt;td {
   border: 1px solid;
   line-height: 0.9;
 }
@@ -924,7 +933,7 @@
 				&lt;td style="text-align: center;background: #5e5e5e;"&gt;
 					&lt;span style="color:#ffffff;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:16px;"&gt;Bandiera&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="4" style="text-align: center;"&gt;
-					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:20px;"&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.bandiera&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:20px;"&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.@flag.codename&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 			&lt;/tr&gt;
@@ -990,7 +999,7 @@
 				&lt;td style="text-align: center;background: #5e5e5e;"&gt;
 					&lt;span style="color:#ffffff;"&gt;&lt;span style="font-size:14px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Voy n.&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="text-align: center;"&gt;
-					&amp;#160;&lt;/td&gt;
+					&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$voy_n&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="2" style="text-align: center;background: #5e5e5e;"&gt;

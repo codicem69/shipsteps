@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-03-23T17:21:47.009251+01:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-10-07T12:54:14.905695+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-04-06T12:43:28.334762+02:00</_mod_ts>
-<_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-10-07T12:55:53.828953+02:00</_mod_ts>
+<_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplategarbage_email</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">garbage_email</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
@@ -32,7 +32,15 @@
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;$agenzia_fullstyle&lt;/span&gt;&lt;/div&gt;</content>
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$agenzia_fullstyle&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:10px;"&gt;--&lt;br /&gt;
+	Ai sensi del D.L.gs. 196/2003 si precisa che le informazioni contenute in questo messaggio sono riservate ed ad uso esclusivo del destinatario.&lt;br /&gt;
+	Se il messaggio Le fosse pervenuto per errore, la preghiamo di eliminarlo senza copiarlo e di non inoltrarlo a terzi, dandocene gentilmente comunicazione via e-mail.&lt;br /&gt;
+	In compliance with the law D.L.gs 196/2003 it is pointed out that all information of this message is reserved for address use only.&lt;br /&gt;
+	If you have received this message by mistake please eliminate it without copying or sending on it to other people, kindly please giving us communication by e-mail.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</content>
 <metadata><author>admin</author>
 <version _T="NN"></version>
 <date _T="NN"></date>
@@ -153,7 +161,15 @@
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;$@agency_id.fullstyle&lt;/span&gt;&lt;/div&gt;</main></compiled></data>
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;$@agency_id.fullstyle&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:10px;"&gt;--&lt;br /&gt;
+	Ai sensi del D.L.gs. 196/2003 si precisa che le informazioni contenute in questo messaggio sono riservate ed ad uso esclusivo del destinatario.&lt;br /&gt;
+	Se il messaggio Le fosse pervenuto per errore, la preghiamo di eliminarlo senza copiarlo e di non inoltrarlo a terzi, dandocene gentilmente comunicazione via e-mail.&lt;br /&gt;
+	In compliance with the law D.L.gs 196/2003 it is pointed out that all information of this message is reserved for address use only.&lt;br /&gt;
+	If you have received this message by mistake please eliminate it without copying or sending on it to other people, kindly please giving us communication by e-mail.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</main></compiled></data>
 <authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
 <private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
 <quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>

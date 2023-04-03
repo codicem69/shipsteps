@@ -8,7 +8,7 @@ class Table(object):
         tbl=pkg.table('arrival', pkey='id', name_long='!![en]Arrival', name_plural='!![en]Arrivals',
                                  caption_field='arrival_data')
         self.sysFields(tbl,counter=True)
-
+        #tolto la colonna agency_id perchè inserita nel package agz con la customizzazione di shipsteps
         #tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(
         #                            'agz.agency.id',relation_name='agency_id_name', mode='foreignkey', onDelete='raise')
         tbl.column('reference_num',name_long='!![en]Reference number')
@@ -58,8 +58,8 @@ class Table(object):
         tbl.pyColumn('saluto',name_long='!![en]Greeting', static=True)
         tbl.pyColumn('datacorrente',name_long='!![en]Current date', static=True)
         tbl.pyColumn('sostanave',name_long='!![en]Sosta nave', static=True)
-        tbl.pyColumn('logocc',name_long='!![en]Logo CC', static=True, dtype='P')
-        tbl.pyColumn('logocp',name_long='!![en]Logo CP', static=True, dtype='P')
+        #tbl.pyColumn('logocc',name_long='!![en]Logo CC', static=True, dtype='P')
+        #tbl.pyColumn('logocp',name_long='!![en]Logo CP', static=True, dtype='P')
         tbl.pyColumn('privacy',name_long='!![en]Privacy email', static=True, dtype='T')
        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('n_tug_arr','@extradatacp.n_tug_arr')
@@ -85,6 +85,8 @@ class Table(object):
         tbl.aliasColumn('flag','@vessel_details_id.flag')
         tbl.aliasColumn('tsl','@vessel_details_id.tsl')
         tbl.aliasColumn('imo','@vessel_details_id.imo')
+        tbl.formulaColumn('logo_cp',select=dict(table='shipsteps.loghi', columns="$logo_cp",
+                                                    where='$agency_id=#THIS.agency_id'), dtype='P')
         tbl.formulaColumn('ets_emaildep',"""CASE WHEN $sailed IS NULL THEN :etsed || to_char($ets, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',
                             var_etsed='<br>EXPECTED TIMES<br>------------------------------<br>ETS:...........',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('eta_email',"""CASE WHEN @time_arr.aor IS NULL AND $eta IS NOT NULL THEN :etadescr || to_char($eta, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etadescr='ETA:...........',var_df='DD/MM/YYYY HH24:MI')
@@ -379,13 +381,13 @@ class Table(object):
             sosta=str(days) + ' giorni, ' + str(tot_hours) + ' ore, ' + str(remain_minutes) + ' minuti'
             return sosta    
 
-    def pyColumn_logocc(self,record,field):
-        logocc = self.db.application.getPreference('logo_cc',pkg='shipsteps')
-        return logocc
+    #def pyColumn_logocc(self,record,field):
+    #    logocc = self.db.application.getPreference('logo_cc',pkg='shipsteps')
+    #    return logocc
 
-    def pyColumn_logocp(self,record,field):
-        logocp = self.db.application.getPreference('logo_cp',pkg='shipsteps')
-        return logocp
+    #def pyColumn_logocp(self,record,field):
+    #    logocp = self.db.application.getPreference('logo_cp',pkg='shipsteps')
+    #    return logocp
 
     def pyColumn_privacy(self,record,field):
         privacy_email = self.db.application.getPreference('privacy_email',pkg='shipsteps')

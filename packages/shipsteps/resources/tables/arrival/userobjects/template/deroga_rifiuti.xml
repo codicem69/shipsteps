@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-27T11:07:12.249996+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-27T15:31:52.962102+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-09-27T15:36:15.270577+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-03-28T18:08:49.129293+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatederoga_rifiuti</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">deroga_rifiuti</code>
@@ -12,7 +12,7 @@
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Deroga rifiuti</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-top:20px;margin-left:20px;width:96%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-top:20px;margin-left:20px;width:19cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
@@ -35,7 +35,7 @@
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;br /&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:96%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:19cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;border:1px solid" width="180px"&gt;
@@ -64,66 +64,66 @@
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
 	&amp;nbsp;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td colspan="5"&gt;
 					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;la scrivente in qualit&amp;agrave; di Agente Marittimo della Soc. &lt;u&gt;&lt;strong&gt;$agency_name&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;la scrivente in qualit&amp;agrave; di Agente Marittimo della Soc. &lt;u&gt;&lt;strong&gt;$agency_name&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;em&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;the writer company as Shipping Agency of Society&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/em&gt;&lt;/div&gt;
+						&lt;em&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;the writer company as Shipping Agency of Society&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/em&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
 					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Visto il Decreto Legislativo n. 197 del 08/11/2021 in attuazione della Direttiva Europea 2019/883/UE relativa agli impianti portuali di raccolta per i rifiuti prodotti da navi e per i residui del carico;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;Visto il Decreto Legislativo n. 197 del 08/11/2021 in attuazione della Direttiva Europea 2019/883/UE relativa agli impianti portuali di raccolta per i rifiuti prodotti da navi e per i residui del carico;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Having regard to the Italian Decree issued on 08/11/2021 n. 197 concerning the application of Directive 2019/883/UE of the European Parliament and of the Council on port reception facilities for ships generated waste and cargo residues;&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Having regard to the Italian Decree issued on 08/11/2021 n. 197 concerning the application of Directive 2019/883/UE of the European Parliament and of the Council on port reception facilities for ships generated waste and cargo residues;&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
+				&lt;td colspan="3" width="450px"&gt;
+					&lt;div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;Vista la dichiarazione del Comandante del/lla&lt;strong&gt; &lt;u&gt;$imbarcazione_tipo $imbarcazione_nome&lt;/u&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Having regard to the declaration of the Master of&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
 				&lt;td colspan="3"&gt;
 					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Vista la dichiarazione del Comandante del/lla&lt;strong&gt; &lt;u&gt;$imbarcazione_tipo $imbarcazione_nome&lt;/u&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;Bandiera &amp;nbsp; &lt;u&gt;&lt;strong&gt;$bandiera&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Having regard to the declaration of the Master of&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-				&lt;/td&gt;
-				&lt;td colspan="3" width="200px"&gt;
-					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Bandiera &amp;nbsp; &lt;u&gt;&lt;strong&gt;$bandiera&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Flag&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Flag&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;riguardante la capacit&amp;agrave; di stoccaggio sufficiente per i rifiuti prodotti e che saranno accumulati come per Reg. CE 2019/883/UE (all. II di cui all&amp;#39;art. 6 D.L. n. 197 del 08/11/2021);&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;riguardante la capacit&amp;agrave; di stoccaggio sufficiente per i rifiuti prodotti e che saranno accumulati come per Reg. CE 2019/883/UE (all. II di cui all&amp;#39;art. 6 D.L. n. 197 del 08/11/2021);&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;concerning storage capacity as per Regulation 2021/883/UE (All. II art. 6 D.L. 197 08/11/2021);&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;concerning storage capacity as per Regulation 2021/883/UE (All. II art. 6 D.L. 197 08/11/2021);&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
 					&lt;div style="text-align: center;"&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;RICHIEDE&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;RICHIEDE&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div style="text-align: center;"&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;REQUIRES&lt;/em&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;REQUIRES&lt;/em&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="3"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;In nome e per conto del Comandante del/lla &lt;u&gt;&lt;strong&gt;$imbarcazione_tipo $imbarcazione_nome&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;In nome e per conto del Comandante del/lla &lt;u&gt;&lt;strong&gt;$imbarcazione_tipo $imbarcazione_nome&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
 						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;on behalf of the Master of the&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td colspan="3" width="200px"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Bandiera &amp;nbsp; &lt;u&gt;&lt;strong&gt;$bandiera&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Bandiera &amp;nbsp; &lt;u&gt;&lt;strong&gt;$bandiera&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Flag&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Flag&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
@@ -131,17 +131,17 @@
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;, ormeggiata il &lt;u&gt;&lt;strong&gt;$moored&lt;/strong&gt;&lt;/u&gt;&lt;strong&gt;&amp;nbsp; &lt;/strong&gt;l&amp;#39;autorizzazione a proseguire il viaggio verso il prossimo porto di scalo &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;, ormeggiata il &lt;u&gt;&lt;strong&gt;$moored&lt;/strong&gt;&lt;/u&gt;&lt;strong&gt;&amp;nbsp; &lt;/strong&gt;l&amp;#39;autorizzazione a proseguire il viaggio verso il prossimo porto di scalo &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;em&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;, berthed on&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;em&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;the authorizathion as per art.7.4 of the Italian Decree n.197/2021 to proceed to the next port of call&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;em&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;, berthed on&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;em&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;the authorizathion as per art.7.4 of the Italian Decree n.197/2021 to proceed to the next port of call&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="5" width="400px"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;u&gt;&lt;strong&gt;$next_port&lt;/strong&gt;&lt;/u&gt; , senza conferire i rifiuti di bordo come per art. 7.4 del D.L. 197/2021&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;u&gt;&lt;strong&gt;$next_port&lt;/strong&gt;&lt;/u&gt; , senza conferire i rifiuti di bordo come per art. 7.4 del D.L. 197/2021&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; , without delivering the ship- generated waste.&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; , without delivering the ship- generated waste.&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
@@ -149,22 +149,22 @@
 &lt;/div&gt;
 &lt;div&gt;
 	&lt;br /&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td width="50px"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Data&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Data&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Date&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Date&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td valign="top" width="300px"&gt;
-					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;u&gt;&lt;strong&gt;$data_attuale&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;u&gt;&lt;strong&gt;$data_attuale&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Firma - &lt;em&gt;Signature&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Firma - &lt;em&gt;Signature&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;$agency_name &lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;$agency_name &lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
@@ -172,7 +172,7 @@
 					&amp;nbsp;&lt;/td&gt;
 				&lt;td&gt;
 					&amp;nbsp;&lt;/td&gt;
-				&lt;td style="text-align: center;"&gt;
+				&lt;td&gt;
 					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;$agency_stamp&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
@@ -198,16 +198,16 @@
 <bcc_address _T="NN"></bcc_address>
 <attachments _T="NN"></attachments></email>
 <email_compiled _T="BAG"></email_compiled></metadata>
-<varsbag><gdxn8alvrt _pkey="gdxn8alvrt"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/Bandiera</fieldname>
-<varname dtype="::NN" _loadedValue="vessel_imbarcazione_bandiera">bandiera</varname>
-<virtual_column _T="NN"></virtual_column>
+<varsbag><gjimee0qll _pkey="gjimee0qll"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@flag.codename</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Flag/codename</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_flag_codename">bandiera</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gdxn8alvrt>
+<editable _T="NN" dtype="::NN"></editable></gjimee0qll>
 <gdxo61j0t5 _pkey="gdxo61j0t5"><fieldpath>@vessel_details_id.@imbarcazione_id.nome</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
@@ -356,8 +356,8 @@
 <parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css>table, td {padding: 5px;}</content_css>
-<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.fullstyle,@agency_id.fullname,datacorrente,nextport" columns="@vessel_details_id.@imbarcazione_id.bandiera,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@agency_id.virtual_stamp,@agency_id.agency_name,@agency_id.address,@agency_id.tel,@agency_id.email,@agency_id.web,@agency_id.fullstyle,@agency_id.fullname,@agency_id.@port.descrizione,$datacorrente,@agency_id.virtual_stamp,@agency_id.agency_stamp,@time_arr.moored,$nextport" formats='{"agency_stamp": "auto", "moored": "dd/MM/yy"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"bandiera": "T", "imbarcazione_nome": "T", "imbarcazione_tipo": "T", "virtual_stamp": "T", "agency_name": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agenzia_fullstyle": "A", "user_signature": "T", "porto": "T", "data_attuale": "T", "agency_stamp": "P", "moored": "DH", "next_port": "T"}::JS'>&lt;style&gt;table, td {padding: 5px;}&lt;/style&gt;&lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-top:20px;margin-left:20px;width:96%;"&gt;
+<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@vessel_details_id.@imbarcazione_id.@flag.codename,@agency_id.fullstyle,@agency_id.fullname,datacorrente,nextport" columns="@vessel_details_id.@imbarcazione_id.@flag.codename,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@agency_id.virtual_stamp,@agency_id.agency_name,@agency_id.address,@agency_id.tel,@agency_id.email,@agency_id.web,@agency_id.fullstyle,@agency_id.fullname,@agency_id.@port.descrizione,$datacorrente,@agency_id.virtual_stamp,@agency_id.agency_stamp,@time_arr.moored,$nextport" formats='{"agency_stamp": "auto", "moored": "dd/MM/yy"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"bandiera": "A", "imbarcazione_nome": "T", "imbarcazione_tipo": "T", "virtual_stamp": "T", "agency_name": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agenzia_fullstyle": "A", "user_signature": "T", "porto": "T", "data_attuale": "T", "agency_stamp": "P", "moored": "DH", "next_port": "T"}::JS'>&lt;style&gt;table, td {padding: 5px;}&lt;/style&gt;&lt;div&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-top:20px;margin-left:20px;width:19cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
@@ -380,7 +380,7 @@
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;br /&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:96%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:19cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;border:1px solid" width="180px"&gt;
@@ -409,66 +409,66 @@
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&amp;nbsp; &lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
 	&amp;nbsp;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td colspan="5"&gt;
 					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;la scrivente in qualit&amp;agrave; di Agente Marittimo della Soc. &lt;u&gt;&lt;strong&gt;$@agency_id.agency_name&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;la scrivente in qualit&amp;agrave; di Agente Marittimo della Soc. &lt;u&gt;&lt;strong&gt;$@agency_id.agency_name&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;em&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;the writer company as Shipping Agency of Society&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/em&gt;&lt;/div&gt;
+						&lt;em&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;the writer company as Shipping Agency of Society&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/em&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
 					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Visto il Decreto Legislativo n. 197 del 08/11/2021 in attuazione della Direttiva Europea 2019/883/UE relativa agli impianti portuali di raccolta per i rifiuti prodotti da navi e per i residui del carico;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;Visto il Decreto Legislativo n. 197 del 08/11/2021 in attuazione della Direttiva Europea 2019/883/UE relativa agli impianti portuali di raccolta per i rifiuti prodotti da navi e per i residui del carico;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Having regard to the Italian Decree issued on 08/11/2021 n. 197 concerning the application of Directive 2019/883/UE of the European Parliament and of the Council on port reception facilities for ships generated waste and cargo residues;&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Having regard to the Italian Decree issued on 08/11/2021 n. 197 concerning the application of Directive 2019/883/UE of the European Parliament and of the Council on port reception facilities for ships generated waste and cargo residues;&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
+				&lt;td colspan="3" width="450px"&gt;
+					&lt;div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;Vista la dichiarazione del Comandante del/lla&lt;strong&gt; &lt;u&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/u&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Having regard to the declaration of the Master of&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
 				&lt;td colspan="3"&gt;
 					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Vista la dichiarazione del Comandante del/lla&lt;strong&gt; &lt;u&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/u&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;Bandiera &amp;nbsp; &lt;u&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.@flag.codename&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Having regard to the declaration of the Master of&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-				&lt;/td&gt;
-				&lt;td colspan="3" width="200px"&gt;
-					&lt;div&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Bandiera &amp;nbsp; &lt;u&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.bandiera&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Flag&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Flag&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;riguardante la capacit&amp;agrave; di stoccaggio sufficiente per i rifiuti prodotti e che saranno accumulati come per Reg. CE 2019/883/UE (all. II di cui all&amp;#39;art. 6 D.L. n. 197 del 08/11/2021);&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;riguardante la capacit&amp;agrave; di stoccaggio sufficiente per i rifiuti prodotti e che saranno accumulati come per Reg. CE 2019/883/UE (all. II di cui all&amp;#39;art. 6 D.L. n. 197 del 08/11/2021);&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;concerning storage capacity as per Regulation 2021/883/UE (All. II art. 6 D.L. 197 08/11/2021);&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;concerning storage capacity as per Regulation 2021/883/UE (All. II art. 6 D.L. 197 08/11/2021);&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
 					&lt;div style="text-align: center;"&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;RICHIEDE&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;RICHIEDE&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div style="text-align: center;"&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;REQUIRES&lt;/em&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;REQUIRES&lt;/em&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="3"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;In nome e per conto del Comandante del/lla &lt;u&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;In nome e per conto del Comandante del/lla &lt;u&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
 						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;on behalf of the Master of the&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td colspan="3" width="200px"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Bandiera &amp;nbsp; &lt;u&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.bandiera&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Bandiera &amp;nbsp; &lt;u&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.@flag.codename&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Flag&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Flag&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
@@ -476,17 +476,17 @@
 			&lt;tr&gt;
 				&lt;td colspan="6"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;, ormeggiata il &lt;u&gt;&lt;strong&gt;$@time_arr.moored^moored&lt;/strong&gt;&lt;/u&gt;&lt;strong&gt;&amp;nbsp; &lt;/strong&gt;l&amp;#39;autorizzazione a proseguire il viaggio verso il prossimo porto di scalo &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;, ormeggiata il &lt;u&gt;&lt;strong&gt;$@time_arr.moored^moored&lt;/strong&gt;&lt;/u&gt;&lt;strong&gt;&amp;nbsp; &lt;/strong&gt;l&amp;#39;autorizzazione a proseguire il viaggio verso il prossimo porto di scalo &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;em&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;, berthed on&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;em&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;the authorizathion as per art.7.4 of the Italian Decree n.197/2021 to proceed to the next port of call&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;em&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;, berthed on&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;em&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;the authorizathion as per art.7.4 of the Italian Decree n.197/2021 to proceed to the next port of call&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/em&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td colspan="5" width="400px"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;u&gt;&lt;strong&gt;$nextport&lt;/strong&gt;&lt;/u&gt; , senza conferire i rifiuti di bordo come per art. 7.4 del D.L. 197/2021&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;u&gt;&lt;strong&gt;$nextport&lt;/strong&gt;&lt;/u&gt; , senza conferire i rifiuti di bordo come per art. 7.4 del D.L. 197/2021&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; , without delivering the ship- generated waste.&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; , without delivering the ship- generated waste.&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
@@ -494,22 +494,22 @@
 &lt;/div&gt;
 &lt;div&gt;
 	&lt;br /&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td width="50px"&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Data&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Data&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Date&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;em&gt;Date&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td valign="top" width="300px"&gt;
-					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;u&gt;&lt;strong&gt;$datacorrente&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;u&gt;&lt;strong&gt;$datacorrente&lt;/strong&gt;&lt;/u&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Firma - &lt;em&gt;Signature&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;Firma - &lt;em&gt;Signature&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;$@agency_id.agency_name &lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;$@agency_id.agency_name &lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
@@ -517,7 +517,7 @@
 					&amp;nbsp;&lt;/td&gt;
 				&lt;td&gt;
 					&amp;nbsp;&lt;/td&gt;
-				&lt;td style="text-align: center;"&gt;
+				&lt;td&gt;
 					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;em&gt;$@agency_id.agency_stamp^agency_stamp&lt;/em&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;

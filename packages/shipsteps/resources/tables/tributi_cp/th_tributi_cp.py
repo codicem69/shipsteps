@@ -121,7 +121,9 @@ class Form(BaseComponent):
                                 format_page='A4',selId='=#FORM.shipsteps_tributi_cp.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',                            
                                 _ask=dict(title='!![en]Select the type of payment',fields=[dict(name='tip_versamento', lbl='!![en]Type of payment', tag='filteringSelect',hasDownArrow=True,
                                 values='bonifico:Bonifico,bollettino:Bollettino postale',
-                                validate_notnull=True,cols=4,popup=True,colspan=2)]),_onResult="this.form.save()")
+                                validate_notnull=True,cols=4,popup=True,colspan=2),dict(name='letterhead', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
+                             hasDownArrow=True, auxColumns='$name',
+                             table='adm.htmltemplate')]),_onResult="this.form.save()")
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='800px')
@@ -139,6 +141,12 @@ class Form(BaseComponent):
             nome_temp = 'no_tributi'
             return nome_temp
         
+        #verifichiamo nei kwargs se abbiamo la letterhead da passare come carta intestata 
+        if kwargs:
+           letterhead=kwargs['letterhead']
+        else:
+           letterhead=''
+
         tbl_tributi_cp = self.db.table('shipsteps.tributi_cp')
         builder = TableTemplateToHtml(table=tbl_tributi_cp)
 
@@ -149,7 +157,7 @@ class Form(BaseComponent):
         template = self.loadTemplate(nome_template)  # nome del template
         pdfpath = self.site.storageNode('home:stampe_template', nome_file)
         
-        builder(record=selId, template=template)
+        builder(record=selId, template=template,letterhead_id=letterhead)
         if format_page=='A3':
             builder.page_format='A3'
             builder.page_width=427

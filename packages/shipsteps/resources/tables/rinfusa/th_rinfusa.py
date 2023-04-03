@@ -129,12 +129,23 @@ class FormFromRinfusa(BaseComponent):
         template = self.loadTemplate(nome_template)  # nome del template
         pdfpath = self.site.storageNode('home:stampe_template', nome_file)
 
+        tbl_htmltemplate = self.db.table('adm.htmltemplate')
+        templates= tbl_htmltemplate.query(columns='$id,$name', where='').fetch()
+        letterhead=''       
+        for r in range(len(templates)):
+            if templates[r][1] == 'A4_vert':
+                letterhead = templates[r][0]    
+            if format_page=='A3':
+                if templates[r][1] == 'A3_orizz':
+                    letterhead = templates[r][0]
+          
+        builder(record=record_id, template=template,letterhead_id=letterhead)
         #builder(record=selId, template=template)
-        builder(record=record_id, template=template)
-        if format_page=='A3':
-            builder.page_format='A3'
-            builder.page_width=427
-            builder.page_height=290
+        #builder(record=record_id, template=template)
+        #if format_page=='A3':
+        #    builder.page_format='A3'
+        #    builder.page_width=427
+        #    builder.page_height=290
 
         result = builder.writePdf(pdfpath=pdfpath)
 

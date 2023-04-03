@@ -8,7 +8,6 @@ class Main(BaseResourcePrint):
     batch_title = 'General declaration arrival'
     html_res = 'html_res/general_declaration'
     batch_immediate = 'print'
-    pdf_service = 'wk'
 
     def table_script_parameters_pane(self, pane, **kwargs):
 

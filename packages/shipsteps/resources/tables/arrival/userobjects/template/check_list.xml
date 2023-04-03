@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-13T12:31:55.401562+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-14T18:28:14.669974+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-09-23T09:16:41.824648+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-09-29T09:04:49.819599+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatecheck_list</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">check_list</code>
@@ -31,7 +31,8 @@
     Avvisare Servimar x Servizio Antincendio Antinquinamento (Petroliera)
     Avvisare Chimico di Porto per Merce Fumigata o Radiotecnico per materiale Ferroso
     Inviare modulo arrivo nave a Setra
-    Inviare in Capitaneria Ships pre arrivals: General Declaration + IMO FORMS + Hazmat (in caso di merce pericolose) + Garbage form
+    Inviare in Capitaneria Ships pre arrivals: General Declaration + IMO FORMS + Hazmat (in caso di merce pericolose)
+    Inviare all&amp;#39;Autorit&amp;agrave; Portuale il &lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;Garbage form&lt;/span&gt;&lt;/span&gt;
     ENS dalla Fiore per arrivo merce EXTRAUE almeno 24/12 ore prima dell&amp;rsquo;ormeggio o richiederla al primo Porto d&amp;rsquo;entrata Comunitario
     Inviare a Sanimare (max 6 ore prima arrivo nave) richiesta Libera pratica sanitaria (prov. ExtraUE)
     Sanimare prima dell&amp;rsquo;entrata nave invia libera pratica sanitaria (prov.ExtraUE)
@@ -47,7 +48,7 @@
     Preparare moduli x Sanimare Pescara (provenienza ExtraUE)
     Preparare shore pass (in caso di marittimi ExtraUE)
     Preparare versamento x capitaneria
-&lt;strong&gt;    A BORDO  -  &lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eca (Emission Control Areas) la nave deve fare il cambiodel fuel da fuel oil a gasoil prima dell&amp;rsquo;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;                            &lt;/strong&gt;
+&lt;strong&gt;    A BORDO  -  &lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eca (Emission Control Areas) la nave deve fare il cambio del fuel da fuel oil a gasoil prima dell&amp;rsquo;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;                            &lt;/strong&gt;
     Prendere orari arrivo e dati necessari x comunicazioni
     Compilare rapportino arrivo x Capitaneria
     Compilare modulo x G.d.F. e Polizia di Frontiera
@@ -142,7 +143,8 @@
     Avvisare Servimar x Servizio Antincendio Antinquinamento (Petroliera)
     Avvisare Chimico di Porto per Merce Fumigata o Radiotecnico per materiale Ferroso
     Inviare modulo arrivo nave a Setra
-    Inviare in Capitaneria Ships pre arrivals: General Declaration + IMO FORMS + Hazmat (in caso di merce pericolose) + Garbage form
+    Inviare in Capitaneria Ships pre arrivals: General Declaration + IMO FORMS + Hazmat (in caso di merce pericolose)
+    Inviare all&amp;#39;Autorit&amp;agrave; Portuale il &lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;Garbage form&lt;/span&gt;&lt;/span&gt;
     ENS dalla Fiore per arrivo merce EXTRAUE almeno 24/12 ore prima dell&amp;rsquo;ormeggio o richiederla al primo Porto d&amp;rsquo;entrata Comunitario
     Inviare a Sanimare (max 6 ore prima arrivo nave) richiesta Libera pratica sanitaria (prov. ExtraUE)
     Sanimare prima dell&amp;rsquo;entrata nave invia libera pratica sanitaria (prov.ExtraUE)
@@ -158,7 +160,7 @@
     Preparare moduli x Sanimare Pescara (provenienza ExtraUE)
     Preparare shore pass (in caso di marittimi ExtraUE)
     Preparare versamento x capitaneria
-&lt;strong&gt;    A BORDO  -  &lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eca (Emission Control Areas) la nave deve fare il cambiodel fuel da fuel oil a gasoil prima dell&amp;rsquo;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;                            &lt;/strong&gt;
+&lt;strong&gt;    A BORDO  -  &lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Eca (Emission Control Areas) la nave deve fare il cambio del fuel da fuel oil a gasoil prima dell&amp;rsquo;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;                            &lt;/strong&gt;
     Prendere orari arrivo e dati necessari x comunicazioni
     Compilare rapportino arrivo x Capitaneria
     Compilare modulo x G.d.F. e Polizia di Frontiera

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-13T12:31:55.980037+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-10-07T16:12:47.887340+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-11-18T16:32:41.725031+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-11-18T16:42:07.622570+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.softemplateemail_arr_shiprec</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_arr_shiprec</code>
@@ -392,7 +392,7 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></ge8vhjro7d>
-<gfj9gvyadd _pkey="gfj9gvyadd"><fieldpath dtype="::NN">fullstyle_for_rec</fieldpath>
+<gfj9qkarxl _pkey="gfj9qkarxl"><fieldpath dtype="::NN">fullstyle_for_rec</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">fullstyle_for_rec</fieldname>
 <varname dtype="::NN">fullstyle_for_rec</varname>
@@ -401,7 +401,7 @@
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gfj9gvyadd></varsbag>
+<editable _T="NN" dtype="::NN"></editable></gfj9qkarxl></varsbag>
 <parameters><g8jvcuia2p _pkey="g8jvcuia2p"><code dtype="::NN" _loadedValue="::NN">email_to</code>
 <description dtype="::NN" _loadedValue="::NN">email to</description>
 <fieldtype _T="NN" dtype="::NN"></fieldtype>

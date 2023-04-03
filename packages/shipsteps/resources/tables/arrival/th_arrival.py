@@ -2318,12 +2318,23 @@ class Form(BaseComponent):
                 nome_temp='nota_part_no'
                 return nome_temp
 
-        builder(record=record_arr, template=template)#,letterhead_id=letterhead)
-        if format_page=='A3':
-            builder.page_format='A3'
-            builder.page_width=427
-            builder.page_height=290
-
+        tbl_htmltemplate = self.db.table('adm.htmltemplate')
+        templates= tbl_htmltemplate.query(columns='$id,$name', where='').fetch()
+        letterhead=''       
+        for r in range(len(templates)):
+            if templates[r][1] == 'A4_vert':
+                letterhead = templates[r][0]    
+            if format_page=='A3':
+                if templates[r][1] == 'A3_orizz':
+                    letterhead = templates[r][0]
+          
+        builder(record=record_arr, template=template,letterhead_id=letterhead)
+       
+        #if format_page=='A3':
+        #    builder.page_format='A3'
+        #    builder.page_width=427
+        #    builder.page_height=290
+#
         result = builder.writePdf(pdfpath=pdfpath)
         
         self.setInClientData(path='gnr.clientprint',
@@ -2379,11 +2390,22 @@ class Form(BaseComponent):
         template = self.loadTemplate(nome_template)  # nome del template
         pdfpath = self.site.storageNode('home:stampe_template', nome_file)
 
-        builder(record=selId, template=template)
-        if format_page=='A3':
-            builder.page_format='A3'
-            builder.page_width=427
-            builder.page_height=290
+        tbl_htmltemplate = self.db.table('adm.htmltemplate')
+        templates= tbl_htmltemplate.query(columns='$id,$name', where='').fetch()
+        letterhead=''       
+        for r in range(len(templates)):
+            if templates[r][1] == 'A4_vert':
+                letterhead = templates[r][0]    
+            if format_page=='A3':
+                if templates[r][1] == 'A3_orizz':
+                    letterhead = templates[r][0]
+          
+        builder(record=selId, template=template,letterhead_id=letterhead)
+        #builder(record=selId, template=template)
+        #if format_page=='A3':
+        #    builder.page_format='A3'
+        #    builder.page_width=427
+        #    builder.page_height=290
 
         result = builder.writePdf(pdfpath=pdfpath)
 
@@ -2414,11 +2436,23 @@ class Form(BaseComponent):
         template = self.loadTemplate(nome_template)  # nome del template
         pdfpath = self.site.storageNode('home:stampe_template', nome_file)
 
-        builder(record=record, template=template)
-        if format_page=='A3':
-            builder.page_format='A3'
-            builder.page_width=427
-            builder.page_height=290
+        tbl_htmltemplate = self.db.table('adm.htmltemplate')
+        templates= tbl_htmltemplate.query(columns='$id,$name', where='').fetch()
+        letterhead=''       
+        for r in range(len(templates)):
+            if templates[r][1] == 'A4_vert':
+                letterhead = templates[r][0]    
+            if format_page=='A3':
+                if templates[r][1] == 'A3_orizz':
+                    letterhead = templates[r][0]
+          
+        builder(record=record, template=template,letterhead_id=letterhead)
+
+        #builder(record=record, template=template)
+        #if format_page=='A3':
+        #    builder.page_format='A3'
+        #    builder.page_width=427
+        #    builder.page_height=290
 
         result = builder.writePdf(pdfpath=pdfpath)
 

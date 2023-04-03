@@ -165,12 +165,25 @@ class ViewFromShorepassRighe(BaseComponent):
             pdfpath = self.site.storageNode('/tmp:template',nome_file)#('home:stampe_template', nome_file)
             storagePath.append(pdfpath.fullpath)
             record=shorepass[r][0]
-            builder(record=record, template=template)
+            
+            tbl_htmltemplate = self.db.table('adm.htmltemplate')
+            templates= tbl_htmltemplate.query(columns='$id,$name', where='').fetch()
+            letterhead=''       
+            for r in range(len(templates)):
+                if templates[r][1] == 'A4_vert':
+                    letterhead = templates[r][0]    
+                if format_page=='A3':
+                    if templates[r][1] == 'A3_orizz':
+                        letterhead = templates[r][0]
+          
+            builder(record=record, template=template,letterhead_id=letterhead)
+            #builder(record=record, template=template)
         
-            if format_page=='A3':
-                builder.page_format='A3'
-                builder.page_width=427
-                builder.page_height=290
+            #if format_page=='A3':
+            #    builder.page_format='A3'
+            #    builder.page_width=427
+            #    builder.page_height=290
+            
             filepdf=builder.writePdf(pdfpath=pdfpath)
 
         builder.pdf_handler.joinPdf(storagePath,'home:stampe_template/shorepass.pdf')

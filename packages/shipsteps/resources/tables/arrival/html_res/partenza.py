@@ -21,7 +21,7 @@ class Main(TableScriptToHtml):
     def datiDomanda(self):
         self.paperpage = self.getNewPage()
         layout = self.paperpage.layout(
-                            um='mm',top=5,left=4,right=4, bottom=3,
+                            um='mm',top=5,left=6,right=6, bottom=3,
                             border_width=0,
                             font_family='Helvetica',
                             font_size='9pt',
@@ -81,9 +81,9 @@ class Main(TableScriptToHtml):
         contatti_layout = row.cell().layout()
         dati_layout = row.cell().layout(name='datiCliente', um='mm', border_color='white', lbl_class='smallCaption',
                                     lbl_height=3, style='line-height:5mm;')
-        finanza = 'Spett.<br>' + self.field('cp_int') + '<br>Sezione Tecnica - Nostromo' + '::HTML'
+        cp = 'Spett.<br>' + self.field('cp_int') + '<br>Sezione Tecnica - Nostromo' + '::HTML'
         #dati_layout.row(height=5).cell('Spett.',font_weight= 'bold')
-        dati_layout.row().cell(finanza,font_weight= 'bold', font_size='14pt')
+        dati_layout.row().cell(cp,font_weight= 'bold', font_size='12pt')
         
       # fatture_layout = row.cell().layout(name='datiFatture', um='mm', border_color='grey', lbl_class='smallCaption',
       #                             lbl_height=3, style='line-height:5mm;text-indent:2mm;')
@@ -224,7 +224,7 @@ class Main(TableScriptToHtml):
         prima_col = row.cell(width=10).layout(name='Operazioni', um='mm', border_color='black', lbl_class='',hasBorderTop=True,hasBorderLeft=True,
                                     row_border=False,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',width=10)
-        datioper= "<div style='text-align: center;text-decoration:underline;padding: "+p_oc+"% 0;-webkit-transform: rotate(-90deg);'>OPERAZIONI COMMERCIALI</div>" + '::HTML'
+        datioper= "<div style='text-align: center;text-decoration:underline;padding: "+p_oc+"% 0;transform: rotate(-90deg);'>OPERAZIONI COMMERCIALI</div>" + '::HTML'
         prima_col.row().cell(datioper, font_weight='bold', background='lightgrey')
         seconda_col = row.cell().layout(name='descr2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=False,hasBorderLeft=True,
                                     lbl_height=3, style='line-height:5mm;',content_class='cellheader')
@@ -383,8 +383,8 @@ class Main(TableScriptToHtml):
         else:    
             antincendio=''
         settima_col.row(height=5).cell(antincendio,font_size='8pt', font_weight='bold', style="text-align:center")
-        ottava_col = row.cell(width=42).layout(name='serv7', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
-                                    lbl_height=3, style='line-height:5mm;',width=42,content_class='cellheader', background='lightgrey')
+        ottava_col = row.cell(width=38).layout(name='serv7', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
+                                    lbl_height=3, style='line-height:5mm;',width=38,content_class='cellheader', background='lightgrey')
         ottava_col.row(height=5).cell('ANTINQUINAMENTO', font_weight='bold', background='lightgrey')
         nona_col = row.cell(width=5).layout(name='serv8', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,
                                     lbl_height=3, style='line-height:5mm;',content_class='celldata')
@@ -420,9 +420,9 @@ class Main(TableScriptToHtml):
                                     lbl_height=3, style='line-height:5mm;')
         
         firma.row().cell('FIRMA', font_size='14pt',content_class='aligned_center')
-        stamp=self.record['@agency_id.agency_stamp']
-        timbro=self.page.externalUrl(stamp)
-        firma.row(height=15).cell("""<img src="%s" width="100" height="100">::HTML""" %timbro,width=0,content_class='aligned_center')
+        timbro=self.record['@agency_id.agency_stamp']
+        #timbro=self.page.externalUrl(stamp)
+        firma.row(height=15).cell("""<img src="%s" width="auto" height="30mm">::HTML""" %timbro,width=0,content_class='aligned_center')
         
     
         #print(x)

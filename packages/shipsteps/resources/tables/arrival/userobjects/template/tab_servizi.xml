@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-02-11T18:38:15.270839+01:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-14T18:28:15.100538+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-02-25T11:56:04.334546+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-03-28T18:34:53.250597+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatetab_servizi</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">tab_servizi</code>
@@ -11,10 +11,10 @@
 <userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Tabella Servizi</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
-<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div style="width:420mm; height=297mm"&gt;
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div style="width:427mm; height=290mm"&gt;
 	&amp;nbsp;&lt;br /&gt;
 	&lt;br /&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td colspan="3" style="text-align: center;"&gt;
@@ -24,36 +24,36 @@
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
-				&lt;td style="text-align: center;width:100px;"&gt;
+				&lt;td style="text-align: center;width:2.5cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Last Port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:300px;"&gt;
+				&lt;td style="text-align: center;width:7.0cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$last_port&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:100px;"&gt;
+				&lt;td style="text-align: center;width:2.5cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Next Port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:300px;"&gt;
+				&lt;td style="text-align: center;width:7.0cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$prox_port&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
-				&lt;td style="text-align: center;width:100px;"&gt;
+				&lt;td style="text-align: center;width:2.5cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Arrival date&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:300px;"&gt;
+				&lt;td style="text-align: center;width:7cm;"&gt;
 					&amp;nbsp;&lt;/td&gt;
-				&lt;td style="text-align: center;width:100px;"&gt;
+				&lt;td style="text-align: center;width:2.5cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Departure date&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:300px;"&gt;
+				&lt;td style="text-align: center;width:7cm;"&gt;
 					&amp;nbsp;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;br /&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;"&gt;
@@ -65,9 +65,9 @@
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
-    &lt;br /&gt;
+	&lt;br /&gt;
 	&lt;div style="text-align: center;"&gt;
-		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td style="text-align: center;"&gt;
@@ -254,7 +254,7 @@
 			&lt;/tbody&gt;
 		&lt;/table&gt;
 		&lt;div&gt;
-			&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+			&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 				&lt;tbody&gt;
 					&lt;tr row_datasource="@pfda_id.@proforma_servextra"&gt;
 						&lt;td style="text-align: left;"&gt;
@@ -367,7 +367,7 @@
 				&lt;/tbody&gt;
 			&lt;/table&gt;
 			&lt;div&gt;
-				&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+				&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 					&lt;tbody&gt;
 						&lt;tr&gt;
 							&lt;td&gt;
@@ -437,16 +437,16 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g6pi9t35z5>
-<g6pi9up1b5 _pkey="g6pi9up1b5"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/Bandiera</fieldname>
-<varname dtype="::NN">vessel_imbarcazione_bandiera</varname>
-<virtual_column _T="NN"></virtual_column>
+<gjin3rrmnd _newrecord="True::B" _pkey="gjin3rrmnd"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@flag.codename</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Flag/codename</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_flag_codename">vessel_imbarcazione_bandiera</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask dtype="::NN" _loadedValue="::NN">bandiera %s</mask>
-<editable _T="NN" dtype="::NN"></editable></g6pi9up1b5>
+<editable _T="NN" dtype="::NN"></editable></gjin3rrmnd>
 <g6pib98frl _pkey="g6pib98frl"><fieldpath dtype="::NN">@invoice_det_id.fullname</fieldpath>
 <dtype dtype="::NN">A</dtype>
 <fieldname dtype="::NN">Fatturazione/fullname</fieldname>
@@ -693,49 +693,49 @@
 							&lt;span style=" font-size:12px;"&gt;&lt;span style=" font-size:12px;"&gt;&amp;#160;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;/tr&gt;
 					</_pfda_id_proforma_servextra>
-<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@invoice_det_id.fullname,nextport,lastport,@pfda_id.@proforma_servextra.serv_extra,prox_port" columns="@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.bandiera,@invoice_det_id.fullname,$nextport,$lastport,@pfda_id.pilot,@pfda_id.protocollo,@pfda_id.tug,@pfda_id.moor,@pfda_id.garbage,@pfda_id.customs,@pfda_id.agency,@pfda_id.retaingarbage,@pfda_id.isps,@pfda_id.misc,@pfda_id.antifire,@pfda_id.bulkauth,@pfda_id.@proforma_servextra.descrizione,@pfda_id.@proforma_servextra.tariffa,@pfda_id.totalepfda,@pfda_id.stamp,@pfda_id.admcharge,@pfda_id.diritticp,@pfda_id.@proforma_servextra.serv_extra,$prox_port" formats="{}::JS" masks='{"vessel_imbarcazione_bandiera": "bandiera %s", "proforma_protocollo": "PFDA N. %s"}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "T", "fatturazione_fullname": "A", "next_port": "T", "last_port": "T", "proforma_pilot": "N", "proforma_protocollo": "A", "proforma_tug": "N", "proforma_mooringmen": "N", "proforma_garbage": "N", "proforma_customs_clearance": "N", "proforma_agency_fees": "N", "proforma_garbage_auth_": "N", "proforma_isps": "N", "proforma_miscellaneous": "N", "proforma_antifire": "N", "proforma_bulk_auth_": "N", "proforma_serviziextra_descrizione": "T", "proforma_serviziextra_tariffa": "N", "proforma_totale_pfda": "N", "proforma_tax_stamps": "N", "proforma_administration_charge": "N", "proforma_tributi_cp": "N", "proforma_serviziextra_serv_extra": "A", "prox_port": "A"}::JS'>&lt;div style="width:420mm; height=297mm"&gt;
+<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@vessel_details_id.@imbarcazione_id.@flag.codename,@invoice_det_id.fullname,nextport,lastport,@pfda_id.@proforma_servextra.serv_extra,prox_port" columns="@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.@flag.codename,@invoice_det_id.fullname,$nextport,$lastport,@pfda_id.pilot,@pfda_id.protocollo,@pfda_id.tug,@pfda_id.moor,@pfda_id.garbage,@pfda_id.customs,@pfda_id.agency,@pfda_id.retaingarbage,@pfda_id.isps,@pfda_id.misc,@pfda_id.antifire,@pfda_id.bulkauth,@pfda_id.@proforma_servextra.descrizione,@pfda_id.@proforma_servextra.tariffa,@pfda_id.totalepfda,@pfda_id.stamp,@pfda_id.admcharge,@pfda_id.diritticp,@pfda_id.@proforma_servextra.serv_extra,$prox_port" formats="{}::JS" masks='{"vessel_imbarcazione_bandiera": "bandiera %s", "proforma_protocollo": "PFDA N. %s"}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "A", "fatturazione_fullname": "A", "next_port": "T", "last_port": "T", "proforma_pilot": "N", "proforma_protocollo": "A", "proforma_tug": "N", "proforma_mooringmen": "N", "proforma_garbage": "N", "proforma_customs_clearance": "N", "proforma_agency_fees": "N", "proforma_garbage_auth_": "N", "proforma_isps": "N", "proforma_miscellaneous": "N", "proforma_antifire": "N", "proforma_bulk_auth_": "N", "proforma_serviziextra_descrizione": "T", "proforma_serviziextra_tariffa": "N", "proforma_totale_pfda": "N", "proforma_tax_stamps": "N", "proforma_administration_charge": "N", "proforma_tributi_cp": "N", "proforma_serviziextra_serv_extra": "A", "prox_port": "A"}::JS'>&lt;div style="width:427mm; height=290mm"&gt;
 	&amp;#160;&lt;br&gt;
 	&lt;br&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td colspan="3" style="text-align: center;"&gt;
 					&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 				&lt;td colspan="2" style="text-align: center;"&gt;
-					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.bandiera^vessel_imbarcazione_bandiera&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.@flag.codename^vessel_imbarcazione_bandiera&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
-				&lt;td style="text-align: center;width:100px;"&gt;
+				&lt;td style="text-align: center;width:2.5cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Last Port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:300px;"&gt;
+				&lt;td style="text-align: center;width:7.0cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$lastport&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:100px;"&gt;
+				&lt;td style="text-align: center;width:2.5cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Next Port&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:300px;"&gt;
+				&lt;td style="text-align: center;width:7.0cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$prox_port&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
-				&lt;td style="text-align: center;width:100px;"&gt;
+				&lt;td style="text-align: center;width:2.5cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Arrival date&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:300px;"&gt;
+				&lt;td style="text-align: center;width:7cm;"&gt;
 					&amp;#160;&lt;/td&gt;
-				&lt;td style="text-align: center;width:100px;"&gt;
+				&lt;td style="text-align: center;width:2.5cm;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Departure date&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: center;width:300px;"&gt;
+				&lt;td style="text-align: center;width:7cm;"&gt;
 					&amp;#160;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&lt;br&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: center;"&gt;
@@ -747,9 +747,9 @@
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
-    &lt;br&gt;
+	&lt;br&gt;
 	&lt;div style="text-align: center;"&gt;
-		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td style="text-align: center;"&gt;
@@ -936,7 +936,7 @@
 			&lt;/tbody&gt;
 		&lt;/table&gt;
 		&lt;div&gt;
-			&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+			&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 				&lt;tbody&gt;
 					
 $@pfda_id.@proforma_servextra
@@ -1039,7 +1039,7 @@ $@pfda_id.@proforma_servextra
 				&lt;/tbody&gt;
 			&lt;/table&gt;
 			&lt;div&gt;
-				&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:20cm;"&gt;
+				&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:21cm;width:19.5cm;"&gt;
 					&lt;tbody&gt;
 						&lt;tr&gt;
 							&lt;td&gt;

@@ -10,6 +10,7 @@ import datetime
 
 class Main(TableScriptToHtml):
     maintable = 'shipsteps.arrival'
+    pdf_service = 'we'
     virtual_columns = """$cp_int,@agency_id.fullstyle,$nextport,@vessel_details_id.@owner_id.own_fullname,$lastport,$nextport,@cargo_lu_arr.cargo_lu_en_ita,
                          $ship_or_rec,$caricoarrivo,$chrtrs"""
     #Con virtual_columns aggiungo a self.record anche le formulaColumn calcolate che altrimenti di default non verrebbero compilate 
@@ -21,7 +22,7 @@ class Main(TableScriptToHtml):
     def datiDeclaration(self):
         self.paperpage = self.getNewPage()
         layout = self.paperpage.layout(
-                            um='mm',top=5,left=4,right=4, bottom=3,
+                            um='mm',top=5,left=8,right=8, bottom=3,
                             border_width=0,
                             font_family='Helvetica',
                             font_size='9pt',
@@ -154,8 +155,8 @@ class Main(TableScriptToHtml):
                                     vertical_align= 'middle',lbl_height=3, style='line-height:3mm;',content_class='cellheader')
         col_crew.row(height=15).cell(self.parameter('pax_list'), font_weight='bold', lbl='20.Lista passeggeri - Passenger List', content_class='cell_att_doc')
         
-        stamp=self.record['@agency_id.agency_stamp']
-        timbro=self.page.externalUrl(stamp)
+        timbro=self.record['@agency_id.agency_stamp']
+        #timbro=self.page.externalUrl(stamp)
         data_att = str(self.parameter('data_att').strftime("%d/%m/%Y"))
         col2.row(height=30).cell(data_att+'<br>'+"""<img src="%s" width="100" height="100">::HTML""" %timbro, font_weight='bold',
                     lbl='21. Data e firma del comandante, agente o funzionario autorizzato Date and signature of master, agent or authorized official', content_class='cellheader_sp')

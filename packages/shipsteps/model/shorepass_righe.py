@@ -25,7 +25,11 @@ class Table(object):
         tbl.column('start_time', dtype='H', name_short='start time')
         tbl.column('stop_time', dtype='H', name_short='stop time')
         tbl.column('shorepass', dtype='B', name_short='shorepass', default=True)
-        #tbl.aliasColumn('agency_id','@shorepass_id.@arrival_id.agency_id')
+        tbl.aliasColumn('agency_id','@shorepass_id.@arrival_id.agency_id')
+        tbl.formulaColumn('logo_cp',select=dict(table='shipsteps.loghi', columns="$logo_cp",
+                                                    where='$agency_id=#THIS.agency_id'), dtype='P')
+        tbl.formulaColumn('logo_imm',select=dict(table='shipsteps.loghi', columns="$logo_imm",
+                                                    where='$agency_id=#THIS.agency_id'), dtype='P')
 
     def importer_con_nazioni(self, reader): 
         paesi =    self.db.table('unlocode.nazione').query(columns='$nome,$code').fetchAsDict('code') 
