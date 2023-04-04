@@ -85,6 +85,7 @@ class Table(object):
         tbl.aliasColumn('flag','@vessel_details_id.flag')
         tbl.aliasColumn('tsl','@vessel_details_id.tsl')
         tbl.aliasColumn('imo','@vessel_details_id.imo')
+        tbl.formulaColumn('protfald', """@prot_arr.prot_n || coalesce(' Fald.' || @prot_arr.@fald_n.numero,'')""",dtype='T',name_long='Prot.Fald.')
         tbl.formulaColumn('logo_cp',select=dict(table='shipsteps.loghi', columns="$logo_cp",
                                                     where='$agency_id=#THIS.agency_id'), dtype='P')
         tbl.formulaColumn('ets_emaildep',"""CASE WHEN $sailed IS NULL THEN :etsed || to_char($ets, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',
