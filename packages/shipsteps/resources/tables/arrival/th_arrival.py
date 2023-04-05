@@ -92,7 +92,6 @@ class Form(BaseComponent):
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
 
     def th_form(self, form):
-    
         form.store.handler('load',virtual_columns='$workport')
         #pane = form.record
         #fb = pane.formbuilder(cols=2, border_spacing='4px')
@@ -1423,20 +1422,19 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_extra=div_extra.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
-        #btn_intfat = fb_extra.Button('!![en]Intestazione Fatt', width='115px')
-        #btn_intfat.dataRpc('nome_temp', self.email_intfat,record='=#FORM.record',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
 
-        dlg = rg_extra.dialog(nodeId='mydialog',style='width:600px;height:150px;',title='Intestazione fattura',closable=True)
-        dlg.span('Intestazione fatt: ')
-        
-        dlg.span().simpleTextArea(value='^intfat', width='40em', height='50px')
-        dlg.hr()
-        btn_dlg=dlg.button('Visualizza Intestazione')
-        btn_dlg1=dlg.button('Email Intestazione fattura')
-        
-        btn_dlg1.dataRpc('nome_temp', self.email_intfat,record='=#FORM.record',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
-        fb_extra.button('Intestazione Fatture', action="genro.wdgById('mydialog').show()")
-        btn_dlg.dataRpc('intfat',self.intfat,record='=#FORM.record')
+        #dlg = rg_extra.dialog(nodeId='mydialog',style='width:600px;height:150px;',title='Intestazione fattura',closable=True)
+        #dlg.span('Intestazione fatt: ')
+        #dlg.span().simpleTextArea(value='^intfat', width='40em', height='50px')
+        #dlg.hr()
+        #btn_dlg=dlg.button('Visualizza Intestazione')
+        #btn_dlg1=dlg.button('Email Intestazione fattura')
+        #btn_dlg1.dataRpc('nome_temp', self.email_intfat,record='=#FORM.record',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
+        #fb_extra.button('Intestazione Fatture', action="genro.wdgById('mydialog').show()")
+        #btn_dlg.dataRpc('intfat',self.intfat,record='=#FORM.record')
+
+        fb_extra.div(height='30px').dock(id='mydock_fat')
+        div_extra.paletteGrid(paletteCode='Intestazione Fatture',table='shipsteps.invoice_det',viewResource='ViewIntFat', dockTo='mydock_fat',condition='$id=:invid',condition_invid='^#FORM.record.invoice_det_id')
         
         dlgws = rg_extra.dialog(nodeId='dialog_ws',style='width:300px;height:100px;',title='Water supply',closable=True)
         dlgws.span('Quantity mt.: ')
