@@ -10,7 +10,7 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('imbarcazione_id', name='Vessel')
-        r.fieldcell('@imbarcazione_id.bandiera')
+        r.fieldcell('@imbarcazione_id.@flag.codename', name='Flag',width='8em')
         r.fieldcell('owner_id', name='Owner', width='15em')
         r.fieldcell('imo', width='7em')
         r.fieldcell('callsign',width='5em')
@@ -76,7 +76,7 @@ class Form(BaseComponent):
        
         bc.contentPane(region='left', width='12%').linkerBox('imbarcazione_id',label='Vessel name',margin='2px',openIfEmpty=True, validate_notnull=True,
                                                     columns='$nome',
-                                                    auxColumns='$tipo,$bandiera,$imo',
+                                                    auxColumns='$tipo,@flag.codename,$imo',
                                                     newRecordOnly=False,formResource='Form',
                                                     dialog_height='200px',dialog_width='700px')
         center= bc.roundedGroup(region='center',title='Vessel Details').div(margin='10px',margin_right='20px')
