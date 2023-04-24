@@ -85,6 +85,8 @@ class Table(object):
         tbl.aliasColumn('flag','@vessel_details_id.flag')
         tbl.aliasColumn('tsl','@vessel_details_id.tsl')
         tbl.aliasColumn('imo','@vessel_details_id.imo')
+        tbl.aliasColumn('time_gate','@agency_id.@agency_sh_gate.details',dtype='T')
+        tbl.aliasColumn('map_gate','@agency_id.@agency_sh_gate.map',dtype='P')
         tbl.formulaColumn('protfald', """@prot_arr.prot_n || coalesce(' Fald.' || @prot_arr.@fald_n.numero,'')""",dtype='T',name_long='Prot.Fald.')
         tbl.formulaColumn('logo_cp',select=dict(table='shipsteps.loghi', columns="$logo_cp",
                                                     where='$agency_id=#THIS.agency_id'), dtype='P')

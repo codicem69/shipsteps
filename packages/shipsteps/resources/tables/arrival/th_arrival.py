@@ -1089,6 +1089,7 @@ class Form(BaseComponent):
                              if(msg=='form_gdf') {SET .form_gdf=true;}
                              if(msg=='form_immigration_print') {SET .form_immigration=true;}
                              if(msg=='form_provisions') {SET .form_provision=true;}
+                             if(msg=='master_info') {SET .master_info=true;}
                              if(msg=='DichSanimare') {SET .form_sanimare=true;}
                              if(msg=='InterferenzeFiore') {SET .form_checklist_f=true;}"""
                              ,msg='^nome_temp',msg_txt = 'Email ready to be sent')
@@ -1180,6 +1181,18 @@ class Form(BaseComponent):
         fb_arr.field('form_checklist_f', lbl='', margin_top='6px')
         fb_arr.semaphore('^.form_checklist_f?=#v==true?true:false', margin_top='6px')
         fb_arr.br()
+
+        btn_timegate = fb_arr.Button('!![en]Times gate info')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.master_info',button=btn_timegate.js_widget)
+        btn_timegate.dataRpc('nome_temp', self.print_template_gate,record='=#FORM.record',
+                            nome_template = 'shipsteps.opening_gate:time_gate', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            format_page='A4',_onResult="this.form.save();")
+        fb_arr.field('master_info', lbl='', margin_top='6px')
+        fb_arr.semaphore('^.master_info?=#v==true?true:false', margin_top='6px')
+
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
@@ -2416,7 +2429,58 @@ class Form(BaseComponent):
         # il msg con il dataController
         nome_temp='val_garbage'
         return nome_temp    
+    
+    @public_method
+    def print_template_gate(self, record, resultAttr=None,selId=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
+        #msg_special=None
+        ag_id=record['agency_id']
+        tbl_gate = self.db.table('shipsteps.opening_gate')
+        record_gate = tbl_gate.query(columns='$id',where='$agency_id=:a_id',
+                                                                    a_id=ag_id).fetch()            
 
+        builder = TableTemplateToHtml(table=tbl_gate)
+        storagePath=[]
+        for r in range(len(record_gate)):
+            nome_temp = nome_template.replace('shipsteps.opening_gate:','')+str(r)
+            nome_file = '{cl_id}.pdf'.format(
+                        cl_id=nome_temp)
+
+            template = self.loadTemplate(nome_template)  # nome del template
+            pdfpath = self.site.storageNode('home:stampe_template', nome_file)
+            
+            storagePath.append(pdfpath.fullpath)
+            record=record_gate[r][0]
+
+            tbl_htmltemplate = self.db.table('adm.htmltemplate')
+            templates= tbl_htmltemplate.query(columns='$id,$name', where='').fetch()
+            letterhead=''       
+            for r in range(len(templates)):
+                if templates[r][1] == 'A4_vert':
+                    letterhead = templates[r][0]    
+                if format_page=='A3':
+                    if templates[r][1] == 'A3_orizz':
+                        letterhead = templates[r][0]
+
+            builder(record=record, template=template,letterhead_id=letterhead)
+        #builder(record=selId, template=template)
+        #if format_page=='A3':
+        #    builder.page_format='A3'
+        #    builder.page_width=427
+        #    builder.page_height=290
+
+            result = builder.writePdf(pdfpath=pdfpath)
+        builder.pdf_handler.joinPdf(storagePath,'home:stampe_template/master_info.pdf')
+        master_info = self.site.storageNode('home:stampe_template', 'master_info.pdf' )
+        self.setInClientData(path='gnr.clientprint',
+                              value=master_info.url(timestamp=datetime.now()), fired=True)
+        
+        #self.email_services(record,email_template_id,servizio, **kwargs)
+        #se ritorna il valore di nome_temp dalla funzione sopra lanciata self.email_services
+        # facciamo ritornare il valore di nome_temp alla chiamata iniziale del bottone di stampa per far scattare
+        # il msg con il dataController
+        nome_temp='master_info'
+        return nome_temp    
+    
     @public_method
     def print_template_derogagb(self, record, resultAttr=None,selId=None,moored=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None

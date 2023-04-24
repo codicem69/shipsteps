@@ -36,6 +36,7 @@ class Table(object):
         tbl.column('form_provision', dtype='B', name_short='!![en]Form Provision')
         tbl.column('form_sanimare', dtype='B', name_short='!![en]Sanimare declaration')
         tbl.column('form_checklist_f', dtype='B', name_short='!![en]Checklist Fiore')
+        tbl.column('master_info', dtype='B', name_short='!![en]Master info')
         tbl.column('email_certchim_cp', dtype='B', name_short='!![en]Email Cert.Chimico HM')
         tbl.column('email_lps_cp', dtype='B', name_short='!![en]Email LPS HM')
         tbl.column('email_garbage_cp', dtype='B', name_short='!![en]Email Garbage HM')
