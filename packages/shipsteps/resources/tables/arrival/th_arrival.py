@@ -1885,10 +1885,18 @@ class Form(BaseComponent):
                 destinatario.append('a: ' + dest)
             if dest_pec is not None and dest_pec !='':
                 destinatario_pec.append('a: ' + dest_pec)
-            if email_dest is not None and email_dest !='':
+            #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario to:    
+            if email_dest is not None and email_dest !='' and ln_serv==1:
                 email_d.append(email_dest)
-            if email_cc_dest is not None and email_cc_dest != '':
+            #verifichiamo se il servizio è più di uno sarà inserito all'email bcc:     
+            if email_dest is not None and email_dest !='' and ln_serv>1:
+                email_bcc_d.append(email_dest)
+            #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario to:    
+            if email_cc_dest is not None and email_cc_dest != '' and ln_serv==1:
                 email_cc_d.append(email_cc_dest)
+             #verifichiamo se il servizio è più di uno sarà inserito all'email bcc:    
+            if email_cc_dest is not None and email_cc_dest != '' and ln_serv>1:
+                email_bcc_d.append(email_cc_dest)    
             if email_bcc_dest is not None and email_bcc_dest != '':    
                 email_bcc_d.append(email_bcc_dest)
             if email_pec_dest is not None and email_pec_dest != '':
@@ -1898,7 +1906,10 @@ class Form(BaseComponent):
         #trasformiamo le liste in stringhe assegnandole alle relative variabili
         consignee='<br>'.join([str(item) for item in destinatario])
         consignee_pec='<br>'.join([str(item) for item in destinatario_pec])
-        email_to = ','.join([str(item) for item in email_d])
+        if ln_serv == 1:
+            email_to = ','.join([str(item) for item in email_d])
+        else:
+            email_to = email_mittente    
         email_cc = ','.join([str(item) for item in email_cc_d])
         email_bcc = ','.join([str(item) for item in email_bcc_d])
         email_pec = ','.join([str(item) for item in email_pec_d])
@@ -1923,7 +1934,7 @@ class Form(BaseComponent):
             info_moor=''
         body_msg=(sal + '<br>' + "con la presente si comunica che il nuovo ETA della " +vessel_type + ' ' + vessel_name + " è il " + eta + '<br><br>' + info_moor)
         body_html=(body_header + body_msg + body_footer )
-        #print(x)
+        
         if email_to:
             self.db.table('email.message').newMessage(account_id=account_email,
                            to_address=email_to,
