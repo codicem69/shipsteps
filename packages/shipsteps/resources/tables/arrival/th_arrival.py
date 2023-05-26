@@ -100,7 +100,7 @@ class Form(BaseComponent):
         #tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
 
         bc = tc.borderContainer(title='!![en]<strong>Arrival</strong>')
-        tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center')
+        tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center')#,hidden="^.tip?=#v!='cargo'")
         bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>')
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
         tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
