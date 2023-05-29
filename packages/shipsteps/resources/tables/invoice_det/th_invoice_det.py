@@ -10,14 +10,14 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
        
-        r.fieldcell('rag_sociale')
-        r.fieldcell('address')
-        r.fieldcell('cap')
+        r.fieldcell('rag_sociale', width='30em')
+        r.fieldcell('address', width='30em')
+        r.fieldcell('cap', width='7em')
         r.fieldcell('city')
         r.fieldcell('vat')
         r.fieldcell('cf')
         r.fieldcell('cod_univoco')
-        r.fieldcell('pec')
+        r.fieldcell('pec', width='15em')
 
     def th_order(self):
         return 'rag_sociale'

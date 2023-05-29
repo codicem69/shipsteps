@@ -9,7 +9,7 @@ class View(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('own_name')
+        r.fieldcell('own_name', width='45em')
         r.fieldcell('address_own', width='auto')
 
     def th_order(self):
