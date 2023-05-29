@@ -17,6 +17,7 @@ class Table(object):
         tbl.column('altro', dtype='B', name_short='!![en]Other')
         tbl.column('altro_spec', name_short='!![en]Specify other')
         tbl.column('invio_fat', name_short='!![en]Sending invoice')
+        tbl.column('note', name_short='!![en]Note')
         #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.pyColumn('datalavoro',name_long='!![en]Workdate', static=True)
         tbl.aliasColumn('agency_fullstyle','@arrival_id.@agency_id.fullstyle')

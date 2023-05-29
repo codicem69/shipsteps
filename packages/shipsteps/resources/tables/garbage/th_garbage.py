@@ -18,6 +18,7 @@ class View(BaseComponent):
         r.fieldcell('altro')
         r.fieldcell('altro_spec')
         r.fieldcell('invio_fat')
+        r.fieldcell('note', width='30em')
 
     def th_order(self):
         return 'arrival_id'
@@ -39,6 +40,7 @@ class ViewFromGarbage(BaseComponent):
         r.fieldcell('altro', edit=True)
         r.fieldcell('altro_spec', edit=True, width='25em')
         r.fieldcell('invio_fat', edit=True, width='40em')
+        r.fieldcell('note', edit=True, width='30em')
         
 class Form(BaseComponent):
 
@@ -55,6 +57,7 @@ class Form(BaseComponent):
         fb.field('altro' )
         fb.field('altro_spec' )
         fb.field('invio_fat' )
+        fb.field('note' )
 
 
     def th_options(self):
