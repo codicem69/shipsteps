@@ -100,7 +100,7 @@ class Form(BaseComponent):
         #tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
 
         bc = tc.borderContainer(title='!![en]<strong>Arrival</strong>')
-        tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center')#,hidden="^.tip?=#v!='cargo'")
+        tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center')#,hidden='^#FORM.record.@last_port.nazione_code?=!(#v=="IT"||#v=="LM")')#,hidden="^#FORM.record.@last_port.nazione_code?=#v!='IT'")
         bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>')
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
         tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
@@ -722,7 +722,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Sanimare ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
-        btn_usma = fb.Button('!![en]Sanimare', width='10em')
+        btn_usma = fb.Button('!![en]Sanimare', width='10em',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -742,8 +742,8 @@ class Form(BaseComponent):
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Message created')}", msgspec='^nome_temp')
-        fb.field('email_usma',lbl='', margin_top='5px')
-        fb.semaphore('^.email_usma?=#v==true?true:false', margin_top='5px')
+        fb.field('email_usma',lbl='', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
+        fb.semaphore('^.email_usma?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
 
         btn_pilot = fb.Button('!![en]Pilot/Moor', width='10em')
         fb1.dataController("""var id = button.id; console.log(id);
@@ -928,7 +928,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Sanimare ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
-        btn_riclps = fb.Button('!![en]LPS request', width='10em')
+        btn_riclps = fb.Button('!![en]LPS request', width='10em',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -949,8 +949,8 @@ class Form(BaseComponent):
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Message created')}", msgspec='^nome_temp')
-        fb.field('email_ric_lps',lbl='', margin_top='5px')
-        fb.semaphore('^.email_ric_lps?=#v==true?true:false', margin_top='5px')
+        fb.field('email_ric_lps',lbl='', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
+        fb.semaphore('^.email_ric_lps?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
 
         btn_update = fb.Button('!![en]Services updating', width='10em')
         btn_update.dataRpc('nome_temp', self.email_serv_upd,
@@ -1161,15 +1161,15 @@ class Form(BaseComponent):
 
         #fb_arr.br()
         
-        btn_fsan = fb_arr.Button('!![en]Sanimare declaration')
+        btn_fsan = fb_arr.Button('!![en]Sanimare declaration',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_sanimare',button=btn_fsan.js_widget)
         btn_fsan.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='DichSanimare', 
                                         _virtual_column='lastport,nextport,vesselname,flag,imo,tsl',_onResult="this.form.save();")
-        fb_arr.field('form_sanimare', lbl='', margin_top='6px')
-        fb_arr.semaphore('^.form_sanimare?=#v==true?true:false', margin_top='6px')
+        fb_arr.field('form_sanimare', lbl='', margin_top='6px',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
+        fb_arr.semaphore('^.form_sanimare?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
 
         btn_intfiore = fb_arr.Button('!![en]CheckList Fiore')
         fb1.dataController("""var id = button.id; console.log(id);
@@ -1196,7 +1196,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_lps_cp = fb_arr.Button('!![en]Email LPS CP')
+        btn_lps_cp = fb_arr.Button('!![en]Email LPS CP',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1216,8 +1216,8 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
 
-        fb_arr.field('email_lps_cp', lbl='', margin_top='6px')
-        fb_arr.semaphore('^.email_lps_cp?=#v==true?true:false', margin_top='6px')
+        fb_arr.field('email_lps_cp', lbl='', margin_top='6px',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
+        fb_arr.semaphore('^.email_lps_cp?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@last_port.@nazione_code.ue?=#v==true")#nascondiamo il widget se la nazione è ue
 
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
