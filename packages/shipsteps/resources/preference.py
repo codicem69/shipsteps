@@ -1,12 +1,13 @@
 # preference.py
 class AppPref(object):
-
+        
     def prefpane_shipsteps(self,parent,**kwargs):
         tc = parent.tabContainer(margin='2px',**kwargs)
         self.note_remarks(tc.borderContainer(title='!!Remarks'))
         #self.loghi(tc.borderContainer(title='!!Logos'))
         self.privacy(tc.borderContainer(title='!!Email Privacy'))
-    
+        self.extra(tc.borderContainer(title='!!Extra'))
+
     def note_remarks(self,pane):       
         #pane = parent.contentPane(**kwargs)
         #fb = pane.formbuilder()
@@ -42,3 +43,6 @@ class AppPref(object):
         fb.div('', width='100em')
         fb.simpleTextArea('^.privacy_email',lbl='Email Privacy',width='100em', height='200px',editor=True)
     
+    def extra(self,pane):
+        fb = pane.formbuilder(cols=2)
+        fb.checkbox('^.ue',lbl='Disabilita paesi UE per pratiche Sanimare')

@@ -9,8 +9,9 @@
         <gnrcore_email pkgcode="gnrcore:email"/>
         <unlocode pkgcode="unlocode:unlocode"/>
         <pfda pkgcode="pfda:pfda"/>
-		<shipsteps pkgcode="shipsteps"/>
 		<agz pkgcode="agz:agz"/>
+		<shipsteps pkgcode="shipsteps"/>
+
 	</packages>
 
 	<!-- <menu package="*"/> -->

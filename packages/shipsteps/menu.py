@@ -5,7 +5,7 @@ class Menu(object):
         #if user != 'admin':
         taguser = self.db.currentEnv.get('userTags')
         tag_user=taguser.split(',')
-        
+
         if 'admin' in tag_user or 'superadmin' in tag_user or '_DEV_' in tag_user:    
             shipsteps = root.branch(u"shipsteps", tags="")
             shipsteps.packageBranch('Amministrazione sistema',pkg='adm')
