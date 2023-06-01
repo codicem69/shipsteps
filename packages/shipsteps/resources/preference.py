@@ -45,4 +45,4 @@ class AppPref(object):
     
     def extra(self,pane):
         fb = pane.formbuilder(cols=2)
-        fb.checkbox('^.ue',lbl='Disabilita paesi UE per pratiche Sanimare')
+        fb.checkbox('^.ue',lbl='Disabilita paesi UE per pratiche Sanimare', default=False)
