@@ -50,7 +50,7 @@ class Table(object):
         tbl.column('nsis_prot', name_short='Nsis prot.')
         tbl.column('firma_div', name_short='!![en]Different signature agency')
         tbl.column('note', name_short='!![en]note')
-        tbl.column('tip_mov',name_short='!![en]Tip.Mov.'
+        tbl.column('tip_mov',name_short='!![en]Tip.Mov.', batch_assign=True
                     ).relation('tip_mov.code', relation_name='ship_mov', mode='foreignkey', onDelete='raise')
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)

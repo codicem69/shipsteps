@@ -28,6 +28,7 @@ class View(BaseComponent):
         arrival.fieldcell('voy_n', width='4em')
         arrival.fieldcell('date', width='5em')
         arrival.fieldcell('vessel_details_id', width='15em', font_weight='bold')
+        arrival.fieldcell('tip_mov', width='6em', font_weight='bold')
         expect = r.columnset('colset_expect', name='Expected Times', color='white',background='SeaGreen', font_weight='bold')
         expect.fieldcell('eta', width='5em', Short=True)
         expect.fieldcell('etb', width='5em')
