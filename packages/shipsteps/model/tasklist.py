@@ -22,6 +22,7 @@ class Table(object):
         tbl.column('email_pfso', dtype='B', name_short='Email PFSO')
         tbl.column('email_pilot_moor', dtype='B', name_short='!![en]Email Pilot Moor')
         tbl.column('email_tug', dtype='B', name_short='!![en]Email Tug')
+        tbl.column('email_tug_dep', dtype='B', name_short='!![en]Email Tug dep')
         tbl.column('email_garbage', dtype='B', name_short='!![en]Email Garbage')
         tbl.column('email_chemist', dtype='B', name_short='!![en]Email Chemist')
         tbl.column('email_antifire', dtype='B', name_short='!![en]Email Antifire')

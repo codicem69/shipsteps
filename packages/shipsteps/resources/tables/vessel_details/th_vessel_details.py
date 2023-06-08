@@ -35,7 +35,7 @@ class View(BaseComponent):
         return '@imbarcazione_id.nome'
 
     def th_query(self):
-        return dict(column='id', op='contains', val='')
+        return dict(column='@imbarcazione_id.nome', op='contains', val='')
 
 
 
@@ -125,7 +125,7 @@ class Form(BaseComponent):
 
     def th_options(self):
         return dict(dialog_windowRatio = 1 , annotations= True )
-
+        
         #return dict(dialog_height='400px', dialog_width='600px' )
     
        

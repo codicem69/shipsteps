@@ -12,7 +12,7 @@ class Table(object):
         tbl.column('dwt', name_short='dwt')
         tbl.column('beam', name_short='!![en]Beam')
         tbl.column('mmsi', name_short='mmsi')
-        tbl.column('reg_place', size='22', name_short='!![en]Registarion place').relation('unlocode.place.id',relation_name='reg_place_un', mode='foreignkey', onDelete='raise')
+        tbl.column('reg_place', size='22', name_short='!![en]Registration place').relation('unlocode.place.id',relation_name='reg_place_un', mode='foreignkey', onDelete='raise')
         tbl.column('reg_num', name_short='!![en]Registration no.')
         tbl.column('n_eliche', name_short='!![en]Propellers no.')
         tbl.column('n_eliche_poppa', name_short='!![en]Stern propellers no.')

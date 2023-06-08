@@ -1,45 +1,45 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-14T18:28:14.669974+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-06-07T17:00:10.852905+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-06-07T18:14:49.210503+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-06-07T18:15:10.908751+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
-<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatecheck_list</identifier>
-<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">check_list</code>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatecheck_list_alim</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">check_list_alim</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
 <userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
-<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Check list</description>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Check list alimentary</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;pre style="line-height:12px;"&gt;
-&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:12px;"&gt;    Check list generic Arrivo Nave - $vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;
+&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:12px;"&gt;    Check list Alimentary Arrivo Nave - $vessel_imbarcazione_tipo $vessel_imbarcazione_nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;
   &lt;span style="font-family:arial,helvetica,sans-serif;"&gt;- CREARE LA SOSTA SU PMIS / RICHIEDERE VISIT ID (la richiesta pu&amp;ograve; essere inoltrata fino ad un massimo di 10 giorni antecedenti l&amp;#39; ETA)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - &lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;Inviare Pre-Arrivals e eventuali documenti per Istanza Sbarco Rinfusa alla nave&lt;/span&gt;&lt;/span&gt;
 &lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;    - Farsi Inviare dati nave, Pre-Arrivals e Certificati, di cui Assicurazione inquinamento idrocarburi (da GT 1000) e assicurazione P&amp;I (da GT 300)
     - Inviare comunicazioni Pre-Arrivo ad Armatori/Ricevitori/Caricatori
-&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere C5 / Servizi Tecnico Nautici / Mandato - Domanda di Accosto nave alla Capitaneria con Assicurazioni Inquinamento Idrocarburi e P&amp;I             
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere C5 / Servizi Tecnico Nautici / Mandato - Domanda di Accosto nave alla Capitaneria con Assicurazioni Inquinamento Idrocarburi e P&amp;I&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;             &lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+    - Inviare Integrazione AgroAlimentare  in caso di trasporto merce alimentare (umano-zootecnico)
     - Port Notification se non funziona PMIS (da inviare quando si invia la domanda di accosto e successivamente in caso di aggiornamenti)
-    - Paris MOU Expanded notification navi di et&amp;agrave; superiore 11 anni (3 giorni prima o a partenza Nave porto precdente se il viaggio &amp;egrave; breve)
-    - Farsi inviare Ships Pre-Arrivals: ISPS (navi da carico da 500GT, navi passegere tutte tranne fino a 12 pass.)-Garbage Form-IMO FORMS-
-      Richiesta LPS (provenienza ExtraUE)
-    - Presentare Istanza Sbarco/Imbarco Rinfusa o altro in Capitaneria (se necessario)
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Paris MOU Expanded notification navi di et&amp;agrave; superiore 11 anni (3 giorni prima o a partenza Nave porto precdente se il viaggio &amp;egrave; breve)
+    - Farsi inviare Ships Pre-Arrivals: ISPS (navi da carico da 500GT, navi passegere tutte tranne fino a 12 pass.)-Garbage Form-IMO FORMS-   
+      Richiesta LPS (provenienza ExtraUE)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+    - Presentare Istanza Sbarco/Imbarco Rinfusa in Capitaneria (se necessario)
     - Farsi Inviare dal Caricatore Documenti Carico in caso di sbarco merce (T2L &amp;ndash; B/L - ecc. )
     - Fare comunicazioni arrivo nave a G.d.F. &amp;ndash; Polizia di Frontiera &amp;ndash; DOGANA &amp;ndash; PFSO
     - Fare comunicazioni Sanimare (ORARI APERTURA: dal Luned&amp;igrave; al Venerd&amp;igrave; ore 0900&amp;ndash;1200 &amp;ndash; Marted&amp;igrave; e Gioved&amp;igrave; ore 1430-1600)
     - Avvisare Pilota e Ormeggiatori (obbligatorio servizi da 500 GT)
     - Avvisare Rimorchiatori (obbligatorio da GT 5000 a 7500 senza bowthruster e da GT 7500 in su sempre)
-&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;    - Avvisare Servimar x Servizio Antincendio Antinquinamento (Petroliera)&lt;/span&gt;&lt;/span&gt;
-&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Avvisare Chimico di Porto / Radiotecnico per Materiale Ferroso
+    - Avvisare Chimico di Porto per Merce Fumigata
     - Inviare modulo per Ritiro Garbage nave a Setra (almeno 24 ore prima)
-    - Sottomettere o Inviare in Capitaneria Ships Pre-Arrivals IMO FORMS + Certificati Nave + (Hazmat in caso di merce pericolosa)
-    - Inviare all&amp;#39;Autorit&amp;agrave; Portuale il Garbage Form (Almeno 24 ore prima / prefereibile anche prima)
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere o Inviare in Capitaneria Ships Pre-Arrivals IMO FORMS + Certificati Nave + (Hazmat in caso di merce pericolosa) &lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;    
+    - Inviare all&amp;#39;Autorit&amp;agrave; Portuale il &lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;Garbage Form&lt;/span&gt;&lt;/span&gt; (Almeno 24 ore prima / prefereibile anche prima)
     - ENS dalla Fiore per arrivo merce EXTRAUE almeno 24/12 ore prima dell&amp;rsquo;ormeggio o richiederla al primo Porto d&amp;rsquo;entrata Comunitario
-    - Inviare a Sanimare (max 6 ore prima arrivo nave) Richiesta Libera Pratica Sanitaria se prov. ExtraUE allegando Sanitary Declaration - Crew List  
-      Pax List-Last10Ports-Cert.Regisrto-Sanitation Cert.
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Inviare a Sanimare (max 6 ore prima arrivo nave) Richiesta Libera Pratica Sanitaria se prov. ExtraUE allegando Sanitary Declaration - Crew List
+      Pax List-Last10Ports-Cert.Regisrto-Sanitation Cert.&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Sanimare prima dell&amp;rsquo;entrata nave invia la Libera Pratica Sanitaria (prov.ExtraUE)
-    - Ritirare in Capitaneria Autorizzazione sbarco/imbarco Rinfusa o altro (se richiesta)
-    &lt;strong&gt;&lt;span style="color:#4b0082;"&gt;- Inviare Richiesta Mantenimento Rifiuti a Bordo con allegato Garbage form (dopo ormeggio o prima dell&amp;#39;ormeggio in caso di sosta breve)&lt;/span&gt;&lt;/strong&gt;
-    - Fare aggiornamenti arrivo nave in Capitaneria (Port Notification) e altri enti se necessario.&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+    - Ritirare in Capitaneria Autorizzazione sbarco/imbarco Rinfusa (se richiesta)
+    &lt;span style="color:#4b0082;"&gt;&lt;strong&gt;- Inviare Richiesta Mantenimento Rifiuti a Bordo con allegato Garbage form (dopo ormeggio o prima dell&amp;#39;ormeggio in caso di sosta breve)&lt;/strong&gt;&lt;/span&gt;
+    - Fare aggiornamenti arrivo nave in Capitaneria (Port Notification) e altri enti se necessario.
 &lt;strong&gt;    MODULI NECESSARI A BORDO ALL&amp;rsquo;ARRIVO NAVE
 &lt;/strong&gt;&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Preparare Cartella Arrivo Nave con i dati di arrivo e Tabella Servizi ecc.
     - Preparare modulo arrivo nave x G.d.F. e Polizia di Frontiera con Crew LIst / Pax List e SHORE PASS (in caso di marittimi ExtraUE)
@@ -47,34 +47,34 @@
     - Preparare modulo Rimanenze di bordo x Dogana
     - Preparare moduli x Sanimare Pescara (provenienza ExtraUE)
     - Preparare Shore Pass
-    - Preparare Versamento Tributi x Capitaneria&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
-&lt;/span&gt;&lt;strong&gt;    &lt;/strong&gt;&lt;strong&gt;A BORDO - ECA (Emission Control Areas) la nave deve fare il cambio fuel da Fuel Oil a Diesel Oil prima dell&amp;#39;entrata in porto&lt;/strong&gt;
+    - Preparare Versamento Tributi x Capitaneria&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+&lt;strong&gt;    A BORDO&lt;/strong&gt;&lt;/span&gt; &lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;- ECA (Emission Control Areas) la nave deve fare il cambio fuel da Fuel Oil a Diesel Oil prima dell&amp;#39;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Prendere orari arrivo e dati necessari x comunicazioni
     - Compilare rapportino arrivo x Capitaneria (se non funziona PMIS)
     - Compilare modulo x G.d.F. e Polizia di Frontiera
-    - Compilare modulo rimanenze di bordo x Dogana e farlo vistare dalla GdF
+    - Compilare modulo rimanenze di bordo x Dogana e farlo vistare dalla GdF 
       (se arriva con Manifesto Doganale, prendere l&amp;#39;originale)
     - Compilare moduli x Sanimare Pescara e consegnare al Comandante la Libera Pratica Sanitaria (prov. ExtraUE)
     - Farsi timbrare moduli spedizioni x Capitaneria (se non funziona PMIS)
-    - Farsi consegnare moduli IMO: Store List - Crew List - Pax List (se non funziona PMIS anche General Declaration - crew effects)
-    - Dare Shore Pass con copia ultimi 10 porti e nota di arrivo alla Polizia di Frontiera (in caso di marittimi ExtraUE)
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Farsi consegnare moduli IMO: Store List - Crew List - Pax List (se non funziona PMIS anche General Declaration - crew effects)
+    - Dare Shore Pass con copia ultimi 10 porti e nota di arrivo alla Polizia di Frontiera (in caso di marittimi ExtraUE)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Far vistare alla Finanza Cargo Manifest o copia Polizza di Carico in caso di sbarco
-     - Ritirare Documenti Carico&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
-&lt;strong&gt;    A TERRA
-&lt;/strong&gt;&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Inviare a mezzo email Lettera di Prontezza ai Ricevitori/Caricatori
+    - Ritirare Documenti Carico
+&lt;strong&gt;    A TERRA&lt;/strong&gt;
+    - Inviare a mezzo email Lettera di Prontezza ai Ricevitori/Caricatori
     - Fare comunicazioni Armatore e Ricevitori/Caricatori
-    - Sottomettere Nota Arrivo nel PMIS (se nonfunziona PMIS Inviare a mezzo email in CP Nota di Arrivo-Moduli IMO-Versamento-Tassa Ancoraggio)
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere Nota Arrivo nel PMIS (se nonfunziona PMIS Inviare a mezzo email in CP Nota di Arrivo-Moduli IMO-Versamento-Tassa Ancoraggio)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Fare Manifesto Doganale merci arrivate (bandiera straniera o prov. ExtraUE)
-    - Preparare Stato dei fatti 
-    - Inviare a Sanimare copie documenti firmati dal comando nave&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+    - Preparare Stato dei fatti
+    - Inviare a Sanimare copie documenti firmati dal comando nave
 &lt;strong&gt;    PRIMA DELLA PARTENZA NAVE&lt;/strong&gt;
-    - &lt;em&gt;&lt;strong&gt;Ricevere Fondi dall&amp;#39;Armatore &amp;ndash; art.3 Legge 04/04/1977 n.135
-&lt;/strong&gt;&lt;/em&gt;&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Ricevere via email dalla Capitaneria Deroga Rifiuti
-    - Sottomettere Servizi Tecnico Nautici partenza - se non funziona PMIS Inviare Comunicazione di partenza alla Capitaneria (12 ore prima)
+    &lt;em&gt;&lt;strong&gt;Ricevere Fondi dall&amp;#39;Armatore &amp;ndash; art.3 Legge 04/04/1977 n.135&lt;/strong&gt;&lt;/em&gt;
+    - Ricevere via email dalla Capitaneria Deroga Rifiuti
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere Servizi Tecnico Nautici partenza - se non funziona PMIS Inviare Comunicazione di partenza alla Capitaneria (12 ore prima)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Farsi dare dal Comandante copia Ricevuta Garbage
-    - Sottomettere Dich. Integrativa di Partenza e Disponibilit&amp;agrave; Fondi e IMO Forms se diversi da Arrivo
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere Dich. Integrativa di Partenza e Disponibilit&amp;agrave; Fondi e IMO Forms se diversi da Arrivo
       (Se non funziona PMIS Inviare Nota di Partenza in CP con Ricevuta Garbage-Mod.61-Disp.Valuta ecc)
-    - Ricevere le Spedizioni dalla Capitaneria scaricare da PMIS o in caso di non funzionamento PMIS via Email
+    - Ricevere le Spedizioni dalla Capitaneria scaricare da PMIS o in caso di non funzionamento PMIS via Email&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Fare Manifesto Doganale di partenza (nave Straniera o Nave Italiana diretta all&amp;rsquo;estero)
     - Avvisare Pilota e Ormeggiatori e Rimorchiatori
     - Preparare Stato dei Fatti + Lettera di Prontezza
@@ -84,8 +84,7 @@
     - Farsi firmare dal Comandante ed eventualmente dal Ricevitore Stato dei Fatti con consegna alle parti delle copie
     - Fare comunicazioni Armatore e Ricevitori/Caricatori (con invio armatore NOR + SOF ed eventuale LOP ecc.)
     - Fare comunicazione G.d.F. Partenza Nave
-    - STATISTICHE TRAMAR&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;</content>
+    - STATISTICHE TRAMAR&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;</content>
 <metadata><author>admin</author>
 <version _T="NN"></version>
 <date _T="NN"></date>
@@ -126,34 +125,34 @@
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css></content_css>
 <compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="" columns="@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.tipo" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_nome": "T", "vessel_imbarcazione_tipo": "T"}::JS'>&lt;pre style="line-height:12px;"&gt;
-&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:12px;"&gt;    Check list generic Arrivo Nave - $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;
+&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:12px;"&gt;    Check list Alimentary Arrivo Nave - $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;
   &lt;span style="font-family:arial,helvetica,sans-serif;"&gt;- CREARE LA SOSTA SU PMIS / RICHIEDERE VISIT ID (la richiesta pu&amp;ograve; essere inoltrata fino ad un massimo di 10 giorni antecedenti l&amp;#39; ETA)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - &lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;Inviare Pre-Arrivals e eventuali documenti per Istanza Sbarco Rinfusa alla nave&lt;/span&gt;&lt;/span&gt;
 &lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;    - Farsi Inviare dati nave, Pre-Arrivals e Certificati, di cui Assicurazione inquinamento idrocarburi (da GT 1000) e assicurazione P&amp;I (da GT 300)
     - Inviare comunicazioni Pre-Arrivo ad Armatori/Ricevitori/Caricatori
-&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere C5 / Servizi Tecnico Nautici / Mandato - Domanda di Accosto nave alla Capitaneria con Assicurazioni Inquinamento Idrocarburi e P&amp;I             
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere C5 / Servizi Tecnico Nautici / Mandato - Domanda di Accosto nave alla Capitaneria con Assicurazioni Inquinamento Idrocarburi e P&amp;I&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;             &lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+    - Inviare Integrazione AgroAlimentare  in caso di trasporto merce alimentare (umano-zootecnico)
     - Port Notification se non funziona PMIS (da inviare quando si invia la domanda di accosto e successivamente in caso di aggiornamenti)
-    - Paris MOU Expanded notification navi di et&amp;agrave; superiore 11 anni (3 giorni prima o a partenza Nave porto precdente se il viaggio &amp;egrave; breve)
-    - Farsi inviare Ships Pre-Arrivals: ISPS (navi da carico da 500GT, navi passegere tutte tranne fino a 12 pass.)-Garbage Form-IMO FORMS-
-      Richiesta LPS (provenienza ExtraUE)
-    - Presentare Istanza Sbarco/Imbarco Rinfusa o altro in Capitaneria (se necessario)
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Paris MOU Expanded notification navi di et&amp;agrave; superiore 11 anni (3 giorni prima o a partenza Nave porto precdente se il viaggio &amp;egrave; breve)
+    - Farsi inviare Ships Pre-Arrivals: ISPS (navi da carico da 500GT, navi passegere tutte tranne fino a 12 pass.)-Garbage Form-IMO FORMS-   
+      Richiesta LPS (provenienza ExtraUE)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+    - Presentare Istanza Sbarco/Imbarco Rinfusa in Capitaneria (se necessario)
     - Farsi Inviare dal Caricatore Documenti Carico in caso di sbarco merce (T2L &amp;ndash; B/L - ecc. )
     - Fare comunicazioni arrivo nave a G.d.F. &amp;ndash; Polizia di Frontiera &amp;ndash; DOGANA &amp;ndash; PFSO
     - Fare comunicazioni Sanimare (ORARI APERTURA: dal Luned&amp;igrave; al Venerd&amp;igrave; ore 0900&amp;ndash;1200 &amp;ndash; Marted&amp;igrave; e Gioved&amp;igrave; ore 1430-1600)
     - Avvisare Pilota e Ormeggiatori (obbligatorio servizi da 500 GT)
     - Avvisare Rimorchiatori (obbligatorio da GT 5000 a 7500 senza bowthruster e da GT 7500 in su sempre)
-&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;    - Avvisare Servimar x Servizio Antincendio Antinquinamento (Petroliera)&lt;/span&gt;&lt;/span&gt;
-&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Avvisare Chimico di Porto / Radiotecnico per Materiale Ferroso
+    - Avvisare Chimico di Porto per Merce Fumigata
     - Inviare modulo per Ritiro Garbage nave a Setra (almeno 24 ore prima)
-    - Sottomettere o Inviare in Capitaneria Ships Pre-Arrivals IMO FORMS + Certificati Nave + (Hazmat in caso di merce pericolosa)
-    - Inviare all&amp;#39;Autorit&amp;agrave; Portuale il Garbage Form (Almeno 24 ore prima / prefereibile anche prima)
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere o Inviare in Capitaneria Ships Pre-Arrivals IMO FORMS + Certificati Nave + (Hazmat in caso di merce pericolosa) &lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;    
+    - Inviare all&amp;#39;Autorit&amp;agrave; Portuale il &lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;Garbage Form&lt;/span&gt;&lt;/span&gt; (Almeno 24 ore prima / prefereibile anche prima)
     - ENS dalla Fiore per arrivo merce EXTRAUE almeno 24/12 ore prima dell&amp;rsquo;ormeggio o richiederla al primo Porto d&amp;rsquo;entrata Comunitario
-    - Inviare a Sanimare (max 6 ore prima arrivo nave) Richiesta Libera Pratica Sanitaria se prov. ExtraUE allegando Sanitary Declaration - Crew List  
-      Pax List-Last10Ports-Cert.Regisrto-Sanitation Cert.
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Inviare a Sanimare (max 6 ore prima arrivo nave) Richiesta Libera Pratica Sanitaria se prov. ExtraUE allegando Sanitary Declaration - Crew List
+      Pax List-Last10Ports-Cert.Regisrto-Sanitation Cert.&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Sanimare prima dell&amp;rsquo;entrata nave invia la Libera Pratica Sanitaria (prov.ExtraUE)
-    - Ritirare in Capitaneria Autorizzazione sbarco/imbarco Rinfusa o altro (se richiesta)
-    &lt;strong&gt;&lt;span style="color:#4b0082;"&gt;- Inviare Richiesta Mantenimento Rifiuti a Bordo con allegato Garbage form (dopo ormeggio o prima dell&amp;#39;ormeggio in caso di sosta breve)&lt;/span&gt;&lt;/strong&gt;
-    - Fare aggiornamenti arrivo nave in Capitaneria (Port Notification) e altri enti se necessario.&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+    - Ritirare in Capitaneria Autorizzazione sbarco/imbarco Rinfusa (se richiesta)
+    &lt;span style="color:#4b0082;"&gt;&lt;strong&gt;- Inviare Richiesta Mantenimento Rifiuti a Bordo con allegato Garbage form (dopo ormeggio o prima dell&amp;#39;ormeggio in caso di sosta breve)&lt;/strong&gt;&lt;/span&gt;
+    - Fare aggiornamenti arrivo nave in Capitaneria (Port Notification) e altri enti se necessario.
 &lt;strong&gt;    MODULI NECESSARI A BORDO ALL&amp;rsquo;ARRIVO NAVE
 &lt;/strong&gt;&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Preparare Cartella Arrivo Nave con i dati di arrivo e Tabella Servizi ecc.
     - Preparare modulo arrivo nave x G.d.F. e Polizia di Frontiera con Crew LIst / Pax List e SHORE PASS (in caso di marittimi ExtraUE)
@@ -161,34 +160,34 @@
     - Preparare modulo Rimanenze di bordo x Dogana
     - Preparare moduli x Sanimare Pescara (provenienza ExtraUE)
     - Preparare Shore Pass
-    - Preparare Versamento Tributi x Capitaneria&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
-&lt;/span&gt;&lt;strong&gt;    &lt;/strong&gt;&lt;strong&gt;A BORDO - ECA (Emission Control Areas) la nave deve fare il cambio fuel da Fuel Oil a Diesel Oil prima dell&amp;#39;entrata in porto&lt;/strong&gt;
+    - Preparare Versamento Tributi x Capitaneria&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+&lt;strong&gt;    A BORDO&lt;/strong&gt;&lt;/span&gt; &lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;- ECA (Emission Control Areas) la nave deve fare il cambio fuel da Fuel Oil a Diesel Oil prima dell&amp;#39;entrata in porto&lt;/span&gt;&lt;/strong&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Prendere orari arrivo e dati necessari x comunicazioni
     - Compilare rapportino arrivo x Capitaneria (se non funziona PMIS)
     - Compilare modulo x G.d.F. e Polizia di Frontiera
-    - Compilare modulo rimanenze di bordo x Dogana e farlo vistare dalla GdF
+    - Compilare modulo rimanenze di bordo x Dogana e farlo vistare dalla GdF 
       (se arriva con Manifesto Doganale, prendere l&amp;#39;originale)
     - Compilare moduli x Sanimare Pescara e consegnare al Comandante la Libera Pratica Sanitaria (prov. ExtraUE)
     - Farsi timbrare moduli spedizioni x Capitaneria (se non funziona PMIS)
-    - Farsi consegnare moduli IMO: Store List - Crew List - Pax List (se non funziona PMIS anche General Declaration - crew effects)
-    - Dare Shore Pass con copia ultimi 10 porti e nota di arrivo alla Polizia di Frontiera (in caso di marittimi ExtraUE)
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Farsi consegnare moduli IMO: Store List - Crew List - Pax List (se non funziona PMIS anche General Declaration - crew effects)
+    - Dare Shore Pass con copia ultimi 10 porti e nota di arrivo alla Polizia di Frontiera (in caso di marittimi ExtraUE)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Far vistare alla Finanza Cargo Manifest o copia Polizza di Carico in caso di sbarco
-     - Ritirare Documenti Carico&lt;/span&gt;&lt;/span&gt;&lt;span style="font-size:11px;"&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
-&lt;strong&gt;    A TERRA
-&lt;/strong&gt;&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Inviare a mezzo email Lettera di Prontezza ai Ricevitori/Caricatori
+    - Ritirare Documenti Carico
+&lt;strong&gt;    A TERRA&lt;/strong&gt;
+    - Inviare a mezzo email Lettera di Prontezza ai Ricevitori/Caricatori
     - Fare comunicazioni Armatore e Ricevitori/Caricatori
-    - Sottomettere Nota Arrivo nel PMIS (se nonfunziona PMIS Inviare a mezzo email in CP Nota di Arrivo-Moduli IMO-Versamento-Tassa Ancoraggio)
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere Nota Arrivo nel PMIS (se nonfunziona PMIS Inviare a mezzo email in CP Nota di Arrivo-Moduli IMO-Versamento-Tassa Ancoraggio)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Fare Manifesto Doganale merci arrivate (bandiera straniera o prov. ExtraUE)
-    - Preparare Stato dei fatti 
-    - Inviare a Sanimare copie documenti firmati dal comando nave&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
+    - Preparare Stato dei fatti
+    - Inviare a Sanimare copie documenti firmati dal comando nave
 &lt;strong&gt;    PRIMA DELLA PARTENZA NAVE&lt;/strong&gt;
-    - &lt;em&gt;&lt;strong&gt;Ricevere Fondi dall&amp;#39;Armatore &amp;ndash; art.3 Legge 04/04/1977 n.135
-&lt;/strong&gt;&lt;/em&gt;&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Ricevere via email dalla Capitaneria Deroga Rifiuti
-    - Sottomettere Servizi Tecnico Nautici partenza - se non funziona PMIS Inviare Comunicazione di partenza alla Capitaneria (12 ore prima)
+    &lt;em&gt;&lt;strong&gt;Ricevere Fondi dall&amp;#39;Armatore &amp;ndash; art.3 Legge 04/04/1977 n.135&lt;/strong&gt;&lt;/em&gt;
+    - Ricevere via email dalla Capitaneria Deroga Rifiuti
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere Servizi Tecnico Nautici partenza - se non funziona PMIS Inviare Comunicazione di partenza alla Capitaneria (12 ore prima)&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Farsi dare dal Comandante copia Ricevuta Garbage
-    - Sottomettere Dich. Integrativa di Partenza e Disponibilit&amp;agrave; Fondi e IMO Forms se diversi da Arrivo
+&lt;/span&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;    - Sottomettere Dich. Integrativa di Partenza e Disponibilit&amp;agrave; Fondi e IMO Forms se diversi da Arrivo
       (Se non funziona PMIS Inviare Nota di Partenza in CP con Ricevuta Garbage-Mod.61-Disp.Valuta ecc)
-    - Ricevere le Spedizioni dalla Capitaneria scaricare da PMIS o in caso di non funzionamento PMIS via Email
+    - Ricevere le Spedizioni dalla Capitaneria scaricare da PMIS o in caso di non funzionamento PMIS via Email&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
     - Fare Manifesto Doganale di partenza (nave Straniera o Nave Italiana diretta all&amp;rsquo;estero)
     - Avvisare Pilota e Ormeggiatori e Rimorchiatori
     - Preparare Stato dei Fatti + Lettera di Prontezza
@@ -198,8 +197,7 @@
     - Farsi firmare dal Comandante ed eventualmente dal Ricevitore Stato dei Fatti con consegna alle parti delle copie
     - Fare comunicazioni Armatore e Ricevitori/Caricatori (con invio armatore NOR + SOF ed eventuale LOP ecc.)
     - Fare comunicazione G.d.F. Partenza Nave
-    - STATISTICHE TRAMAR&lt;/span&gt;&lt;span style="font-family: arial, helvetica, sans-serif;"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;</main></compiled></data>
+    - STATISTICHE TRAMAR&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;</main></compiled></data>
 <authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
 <private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
 <quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
