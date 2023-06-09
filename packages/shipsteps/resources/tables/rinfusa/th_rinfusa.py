@@ -234,7 +234,7 @@ class FormFromRinfusa(BaseComponent):
         for chiavi in kwargs.keys():
             if chiavi=='services':
                 if kwargs['services']:
-                    services=kwargs['services']
+                    services=kwargs['services']          
         #Lettura degli indirizzi email destinatari
         ln_serv=len(servizio)
         #definiamo le tabelle su cui effettuare le ricerche

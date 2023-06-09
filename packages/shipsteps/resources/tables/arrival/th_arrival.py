@@ -713,14 +713,18 @@ class Form(BaseComponent):
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='imm',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='immigration',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
         else:
              btn_fr.dataRpc('nome_temp', self.print_template,
                        record='=#FORM.record', servizio=['immigration'], email_template_id='email_frontiera',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        nome_template = 'shipsteps.arrival:form_immigration', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='immigration',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_imm') {SET .email_frontiera=true; alert('Message created')}", msgspec='^nome_temp')
         fb.field('email_frontiera',lbl='', margin_top='5px')
         fb.semaphore('^.email_frontiera?=#v==true?true:false', margin_top='5px')
@@ -739,13 +743,17 @@ class Form(BaseComponent):
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='usma',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
         else:
             btn_usma.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['sanimare'], email_template_id='email_sanimare',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Message created')}", msgspec='^nome_temp')
         fb.field('email_usma',lbl='', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
         fb.semaphore('^.email_usma?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
@@ -796,13 +804,17 @@ class Form(BaseComponent):
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='garb',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save()") 
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='garbage',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save()") 
         else:
             btn_garb.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
                                 nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',                            
                                 _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='garbage',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
        #btn_garb.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record',servizio=['garbage'], email_template_id='garbage_email',
        #                    nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',                            
        #                    _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
@@ -835,13 +847,17 @@ class Form(BaseComponent):
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='pfso',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();") 
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='pfso',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();") 
         else:
             btn_pfso.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pfso'], email_template_id='email_pfso',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")                                 
+                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='pfso',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")                                 
        # fb.dataController("if(msgspec=='val_pfso') {SET .email_pfso=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_pfso',lbl='', margin_top='5px')
         fb.semaphore('^.email_pfso?=#v==true?true:false', margin_top='5px')
@@ -860,13 +876,17 @@ class Form(BaseComponent):
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='chem',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();") 
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='chemist',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();") 
         else:
             btn_chem.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['chemist'], email_template_id='email_chemist',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                         _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")                                 
+                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='chemist',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")                                 
         #fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_chemist',lbl='', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb.semaphore('^.email_chemist?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
@@ -883,15 +903,19 @@ class Form(BaseComponent):
                       record='=#FORM.record', servizio=['gpg'], email_template_id='email_gpg',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='gpg',alternatePkey='consignee',
-                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Arrival attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='gpg',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
         else:
             btn_gpg.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['gpg'], email_template_id='email_gpg',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                      _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                      _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Arrival attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")                                 
+                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='gpg',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")                                 
        # fb.dataController("if(msgspec=='val_gpg') {SET .email_gpg=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_gpg',lbl='', margin_top='5px')
         fb.semaphore('^.email_gpg?=#v==true?true:false', margin_top='5px')
@@ -920,7 +944,9 @@ class Form(BaseComponent):
                   record='=#FORM.record', servizio=['adsp'], email_template_id='not_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
-                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                             cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='adsp',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_adsp') {SET .email_garbage_adsp=true ; alert('Message created')}", msgspec='^msg_special')
       
         fb.field('email_garbage_adsp',lbl='', margin_top='5px')
@@ -1527,7 +1553,6 @@ class Form(BaseComponent):
     @public_method
     def email_services(self,record,email_template_id=None,servizio=[],nome_temp=None,**kwargs):
     #def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None,**kwargs):
-        
         record_arr=record['id']
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
@@ -1564,6 +1589,9 @@ class Form(BaseComponent):
             if chiavi=='services':
                 if kwargs['services']:
                     services=kwargs['services']
+            if chiavi=='std_att':
+                if kwargs['std_att']:
+                    std_att=list(kwargs['std_att'].split(","))              
         #avendo preso il valore services nei kwargs ossia il consignee dell'email sevices andiamo a copiarlo nel record della tasklist nome_servizio 
         record_tasklist=record['@arr_tasklist.id'] 
         tbl_tasklist = self.db.table('shipsteps.tasklist')  
@@ -1601,6 +1629,28 @@ class Form(BaseComponent):
                 fileSn = self.site.storageNode(file_path)
                 attcmt.append(fileSn.internal_path)
         
+        #lettura degli attachment standard in email_services_atc
+        if std_att:
+            len_allegati = len(std_att) #verifichiamo la lunghezza della lista pkeys tabella allegati email_services_atc
+            file_url=[]
+            tbl_att =  self.db.table('shipsteps.email_services_atc') #definiamo la variabile della tabella allegati
+            #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
+            #viene appesa alla variabile lista file_url
+            for e in range(len_allegati):
+                pkeys_att=std_att[e]
+                fileurl = tbl_att.readColumns(columns='$fileurl',
+                      where='$id=:att_id',
+                        att_id=pkeys_att)
+                if fileurl is not None and fileurl !='':
+                    file_url.append(fileurl)
+        
+            ln = len(file_url)
+            for r in range(ln):
+                fileurl = file_url[r]
+                file_path = fileurl.replace('/home','site')
+                fileSn = self.site.storageNode(file_path)
+                attcmt.append(fileSn.internal_path)
+
         #lettura degli attachment in email_service_atc
         #verifichiamo il numero di servizi
         ln_serv=len(servizio)
