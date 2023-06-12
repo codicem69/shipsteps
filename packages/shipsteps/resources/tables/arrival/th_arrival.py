@@ -1580,6 +1580,7 @@ class Form(BaseComponent):
         #ma verifichiamo se nei kwargs gli allegati ci sono per non ritrovarci la variabile lista_all senza assegnazione
         #prendiamo anche il valore dei services che corrisponde al consignee in modo di avere l'intestazione corretta nell'email
         services = None
+        std_att= None
         for chiavi in kwargs.keys():
             if chiavi=='allegati':
                 if kwargs['allegati']:
@@ -1591,7 +1592,10 @@ class Form(BaseComponent):
                     services=kwargs['services']
             if chiavi=='std_att':
                 if kwargs['std_att']:
-                    std_att=list(kwargs['std_att'].split(","))              
+                    std_att=list(kwargs['std_att'].split(","))   
+                else:
+                    std_att=None   
+                               
         #avendo preso il valore services nei kwargs ossia il consignee dell'email sevices andiamo a copiarlo nel record della tasklist nome_servizio 
         record_tasklist=record['@arr_tasklist.id'] 
         tbl_tasklist = self.db.table('shipsteps.tasklist')  
@@ -1630,7 +1634,8 @@ class Form(BaseComponent):
                 attcmt.append(fileSn.internal_path)
         
         #lettura degli attachment standard in email_services_atc
-        if std_att:
+        if std_att is not None:
+            
             len_allegati = len(std_att) #verifichiamo la lunghezza della lista pkeys tabella allegati email_services_atc
             file_url=[]
             tbl_att =  self.db.table('shipsteps.email_services_atc') #definiamo la variabile della tabella allegati
@@ -1650,7 +1655,7 @@ class Form(BaseComponent):
                 file_path = fileurl.replace('/home','site')
                 fileSn = self.site.storageNode(file_path)
                 attcmt.append(fileSn.internal_path)
-
+        
         #lettura degli attachment in email_service_atc
         #verifichiamo il numero di servizi
         ln_serv=len(servizio)
@@ -1669,19 +1674,19 @@ class Form(BaseComponent):
         self.db.commit()
         #leggiamo prima gli id dei servizi su email_services così passiamo gli id alla tabella di attachment per la lettura dell'url
         #per poi trasformarlo nel giusto path che appendiamo agli attachment dell'email
-        for e in range(ln_serv):
-            serv=servizio[e]
-            service_id = tbl_emailservices.readColumns(columns="$id", where='$service_for_email=:serv AND $consignee=:cons', serv=serv, cons=services)
-        
-        
-            att_services = tbl_emailserv_atc.query(columns="$filepath", where='$maintable_id=:m_id' ,
-                                                                    m_id=service_id).fetch()
-            if att_services	!= []:
-                file_url = att_services[e][0]
-                file_path = file_url.replace('/home','site')
-                fileSn = self.site.storageNode(file_path)
-                attcmt.append(fileSn.internal_path)
-            
+        #for e in range(ln_serv):
+        #    serv=servizio[e]
+        #    service_id = tbl_emailservices.readColumns(columns="$id", where='$service_for_email=:serv AND $consignee=:cons', serv=serv, cons=services)
+        #
+        #
+        #    att_services = tbl_emailserv_atc.query(columns="$filepath", where='$maintable_id=:m_id' ,
+        #                                                            m_id=service_id).fetch()
+        #    if att_services	!= []:
+        #        file_url = att_services[e][0]
+        #        file_path = file_url.replace('/home','site')
+        #        fileSn = self.site.storageNode(file_path)
+        #        attcmt.append(fileSn.internal_path)
+         
         #vecchio codice con rilevamento attachments tramite casella checkbox
        #if not record:
        #    return
