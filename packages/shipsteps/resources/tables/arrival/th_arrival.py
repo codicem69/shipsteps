@@ -1117,6 +1117,8 @@ class Form(BaseComponent):
                              if(msg=='cartella_doc') {SET .cartella_nave=true;}
                              if(msg=='front_nave') {SET .frontespizio=true;}
                              if(msg=='check_list') {SET .checklist=true;}
+                             if(msg=='check_list_alim') {SET .checklist=true;}
+                             if(msg=='check_list_pass') {SET .checklist=true;}
                              if(msg=='tributi_cp') {SET .tributi_cp=true;} if(msg=='no_tributi') genro.publish("floating_message",{message:'You must select the record as row in the tribute form', messageType:"error"});
                              if(msg=='form_gdf') {SET .form_gdf=true;}
                              if(msg=='form_immigration_print') {SET .form_immigration=true;}
