@@ -206,10 +206,15 @@ class Form(BaseComponent):
         fb = frame.formbuilder(cols=1, border_spacing='4px',fld_width='50em', width='800px')
         fb.simpleTextArea(value='^.remarks_rs',editor=True, height='200px')
         fb.br()
-        fb.button('Inserisci',lbl='Remark Wheat/Corn',action="""SET ^.remarks_rs = note_remark;
-                                            alert("Inserito - Ricordati di salvare");""",
+        fb.button('Inserisci',lbl='Remark Wheat/Corn',action="""SET ^.remarks_rs = note_remark;this.form.save();
+                                            alert("Controlla il salvataggio");""",
                     note_remark='=gnr.app_preference.shipsteps.remarks_wheat_corn')
-    
+        
+
+    @public_method
+    def leggi_remarks(self,**kwargs):
+        return 'prova'
+      
     def onbehalf_remarks(self,frame):
         frame.simpleTextArea(value='^.onbehalf',editor=True)
 

@@ -1,5 +1,8 @@
 # preference.py
 class AppPref(object):
+
+    def permission_shipsteps(self, **kwargs):
+        return 'user'
         
     def prefpane_shipsteps(self,parent,**kwargs):
         tc = parent.tabContainer(margin='2px',**kwargs)
@@ -11,11 +14,16 @@ class AppPref(object):
     def note_remarks(self,pane):       
         #pane = parent.contentPane(**kwargs)
         #fb = pane.formbuilder()
+       # bc = pane.borderContainer(region='center', margin='10px')
         fb = pane.formbuilder(cols=1)
+        #fb = bc.contentPane(region='top',height='150px').formbuilder(cols=1)
         # Nei **kwargs c'è già il livello di path dati corretto   
         fb.div('', width='60em')
         fb.simpleTextArea('^.remarks_wheat_corn',lbl='Remarks wheat/corn',width='60em', height='100px',editor=True)
-        
+        #grid = bc.contentPane(region='center').quickGrid(value='^.remarks')
+        #grid.tools('delrow,addrow,export')
+        #grid.column('code', width='30em', name='!![en]Code', edit=True)
+        #grid.column('description', width='60em', name='!![en]Description', edit=True)
     #def loghi(self,pane):  
     #    fb = pane.formbuilder(cols=1)    
     #    fb.img(src='^.logo_cc',lbl='Logo CC',
@@ -46,3 +54,5 @@ class AppPref(object):
     def extra(self,pane):
         fb = pane.formbuilder(cols=2)
         fb.checkbox('^.ue',lbl='Disabilita paesi UE per pratiche Sanimare', default=False)
+
+
