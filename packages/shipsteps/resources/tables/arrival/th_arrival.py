@@ -75,7 +75,7 @@ class View(BaseComponent):
         return 'reference_num:d' 
 
     def th_query(self):
-        return dict(column='reference_num', op='contains', val='', runOnStart=True)
+        return dict(column='@vessel_details_id.@imbarcazione_id.nome', op='contains', val='', runOnStart=True)
 
     def th_options(self):
         #se l'utente connesso ha i privilegi di admin/superadmin/sviluppatore visualizzerà il tasto - per la cancellazione del record
