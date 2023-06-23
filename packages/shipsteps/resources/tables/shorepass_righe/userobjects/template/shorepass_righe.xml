@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-19T17:22:03.041148+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-03-29T16:19:01.518525+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-06-23T12:13:16.536007+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.shorepass_righetemplateshorepass_righe</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">shorepass_righe</code>
@@ -470,15 +470,16 @@
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask></gdlue5qkm9>
-<gdluejkskp _pkey="gdluejkskp"><fieldpath>@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">shorepass_id/arrival_id/Vessel/imbarcazione/Bandiera</fieldname>
-<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_vessel_imbarcazione_bandiera">imbarcazione_bandiera</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN"></required_columns>
-<df_template _T="NN"></df_template>
+<gm69roap61 _newrecord="True::B" _pkey="gm69roap61"><fieldpath dtype="::NN">@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">shorepass_id/arrival_id/Vessel/imbarcazione/Flag/codename</fieldname>
+<varname dtype="::NN" _loadedValue="shorepass_id_arrival_id_vessel_imbarcazione_flag_codename">imbarcazione_bandiera</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></gdluejkskp>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gm69roap61>
 <gdluf7sku1 _pkey="gdluf7sku1"><fieldpath>@shorepass_id.@arrival_id.eta</fieldpath>
 <dtype dtype="::NN">DH</dtype>
 <fieldname dtype="::NN">shorepass_id/arrival_id/eta</fieldname>
@@ -641,7 +642,7 @@
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css>.td_fix{width:200px;
 }</content_css>
-<compiled><main maintable="shipsteps.shorepass_righe" locale="it-IT" virtual_columns="@shorepass_id.@arrival_id.datacorrente,@shorepass_id.@arrival_id.logocc,logo_imm" columns="$name,$surname,$birth_date,$nationality,$id_doc,$id_doc_n,$rank,@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera,@shorepass_id.@arrival_id.eta,@shorepass_id.@arrival_id.etb,@shorepass_id.@arrival_id.ets,@shorepass_id.data_arr,@shorepass_id.data_part,$expire,$start_time,$stop_time,@shorepass_id.@arrival_id.@agency_id.@port.descrizione,@shorepass_id.@arrival_id.datacorrente,@shorepass_id.@arrival_id.@agency_id.address,@shorepass_id.@arrival_id.@agency_id.tel,@shorepass_id.@arrival_id.@agency_id.email,@shorepass_id.@arrival_id.@agency_id.web,@shorepass_id.@arrival_id.@agency_id.agency_name,@shorepass_id.@arrival_id.logocc,$logo_imm" formats='{"logo_cc": "auto", "logo_imm": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"name": "T", "surname": "T", "birth_date": "T", "nationality": "T", "id_doc": "T", "id_doc_n": "T", "rank": "T", "imbarcazione_nome": "T", "imbarcazione_bandiera": "T", "eta": "DH", "etb": "DH", "ets": "DH", "data_arr": "D", "data_part": "D", "expire": "D", "start_time": "H", "stop_time": "H", "port": "T", "data_attuale": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agency_name": "T", "logo_cc": "P", "logo_imm": "P"}::JS'>&lt;style&gt;.td_fix{width:200px;
+<compiled><main maintable="shipsteps.shorepass_righe" locale="it-IT" virtual_columns="@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@shorepass_id.@arrival_id.datacorrente,@shorepass_id.@arrival_id.logocc,logo_imm" columns="$name,$surname,$birth_date,$nationality,$id_doc,$id_doc_n,$rank,@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@shorepass_id.@arrival_id.eta,@shorepass_id.@arrival_id.etb,@shorepass_id.@arrival_id.ets,@shorepass_id.data_arr,@shorepass_id.data_part,$expire,$start_time,$stop_time,@shorepass_id.@arrival_id.@agency_id.@port.descrizione,@shorepass_id.@arrival_id.datacorrente,@shorepass_id.@arrival_id.@agency_id.address,@shorepass_id.@arrival_id.@agency_id.tel,@shorepass_id.@arrival_id.@agency_id.email,@shorepass_id.@arrival_id.@agency_id.web,@shorepass_id.@arrival_id.@agency_id.agency_name,@shorepass_id.@arrival_id.logocc,$logo_imm" formats='{"logo_cc": "auto", "logo_imm": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"name": "T", "surname": "T", "birth_date": "T", "nationality": "T", "id_doc": "T", "id_doc_n": "T", "rank": "T", "imbarcazione_nome": "T", "imbarcazione_bandiera": "A", "eta": "DH", "etb": "DH", "ets": "DH", "data_arr": "D", "data_part": "D", "expire": "D", "start_time": "H", "stop_time": "H", "port": "T", "data_attuale": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agency_name": "T", "logo_cc": "P", "logo_imm": "P"}::JS'>&lt;style&gt;.td_fix{width:200px;
 }&lt;/style&gt;&lt;div&gt;
 	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:10px;margin-right:20px;margin-top:20px;width:19cm;"&gt;
 		&lt;tbody&gt;
@@ -858,7 +859,7 @@
 					&lt;div&gt;
 						&amp;nbsp;&lt;/div&gt;
 					&lt;div&gt;
-						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
+						&lt;strong&gt;&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@shorepass_id.@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td&gt;
 					&lt;div&gt;
