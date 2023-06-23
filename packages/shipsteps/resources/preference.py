@@ -54,5 +54,7 @@ class AppPref(object):
     def extra(self,pane):
         fb = pane.formbuilder(cols=2)
         fb.checkbox('^.ue',lbl='Disabilita paesi UE per pratiche Sanimare', default=False)
+        fb.br()
+        fb.checkbox('^.pmou',lbl='Disabilita invio PMOU notification', default=False)
 
 

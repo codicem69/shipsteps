@@ -1044,7 +1044,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_pmou = fb2.Button('!![en]PMOU notification')
+        btn_pmou = fb2.Button('!![en]PMOU notification',hidden='^gnr.app_preference.shipsteps.pmou')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1065,8 +1065,8 @@ class Form(BaseComponent):
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         #fb2.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
        
-        fb2.field('email_pmou', lbl='', margin_top='6px')
-        fb2.semaphore('^.email_pmou?=#v==true?true:false', margin_top='6px')
+        fb2.field('email_pmou', lbl='', margin_top='6px',hidden='^gnr.app_preference.shipsteps.pmou')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
+        fb2.semaphore('^.email_pmou?=#v==true?true:false', margin_top='6px',hidden='^gnr.app_preference.shipsteps.pmou')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
 
         #btn_garb_cp = fb2.Button('!![en]Email Garbage form')
         #btn_garb_cp.dataRpc('nome_temp', self.email_services,
