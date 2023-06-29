@@ -32,8 +32,8 @@ class ViewFromSofDailyOp(BaseComponent):
         r.fieldcell('sof_id')
         r.fieldcell('date_op', edit=True)#, edit=dict(tag='dbSelect', table='shipsteps.sof_operations',rowcaption='$date', condition='$sof_id=:sofid', 
                                #condition_sofid='=#FORM.record.id',alternatePkey='date', hasDownArrow=True))
-        r.fieldcell('measure_id',edit=True, width='5em')
-        #r.fieldcell('qt_mov',edit=True)
+        
+        r.fieldcell('measure_id',edit=True, width='5em',condition="$id =:cod",condition_cod='=#FORM.record.measure_sof',validate_notnull=True)
         r.fieldcell('qt_mov',edit=dict(remoteRowController=True))
         r.fieldcell('totcargo')
         r.cell('tot_progres',formula='+=qt_mov', format='#,###.000', name='!![en]Total Quantity Handled', dtype='N')

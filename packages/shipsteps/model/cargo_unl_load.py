@@ -17,7 +17,7 @@ class Table(object):
         tbl.column('charterers_id',size='22', name_long='!![en]Charterers'
                     ).relation('charterers.id', relation_name='chart_cargo', mode='foreignkey', onDelete='raise')
         tbl.column('quantity', dtype='N', size='10,3', name_short='!![en]Quantity', format='#,###.000')
-        tbl.column('measure_id',size='22', name_long='!![en]measure'
+        tbl.column('measure_id',size='22', name_long='!![en]measure',validate_notnull=True
                     ).relation('measure.id', relation_name='cargo_lu_measure', mode='foreignkey', onDelete='raise')
         tbl.column('description', name_short='!![en]Description')
         tbl.column('description_it', name_short='!![en]Description IT')

@@ -106,6 +106,12 @@ class Table(object):
                                                 columns="$shortage_surplus",
                                                 where='$sof_id=#THIS.id',order_by='$date_op DESC',
                                                 limit=1,dtype='N'))                                                
+        #formulaColumn measure_sof verifica il tipo di misura del carico inserito e con static=True avremo nello store questo parametro
+        #che ci servirà in th_daily_sofdetails a filtrare il solo tipo di misura da scegliere tramite la condition nel campo measure_id
+        tbl.formulaColumn('measure_sof',select=dict(table='shipsteps.cargo_unl_load', columns="$measure_id",
+                                                    where='$id=#THIS.@sof_cargo_sof.cargo_unl_load_id'),name_long='measure_sof',static=True)
+        
+     
         tbl.aliasColumn('measure','@sof_daily.@measure_id.description')
         tbl.aliasColumn('place_origin_goods','@sof_cargo_sof.@cargo_unl_load_id.@place_origin_goods.citta_nazione')
 

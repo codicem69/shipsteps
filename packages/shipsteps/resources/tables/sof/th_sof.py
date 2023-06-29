@@ -22,7 +22,8 @@ class View(BaseComponent):
         r.fieldcell('doc_onboard')
         r.fieldcell('ship_rec', width='40em')
         r.fieldcell('intestazione_sof')
-        
+        r.fieldcell('measure_sof', static=True)
+
     def th_order(self):
         return 'arrival_id'
 
@@ -45,7 +46,7 @@ class ViewFromSof(BaseComponent):
         r.fieldcell('doc_onboard', edit=True)
         r.fieldcell('ship_rec')
         r.fieldcell('intestazione_sof', edit=True)
-
+        
 #class Form(BaseComponent):
 #
 #    def th_form(self, form):
