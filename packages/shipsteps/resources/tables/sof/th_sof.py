@@ -22,7 +22,7 @@ class View(BaseComponent):
         r.fieldcell('doc_onboard')
         r.fieldcell('ship_rec', width='40em')
         r.fieldcell('intestazione_sof')
-        r.fieldcell('measure_sof', static=True)
+        
 
     def th_order(self):
         return 'arrival_id'
@@ -46,7 +46,6 @@ class ViewFromSof(BaseComponent):
         r.fieldcell('doc_onboard', edit=True)
         r.fieldcell('ship_rec')
         r.fieldcell('intestazione_sof', edit=True)
-        
 #class Form(BaseComponent):
 #
 #    def th_form(self, form):
@@ -66,6 +65,8 @@ class ViewFromSof(BaseComponent):
 class Form(BaseComponent):
     py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor'
     def th_form(self, form):
+        form.store.handler('load',virtual_columns='$measure_sof') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
+        # filtrare in daily_sofdetails la misura da applicare in base al carico applicato
         bc = form.center.borderContainer()
         self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='130px', background='lightgrey', splitter=True))
         tc = bc.tabContainer(region = 'center',margin='2px',selectedPage='^.tabname')
