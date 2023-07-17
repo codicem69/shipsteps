@@ -1376,7 +1376,7 @@ class Form(BaseComponent):
         fb_dep.field('form_gdfdep', lbl='', margin_top='6px')
         fb_dep.semaphore('^.form_gdfdep?=#v==true?true:false', margin_top='6px')    
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
-        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cpnsw').fetch()
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         btn_trib_cp = fb_dep.Button('!![en]Email Tributes CP')
         fb1.dataController("""var id = button.id; console.log(id);
@@ -1509,7 +1509,7 @@ class Form(BaseComponent):
                                          if(result=='ws')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")#this.form.save();
                                          #this.form.reload()""")
         fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()")
-    
+
     @public_method
     def intfat(self,record, **kwargs):  
         intfat_id = record['invoice_det_id']
