@@ -9,7 +9,7 @@ class Table(object):
         tbl.column('sof_id',size='22', name_long='sof_id'
                     ).relation('sof.id', relation_name='sof_daily', mode='foreignkey', onDelete='cascade')
         tbl.column('date_op', dtype='D', name_short='!![en]Date')
-        tbl.column('measure_id',size='22', name_long='!![en]measure',validate_notnull=True
+        tbl.column('measure_id',size='22', name_long='!![en]measure'
                     ).relation('measure.id', relation_name='sofdaily_measure', mode='foreignkey', onDelete='raise')
         tbl.column('qt_mov', dtype='N', name_short='!![en]Quantity handled', format='#,###.000')
         tbl.column('tot_progressivo', dtype='N', name_short='!![en]Progressive Total quantity handled', format='#,###.000')

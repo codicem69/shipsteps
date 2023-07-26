@@ -83,6 +83,7 @@ class Menu(object):
             proforma_da.thpage(u"clienti", table="pfda.cliente", tags="", formResource="FormCliente")
             proforma_da.thpage(u"imbarcazione", table="pfda.imbarcazione", tags="")
             proforma_da.thpage(u"proforma", table="pfda.proforma", tags="", viewResource="ViewProforma")
+            proforma_da.webpage('Calcoli Pilot/Moor/Tug',filepath='/pfda/calcoli')
             proforma_da.thpage(u"servizi", table="pfda.servizi", tags="")
             proforma_da.thpage(u"tariffe", table="pfda.tariffe", tags="")
             proforma_da.thpage(u"tariffe_tipo", table="pfda.tariffa_tipo", tags="")

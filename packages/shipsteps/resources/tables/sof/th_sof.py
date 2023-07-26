@@ -189,13 +189,14 @@ class Form(BaseComponent):
                                 picker='cargo_unl_load_id',
                                 picker_condition='arrival_id=:aid',
                                 picker_condition_aid='^#FORM.record.arrival_id',
-                                picker_viewResource='ViewFromCargoLU_picker')
+                                picker_viewResource='ViewFromCargoLU_picker',
+                                liveUpdate=True)
 
     def operationsSof(self,pane):
-        pane.inlineTableHandler(relation='@sof_operations',viewResource='ViewFromSofOperations')
+        pane.inlineTableHandler(relation='@sof_operations',viewResource='ViewFromSofOperations',liveUpdate=True)
 
     def dailyOperations(self,pane):
-        pane.inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp')
+        pane.inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp',liveUpdate=True)
 
     def remarks_cte(self,frame):
         frame.simpleTextArea(title='!![en]Master Remarks',value='^.remarks_cte',editor=True)
@@ -233,7 +234,7 @@ class Form(BaseComponent):
         fb.field('average')
 
     def emailSof(self,pane):
-        pane.inlineTableHandler(title='Email SOF', relation='@sof_email',viewResource='ViewFromSofEmail')
+        pane.inlineTableHandler(title='Email SOF', relation='@sof_email',viewResource='ViewFromSofEmail',liveUpdate=True)
 
     def editSof(self, frame):
         bar = frame.top.slotBar('10, lett_select,*',height='20px',border_bottom='1px solid silver')
