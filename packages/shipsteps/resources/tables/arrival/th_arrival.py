@@ -70,6 +70,7 @@ class View(BaseComponent):
         cargo.fieldcell('cargo_lu_en', width='30em')
         cargo.fieldcell('@cargo_lu_arr.tot_cargo', width='8em')
         cargo.fieldcell('ship_rec', width='30em')
+        
 
     def th_order(self):
         return 'reference_num:d' 
@@ -79,14 +80,15 @@ class View(BaseComponent):
 
     def th_options(self):
         #se l'utente connesso ha i privilegi di admin/superadmin/sviluppatore visualizzerà il tasto - per la cancellazione del record
+        
         usertags = self.db.currentEnv.get('userTags')
+    
         if 'admin' in usertags or 'superadmin' in usertags or '_DEV_' in usertags:
             del_row = True
         else:
             del_row = False
-
+        
         return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
-
         
 class Form(BaseComponent):
     
@@ -2744,7 +2746,7 @@ class Form(BaseComponent):
 
     
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px')
+        return dict(dialog_height='400px', dialog_width='600px', duplicate=True)
    
     
     

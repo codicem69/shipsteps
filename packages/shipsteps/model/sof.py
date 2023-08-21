@@ -8,7 +8,7 @@ class Table(object):
         self.sysFields(tbl,counter=True)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
-                    ).relation('arrival.id', relation_name='sof_arr', mode='foreignkey', onDelete='cascade')
+                    ).relation('arrival.id', relation_name='sof_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         tbl.column('sof_n',dtype='T', name_short='!![en]SOF n.')
         tbl.column('nor_tend', dtype='DH', name_short='!![en]NOR tendered')
         tbl.column('nor_rec', dtype='DH', name_short='!![en]NOR received')

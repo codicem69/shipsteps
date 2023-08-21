@@ -5,7 +5,7 @@ class Table(object):
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_short='arrival_id'
-                    ).relation('arrival.id', relation_name='integrazione', mode='foreignkey', onDelete='cascade')
+                    ).relation('arrival.id', relation_name='integrazione', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         tbl.column('cargo_unl_load_id',size='22', name_long='cargo_unl_load_id'
                     ).relation('cargo_unl_load.id', relation_name='cargo_integrazione', mode='foreignkey', onDelete='cascade')
         tbl.column('noleggiatore', name_short='!![en]Charterers')

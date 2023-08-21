@@ -7,7 +7,7 @@ class Table(object):
                         name_plural='!![en]Garbage form',caption_field='id')
         self.sysFields(tbl)
         tbl.column('arrival_id',size='22', name_long='arrival_id'
-                    ).relation('arrival.id', relation_name='garbage_arr', mode='foreignkey', onDelete='cascade')
+                    ).relation('arrival.id', relation_name='garbage_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         tbl.column('ora_arr', dtype='H', name_short='!![en]Arrival time')
         tbl.column('data_arr', dtype='D', name_short='!![en]Arrival date')
         tbl.column('sosta_gg', size=':2', name_short='!![en]Period of stay')

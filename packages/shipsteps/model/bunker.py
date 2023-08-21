@@ -8,7 +8,7 @@ class Table(object):
         self.sysFields(tbl,counter=True)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
-                    ).relation('arrival.id', relation_name='bunker_arr', mode='foreignkey', onDelete='cascade')
+                    ).relation('arrival.id', relation_name='bunker_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         tbl.column('rank_off', name_short='!![en]Official rank')
         tbl.column('name_off', name_short='!![en]Official name')
         tbl.column('datetime_bunk', dtype='DH', name_short='!![en]Date/time bunker')

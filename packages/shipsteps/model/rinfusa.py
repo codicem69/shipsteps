@@ -5,7 +5,7 @@ class Table(object):
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
-                    ).relation('arrival.id', relation_name='rinfusa_arr', mode='foreignkey', onDelete='cascade')
+                    ).relation('arrival.id', relation_name='rinfusa_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         #tbl.column('imb_sba', dtype='B', name_short='!![en]Unloading/Loading',default=False)
         tbl.column('imb_sba', dtype='T', name_short='!![en]Unloading/Loading')
         tbl.column('navigazione', name_short='!![en]Navigation', values='Internazionale:Internazionale,Nazionale:Nazionale')

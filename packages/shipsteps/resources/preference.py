@@ -57,4 +57,9 @@ class AppPref(object):
         fb.br()
         fb.checkbox('^.pmou',lbl='Disabilita invio PMOU notification', default=False)
 
+class UserPref(object):
+    def prefpane_shipsteps(self, parent, **kwargs):
+        pane = parent.contentPane(**kwargs)
+        fb = pane.formbuilder(cols=1, border_spacing='3px')
+        fb.checkbox(value='^.delbottom', lbl='!![en]Deleting bottom')
 

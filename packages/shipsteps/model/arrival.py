@@ -84,7 +84,7 @@ class Table(object):
         tbl.aliasColumn('email_int_sof','@sof_arr.@sof_email.email_int')
         tbl.aliasColumn('sailed','@time_arr.sailed')
         tbl.aliasColumn('vesselname','@vessel_details_id.vessel_name')
-        tbl.aliasColumn('flag','@vessel_details_id.flag')
+        tbl.aliasColumn('flag','@vessel_details_id.@imbarcazione_id.@flag.codename')
         tbl.aliasColumn('tsl','@vessel_details_id.tsl')
         tbl.aliasColumn('imo','@vessel_details_id.imo')
         tbl.aliasColumn('time_gate','@agency_id.@agency_sh_gate.details',dtype='T')
@@ -416,4 +416,29 @@ class Table(object):
 
    #def menu_dynamicMenuContent_prova(self,**kwargs):
    #    return self.query(where="""EXTRACT(month from  $date) =:this_month""",this_month=self.db.workdate.month).fetch()
-       
+    
+    # alla duplicazione del record andiamo a passare i valori nulli che non devono essere duplicati
+    def onDuplicating(self,record):
+        record['reference_num'] = None
+        record['date'] = self.db.workdate
+        record['pfda_id'] = None
+        record['visit_id'] = None
+        record['eta'] = None
+        record['etb'] = None
+        record['et_start'] = None
+        record['etc'] = None
+        record['ets'] = None
+        record['master_name'] = None
+        record['departure_lp'] = None
+        record['eta_np'] = None
+        record['cargo_onboard'] = None
+        record['extra_cargo_onboard'] = None
+        record['cargo_onboard_dep'] = None
+        record['extra_cargo_onboard_dep'] = None
+        record['transit_cargo'] = None
+        record['extra_transit_cargo'] = None
+        record['info_moor'] = None
+        record['voy_n'] = None
+        record['nsis_prot'] = None
+        record['note'] = None
+    

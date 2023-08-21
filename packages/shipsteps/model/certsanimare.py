@@ -5,7 +5,7 @@ class Table(object):
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
-                    ).relation('arrival.id', relation_name='certusma_arr', mode='foreignkey', onDelete='cascade')
+                    ).relation('arrival.id', relation_name='certusma_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         tbl.column('xconto', name_short='!![en]On behalf')
         tbl.column('docagent', name_short='!![en]Agent document')
         tbl.column('doc_n', name_short='!![en]Doc. no.')

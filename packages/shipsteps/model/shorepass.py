@@ -4,7 +4,7 @@ class Table(object):
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
-                    ).relation('arrival.id', relation_name='shorepass_arr', mode='foreignkey', onDelete='cascade')
+                    ).relation('arrival.id', relation_name='shorepass_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         tbl.column('data_arr', dtype='D', name_short='!![en]Arrival date')
         tbl.column('data_part', dtype='D', name_short='!![en]Departure date')
        

@@ -6,7 +6,7 @@ class Table(object):
         self.sysFields(tbl,counter=True)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
-                    ).relation('arrival.id', relation_name='vess_services', mode='foreignkey', onDelete='cascade')
+                    ).relation('arrival.id', relation_name='vess_services', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         tbl.column('services_id',size='22', name_long='!![en]Service type'
                     ).relation('services.id', relation_name='tipo_serv', mode='foreignkey', onDelete='raise')
         tbl.column('data_serv', dtype='D', name_short='!![en]Service date')

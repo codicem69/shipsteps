@@ -7,7 +7,7 @@ class Table(object):
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
-                    ).relation('arrival.id', relation_name='arr_details', mode='foreignkey', onDelete='cascade', one_one='*')
+                    ).relation('arrival.id', relation_name='arr_details', mode='foreignkey', onDelete='cascade', one_one='*',onDuplicate=False)
         tbl.column('draft_aft_arr', size=':15', name_short='!![en]Draft AFT arrival')
         tbl.column('draft_fw_arr', size=':15', name_short='!![en]Draft FW arrival')
         tbl.column('draft_aft_dep', size=':15', name_short='!![en]Draft AFT departure')
