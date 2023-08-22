@@ -287,7 +287,7 @@ class Form(BaseComponent):
 
         fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
         fb.field('agency_id', readOnly=True )
-        fb.field('reference_num', readOnly=True)
+        fb.field('reference_num', readOnly='^gnr.app_preference.shipsteps.ref_num')
         fb.field('date')
         fb.field('vessel_details_id',validate_notnull=True) 
         fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome',order_by='$data DESC')

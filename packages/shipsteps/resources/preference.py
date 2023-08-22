@@ -56,10 +56,11 @@ class AppPref(object):
         fb.checkbox('^.ue',lbl='Disabilita paesi UE per pratiche Sanimare', default=False)
         fb.br()
         fb.checkbox('^.pmou',lbl='Disabilita invio PMOU notification', default=False)
+        fb.checkbox('^.ref_num', lbl='Disabilita Reference number', default=True)
 
-class UserPref(object):
-    def prefpane_shipsteps(self, parent, **kwargs):
-        pane = parent.contentPane(**kwargs)
-        fb = pane.formbuilder(cols=1, border_spacing='3px')
-        fb.checkbox(value='^.delbottom', lbl='!![en]Deleting bottom')
+#class UserPref(object):
+#    def prefpane_shipsteps(self, parent, **kwargs):
+#        pane = parent.contentPane(**kwargs)
+#        fb = pane.formbuilder(cols=1, border_spacing='3px',datapath='.arrivi')
+#        fb.checkbox(value='^.ref_num', lbl='!![en]Enable Reference number')
 
