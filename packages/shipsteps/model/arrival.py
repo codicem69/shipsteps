@@ -409,7 +409,7 @@ class Table(object):
         #2021/000001
         tbl_agency = self.db.table('agz.agency')
         codice = tbl_agency.readColumns(columns='$code', where = '$id =:ag_id', ag_id=record['agency_id'])
-        return dict(format='$K$YYYY/$NNNNNN', code=codice, period='YYYY', date_field='date', showOnLoad=True, date_tolerant=True)
+        return dict(format='$K$YYYY/$NNNNNN', code=codice, period='YYYY', date_field='date', showOnLoad=True, date_tolerant=True, recycle=True)
 
     def randomValues(self):
         return dict(date = dict(sorted=True))
