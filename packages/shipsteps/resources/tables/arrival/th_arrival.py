@@ -120,8 +120,8 @@ class Form(BaseComponent):
         #tc_parapon = bc_task3.tabContainer(title='pippo')
         self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = 'seashell'))
         #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
-        tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%',pageName='cargodocs').remote(self.cargodocsCertLazyMode)
-        tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%',pageName='sanimare_cert').remote(self.usmaCertLazyMode)
+        tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%',pageName='cargodocs').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
+        tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%',pageName='sanimare_cert').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
 
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
        # tc2 = bc2.tabContainer(margin='2px', region='center', height='auto', splitter=True)
@@ -135,21 +135,21 @@ class Form(BaseComponent):
         #self.shorepass(tc_task.contentPane(title='!![en]Shore pass'))
         #self.services(tc_task.contentPane(title='!![en]Vessel Services',pageName='services'))
         
-        tc_task.contentPane(title='!![en]Shore pass',pageName='shore_pass').remote(self.shorePassLazyMode)
-        tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode)
+        tc_task.contentPane(title='!![en]Shore pass',pageName='shore_pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
+        tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
-        tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode)
+        tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
         
         self.garbage(tc_undertask.contentPane(title='!![en]Garbage', pageName='garbage'))
         self.tributi(tc_undertask.contentPane(title='!![en]Tributes HM',pageName='tributi'))
         #self.rinfusa(tc_app.contentPane(title='!![en]Bulk Application'))
-        tc_app.contentPane(title='!![en]Bulk Application',pageName='bulk_application').remote(self.rinfusaLazyMode)
+        tc_app.contentPane(title='!![en]Bulk Application',pageName='bulk_application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
         #self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
-        tc_app.contentPane(title='!![en]Bunker Application',pageName='bunker_application').remote(self.bunkerLazyMode)
-        tc_app.contentPane(title='!![en]Certificates Application',pageName='certificates_application').remote(self.certificateLazyMode)
+        tc_app.contentPane(title='!![en]Bunker Application',pageName='bunker_application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
+        tc_app.contentPane(title='!![en]Certificates Application',pageName='certificates_application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
@@ -174,7 +174,7 @@ class Form(BaseComponent):
        # self.sof(tc.contentPane(title='!![en]Sof'))
         self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell'))
        # self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
-        tc.contentPane(title='!![en]Email Arrival',pageName='email_arrival').remote(self.emailArrivalLazyMode)
+        tc.contentPane(title='!![en]Email Arrival',pageName='email_arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait')
         self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
 
