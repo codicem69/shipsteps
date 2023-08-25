@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><menu path="menu.py" ext="py"><en_arrivals base="Arrivals" it="Arrivi"></en_arrivals>
+<en_filtered_arrivals base="Filtered arrivals"></en_filtered_arrivals>
 <en_arrival_details base="Arrival details"></en_arrival_details>
 <en_arrival_logs base="Arrival logs"></en_arrival_logs>
 <en_arrival_times base="arrival times"></en_arrival_times>
@@ -83,7 +84,8 @@
 <en_shipper_receivers base="Shipper/Receivers"></en_shipper_receivers>
 <en_cargo_total base="Cargo total" it="Totale carico"></en_cargo_total>
 <en_owners_full_name base="Owners full name"></en_owners_full_name>
-<en_ship_or_rec base="Ship or Rec"></en_ship_or_rec></arrival>
+<en_ship_or_rec base="Ship or Rec"></en_ship_or_rec>
+<en_shiprec base="ShipRec"></en_shiprec></arrival>
 <arrival_atc path="model/arrival_atc.py" ext="py"><en_email_attached base="Email attached"></en_email_attached></arrival_atc>
 <arrival_det path="model/arrival_det.py" ext="py"><en_arrival_details base="Arrival details"></en_arrival_details>
 <en_draft_aft_arrival base="Draft AFT arrival"></en_draft_aft_arrival>
@@ -496,7 +498,7 @@
 <en_extra base="Extra"></en_extra>
 <en_code base="Code" en="Code" it="Codice"></en_code>
 <en_description base="Description" en="Description" it="Descrizione"></en_description>
-<en_enable_reference_number base="Enable Reference number"></en_enable_reference_number></preference>
+<en_enable_delrow_bottom_on_arrival base="Enable Delrow bottom on arrival"></en_enable_delrow_bottom_on_arrival></preference>
 <tables><agency><old><th_agency path="resources/tables/agency.old/th_agency.py" ext="py"><en_bank_details base="Bank details" it="Dettagli Bancari"></en_bank_details>
 <en_agency_stamp base="Agency stamp" it="Timbro Agenzia"></en_agency_stamp>
 <en_remove_image base="Remove image"></en_remove_image></th_agency></old></agency>
@@ -505,7 +507,13 @@
 <nota_arrivo path="resources/tables/arrival/print/nota_arrivo.py" ext="py"><en_cargo_on_deck base="Cargo on deck" it="Carico sopra coperta"></en_cargo_on_deck>
 <en_passengers_to_disembark base="Passengers to disembark"></en_passengers_to_disembark>
 <en_extraordinary_event_or_demage base="Extraordinary event or demage"></en_extraordinary_event_or_demage></nota_arrivo></print>
-<th_arrival path="resources/tables/arrival/th_arrival.py" ext="py"><en_strong_arrival_strong_ _tag="en__strong_arrival_strong_" base="&lt;strong&gt;Arrival&lt;/strong&gt;"></en_strong_arrival_strong_>
+<th_arrival path="resources/tables/arrival/th_arrival.py" ext="py"><en_all fr="Tous" de="Alle" en="All" it="Tutto" base="All"></en_all>
+<en_all_cargo_handled base="All cargo handled" it="Tutti i carichi movimentati"></en_all_cargo_handled>
+<en_unloading base="Unloading" it="Sbarco"></en_unloading>
+<en_loading base="Loading" de="Laden" en="Loading" fr="Chargement" it="Imbarco"></en_loading>
+<en_shippers_receivers base="Shippers-Receivers"></en_shippers_receivers>
+<en_year base="Year" it="Anno"></en_year>
+<en_strong_arrival_strong_ _tag="en__strong_arrival_strong_" base="&lt;strong&gt;Arrival&lt;/strong&gt;"></en_strong_arrival_strong_>
 <en_strong_cargo_strong_ _tag="en__strong_cargo_strong_" base="&lt;strong&gt;Cargo&lt;/strong&gt;"></en_strong_cargo_strong_>
 <en_strong_extra_dati_cp_strong_ _tag="en__strong_extra_dati_cp_strong_" base="&lt;strong&gt;Extra dati CP&lt;/strong&gt;"></en_strong_extra_dati_cp_strong_>
 <en_strong_attachments_strong_ _tag="en__strong_attachments_strong_" base="&lt;strong&gt;Attachments&lt;/strong&gt;"></en_strong_attachments_strong_>
@@ -520,9 +528,9 @@
 <en_strong_sanimare_certificates_strong_ _tag="en__strong_sanimare_certificates_strong_" base="&lt;strong&gt;Sanimare certificates&lt;/strong&gt;"></en_strong_sanimare_certificates_strong_>
 <en_renew_certificates_sanimare base="Renew certificates Sanimare"></en_renew_certificates_sanimare>
 <en_loading_cargoes base="Loading Cargoes"></en_loading_cargoes>
+<en_please_wait base="Please wait" it="Attendere prego"></en_please_wait>
 <en_attachments base="Attachments" de="Zubehör" en="Attachments" fr="Pièces jointes" it="Allegati"></en_attachments>
 <en_vessel_services base="Vessel Services" it="Servizi Nave"></en_vessel_services>
-<en_please_wait base="Please wait" it="Attendere prego"></en_please_wait>
 <en_sof base="Sof"></en_sof>
 <en_garbage base="Garbage"></en_garbage>
 <en_tributes_hm base="Tributes HM" it="Tributi"></en_tributes_hm>
@@ -536,7 +544,6 @@
 <en_cargo_onboard_on_departure base="Cargo onboard on departure" it="Carico a bordo in partenza"></en_cargo_onboard_on_departure>
 <en_cargo_loading_unloading base="Cargo loading / unloading" it="Carico imbarco/sbarco"></en_cargo_loading_unloading>
 <en_transit_cargo base="Transit cargo" it="Carico in transito"></en_transit_cargo>
-<en_shippers_receivers base="Shippers / Receivers"></en_shippers_receivers>
 <en_charterers base="Charterers"></en_charterers>
 <en_arrival_departure_details base="Arrival/Departure details"></en_arrival_departure_details>
 <en_email_arrival base="Email Arrival"></en_email_arrival>

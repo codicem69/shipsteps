@@ -16,6 +16,7 @@ class Menu(object):
             shipsteps.packageBranch('Agency',pkg='agz')
             
             shipsteps.thpage(u"!![en]Arrivals", table="shipsteps.arrival", tags="")
+            shipsteps.thpage(u"!![en]Filtered arrivals", table="shipsteps.arrival", tags="", viewResource="View_Filtered_Arrivals")
             shipsteps.thpage(u"!![en]Arrival details", table="shipsteps.arrival_det", tags="")
             shipsteps.thpage(u"!![en]Arrival logs", table="shipsteps.protocollo", tags="")
             shipsteps.thpage(u"!![en]arrival times", table="shipsteps.arrival_time", tags="")
@@ -65,6 +66,7 @@ class Menu(object):
             shipsteps = root.branch(u"shipsteps", tags="")
             shipsteps.thpage(u"!![en]Send Pre-Arrivals", table="shipsteps.prearrivals", tags="")
             shipsteps.thpage(u"!![en]Arrivals", table="shipsteps.arrival", tags="")
+            shipsteps.thpage(u"!![en]Filtered arrivals", table="shipsteps.arrival", tags="", viewResource="View_Filtered_Arrivals")
             shipsteps.thpage(u"!![en]Vessel details", table="shipsteps.vessel_details", tags="")
             shipsteps.thpage(u"!![en]Services emails", table="shipsteps.email_services", tags="")
             shipsteps.webpage("!![en]Shippers/Receivers/Charterers", filepath="/shipsteps/cruscotto")

@@ -57,10 +57,11 @@ class AppPref(object):
         fb.br()
         fb.checkbox('^.pmou',lbl='Disabilita invio PMOU notification', default=False)
         fb.checkbox('^.ref_num', lbl='Disabilita Reference number', default=True)
+        fb.checkbox(value='^.delrow_arr', lbl='!![en]Enable Delrow bottom on arrival')
 
 #class UserPref(object):
 #    def prefpane_shipsteps(self, parent, **kwargs):
 #        pane = parent.contentPane(**kwargs)
 #        fb = pane.formbuilder(cols=1, border_spacing='3px',datapath='.arrivi')
-#        fb.checkbox(value='^.ref_num', lbl='!![en]Enable Reference number')
+#        fb.checkbox(value='^.delrow_arr', lbl='!![en]Enable Delrow bottom on arrival')
 

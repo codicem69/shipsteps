@@ -4,6 +4,7 @@
 from turtle import left
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
+from gnr.core.gnrdecorator import metadata
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
 from gnr.core.gnrlang import GnrException
@@ -12,13 +13,13 @@ from gnr.core.gnrbag import Bag
 from docx import Document
 import os
 import subprocess #per apertura file tramite programma di sistema
-
+import datetime
 
 class View(BaseComponent):
     
     def th_struct(self,struct):
-        r = struct.view().rows()
-        
+        "Vista standard"
+        r = struct.view().rows()  
         arrival = r.columnset('colset_arrival', name='Arrival', color='white',background='DarkSlateBlue', font_weight='bold')
         arrival.fieldcell('agency_id', width='7em')
         arrival.fieldcell('reference_num', width='8em')
@@ -70,8 +71,84 @@ class View(BaseComponent):
         cargo.fieldcell('cargo_lu_en', width='30em')
         cargo.fieldcell('@cargo_lu_arr.tot_cargo', width='8em')
         cargo.fieldcell('ship_rec', width='30em')
-        
 
+    def th_struct_clientecarico(self,struct):
+        "Vista ClienteCarico"
+        r = struct.view().rows()
+        arrival = r.columnset('colset_arrival', name='Arrival', color='white',background='DarkSlateBlue', font_weight='bold')
+        arrival.fieldcell('agency_id', width='7em')
+        arrival.fieldcell('reference_num', width='8em')
+        arrival.fieldcell('vessel_details_id', width='15em', font_weight='bold')
+        arrival.fieldcell('tip_mov', width='6em', font_weight='bold')
+        cargo = r.columnset('colset_cargo', name='Cargo', color='white',background='RosyBrown', font_weight='bold')
+        cargo.fieldcell('cargo_dest')
+        cargo.fieldcell('cargo_lu_en', width='30em')
+        cargo.fieldcell('@cargo_lu_arr.tot_cargo', width='8em', totalize=True)
+        cargo.fieldcell('ship_rec', width='30em')
+        cargo.fieldcell('ship_or_rec', width='30em')
+        cargo.fieldcell('cargo_op', width='5em')
+
+    def th_hiddencolumns(self):
+        return "$cargo_op"
+    
+    @metadata(variable_struct=True)
+    def th_sections_anno(self):
+        #f = self.db.table('shipsteps.arrival').query(columns='$etb',where='$etb is not null', order_by='$etb').selection().output('records')
+        f = self.db.table('shipsteps.arrival').query(columns="to_char($etb,'YYYY')",where='$etb is not null',distinct="to_char($etb,'YYYY')").fetch()
+        
+        result=[]
+        result.append(dict(code='tutti',caption='!![en]All'))
+        for r in f:
+            result.append(dict(code=r[0],caption=r[0],condition="to_char($etb,'YYYY')=:anno",condition_anno=r[0]))
+        return result
+
+   #@metadata(variable_struct=True)
+   #def th_sections_operation(self):
+   #    #prendiamo agency_id nel currentEnv
+   #    ag_id=self.db.currentEnv.get('current_agency_id')
+   #    #effettuaiamo la ricerca di tutti i clienti filtrando quelli relativi all'agency_id
+   #    f = self.db.table('shipsteps.cargo_unl_load').query(where="$operation = 'U' or $operation = 'L'",order_by='@receiver_id.name ,@shipper_id.name').selection().output('records')
+   #    #creaiamo una lista vuota dove andremo ad appendere i dizionari con il valore tutti e con i clienti
+   #    shiprec = self.db.table('shipsteps.ship_rec').query().selection().output('records')
+   #    
+   #    #print(x)
+   #    result=[]
+   #    Dup={}
+   #    result.append(dict(code='tutti',caption='!![en]All'))
+   #    for r in range(len(f)):
+   #        if f[r]['operation'] == 'U': 
+   #            for rec in shiprec:
+   #                if rec['id'] ==  f[r]['receiver_id']:
+   #                    if rec['id'] in Dup: #verifichiamo se in result abbiamo già inserito il ricevitore per non creare un duplicato
+   #                        ItemNumber = Dup[rec['id']]
+   #                    else:
+   #                        result.append(dict(code=rec['id'],caption=rec['name'],
+   #                        condition='$shiprec=:receiver',condition_receiver=rec['name']))
+   #                        Dup[rec['id']] = ItemNumber = len(result)-1
+   #                    
+   #        if f[r]['operation'] == 'L':
+   #            for rec in shiprec:
+   #                if rec['id'] ==  f[r]['shipper_id']:
+   #                    if rec['id'] in Dup: #verifichiamo se in result abbiamo già inserito il caricatore per non creare un duplicato
+   #                        ItemNumber = Dup[rec['id']]
+   #                    else:
+   #                        result.append(dict(code=rec['id'],caption=rec['name'],
+   #                        condition='$shiprec=:shipper',condition_shipper=rec['name']))
+   #                        Dup[rec['id']] = ItemNumber = len(result)-1
+   #    
+   #    return result
+    
+    #@metadata(variable_struct=True)
+    #def th_sections_shiprec(self):
+    #    return [dict(code='tutti',caption='!![en]All cargo handled'),
+    #            dict(code='unload',caption='!![en]Unloading',
+    #                    condition="$cargo_op='U'"),
+    #            dict(code='load',caption='!![en]Loading',condition="$cargo_op='L'")] 
+    #
+    def th_top_toolbarsuperiore(self,top):
+         top.slotToolbar('5,*,sections@tip_mov,*,5',
+                         childname='superiore',_position='<bar',gradient_from='#999',gradient_to='#666')
+        
     def th_order(self):
         return 'reference_num:d' 
 
@@ -89,7 +166,107 @@ class View(BaseComponent):
             del_row = False
         
         return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
+
+class View_Filtered_Arrivals(BaseComponent):
+    def th_struct(self,struct):
         
+        r = struct.view().rows()
+        arrival = r.columnset('colset_arrival', name='Arrival', color='white',background='DarkSlateBlue', font_weight='bold')
+        arrival.fieldcell('agency_id', width='7em')
+        arrival.fieldcell('reference_num', width='8em')
+        arrival.fieldcell('vessel_details_id', width='15em', font_weight='bold')
+        arrival.fieldcell('tip_mov', width='6em', font_weight='bold')
+        cargo = r.columnset('colset_cargo', name='Cargo', color='white',background='RosyBrown', font_weight='bold')
+        cargo.fieldcell('cargo_dest')
+        cargo.fieldcell('cargo_lu_en', width='30em')
+        cargo.fieldcell('@cargo_lu_arr.tot_cargo', width='8em', totalize=True)
+        cargo.fieldcell('ship_rec', width='30em')
+        cargo.fieldcell('ship_or_rec', width='30em')
+        cargo.fieldcell('cargo_op', width='5em')
+
+    def th_hiddencolumns(self):
+        return "$cargo_op"
+    
+    @metadata(variable_struct=True)
+    def th_sections_anno(self):
+        #f = self.db.table('shipsteps.arrival').query(columns='$etb',where='$etb is not null', order_by='$etb').selection().output('records')
+        f = self.db.table('shipsteps.arrival').query(columns="to_char($etb,'YYYY')",where='$etb is not null',distinct="to_char($etb,'YYYY')").fetch()
+        
+        result=[]
+        result.append(dict(code='tutti',caption='!![en]All'))
+        for r in f:
+            result.append(dict(code=r[0],caption=r[0],condition="to_char($etb,'YYYY')=:anno",condition_anno=r[0]))
+        return result
+
+    @metadata(variable_struct=True)
+    def th_sections_operation(self):
+        #prendiamo agency_id nel currentEnv
+        ag_id=self.db.currentEnv.get('current_agency_id')
+        #effettuaiamo la ricerca di tutti i clienti filtrando quelli relativi all'agency_id
+        f = self.db.table('shipsteps.cargo_unl_load').query(where="$operation = 'U' or $operation = 'L'",order_by='@receiver_id.name ,@shipper_id.name').selection().output('records')
+        #creaiamo una lista vuota dove andremo ad appendere i dizionari con il valore tutti e con i clienti
+        shiprec = self.db.table('shipsteps.ship_rec').query().selection().output('records')
+        
+        #print(x)
+        result=[]
+        Dup={}
+        result.append(dict(code='tutti',caption='!![en]All'))
+        for r in range(len(f)):
+            if f[r]['operation'] == 'U': 
+                for rec in shiprec:
+                    if rec['id'] ==  f[r]['receiver_id']:
+                        if rec['id'] in Dup: #verifichiamo se in result abbiamo già inserito il ricevitore per non creare un duplicato
+                            ItemNumber = Dup[rec['id']]
+                        else:
+                            result.append(dict(code=rec['id'],caption=rec['name'],
+                            condition='$shiprec=:receiver',condition_receiver=rec['name']))
+                            Dup[rec['id']] = ItemNumber = len(result)-1
+                        
+            if f[r]['operation'] == 'L':
+                for rec in shiprec:
+                    if rec['id'] ==  f[r]['shipper_id']:
+                        if rec['id'] in Dup: #verifichiamo se in result abbiamo già inserito il caricatore per non creare un duplicato
+                            ItemNumber = Dup[rec['id']]
+                        else:
+                            result.append(dict(code=rec['id'],caption=rec['name'],
+                            condition='$shiprec=:shipper',condition_shipper=rec['name']))
+                            Dup[rec['id']] = ItemNumber = len(result)-1
+        
+        return result
+    
+    @metadata(variable_struct=True)
+    def th_sections_shiprec(self):
+        return [dict(code='tutti',caption='!![en]All cargo handled'),
+                dict(code='unload',caption='!![en]Unloading',
+                        condition="$cargo_op='U'"),
+                dict(code='load',caption='!![en]Loading',condition="$cargo_op='L'")] 
+    
+    def th_top_toolbarsuperiore(self,top):
+        top.slotToolbar('5,sections@tip_mov,*,sections@shiprec,*,sections@anno,*,sections@operation,5',
+                        childname='superiore',_position='<bar',gradient_from='#999',gradient_to='#666',sections_operation_multiButton=False,
+                        sections_operation_lbl='!![en]Shippers-Receivers',sections_operation_lbl_color='white',
+                        sections_operation_width='40em',sections_anno_multiButton=False,
+                        sections_anno_lbl='!![en]Year',sections_anno_lbl_color='white',
+                        sections_anno_width='6em')
+        
+    def th_order(self):
+        return 'reference_num:d' 
+
+    def th_query(self):
+        return dict(column='@vessel_details_id.@imbarcazione_id.nome', op='contains', val='', runOnStart=True)
+
+    def th_options(self):
+        #se l'utente connesso ha i privilegi di admin/superadmin/sviluppatore visualizzerà il tasto - per la cancellazione del record
+       
+        usertags = self.db.currentEnv.get('userTags')
+    
+        if 'admin' in usertags or 'superadmin' in usertags or '_DEV_' in usertags:
+            del_row = True
+        else:
+            del_row = False
+   
+        return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
+    
 class Form(BaseComponent):
     
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
