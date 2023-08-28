@@ -246,7 +246,7 @@ class Main(TableScriptToHtml):
             car = "{op}{ms}{qt} {car} {descr_cp}".format(op=oper,ms=cargo_ms,qt=quantity,car=car_description, descr_cp=extra_descr_car)
             r.cell(car,font_weight='bold', font_size='8pt')
         if len(carico) == 0:
-            r = terza_col.row(h_car)
+            r = col3.row(h_car)
             r.cell('NIL',font_weight='bold', font_size='8pt')
         cel_cargotransit=seconda_col.row(height=5).cell('CARICO IN TRANSITO (**)', font_weight='bold', background='lightgrey', width=40)
         col5=cel_cargotransit.row.cell().layout(name='col5', um='mm', border_color='black', lbl_class='',
