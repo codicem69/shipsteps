@@ -8,6 +8,5 @@ class Table(object):
         tbl.column('data_arr', dtype='D', name_short='!![en]Arrival date')
         tbl.column('data_part', dtype='D', name_short='!![en]Departure date')
        
-        #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.formulaColumn('data_attuale',"""CASE WHEN $arrival_id <> ''THEN :currdate END""",var_currdate=self.db.workdate)
 

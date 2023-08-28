@@ -52,6 +52,7 @@ class Table(object):
         tbl.column('note', name_short='!![en]note')
         tbl.column('tip_mov',name_short='!![en]Tip.Mov.', batch_assign=True
                     ).relation('tip_mov.code', relation_name='ship_mov', mode='foreignkey', onDelete='raise')
+        tbl.column('vessel_stamp', dtype='P', name_long='!![en]Vessel Stamp')       
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
