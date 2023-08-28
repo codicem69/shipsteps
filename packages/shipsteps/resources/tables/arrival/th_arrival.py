@@ -2174,7 +2174,7 @@ class Form(BaseComponent):
         email_pec = ','.join([str(item) for item in email_pec_d])
         email_pec_cc = ','.join([str(item) for item in email_pec_cc_d])
         
-        now = datetime.now()
+        now = datetime.datetime.now()
         cur_time = now.strftime("%H:%M:%S")    
         if cur_time < '13:00:00':
             sal='Buongiorno,'  
