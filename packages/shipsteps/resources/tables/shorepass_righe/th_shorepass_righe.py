@@ -104,7 +104,7 @@ class ViewFromShorepassRighe(BaseComponent):
     
     @public_method
     def importaCrew(self, filepath=None, record=None, **kwargs):
-        "Importa Excel clienti con comuni"
+        "Importa Excel crew list con nazioni"
         paesi =    self.db.table('unlocode.nazione').query(columns='$nome,$code').fetchAsDict('code')        
         reader = self.utils.getReader(filepath)
         result = Bag()

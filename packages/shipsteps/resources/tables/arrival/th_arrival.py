@@ -2248,7 +2248,7 @@ class Form(BaseComponent):
                     ag_id=self.db.currentEnv.get('current_agency_id'))
         
         
-        now = datetime.now()
+        now = datetime.datetime.now()
         cur_time = now.strftime("%H:%M:%S")    
         if cur_time < '13:00:00':
             sal='Buongiorno,'  
@@ -2353,7 +2353,7 @@ class Form(BaseComponent):
         email_pec = ','.join([str(item) for item in email_pec_d])
         email_pec_cc = ','.join([str(item) for item in email_pec_cc_d])
         
-        now = datetime.now()
+        now = datetime.datetime.now()
         cur_time = now.strftime("%H:%M:%S")    
         if cur_time < '13:00:00':
             sal='Buongiorno,'  
@@ -2626,7 +2626,7 @@ class Form(BaseComponent):
         result = builder.writePdf(pdfpath=pdfpath)
         
         self.setInClientData(path='gnr.clientprint',
-                             value=result.url(timestamp=datetime.now()), fired=True)
+                             value=result.url(timestamp=datetime.datetime.now()), fired=True)
                                
        #inseriamo nella tabella di attachment il mod61_arr 
        #if nome_temp == 'mod61_arr':
@@ -2698,7 +2698,7 @@ class Form(BaseComponent):
         result = builder.writePdf(pdfpath=pdfpath)
 
         self.setInClientData(path='gnr.clientprint',
-                              value=result.url(timestamp=datetime.now()), fired=True)
+                              value=result.url(timestamp=datetime.datetime.now()), fired=True)
         self.email_services(record,email_template_id,servizio, **kwargs)
         #se ritorna il valore di nome_temp dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di nome_temp alla chiamata iniziale del bottone di stampa per far scattare
@@ -2748,7 +2748,7 @@ class Form(BaseComponent):
         builder.pdf_handler.joinPdf(storagePath,'home:stampe_template/master_info.pdf')
         master_info = self.site.storageNode('home:stampe_template', 'master_info.pdf' )
         self.setInClientData(path='gnr.clientprint',
-                              value=master_info.url(timestamp=datetime.now()), fired=True)
+                              value=master_info.url(timestamp=datetime.datetime.now()), fired=True)
         
         #self.email_services(record,email_template_id,servizio, **kwargs)
         #se ritorna il valore di nome_temp dalla funzione sopra lanciata self.email_services
@@ -2796,7 +2796,7 @@ class Form(BaseComponent):
         result = builder.writePdf(pdfpath=pdfpath)
 
         self.setInClientData(path='gnr.clientprint',
-                              value=result.url(timestamp=datetime.now()), fired=True)
+                              value=result.url(timestamp=datetime.datetime.now()), fired=True)
         self.email_services(record,email_template_id,servizio, **kwargs)
         #se ritorna il valore di nome_temp dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
