@@ -76,7 +76,7 @@ class ViewFromPaxRighe(BaseComponent):
                                                                                    pkey='=#FORM.pkey')
         #btn_print_paxlist=bar.stampa_paxlist.button('Stampa Pax List')
         bar.dataRpc(self.importaPax, subscribe_import_pax=True,record='=#FORM.record',
-                      _onResult="genro.publish('xls_importer_onResult',result);",
+                      _onResult="genro.publish('xls_importer_onResult',result);this.form.reload();",
                       _onError="genro.publish('xls_importer_onResult',{error:error});")
         #btn_print_paxlist.dataRpc('nome_temp', self.print_paxlist,record='=#FORM.record',vessel_name='=#FORM.record.@arrival_id.@vessel_details_id.@imbarcazione_id.nome',
         #                    nome_template = 'shipsteps.paxlist:paxlist',format_page='A4',_lockScreen=dict(message='Please Wait'))
@@ -89,7 +89,7 @@ class ViewFromPaxRighe(BaseComponent):
         reader = self.utils.getReader(filepath)
         result = Bag()
         paxlistid = record['id']
-
+        
         for row in reader():
             if row['nationality']: 
                 if len(row['nationality']) > 2:

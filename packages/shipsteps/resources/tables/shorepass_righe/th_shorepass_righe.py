@@ -78,7 +78,7 @@ class ViewFromShorepassRighe(BaseComponent):
                             matchColumns='*')
         btn_print_shorepass=bar.stampa_shorepass.button('Stampa Shorepass')
         bar.dataRpc(self.importaCrew, subscribe_import_clienti=True,record='=#FORM.record',
-                      _onResult="genro.publish('xls_importer_onResult',result);",
+                      _onResult="genro.publish('xls_importer_onResult',result);this.form.reload();",
                       _onError="genro.publish('xls_importer_onResult',{error:error});")
         btn_print_shorepass.dataRpc('nome_temp', self.print_template_shorepass,record='=#FORM.record',pkeys='=#FORM.shipsteps_shorepass_righe.view.grid.currentSelectedPkeys',servizio=[],
                             nome_template = 'shipsteps.shorepass_righe:shorepass_righe',format_page='A4',_lockScreen=dict(message='Please Wait'))

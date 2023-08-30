@@ -14,7 +14,9 @@ class View(BaseComponent):
         r.fieldcell('arrival_id')
         r.fieldcell('data_arr')
         r.fieldcell('data_part')
-
+        r.fieldcell('comunitari')
+        r.fieldcell('extraue')
+        
     def th_order(self):
         return 'arrival_id'
 
@@ -39,6 +41,8 @@ class Form(BaseComponent):
         fb.field('arrival_id')
         fb.field('data_arr')
         fb.field('data_part')
+        fb.field('comunitari')
+        fb.field('extraue')
         right = bc.roundedGroup(region='right',title='!![en]Vessel stamp',width='300px')
         right.img(src='^.@arrival_id.vessel_stamp', edit=True, crop_width='200px', crop_height='100px', border='2px dotted silver',margin_left='5px',
                         placeholder=True,upload_folder='*')

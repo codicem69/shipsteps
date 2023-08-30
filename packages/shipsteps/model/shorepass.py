@@ -10,3 +10,11 @@ class Table(object):
        
         tbl.formulaColumn('data_attuale',"""CASE WHEN $arrival_id <> ''THEN :currdate END""",var_currdate=self.db.workdate)
 
+        tbl.formulaColumn('comunitari', select=dict(table='shipsteps.shorepass_righe',
+                                                columns="""COUNT(@nationality.ue)""",
+                                                where='$shorepass_id=#THIS.id AND @nationality.ue=:ue',ue=True), 
+                                    name_long='!![en]UE no.')
+        tbl.formulaColumn('extraue', select=dict(table='shipsteps.shorepass_righe',
+                                                columns="""COUNT(@nationality.ue)""",
+                                                where='$shorepass_id=#THIS.id AND @nationality.ue=:ue',ue=False), 
+                                    name_long='!![en]ExtraUE no.')
