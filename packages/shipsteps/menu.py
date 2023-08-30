@@ -38,6 +38,8 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Logos", table="shipsteps.loghi", tags="")
             shipsteps.thpage(u"!![en]Opening gates", table="shipsteps.opening_gate", tags="")
             shipsteps.thpage(u"!![en]Owners", table="shipsteps.owner", tags="")
+            shipsteps.thpage(u"!![en]Pax list", table="shipsteps.paxlist", tags="")
+            shipsteps.thpage(u"!![en]Pax list righe", table="shipsteps.paxlist_righe", tags="")
             shipsteps.thpage(u"!![en]Port Facilities", table="shipsteps.port_facility", tags="")
             shipsteps.thpage(u"!![en]Sanimare certificates", table="shipsteps.certsanimare", tags="")
             shipsteps.thpage(u"!![en]Send Pre-Arrivals", table="shipsteps.prearrivals", tags="")

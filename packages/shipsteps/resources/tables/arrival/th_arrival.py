@@ -313,6 +313,7 @@ class Form(BaseComponent):
         #self.services(tc_task.contentPane(title='!![en]Vessel Services',pageName='services'))
         
         tc_task.contentPane(title='!![en]Shore pass',pageName='shore_pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
+        tc_task.contentPane(title='!![en]Pax List',pageName='pax_list').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
         tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
@@ -1703,6 +1704,10 @@ class Form(BaseComponent):
     @public_method
     def shorePassLazyMode(self,pane):
         pane.stackTableHandler(relation='@shorepass_arr',formResource='Form',view_store__onBuilt=True)
+
+    @public_method
+    def paxListLazyMode(self,pane):
+        pane.stackTableHandler(relation='@paxlist_arr',formResource='Form',view_store__onBuilt=True)    
 
     #def shorepass(self, pane):
     #    pane.stackTableHandler(relation='@shorepass_arr',formResource='Form')
