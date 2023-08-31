@@ -354,6 +354,8 @@ class Form(BaseComponent):
        # self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
         tc.contentPane(title='!![en]Email Arrival',pageName='email_arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait')
         self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
+        tc.contentPane(title='!![en]Vessel details').templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
+                                                template='dettaglio_imb')
         #self.taskList(tc.borderContainer(title='!![en]Task list', region='top', background = 'lavenderblush'))
 
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
@@ -462,7 +464,6 @@ class Form(BaseComponent):
         center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
         center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px',margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]Times',table='shipsteps.arrival_time',region='center',datapath='.record.@time_arr',width='245px', height = '350px', margin_left='1385px').div(margin='10px',margin_left='2px')
-
         fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly='^gnr.app_preference.shipsteps.ref_num')
