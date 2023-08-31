@@ -38,10 +38,8 @@ class Main(TableScriptToHtml):
         layout = header.layout(name='doc_header', margin='0mm', border_width=0,top=0.1,left=0.1)
         r = layout.row(row_border=False,height=5)
         
-        if self.record['arr_dep'] == 'True':
-            paxlist = 'Arrival / Arrivo'
-        else:
-            paxlist = 'Departure / Partenza'
+        paxlist = self.record['arr_dep']
+          
  
         r.cell("""<center><div style='font-size:12pt;'><strong>PASSENGER LIST</strong></div>
                     <div style='font-size:12pt;'> {pax_type}</div></center>::HTML""".format(pax_type=paxlist))
