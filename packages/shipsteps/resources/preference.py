@@ -58,6 +58,11 @@ class AppPref(object):
         fb.checkbox('^.pmou',lbl='Disabilita invio PMOU notification', default=False)
         fb.checkbox('^.ref_num', lbl='Disabilita Reference number', default=True)
         fb.checkbox(value='^.delrow_arr', lbl='!![en]Enable Delrow bottom on arrival')
+        fb.br()
+        fb.div('!![en]<strong>Times for shorepass</strong>')
+        fb.br()
+        fb.timeTextBox('^.start',lbl='!![en]Start time')
+        fb.timeTextBox('^.end',lbl='!![en]End time') 
 
 #class UserPref(object):
 #    def prefpane_shipsteps(self, parent, **kwargs):

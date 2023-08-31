@@ -105,18 +105,27 @@ class ViewFromShorepassRighe(BaseComponent):
     @public_method
     def importaCrew(self, filepath=None, record=None, **kwargs):
         "Importa Excel crew list con nazioni"
-        paesi =    self.db.table('unlocode.nazione').query(columns='$nome,$code').fetchAsDict('code')        
+        paesi =    self.db.table('unlocode.nazione').query(columns='$nome,$code,$ue').fetchAsDict('code')      
         reader = self.utils.getReader(filepath)
         result = Bag()
         shorepassid = record['id']
-
+        #preleviamo dalle preference i valori di start time e end time per gli shorepass
+        startsp = self.db.application.getPreference('shipsteps.start')
+        endsp = self.db.application.getPreference('shipsteps.end')
+        expire= record['data_part']
         for row in reader():
             if row['nationality']: 
                 if len(row['nationality']) > 2:
                     raise GnrException('Nationality unlocode max 2 letters')
-                paese_id = paesi.get(row['nationality']).get('code') 
+                paese_id = paesi.get(row['nationality']).get('code')
+                ue = paesi.get(row['nationality']).get('ue')
+                if ue == True:
+                    ue_id = False
+                elif ue == False:
+                    ue_id = True
             else: 
                 paese_id = None 
+                ue_id = None
             if row['birth_country']:
                 if len(row['birth_country']) > 2:
                     raise GnrException('Birth Country unlocode max 2 letters')
@@ -133,11 +142,11 @@ class ViewFromShorepassRighe(BaseComponent):
             new_crew = self.db.table('shipsteps.shorepass_righe').newrecord(shorepass_id=shorepassid,nome=row['name'],cognome=row['surname'],grado=row['rank'],nazionalita=paese_id,
                         data_nascita=row['birth_date'],luogo_nascita=row['birth_place'],paese_nascita=birthcountry,
                         sesso=row['gender'],id_doc=row['identity_doc'],id_doc_n=row['doc_n'],id_doc_state=stateid,
-                        expire_id_doc=row['expire_doc'], **row)
+                        expire_id_doc=row['expire_doc'],expire=expire,start_time=startsp, stop_time=endsp, shorepass=ue_id, **row)
 
             self.db.table('shipsteps.shorepass_righe').insert(new_crew)
             result.addItem('inserted_row', row)
-
+            
         self.db.commit()
         return result
 
