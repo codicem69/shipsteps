@@ -195,7 +195,7 @@ class ViewFromShorepassRighe(BaseComponent):
             #    builder.page_format='A3'
             #    builder.page_width=427
             #    builder.page_height=290
-            
+            print(x)
             filepdf=builder.writePdf(pdfpath=pdfpath)
 
         builder.pdf_handler.joinPdf(storagePath,'home:stampe_template/shorepass.pdf')

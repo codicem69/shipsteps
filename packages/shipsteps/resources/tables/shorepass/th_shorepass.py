@@ -95,7 +95,7 @@ class Form(BaseComponent):
         builder(record=record_id, template=template,letterhead_id=letterhead)
 
         result = builder.writePdf(pdfpath=pdfpath)
-
+            
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
 

@@ -443,4 +443,5 @@ class Table(object):
         record['voy_n'] = None
         record['nsis_prot'] = None
         record['note'] = None
+        record['vessel_stamp'] = None
     
