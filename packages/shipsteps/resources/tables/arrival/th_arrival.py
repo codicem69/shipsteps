@@ -713,8 +713,8 @@ class Form(BaseComponent):
         fb.field('et_start' , width='10em')
         fb.field('etc' , width='10em')
         fb.field('ets', width='10em' )
-        fb.field('dock_id' )
-        
+        fb.field('dock_id', width='15em' )
+
     def taskList(self, bc_tasklist):
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%').div(margin='10px',margin_left='2px')
         rg_prearrival2 = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival - Email</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='220px').div(margin='10px',margin_left='2px')
