@@ -13,8 +13,7 @@ class Menu(object):
             shipsteps.packageBranch('Email',pkg='email')
             shipsteps.packageBranch('Proforma da',pkg='pfda')
             shipsteps.packageBranch('Unlocode',pkg='unlocode')
-            shipsteps.packageBranch('Agency',pkg='agz')
-            
+            shipsteps.packageBranch('Agencies',pkg='agz')
             shipsteps.thpage(u"!![en]Arrivals", table="shipsteps.arrival", tags="")
             shipsteps.thpage(u"!![en]Filtered arrivals", table="shipsteps.arrival", tags="", viewResource="View_Filtered_Arrivals")
             shipsteps.thpage(u"!![en]Arrival details", table="shipsteps.arrival_det", tags="")
@@ -62,7 +61,7 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Vessel services", table="shipsteps.vessel_services", tags="")
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")       
-
+            shipsteps.webpage('test',filepath='test')
         else:
 
             shipsteps = root.branch(u"shipsteps", tags="")
@@ -97,8 +96,8 @@ class Menu(object):
             unlocode = root.branch(u"Unlocode", tags="")
             unlocode.thpage(u"Località", table="unlocode.place", tags="")
             unlocode.thpage(u"Nazione", table="unlocode.nazione", tags="")
-            agz = root.branch(u"Agency", tags="")
-            agz.thpage(u"Agency", table="agz.agency", tags="")
+            agz = root.branch(u"Agencies", tags="")
+            agz.thpage(u"Agencies", table="agz.agency", tags="")
             agz.thpage(u"Staff", table="agz.staff", tags="")
 
 

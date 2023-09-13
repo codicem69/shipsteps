@@ -268,7 +268,6 @@ class View_Filtered_Arrivals(BaseComponent):
         return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
     
 class Form(BaseComponent):
-    
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
 
     def th_form(self, form):
@@ -307,10 +306,10 @@ class Form(BaseComponent):
         #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
         self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = 'seashell'))
-       
+        self.times(bc_tasklist.borderContainer(region='bottom',height='10%', background = 'LightCyan', splitter=True, closable=True))
+        
         self.taskList(bc_tasklist.borderContainer(region='top',height='65%', background = 'seashell', splitter=True))
-        #self.shorepass(tc_task.contentPane(title='!![en]Shore pass'))
-        #self.services(tc_task.contentPane(title='!![en]Vessel Services',pageName='services'))
+        
         
         tc_task.contentPane(title='!![en]Shore pass',pageName='shore_pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
         tc_task.contentPane(title='!![en]Pax List',pageName='pax_list').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
@@ -498,7 +497,6 @@ class Form(BaseComponent):
         fb.field('cargo_dest', colspan=2, width='29em' )
         fb.br()
         fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
-
         fb = center2.formbuilder(cols=1, border_spacing='4px', fld_width='10em',hidden="^#FORM.record.@tip_mov.code?=#v!='pass'")
         #con attributo hidden che punta a tip_mov se diverso dal valore pass nascondiamo il formbuilder della gpg
         #fb.field('arrival_id')
@@ -706,15 +704,23 @@ class Form(BaseComponent):
 
    #def sof_cargo(self,pane):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
+    def times(self,frame):
+        center = frame.roundedGroup(title='!![en]Times', region='center',datapath='.record').div(margin='10px',margin_left='2px')
+        #rg_arr = frame.roundedGroup(title='!![en]Arrival',datapath='.record',width='100%', height = '10%').div(margin='10px',margin_left='2px')
+        fb = center.formbuilder(cols=6, border_spacing='4px',fld_width='10em')
+        fb.field('eta' , width='10em')
+        fb.field('etb' , width='10em')
+        fb.field('et_start' , width='10em')
+        fb.field('etc' , width='10em')
+        fb.field('ets', width='10em' )
 
     def taskList(self, bc_tasklist):
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%').div(margin='10px',margin_left='2px')
-        rg_prearrival2 = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival - Email</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = 'auto', margin_left='220px').div(margin='10px',margin_left='2px')
+        rg_prearrival2 = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival - Email</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='220px').div(margin='10px',margin_left='2px')
         rg_arrival = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='440px').div(margin='10px',margin_left='2px')
         rg_arrival_nsw = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure NSW</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='680px').div(margin='10px',margin_left='2px')
         rg_extra = bc_tasklist.roundedGroup(title='!![en]<strong>Extra</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='480px').div(margin='10px',margin_left='2px')
         
-        #definiamo la tabella email_services per poi riprenderla sui dataRpc dei bottoni
         tbl_email_services = self.db.table('shipsteps.email_services')
 
         #definizione primo rettangolo di stampa all'interno del roundedGroup Pre Arrival
