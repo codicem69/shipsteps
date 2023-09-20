@@ -16,6 +16,7 @@ class View(BaseComponent):
         r.fieldcell('bolli_tr14', totalize=True)
         r.fieldcell('bolli_tr22', totalize=True)
         r.fieldcell('note')
+        r.fieldcell('nome_agenzia', hidden=True)
 
     def th_order(self):
         return 'date'
@@ -25,6 +26,9 @@ class View(BaseComponent):
     
     def th_options(self):
         return dict(partitioned=True)
+    
+    def th_hiddencolumns(self):
+        return "$nome_agenzia"
 
 class Form(BaseComponent):
 

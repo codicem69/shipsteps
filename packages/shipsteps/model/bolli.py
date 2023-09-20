@@ -22,6 +22,7 @@ class Table(object):
                                                 columns="""SUM($bolli_tr22)""",
                                                 where='', dtype='N',name_long='Tot_tr22'))
         tbl.formulaColumn('anno_doc',"date_part('year', $date)", dtype='D')
+        tbl.aliasColumn('nome_agenzia','@agency_id.agency_name')
     
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'),date = datetime.now())

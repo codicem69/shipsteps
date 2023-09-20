@@ -12,6 +12,7 @@ class Main(BaseResourcePrint):
 
     def table_script_parameters_pane(self, pane,**kwargs):
        #Questo metodo consente l'inserimento di alcuni parametri da utilizzare per la stampa
+       agency_id = self.db.currentEnv.get('current_agency_id')
        current_year = datetime.today().year
 
        years=''
@@ -22,3 +23,4 @@ class Main(BaseResourcePrint):
        #Prepariamo la stringa con gli ultimi 5 anni separati da virgola da passare alla filteringSelect
        fb = pane.formbuilder(cols=1, width='220px')
        fb.filteringSelect(value='^.anno', values=years, lbl='!![en]Year')
+
