@@ -2811,10 +2811,11 @@ class Form(BaseComponent):
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
         tbl_bolli = self.db.table('shipsteps.bolli')
+        agency_id = record['agency_id']
         
         if not tbl_bolli.checkDuplicate(istanza='Deroga Rifiuti',ref_number=record['reference_num']):
             nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Deroga Rifiuti',
-                                ref_number=record['reference_num'],bolli_tr14=1,bolli_tr22=1)
+                                ref_number=record['reference_num'],bolli_tr14=1,bolli_tr22=1,agency_id=agency_id)
             tbl_bolli.insert(nuovo_record)
             self.db.commit()    
 

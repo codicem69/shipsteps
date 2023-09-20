@@ -24,4 +24,4 @@ class Table(object):
         tbl.formulaColumn('anno_doc',"date_part('year', $date)", dtype='D')
     
     def defaultValues(self):
-        return dict(date = datetime.now())
+        return dict(agency_id=self.db.currentEnv.get('current_agency_id'),date = datetime.now())

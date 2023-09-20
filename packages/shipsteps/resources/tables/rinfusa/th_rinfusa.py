@@ -153,7 +153,7 @@ class FormFromRinfusa(BaseComponent):
                               value=result.url(timestamp=datetime.now()), fired=True)
         
         if email_template_id != '':
-           
+            agency_id = record_arr['agency_id']
             tbl_bolli = self.db.table('shipsteps.bolli')
             if record['imb_sba'] == 'True':
                 note='sbarco'
@@ -161,7 +161,7 @@ class FormFromRinfusa(BaseComponent):
                 note='imbarco'   
             if not tbl_bolli.checkDuplicate(istanza='Istanza Rinfusa',ref_number=record_arr['reference_num'],id_istanza=record['id']):
                 nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Rinfusa',
-                                id_istanza=record['id'],ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,note=note)
+                                id_istanza=record['id'],ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,note=note,agency_id=agency_id)
                 tbl_bolli.insert(nuovo_record) 
                 self.db.commit()    
 

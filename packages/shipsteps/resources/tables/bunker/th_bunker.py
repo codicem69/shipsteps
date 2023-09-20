@@ -206,6 +206,7 @@ class FormFromBunker(BaseComponent):
                               value=result.url(timestamp=datetime.now()), fired=True)
         if email_template_id == 'email_bunker_cp':
             #se lanciamo l'email per la CP inseriamo i bolli nella sua tabella
+            agency_id = record_arr['agency_id']
             tbl_bolli = self.db.table('shipsteps.bolli')
             #qui prendiamo i prodotti interessanti al bunker da inserire poi nelle note
             tbl_righe_bunker=self.db.table('shipsteps.bunker_righe')
@@ -218,7 +219,7 @@ class FormFromBunker(BaseComponent):
             #verifichiamo se non ci sono duplicati e creiamo il nuovo record e infine facciamo il commit
             if not tbl_bolli.checkDuplicate(istanza='Istanza Bunker',ref_number=record_arr['reference_num'],id_istanza=record['id']):
                 nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Bunker',
-                                id_istanza=record['id'],ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1, note=note)
+                                id_istanza=record['id'],ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1, note=note, agency_id=agency_id)
                 tbl_bolli.insert(nuovo_record) 
                 self.db.commit() 
             self.email_services(record,email_template_id,servizio,lista_all, **kwargs)
