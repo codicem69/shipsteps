@@ -1,4 +1,5 @@
 # encoding: utf-8
+from datetime import datetime
 
 class Table(object):
     def config_db(self,pkg):
@@ -6,8 +7,8 @@ class Table(object):
         self.sysFields(tbl)
 
         tbl.column('date', dtype='DH', name_short='!![en]Date')
-        tbl.column('vessel_details_id',size='22', name_long='!![en]Vessel'
-                    ).relation('vessel_details.id', relation_name='vesselid_bolli', mode='foreignkey', onDelete='raise')
+        tbl.column('imbarcazione_id',size='22', name_long='!![en]Vessel'
+                    ).relation('pfda.imbarcazione.id', relation_name='imbarcazioneid_bolli', mode='foreignkey', onDelete='raise')
         tbl.column('istanza', name_short='!![en]Application')
         tbl.column('id_istanza', name_short='!![en]Application id')
         tbl.column('ref_number',name_short='!![en]Reference number')
@@ -21,3 +22,6 @@ class Table(object):
                                                 columns="""SUM($bolli_tr22)""",
                                                 where='', dtype='N',name_long='Tot_tr22'))
         tbl.formulaColumn('anno_doc',"date_part('year', $date)", dtype='D')
+    
+    def defaultValues(self):
+        return dict(date = datetime.now())

@@ -47,7 +47,7 @@ class Main(TableScriptToHtml):
         r.fieldcell('date', mm_width=25)
         #r.fieldcell('mese_fattura', hidden=True, subtotal='Totale {breaker_value}', subtotal_order_by="$data")
         #Questa formulaColumn verrà utilizzata per creare i subtotali per mese
-        r.fieldcell('vessel_details_id', mm_width=50, name='Imbarcazione')
+        r.fieldcell('imbarcazione_id', mm_width=50, name='Imbarcazione')
         #r.fieldcell('cliente_id', mm_width=0)
         r.fieldcell('istanza',mm_width=0, name='Descrizione')
         r.fieldcell('note',mm_width=0)

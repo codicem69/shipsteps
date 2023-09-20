@@ -1478,7 +1478,7 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_der_cp.dataRpc('nome_temp', self.print_template_derogagb,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
-                                nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                                imbarcazione_id='=#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                                 moored='=#FORM.record.@time_arr.moored',
                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
@@ -1488,7 +1488,7 @@ class Form(BaseComponent):
         else:                         
             btn_der_cp.dataRpc('nome_temp', self.print_template_derogagb,
                       record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
-                                nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                                imbarcazione_id='=#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                                 moored='=#FORM.record.@time_arr.moored',
                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
@@ -2531,6 +2531,7 @@ class Form(BaseComponent):
     @public_method
     def print_template(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[],  nome_vs=None, format_page=None, **kwargs):
         record_arr=record['id']
+        
         #verifichiamo che stiamo stampando la checklist e che tipo di movimentazione è stata assegnato all'arrivo
         #al fine di assegnare il nome template della check list 
         if nome_template=='shipsteps.arrival:check_list' and record['@tip_mov.code'] == 'alim':
@@ -2770,7 +2771,7 @@ class Form(BaseComponent):
         return nome_temp    
     
     @public_method
-    def print_template_derogagb(self, record, resultAttr=None,selId=None,moored=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
+    def print_template_derogagb(self, record, imbarcazione_id=None,resultAttr=None,selId=None,moored=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
         #facciamo arrivare alla variabile moored la datetime dell'ormeggio e se non presente torna indietro il messaggio no_moored per far scattare il dataController
         if moored is None or moored == '':
@@ -2812,7 +2813,7 @@ class Form(BaseComponent):
         tbl_bolli = self.db.table('shipsteps.bolli')
         
         if not tbl_bolli.checkDuplicate(istanza='Deroga Rifiuti',ref_number=record['reference_num']):
-            nuovo_record = dict(date=datetime.now(),vessel_details_id=record['vessel_details_id'],istanza='Deroga Rifiuti',
+            nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Deroga Rifiuti',
                                 ref_number=record['reference_num'],bolli_tr14=1,bolli_tr22=1)
             tbl_bolli.insert(nuovo_record)
             self.db.commit()    

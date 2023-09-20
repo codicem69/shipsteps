@@ -132,7 +132,7 @@ class FormFromBunker(BaseComponent):
         serv_len=len(service_for_email)
         if serv_len > 1:                                   
             btn_bunker_email.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
-                                nome_template = 'shipsteps.bunker:bunker',format_page='A4',
+                                imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.bunker:bunker',format_page='A4',
                                 _ask=dict(title='!![en]Select the services<br>Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -140,7 +140,7 @@ class FormFromBunker(BaseComponent):
                                  cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')])) 
         else:
             btn_bunker_email.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
-                                nome_template = 'shipsteps.bunker:bunker',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.bunker:bunker',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',
                                  cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]))
         btn_bunker_emailtrasp.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['trasportatore'], email_template_id='email_bunker_transp',
@@ -161,10 +161,10 @@ class FormFromBunker(BaseComponent):
                             nome_template = 'shipsteps.bunker:bunker_docs',format_page='A4')                           
     
     @public_method
-    def print_template_bunker(self, record,record_arr=None, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
+    def print_template_bunker(self, record,record_arr=None,imbarcazione_id=None, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
         record_id=record['id']
-        #print(x)
+        
        #if selId is None:
        #    msg_special = 'yes'
        #    return msg_special
@@ -217,7 +217,7 @@ class FormFromBunker(BaseComponent):
             note = delimita.join(prodotto)
             #verifichiamo se non ci sono duplicati e creiamo il nuovo record e infine facciamo il commit
             if not tbl_bolli.checkDuplicate(istanza='Istanza Bunker',ref_number=record_arr['reference_num'],id_istanza=record['id']):
-                nuovo_record = dict(date=datetime.now(),vessel_details_id=record_arr['vessel_details_id'],istanza='Istanza Bunker',
+                nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Bunker',
                                 id_istanza=record['id'],ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1, note=note)
                 tbl_bolli.insert(nuovo_record) 
                 self.db.commit() 

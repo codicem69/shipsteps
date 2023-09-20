@@ -109,17 +109,17 @@ class FormFromCertificates(BaseComponent):
         serv_len=len(service_for_email)
         if serv_len > 1:                    
             btn_istanza_email.dataRpc('nome_temp', self.print_template_istanzacert,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_certificate_cp',
-                                nome_template = 'shipsteps.istanza_cp_cert:certificate_app',format_page='A4',
+                                imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.istanza_cp_cert:certificate_app',format_page='A4',
                                 _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]))
         else:
             btn_istanza_email.dataRpc('nome_temp', self.print_template_istanzacert,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_certificate_cp',
-                    nome_template = 'shipsteps.istanza_cp_cert:certificate_app',format_page='A4',
+                    imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.istanza_cp_cert:certificate_app',format_page='A4',
                     _ask=dict(title='!![en]Select the services',fields=[dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]))         
 
     @public_method
-    def print_template_istanzacert(self, record, record_arr=None, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
+    def print_template_istanzacert(self, record, record_arr=None,imbarcazione_id=None, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
         record_id=record['id']
         #print(x)
@@ -164,7 +164,7 @@ class FormFromCertificates(BaseComponent):
             tbl_bolli = self.db.table('shipsteps.bolli')
             note = record['motivo_istanza'] + ' ' + record['certificato']
             if not tbl_bolli.checkDuplicate(istanza='Istanza Certificato',ref_number=record_arr['reference_num'],id_istanza=record['id']):
-                nuovo_record = dict(date=datetime.now(),vessel_details_id=record_arr['vessel_details_id'],istanza='Istanza Certificato',
+                nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Certificato',
                                 id_istanza=record['id'],ref_number=record_arr['reference_num'],bolli_tr14=1,note=note)
                 tbl_bolli.insert(nuovo_record) 
                 self.db.commit() 
