@@ -54,7 +54,7 @@ class Menu(object):
             shipsteps.thpage(u"Sof tanks", table="shipsteps.sof_tanks", tags="")
             shipsteps.thpage(u"!![en]Operations SOF", table="shipsteps.sof_operations", tags="")
             shipsteps.thpage(u"!![en]Daily details SOF", table="shipsteps.daily_sofdetails", tags="")
-           
+            shipsteps.thpage(u"!![en]Stamps", table="shipsteps.bolli", tags="")
             shipsteps.thpage(u"!![en]Task list", table="shipsteps.tasklist", tags="")
             shipsteps.thpage(u"!![en]Tributes", table="shipsteps.tributi_cp", tags="")
             shipsteps.thpage(u"!![en]Vessel details", table="shipsteps.vessel_details", tags="")
@@ -75,6 +75,7 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Arrival logs", table="shipsteps.protocollo", tags="")
             shipsteps.thpage(u"!![en]Pre-Arrivals files", table="shipsteps.prearrivals_default",formResource='FormFromPrearrival_df', tags="")
             shipsteps.thpage(u"!![en]Port Facilities", table="shipsteps.port_facility", tags="")
+            shipsteps.thpage(u"!![en]Stamps", table="shipsteps.bolli", tags="")
             shipsteps.thpage(u"!![en]Cargo type", table="shipsteps.cargo_type", tags="")
             shipsteps.thpage(u"!![en]Logos", table="shipsteps.loghi", tags="")
             shipsteps.thpage(u"!![en]Opening gates", table="shipsteps.opening_gate", tags="")

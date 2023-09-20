@@ -72,6 +72,7 @@ class Form(BaseComponent):
         tc = bc.tabContainer(region = 'center',margin='2px',selectedPage='^.tabname')
         
         self.cargoSof(tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo'))
+       # self.arrivalTimes(tc.contentPane(title='!![en]Arr/Dep Times', pageName='arr_times'))
         self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
         self.dailyOperations(tc.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
 
@@ -191,6 +192,92 @@ class Form(BaseComponent):
                                 picker_condition_aid='^#FORM.record.arrival_id',
                                 picker_viewResource='ViewFromCargoLU_picker',
                                 liveUpdate=True)
+    
+    #def arrivalTimes(self, frame):
+    #    bc = frame.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell')
+    #    rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record.@arrival_id.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
+    #    rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arrival_id.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
+    #    rg_details_dep = bc.roundedGroup(title='!![en]Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arrival_id.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
+    #    #rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
+    #    fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+    #    fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.getParentForm().reload()}""",
+    #        table='shipsteps.sof',pkey='=#FORM.pkey')
+    #    fb.field('eosp')
+    #    fb.field('aor')
+    #    fb.field('anchored')
+    #    fb.field('anchor_up')
+    #    fb.field('pob')
+    #    fb.field('first_rope')
+    #    fb.field('moored')
+    #    fb.field('poff')
+    #    fb.field('gangway')
+    #    fb.field('free_p')
+    #    fb.field('pobd')
+    #    fb.field('last_line')
+    #    fb.field('sailed')
+    #    fb.field('cosp', lbl='Commenced of <br>Sea Passage',fldvalign='center')
+#
+    #    div_draft=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DRAFT</strong>',width='99%',height='20%',margin='auto',
+    #                    padding='2px',
+    #                    border='1px solid silver',
+    #                    margin_top='1px',margin_left='4px')
+    #    fb = div_draft.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+    #    fb.field('draft_aft_arr',placeholder='e.g. 4,5')
+    #    fb.field('draft_fw_arr',placeholder='e.g. 4,5')
+   #
+    #    div_draft=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DRAFT</strong>',width='99%',height='20%',margin='auto',
+    #                    padding='2px',
+    #                    border='1px solid silver',
+    #                    margin_top='1px',margin_left='4px')
+    #    fb = div_draft.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+    #    fb.field('draft_aft_dep',placeholder='e.g. 4,5')
+    #    fb.field('draft_fw_dep',placeholder='e.g. 4,5')
+#
+    #    div_rem=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>REMAINS</strong>',width='99%',height='20%',margin='auto',
+    #                    padding='2px',
+    #                    border='1px solid silver',
+    #                    margin_top='1px',margin_left='4px')
+    #    fb = div_rem.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+    #    fb.field('ifo_arr',placeholder='e.g. mt.50')
+    #    fb.field('do_arr',placeholder='e.g. mt.50')
+    #    fb.field('lo_arr',placeholder='e.g. kgs.50')
+    #   
+    #    div_rem=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>REMAINS</strong>',width='99%',height='20%',margin='auto',
+    #                    padding='2px',
+    #                    border='1px solid silver',
+    #                    margin_top='1px',margin_left='4px')
+    #    fb = div_rem.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+    #    fb.field('ifo_dep',placeholder='e.g. mt.50')
+    #    fb.field('do_dep',placeholder='e.g. mt.50')
+    #    fb.field('lo_dep',placeholder='e.g. kgs.50')
+#
+    #    div_fw=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
+    #                    padding='2px',
+    #                    border='1px solid silver',
+    #                    margin_top='1px',margin_left='4px')
+    #    fb = div_fw.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+    #    fb.field('fw_arr',placeholder='e.g. mt.50')
+ #
+    #    div_fw=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
+    #                    padding='2px',
+    #                    border='1px solid silver',
+    #                    margin_top='1px',margin_left='4px')
+    #    fb = div_fw.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+    #    fb.field('fw_dep',placeholder='e.g. mt.50')
+#
+    #    div_tug=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>USED TUGS</strong>',width='99%',height='20%',margin='auto',
+    #                    padding='2px',
+    #                    border='1px solid silver',
+    #                    margin_top='1px',margin_left='4px')
+    #    fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+    #    fb.field('tug_in',placeholder='e.g. 1')
+    # 
+    #    div_tug=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>USED TUGS</strong>',width='99%',height='20%',margin='auto',
+    #                    padding='2px',
+    #                    border='1px solid silver',
+    #                    margin_top='1px',margin_left='4px')
+    #    fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+    #    fb.field('tug_out',placeholder='e.g. 1')
 
     def operationsSof(self,pane):
         pane.inlineTableHandler(relation='@sof_operations',viewResource='ViewFromSofOperations',liveUpdate=True)

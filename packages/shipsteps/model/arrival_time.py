@@ -25,7 +25,6 @@ class Table(object):
         tbl.column('cosp', dtype='DH', name_short='!![en]Commenced of sea pass')
        # tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         
-
         tbl.formulaColumn('sosta_gg', """'Giorni ' || EXTRACT(DAY FROM TO_TIMESTAMP(to_char(@arrival_id.ets,:df), 'YYYY-MM-DD')-TO_TIMESTAMP(to_char($moored,:df), 'YYYY-MM-DD'))""",var_df='YYYY-MM-DD HH24:MI')
        # tbl.aliasColumn('time_from_sof','@arrival_id.@sof_arr.time_sof')
         tbl.formulaColumn('eosp_txt', """CASE WHEN $eosp is not null THEN 'Eosp' || '<br>' ELSE '' END""", dtype='T')

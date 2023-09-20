@@ -100,18 +100,18 @@ class FormFromRinfusa(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         if serv_len > 1:                    
-            btn_bulk_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
+            btn_bulk_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
                                 nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4',
                                 _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]))
         else:
-            btn_bulk_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
+            btn_bulk_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
                     nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4',
                     _ask=dict(title='!![en]Select the services',fields=[dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]))                            
     
     @public_method
-    def print_template_bulk(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
+    def print_template_bulk(self, record, record_arr=None, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
         record_id=record['id']
         #print(x)
@@ -151,7 +151,20 @@ class FormFromRinfusa(BaseComponent):
 
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
+        
         if email_template_id != '':
+           
+            tbl_bolli = self.db.table('shipsteps.bolli')
+            if record['imb_sba'] == 'True':
+                note='sbarco'
+            else:
+                note='imbarco'   
+            if not tbl_bolli.checkDuplicate(istanza='Istanza Rinfusa',ref_number=record_arr['reference_num'],id_istanza=record['id']):
+                nuovo_record = dict(date=datetime.now(),vessel_details_id=record_arr['vessel_details_id'],istanza='Istanza Rinfusa',
+                                id_istanza=record['id'],ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,note=note)
+                tbl_bolli.insert(nuovo_record) 
+                self.db.commit()    
+
             self.email_services(record,email_template_id,servizio, **kwargs)
        
         #se ritorna il valore di self.msg_pecial dalla funzione sopra lanciata self.email_services

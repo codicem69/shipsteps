@@ -562,7 +562,6 @@ class Form(BaseComponent):
         rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
         rg_details_dep = bc.roundedGroup(title='!![en]Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
         #rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
-
         fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('eosp')
         fb.field('aor')
@@ -2810,6 +2809,14 @@ class Form(BaseComponent):
 
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
+        tbl_bolli = self.db.table('shipsteps.bolli')
+        
+        if not tbl_bolli.checkDuplicate(istanza='Deroga Rifiuti',ref_number=record['reference_num']):
+            nuovo_record = dict(date=datetime.now(),vessel_details_id=record['vessel_details_id'],istanza='Deroga Rifiuti',
+                                ref_number=record['reference_num'],bolli_tr14=1,bolli_tr22=1)
+            tbl_bolli.insert(nuovo_record)
+            self.db.commit()    
+
         self.email_services(record,email_template_id,servizio, **kwargs)
         #se ritorna il valore di nome_temp dalla funzione sopra lanciata self.email_services
         # facciamo ritornare il valore di self.ms_special alla chiamata iniziale del bottone di stampa per far scattare
