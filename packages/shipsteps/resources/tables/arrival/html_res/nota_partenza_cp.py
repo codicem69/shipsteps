@@ -60,7 +60,7 @@ class Main(TableScriptToHtml):
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong><u>CAPITANERIA DI PORTO DI "+porto.upper()+"</u></strong></div>::HTML")
         layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong>DICHIARAZIONE INTEGRATIVA DI PARTENZA</strong></div>::HTML")
         layout.row(height=3).cell("<div style='font-size:6pt;padding:1px;text-align: center'><strong>Additional Declaration of Departure</strong></div>::HTML")
-        layout.row(height=7).cell("<div style='font-size:8pt;padding:1px;text-align: center'>SPAZIO RISERVATO ALL’UFFICIO – PRATICA DI PARTENZA<br>Reserved to Office – Departure</div>::HTML").layout(name='col1', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,hasBorderRight=True,
+        layout.row(height=7).cell("<div style='font-size:8pt;padding:3px;text-align: center'>SPAZIO RISERVATO ALL’UFFICIO – PRATICA DI PARTENZA<br>Reserved to Office – Departure</div>::HTML").layout(name='col1', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,hasBorderRight=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
         dati_gd1 = layout.row(height=36,lbl_height=2, lbl_class='smallCaption')
         dati_gd2 = layout.row(height=6,lbl_height=2, lbl_class='smallCaption')

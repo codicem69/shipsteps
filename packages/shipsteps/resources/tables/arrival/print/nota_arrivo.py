@@ -12,6 +12,7 @@ class Main(BaseResourcePrint):
     batch_immediate = 'print'
     batch_thermo_lines = 'batch_steps,batch_main,ts_loop'
     virtual_columns = "@agency_id.fullstyle"
+    #templates = 'Ranalli_st'
 
     def table_script_parameters_pane(self, pane, **kwargs):
 

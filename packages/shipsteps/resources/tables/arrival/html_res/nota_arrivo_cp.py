@@ -1,19 +1,14 @@
-#!/usr/bin/env pythonw
-# -*- coding: UTF-8 -*-
-#
-#  Stampa general declaration
-
-
 from turtle import width
 from gnr.web.gnrbaseclasses import TableScriptToHtml
 import datetime
 
+
 class Main(TableScriptToHtml):
     maintable = 'shipsteps.arrival'
-    pdf_service = 'we'
+    #pdf_service = 'we'
     virtual_columns = """$cp_int,@agency_id.fullstyle,$nextport,@vessel_details_id.@owner_id.own_fullname,$lastport,$nextport,@cargo_lu_arr.cargo_lu_en_ita,
                          $ship_or_rec,$caricoarrivo,$chrtrs,@vessel_details_id.@ship_docs.@issued.citta_nazione,$logo_cp"""
-    #Con virtual_columns aggiungo a self.record anche le formulaColumn calcolate che altrimenti di default non verrebbero compilate 
+    #Con virtual_columns aggiungo a self.record anche le formulaColumn calcolate che altrimenti di default non verrebbero compilate
     css_requires='nota_arr'
     def main(self):
         self.datiDeclaration()
@@ -28,6 +23,20 @@ class Main(TableScriptToHtml):
                             font_size='9pt',
                             lbl_height=4,lbl_class='caption',
                             border_color='black')
+
+        porto = self.field('@agency_id.@port.descrizione')
+
+        logocp=self.field('logo_cp')
+        dati_logo=layout.row(height=15)
+        self.datiLogo(dati_logo,logocp)
+        #layout.row(height=15).cell("""<img src="%s" style="height: 71px;::HTML""" %logocp ,content_class="center")
+
+        layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong> </strong></div>::HTML")
+        layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong><u>CAPITANERIA DI PORTO DI "+porto.upper()+"</u></strong></div>::HTML")
+        layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong>ALTRE INFORMAZIONI AD USO DELL’AUTORITÀ MARITTIMA</strong></div>::HTML")
+        layout.row(height=3).cell("<div style='font-size:6pt;padding:1px;text-align: center'><strong>Other information for Maritime Authority</strong></div>::HTML")
+        layout.row(height=7).cell("<div style='font-size:8pt;padding:3px;text-align: center'>SPAZIO RISERVATO ALL’UFFICIO – PRATICA DI ARRIVO<br>Reserved to Office – Arrival</div>::HTML").layout(name='col1', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,hasBorderRight=True,
+                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
 
         vess_docs = self.record['@vessel_details_id.@ship_docs']
         carico = self.record['@cargo_lu_arr']
@@ -50,48 +59,51 @@ class Main(TableScriptToHtml):
         else:
             h_row = y * 3.6
 
-        porto = self.field('@agency_id.@port.descrizione')
-        #logo_cp=self.db.application.getPreference('logo_cp',pkg='shipsteps')
-        #logocp=self.page.externalUrl(logo_cp)
-        logocp=self.field('logo_cp')
-        #logocp=self.page.externalUrl('/_storage/site/image/logo_cc.jpg?_pc=450&v_x=2&v_y=-4.5&v_z=1&v_r=0&v_h=100&v_w=100')
-        layout.row(height=15).cell("""<img src="%s" style="width: 84px; height: 71px;::HTML""" %logocp ,content_class="center")
-        #layout.row(height=15).cell("""<img src="http://127.0.0.1:8082/_storage/site/image/LogoCP.jpg" style="width: 84px; height: 71px;::HTML""",content_class="center")
-        layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong> </strong></div>::HTML")
-        layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong><u>CAPITANERIA DI PORTO DI "+porto.upper()+"</u></strong></div>::HTML")
-        layout.row(height=3).cell("<div style='font-size:8pt;padding:2px;text-align: center'><strong>ALTRE INFORMAZIONI AD USO DELL’AUTORITÀ MARITTIMA</strong></div>::HTML")
-        layout.row(height=3).cell("<div style='font-size:6pt;padding:1px;text-align: center'><strong>Other information for Maritime Authority</strong></div>::HTML")
-        layout.row(height=7).cell("<div style='font-size:8pt;padding:1px;text-align: center'>SPAZIO RISERVATO ALL’UFFICIO – PRATICA DI ARRIVO<br>Reserved to Office – Arrival</div>::HTML").layout(name='col1', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,hasBorderRight=True,
-                                    vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
+
         dati_gd1 = layout.row(height=36,lbl_height=2, lbl_class='smallCaption')
+        self.datiGeneral1(dati_gd1)
         dati_gd2 = layout.row(height=6,lbl_height=2, lbl_class='smallCaption')
+        self.datiGeneral2(dati_gd2)
         dati_gd3 = layout.row(height=6,lbl_height=2, lbl_class='smallCaption')
+        self.datiGeneral3(dati_gd3)
         dati_gd4 = layout.row(height=6,lbl_height=2, lbl_class='smallCaption')
+        self.datiGeneral4(dati_gd4)
         dati_gd5 = layout.row(height=49+h_row,lbl_height=2, lbl_class='smallCaption')
+        self.datiGeneral5(dati_gd5, car, h_row)
         dati_gd6 = layout.row(height=12,lbl_height=2, lbl_class='smallCaption')
+        self.datiGenaral6(dati_gd6, vess_docs)
         dati_gd7 = layout.row(height=20,lbl_height=2, lbl_class='smallCaption')
+        self.datiGenaral7(dati_gd7)
         dati_firma = layout.row(height=41,lbl_height=18, lbl_class='smallCaption')
+        self.datiFirma(dati_firma)
         dati_autor = layout.row(height=10,lbl_height=2, lbl_class='smallCaption')
+        self.datiAutorita(dati_autor)
         dati_vuoto = layout.row(height=80-h_row,lbl_height=2, lbl_class='smallCaption')
+
+        self.paperpage = self.getNewPage()
+        layout = self.paperpage.layout(
+                            um='mm',top=5,left=4,right=4, bottom=3,
+                            border_width=0,
+                            font_family='Helvetica',
+                            font_size='9pt',
+                            lbl_height=4,lbl_class='caption',
+                            border_color='grey')
         layout.row(height=8).cell("<div style='font-size:8pt;padding:2px;text-align: center'>PAGINA RISERVATA AI CERTIFICATI E DOCUMENTI DI BORDO<br>Documents and certificates</div>::HTML")
-        dati_cert = layout.row(height=190,lbl_height=2, lbl_class='smallCaption')
+        dati_cert = layout.row(height=193,lbl_height=2, lbl_class='smallCaption')
+        self.datiCertificati(dati_cert, vess_docs)
         dati_firma_cert = layout.row(height=40,lbl_height=18, lbl_class='smallCaption')
         layout.row(height=8).cell("<div style='font-size:8pt;padding:2px;text-align: center'>SPAZIO RISERVATO ALLE ANNOTAZIONI DELL’AUTORITÀ MARITTIMA</div>::HTML")
-
-        self.datiGeneral1(dati_gd1)
-        self.datiGeneral2(dati_gd2)
-        self.datiGeneral3(dati_gd3)
-        self.datiGeneral4(dati_gd4)
-        self.datiGeneral5(dati_gd5, car, h_row)
-        self.datiGenaral6(dati_gd6, vess_docs)
-        self.datiGenaral7(dati_gd7)
-        self.datiFirma(dati_firma)
-        self.datiAutorita(dati_autor)
-        self.datiCertificati(dati_cert, vess_docs)
         self.datiFirmaCertificati(dati_firma_cert)
 
+    def datiLogo(self, row, logocp):
+        col1 = row.cell().layout(name='col1', um='mm', border_color='white',border_width=0,
+                                    vertical_align= 'middle',lbl_height=3, style='line-height:2mm;font-size:8pt;',content_class='center')
+        col1.row(height=25, border=False).cell("""<img src="%s" height="71">::HTML""" %logocp)
+
+        #row.cell("""<img src="%s" style="height: 71px;::HTML""" %logocp ,content_class="center")
+
     def datiGeneral1(self, row):
-        
+
         col1 = row.cell().layout(name='col1', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;font-size:8pt;',content_class='celldata')
         col2 =  row.cell().layout(name='col2', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
@@ -179,7 +191,7 @@ class Main(TableScriptToHtml):
 
         for c in vess_docs.values():
             if c['cert'] == '21_ta':
-                ta_issued = c['@issued.citta_nazione']       
+                ta_issued = c['@issued.citta_nazione']
                 if c['date_cert']:
                     ta_date = c['date_cert'].strftime("%d/%m/%Y")
                 else:
@@ -189,7 +201,7 @@ class Main(TableScriptToHtml):
                 else:
                     ta_expire = ''
             if c['cert'] == '22_sta':
-                sta_issued = c['@issued.citta_nazione']    
+                sta_issued = c['@issued.citta_nazione']
                 if c['date_cert']:
                     sta_date = c['date_cert'].strftime("%d/%m/%Y")
                 else:
@@ -269,13 +281,13 @@ class Main(TableScriptToHtml):
         col7 = row.cell(width=25).layout(name='col6', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:3mm;font-size:8pt;',width=25,content_class='cellheader_p2')
 
-        col1.row(height=13).cell('Tipo di certificato<br>Type of Certificate::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
-        col2.row(height=13).cell('Rilasciato a<br>Issued at::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
-        col3.row(height=13).cell('il<br>on::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
-        col4.row(height=13).cell('Valido fino<br>Valid until::HTML', lbl="",font_weight='bold', style='line-height:3mm;',content_class='cellheader_pt')
-        col5.row(height=13).cell('Visita annuale a<br>annual survey at::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
-        col6.row(height=13).cell('Data visita annuale annual surv. date', lbl="",font_weight='bold')
-        col7.row(height=13).cell('Note<br>Notes::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
+        col1.row(height=16).cell('Tipo di certificato<br>Type of Certificate::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
+        col2.row(height=16).cell('Rilasciato a<br>Issued at::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
+        col3.row(height=16).cell('il<br>on::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
+        col4.row(height=16).cell('Valido fino<br>Valid until::HTML', lbl="",font_weight='bold', style='line-height:3mm;',content_class='cellheader_pt')
+        col5.row(height=16).cell('Visita annuale a<br>annual survey at::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
+        col6.row(height=16).cell('Data visita annuale annual surv. date', lbl="",font_weight='bold')
+        col7.row(height=16).cell('Note<br>Notes::HTML', lbl="",font_weight='bold',content_class='cellheader_sp')
 
         #facciamo la lettura della tabella lookup dei certificati per avere la descrizione dei certificati
         certificati = self.db.table('shipsteps.ship_cert').query(columns='$code,$certificate').fetchAsDict('code')

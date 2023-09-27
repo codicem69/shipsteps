@@ -120,7 +120,7 @@ class Main(TableScriptToHtml):
                 car=''
         
         if len(carico) == 0:
-            car ='NIL'
+            car =''
 
         descr_car= cargoonboard + car + cargotransit + '::HTML'
         col1.row(h_car).cell(descr_car, font_weight='bold', lbl="13. Breve descrizione del carico - Brief description of the cargo")
