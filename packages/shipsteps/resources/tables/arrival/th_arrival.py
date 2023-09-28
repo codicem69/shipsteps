@@ -1634,11 +1634,30 @@ class Form(BaseComponent):
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
         btn_arrivo = fb_nsw2.Button('!![en]Email arrival')
-        btn_arrivo.dataRpc('nome_temp', self.print_template,record='=#FORM.record',servizio=['capitaneria_nsw'], email_template_id='email_arrivo_cp',
-                            nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]))
+        #btn_arrivo.dataRpc('nome_temp', self.print_template,record='=#FORM.record',servizio=['capitaneria_nsw'], email_template_id='email_arrivo_cp',
+        #                    nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        #                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+        #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+        #                     cols=4,popup=True,colspan=2)]))
+        #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
+        serv_len=len(service_for_email)
+        if serv_len >1:
+            btn_arrivo.dataRpc('nome_temp', self.print_template,
+                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_arrivo_cp',nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                       _ask=dict(title='!![en]Select the services and attachments',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2)]))
+        else:    
+            btn_arrivo.dataRpc('nome_temp', self.print_template,
+                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_arrivo_cp',nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                      _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                 cols=4,popup=True,colspan=2)]))
+
+
         div_nsw3=rg_arrival_nsw.div('<center><strong>NSW DEPARTURE</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
@@ -1657,11 +1676,29 @@ class Form(BaseComponent):
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
         btn_departure = fb_nsw3.Button('!![en]Email Departure')
-        btn_departure.dataRpc('nome_temp', self.print_template,record='=#FORM.record',servizio=['capitaneria_nsw'], email_template_id='email_partenza_cp',
-                            nome_template = 'shipsteps.arrival:mod61_dep',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]))
+        #btn_departure.dataRpc('nome_temp', self.print_template,record='=#FORM.record',servizio=['capitaneria_nsw'], email_template_id='email_partenza_cp',
+        #                    nome_template = 'shipsteps.arrival:mod61_dep',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        #                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+        #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+        #                     cols=4,popup=True,colspan=2)]))
+        
+        #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
+        serv_len=len(service_for_email)
+        if serv_len >1:
+            btn_departure.dataRpc('nome_temp', self.print_template,
+                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_partenza_cp',nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                       _ask=dict(title='!![en]Select the services and attachments',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2)]))
+        else:    
+            btn_departure.dataRpc('nome_temp', self.print_template,
+                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_partenza_cp',nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                      _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                 cols=4,popup=True,colspan=2)]))
 
         #fb_extra.dataController("""genro.publish("floating_message",{message:'prova'), messageType:"message"}""")
        #genro.publish("floating_message",{message:"Email ready to be sent", messageType:"message"});

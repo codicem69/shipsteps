@@ -26,3 +26,4 @@ class Table(object):
         tbl.aliasColumn('flag', '@imbarcazione_id.bandiera', name_long='!![en]Flag')
         tbl.aliasColumn('tsl', '@imbarcazione_id.gt', name_long='GT')
         tbl.formulaColumn('vessel_descr',"""@imbarcazione_id.nome || coalesce(' - IMO ' || $imo, '')""")
+

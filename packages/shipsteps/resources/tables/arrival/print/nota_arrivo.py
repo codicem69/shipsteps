@@ -23,7 +23,7 @@ class Main(BaseResourcePrint):
         fb.textbox(value='^.hazmat', lbl='HAZMAT',default='NIL',validate_notnull=True)
         fb.textbox(value='^.evento_str', lbl='!![en]Extraordinary event or demage',default='NIL',validate_notnull=True, colspan=2, width='36em')
         fb.dateTextBox(value='^.data_att', lbl='Data doc.',default=self.db.workdate, validate_notnull=True)
-
+        
     def result_handler_pdf(self, resultAttr):
 
         if not self.results:

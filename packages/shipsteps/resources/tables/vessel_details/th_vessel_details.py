@@ -80,7 +80,7 @@ class Form(BaseComponent):
                                                     newRecordOnly=False,formResource='Form',
                                                     dialog_height='200px',dialog_width='700px')
         center= bc.roundedGroup(region='center',title='Vessel Details').div(margin='10px',margin_right='20px')
-        fb = center.formbuilder(cols=2, border_spacing='4px')        
+        fb = center.formbuilder(cols=2, border_spacing='4px')
         fb.field('owner_id',lbl='Owner',auxColumns='$own_name',
                         hasDownArrow=True, width='100%', colspan=2)
         fb.br()

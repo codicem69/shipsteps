@@ -12,6 +12,12 @@ class Main(BaseResourcePrint):
     batch_immediate = 'print'
     virtual_columns = "@agency_id.fullstyle"
 
+    def table_script_parameters_pane(self, pane, **kwargs):
+        fb = pane.formbuilder(cols=1,border_spacing='3px')
+        fb.div("--- Select the Consignee ---")
+        fb.dbselect(value='^.email_dest', table='shipsteps.email_services', lbl='Email service', selected_consignee='.consignee',hasDownArrow=True
+                    ,condition="$service_for_email_id=:cod",condition_cod='cp',validate_notnull=True)
+        
     def result_handler_pdf(self, resultAttr):
 
         if not self.results:
@@ -101,38 +107,55 @@ class Main(BaseResourcePrint):
                     ag_id=self.db.currentEnv.get('current_agency_id'))
 
         #Lettura degli indirizzi email destinatari
-        servizio=['cpnsw']
-
-        ln_serv=len(servizio)
-
+        #servizio=['cpnsw']
+        #ln_serv=len(servizio)
+        email_dest_id=self.batch_parameters['email_dest']
         #assegnamo le varibili liste per inserire successivamente i risultati della ricerca sulla tabella email_services
         destinatario,destinatario_pec,email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d=[],[],[],[],[],[],[]
         #definiamo la variabile contentente la tabella email_services
         tbl_email_services=self.db.table('shipsteps.email_services')
         #con il ciclo for ad ogni passaggio otteniamo il nome del servizio che passeremo alla query e i risultati saranno appesi alle liste
-        #for e in range(ln_serv):
-            #serv=servizio[e]
-        for serv in servizio:
-            dest,email_dest, email_cc_dest,email_bcc_dest = tbl_email_services.readColumns(columns="""$consignee,$email,$email_cc,$email_bcc""",
-                                                    where="$service_for_email_id=:serv AND $agency_id=:ag_id", serv=serv,
+        #for serv in servizio:
+        #    dest,email_dest, email_cc_dest,email_bcc_dest = tbl_email_services.readColumns(columns="""$consignee,$email,$email_cc,$email_bcc""",
+        #                                            where="$service_for_email_id=:serv AND $agency_id=:ag_id", serv=serv,
+        #                                            ag_id=self.db.currentEnv.get('current_agency_id'))
+        #    dest_pec,email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$consignee,$email_pec,$email_cc_pec""",
+        #                                            where='$service_for_email_id=:serv AND $agency_id=:ag_id AND $email_pec IS NOT NULL', serv=serv,
+        #                                            ag_id=self.db.currentEnv.get('current_agency_id'))
+        #    if dest is not None and dest !='':
+        #        destinatario.append('a: ' + dest)
+        #    if dest_pec is not None and dest_pec !='':
+        #        destinatario_pec.append('a: ' + dest_pec)
+        #    if email_dest is not None and email_dest !='':
+        #        email_d.append(email_dest)
+        #    if email_cc_dest is not None and email_cc_dest != '':
+        #        email_cc_d.append(email_cc_dest)
+        #    if email_bcc_dest is not None and email_bcc_dest != '':
+        #        email_bcc_d.append(email_bcc_dest)
+        #    if email_pec_dest is not None and email_pec_dest != '':
+        #        email_pec_d.append(email_pec_dest)
+        #    if email_pec_cc_dest is not None and email_pec_cc_dest !='':
+        #        email_pec_cc_d.append(email_pec_cc_dest)
+        dest,email_dest, email_cc_dest,email_bcc_dest = tbl_email_services.readColumns(columns="""$consignee,$email,$email_cc,$email_bcc""",
+                                                    where="$id=:ed_id AND $agency_id=:ag_id", ed_id=email_dest_id,
                                                     ag_id=self.db.currentEnv.get('current_agency_id'))
-            dest_pec,email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$consignee,$email_pec,$email_cc_pec""",
-                                                    where='$service_for_email_id=:serv AND $agency_id=:ag_id AND $email_pec IS NOT NULL', serv=serv,
+        dest_pec,email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$consignee,$email_pec,$email_cc_pec""",
+                                                    where='$id=:ed_id AND $agency_id=:ag_id AND $email_pec IS NOT NULL', ed_id=email_dest_id,
                                                     ag_id=self.db.currentEnv.get('current_agency_id'))
-            if dest is not None and dest !='':
-                destinatario.append('a: ' + dest)
-            if dest_pec is not None and dest_pec !='':
-                destinatario_pec.append('a: ' + dest_pec)
-            if email_dest is not None and email_dest !='':
-                email_d.append(email_dest)
-            if email_cc_dest is not None and email_cc_dest != '':
-                email_cc_d.append(email_cc_dest)
-            if email_bcc_dest is not None and email_bcc_dest != '':
-                email_bcc_d.append(email_bcc_dest)
-            if email_pec_dest is not None and email_pec_dest != '':
-                email_pec_d.append(email_pec_dest)
-            if email_pec_cc_dest is not None and email_pec_cc_dest !='':
-                email_pec_cc_d.append(email_pec_cc_dest)
+        if dest is not None and dest !='':
+            destinatario.append('a: ' + dest)
+        if dest_pec is not None and dest_pec !='':
+            destinatario_pec.append('a: ' + dest_pec)
+        if email_dest is not None and email_dest !='':
+            email_d.append(email_dest)
+        if email_cc_dest is not None and email_cc_dest != '':
+            email_cc_d.append(email_cc_dest)
+        if email_bcc_dest is not None and email_bcc_dest != '':
+            email_bcc_d.append(email_bcc_dest)
+        if email_pec_dest is not None and email_pec_dest != '':
+            email_pec_d.append(email_pec_dest)
+        if email_pec_cc_dest is not None and email_pec_cc_dest !='':
+            email_pec_cc_d.append(email_pec_cc_dest)
         #trasformiamo le liste in stringhe assegnandole alle relative variabili
         consignee='<br>'.join([str(item) for item in destinatario])
         consignee_pec='<br>'.join([str(item) for item in destinatario_pec])
