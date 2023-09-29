@@ -159,6 +159,9 @@ class ViewFromPaxRighe(BaseComponent):
     def th_hiddencolumns(self):
         return "$_row_count"
 
+    def th_options(self):
+        return dict(grid_selfDragRows=True)
+    
 class Form(BaseComponent):
 
     def th_form(self, form):

@@ -65,7 +65,10 @@ class ViewFromShorepassRighe(BaseComponent):
     
     def th_hiddencolumns(self):
         return "$_row_count"
-   
+    
+    def th_options(self):
+        return dict(grid_selfDragRows=True)
+    
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,importa_crew,10,batchAssign,10,stampa_shorepass')
         btn_importa_crew = bar.importa_crew.paletteImporter(paletteCode='xls_importer',
