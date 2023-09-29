@@ -1296,6 +1296,8 @@ class Form(BaseComponent):
                              if(msg=='no_moored') {genro.publish("floating_message",{message:'You must insert in arrival times date and time of vessel moored', messageType:"error"});}
                              if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') genro.publish("floating_message",{message:'You must first print Nota Arrivo', messageType:"error"}); if(msg=='fal1_arr_no') genro.publish("floating_message",{message:'You must first print Fal1 arrival', messageType:"error"}); if(msg=='fal1arr_notarr') genro.publish("floating_message",{message:'You must first print Fal1 arrival and Nota Arrivo', messageType:"error"});
                              if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') genro.publish("floating_message",{message:'You must first print Dich. integrativa di partenza', messageType:"error"}); if(msg=='fal1_dep_no') genro.publish("floating_message",{message:'You must first print Fal1 departure', messageType:"error"}); if(msg=='fal1dep_notapart') genro.publish("floating_message",{message:'You must first print Fal1 departure and Dich. integrativa di partenza', messageType:"error"}); if(msg=='no_sailed') genro.publish("floating_message",{message:'You must first insert ets date and time', messageType:"error"});
+                             if(msg=='fal1dep_notapart_dispval') genro.publish("floating_message",{message:'You must first print Fal1 departure and Dich. integrativa di partenza and Currency availability', messageType:"error"});
+                             if(msg=='dispval_no') genro.publish("floating_message",{message:'You must first print Currency availability', messageType:"error"});
                              if(msg=='intfat') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
                              if(msg=='no_sanitation') genro.publish("floating_message",{message:'you must insert sanitation certificate in the ships docs', messageType:"error"});
                              if(msg=='mod_nave') {SET .modulo_nave=true;}
@@ -1669,6 +1671,13 @@ class Form(BaseComponent):
                                                                                resource:'general_decl_dep',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
+        
+        btn_disp_val=fb_nsw3.Button('!![en]Currency availability',hidden="^#FORM.record.@vessel_details_id.@imbarcazione_id.flag?=#v=='IT'",
+                                        action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
+                                                                               res_type:'print',
+                                                                               resource:'dispo_valuta',
+                                                                               pkey: pkey});""",
+                                                                               pkey='=#FORM.pkey')
         btn_nota_dep=fb_nsw3.Button('Dich.Intergr.Partenza',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
@@ -1687,7 +1696,7 @@ class Form(BaseComponent):
         serv_len=len(service_for_email)
         if serv_len >1:
             btn_departure.dataRpc('nome_temp', self.print_template,
-                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_partenza_cp',nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_partenza_cp',nome_template = 'shipsteps.arrival:mod61_dep',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                        _ask=dict(title='!![en]Select the services and attachments',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -1695,7 +1704,7 @@ class Form(BaseComponent):
                                 cols=4,popup=True,colspan=2)]))
         else:    
             btn_departure.dataRpc('nome_temp', self.print_template,
-                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_partenza_cp',nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_partenza_cp',nome_template = 'shipsteps.arrival:mod61_dep',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2)]))
@@ -1784,6 +1793,7 @@ class Form(BaseComponent):
     def email_services(self,record,email_template_id=None,servizio=[],nome_temp=None,**kwargs):
     #def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None,**kwargs):
         record_arr=record['id']
+        flag=record['flag']
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
         
@@ -1798,6 +1808,9 @@ class Form(BaseComponent):
         if nome_temp == 'mod61_dep':
             attcmt.append(self.fal1_path)
             attcmt.append(self.notacp_path)
+            #se la bandiera è diversa da quella Italiana appendiamo negli attachments anche la disponibilità valuta
+            if flag != 'IT - ITALY':
+                attcmt.append(self.dispval_path)
             file_path_mod61 = 'site:stampe_template/mod61_dep_'+self.vessel_name+'.pdf'
             fileSn_mod61 = self.site.storageNode(file_path_mod61)
             attcmt.append(fileSn_mod61.internal_path)
@@ -2568,7 +2581,7 @@ class Form(BaseComponent):
     @public_method
     def print_template(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[],  nome_vs=None, format_page=None, **kwargs):
         record_arr=record['id']
-        
+        flag=record['flag']
         #verifichiamo che stiamo stampando la checklist e che tipo di movimentazione è stata assegnato all'arrivo
         #al fine di assegnare il nome template della check list 
         if nome_template=='shipsteps.arrival:check_list' and record['@tip_mov.code'] == 'alim':
@@ -2637,15 +2650,41 @@ class Form(BaseComponent):
             nome_notdep = 'Dich_integrativa_partenza_' + nome_vs
             self.fal1_path = self.site.site_path+'/stampe_template/'+nome_fal1dep+'.pdf'
             self.notacp_path = self.site.site_path+'/stampe_template/'+nome_notdep+'.pdf'
+            #verifica del file disponibilità valuta se la bandiera è diversa da IT
+            nome_dispval=None
+            if flag != 'IT - ITALY':
+                nome_dispval = 'Disp_valuta_' + nome_vs
+                self.dispval_path = self.site.site_path+'/stampe_template/'+nome_dispval+'.pdf'
+                if not os.path.isfile(self.dispval_path):
+                    dispval_departure = 'no'
+                else:
+                    dispval_departure = 'yes'  
+            #verifica del file fal1              
             if not os.path.isfile(self.fal1_path):
                 fal1_departure = 'no'
             else:
-                fal1_departure = 'yes'    
+                fal1_departure = 'yes'
+            #verifica del file notacp        
             if not os.path.isfile(self.notacp_path):
                 nota_partenza = 'no'
             else:
                 nota_partenza = 'yes'
-           
+            
+            #verifica condizione dei file fal1 e notacp e disp_valuta se la bandiera è diversa da IT 
+            if flag != 'IT - ITALY':
+                if fal1_departure == 'no' and nota_partenza == 'no' and dispval_departure == 'no':
+                    nome_temp = 'fal1dep_notapart_dispval'  
+                    return nome_temp      
+                elif fal1_departure=='no':
+                    nome_temp = 'fal1_dep_no'
+                    return nome_temp
+                elif nota_partenza == 'no':
+                    nome_temp='nota_part_no'
+                    return nome_temp
+                elif dispval_departure == 'no':
+                    nome_temp='dispval_no'
+                    return nome_temp
+            #verifica condizione dei file fal1 e notacp           
             if fal1_departure == 'no' and nota_partenza == 'no':
                 nome_temp = 'fal1dep_notapart'  
                 return nome_temp      
@@ -2655,7 +2694,8 @@ class Form(BaseComponent):
             elif nota_partenza == 'no':
                 nome_temp='nota_part_no'
                 return nome_temp
-
+            
+                
         tbl_htmltemplate = self.db.table('adm.htmltemplate')
         templates= tbl_htmltemplate.query(columns='$id,$name', where='').fetch()
         letterhead=''       
@@ -2695,7 +2735,11 @@ class Form(BaseComponent):
                 return nome_temp
         #inviamo l'email se si tratta di mod61_dep e rispetta le condizioni dei file da allegare
         if nome_temp == 'mod61_dep':
-            if  fal1_departure == 'yes' and nota_partenza == 'yes':
+            if flag != 'IT - ITALY':
+                if  fal1_departure == 'yes' and nota_partenza == 'yes' and dispval_departure == 'yes':
+                    self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
+                    return nome_temp       
+            elif  fal1_departure == 'yes' and nota_partenza == 'yes':
                 self.email_services(record,email_template_id,servizio, nome_temp, **kwargs)
                 return nome_temp
         #inviamo l'email se si tratta di immigration form e rispetta le condizioni dei file da allegare
