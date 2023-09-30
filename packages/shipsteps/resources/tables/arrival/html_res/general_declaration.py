@@ -12,7 +12,7 @@ class Main(TableScriptToHtml):
     maintable = 'shipsteps.arrival'
     pdf_service = 'we'
     virtual_columns = """$cp_int,@agency_id.fullstyle,$nextport,@vessel_details_id.@owner_id.own_fullname,$lastport,$nextport,@cargo_lu_arr.cargo_lu_en_ita,
-                         $ship_or_rec,$caricoarrivo,$chrtrs"""
+                         $ship_or_rec,$caricoarrivo,$chrtrs,@vessel_details_id.@imbarcazione_id.@flag.codename"""
     #Con virtual_columns aggiungo a self.record anche le formulaColumn calcolate che altrimenti di default non verrebbero compilate 
     css_requires='general_decl'
     def main(self):
@@ -68,7 +68,7 @@ class Main(TableScriptToHtml):
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader_sp')
         col_lpdep.row().cell(self.field('departure_lp'),font_size='9pt', font_weight='bold', lbl="6.1 Data e ora di partenza luogo d'origine - Departure date and time of original place")
         
-        cel_flag=col1.row(height=10).cell(self.field('@vessel_details_id.@imbarcazione_id.bandiera'), font_weight='bold', lbl='4.Bandiera - Flag State of ship', width=48)
+        cel_flag=col1.row(height=10).cell(self.field('@vessel_details_id.@imbarcazione_id.@flag.codename'), font_weight='bold', lbl='4.Bandiera - Flag State of ship', width=48)
         col_master=cel_flag.row.cell().layout(name='col_master', um='mm', border_color='black', lbl_class='smallCaption',
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='cellheader')
         col_master.row().cell(self.field('master_name'),font_size='9pt', font_weight='bold', lbl="5.Nome Comandante - Name of master")

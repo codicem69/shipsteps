@@ -7,7 +7,7 @@ class Main(TableScriptToHtml):
     maintable = 'shipsteps.arrival'
     #pdf_service = 'we'
     virtual_columns = """$cp_int,@agency_id.fullstyle,$nextport,@vessel_details_id.@owner_id.own_fullname,$lastport,$nextport,@cargo_lu_arr.cargo_lu_en_ita,
-                         $ship_or_rec,$caricoarrivo,$chrtrs,@vessel_details_id.@ship_docs.@issued.citta_nazione,$logo_cp"""
+                         $ship_or_rec,$caricoarrivo,$chrtrs,@vessel_details_id.@ship_docs.@issued.citta_nazione,$logo_cp,@vessel_details_id.@imbarcazione_id.@flag.codename"""
     #Con virtual_columns aggiungo a self.record anche le formulaColumn calcolate che altrimenti di default non verrebbero compilate
     css_requires='nota_arr'
     def main(self):
@@ -142,7 +142,7 @@ class Main(TableScriptToHtml):
         col4 = row.cell().layout(name='col4', um='mm', border_color='black', lbl_class='smallCaption',hasBorderTop=True,hasBorderLeft=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:2mm;font-size:8pt;',content_class='cellheader')
 
-        col1.row(height=6).cell(self.field('@vessel_details_id.@imbarcazione_id.bandiera'), font_weight='bold', lbl="Bandiera - Flag",width=60)
+        col1.row(height=6).cell(self.field('@vessel_details_id.@imbarcazione_id.@flag.codename'), font_weight='bold', lbl="Bandiera - Flag",width=60)
         col2.row(height=6).cell(self.field('@vessel_details_id.@reg_place.descrizione'),font_weight='bold', lbl="Porto Iscrizione – Port Registry",width=50)
         col3.row(height=6).cell(self.field('@vessel_details_id.reg_num'), font_weight='bold', lbl="Matricola n° - Official number",width=40)
         col4.row(height=6).cell(self.field('@vessel_details_id.type'), font_weight='bold', lbl="Tipo di nave – Type of ship")

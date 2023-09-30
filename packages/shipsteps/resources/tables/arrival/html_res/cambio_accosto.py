@@ -14,7 +14,7 @@ import pytz
 class Main(TableScriptToHtml):
     maintable = 'shipsteps.arrival'
     virtual_columns = """$cp_int,@agency_id.fullstyle,$nextport,@vessel_details_id.@owner_id.own_fullname,$lastport,$nextport,@cargo_lu_arr.cargo_lu_en_ita,
-                         $ship_or_rec,$caricoarrivo,$chrtrs"""
+                         $ship_or_rec,$caricoarrivo,$chrtrs,@vessel_details_id.@imbarcazione_id.@flag.codename"""
     #Con virtual_columns aggiungo a self.record anche le formulaColumn calcolate che altrimenti di default non verrebbero compilate 
     css_requires='accosto'
     def main(self):
@@ -157,7 +157,7 @@ class Main(TableScriptToHtml):
 
         quinta_col = row.cell().layout(name='Nave', um='mm', border_color='black', lbl_class='',hasBorderTop=True,
                                     vertical_align= 'middle',lbl_height=3, style='line-height:5mm;',content_class='celldata')
-        quinta_col.row(height=5).cell(self.field('@vessel_details_id.@imbarcazione_id.bandiera'),font_size='9pt', font_weight='bold')
+        quinta_col.row(height=5).cell(self.field('@vessel_details_id.@imbarcazione_id.@flag.codename'),font_size='9pt', font_weight='bold')
         quinta_col.row(height=5).cell(self.field('@vessel_details_id.@imbarcazione_id.imo'),font_size='9pt', font_weight='bold')
         quinta_col.row(height=5).cell(self.field('@vessel_details_id.callsign'),font_size='9pt', font_weight='bold')
         quinta_col.row(height=5).cell(self.field('@vessel_details_id.@imbarcazione_id.gt'),font_size='9pt', font_weight='bold')

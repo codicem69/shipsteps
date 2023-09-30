@@ -49,6 +49,7 @@ class Main(BaseResourcePrint):
         fb.textbox(value='^.n_tug', lbl='Numero Rimorchiatori')
         fb.br()
         fb.div("--- Select the Consignee ---")
+        fb.br()
         fb.dbselect(value='^.email_dest', table='shipsteps.email_services', lbl='Email service', selected_consignee='.consignee',hasDownArrow=True
                     ,condition="$service_for_email_id=:cod",condition_cod='cp',validate_notnull=True)
         
