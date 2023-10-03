@@ -36,6 +36,7 @@ class Table(object):
         tbl.aliasColumn('timearr','@arrival_id.@time_arr.time_arr')
         tbl.aliasColumn('timearr2','@arrival_id.@time_arr.time_arr_2')
         tbl.aliasColumn('sofop_int','@sof_operations.operation_int')
+        tbl.aliasColumn('sof_shiprec','@sof_cargo_sof.@cargo_unl_load_id.sof_shiprec')
         tbl.pyColumn('shiprec',name_long='!![en]Shipper or Receiver')
         tbl.pyColumn('shiprec_bl',name_long='!![en]Shipper or Receiver BL')
         tbl.pyColumn('carico_del_sof',name_long='!![en]Cargo on sof')
