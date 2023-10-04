@@ -288,7 +288,7 @@ class Form(BaseComponent):
        # tc_task = tc_task.tabContainer(title='!![en]Shore Pass')
         #tc_shorepass = tc_task.tabContainer(title='!![en]Shore Pass', region='center')
         #tc_prova = tc_task.tabContainer(title='!![en]prova')
-        tc_undertask = bc_tasklist.tabContainer(margin='2px', region='center', height='auto',selectedPage='^tabname')
+        tc_undertask = bc_tasklist.tabContainer(margin='2px', region='bottom', height='150px', splitter=True,selectedPage='^tabname')
         tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
         tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
         tc_bl = tc.borderContainer(title='!![en]<strong>Loading Cargoes</strong>')
@@ -306,9 +306,9 @@ class Form(BaseComponent):
         #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
         self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = 'seashell'))
-        self.times(bc_tasklist.borderContainer(region='bottom',height='10%', background = 'LightCyan', splitter=True, closable=True))
+        self.times(bc_tasklist.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
         
-        self.taskList(bc_tasklist.borderContainer(region='top',height='65%', background = 'seashell', splitter=True))
+        self.taskList(bc_tasklist.borderContainer(region='center',height='auto', background = 'seashell', splitter=True))
         
         
         tc_task.contentPane(title='!![en]Shore pass',pageName='shore_pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
@@ -706,7 +706,7 @@ class Form(BaseComponent):
     def times(self,frame):
         center = frame.roundedGroup(title='!![en]Expected Times', region='center',datapath='.record').div(margin='10px',margin_left='2px')
         #rg_arr = frame.roundedGroup(title='!![en]Arrival',datapath='.record',width='100%', height = '10%').div(margin='10px',margin_left='2px')
-        fb = center.formbuilder(cols=6, border_spacing='4px',fld_width='10em')
+        fb = center.formbuilder(cols=6, border_spacing='4px',fld_width='10em',lbl_color='white',lbl_font_weight='bold', font_weight='bold')
         fb.field('eta' , width='10em')
         fb.field('etb' , width='10em')
         fb.field('et_start' , width='10em')
