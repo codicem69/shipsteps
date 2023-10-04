@@ -704,7 +704,7 @@ class Form(BaseComponent):
    #def sof_cargo(self,pane):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
     def times(self,frame):
-        center = frame.roundedGroup(title='!![en]Expected Times', region='center',datapath='.record').div(margin='10px',margin_left='2px')
+        center = frame.roundedGroup(title='!![en]Expected Times',font_weight='bold', region='center',datapath='.record').div(margin='10px',margin_left='2px')
         #rg_arr = frame.roundedGroup(title='!![en]Arrival',datapath='.record',width='100%', height = '10%').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=6, border_spacing='4px',fld_width='10em',lbl_color='white',lbl_font_weight='bold', font_weight='bold')
         fb.field('eta' , width='10em')
