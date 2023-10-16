@@ -50,5 +50,5 @@ class Table(object):
         tbl.column('nome_servizio', name_short='!![en]service name')
         #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('email_account','@arrival_id.email_account_id')
-        
+        tbl.formulaColumn('doc_bunker',"""CASE WHEN @arrival_id.@bunker_arr.arrival_id IS NOT NULL AND @arrival_id.@bunker_arr.doc_cp IS False THEN '<br>YOU MUST TO SEND BUNKER DOCS TO CP' ELSE '' END""", dtype='T')
    

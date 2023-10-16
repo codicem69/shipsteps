@@ -16,6 +16,7 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('_row_count', counter=True, name='N.',width='3em')
+        r.fieldcell('doc_cp', margin_top='5px', semaphore=True, name='Doc sent CP')
         r.fieldcell('arrival_id')
         r.fieldcell('rank_off')
         r.fieldcell('name_off')
@@ -28,7 +29,7 @@ class View(BaseComponent):
         r.fieldcell('email_transp')
         r.fieldcell('ditta_forn')
         r.fieldcell('iscr_forn')
-       
+        
 
     def th_order(self):
         return 'arrival_id'
@@ -92,12 +93,23 @@ class FormFromBunker(BaseComponent):
         fb.field('dati_fatt',colspan=3, width='72em')
         fb.br()
         fb.field('invio_fatt', placeholder='Insert the fullstyle where to send the invoice in case is different than your Agency', colspan=4, width='69em')
+        fb = center.formbuilder(cols=2, border_spacing='4px')
+        fb.semaphore('^.doc_cp?=#v==true?true:false')
+        fb.field('doc_cp', lbl='!![en]Final Bunker Docs sent to CP')
+        fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.getParentForm().reload()}""",
+            table='shipsteps.bunker',pkey='=#FORM.pkey')
         
         right = bc.roundedGroup(title='!![en]Transportation Company stamp', region='right', width='250px')
         right.img(src='^.stamp_transp', edit=True, crop_width='250px', crop_height='150px', 
                         placeholder=True, upload_folder='*') #upload_folder='site:application', upload_filename='=.id')
         #right.button('!![en]Remove image', hidden='^.stamp_transp?=!#v').dataRpc(self.deleteImage, image='=.stamp_transp')
-
+        fb.dataController("""if(msg=='val_doccp') {SET .doc_cp=true;alert(msg_txt);}""", msg='^nome_temp',msg_txt = 'Email ready to be sent')
+        
+        fb.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = 'goldenrod';}
+                        """, ca='^.doc_cp',button=self.btn_email_bunkerdoc.js_widget)
+        
     def bunker_att(self,pane):
         #center = pane.roundedGroup(title='Allegati rinfusa',region='center',width='50%')
         pane.attachmentGrid(viewResource='ViewFromBunker_atc')
@@ -114,13 +126,14 @@ class FormFromBunker(BaseComponent):
         self.setInClientData(value=None, path='shipsteps_arrival.form.shipsteps_bunker.form.record.stamp_transp')
 
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_cartella,stampa_bunker,email_bunker_transp,email_antifire,email_bunker,stampa_bunker_docs,*,10')
+        bar = bottom.slotBar('10,stampa_cartella,stampa_bunker,email_bunker_transp,email_antifire,email_bunker,stampa_bunker_docs,email_bunkerdoc,*,10')
         btn_cartella_print=bar.stampa_cartella.button('Print Bunker folder')
         btn_bunker_print=bar.stampa_bunker.button('Print Bunker application')
         btn_bunker_emailtrasp=bar.email_bunker_transp.button('Email Bunker to Transportion')
         btn_email_antifire=bar.email_antifire.button('Email Antifire Service')
         btn_bunker_email=bar.email_bunker.button('Email Bunker application CP')
         btn_bunker_docs=bar.stampa_bunker_docs.button('Print docs after Bunker')
+        self.btn_email_bunkerdoc=bar.email_bunkerdoc.button('Email Docs to CP')
         btn_cartella_print.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
                             nome_template = 'shipsteps.bunker:cartella_bunker',format_page='A3')
         btn_bunker_print.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=[], email_template_id='',
@@ -143,6 +156,21 @@ class FormFromBunker(BaseComponent):
                                 imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.bunker:bunker',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',
                                  cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]))
+        
+        
+        if serv_len > 1:                                   
+            self.btn_email_bunkerdoc.dataRpc('nome_temp', self.email_services,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_bunkerdoc',
+                                imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',format_page='A4',
+                                _ask=dict(title='!![en]Select the services<br>Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',validate_notnull=True,
+                                 cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]),_onResult="this.form.save();") 
+        else:
+            self.btn_email_bunkerdoc.dataRpc('nome_temp', self.email_services,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_bunkerdoc',
+                                imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',validate_notnull=True,
+                                 cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]),_onResult="this.form.save();")
         btn_bunker_emailtrasp.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['trasportatore'], email_template_id='email_bunker_transp',
                             nome_template = 'shipsteps.bunker:bunker_transp',format_page='A4')
         #verifichiamo quanti servizi Antifire ci sono, nel caso più di uno apparirà la dbSelect per la scelta
@@ -158,8 +186,10 @@ class FormFromBunker(BaseComponent):
             btn_email_antifire.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['antifire'], email_template_id='email_antifire',
                                 nome_template = 'shipsteps.bunker:bunker_antifire',format_page='A4')                                      
         btn_bunker_docs.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=[''], email_template_id='',
-                            nome_template = 'shipsteps.bunker:bunker_docs',format_page='A4')                           
-    
+                            nome_template = 'shipsteps.bunker:bunker_docs',format_page='A4')    
+                             
+        
+        
     @public_method
     def print_template_bunker(self, record,record_arr=None,imbarcazione_id=None, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
@@ -239,11 +269,16 @@ class FormFromBunker(BaseComponent):
 
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[],lista_all=None, **kwargs):
+       
         id_bunker_atc=record['id']
         record=record['arrival_id']        
         if not record:
             return
-
+        #verifichiamo che stiamo inviando docs dopo bunker e aggiungiamo alla lista gli allegati selezionati           
+        if email_template_id=='email_bunkerdoc' and kwargs['allegati'] is not None:
+            lista_all=list(kwargs['allegati'].split(","))
+        else:
+            lista_all=None 
         #leggiamo nei kwargs la tipologia dell'allegato se zip oppure non compresso
         type_atc = None
         for chiavi in kwargs.keys():    
@@ -406,9 +441,11 @@ class FormFromBunker(BaseComponent):
         
         if (email_dest or email_pec_dest) is not None:
 
-          # if servizio == ['capitaneria']:
-            
-            return
+            if email_template_id == 'email_bunkerdoc':
+                nome_temp='val_doccp'
+                return nome_temp
+            else:
+                return
 
     @public_method
     def email_trasportatore(self, record,email_template_id=None,servizio=[], **kwargs):

@@ -1742,6 +1742,10 @@ class Form(BaseComponent):
                                          if(result=='ws')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")#this.form.save();
                                          #this.form.reload()""")
         fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()")
+        #avendo creato la formula column nella tasklist per verificare che i documenti del bunker sono stati inviati o no alla cp
+        #inseriamo il div che è in riferimento alla valore della formula column 
+        fb_extra.div('^.doc_bunker',_virtual_column='@arr_tasklist.doc_bunker', font_weight='bold', color='red')
+       
 
     @public_method
     def intfat(self,record, **kwargs):  

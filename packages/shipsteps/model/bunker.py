@@ -5,7 +5,7 @@ from gnr.web.gnrbaseclasses import TableTemplateToHtml
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('bunker', pkey='id', name_long='bunker', name_plural='bunker',caption_field='id', partition_agency_id='agency_id')
-        self.sysFields(tbl,counter=True)
+        self.sysFields(tbl,counter='arrival_id')
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='bunker_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
@@ -23,6 +23,7 @@ class Table(object):
         tbl.column('stamp_transp', dtype='P', name_short='!![en]Transportation Stamp')
         tbl.column('dati_fatt', name_short='!![en]Invoice details')
         tbl.column('invio_fatt', name_short='!![en]Send Invoice to')
+        tbl.column('doc_cp', dtype='B', name_short='Doc CP', default=False)
         tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('dati_cisterne','@bunker_righe.targa_autista')
         tbl.aliasColumn('invoice','@arrival_id.@invoice_det_id.fullname')

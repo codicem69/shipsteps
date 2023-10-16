@@ -63,7 +63,7 @@ class Form(BaseComponent):
         fb.field('email_ens')
         fb.field('form_gdf')
         fb.field('form_immigration')
-
+        
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px')
