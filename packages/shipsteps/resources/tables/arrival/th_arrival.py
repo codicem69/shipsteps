@@ -464,6 +464,9 @@ class Form(BaseComponent):
         center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px',margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]Times',table='shipsteps.arrival_time',region='center',datapath='.record.@time_arr',width='245px', height = '350px', margin_left='1385px').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
+        #onDbChanges in caso di modifica dati su vessel_details il form arrival viene aggiornato
+        fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
+            table='shipsteps.vessel_details',pkey='=#FORM.record.vessel_details_id')
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly='^gnr.app_preference.shipsteps.ref_num')
         fb.field('date')
