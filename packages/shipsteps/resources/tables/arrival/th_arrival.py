@@ -271,7 +271,7 @@ class Form(BaseComponent):
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
 
     def th_form(self, form):
-        form.store.handler('load',virtual_columns='$workport')
+        form.store.handler('load',virtual_columns='$workport,$docbefore_cp')
         #pane = form.record
         #fb = pane.formbuilder(cols=2, border_spacing='4px')
         tc = form.center.tabContainer()
@@ -1197,7 +1197,7 @@ class Form(BaseComponent):
         #fb.dataController("if(msgspec=='ship_rec_upd') {alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
         
         div3=rg_prearrival.div('<center><strong><br>Email to Harbour Master <br> Docs before vessel arrival<br></strong>',width='99%',height='20%',margin='auto',
-                        padding='2px',
+                        padding='2px',hidden="^#FORM.record.docbefore_cp",
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb2 = div3.formbuilder(colspan=1,cols=3, border_spacing='2px',fld_width='150px')

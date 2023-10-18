@@ -64,6 +64,7 @@ class Table(object):
         #tbl.pyColumn('logocc',name_long='!![en]Logo CC', static=True, dtype='P')
         #tbl.pyColumn('logocp',name_long='!![en]Logo CP', static=True, dtype='P')
         tbl.pyColumn('privacy',name_long='!![en]Privacy email', static=True, dtype='T')
+        tbl.pyColumn('docbefore_cp', dtype='B')
        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('n_tug_arr','@extradatacp.n_tug_arr')
         tbl.aliasColumn('n_tug_dep','@extradatacp.n_tug_dep')
@@ -114,7 +115,6 @@ class Table(object):
                                                 columns="""@measure_id.description || ' ' || SUM($quantity) """,
                                                 where='$arrival_id=#THIS.id', group_by='@measure_id.description'),
                                     dtype='N',name_long='Tot_Carico')
-        tbl.formulaColumn('doc_garbage',"""CASE WHEN @bunker_arr.arrival_id IS NOT NULL AND @bunker_arr.doc_cp IS False THEN 'YOU MUST SEND BUNKER DOCS TO CP' ELSE '' END""", dtype='T')
         #formule column per email servizi
         tbl.formulaColumn('cp_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
@@ -328,7 +328,22 @@ class Table(object):
             cargo += ' - ' + str(carico[r][0]) + '<br>'
 
         return cargo
-
+    
+    #con la pyColumn ci facciamo restituire il valore True se il tipo di movimentazione è diverso da quello alimentare e nelle preference è attivo 
+    #la disabilitazione del pmou - nella form arrival al fine di avere il valore della virtual column disponibile abbiamo inserito form.store.handler('load',virtual_columns='$workport,$docbefore_cp')
+    #così abbiamo attribuito il valore hiden alla div che visualizza nella tasklist DOC BEFORE VESSEL ARRIVAL
+    def pyColumn_docbefore_cp(self,record,field):
+        pkey=record['id']
+        tbl_arrival=self.db.table('shipsteps.arrival')
+        code=tbl_arrival.readColumns(columns="@tip_mov.code", where="$id=:id_arr",id_arr=pkey)
+        pmou = self.db.application.getPreference('pmou',pkg='shipsteps') 
+        
+        if code != 'alim' and pmou==True:
+            result = True
+        else:
+            result = False    
+        return result
+       
     #def pyColumn_email_arr_to(self,record,field):
     #    
     #    pkey=record['pkey']
