@@ -294,7 +294,7 @@ class Form(BaseComponent):
         tc_bl = tc.borderContainer(title='!![en]<strong>Loading Cargoes</strong>')
         tc_usma = tc.borderContainer(title='!![en]<strong>Sanimare certificates</strong>')
         #tc_parapon = bc_task3.tabContainer(title='pippo')
-        self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = 'seashell'))
+        self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = '#f2f0e8'))
         #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
         tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%',pageName='cargodocs').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
         tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%',pageName='sanimare_cert').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
@@ -305,10 +305,10 @@ class Form(BaseComponent):
        # pane_center=bc_top.contentPane(region='center',datapath='.record', width='1200px', splitter=True)
         #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
-        self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = 'seashell'))
+        self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = '#f2f0e8'))
         self.times(bc_tasklist.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
         
-        self.taskList(bc_tasklist.borderContainer(region='center',height='auto', background = 'seashell', splitter=True))
+        self.taskList(bc_tasklist.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True))
         
         
         tc_task.contentPane(title='!![en]Shore pass',pageName='shore_pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
@@ -349,7 +349,7 @@ class Form(BaseComponent):
       # tc.contentPane(title='!![en]Charterers', pageName='charterers').remote(self.charterersLazyMode)
 
        # self.sof(tc.contentPane(title='!![en]Sof'))
-        self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell'))
+        self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details', region='top', background = '#f2f0e8'))
        # self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
         tc.contentPane(title='!![en]Email Arrival',pageName='email_arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait')
         self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
@@ -360,7 +360,7 @@ class Form(BaseComponent):
         #self.sof_cargo(tc_sof.contentPane(title='!![en]Sof_Cargo', datapath='.@sof_arr'))
 
     def carbordoArr(self,bc):
-        center = bc.roundedGroup(title='!![en]Cargo on board on arrival', region='center', height = '100%', background='seashell').div(margin='10px',margin_left='2px')
+        center = bc.roundedGroup(title='!![en]Cargo on board on arrival', region='center', height = '100%', background='#f2f0e8').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=3, border_spacing='4px')
         fb.field('cargo_onboard', tag='simpleTextArea',height='50px', colspan=3)
         fb.div("""EXTRA CARGO ON BOARD DESCRIPTION:<br>
