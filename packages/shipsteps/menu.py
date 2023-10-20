@@ -63,7 +63,7 @@ class Menu(object):
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")       
             shipsteps.webpage('test',filepath='test')
         else:
-
+            root.thpage(u"!![en]Messages", table="email.message", tags="")
             shipsteps = root.branch(u"shipsteps", tags="")
             shipsteps.thpage(u"!![en]Send Pre-Arrivals", table="shipsteps.prearrivals", tags="")
             shipsteps.thpage(u"!![en]Arrivals", table="shipsteps.arrival", tags="")
@@ -81,8 +81,8 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Opening gates", table="shipsteps.opening_gate", tags="")
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")
-            email = root.branch(u"!![en]Email", tags="")
-            email.thpage(u"!![en]Messages", table="email.message", tags="")
+            #email = root.branch(u"!![en]Email", tags="")
+            #email.thpage(u"!![en]Messages", table="email.message", tags="")
             proforma_da = root.branch(u"proforma da", tags="")
             proforma_da.thpage(u"clienti", table="pfda.cliente", tags="", formResource="FormCliente")
             proforma_da.thpage(u"imbarcazione", table="pfda.imbarcazione", tags="")
