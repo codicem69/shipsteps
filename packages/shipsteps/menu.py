@@ -98,7 +98,7 @@ class Menu(object):
             unlocode.thpage(u"Località", table="unlocode.place", tags="")
             unlocode.thpage(u"Nazione", table="unlocode.nazione", tags="")
             agz = root.branch(u"Agencies", tags="")
-            agz.thpage(u"Agencies", table="agz.agency", tags="")
+            #agz.thpage(u"Agencies", table="agz.agency", tags="")
             agz.thpage(u"Staff", table="agz.staff", tags="")
 
 
