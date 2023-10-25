@@ -92,6 +92,10 @@ class Table(object):
         tbl.aliasColumn('imo','@vessel_details_id.imo')
         tbl.aliasColumn('time_gate','@agency_id.@agency_sh_gate.details',dtype='T')
         tbl.aliasColumn('map_gate','@agency_id.@agency_sh_gate.map',dtype='P')
+        tbl.aliasColumn('timearr_log','@time_arr.time_arr')
+        tbl.aliasColumn('timearr2_log','@time_arr.time_arr_2')
+        tbl.formulaColumn('fullstyle_forrec',"""CASE WHEN $firma_div IS NULL OR $firma_div = '' THEN @agency_id.fullstyle 
+                                                 ELSE $firma_div END""", dtype='T')
         tbl.formulaColumn('protfald', """@prot_arr.prot_n || coalesce(' Fald.' || @prot_arr.@fald_n.numero,'')""",dtype='T',name_long='Prot.Fald.')
         tbl.formulaColumn('logo_cp',select=dict(table='shipsteps.loghi', columns="$logo_cp",
                                                     where='$agency_id=#THIS.agency_id'), dtype='P')
@@ -115,6 +119,7 @@ class Table(object):
                                                 columns="""@measure_id.description || ' ' || SUM($quantity) """,
                                                 where='$arrival_id=#THIS.id', group_by='@measure_id.description'),
                                     dtype='N',name_long='Tot_Carico')
+        tbl.formulaColumn('port_log_time',"""CASE WHEN $timearr_log !='' THEN 'PORTLOG<br>------------------------------<br>' || coalesce($timearr_log,'') || coalesce($timearr2_log ,'') END""")
         #formule column per email servizi
         tbl.formulaColumn('cp_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
@@ -317,7 +322,8 @@ class Table(object):
         #riceviamo un msg di testo che andremo a lanciare con un data controller quando apriamo gli arrivi
         tbl.formulaColumn('gdfdep_timeexp',"""CASE WHEN @time_arr.sailed < NOW() AND @arr_tasklist.form_gdfdep IS NULL OR @arr_tasklist.form_gdfdep = false 
                                             THEN true END""", dtype='B')
-                          
+        #formulaColumn per verificare se l'arrivo ha il sof in modo da mettere hidden i bottoni di invio email negli arrival times
+        tbl.formulaColumn('check_sof',"""CASE WHEN @sof_arr.id IS NOT NULL THEN true ELSE false END""", dtype='B')                  
 
     def pyColumn_cargo(self,record,field):
        
