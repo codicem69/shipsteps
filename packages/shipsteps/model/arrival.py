@@ -313,7 +313,12 @@ class Table(object):
                                                     where='$arrival_id=#THIS.id and $dest=:to',to='to', limit=1,ignoreMissing=True))
         tbl.formulaColumn('email_arr_cc',select=dict(table='shipsteps.email_arr', columns="""string_agg($dest || ' ' || $description ||'<br>','')""",
                                                     where='$arrival_id=#THIS.id and $dest=:to',to='cc', limit=1,ignoreMissing=True))                                                    
-   
+        #formulaColumn per verificare se la data di partenza sia minore della data attuale e il form partenza nave per la finanza nopn è ancora stato stampato
+        #riceviamo un msg di testo che andremo a lanciare con un data controller quando apriamo gli arrivi
+        tbl.formulaColumn('gdfdep_timeexp',"""CASE WHEN @time_arr.sailed < NOW() AND @arr_tasklist.form_gdfdep IS NULL OR @arr_tasklist.form_gdfdep = false 
+                                            THEN true END""", dtype='B')
+                          
+
     def pyColumn_cargo(self,record,field):
        
         pkey=record['id']

@@ -271,13 +271,32 @@ class Form(BaseComponent):
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
 
     def th_form(self, form):
-        form.store.handler('load',virtual_columns='$workport,$docbefore_cp')
-        #pane = form.record
-        #fb = pane.formbuilder(cols=2, border_spacing='4px')
-        tc = form.center.tabContainer()
-        #bc1 = form.center.borderContainer()
-        #tc = bc1.tabContainer(margin='2px', region='center', height='auto', splitter=True)
+        #con lo store.handler possiamo inserire tutte le virtual_columns che vogliamo avere disponibili nello store
+        form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp')
+        
+        ##all'apertura del form arrival calcoliamo quali sono le partenze finanza non flaggate nella tasklist in modo da notificarle tramite datacontroller 
+        #tbl_arrival=self.db.table('shipsteps.arrival')
+        #tbl_arr_time=self.db.table('shipsteps.arrival_time')
+        #tbl_tasklist=self.db.table('shipsteps.tasklist')
+        #arrival=tbl_arrival.query(columns='$id,$reference_num', 
+        #                      where='$agency_id=:ag_id', ag_id=self.db.currentEnv.get('current_agency_id')).fetch()
+        #text_a='PRINT THE GDF FORM VESSEL DEPARTURE FOR ARRIVALS: '
+        #refnum=[]
+        #for r in arrival:
+        #    sailed=tbl_arr_time.readColumns(columns='$sailed', where='$arrival_id=:a_id', a_id=r['id'])
+        #    gdfdep=tbl_tasklist.readColumns(columns='$form_gdfdep', where='$arrival_id=:a_id', a_id=r['id'])
+        #    
+        #    if sailed is not None:
+        #        if sailed < datetime.now() and (gdfdep == None) or (gdfdep == False):
+        #            refnum.append(r['reference_num'])
+        #text_b=','.join(refnum)
+        #
+        #html_text=text_a+text_b
+        #if len(refnum) > 0:            
+        #    form.data('.refnum',html_text)
+        #    form.dataController('alert(msg)', msg='=.refnum',_if='msg', _onStart=True)
 
+        tc = form.center.tabContainer()
         bc = tc.borderContainer(title='!![en]<strong>Arrival</strong>')
         tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center')#,hidden='^#FORM.record.@last_port.nazione_code?=!(#v=="IT"||#v=="LM")')#,hidden="^#FORM.record.@last_port.nazione_code?=#v!='IT'")
         bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>')
@@ -467,6 +486,7 @@ class Form(BaseComponent):
         #onDbChanges in caso di modifica dati su vessel_details il form arrival viene aggiornato
         fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
             table='shipsteps.vessel_details',pkey='=#FORM.record.vessel_details_id')
+        
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly='^gnr.app_preference.shipsteps.ref_num')
         fb.field('date')
@@ -716,7 +736,7 @@ class Form(BaseComponent):
         fb.field('etc' , width='10em')
         fb.field('ets', width='10em' )
         fb.field('dock_id', width='15em' )
-
+    
     def taskList(self, bc_tasklist):
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%').div(margin='10px',margin_left='2px')
         rg_prearrival2 = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival - Email</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='220px').div(margin='10px',margin_left='2px')
@@ -732,7 +752,7 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb1=div1.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
-        
+
         btn_cl = fb1.Button('!![en]Print Check list')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -1269,9 +1289,10 @@ class Form(BaseComponent):
         #fb2.field('email_garbage_cp', lbl='', margin_top='6px')
         #fb2.semaphore('^.email_garbage_cp', margin_top='6px')
         
-
+        fb.dataController("""if(gdfdep==true) {alert(gdfdep_txt);}""",gdfdep='^#FORM.record.gdfdep_timeexp',gdfdep_txt='Print the GDF Form vessel departure')
         #fb.dataController("if(msgspec=='val_bulk')alert(msg_txt);",msgspec='^msg_special',msg_txt = 'Email ready to be sent')
         fb.dataController("""if(msg=='val_bulk'){alert(msg_txt);} if(msg=='val_garb_cp'){SET .email_garbage_cp=true ; alert(msg_txt);}
+                             if(gdfdep == true) 
                              if(msg=='val_integr') {SET .email_integr=true ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_pmou') {SET .email_pmou=true ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"}); if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
