@@ -321,9 +321,7 @@ class Table(object):
         #formulaColumn per verificare se la data di partenza sia minore della data attuale e il form partenza nave per la finanza nopn è ancora stato stampato
         #riceviamo un msg di testo che andremo a lanciare con un data controller quando apriamo gli arrivi
         tbl.formulaColumn('gdfdep_timeexp',"""CASE WHEN @time_arr.sailed < NOW() AND @arr_tasklist.form_gdfdep IS NULL OR @arr_tasklist.form_gdfdep = false 
-                                            THEN true END""", dtype='B')
-        #formulaColumn per verificare se l'arrivo ha il sof in modo da mettere hidden i bottoni di invio email negli arrival times
-        tbl.formulaColumn('check_sof',"""CASE WHEN @sof_arr.id IS NOT NULL THEN true ELSE false END""", dtype='B')                  
+                                            THEN true END""", dtype='B')               
 
     def pyColumn_cargo(self,record,field):
        

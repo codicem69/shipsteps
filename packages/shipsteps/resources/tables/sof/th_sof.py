@@ -112,7 +112,7 @@ class Form(BaseComponent):
         #fb.dataController("""if(^#FORM.shipsteps_sof_cargo.view.count.total>0){SET #FORM.tabname=operations;}""")
         fb.dataRpc('#FORM.tabname', self.checkCargoSof,  record='=#FORM.record',rec_id='^#FORM.record.id',
                     _if='rec_id',tabname='=#FORM.tabname')
-
+            
     @public_method
     def checkCargoSof(self,record,**kwargs):
         
@@ -126,7 +126,6 @@ class Form(BaseComponent):
             return 'sof_cargo'
         elif tabname== 'daily_op':
             return 'daily_op'        
-        #print(x)
 
     def th_bottom_custom(self, bottom):
         bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,*,10')

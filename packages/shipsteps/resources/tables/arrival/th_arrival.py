@@ -272,7 +272,7 @@ class Form(BaseComponent):
 
     def th_form(self, form):
         #con lo store.handler possiamo inserire tutte le virtual_columns che vogliamo avere disponibili nello store
-        form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp,$check_sof')
+        form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp')
         
         ##all'apertura del form arrival calcoliamo quali sono le partenze finanza non flaggate nella tasklist in modo da notificarle tramite datacontroller 
         #tbl_arrival=self.db.table('shipsteps.arrival')
@@ -296,14 +296,14 @@ class Form(BaseComponent):
         #    form.data('.refnum',html_text)
         #    form.dataController('alert(msg)', msg='=.refnum',_if='msg', _onStart=True)
 
-        tc = form.center.tabContainer()
+        tc = form.center.tabContainer(selected='.current_tab')
         bc = tc.borderContainer(title='!![en]<strong>Arrival</strong>')
         tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center')#,hidden='^#FORM.record.@last_port.nazione_code?=!(#v=="IT"||#v=="LM")')#,hidden="^#FORM.record.@last_port.nazione_code?=#v!='IT'")
         bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>')
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
-        tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
+        tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center')
         bc_tasklist = tc_task.borderContainer(title="<div style='color:red;'>Task list</div>", region='center')#title='!![en]Task List'
-        tc_arrtimes = tc.tabContainer(title='!![en]<strong>Arrival Times</strong>')
+        tc_arrtimes = tc.borderContainer(title='!![en]<strong>Arrival Times</strong>')
        # tc_task = tc_task.tabContainer(title='!![en]Shore Pass')
         #tc_shorepass = tc_task.tabContainer(title='!![en]Shore Pass', region='center')
         #tc_prova = tc_task.tabContainer(title='!![en]prova')
@@ -315,8 +315,8 @@ class Form(BaseComponent):
         #tc_parapon = bc_task3.tabContainer(title='pippo')
         self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = '#f2f0e8'))
         #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
-        tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%',pageName='cargodocs').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
-        tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%',pageName='sanimare_cert').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
+        tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
+        tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
 
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
        # tc2 = bc2.tabContainer(margin='2px', region='center', height='auto', splitter=True)
@@ -330,9 +330,9 @@ class Form(BaseComponent):
         self.taskList(bc_tasklist.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True))
         
         
-        tc_task.contentPane(title='!![en]Shore pass',pageName='shore_pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
-        tc_task.contentPane(title='!![en]Pax List',pageName='pax_list').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
-        tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
+        tc_task.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
+        tc_task.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
+        tc_task.contentPane(title='!![en]Vessel Services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
         tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
@@ -342,10 +342,10 @@ class Form(BaseComponent):
         self.garbage(tc_undertask.contentPane(title='!![en]Garbage', pageName='garbage'))
         self.tributi(tc_undertask.contentPane(title='!![en]Tributes HM',pageName='tributi'))
         #self.rinfusa(tc_app.contentPane(title='!![en]Bulk Application'))
-        tc_app.contentPane(title='!![en]Bulk Application',pageName='bulk_application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
+        tc_app.contentPane(title='!![en]Bulk Application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
         #self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
-        tc_app.contentPane(title='!![en]Bunker Application',pageName='bunker_application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
-        tc_app.contentPane(title='!![en]Certificates Application',pageName='certificates_application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
+        tc_app.contentPane(title='!![en]Bunker Application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
+        tc_app.contentPane(title='!![en]Certificates Application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.datiArrivo(pane_center)
         #self.datiArrivo(pane_center)
@@ -368,9 +368,9 @@ class Form(BaseComponent):
       # tc.contentPane(title='!![en]Charterers', pageName='charterers').remote(self.charterersLazyMode)
 
        # self.sof(tc.contentPane(title='!![en]Sof'))
-        self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details', region='top', background = '#f2f0e8'))
+        self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details',height='100%', region='top', background = '#f2f0e8', pageName='arrtime'))
        # self.emailArrival(tc.contentPane(title='!![en]Email Arrival'))
-        tc.contentPane(title='!![en]Email Arrival',pageName='email_arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait')
+        tc.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait')
         self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
         tc.contentPane(title='!![en]Vessel details').templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
                                                 template='dettaglio_imb')
@@ -486,7 +486,6 @@ class Form(BaseComponent):
         #onDbChanges in caso di modifica dati su vessel_details il form arrival viene aggiornato
         fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
             table='shipsteps.vessel_details',pkey='=#FORM.record.vessel_details_id')
-        
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly='^gnr.app_preference.shipsteps.ref_num')
         fb.field('date')
@@ -575,7 +574,7 @@ class Form(BaseComponent):
 
     @public_method
     def sofLazyMode(self,pane):
-        pane.stackTableHandler(relation='@sof_arr',view_store__onBuilt=True)
+        pane.stackTableHandler(relation='@sof_arr',view_store__onBuilt=True,liveUpdate=True)
 
     #def sof(self,pane):
     #    pane.stackTableHandler(relation='@sof_arr')#, formResource='FormSof')
@@ -600,8 +599,11 @@ class Form(BaseComponent):
         fb.field('last_line')
         fb.field('sailed')
         fb.field('cosp', lbl='Commenced of <br>Sea Passage',fldvalign='center')
-        btn_arrivo=fb.button('Email arrival',hidden="^#FORM.record.check_sof")
-        btn_partenza=fb.button('Email departure',hidden="^#FORM.record.check_sof")
+
+        btn_arrivo=fb.button('Email arrival',hidden="^checksof")#.controller.title?=#v!=null")
+        btn_partenza=fb.button('Email departure',hidden="^checksof")#.controller.title?=#v!=null")
+        fb.dataRpc('checksof', self.checkSof,  record='=#FORM.record', cur_tab='^#FORM.current_tab',titolo='^#FORM.controller.title',
+                   _if='cur_tab!=null||titolo!=null')
 
         btn_arrivo.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_arrivo',
                             nome_template = 'shipsteps.arrival:email_arrivo',format_page='A4',
@@ -675,6 +677,15 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('tug_out',placeholder='e.g. 1')
+
+    @public_method
+    def checkSof(self, record, **kwargs):
+        tabname=kwargs['cur_tab']
+        record_id = record['id']
+        tbl_sof = self.db.table('shipsteps.sof')
+        sof = tbl_sof.query(columns='$id',where = '$arrival_id = :arr_id', arr_id=record_id).fetch()
+        if sof:
+            return True
 
     @public_method
     def cargodocsCertLazyMode(self,pane):
@@ -3180,5 +3191,3 @@ class Form(BaseComponent):
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px', duplicate=True)
    
-    
-    
