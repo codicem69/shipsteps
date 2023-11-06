@@ -104,11 +104,11 @@ class FormFromRinfusa(BaseComponent):
                                 imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4',
                                 _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
-                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]))
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip')]))
         else:
             btn_bulk_email.dataRpc('nome_temp', self.print_template_bulk,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_rinfusa_cp',
                     imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.rinfusa:bulk_app',format_page='A4',
-                    _ask=dict(title='!![en]Select the services',fields=[dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso')]))                            
+                    _ask=dict(title='!![en]Select the services',fields=[dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip')]))                            
     
     @public_method
     def print_template_bulk(self, record, record_arr=None,imbarcazione_id=None, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
@@ -124,7 +124,7 @@ class FormFromRinfusa(BaseComponent):
 
         nome_temp = nome_template.replace('shipsteps.rinfusa:','')
         nome_file = '{cl_id}.pdf'.format(
-                    cl_id=nome_temp)
+                    cl_id='istanza_rinfusa')
 
         template = self.loadTemplate(nome_template)  # nome del template
         pdfpath = self.site.storageNode('home:stampe_template', nome_file)
@@ -203,7 +203,7 @@ class FormFromRinfusa(BaseComponent):
         #Condizioniamo l'aggiunta dell'allegato se il servizio invio email è il garbage
         if email_template_id=='email_rinfusa_cp':
             
-            file_path = 'site:stampe_template/bulk_app.pdf'
+            file_path = 'site:stampe_template/istanza_rinfusa.pdf'
             fileSn = self.site.storageNode(file_path)
             attcmt.append(fileSn.internal_path)
             attcmt_name.append(Path(fileSn.internal_path).name)
