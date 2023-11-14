@@ -105,7 +105,6 @@ class Main(TableScriptToHtml):
 
     def calcRowHeight(self):
         #Determina l'altezza di ogni singola riga con approssimazione partendo dal valore di riferimento grid_row_height
-        nationality_offset = 15
         doc_offset = 10
         #Stabilisco un offset in termini di numero di caratteri oltre il quale stabilirò di andare a capo.
         #Attenzione che in questo caso ho una dimensione in num. di caratteri, mentre la larghezza della colonna è definita
@@ -113,10 +112,10 @@ class Main(TableScriptToHtml):
         n_rows_name = len(self.rowField('name'))//doc_offset
         n_rows_surname = len(self.rowField('surname'))//doc_offset
         n_rows_rank = len(self.rowField('rank'))//12
-        n_rows_nationality = len(self.rowField('_nationality_codename'))//nationality_offset + 1
-        n_rows_birthcountry = len(self.rowField('_birth_country_codename'))//nationality_offset + 1
-        n_rows_docstate = len(self.rowField('_id_doc_state_codename'))//nationality_offset + 1
-        n_rows_docn = len(self.rowField('id_doc_n'))//doc_offset + 1
+        n_rows_nationality = len(self.rowField('_nationality_codename'))//20 + 1
+        n_rows_birthcountry = len(self.rowField('_birth_country_codename'))//20 + 1
+        n_rows_docstate = len(self.rowField('_id_doc_state_codename'))//20 + 1
+        n_rows_docn = len(self.rowField('id_doc_n'))//12 + 1
         
         #In caso di valori in relazione, è necessario utilizzare "_" nel metodo rowField per recuperare correttamente i valori
         #A tal proposito si consiglia comunque sempre di utilizzare le aliasColumns
