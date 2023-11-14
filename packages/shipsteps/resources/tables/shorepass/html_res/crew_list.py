@@ -142,7 +142,7 @@ class Main(TableScriptToHtml):
         firma = row.cell().layout(name='firma', um='mm', border_color='white', lbl_class='smallCaption',
                                     lbl_height=3, style='line-height:5mm;')
         stamp=self.field('@arrival_id.vessel_stamp')
-        firma.row(height=5).cell("""<img src="%s" width="100" height="100">::HTML""" %stamp,width=0,content_class='aligned_center')
+        firma.row(height=5).cell("""<img src="%s" width="auto" height="100">::HTML""" %stamp,width=0,content_class='aligned_center')
          
     def outputDocName(self, ext=''):
         #Questo metodo definisce il nome del file di output
