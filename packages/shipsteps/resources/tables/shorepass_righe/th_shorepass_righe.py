@@ -70,7 +70,7 @@ class ViewFromShorepassRighe(BaseComponent):
         return dict(grid_selfDragRows=True)
     
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,importa_crew,10,batchAssign,10,stampa_shorepass')
+        bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,importa_crew,10,batchAssign,10,stampa_shorepass,10,stampa_crewlist')
         btn_importa_crew = bar.importa_crew.paletteImporter(paletteCode='xls_importer',
                             dockButton_iconClass=False,
                             title='!!Importa crew',
@@ -85,6 +85,12 @@ class ViewFromShorepassRighe(BaseComponent):
                       _onError="genro.publish('xls_importer_onResult',{error:error});")
         btn_print_shorepass.dataRpc('nome_temp', self.print_template_shorepass,record='=#FORM.record',pkeys='=#FORM.shipsteps_shorepass_righe.view.grid.currentSelectedPkeys',servizio=[],
                             nome_template = 'shipsteps.shorepass_righe:shorepass_righe',format_page='A4',_lockScreen=dict(message='Please Wait'))
+        btn_printpax=bar.stampa_crewlist.button('Stampa Crewlist', iconClass='print',
+                                        action="""genro.publish("table_script_run",{table:"shipsteps.shorepass",
+                                                                                   res_type:'print',
+                                                                                   resource:'crew',
+                                                                                   pkey: pkey})""",
+                                                                                   pkey='=#FORM.pkey')
         bar.dataController("""if(msgspec=='noshorepass') genro.publish("floating_message",{message:msg_txt, messageType:"error"});""",msgspec='^nome_temp', msg_txt = 'You must select the shorepass column record or more records')
 
     def th_order(self):

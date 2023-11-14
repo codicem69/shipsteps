@@ -7,7 +7,7 @@ class Table(object):
                     ).relation('arrival.id', relation_name='shorepass_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         tbl.column('data_arr', dtype='D', name_short='!![en]Arrival date')
         tbl.column('data_part', dtype='D', name_short='!![en]Departure date')
-       
+        tbl.column('arr_dep', dtype='T', name_short='!![en]Arrival/Departure', default='Arrival')
         tbl.formulaColumn('data_attuale',"""CASE WHEN $arrival_id <> ''THEN :currdate END""",var_currdate=self.db.workdate)
 
         tbl.formulaColumn('comunitari', select=dict(table='shipsteps.shorepass_righe',
