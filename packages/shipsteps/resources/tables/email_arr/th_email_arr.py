@@ -25,11 +25,15 @@ class ViewFromEmailArrival(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
        # r.fieldcell('arrival_id')
+        r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('dest', width='10em',edit=True)
         r.fieldcell('description', width='30em',edit=True)
         r.fieldcell('email',  edit=dict(validate_notnull=True), width='20em')
         r.fieldcell('email_type', edit=dict(validate_notnull=True))
 
+    def th_order(self):
+        return '_row_count'
+    
     def th_options(self):
         return dict(grid_selfDragRows=True)
 

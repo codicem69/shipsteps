@@ -4,7 +4,7 @@ class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('email_arr', pkey='id', name_long='email_arr', name_plural='email_arr',
                         caption_field='description')
-        self.sysFields(tbl)
+        self.sysFields(tbl, counter='arrival_id')
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='arrival_email', mode='foreignkey', onDelete='cascade')
