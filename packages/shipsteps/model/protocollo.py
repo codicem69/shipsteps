@@ -10,7 +10,7 @@ class Table(object):
         tbl.column('data', dtype='D', name_short='!![en]date')
         tbl.column('data_prat', dtype='D', name_short='!![en]Pratique date')
         tbl.column('prot_n', name_short='!![en]Log number')
-        tbl.column('fald_n',size='22', name_long='!![en]Folder'
+        tbl.column('fald_n',size='22', name_long='!![en]Folder',batch_assign=dict(hasDownArrow=True)
                     ).relation('faldone.id', relation_name='numero_faldone', mode='foreignkey', onDelete='raise')
         #tbl.column('fald_n', name_short='!![en]Folder no.')
         tbl.column('arrival_id',size='22', name_long='arrival_id'
