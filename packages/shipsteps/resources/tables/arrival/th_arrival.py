@@ -972,7 +972,7 @@ class Form(BaseComponent):
                         """, ca='^.email_usma',button=btn_usma.js_widget)
         if serv_len > 1:
             btn_usma.dataRpc('nome_temp', self.email_services,
-                       record='=#FORM.record', servizio=['sanimare'], email_template_id='email_sanimare',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       record='=#FORM.record', servizio=['sanimare'], email_template_id='email_sanimare',nsisprot='=#FORM.record.nsis_prot',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='usma',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -982,7 +982,7 @@ class Form(BaseComponent):
                                 cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
         else:
             btn_usma.dataRpc('nome_temp', self.email_services,
-                       record='=#FORM.record', servizio=['sanimare'], email_template_id='email_sanimare',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       record='=#FORM.record', servizio=['sanimare'], email_template_id='email_sanimare',nsisprot='=#FORM.record.nsis_prot',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
@@ -1347,6 +1347,7 @@ class Form(BaseComponent):
                              if(msg=='dispval_no') genro.publish("floating_message",{message:'You must first print Currency availability', messageType:"error"});
                              if(msg=='intfat') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
                              if(msg=='no_sanitation') genro.publish("floating_message",{message:'you must insert sanitation certificate in the ships docs', messageType:"error"});
+                             if(msg=='no_nsisprot') genro.publish("floating_message",{message:'you must insert nsis prot. number in the arrival form', messageType:"error"});
                              if(msg=='mod_nave') {SET .modulo_nave=true;}
                              if(msg=='front_carico') {SET .front_carico=true;}
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
@@ -1847,7 +1848,11 @@ class Form(BaseComponent):
         flag=record['flag']
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
-        
+        #verifichiamo se abbiamo inserito il numero di protocollo nsis prima di inviare email a sanimare
+        if email_template_id == 'email_sanimare':
+            if kwargs['nsisprot'] is None or kwargs['nsisprot'] == '':
+                nome_temp ='no_nsisprot'
+                return nome_temp
         #se il servizio è mod61_arr appendiamo agli attachments il fal1_arr e la nota_arrivo e il mod61
         if nome_temp == 'mod61_arr':
             attcmt.append(self.fal1_path)
