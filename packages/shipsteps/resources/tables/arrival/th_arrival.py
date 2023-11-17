@@ -301,7 +301,7 @@ class Form(BaseComponent):
         tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center')#,hidden='^#FORM.record.@last_port.nazione_code?=!(#v=="IT"||#v=="LM")')#,hidden="^#FORM.record.@last_port.nazione_code?=#v!='IT'")
         bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>')
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
-        tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center')
+        tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
         bc_tasklist = tc_task.borderContainer(title="<div style='color:red;'>Task list</div>", region='center')#title='!![en]Task List'
         tc_arrtimes = tc.borderContainer(title='!![en]<strong>Arrival Times</strong>')
        # tc_task = tc_task.tabContainer(title='!![en]Shore Pass')
@@ -332,7 +332,7 @@ class Form(BaseComponent):
         
         tc_task.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
         tc_task.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
-        tc_task.contentPane(title='!![en]Vessel Services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
+        tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
         tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
