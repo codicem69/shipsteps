@@ -8,9 +8,10 @@ class View(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('name', width='50em')
-        r.fieldcell('address', width='50em')
-        r.fieldcell('city', width='50em')
+        r.fieldcell('name', width='40em')
+        r.fieldcell('address', width='40em')
+        r.fieldcell('city', width='40em')
+        r.fieldcell('trader', width='40em')
 
     def th_order(self):
         return 'name'
@@ -22,9 +23,10 @@ class ViewFromShipRec(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('name', width='50em',edit=True)
+        r.fieldcell('name', width='40em',edit=True)
         r.fieldcell('address', width='50em',edit=True)
-        r.fieldcell('city', width='50em',edit=True)
+        r.fieldcell('city', width='30em',edit=True)
+        r.fieldcell('trader', width='30em',edit=True)
     
     def th_order(self):
         return 'name'
@@ -32,7 +34,7 @@ class ViewFromShipRec(BaseComponent):
 class Form(BaseComponent):
     def th_form(self,form):
         bc = form.center.borderContainer()
-        self.datiShiprec(bc.roundedGroupFrame(title='Shippers / Receivers',region='top',datapath='.record',height='110px', background='lightgrey', splitter=True))
+        self.datiShiprec(bc.roundedGroupFrame(title='Shippers / Receivers',region='top',datapath='.record',height='130px', background='lightgrey', splitter=True))
         self.emailShiprec(bc.contentPane(title='Email Shippers Receivers', region='center'))
 
     def datiShiprec(self,pane):
@@ -42,6 +44,7 @@ class Form(BaseComponent):
         fb.field('name' )
         fb.field('address' )
         fb.field('city' )
+        fb.field('trader' )
 
     def emailShiprec(self,pane):
         pane.inlineTableHandler(title='Email Shippers Receivers', relation='@email_shiprec',viewResource='ViewFromEmailShiprec',export=True)
