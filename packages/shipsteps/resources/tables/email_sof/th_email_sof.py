@@ -43,7 +43,7 @@ class ViewFromSofEmail(BaseComponent):
         btn_copia_email=bar.copia_email.button('Copia Email')
         btn_copia_email.dataRpc('nome_temp',self.copiaemail, record='=#FORM.record',_ask=dict(title='!![en]Select the Shiipers/Receivers',
                                fields=[dict(name='shiprec', lbl='!![en]Shippers/Receivers', tag='dbSelect',
-                               table='shipsteps.ship_rec', columns='$id', hasDownArrow=True)]))
+                               table='shipsteps.ship_rec', columns='$id', auxColumns='$trader', hasDownArrow=True)]))
         bar.dataController("if(msgspec=='no_email') {alert('No emails found, please insert the emails in the Shippers/Receivers table')}", msgspec='^nome_temp')
     
     @public_method
