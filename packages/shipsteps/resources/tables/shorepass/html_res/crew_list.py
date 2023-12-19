@@ -9,7 +9,7 @@ class Main(TableScriptToHtml):
     page_margin_left = 5
     page_margin_right = 5
     doc_header_height = 30
-    doc_footer_height = 30
+    doc_footer_height = 50
     grid_header_height = 20
     css_requires='grid'
     #totalize_footer='Totale'
@@ -141,7 +141,7 @@ class Main(TableScriptToHtml):
         firma = row.cell().layout(name='firma', um='mm', border_color='white', lbl_class='smallCaption',
                                     lbl_height=3, style='line-height:5mm;')
         stamp=self.field('@arrival_id.vessel_stamp')
-        firma.row(height=5).cell("""<img src="%s" width="auto" height="100">::HTML""" %stamp,width=0,content_class='aligned_center')
+        firma.row(height=0).cell("""<img src="%s" width="auto" height="200">::HTML""" %stamp,width=0,content_class='aligned_center')
          
     def outputDocName(self, ext=''):
         #Questo metodo definisce il nome del file di output
