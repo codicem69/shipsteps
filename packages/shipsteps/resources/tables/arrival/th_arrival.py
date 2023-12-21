@@ -2120,7 +2120,7 @@ class Form(BaseComponent):
                                                           template_code=email_template_id)
             
             self.db.commit()
-
+    
         if (email_pec_dest) is not None:
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record_arr,
