@@ -534,7 +534,7 @@ class FormFromBunker(BaseComponent):
          #Condizioniamo l'aggiunta dell'allegato se il servizio invio email è il garbage
         if email_template_id=='email_antifire':
             
-            file_path = 'site:stampe_template/bunker_antifire.pdf'
+            file_path = 'site:stampe_template/istanza_bunker_antifire.pdf'
             fileSn = self.site.storageNode(file_path)
             attcmt.append(fileSn.internal_path)
         
