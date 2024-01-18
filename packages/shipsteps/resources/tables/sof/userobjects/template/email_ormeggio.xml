@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-10-07T16:12:47.926538+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-11-18T16:43:05.728301+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-01-17T15:07:43.830814+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.softemplateemail_ormeggio</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_ormeggio</code>
@@ -12,29 +12,29 @@
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Email berthing</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$email_arrival_to$email_sof_to$email_sof_cc$email_arrival_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$email_arrival_to$email_sof_to$email_sof_cc$email_arrival_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;VOYAGE DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;VOYAGE DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;VESSEL:........$imbarcazione_tipo $imbarcazione_nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;VESSEL:........$imbarcazione_tipo $imbarcazione_nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;AGENCY NAME:...$agency_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;AGENCY NAME:...$agency_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;PORT:..........$agenzia_place_citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;PORT:..........$agenzia_place_citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;BERTH:.........$banchina_dock_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;BERTH:.........$banchina_dock_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;INWARD FROM:...$last_port&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;INWARD FROM:...$last_port&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;OUTWARD TO:....$next_port&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;OUTWARD TO:....$next_port&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$int_carico&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$cargo_on_sof&lt;/span&gt;$shipper_or_receiver$portlog_time&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$sofop_int&lt;/span&gt;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$int_carico$cargo_on_sof$shipper_or_receiver$portlog_time$sofop_int&amp;nbsp;&lt;/span&gt;&lt;/span&gt;
 	&lt;table border="1" cellpadding="1" cellspacing="1"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
@@ -47,15 +47,15 @@
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="width:55px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$operations_sof_date&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$operations_sof_date&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="width:65px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$operations_sof_day&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$operations_sof_day&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="width:400px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$operations_sof_operations&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$operations_sof_operations&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="width:85px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;${from hrs $operations_sof_from}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;${from hrs $operations_sof_from}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="width:75px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;${to hrs $operations_sof_to}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;${to hrs $operations_sof_to}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
@@ -69,31 +69,31 @@
 		&amp;nbsp;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;EXPECTED TIMES&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;EXPECTED TIMES&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$eta_email$etb_email$etstart_email$etc_email$ets_email&lt;span style="font-family:courier new,courier,monospace;"&gt;$robarr_int&lt;span style="font-family:courier new,courier,monospace;"&gt;${IFO: $ifo_arr} ${DO: $do_arr} ${LO: $lo_arr} ${FW: $fw_arr} &lt;span style="font-family:courier new,courier,monospace;"&gt;$tugs_int ${Arrival: $tug_in} $draft_int &lt;span style="font-family:courier new,courier,monospace;"&gt;${Arrival: AFT $draft_aft_arr} ${Arrival: FW $draft_fw_arr}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$imbarcazione_tipo $imbarcazione_nome berthed at $port_name port today at ${hrs $moored}&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$eta_email$etb_email$etstart_email$etc_email$ets_email$robarr_int${IFO: $ifo_arr} ${DO: $do_arr} ${LO: $lo_arr} ${FW: $fw_arr} $tugs_int ${Arrival: $tug_in} $draft_int_arr ${Arrival: AFT $draft_aft_arr} ${Arrival: FW $draft_fw_arr}&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$user_signature&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;&lt;strong&gt;Good day,&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;&lt;strong&gt;$imbarcazione_tipo $imbarcazione_nome berthed at $port_name port today at ${hrs $moored}&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;&lt;strong&gt;Brgds&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$fullstyle_for_rec&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$user_signature&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$privacy_email&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</content>
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$fullstyle_for_rec&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:10px;"&gt;$privacy_email&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</content>
 <metadata><author>admin</author>
 <version _T="NN"></version>
 <date _T="NN"></date>
@@ -587,16 +587,16 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g9gz3a09gh>
-<g9gzk3rek1 _pkey="g9gzk3rek1"><fieldpath dtype="::NN">@arrival_id.@arr_details.draft_int</fieldpath>
+<gsjs2vzqyh _pkey="gsjs2vzqyh"><fieldpath dtype="::NN">@arrival_id.@arr_details.draft_int_arr</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/draft_int</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_draft_int">draft_int</varname>
+<fieldname dtype="::NN">arrival_id/Arrival details/draft_int_arr</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_draft_int_arr">draft_int_arr</varname>
 <virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gzk3rek1>
+<editable _T="NN" dtype="::NN"></editable></gsjs2vzqyh>
 <g9gzk75uqh _pkey="g9gzk75uqh"><fieldpath dtype="::NN">@arrival_id.@arr_details.draft_aft_arr</fieldpath>
 <dtype dtype="::NN">A</dtype>
 <fieldname dtype="::NN">arrival_id/Arrival details/draft_aft_arr</fieldname>
@@ -695,58 +695,58 @@
  </content_css>
 <compiled><_sof_operations _tag="@sof_operations">&lt;tr&gt;
 				&lt;td style="width:55px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$date&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$date&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="width:65px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$day&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$day&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="width:400px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$operations&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$operations&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="width:85px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;${from hrs $from}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;${from hrs $from}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="width:75px"&gt;
-					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;${to hrs $to}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;${to hrs $to}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		</_sof_operations>
-<main maintable="shipsteps.sof" locale="it-IT" virtual_columns="email_sof_to,email_arr_to,email_sof_cc,email_arr_cc,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,int_carico,@arrival_id.cargo,carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta_email,@arrival_id.etb_email,@arrival_id.etstart_email,@arrival_id.etc_email,@arrival_id.ets_email,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,shiprec,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,time_sof,portlog_time,sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.draft_int,@arrival_id.privacy,fullstyle_for_rec" columns="$email_sof_to,$email_arr_to,$email_sof_cc,$email_arr_cc,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@dock_id.dock_name,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,$int_carico,@arrival_id.cargo,$carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta,@arrival_id.eta_email,@arrival_id.etb,@arrival_id.etb_email,@arrival_id.et_start,@arrival_id.etstart_email,@arrival_id.etc,@arrival_id.etc_email,@arrival_id.ets,@arrival_id.ets_email,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,$shiprec,@arrival_id.reference_num,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,$time_sof,$portlog_time,@sof_operations.date,@sof_operations.day,@sof_operations.operations,@sof_operations.from,@sof_operations.to,$sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.ifo_arr,@arrival_id.@arr_details.do_arr,@arrival_id.@arr_details.lo_arr,@arrival_id.@arr_details.fw_arr,@arrival_id.@arr_details.tug_in,@arrival_id.@arr_details.draft_int,@arrival_id.@arr_details.draft_aft_arr,@arrival_id.@arr_details.draft_fw_arr,@arrival_id.@arr_details.draft_aft_dep,@arrival_id.@arr_details.draft_fw_dep,@arrival_id.@time_arr.moored,@arrival_id.privacy,$fullstyle_for_rec" formats='{"moored": "HH:mm", "email_to": null, "email_cc": null, "email_ccn": null}::JS' masks='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"email_sof_to": "T", "email_arrival_to": "T", "email_sof_cc": "T", "email_arrival_cc": "T", "imbarcazione_tipo": "T", "imbarcazione_nome": "T", "agency_name": "T", "agenzia_place_citta_nazione": "A", "banchina_dock_name": "T", "last_port": "A", "next_port": "A", "int_carico": "T", "arrival_id_carico": "T", "cargo_on_sof": "T", "ship_or_rec": "T", "eta": "DH", "eta_email": "T", "etb": "DH", "etb_email": "T", "et_start": "DH", "etstart_email": "T", "etc": "DH", "etc_email": "T", "ets": "DH", "ets_email": "T", "port_name": "T", "agenzia_fullstyle": "A", "user_signature": "T", "shipper_or_receiver": "T", "reference_number": "T", "times_time_arr": "T", "times_time_arr_2": "T", "time_sof": "A", "portlog_time": "A", "operations_sof_date": "D", "operations_sof_day": "T", "operations_sof_operations": "T", "operations_sof_from": "H", "operations_sof_to": "H", "sofop_int": "T", "robarr_int": "A", "robdep_int": "A", "tugs_int": "A", "ifo_arr": "A", "do_arr": "A", "lo_arr": "A", "fw_arr": "A", "tug_in": "A", "draft_int": "T", "draft_aft_arr": "A", "draft_fw_arr": "A", "draft_aft_dep": "A", "draft_fw_dep": "A", "moored": "DH", "privacy_email": "T", "fullstyle_for_rec": "T"}::JS'>&lt;style&gt;table, td {
+<main maintable="shipsteps.sof" locale="it-IT" virtual_columns="email_sof_to,email_arr_to,email_sof_cc,email_arr_cc,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,int_carico,@arrival_id.cargo,carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta_email,@arrival_id.etb_email,@arrival_id.etstart_email,@arrival_id.etc_email,@arrival_id.ets_email,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,shiprec,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,time_sof,portlog_time,sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.draft_int_arr,@arrival_id.privacy,fullstyle_for_rec" columns="$email_sof_to,$email_arr_to,$email_sof_cc,$email_arr_cc,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@dock_id.dock_name,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,$int_carico,@arrival_id.cargo,$carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta,@arrival_id.eta_email,@arrival_id.etb,@arrival_id.etb_email,@arrival_id.et_start,@arrival_id.etstart_email,@arrival_id.etc,@arrival_id.etc_email,@arrival_id.ets,@arrival_id.ets_email,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,$shiprec,@arrival_id.reference_num,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,$time_sof,$portlog_time,@sof_operations.date,@sof_operations.day,@sof_operations.operations,@sof_operations.from,@sof_operations.to,$sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.ifo_arr,@arrival_id.@arr_details.do_arr,@arrival_id.@arr_details.lo_arr,@arrival_id.@arr_details.fw_arr,@arrival_id.@arr_details.tug_in,@arrival_id.@arr_details.draft_int_arr,@arrival_id.@arr_details.draft_aft_arr,@arrival_id.@arr_details.draft_fw_arr,@arrival_id.@arr_details.draft_aft_dep,@arrival_id.@arr_details.draft_fw_dep,@arrival_id.@time_arr.moored,@arrival_id.privacy,$fullstyle_for_rec" formats='{"moored": "HH:mm", "email_to": null, "email_cc": null, "email_ccn": null}::JS' masks='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"email_sof_to": "T", "email_arrival_to": "T", "email_sof_cc": "T", "email_arrival_cc": "T", "imbarcazione_tipo": "T", "imbarcazione_nome": "T", "agency_name": "T", "agenzia_place_citta_nazione": "A", "banchina_dock_name": "T", "last_port": "A", "next_port": "A", "int_carico": "T", "arrival_id_carico": "T", "cargo_on_sof": "T", "ship_or_rec": "T", "eta": "DH", "eta_email": "T", "etb": "DH", "etb_email": "T", "et_start": "DH", "etstart_email": "T", "etc": "DH", "etc_email": "T", "ets": "DH", "ets_email": "T", "port_name": "T", "agenzia_fullstyle": "A", "user_signature": "T", "shipper_or_receiver": "T", "reference_number": "T", "times_time_arr": "T", "times_time_arr_2": "T", "time_sof": "A", "portlog_time": "A", "operations_sof_date": "D", "operations_sof_day": "T", "operations_sof_operations": "T", "operations_sof_from": "H", "operations_sof_to": "H", "sofop_int": "T", "robarr_int": "A", "robdep_int": "A", "tugs_int": "A", "ifo_arr": "A", "do_arr": "A", "lo_arr": "A", "fw_arr": "A", "tug_in": "A", "draft_int_arr": "T", "draft_aft_arr": "A", "draft_fw_arr": "A", "draft_aft_dep": "A", "draft_fw_dep": "A", "moored": "DH", "privacy_email": "T", "fullstyle_for_rec": "T"}::JS'>&lt;style&gt;table, td {
   border-collapse: collapse;
   border: dotted 1px #000000;
 }
 .dotted{
   border: dotted 1px #000000;}
  &lt;/style&gt;&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$email_arr_to$email_sof_to$email_sof_cc$email_arr_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$email_arr_to$email_sof_to$email_sof_cc$email_arr_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
 	&amp;#160;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;VOYAGE DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;VOYAGE DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;VESSEL:........$@arrival_id.@vessel_details_id.@imbarcazione_id.tipo $@arrival_id.@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;VESSEL:........$@arrival_id.@vessel_details_id.@imbarcazione_id.tipo $@arrival_id.@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;AGENCY NAME:...$@arrival_id.@agency_id.agency_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;AGENCY NAME:...$@arrival_id.@agency_id.agency_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;PORT:..........$@arrival_id.@agency_id.@port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;PORT:..........$@arrival_id.@agency_id.@port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;BERTH:.........$@arrival_id.@dock_id.dock_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;BERTH:.........$@arrival_id.@dock_id.dock_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;INWARD FROM:...$@arrival_id.@last_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;INWARD FROM:...$@arrival_id.@last_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;OUTWARD TO:....$@arrival_id.@next_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;OUTWARD TO:....$@arrival_id.@next_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
 	&amp;#160;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$int_carico&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$carico_del_sof&lt;/span&gt;$shiprec$portlog_time&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$sofop_int&lt;/span&gt;&amp;#160;&lt;/span&gt;&lt;/span&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$int_carico$carico_del_sof$shiprec$portlog_time$sofop_int&amp;#160;&lt;/span&gt;&lt;/span&gt;
 	&lt;table border="1" cellpadding="1" cellspacing="1"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
@@ -773,43 +773,43 @@ $@sof_operations
 &lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;EXPECTED TIMES&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;EXPECTED TIMES&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$@arrival_id.eta_email$@arrival_id.etb_email$@arrival_id.etstart_email$@arrival_id.etc_email$@arrival_id.ets_email&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.@arr_details.robarr_int&lt;span style="font-family:courier new,courier,monospace;"&gt;${IFO: $@arrival_id.@arr_details.ifo_arr} ${DO: $@arrival_id.@arr_details.do_arr} ${LO: $@arrival_id.@arr_details.lo_arr} ${FW: $@arrival_id.@arr_details.fw_arr} &lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.@arr_details.tugs_int ${Arrival: $@arrival_id.@arr_details.tug_in} $@arrival_id.@arr_details.draft_int &lt;span style="font-family:courier new,courier,monospace;"&gt;${Arrival: AFT $@arrival_id.@arr_details.draft_aft_arr} ${Arrival: FW $@arrival_id.@arr_details.draft_fw_arr}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-
-&lt;div&gt;
-	&amp;#160;&lt;/div&gt;
-
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
-
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.tipo $@arrival_id.@vessel_details_id.@imbarcazione_id.nome berthed at $@arrival_id.@agency_id.@port.descrizione port today at ${hrs $@arrival_id.@time_arr.moored^moored}&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
-
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$@arrival_id.eta_email$@arrival_id.etb_email$@arrival_id.etstart_email$@arrival_id.etc_email$@arrival_id.ets_email$@arrival_id.@arr_details.robarr_int${IFO: $@arrival_id.@arr_details.ifo_arr} ${DO: $@arrival_id.@arr_details.do_arr} ${LO: $@arrival_id.@arr_details.lo_arr} ${FW: $@arrival_id.@arr_details.fw_arr} $@arrival_id.@arr_details.tugs_int ${Arrival: $@arrival_id.@arr_details.tug_in} $@arrival_id.@arr_details.draft_int_arr ${Arrival: AFT $@arrival_id.@arr_details.draft_aft_arr} ${Arrival: FW $@arrival_id.@arr_details.draft_fw_arr}&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
 	&amp;#160;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$@arrival_id.@agency_id.fullname&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;&lt;strong&gt;Good day,&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;&lt;strong&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.tipo $@arrival_id.@vessel_details_id.@imbarcazione_id.nome berthed at $@arrival_id.@agency_id.@port.descrizione port today at ${hrs $@arrival_id.@time_arr.moored^moored}&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;&lt;strong&gt;Brgds&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
 	&amp;#160;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$fullstyle_for_rec&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$@arrival_id.@agency_id.fullname&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
 	&amp;#160;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.privacy&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</main></compiled></data>
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:11px;"&gt;$fullstyle_for_rec&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+
+&lt;div&gt;
+	&amp;#160;&lt;/div&gt;
+
+&lt;div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-size:10px;"&gt;$@arrival_id.privacy&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</main></compiled></data>
 <authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
 <private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
 <quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>

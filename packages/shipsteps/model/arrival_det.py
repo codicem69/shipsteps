@@ -29,5 +29,5 @@ class Table(object):
                                         '<br>R.O.B. ON DEPARTURE<br>------------------------------<br>' ELSE '' END""", dtype='T' )
         tbl.formulaColumn('tugs_int',"""CASE WHEN $tug_in is not null OR $tug_out is not null THEN
                                         '<br><br>TUGS USED<br>------------------------------<br>' ELSE '' END""", dtype='T' )
-        tbl.formulaColumn('draft_int',"""CASE WHEN $draft_aft_arr is not null OR $draft_fw_arr is not null OR $draft_aft_dep is not null
-                                        OR $draft_fw_dep is not null THEN '<br><br>DRAFT<br>------------------------------<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('draft_int_arr',"""CASE WHEN $draft_aft_arr is not null OR $draft_fw_arr is not null THEN '<br><br>DRAFT<br>------------------------------<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('draft_int_dep',"""CASE WHEN $draft_aft_dep is not null OR $draft_fw_dep is not null THEN '<br><br>DRAFT<br>------------------------------<br>' ELSE '' END""", dtype='T')

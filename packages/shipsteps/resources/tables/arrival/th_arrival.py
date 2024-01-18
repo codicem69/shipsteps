@@ -325,17 +325,18 @@ class Form(BaseComponent):
         #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
        # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
         self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = '#f2f0e8'))
+        #visualizziamo in alto alle pagine tasklist e arrival times gli expected times
         self.times(bc_tasklist.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
-        
+        self.times_sof(tc_sof.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
         self.taskList(bc_tasklist.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True))
-        
-        
         tc_task.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
         tc_task.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
         tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
-        tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
+        
+        #tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
+        tc_sof.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
         
@@ -595,9 +596,9 @@ class Form(BaseComponent):
         fb.field('poff')
         fb.field('gangway')
         fb.field('free_p')
-        fb.field('pobd')
+        fb.field('pobd',border_color="^pildep") #tramite il datacontroller in th_sof viene assegnata alla variabile pildep il colore del bordo
         fb.field('last_line')
-        fb.field('sailed')
+        fb.field('sailed',border_color="^sail") #tramite il datacontroller in th_sof viene assegnata alla variabile sail il colore del bordo
         fb.field('cosp', lbl='Commenced of <br>Sea Passage',fldvalign='center')
 
         btn_arrivo=fb.button('Email arrival',hidden="^checksof")#.controller.title?=#v!=null")
@@ -760,6 +761,9 @@ class Form(BaseComponent):
         fb.field('etc' , width='10em')
         fb.field('ets', width='10em' )
         fb.field('dock_id', width='15em' )
+
+    def times_sof(self,frame):
+        self.times(frame) #per non riscrivere lo stesso codice di times passiamo direttamente self.times(frame)
     
     def taskList(self, bc_tasklist):
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%').div(margin='10px',margin_left='2px')

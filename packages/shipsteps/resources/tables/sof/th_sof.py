@@ -96,17 +96,30 @@ class Form(BaseComponent):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=4, border_spacing='4px',fld_width='10em')
         #fb.field('arrival_id')
         fb.field('sof_n', readOnly=True)
-        fb.field('nor_tend')
-        fb.field('nor_rec')
-        fb.field('nor_acc')
+        fb.field('nor_tend',border_color="^nortend")
+        fb.field('nor_rec',border_color="^norrec")
+        fb.field('nor_acc',border_color="^noracc")
         fb.field('customs_commenced')
-        fb.field('customs_completed')
-        fb.field('ops_commenced')
-        fb.field('ops_completed')
-        fb.field('doc_onboard')
+        fb.field('customs_completed',border_color="^custcomp")
+        fb.field('ops_commenced',border_color="^opscomm")
+        fb.field('ops_completed',border_color="^opscompl")
+        fb.field('doc_onboard',border_color="^doconb")
         fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2, tag='textArea')
         fb.field('onbehalf', width='15em', placeholder='insert the name of society', tag='textArea')
         fb.field('int_sof', placeholder='eg.: Fiore Srl')
+        #dopo la stampa del sof ci ritorna la variabile nome_temp con tutti i valori associati dei campi vuoti
+        # e tramite il datacontroller assegnamo nel datastore delle variabili con il colore a cui faremo riferimento nel border_color dei campi
+        fb.dataController("""if (ca.includes('no nor tendered')){SET nortend = 'red';} else {SET nortend = '';}
+                             if (ca.includes('no nor received')){SET norrec = 'red';} else {SET norrec = '';}
+                             if (ca.includes('no nor accepted')){SET noracc = 'red';} else {SET noracc = '';}
+                             if (ca.includes('no customs completed')){SET custcomp = 'red';} else {SET custcomp = '';}
+                             if (ca.includes('no ops commenced')){SET opscomm = 'red';} else {SET opscomm = '';}
+                             if (ca.includes('no ops completed')){SET opscompl = 'red';} else {SET opscompl = '';}
+                             if (ca.includes('no docs onboard')){SET doconb = 'red';} else {SET doconb = '';}
+                             if (ca.includes('no pilot departure')){SET pildep = 'red';} else {SET pildep = '';}
+                             if (ca.includes('no sailed')){SET sail = 'red';} else {SET sail = '';}
+                             if (ca!='') {alert(ca);}
+                        """, ca='^nome_temp')
         #fb.dataController("""if(tab=='op'){SET #FORM.tabname='operations';alert(msg_txt);}""",tab='op',msg_txt='fatto', _onStart=True)
         #fb.data('#FORM.tabname', "operations")
         #fb.dataController("""if(^#FORM.shipsteps_sof_cargo.view.count.total>0){SET #FORM.tabname=operations;}""")
@@ -157,7 +170,6 @@ class Form(BaseComponent):
     def print_sof(self, record, resultAttr=None, nome_template=None, format_page=None, **kwargs):
         #msg_special=None
         record_id=record['id']
-        #print(x)
        #if selId is None:
        #    msg_special = 'yes'
        #    return msg_special
@@ -183,7 +195,35 @@ class Form(BaseComponent):
 
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
-
+        
+        nor_tend,nor_rec,nor_acc,cust_compl,ops_comm, ops_compl, doc_onb = tbl_sof.readColumns(columns="""$nor_tend,$nor_rec,$nor_acc,$customs_completed,$ops_commenced,$ops_completed,doc_onboard""", 
+                                                                                               where='$id=:sof_id', sof_id=record_id)
+        tbl_arrTimes =  self.db.table('shipsteps.arrival_time')
+        arr_id = record['arrival_id']
+        pob_dep,sail= tbl_arrTimes.readColumns(columns="""$pobd,$sailed""", where='$arrival_id=:arr_id', arr_id=arr_id)
+        
+        nome_temp=[]
+        if nor_tend is None:
+            nome_temp.append('no nor tendered')
+        if nor_rec is None:
+            nome_temp.append('no nor received')
+        if nor_acc is None:
+            nome_temp.append('no nor accepted')
+        if cust_compl is None:
+            nome_temp.append('no customs completed')        
+        if ops_comm is None:
+            nome_temp.append('no ops commenced')
+        if ops_compl is None:
+            nome_temp.append('no ops completed')
+        if doc_onb is None:
+            nome_temp.append('no docs onboard')    
+        if pob_dep is None:
+            nome_temp.append('no pilot departure')
+        if sail is None:
+            nome_temp.append('no sailed')            
+        
+        return nome_temp
+    
     def cargoSof(self,pane):
         pane.inlineTableHandler(relation='@sof_cargo_sof',viewResource='ViewFromSof_Cargo',
                                 picker='cargo_unl_load_id',

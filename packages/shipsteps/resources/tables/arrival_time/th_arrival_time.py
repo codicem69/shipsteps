@@ -48,7 +48,7 @@ class Form(BaseComponent):
         fb.field('poff')
         fb.field('gangway' )
         fb.field('free_p' )
-        fb.field('pobd' )
+        fb.field('pobd')
         fb.field('last_line' )
         fb.field('sailed' )
         fb.field('cosp' )
