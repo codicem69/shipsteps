@@ -74,15 +74,15 @@ class Form(BaseComponent):
 
     def vesselName(self, bc):
        
-        bc.contentPane(region='left', width='12%').linkerBox('imbarcazione_id',label='Vessel name',margin='2px',openIfEmpty=True, validate_notnull=True,
+        bc.contentPane(region='left', width='20%', splitter=True).linkerBox('imbarcazione_id',label='Vessel name',margin='2px',openIfEmpty=True, validate_notnull=True,
                                                     columns='$nome',
                                                     auxColumns='$tipo,@flag.codename,$imo',
                                                     newRecordOnly=False,formResource='Form',
                                                     dialog_height='200px',dialog_width='700px')
-        center= bc.roundedGroup(region='center',title='Vessel Details').div(margin='10px',margin_right='20px')
+        center= bc.roundedGroup(region='center',title='Vessel Details', splitter=True).div(margin='10px',margin_right='20px')
         fb = center.formbuilder(cols=2, border_spacing='4px')
         fb.field('owner_id',lbl='Owner',auxColumns='$own_name',
-                        hasDownArrow=True, width='100%', colspan=2)
+                        hasDownArrow=True, width='auto', colspan=2)
         fb.br()
         #fb.field('imo', width='20em' )
         fb.field('callsign', width='10em' )
@@ -102,7 +102,7 @@ class Form(BaseComponent):
         fb.field('type',width='100%',colspan=2, values="Portarinfuse liquide,Portarinfuse secche,Portacontainer,Trasp. specializzato,Nave per Merci varie,Nave per Passeggeri,Navi da crociera,Attività Off Shore,Chiatta carichi secchi,Altre navi", tag='filteringSelect')
       
 
-        right = bc.roundedGroup(region='right',title='Vessel Immagine',width='550px')
+        right = bc.roundedGroup(region='right',title='Vessel Immagine',width='30%',splitter=True)
      
         right.img(src='^.vess_image', edit=True, crop_width='600px', crop_height='250px', 
                         placeholder=True, upload_folder='*')

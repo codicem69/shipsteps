@@ -9,7 +9,7 @@ class Table(object):
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='arrival_email', mode='foreignkey', onDelete='cascade')
         tbl.column('dest', name_short='!![en]Destination',values='to:to,cc:cc')           
-        tbl.column('description', name_short='!![en]Email description')
+        tbl.column('description', name_short='!![en]Name description')
         tbl.column('email', name_short='Email arrival')
         tbl.column('email_type', size=':3', name_short='!![en]Email type', values='to:to,cc:cc,ccn:ccn')
         #tbl.aliasColumn('agency_id','@arrival_id.agency_id')

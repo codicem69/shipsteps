@@ -478,10 +478,16 @@ class Form(BaseComponent):
     #    pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices')
 
     def datiArrivo(self,bc):
-        center = bc.roundedGroup(title='!![en]Vessel arrival', region='center',datapath='.record',width='210px', height = '100%').div(margin='10px',margin_left='2px')
-        center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')
-        center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
-        center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px',margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
+        #center = bc.roundedGroup(title='!![en]Vessel arrival', region='center',datapath='.record',width='210px', height = '100%').div(margin='10px',margin_left='2px')
+        #center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')
+        #center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
+        #center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px',margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
+
+        center = bc.roundedGroup(title='!![en]Vessel arrival', region='left',datapath='.record',width='210px', height = '100%',splitter=True).div(margin='10px',margin_left='2px')
+        center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
+        
+        center2 = bc.roundedGroup(title='!![en]EXTRA',region='right',width='440px', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
+       # center3 = bc.roundedGroup(title='!![en]EXTRA',region='right',datapath='.record',width='240px',margin_left='0px', margin_top='150px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]Times',table='shipsteps.arrival_time',region='center',datapath='.record.@time_arr',width='245px', height = '350px', margin_left='1385px').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
         #onDbChanges in caso di modifica dati su vessel_details il form arrival viene aggiornato
@@ -520,17 +526,18 @@ class Form(BaseComponent):
         fb.field('cargo_dest', colspan=2, width='29em' )
         fb.br()
         fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
-        fb = center2.formbuilder(cols=1, border_spacing='4px', fld_width='10em',hidden="^#FORM.record.@tip_mov.code?=#v!='pass'")
+        fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="^#FORM.record.@tip_mov.code?=#v!='pass'")
         #con attributo hidden che punta a tip_mov se diverso dal valore pass nascondiamo il formbuilder della gpg
         #fb.field('arrival_id')
         fb.field('date_start')
         fb.field('date_end')
         fb.field('n_gpg')
 
-        fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='18em',lblpos='T',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")
-        #nascondiamo il formbuilder in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
+        fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")
+        #nascondiamo il campo nsis in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
         fb.field('nsis_prot')
-        fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='18em',lblpos='T')
+      # fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='18em',lblpos='T')
+        fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T')
         fb.field('firma_div', tag='textArea')
 
     def datiCaricoBordo(self,bc):
