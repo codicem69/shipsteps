@@ -119,7 +119,7 @@ class Form(BaseComponent):
                              if (ca.includes('no pilot departure')){SET pildep = 'red';} else {SET pildep = '';}
                              if (ca.includes('no sailed')){SET sail = 'red';} else {SET sail = '';}
                              if (ca!='') {alert(ca);}
-                        """, ca='^nome_temp')
+                        """, ca='^var_sof')
         #fb.dataController("""if(tab=='op'){SET #FORM.tabname='operations';alert(msg_txt);}""",tab='op',msg_txt='fatto', _onStart=True)
         #fb.data('#FORM.tabname', "operations")
         #fb.dataController("""if(^#FORM.shipsteps_sof_cargo.view.count.total>0){SET #FORM.tabname=operations;}""")
@@ -146,7 +146,7 @@ class Form(BaseComponent):
         btn_sof_arrivo=bar.email_arrivo.button('Email arrival')
         btn_sof_oper=bar.email_operazioni.button('Email operations')
         btn_sof_partenza=bar.email_partenza.button('Email departure')
-        btn_sof_print.dataRpc('nome_temp', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
+        btn_sof_print.dataRpc('var_sof', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
         btn_sof_arrivo.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -202,27 +202,27 @@ class Form(BaseComponent):
         arr_id = record['arrival_id']
         pob_dep,sail= tbl_arrTimes.readColumns(columns="""$pobd,$sailed""", where='$arrival_id=:arr_id', arr_id=arr_id)
         
-        nome_temp=[]
+        var_sof=[]
         if nor_tend is None:
-            nome_temp.append('no nor tendered')
+            var_sof.append('no nor tendered')
         if nor_rec is None:
-            nome_temp.append('no nor received')
+            var_sof.append('no nor received')
         if nor_acc is None:
-            nome_temp.append('no nor accepted')
+            var_sof.append('no nor accepted')
         if cust_compl is None:
-            nome_temp.append('no customs completed')        
+            var_sof.append('no customs completed')        
         if ops_comm is None:
-            nome_temp.append('no ops commenced')
+            var_sof.append('no ops commenced')
         if ops_compl is None:
-            nome_temp.append('no ops completed')
+            var_sof.append('no ops completed')
         if doc_onb is None:
-            nome_temp.append('no docs onboard')    
+            var_sof.append('no docs onboard')    
         if pob_dep is None:
-            nome_temp.append('no pilot departure')
+            var_sof.append('no pilot departure')
         if sail is None:
-            nome_temp.append('no sailed')            
+            var_sof.append('no sailed')            
         
-        return nome_temp
+        return var_sof
     
     def cargoSof(self,pane):
         pane.inlineTableHandler(relation='@sof_cargo_sof',viewResource='ViewFromSof_Cargo',
