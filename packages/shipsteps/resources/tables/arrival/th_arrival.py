@@ -1352,6 +1352,7 @@ class Form(BaseComponent):
                              if(msg=='vess_serv') {SET .form_services=true;} this.form.save();
                              if(msg=='val_deroga_gb') if(msg=='val_deroga_gb'){SET .email_garbage_cp=true ; alert(msg_txt);}
                              if(msg=='no_moored') {genro.publish("floating_message",{message:'You must insert in arrival times date and time of vessel moored', messageType:"error"});}
+                             if(msg=='no_next_port') {genro.publish("floating_message",{message:'You must insert next port', messageType:"error"});}
                              if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') genro.publish("floating_message",{message:'You must first print Nota Arrivo', messageType:"error"}); if(msg=='fal1_arr_no') genro.publish("floating_message",{message:'You must first print Fal1 arrival', messageType:"error"}); if(msg=='fal1arr_notarr') genro.publish("floating_message",{message:'You must first print Fal1 arrival and Nota Arrivo', messageType:"error"});
                              if(msg=='mod61_dep') {alert(msg_txt);} if(msg=='nota_part_no') genro.publish("floating_message",{message:'You must first print Dich. integrativa di partenza', messageType:"error"}); if(msg=='fal1_dep_no') genro.publish("floating_message",{message:'You must first print Fal1 departure', messageType:"error"}); if(msg=='fal1dep_notapart') genro.publish("floating_message",{message:'You must first print Fal1 departure and Dich. integrativa di partenza', messageType:"error"}); if(msg=='no_sailed') genro.publish("floating_message",{message:'You must first insert ets date and time', messageType:"error"});
                              if(msg=='fal1dep_notapart_dispval') genro.publish("floating_message",{message:'You must first print Fal1 departure and Dich. integrativa di partenza and Currency availability', messageType:"error"});
@@ -1540,7 +1541,7 @@ class Form(BaseComponent):
             btn_der_cp.dataRpc('nome_temp', self.print_template_derogagb,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
                                 imbarcazione_id='=#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                                moored='=#FORM.record.@time_arr.moored',
+                                moored='=#FORM.record.@time_arr.moored',nextport='=#FORM.record.@next_port.descrizione',
                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -1550,7 +1551,7 @@ class Form(BaseComponent):
             btn_der_cp.dataRpc('nome_temp', self.print_template_derogagb,
                       record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
                                 imbarcazione_id='=#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                                moored='=#FORM.record.@time_arr.moored',
+                                moored='=#FORM.record.@time_arr.moored',nextport='=#FORM.record.@next_port.descrizione',
                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
@@ -3031,13 +3032,17 @@ class Form(BaseComponent):
         return nome_temp    
     
     @public_method
-    def print_template_derogagb(self, record, imbarcazione_id=None,resultAttr=None,selId=None,moored=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
+    def print_template_derogagb(self, record, imbarcazione_id=None,resultAttr=None,selId=None,moored=None,nextport=None,nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
-        #facciamo arrivare alla variabile moored la datetime dell'ormeggio e se non presente torna indietro il messaggio no_moored per far scattare il dataController
+        #facciamo arrivare alla variabile moored la datetime dell'ormeggio e se non presente torna indietro il valore no_moored per far scattare il dataController   
         if moored is None or moored == '':
             nome_temp = 'no_moored'
             return nome_temp
-
+        #verifichiamo la variabile nextport e se non presente o con valore 'ORDER' o 'N/A' torna indietro il valore no_next_port per far scattare il dataController
+        if nextport is None or nextport == 'ORDER' or nextport == 'N/A':
+            nome_temp = 'no_next_port'
+            return nome_temp
+        
         tbl_arrival = self.db.table('shipsteps.arrival')
         builder = TableTemplateToHtml(table=tbl_arrival)
 
