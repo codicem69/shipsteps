@@ -3038,8 +3038,8 @@ class Form(BaseComponent):
         if moored is None or moored == '':
             nome_temp = 'no_moored'
             return nome_temp
-        #verifichiamo la variabile nextport e se non presente o con valore 'ORDER' o 'N/A' torna indietro il valore no_next_port per far scattare il dataController
-        if nextport is None or nextport == 'ORDER' or nextport == 'N/A':
+        #verifichiamo la variabile nextport e se non presente o con valore 'ORDER' o 'N/A' o 'MARE' torna indietro il valore no_next_port per far scattare il dataController
+        if nextport is None or nextport == 'ORDER' or nextport == 'N/A' or nextport == 'MARE':
             nome_temp = 'no_next_port'
             return nome_temp
         
