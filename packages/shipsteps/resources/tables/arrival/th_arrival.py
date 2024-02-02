@@ -71,7 +71,7 @@ class View(BaseComponent):
         cargo.fieldcell('cargo_lu_en', width='30em')
         cargo.fieldcell('@cargo_lu_arr.tot_cargo', width='8em')
         cargo.fieldcell('ship_rec', width='30em')
-
+        
     def th_struct_clientecarico(self,struct):
         "Vista ClienteCarico"
         r = struct.view().rows()
@@ -272,7 +272,7 @@ class Form(BaseComponent):
 
     def th_form(self, form):
         #con lo store.handler possiamo inserire tutte le virtual_columns che vogliamo avere disponibili nello store
-        form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp')
+        form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp,$etb_date')
         
         ##all'apertura del form arrival calcoliamo quali sono le partenze finanza non flaggate nella tasklist in modo da notificarle tramite datacontroller 
         #tbl_arrival=self.db.table('shipsteps.arrival')
@@ -1409,14 +1409,40 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_arr=div_arr.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='14em')
+       
+        #btn_fgdf=fb_arr.Button('!![en]Test2',action="""
+        #                       var tp = {template:template_id};
+        #                       var kw = objectExtract(this.getInheritedAttributes(),"batch_*",true);
+        #                       kw.table = 'shipsteps.arrival'; 
+        #                       kw.resource = "print_template";
+        #                       kw.res_type = "print";
+        #                       kw.pkey = this.form.getCurrentPkey();
+        #                       kw.extra_parameters = new gnr.GnrBag({template_id:tp.template,table:kw.table});
+        #                       console.log(kw);
+        #                       genro.publish("table_script_run",kw)""",template_id='tjZPgxoKNZiJgvTEYCEYKg')
+        #                      
+        #fb_arr.br()
+        #fb_arr.br()
         btn_fgdf_cp = fb_arr.Button('!![en]Form GdF')
+        
+       
+        #btn_fgdf_cp.dataController("SET .p_date=pratique_date;",_ask=dict(title='!![en]Insert pratique date',
+        #                                            fields=[dict(name='pratique_date', lbl='!![en]Date', tag='dateTextBox',
+        #                                            cols=4,popup=True,colspan=2)])) 
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_gdf',button=btn_fgdf_cp.js_widget)
-        btn_fgdf_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record',
+        
+        btn_fgdf_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record',_ask=dict(title='!![en]Insert pratique date',
+                                                    fields=[dict(name='pratique_date', lbl='!![en]Date', tag='dateTextBox',
+                                                    cols=4,popup=True,colspan=2)]),#_onCalling="{SET .date_pr=pratique_date;}this.form.save();",
+                                                    pratique_date='^#FORM.record.etb_date',
                             nome_template = 'shipsteps.arrival:form_gdf', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             format_page='A4',_onResult="this.form.save();")
+        #btn_fgdf_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record',
+        #                    nome_template = 'shipsteps.arrival:form_gdf', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        #                    format_page='A4',_onResult="this.form.save();")
         fb_arr.field('form_gdf', lbl='', margin_top='6px')
         fb_arr.semaphore('^.form_gdf?=#v==true?true:false', margin_top='6px')
 
@@ -1436,7 +1462,10 @@ class Form(BaseComponent):
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_provision',button=btn_fprov_cp.js_widget)
-        btn_fprov_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record',
+        btn_fprov_cp.dataRpc('nome_temp', self.print_template,record='=#FORM.record',_ask=dict(title='!![en]Insert pratique date',
+                                                    fields=[dict(name='pratique_date', lbl='!![en]Date', tag='dateTextBox',
+                                                    cols=4,popup=True,colspan=2)]),#_onCalling="{SET .date_pr=pratique_date;}this.form.save();",
+                                                    pratique_date='^#FORM.record.etb_date',
                             nome_template = 'shipsteps.arrival:form_provisions', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             format_page='A4',_onResult="this.form.save();")
         fb_arr.field('form_provision', lbl='', margin_top='6px')
@@ -2796,6 +2825,21 @@ class Form(BaseComponent):
        #else:
        #    letterhead=''
         
+        #verifichiamo se nelle keys di kwargs troviamo la chiave pratique_date e lo assegnamo alla variabile data_pratica 
+        data_pratica = None
+        for chiavi in kwargs.keys():
+            
+            if chiavi=='pratique_date':
+                if kwargs['pratique_date']:
+                    data_pratica=kwargs['pratique_date']
+        #avendo preso il valore data_pratica nei kwargs andiamo a copiarlo nel record della tasklist p_date che ci servirà nella variabile 
+        #che utilizzeremo nei template per avere la data della form                     
+        record_tasklist=record['@arr_tasklist.id'] 
+        tbl_tasklist = self.db.table('shipsteps.tasklist')  
+        tbl_tasklist.batchUpdate(dict(p_date=data_pratica),
+                                    where='$id=:id_task', id_task=record_tasklist)
+        self.db.commit()
+
         #Verifichiamo nel caso stampa sia del mod61_arr se ci sono i file da allegare in cartella altrimenti ritorniamo con il msg di errore
         if nome_temp == 'mod61_arr':
             nome_fal1arr = 'Fal1_arr_' + nome_vs
@@ -2885,9 +2929,9 @@ class Form(BaseComponent):
             if format_page=='A3':
                 if templates[r][1] == 'A3_orizz':
                     letterhead = templates[r][0]
-          
+         
         builder(record=record_arr, template=template,letterhead_id=letterhead)
-       
+        
         #if format_page=='A3':
         #    builder.page_format='A3'
         #    builder.page_width=427

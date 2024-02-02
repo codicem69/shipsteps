@@ -1,4 +1,5 @@
 # encoding: utf-8
+from gnr.core.gnrdecorator import public_method
 
 class Table(object):
     def config_db(self,pkg):
@@ -48,7 +49,9 @@ class Table(object):
         tbl.column('nsw', dtype='B', name_short='!![en]NSW')
         tbl.column('acqua', name_short='!![en]Water qt.')
         tbl.column('nome_servizio', name_short='!![en]service name')
+        tbl.column('p_date', dtype='D', name_short='p_date')
         #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('email_account','@arrival_id.email_account_id')
         tbl.formulaColumn('doc_bunker',"""CASE WHEN @arrival_id.@bunker_arr.arrival_id IS NOT NULL AND @arrival_id.@bunker_arr.doc_cp IS False THEN '<br>YOU MUST TO SEND BUNKER DOCS TO CP' ELSE '' END""", dtype='T')
-   
+        
+    
