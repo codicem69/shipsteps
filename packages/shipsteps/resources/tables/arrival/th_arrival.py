@@ -1180,18 +1180,34 @@ class Form(BaseComponent):
         fb.field('email_ens',lbl='', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb.semaphore('^.email_ens?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
 
+        #verifichiamo quanti servizi ADSP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='adsp').fetch()
+        serv_len=len(service_for_email)
         btn_gbadsp = fb.Button('!![en]Garbage ADSP', width='10em')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_garbage_adsp',button=btn_gbadsp.js_widget)
-        btn_gbadsp.dataRpc('nome_temp', self.email_services,
+        if serv_len > 1:
+            btn_gbadsp.dataRpc('nome_temp', self.email_services,
+                  record='=#FORM.record', servizio=['adsp'], email_template_id='not_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='adsp',alternatePkey='consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
+                             cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='adsp',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+        else:
+            btn_gbadsp.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record', servizio=['adsp'], email_template_id='not_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='adsp',
                                 cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+       
+       
        # fb.dataController("if(msgspec=='val_adsp') {SET .email_garbage_adsp=true ; alert('Message created')}", msgspec='^msg_special')
       
         fb.field('email_garbage_adsp',lbl='', margin_top='5px')
