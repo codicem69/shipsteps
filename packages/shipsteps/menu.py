@@ -17,6 +17,7 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Arrivals", table="shipsteps.arrival", tags="")
             shipsteps.thpage(u"!![en]Filtered arrivals", table="shipsteps.arrival", tags="", viewResource="View_Filtered_Arrivals")
             shipsteps.thpage(u"!![en]Arrival details", table="shipsteps.arrival_det", tags="")
+            shipsteps.thpage(u"!![en]Arrival times", table="shipsteps.arrival_time", tags="")
             shipsteps.thpage(u"!![en]Arrival logs", table="shipsteps.protocollo", tags="")
             shipsteps.thpage(u"!![en]arrival times", table="shipsteps.arrival_time", tags="")
             shipsteps.thpage(u"!![en]Bill of lading", table="shipsteps.billoflading", tags="")
