@@ -23,8 +23,8 @@ class Table(object):
         tbl.column('description_it', name_short='!![en]Description IT')
         tbl.column('cargo_type_id',size='22',name_short='!![en]Cargo type').relation('cargo_type.id',relation_name='cargotype', mode='foreignkey', onDelete='raise')
         tbl.column('extra_description_cp', name_short='!![en]Extra Description CP')
-        tbl.column('operation', name_short='operation', values='U:Unloading,L:Loading')
-        tbl.column('foreign_cargo', dtype='T', name_short='!![en]Foreign cargo')
+        tbl.column('operation', name_short='operation', values='U:Unloading,L:Loading',validate_notnull=True)
+        tbl.column('foreign_cargo', dtype='T', name_short='!![en]Foreign cargo',validate_notnull=True)
         tbl.column('place_origin_goods',size='22',name_short='!![en]Place origin goods').relation('unlocode.place.id',
                                             relation_name='origingoods', mode='foreignkey', onDelete='raise')
         tbl.column('place_dest_goods',size='22',name_short='!![en]Place destination goods').relation('unlocode.place.id',
