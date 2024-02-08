@@ -52,7 +52,8 @@ class Form(BaseComponent):
         fb.field('last_line' )
         fb.field('sailed' ,border_color="^sail") #tramite il datacontroller in th_sof viene assegnata alla variabile sail il colore del bordo
         fb.field('cosp' )
-
+        #con il datacontroller all'inserimento dei dati in pobd e sailed risettiamo le variabili pildep e sail in null per togliere il colore rosso del bordo
+        fb.dataController("""if(pobd!=null){SET pildep=null;} if(sailed!=null){SET sail=null;}""",pobd='^.pobd',sailed='^.sailed')
         btn_arrivo=fb.button('Email arrival',hidden="^checksof")#.controller.title?=#v!=null")
         btn_partenza=fb.button('Email departure',hidden="^checksof")#.controller.title?=#v!=null")
         fb.dataRpc('checksof', self.checkSof,  record='=#FORM.record', cur_tab='^#FORM/parent/#FORM.current_tab',

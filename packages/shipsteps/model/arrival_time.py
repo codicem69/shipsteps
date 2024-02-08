@@ -7,7 +7,7 @@ class Table(object):
                                       caption_field='aor')
         self.sysFields(tbl)
 
-        tbl.column('arrival_id',size='22', name_long='arrival_id'
+        tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
                     ).relation('arrival.id', relation_name='time_arr', mode='foreignkey', onDelete='cascade', one_one='*',onDuplicate=False)   
         tbl.column('eosp', dtype='DH', name_short='!![en]End of sea passage')     
         tbl.column('aor', dtype='DH', name_short='!![en]Arrived on road')

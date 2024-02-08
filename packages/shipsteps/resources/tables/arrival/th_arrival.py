@@ -304,16 +304,12 @@ class Form(BaseComponent):
         tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
         bc_tasklist = tc_task.borderContainer(title="<div style='color:red;'>Task list</div>", region='center')#title='!![en]Task List'
         
-        #vecchio tab arrivals details con tc_arrtimes
-        #tc_arrtimes = tc.borderContainer(title='!![en]<strong>Arrival Times</strong>')
+        tc_arrtimes = tc.borderContainer(title='!![en]<strong>Arrival Times</strong>')
+        #tab arrivals details con tc_arrtimes disabilitati per uso unico tab e form
+        #tc_details = tc.tabContainer(title='!![en]<strong>Arrival/Departure Details</strong>')
+        #self.arrival_times(tc_details.contentPane(title='!![en]<strong>Vessel Times</strong>',height='100%', background = '#f2f0e8'))
+        #self.arr_details(tc_details.contentPane(title='!![en]<strong>Draft/Remains Details</strong>',height='100%', background = '#f2f0e8'))
 
-        tc_details = tc.tabContainer(title='!![en]<strong>Arrival/Departure Details</strong>')
-        self.arrival_times(tc_details.contentPane(title='!![en]<strong>Vessel Times</strong>',height='100%', background = '#f2f0e8'))
-        self.arr_details(tc_details.contentPane(title='!![en]<strong>Draft/Remains Details</strong>',height='100%', background = '#f2f0e8'))
-
-       # tc_task = tc_task.tabContainer(title='!![en]Shore Pass')
-        #tc_shorepass = tc_task.tabContainer(title='!![en]Shore Pass', region='center')
-        #tc_prova = tc_task.tabContainer(title='!![en]prova')
         tc_undertask = bc_tasklist.tabContainer(margin='2px', region='bottom', height='150px', splitter=True,selectedPage='^tabname')
         tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
         tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
@@ -326,11 +322,7 @@ class Form(BaseComponent):
         tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
 
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
-       # tc2 = bc2.tabContainer(margin='2px', region='center', height='auto', splitter=True)
-       # bc_top = bc.borderContainer(region='center',height='300px', splitter=True)
-       # pane_center=bc_top.contentPane(region='center',datapath='.record', width='1200px', splitter=True)
-        #pane_center=bc_top.contentPane(region='center',datapath='.record', width='1100px', splitter=True)
-       # pane_right=bc_top.contentPane(region='right',datapath='.@gpg_arr', width='320px', splitter=True)
+
         self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = '#f2f0e8'))
         #visualizziamo in alto alle pagine tasklist e arrival times gli expected times
         self.times(bc_tasklist.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
@@ -341,7 +333,6 @@ class Form(BaseComponent):
         tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
-        
         #tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
         tc_sof.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
         
@@ -354,38 +345,32 @@ class Form(BaseComponent):
         #self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
         tc_app.contentPane(title='!![en]Bunker Application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
         tc_app.contentPane(title='!![en]Certificates Application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
-        
-        #self.datiArrivo(pane_center)
-        #self.datiArrivo(pane_center)
+
         #self.gpg(bc.borderContainer(region='center',datapath='.@gpg_arr',height='300px', splitter=True, background = 'lavenderblush'))
 
         tc = bc.tabContainer(margin='2px', region='center', height='auto', splitter=True)
-       # tc_car = tc.tabContainer(title='!![en]Cargo',margin='2px', region='center', height='auto', splitter=True)
-        #tc_sof = tc.tabContainer(title='!![en]SOF',margin='2px', region='center', height='450px', splitter=True)
-        #tc_r = bc_top.tabContainer(margin='2px', region='right', width='25%')#, width='25%', splitter=True)
-        #self.gpg(tc_r.contentPane(title='!![en]GPG'))
+
         tc_under_car = tc_car.tabContainer(title='!![en]Cargo onboard')
-        #self.datiCaricoBordo(tc_car.contentPane(title='!![en]Cargo onboard',datapath='.record'))
+        
         self.carbordoArr(tc_under_car.contentPane(title="!![en]Cargo onboard on arrival",datapath='.record'))
         self.carbordoDep(tc_under_car.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
 
         self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
         self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
         
-        #vecchio form arrival details
-        #self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details',height='100%', region='top', background = '#f2f0e8', pageName='arrtime'))
+        self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details',height='100%', region='top', background = '#f2f0e8', pageName='arrtime'))
 
         tc.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait')
         self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
         tc.contentPane(title='!![en]Vessel details').templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
                                                 template='dettaglio_imb')
 
-
-    def arrival_times(self, pane):
-        pane.stackTableHandler(relation='@time_arr')
-        
-    def arr_details(self, pane):
-        pane.stackTableHandler(relation='@arr_details')
+    #arrival times e details su tabContainer separati e con stackTableHandler disabiltati e utilizzato la form unica
+    #def arrival_times(self, pane):
+    #    pane.stackTableHandler(relation='@time_arr')
+    #    
+    #def arr_details(self, pane):
+    #    pane.stackTableHandler(relation='@arr_details')
 
     def carbordoArr(self,bc):
         center = bc.roundedGroup(title='!![en]Cargo on board on arrival', region='center', height = '100%', background='#f2f0e8').div(margin='10px',margin_left='2px')
@@ -595,113 +580,115 @@ class Form(BaseComponent):
     #def sof(self,pane):
     #    pane.stackTableHandler(relation='@sof_arr')#, formResource='FormSof')
 
-    #def arrival_details(self, bc):
-    #    rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
-    #    rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
-    #    rg_details_dep = bc.roundedGroup(title='!![en]Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
-    #    #rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
-    #    fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
-    #    fb.field('eosp')
-    #    fb.field('aor')
-    #    fb.field('anchored')
-    #    fb.field('anchor_up')
-    #    fb.field('pob')
-    #    fb.field('first_rope')
-    #    fb.field('moored')
-    #    fb.field('poff')
-    #    fb.field('gangway')
-    #    fb.field('free_p')
-    #    fb.field('pobd',border_color="^pildep") #tramite il datacontroller in th_sof viene assegnata alla variabile pildep il colore del bordo
-    #    fb.field('last_line')
-    #    fb.field('sailed',border_color="^sail") #tramite il datacontroller in th_sof viene assegnata alla variabile sail il colore del bordo
-    #    fb.field('cosp', lbl='Commenced of <br>Sea Passage',fldvalign='center')
-#
-    #    btn_arrivo=fb.button('Email arrival',hidden="^checksof")#.controller.title?=#v!=null")
-    #    btn_partenza=fb.button('Email departure',hidden="^checksof")#.controller.title?=#v!=null")
-    #    fb.dataRpc('checksof', self.checkSof,  record='=#FORM.record', cur_tab='^#FORM.current_tab',titolo='^#FORM.controller.title',
-    #               _if='cur_tab!=null||titolo!=null')
-#
-    #    btn_arrivo.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_arrivo',
-    #                        nome_template = 'shipsteps.arrival:email_arrivo',format_page='A4',
-    #                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-    #                         table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
-    #                         cols=4,popup=True,colspan=2)]))
-    #    btn_partenza.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_departure',
-    #                        nome_template = 'shipsteps.arrival:email_departure',format_page='A4',
-    #                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-    #                         table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
-    #                         cols=4,popup=True,colspan=2)]))
-    #    
-    #    div_draft=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DRAFT</strong>',width='99%',height='20%',margin='auto',
-    #                    padding='2px',
-    #                    border='1px solid silver',
-    #                    margin_top='1px',margin_left='4px')
-    #    fb = div_draft.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
-    #    fb.field('draft_aft_arr',placeholder='e.g. 4,5')
-    #    fb.field('draft_fw_arr',placeholder='e.g. 4,5')
-   #
-    #    div_draft=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DRAFT</strong>',width='99%',height='20%',margin='auto',
-    #                    padding='2px',
-    #                    border='1px solid silver',
-    #                    margin_top='1px',margin_left='4px')
-    #    fb = div_draft.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
-    #    fb.field('draft_aft_dep',placeholder='e.g. 4,5')
-    #    fb.field('draft_fw_dep',placeholder='e.g. 4,5')
-#
-    #    div_rem=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>REMAINS</strong>',width='99%',height='20%',margin='auto',
-    #                    padding='2px',
-    #                    border='1px solid silver',
-    #                    margin_top='1px',margin_left='4px')
-    #    fb = div_rem.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
-    #    fb.field('ifo_arr',placeholder='e.g. mt.50')
-    #    fb.field('do_arr',placeholder='e.g. mt.50')
-    #    fb.field('lo_arr',placeholder='e.g. kgs.50')
-    #   
-    #    div_rem=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>REMAINS</strong>',width='99%',height='20%',margin='auto',
-    #                    padding='2px',
-    #                    border='1px solid silver',
-    #                    margin_top='1px',margin_left='4px')
-    #    fb = div_rem.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
-    #    fb.field('ifo_dep',placeholder='e.g. mt.50')
-    #    fb.field('do_dep',placeholder='e.g. mt.50')
-    #    fb.field('lo_dep',placeholder='e.g. kgs.50')
-#
-    #    div_fw=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
-    #                    padding='2px',
-    #                    border='1px solid silver',
-    #                    margin_top='1px',margin_left='4px')
-    #    fb = div_fw.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
-    #    fb.field('fw_arr',placeholder='e.g. mt.50')
- #
-    #    div_fw=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
-    #                    padding='2px',
-    #                    border='1px solid silver',
-    #                    margin_top='1px',margin_left='4px')
-    #    fb = div_fw.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
-    #    fb.field('fw_dep',placeholder='e.g. mt.50')
-#
-    #    div_tug=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>USED TUGS</strong>',width='99%',height='20%',margin='auto',
-    #                    padding='2px',
-    #                    border='1px solid silver',
-    #                    margin_top='1px',margin_left='4px')
-    #    fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
-    #    fb.field('tug_in',placeholder='e.g. 1')
-    # 
-    #    div_tug=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>USED TUGS</strong>',width='99%',height='20%',margin='auto',
-    #                    padding='2px',
-    #                    border='1px solid silver',
-    #                    margin_top='1px',margin_left='4px')
-    #    fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
-    #    fb.field('tug_out',placeholder='e.g. 1')
+    def arrival_details(self, bc):
+        rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
+        rg_details_dep = bc.roundedGroup(title='!![en]Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
+        #rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
+        fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('eosp')
+        fb.field('aor')
+        fb.field('anchored')
+        fb.field('anchor_up')
+        fb.field('pob')
+        fb.field('first_rope')
+        fb.field('moored')
+        fb.field('poff')
+        fb.field('gangway')
+        fb.field('free_p')
+        fb.field('pobd',border_color="^pildep") #tramite il datacontroller in th_sof viene assegnata alla variabile pildep il colore del bordo
+        fb.field('last_line')
+        fb.field('sailed',border_color="^sail") #tramite il datacontroller in th_sof viene assegnata alla variabile sail il colore del bordo
+        fb.field('cosp', lbl='Commenced of <br>Sea Passage',fldvalign='center')
 
-    #@public_method
-    #def checkSof(self, record, **kwargs):
-    #    tabname=kwargs['cur_tab']
-    #    record_id = record['id']
-    #    tbl_sof = self.db.table('shipsteps.sof')
-    #    sof = tbl_sof.query(columns='$id',where = '$arrival_id = :arr_id', arr_id=record_id).fetch()
-    #    if sof:
-    #        return True
+        btn_arrivo=fb.button('Email arrival',hidden="^checksof")#.controller.title?=#v!=null")
+        btn_partenza=fb.button('Email departure',hidden="^checksof")#.controller.title?=#v!=null")
+        fb.dataRpc('checksof', self.checkSof,  record='=#FORM.record', cur_tab='^#FORM.current_tab',titolo='^#FORM.controller.title',
+                   _if='cur_tab!=null||titolo!=null')
+        #con il datacontroller all'inserimento dei dati in pobd e sailed risettiamo le variabili pildep e sail in null per togliere il colore rosso del bordo
+        fb.dataController("""if(pobd!=null){SET pildep=null;} if(sailed!=null){SET sail=null;}""",pobd='^.pobd',sailed='^.sailed')
+
+        btn_arrivo.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_arrivo',
+                            nome_template = 'shipsteps.arrival:email_arrivo',format_page='A4',
+                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
+        btn_partenza.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_departure',
+                            nome_template = 'shipsteps.arrival:email_departure',format_page='A4',
+                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
+        
+        div_draft=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DRAFT</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_draft.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('draft_aft_arr',placeholder='e.g. 4,5')
+        fb.field('draft_fw_arr',placeholder='e.g. 4,5')
+   
+        div_draft=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>DRAFT</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_draft.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('draft_aft_dep',placeholder='e.g. 4,5')
+        fb.field('draft_fw_dep',placeholder='e.g. 4,5')
+
+        div_rem=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>REMAINS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_rem.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('ifo_arr',placeholder='e.g. mt.50')
+        fb.field('do_arr',placeholder='e.g. mt.50')
+        fb.field('lo_arr',placeholder='e.g. kgs.50')
+       
+        div_rem=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>REMAINS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_rem.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('ifo_dep',placeholder='e.g. mt.50')
+        fb.field('do_dep',placeholder='e.g. mt.50')
+        fb.field('lo_dep',placeholder='e.g. kgs.50')
+
+        div_fw=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_fw.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('fw_arr',placeholder='e.g. mt.50')
+
+        div_fw=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>FRESH WATER</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_fw.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('fw_dep',placeholder='e.g. mt.50')
+
+        div_tug=rg_details.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>USED TUGS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('tug_in',placeholder='e.g. 1')
+     
+        div_tug=rg_details_dep.div('&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<strong>USED TUGS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
+        fb.field('tug_out',placeholder='e.g. 1')
+
+    @public_method
+    def checkSof(self, record, **kwargs):
+        tabname=kwargs['cur_tab']
+        record_id = record['id']
+        tbl_sof = self.db.table('shipsteps.sof')
+        sof = tbl_sof.query(columns='$id',where = '$arrival_id = :arr_id', arr_id=record_id).fetch()
+        if sof:
+            return True
 
     @public_method
     def cargodocsCertLazyMode(self,pane):

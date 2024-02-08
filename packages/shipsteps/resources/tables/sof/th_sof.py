@@ -109,7 +109,7 @@ class Form(BaseComponent):
         fb.field('int_sof', placeholder='eg.: Fiore Srl')
         #dopo la stampa del sof ci ritorna la variabile nome_temp con tutti i valori associati dei campi vuoti
         # e tramite il datacontroller assegnamo nel datastore delle variabili con il colore a cui faremo riferimento nel border_color dei campi
-        fb.dataController("""if (ca.includes('no nor tendered')){SET nortend = 'red';} else {SET nortend = '';}
+        fb.dataController("""if (ca.includes('no nor tendered')){SET nortend = 'red';} else {SET nortend='';}
                              if (ca.includes('no nor received')){SET norrec = 'red';} else {SET norrec = '';}
                              if (ca.includes('no nor accepted')){SET noracc = 'red';} else {SET noracc = '';}
                              if (ca.includes('no customs completed')){SET custcomp = 'red';} else {SET custcomp = '';}
@@ -120,6 +120,15 @@ class Form(BaseComponent):
                              if (ca.includes('no sailed')){SET sail = 'red';} else {SET sail = '';}
                              if (ca!='') {alert(ca);}
                         """, ca='^var_sof')
+        fb.dataController("""if (nor_tend!=null){SET nortend=null;}
+                             if (nor_rec!=null){SET norrec=null;}
+                             if (nor_acc!=null){SET noracc=null;}
+                             if (cust_comp!=null){SET custcomp=null;}
+                             if (ops_comm!=null){SET opscomm=null;}
+                             if (ops_compl!=null){SET opscompl=null;}
+                             if (doc_onb!=null){SET doconb=null;}
+                          """,nor_tend='^.nor_tend',nor_rec='^.nor_rec',nor_acc='^.nor_acc',cust_comp='^.customs_completed',ops_comm='^.ops_commenced',
+                              ops_compl='^.ops_completed',doc_onb='^.doc_onboard')
         #fb.dataController("""if(tab=='op'){SET #FORM.tabname='operations';alert(msg_txt);}""",tab='op',msg_txt='fatto', _onStart=True)
         #fb.data('#FORM.tabname', "operations")
         #fb.dataController("""if(^#FORM.shipsteps_sof_cargo.view.count.total>0){SET #FORM.tabname=operations;}""")

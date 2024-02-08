@@ -6,7 +6,7 @@ class Table(object):
                                      caption_field='id')
         self.sysFields(tbl)
 
-        tbl.column('arrival_id',size='22', name_long='arrival_id'
+        tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
                     ).relation('arrival.id', relation_name='arr_details', mode='foreignkey', onDelete='cascade', one_one='*',onDuplicate=False)
         tbl.column('draft_aft_arr', size=':15', name_short='!![en]Draft AFT arrival')
         tbl.column('draft_fw_arr', size=':15', name_short='!![en]Draft FW arrival')
