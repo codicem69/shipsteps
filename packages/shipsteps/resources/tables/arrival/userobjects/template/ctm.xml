@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2024-02-19T17:21:59.228118+01:00</_ins_ts>
+<_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-02-20T16:32:27.180744+01:00</_mod_ts>
+<_ins_user _tag="__ins_user" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user">admin</_ins_user>
+<identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatectm</identifier>
+<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">ctm</code>
+<objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
+<pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
+<tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">cash to master</description>
+<notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
+<data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
+	&lt;p class="western" style="margin-bottom: 0cm; text-align: center;"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p class="western" style="margin-bottom: 0cm; text-align: center;"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p class="western" style="margin-bottom: 0cm; text-align: center;"&gt;
+		&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;font size="6" style="font-size: 28pt"&gt;&lt;b&gt;CASH TO MASTER&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;
+	&lt;p align="center" class="western" style="margin-bottom: 0cm"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p align="center" class="western" style="margin-bottom: 0cm"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p align="center" class="western" style="margin-bottom: 0cm"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p align="center" class="western" style="margin-bottom: 0cm"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:40px;margin-right:20px;width:96%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td colspan="2"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;I undersigned Master of $imbarcazione_tipo $imbarcazione_nome Flag $flag_codename, arrived at $porto on the $times_moored,&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="2" style="text-align: center;"&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;R E C E I V E&lt;/span&gt;&lt;/span&gt;&lt;br type="_moz" /&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="2"&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;from $agency_name Agency the amount of Euro $ctm &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;($conv_ctm/00) &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;as cash to Master.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="2"&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$porto, on $date_ctm&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;br type="_moz" /&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td width="60%"&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;The Master&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</content>
+<metadata><author>admin</author>
+<version _T="NN"></version>
+<date _T="NN"></date>
+<is_print _T="NN"></is_print>
+<is_mail _T="NN"></is_mail>
+<is_row _T="NN"></is_row>
+<row_height _T="NN"></row_height>
+<default_letterhead _T="NN"></default_letterhead>
+<summary _T="NN"></summary>
+<email><subject _T="NN"></subject>
+<to_address _T="NN"></to_address>
+<from_address _T="NN"></from_address>
+<cc_address _T="NN"></cc_address>
+<bcc_address _T="NN"></bcc_address>
+<attachments _T="NN"></attachments></email>
+<email_compiled _T="BAG"></email_compiled></metadata>
+<varsbag><gtk9fw0lgx _pkey="gtk9fw0lgx"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Tipo</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_tipo">imbarcazione_tipo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gtk9fw0lgx>
+<gtk9fwxxbd _pkey="gtk9fwxxbd"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_nome">mbarcazione_nome</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gtk9fwxxbd>
+<gtk9g22g29 _pkey="gtk9g22g29"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@flag.codename</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Vessel/imbarcazione/Flag/codename</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_flag_codename">flag_codename</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gtk9g22g29>
+<gtk9glmd41 _pkey="gtk9glmd41"><fieldpath dtype="::NN">@time_arr.moored</fieldpath>
+<dtype dtype="::NN">DH</dtype>
+<fieldname dtype="::NN">arrival times/moored</fieldname>
+<varname dtype="::NN">times_moored</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format dtype="::NN" _loadedValue="::NN">dd/MM/yyyy</format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gtk9glmd41>
+<gtk9khx1yh _pkey="gtk9khx1yh"><fieldpath dtype="::NN">@agency_id.agency_name</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/agency_name</fieldname>
+<varname dtype="::NN" _loadedValue="agenzia_agency_name">agency_name</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gtk9khx1yh>
+<gtk9kvdcdd _pkey="gtk9kvdcdd"><fieldpath dtype="::NN">@agency_id.@port.descrizione</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Agenzia/place/Descrizione</fieldname>
+<varname dtype="::NN" _loadedValue="agenzia_place_descrizione">porto</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gtk9kvdcdd>
+<gtkbz8eqex _pkey="gtkbz8eqex"><fieldpath dtype="::NN">ctm</fieldpath>
+<dtype dtype="::NN">N</dtype>
+<fieldname dtype="::NN">ctm</fieldname>
+<varname dtype="::NN">ctm</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gtkbz8eqex>
+<gtkc9e68i9 _pkey="gtkc9e68i9"><fieldpath dtype="::NN">conv_ctm</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">conv_ctm</fieldname>
+<varname dtype="::NN">conv_ctm</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gtkc9e68i9>
+<gtlaugwfwp _pkey="gtlaugwfwp"><fieldpath>date_ctm</fieldpath>
+<dtype dtype="::NN">D</dtype>
+<fieldname dtype="::NN">date_ctm</fieldname>
+<varname dtype="::NN">date_ctm</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask></gtlaugwfwp></varsbag>
+<parameters _T="BAG"></parameters>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<content_css _T="NN"></content_css>
+<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@vessel_details_id.@imbarcazione_id.@flag.codename,conv_ctm" columns="@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.@flag.codename,@time_arr.moored,@agency_id.agency_name,@agency_id.@port.descrizione,$ctm,$conv_ctm,$date_ctm" formats='{"times_moored": "dd/MM/yyyy"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"imbarcazione_tipo": "T", "mbarcazione_nome": "T", "flag_codename": "A", "times_moored": "DH", "agency_name": "T", "porto": "T", "ctm": "N", "conv_ctm": "T", "date_ctm": "D"}::JS'>&lt;div&gt;
+	&lt;p class="western" style="margin-bottom: 0cm; text-align: center;"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p class="western" style="margin-bottom: 0cm; text-align: center;"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p class="western" style="margin-bottom: 0cm; text-align: center;"&gt;
+		&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;font size="6" style="font-size: 28pt"&gt;&lt;b&gt;CASH TO MASTER&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;
+	&lt;p align="center" class="western" style="margin-bottom: 0cm"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p align="center" class="western" style="margin-bottom: 0cm"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p align="center" class="western" style="margin-bottom: 0cm"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;p align="center" class="western" style="margin-bottom: 0cm"&gt;
+		&amp;nbsp;&lt;/p&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:40px;margin-right:20px;width:96%;"&gt;
+		&lt;tbody&gt;
+			&lt;tr&gt;
+				&lt;td colspan="2"&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;I undersigned Master of $@vessel_details_id.@imbarcazione_id.tipo $imbarcazione_nome Flag $@vessel_details_id.@imbarcazione_id.@flag.codename, arrived at $@agency_id.@port.descrizione on the $@time_arr.moored^times_moored,&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="2" style="text-align: center;"&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;R E C E I V E&lt;/span&gt;&lt;/span&gt;&lt;br type="_moz" /&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="2"&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;from $@agency_id.agency_name Agency the amount of Euro $ctm &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;($conv_ctm/00) &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;as cash to Master.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="2"&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$@agency_id.@port.descrizione, on $date_ctm&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+					&lt;div&gt;
+						&amp;nbsp;&lt;/div&gt;
+					&lt;div&gt;
+						&lt;br type="_moz" /&gt;
+						&amp;nbsp;&lt;/div&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td width="60%"&gt;
+					&amp;nbsp;&lt;/td&gt;
+				&lt;td&gt;
+					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;The Master&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/tbody&gt;
+	&lt;/table&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&amp;nbsp;&lt;/div&gt;</main></compiled></data>
+<authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
+<private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
+<flags _T="NN" dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags"></flags>
+<required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
+<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>
