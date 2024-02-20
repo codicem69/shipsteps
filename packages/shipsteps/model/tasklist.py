@@ -7,7 +7,7 @@ class Table(object):
                                      caption_field='id')
         self.sysFields(tbl)
 
-        tbl.column('arrival_id',size='22', name_long='arrival_id'
+        tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
                     ).relation('arrival.id', relation_name='arr_tasklist', mode='foreignkey', onDelete='cascade', one_one='*',onDuplicate=False)
         tbl.column('checklist', dtype='B', name_short='Check list')
         tbl.column('frontespizio', dtype='B', name_short='!![en]Vessel Frontispiece')

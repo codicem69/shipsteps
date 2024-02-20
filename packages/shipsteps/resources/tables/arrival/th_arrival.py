@@ -166,7 +166,7 @@ class View(BaseComponent):
             del_row = False
         
         return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
-
+ 
 class View_Filtered_Arrivals(BaseComponent):
     def th_struct(self,struct):
         
@@ -3265,5 +3265,5 @@ class Form(BaseComponent):
 
     
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px', duplicate=True)
+        return dict(dialog_height='400px', dialog_width='600px', duplicate=True, annotations=True)
    

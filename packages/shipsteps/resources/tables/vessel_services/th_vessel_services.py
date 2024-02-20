@@ -39,20 +39,34 @@ class ViewFromVesselServices(BaseComponent):
         return '_row_count'
         
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('addrow','addrow,10,stampa_services,stampa_serv_int')
+        bar = view.top.bar.replaceSlots('addrow','addrow,10,stampa_services,stampa_serv_int,5,ctm')
         btn_print_services=bar.stampa_services.button('!![en]Print Vessel services')
-        btn_print_services.dataRpc('nome_temp', self.print_template_services,record='=#FORM.record',servizio=[],
+        btn_print_services.dataRpc('nome_temp', self.print_template_services,record='=#FORM.record',
                             nome_template = 'shipsteps.arrival:vess_serv',format_page='A4')
         btn_print_services_int=bar.stampa_serv_int.button('!![en]Print Vessel services private')
-        btn_print_services_int.dataRpc('', self.print_template_services,record='=#FORM.record',servizio=[],
+        btn_print_services_int.dataRpc('', self.print_template_services,record='=#FORM.record',
                             nome_template = 'shipsteps.arrival:vess_serv_int',format_page='A4')
+        btn_ctm=bar.ctm.button('!![en]Print Cash to Master')
+        btn_ctm.dataRpc('', self.print_template_services,record='=#FORM.record',nome_template = 'shipsteps.arrival:ctm',format_page='A4',
+                            _ask=dict(title='!![en]Insert the Amount of Cash to Master',
+                            fields=[dict(name='ctm', lbl='!![en]Amount', tag='numberTextBox',validate_notnull=True,table='shipsteps.arrival',
+                            cols=1,popup=True,colspan=2),dict(name='datectm', lbl='!![en]Date receipt', tag='dateTextBox',validate_notnull=True,
+                            cols=1,popup=True,colspan=2)]))#,_onCalling="{SET #FORM.record.ctm=ctm; SET #FORM.record.date_ctm=datectm;}this.form.save();")
 
     @public_method
-    def print_template_services(self, record, resultAttr=None, nome_template=None, format_page=None, **kwargs):
-        # Crea stampa
+    def print_template_services(self, record, nome_template=None, format_page=None, **kwargs):
+         # Crea stampa
         record_id = record['id']
-        
         tbl_arrival = self.db.table('shipsteps.arrival')
+        
+        if nome_template == 'shipsteps.arrival:ctm':
+            if kwargs:
+                ctm=kwargs['ctm']
+                date_ctm=kwargs['datectm']
+                tbl_arrival.batchUpdate(dict(ctm=ctm,date_ctm=date_ctm),
+                                    where='$id=:id_arr', id_arr=record_id)
+                self.db.commit()    
+
         builder = TableTemplateToHtml(table=tbl_arrival)
         #nome_template = nome_template #'shipsteps.arrival:check_list'
 

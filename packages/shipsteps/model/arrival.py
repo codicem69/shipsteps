@@ -53,7 +53,8 @@ class Table(object):
         tbl.column('tip_mov',name_short='!![en]Tip.Mov.', batch_assign=True
                     ).relation('tip_mov.code', relation_name='ship_mov', mode='foreignkey', onDelete='raise')
         tbl.column('vessel_stamp', dtype='P', name_long='!![en]Vessel Stamp')
-               
+        tbl.column('ctm', dtype='N', name_short='ctm')
+        tbl.column('date_ctm', dtype='D', name_short='date ctm')       
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
@@ -66,6 +67,7 @@ class Table(object):
         #tbl.pyColumn('logocp',name_long='!![en]Logo CP', static=True, dtype='P')
         tbl.pyColumn('privacy',name_long='!![en]Privacy email', static=True, dtype='T')
         tbl.pyColumn('docbefore_cp', dtype='B')
+        tbl.pyColumn('conv_ctm')
        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('n_tug_arr','@extradatacp.n_tug_arr')
         tbl.aliasColumn('n_tug_dep','@extradatacp.n_tug_dep')
@@ -332,7 +334,7 @@ class Table(object):
                                             WHEN $operation = 'U' THEN 'Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description ELSE 'NIL' END """,
                                                                     where='$arrival_id=:a_id',
                                                                     a_id=pkey).fetch()                                    
-      
+        
         n_car = len(carico) 
         cargo=''                                                               
         for r in range (n_car):
@@ -394,10 +396,9 @@ class Table(object):
         return sal
     
     def pyColumn_datacorrente(self,record,field):
-        data_lavoro=self.db.workdate
-        
+        data_lavoro=self.db.workdate   
         return data_lavoro
-
+    
     def pyColumn_sostanave(self,record,field):
         pkey=record['id']
         moored = self.db.table('shipsteps.arrival_time').readColumns(columns='$moored', where='$arrival_id=:a_id', a_id=pkey)
@@ -415,6 +416,60 @@ class Table(object):
             sosta=str(days) + ' giorni, ' + str(tot_hours) + ' ore, ' + str(remain_minutes) + ' minuti'
             return sosta    
 
+    def pyColumn_conv_ctm(self,record,field):
+        self.ones = ["", "one ", "two ", "three ", "four ", "five ", "six ", "seven ", "eight ", "nine ", "ten ", "eleven ",
+                "twelve ", "thirteen ", "fourteen ", "fifteen ", "sixteen ", "seventeen ", "eighteen ", "nineteen "]
+
+        self.twenties = ["", "", "twenty ", "thirty ", "forty ", "fifty ", "sixty ", "seventy ", "eighty ", "ninety "]
+
+        self.thousands = ["", "thousand ", "million ", "billion ", "trillion ", "quadrillion ", "quintillion ", "sextillion ",
+             "septillion ", "octillion ", "nonillion ", "decillion ", "undecillion ", "duodecillion ", "tredecillion ",
+             "quattuordecillion ", "quindecillion", "sexdecillion ", "septendecillion ", "octodecillion ",
+             "novemdecillion ", "vigintillion "]
+        pkey=record['id']
+        tbl_arrival=self.db.table('shipsteps.arrival')
+        n=tbl_arrival.readColumns(columns="$ctm", where="$id=:id_arr",id_arr=pkey)
+        
+        cash_word = self.num2word(n)
+        return cash_word
+
+    def num999(self,n):
+        c = n % 10  # singles digit
+        b = ((n % 100) - c) / 10  # tens digit
+        a = ((n % 1000) - (b * 10) - c) / 100  # hundreds digit
+        t = ""
+        h = ""
+        if a != 0 and b == 0 and c == 0:
+            t = self.ones[int(a)] + "hundred "
+        elif a != 0:
+            t = self.ones[int(a)] + "hundred and "
+        if b <= 1:
+            h = self.ones[n % 100]
+        elif b > 1:
+            h = self.twenties[int(b)] + self.ones[int(c)]
+        st = t + h
+        return st
+
+
+    def num2word(self,num):
+        if num == 0: return 'zero'
+
+        i = 3
+        n = str(num)
+        word = ""
+        k = 0
+        while (i == 3):
+            nw = n[-i:]
+            n = n[:-i]
+            if int(nw) == 0:
+                word = self.num999(int(nw)) + self.thousands[int(nw)] + word
+            else:
+                word = self.num999(int(nw)) + self.thousands[k] + word
+            if n == '':
+                i = i + 1
+            k += 1
+        return word[:-1]
+    
     #def pyColumn_logocc(self,record,field):
     #    logocc = self.db.application.getPreference('logo_cc',pkg='shipsteps')
     #    return logocc
@@ -471,4 +526,4 @@ class Table(object):
         record['nsis_prot'] = None
         record['note'] = None
         record['vessel_stamp'] = None
-    
+        

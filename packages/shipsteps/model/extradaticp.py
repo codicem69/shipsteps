@@ -7,7 +7,7 @@ class Table(object):
                                       caption_field='id')
         self.sysFields(tbl)
 
-        tbl.column('arrival_id',size='22', name_long='arrival_id'
+        tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
                     ).relation('arrival.id', relation_name='extradatacp', mode='foreignkey', onDelete='cascade', one_one='*',onDuplicate=False)
         tbl.column('mot_appr',  name_short='Motivo approdo')
         tbl.column('lavori', name_short='Per lavori o altri motivi')

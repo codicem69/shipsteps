@@ -33,3 +33,9 @@ class Table(object):
         tbl.formulaColumn('hoseconn_time', """CASE WHEN $hose_conn is not null THEN to_char($hose_conn, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('hosedisconn_time', """CASE WHEN $hose_disconn is not null THEN to_char($hose_disconn, :df) || '<br>'  ELSE '' END""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('average_sof', """CASE WHEN $average is not null THEN $average || '<br>'  ELSE '' END""", dtype='T')
+        tbl.formulaColumn('time_sof_tanks', 
+                          """coalesce('Tanks inspection commenced--' || to_char($start_insp, :df) || '<br>', '') || coalesce('Tanks inspection completed--' || to_char($stop_insp, :df) || '<br>','') ||
+                             coalesce('Cargo calculation-----------' || to_char($cargo_calc, :df) || '<br>', '') || coalesce('Ullage commenced------------' || to_char($start_ullage, :df) || '<br>','') ||
+                             coalesce('Ullage completed------------' || to_char($stop_ullage, :df) || '<br>','') || coalesce('Hoses connected-------------' || to_char($hose_conn, :df) || '<br>','') || 
+                             coalesce('Average rate----------------' || $average || '<br>','')""",var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('portlog_tanks_time',"""CASE WHEN $time_sof_tanks !='' THEN '<br>TIMES LOG FOR TANKS<br>------------------------------<br>' || coalesce($time_sof_tanks,'') END""")
