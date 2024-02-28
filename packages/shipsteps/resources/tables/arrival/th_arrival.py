@@ -3265,5 +3265,5 @@ class Form(BaseComponent):
 
     
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px', duplicate=True, annotations=True)
+        return dict(dialog_height='400px', dialog_width='600px', duplicate=True)
    

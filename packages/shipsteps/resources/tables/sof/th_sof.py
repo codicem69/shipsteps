@@ -63,7 +63,7 @@ class ViewFromSof(BaseComponent):
         
 
 class Form(BaseComponent):
-    py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor'
+    py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor,gnrcomponents/attachmanager/attachmanager:AttachManager'
     def th_form(self, form):
         form.store.handler('load',virtual_columns='$measure_sof') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
         # filtrare in daily_sofdetails la misura da applicare in base al carico applicato
@@ -89,9 +89,13 @@ class Form(BaseComponent):
         self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
         self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
         self.editLop(tc.framePane(title='!![EN]Edit LOP', datapath='#FORM.editPagine'))
+        self.allegatiSof(tc.contentPane(title='!![en]SOF Attachments', height='100%'))
         #tc.dataController("""{SET #THIS.tabname='operations';}""")
         #form.data('tabop','op')
-        
+
+    def allegatiSof(self,pane):
+        pane.attachmentGrid(viewResource='ViewFromSofAtc')
+
     def datiSof(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=4, border_spacing='4px',fld_width='10em')
         #fb.field('arrival_id')
@@ -159,18 +163,18 @@ class Form(BaseComponent):
         btn_sof_arrivo.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+                             table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         btn_sof_oper.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_operations',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+                             table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='template', lbl='Email Template',tag='filteringSelect', value='^.template', 
                              values='email_operations:without total mov,email_operations_mov:with total mov')]))
         btn_sof_partenza.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_partenza',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+                             table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='template', lbl='Email Template',tag='filteringSelect', value='^.template', 
                              values='email_partenza:without total mov,email_partenza_mov:with total mov')]))
         bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^nome_temp',msg_txt = 'Email ready to be sent')
@@ -438,7 +442,7 @@ class Form(BaseComponent):
         if lista_all is not None:
             len_allegati = len(lista_all) #verifichiamo la lunghezza della lista pkeys tabella allegati
             file_url=[]
-            tbl_att =  self.db.table('shipsteps.arrival_atc') #definiamo la variabile della tabella allegati
+            tbl_att =  self.db.table('shipsteps.sof_atc') #definiamo la variabile della tabella allegati
             #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):

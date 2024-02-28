@@ -11,7 +11,12 @@
         <pfda pkgcode="pfda:pfda"/>
 		<agz pkgcode="agz:agz"/>
 		<shipsteps pkgcode="shipsteps"/>
-
+	<!--<gnrcore_orgn pkgcode="gnrcore:orgn">
+			<entities>
+				<arrival tbl='shipsteps.arrival' caption='arrival' pivot_date='date'/>
+				<agency tbl='agz.agency' caption='agency'/>
+			</entities>
+		</gnrcore_orgn> -->
 	</packages>
 
 	<!-- <menu package="*"/> -->
