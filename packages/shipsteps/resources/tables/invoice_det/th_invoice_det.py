@@ -38,7 +38,7 @@ class ViewIntFat(BaseComponent):
 
     @public_method
     def email_intfat(self, record, **kwargs):
-        
+        ref_num=record['reference_num']
         if not record:
             return
         #lettura del record_id della tabella arrival
@@ -89,7 +89,7 @@ class ViewIntFat(BaseComponent):
                            to_address='',
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
-                           cc_address='',
+                           cc_address='',ref_num=ref_num,
                            html=True)
         self.db.commit()
         

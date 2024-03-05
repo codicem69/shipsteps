@@ -269,9 +269,10 @@ class FormFromBunker(BaseComponent):
 
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[],lista_all=None, **kwargs):
-       
+        arrival_id=record['arrival_id'] 
         id_bunker_atc=record['id']
-        record=record['arrival_id']        
+        record=record['arrival_id']  
+             
         if not record:
             return
         #verifichiamo che stiamo inviando docs dopo bunker e aggiungiamo alla lista gli allegati selezionati           
@@ -424,7 +425,8 @@ class FormFromBunker(BaseComponent):
                                                           cc_address=email_cc,
                                                           bcc_address=email_bcc,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)
             self.db.commit()
 
         if (email_pec_dest) is not None:
@@ -435,7 +437,8 @@ class FormFromBunker(BaseComponent):
                                                           to_address=email_pec,
                                                           cc_address=email_pec_cc,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)
             self.db.commit()
         
         
@@ -450,6 +453,7 @@ class FormFromBunker(BaseComponent):
     @public_method
     def email_trasportatore(self, record,email_template_id=None,servizio=[], **kwargs):
         record_id=record['arrival_id']
+        arrival_id=record['arrival_id']
         if not record:
             return
         #lettura del record_id della tabella arrival
@@ -514,7 +518,7 @@ class FormFromBunker(BaseComponent):
                            to_address=email_to,
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
-                           attachments=attcmt,
+                           attachments=attcmt,arrival_id=arrival_id,
                            html=True)
             self.db.commit()
         
@@ -524,7 +528,9 @@ class FormFromBunker(BaseComponent):
         
     @public_method
     def email_antifire(self, record,email_template_id=None,servizio=[], **kwargs):
+        arrival_id=record['arrival_id']
         record=record['id']
+        
         if not record:
             return
 
@@ -589,7 +595,8 @@ class FormFromBunker(BaseComponent):
                                                           cc_address=email_cc,
                                                           bcc_address=email_bcc,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)
             self.db.commit()
         
         if (email_pec_dest) is not None:
@@ -600,7 +607,8 @@ class FormFromBunker(BaseComponent):
                                                           to_address=email_pec,
                                                           cc_address=email_pec_cc,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)
             self.db.commit()
         
         

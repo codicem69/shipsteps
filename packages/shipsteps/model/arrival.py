@@ -326,6 +326,7 @@ class Table(object):
         #riceviamo un msg di testo che andremo a lanciare con un data controller quando apriamo gli arrivi
         tbl.formulaColumn('gdfdep_timeexp',"""CASE WHEN @time_arr.sailed < NOW() AND @arr_tasklist.form_gdfdep IS NULL OR @arr_tasklist.form_gdfdep = false 
                                             THEN true END""", dtype='B')               
+        tbl.formulaColumn('refcode',"'%%' || $reference_num || '%%'",dtype='T')
 
     def pyColumn_cargo(self,record,field):
        

@@ -65,7 +65,7 @@ class ViewFromSof(BaseComponent):
 class Form(BaseComponent):
     py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor,gnrcomponents/attachmanager/attachmanager:AttachManager'
     def th_form(self, form):
-        form.store.handler('load',virtual_columns='$measure_sof') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
+        form.store.handler('load',virtual_columns='$measure_sof,@arrival_id.reference_num') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
         # filtrare in daily_sofdetails la misura da applicare in base al carico applicato
         bc = form.center.borderContainer()
         self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='130px', background='lightgrey', splitter=True))
@@ -160,7 +160,7 @@ class Form(BaseComponent):
         btn_sof_oper=bar.email_operazioni.button('Email operations')
         btn_sof_partenza=bar.email_partenza.button('Email departure')
         btn_sof_print.dataRpc('var_sof', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
-        btn_sof_arrivo.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',
+        btn_sof_arrivo.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',ref_num='=#FORM.record.@arrival_id.reference_num',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
@@ -422,6 +422,7 @@ class Form(BaseComponent):
     @public_method
     def email_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
         record_arr=record['arrival_id']
+        arrival_id=record['arrival_id']
         #verifichiamo che ci sia il record
         if not record:
             return
@@ -546,7 +547,8 @@ class Form(BaseComponent):
                                                           cc_address=email_arr_cc,
                                                           bcc_address=email_arr_bcc,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)
         
         self.db.commit()
         #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero

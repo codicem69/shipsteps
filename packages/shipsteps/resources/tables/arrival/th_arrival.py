@@ -272,7 +272,7 @@ class Form(BaseComponent):
 
     def th_form(self, form):
         #con lo store.handler possiamo inserire tutte le virtual_columns che vogliamo avere disponibili nello store
-        form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp,$etb_date')
+        form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp,$etb_date,$refcode')
         
         ##all'apertura del form arrival calcoliamo quali sono le partenze finanza non flaggate nella tasklist in modo da notificarle tramite datacontroller 
         #tbl_arrival=self.db.table('shipsteps.arrival')
@@ -320,6 +320,8 @@ class Form(BaseComponent):
         #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
         tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
         tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
+        tc_email = tc.borderContainer(title='!![en]<strong>Email in/out</strong>')
+        tc_email.contentPane(title='!![en]Email in/out',height='100%').remote(self.emailInOutLazyMode,_waitingMessage='!![en]Please wait')
 
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
 
@@ -371,7 +373,11 @@ class Form(BaseComponent):
     #    
     #def arr_details(self, pane):
     #    pane.stackTableHandler(relation='@arr_details')
-
+    @public_method
+    def emailInOutLazyMode(self,pane):
+        pane.stackTableHandler(table='email.message',relation='@email_arr',condition="$arrival_id=:cod",condition_cod='=#FORM.record.id',liveUpdate=True,view_store__onBuilt=True, extendedQuery=True)
+        #pane.dataController("""{this.form.reload();}""",ref_num='^#FORM.record.reference_num',_if='ref_num')
+        
     def carbordoArr(self,bc):
         center = bc.roundedGroup(title='!![en]Cargo on board on arrival', region='center', height = '100%', background='#f2f0e8').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=3, border_spacing='4px')
@@ -1897,6 +1903,7 @@ class Form(BaseComponent):
     def email_services(self,record,email_template_id=None,servizio=[],nome_temp=None,**kwargs):
     #def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None,**kwargs):
         record_arr=record['id']
+        arrival_id=record['id']
         flag=record['flag']
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
@@ -2169,7 +2176,8 @@ class Form(BaseComponent):
                                                           cc_address=email_cc_d,
                                                           bcc_address=email_bcc_d,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)
             
             self.db.commit()
     
@@ -2181,7 +2189,8 @@ class Form(BaseComponent):
                                                           to_address=email_pec_d,
                                                           cc_address=email_pec_cc_d,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)
             self.db.commit()
         
         
@@ -2237,7 +2246,7 @@ class Form(BaseComponent):
     
     @public_method
     def email_serv_upd(self, record,email_template_id=None,selPkeys_att=None, **kwargs):
-        
+        arrival_id=record['id']
         if not record:
             return
         #lettura del record_id della tabella arrival
@@ -2370,7 +2379,7 @@ class Form(BaseComponent):
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
                            cc_address=email_cc, 
-                           bcc_address=email_bcc, attachments=attcmt,
+                           bcc_address=email_bcc, attachments=attcmt,arrival_id=arrival_id,
                            html=True)
             self.db.commit()
         body_html_pec=(body_header_pec + body_msg + body_footer )
@@ -2381,7 +2390,7 @@ class Form(BaseComponent):
                            from_address=emailpec_mitt,
                            subject=subject, body=body_html_pec, 
                            cc_address=email_pec_cc, 
-                           attachments=attcmt,
+                           attachments=attcmt,arrival_id=arrival_id,
                            html=True)
             self.db.commit()
         if (email_dest or email_pec_dest) is not None:
@@ -2391,7 +2400,7 @@ class Form(BaseComponent):
 
     @public_method
     def email_intfat(self, record, **kwargs):
-        
+        arrival_id=record['id']
         if not record:
             return
         #lettura del record_id della tabella arrival
@@ -2442,7 +2451,7 @@ class Form(BaseComponent):
                            to_address='',
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
-                           cc_address='',
+                           cc_address='',arrival_id=arrival_id,
                            html=True)
         self.db.commit()
         
@@ -2451,6 +2460,7 @@ class Form(BaseComponent):
 
     @public_method
     def email_ws(self, record, **kwargs):
+        arrival_id=record['id']
         result = Bag()
         if not record:
             return
@@ -2547,7 +2557,7 @@ class Form(BaseComponent):
                            to_address=email_to,
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
-                           cc_address=email_cc,
+                           cc_address=email_cc,arrival_id=arrival_id,
                            html=True)
         self.db.commit()
         
@@ -2561,6 +2571,7 @@ class Form(BaseComponent):
         if not record:
             return
         record_arr=record['id']
+        arrival_id=record['id']
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
         #verifichiamo che nei kwargs['allegati'] non abbiamo il valore nullo e trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
@@ -2677,7 +2688,8 @@ class Form(BaseComponent):
                                                           cc_address=email_arr_cc,
                                                           bcc_address=email_arr_bcc,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)
         self.db.commit()
         #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero
         if email_template_id == 'email_updating_shiprec':
@@ -2689,6 +2701,7 @@ class Form(BaseComponent):
     @public_method
     def email_arrdep(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
         record_arr=record['id']
+        arrival_id=record['id']
         #verifichiamo che ci sia il record
    
         if not record:
@@ -2789,7 +2802,8 @@ class Form(BaseComponent):
                                                           cc_address=email_arr_cc,
                                                           bcc_address=email_arr_bcc,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)
         
         self.db.commit()
         #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero

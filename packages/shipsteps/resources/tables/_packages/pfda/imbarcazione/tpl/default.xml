@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<GenRoBag><metadata><email><subject _T="NN"></subject>
+<to_address _T="NN"></to_address>
+<from_address _T="NN"></from_address>
+<cc_address _T="NN"></cc_address>
+<bcc_address _T="NN"></bcc_address>
+<attachments _T="NN"></attachments></email>
+<email_compiled _T="BAG"></email_compiled></metadata>
+<varsbag><g5d8lhmi5l _pkey="g5d8lhmi5l"><fieldpath>tipo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Tipo</fieldname>
+<varname dtype="::NN">tipo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8lhmi5l>
+<g5d8lii7cx _pkey="g5d8lii7cx"><fieldpath>nome</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Nome</fieldname>
+<varname dtype="::NN">nome</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8lii7cx>
+<g5d8lktord _pkey="g5d8lktord"><fieldpath>loa</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">LOA</fieldname>
+<varname dtype="::NN">loa</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8lktord>
+<g5d8llsd7t _pkey="g5d8llsd7t"><fieldpath>gt</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">GT</fieldname>
+<varname dtype="::NN">gt</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8llsd7t>
+<g5d8ln47ft _pkey="g5d8ln47ft"><fieldpath>nt</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">NT</fieldname>
+<varname dtype="::NN">nt</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8ln47ft>
+<g5d8lq0v6p _pkey="g5d8lq0v6p"><fieldpath>imo</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">imo</fieldname>
+<varname dtype="::NN">imo</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></g5d8lq0v6p>
+<glev5cc1ft _pkey="glev5cc1ft"><fieldpath dtype="::NN">@flag.codename</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Flag/codename</fieldname>
+<varname dtype="::NN">bandiera</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></glev5cc1ft></varsbag>
+<email><attached_reports _T="BAG"></attached_reports></email>
+<content>&lt;div&gt;
+	$tipo&amp;nbsp; $nome&lt;/div&gt;
+&lt;div&gt;
+	Flag: $bandiera&lt;/div&gt;
+&lt;div&gt;
+	IMO: $imo&lt;/div&gt;
+&lt;div&gt;
+	GT $gt - NT $nt&lt;/div&gt;
+&lt;div&gt;
+	LOA $loa&lt;/div&gt;</content>
+<compiled><main maintable="pfda.imbarcazione" locale="it-IT" virtual_columns="@flag.codename" columns="$tipo,$nome,$loa,$gt,$nt,$imo,@flag.codename" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"tipo": "T", "nome": "T", "loa": "T", "gt": "T", "nt": "T", "imo": "T", "bandiera": "A"}::JS'>&lt;div&gt;
+	$tipo&amp;nbsp; $nome&lt;/div&gt;
+&lt;div&gt;
+	Flag: $@flag.codename&lt;/div&gt;
+&lt;div&gt;
+	IMO: $imo&lt;/div&gt;
+&lt;div&gt;
+	GT $gt - NT $nt&lt;/div&gt;
+&lt;div&gt;
+	LOA $loa&lt;/div&gt;</main></compiled>
+<content_css _T="NN"></content_css>
+<parametersbag _T="NN"></parametersbag></GenRoBag>
