@@ -75,6 +75,7 @@ class Form(BaseComponent):
        # self.arrivalTimes(tc.contentPane(title='!![en]Arr/Dep Times', pageName='arr_times'))
         self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
         self.dailyOperations(tc.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
+        self.trucksDetails(tc.contentPane(title='!![en]Trucks details'))
 
         tc_rem = tc.tabContainer(title='!![en]Remarks',margin='2px',tabPosition='left-h')#, region='center', height='450px', splitter=True)
         
@@ -336,6 +337,9 @@ class Form(BaseComponent):
 
     def dailyOperations(self,pane):
         pane.inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp',liveUpdate=True)
+
+    def trucksDetails(self,pane):
+        pane.inlineTableHandler(relation='@sof_trucks',viewResource='ViewFromTrucks',liveUpdate=True)    
 
     def remarks_cte(self,frame):
         frame.simpleTextArea(title='!![en]Master Remarks',value='^.remarks_cte',editor=True)
