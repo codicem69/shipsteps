@@ -2445,8 +2445,7 @@ class Form(BaseComponent):
         body_msg=("""<span style="font-family:courier new,courier,monospace;">""" + sal + '<br>' + "con la presente siamo a girarVi intestazione fatture per " +vessel_type + ' ' + vessel_name + " :" + '<br><br>' +
                         int_fat + '<br><br>')
         body_html=(body_msg + body_footer )
-        #print(x)
-        
+                
         self.db.table('email.message').newMessage(account_id=account_email,
                            to_address='',
                            from_address=email_mittente,
