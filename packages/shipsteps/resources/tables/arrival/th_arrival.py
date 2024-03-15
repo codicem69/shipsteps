@@ -1863,7 +1863,8 @@ class Form(BaseComponent):
 
     def allegatiArrivo(self,pane):
         pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
-
+        #pane.attachmentGallery(viewResource='ViewFromArrivalAtc')
+            
     @public_method
     def shorePassLazyMode(self,pane):
         pane.stackTableHandler(relation='@shorepass_arr',formResource='Form',view_store__onBuilt=True)

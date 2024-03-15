@@ -39,7 +39,9 @@ class ViewFromVesselServices(BaseComponent):
         return '_row_count'
         
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('addrow','addrow,10,stampa_services,stampa_serv_int,5,ctm')
+        bar = view.top.bar.replaceSlots('addrow','addrow,10,servizi_std,*,stampa_services,stampa_serv_int,5,ctm')
+        btn_services_std=bar.servizi_std.button('!![en]Insert standard services')
+        btn_services_std.dataRpc('nome_temp', self.insert_StdServices,record='=#FORM.record')
         btn_print_services=bar.stampa_services.button('!![en]Print Vessel services')
         btn_print_services.dataRpc('nome_temp', self.print_template_services,record='=#FORM.record',
                             nome_template = 'shipsteps.arrival:vess_serv',format_page='A4')
@@ -53,6 +55,20 @@ class ViewFromVesselServices(BaseComponent):
                             cols=1,popup=True,colspan=2),dict(name='datectm', lbl='!![en]Date receipt', tag='dateTextBox',validate_notnull=True,
                             cols=1,popup=True,colspan=2)]))#,_onCalling="{SET #FORM.record.ctm=ctm; SET #FORM.record.date_ctm=datectm;}this.form.save();")
 
+    @public_method
+    def insert_StdServices(self, record, **kwargs):
+        record_id = record['id']
+        tbl_std_serv = self.db.table('shipsteps.service_std')
+        record_std_serv = tbl_std_serv.query(columns="*",
+                         where='').fetch()
+        
+        tbl_vessel_serv = self.db.table('shipsteps.vessel_services')
+        for r in record_std_serv:
+            nuovo_rec = dict(arrival_id=record_id,services_id=r['services_id'],descrizione=r['descrizione'])
+            tbl_vessel_serv.insert(nuovo_rec)
+            
+        self.db.commit() 
+    
     @public_method
     def print_template_services(self, record, nome_template=None, format_page=None, **kwargs):
          # Crea stampa
