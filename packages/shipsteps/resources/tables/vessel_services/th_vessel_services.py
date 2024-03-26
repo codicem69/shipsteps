@@ -63,9 +63,11 @@ class ViewFromVesselServices(BaseComponent):
                          where='').fetch()
         
         tbl_vessel_serv = self.db.table('shipsteps.vessel_services')
+        
         for r in record_std_serv:
-            nuovo_rec = dict(arrival_id=record_id,services_id=r['services_id'],descrizione=r['descrizione'])
-            tbl_vessel_serv.insert(nuovo_rec)
+            if not tbl_vessel_serv.checkDuplicate(arrival_id=record_id,services_id=r['services_id']):
+                nuovo_rec = dict(arrival_id=record_id,services_id=r['services_id'],descrizione=r['descrizione'])
+                tbl_vessel_serv.insert(nuovo_rec)
             
         self.db.commit() 
     
