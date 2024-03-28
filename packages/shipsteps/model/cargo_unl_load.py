@@ -50,6 +50,8 @@ class Table(object):
                                         dtype='T', name_long='Ship or Rec')
         tbl.formulaColumn('shiprec', """CASE WHEN $operation = 'L' THEN @shipper_id.name WHEN $operation = 'U' THEN @receiver_id.name ELSE '' END """,
                                         dtype='T', name_long='ShipRec')
+        tbl.formulaColumn('shiprec_sof', """CASE WHEN $operation = 'L' THEN $shipper_id WHEN $operation = 'U' THEN $receiver_id ELSE '' END """,
+                                        dtype='T', name_long='ShipRec_sof')
         tbl.formulaColumn('tot_cargo',select=dict(table='shipsteps.cargo_unl_load',
                                                 columns='SUM($quantity)',
                                                 where='$id=#THIS.id'),

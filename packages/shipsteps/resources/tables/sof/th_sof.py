@@ -22,7 +22,7 @@ class View(BaseComponent):
         r.fieldcell('doc_onboard')
         r.fieldcell('ship_rec', width='40em')
         r.fieldcell('intestazione_sof')
-        
+        #r.fieldcell('shipper_receiver', edit=True)
 
     def th_order(self):
         return 'arrival_id'
@@ -46,6 +46,7 @@ class ViewFromSof(BaseComponent):
         r.fieldcell('doc_onboard', edit=True)
         r.fieldcell('ship_rec')
         r.fieldcell('intestazione_sof', edit=True)
+        
 #class Form(BaseComponent):
 #
 #    def th_form(self, form):
@@ -65,7 +66,7 @@ class ViewFromSof(BaseComponent):
 class Form(BaseComponent):
     py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor,gnrcomponents/attachmanager/attachmanager:AttachManager'
     def th_form(self, form):
-        form.store.handler('load',virtual_columns='$measure_sof,@arrival_id.reference_num') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
+        form.store.handler('load',virtual_columns='$measure_sof,@arrival_id.reference_num,$ship_rec') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
         # filtrare in daily_sofdetails la misura da applicare in base al carico applicato
         bc = form.center.borderContainer()
         self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='130px', background='lightgrey', splitter=True))
@@ -98,20 +99,26 @@ class Form(BaseComponent):
         pane.attachmentGrid(viewResource='ViewFromSofAtc')
 
     def datiSof(self,pane):
-        fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=4, border_spacing='4px',fld_width='10em')
+        fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=5, border_spacing='4px',fld_width='10em')
         #fb.field('arrival_id')
         fb.field('sof_n', readOnly=True)
         fb.field('nor_tend',border_color="^nortend")
         fb.field('nor_rec',border_color="^norrec")
         fb.field('nor_acc',border_color="^noracc")
+        fb.div('^#FORM.record.ship_rec',lbl='Ship_Rec', width='30em',rowspan=3)
         fb.field('customs_commenced')
         fb.field('customs_completed',border_color="^custcomp")
         fb.field('ops_commenced',border_color="^opscomm")
         fb.field('ops_completed',border_color="^opscompl")
         fb.field('doc_onboard',border_color="^doconb")
-        fb.field('ship_rec', readOnly=True, width='30em',height='2em',colspan=2, tag='textArea')
-        fb.field('onbehalf', width='15em', placeholder='insert the name of society', tag='textArea')
+        
+        #fb.field('ship_rec', readOnly=True, width='30em',height='2em',tag='textArea')
+        fb.field('onbehalf', width='34em', placeholder='insert the name of society', tag='textArea', colspan=2)
         fb.field('int_sof', placeholder='eg.: Fiore Srl')
+        fb.br()
+        fb.field('shipper_receiver', width='36em', hasDownArrow=True, rowcaption='$name',colspan=2)
+        fb.field('cargo_type', width='33em', hasDownArrow=True, colspan=2)
+        fb.field('cargo_consignee_id',hasDownArrow=True, width='90%', lbl='!![en]Cargo dest.')
         #dopo la stampa del sof ci ritorna la variabile nome_temp con tutti i valori associati dei campi vuoti
         # e tramite il datacontroller assegnamo nel datastore delle variabili con il colore a cui faremo riferimento nel border_color dei campi
         fb.dataController("""if (ca.includes('no nor tendered')){SET nortend = 'red';} else {SET nortend='';}

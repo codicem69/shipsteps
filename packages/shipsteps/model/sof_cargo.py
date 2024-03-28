@@ -12,9 +12,29 @@ class Table(object):
         
         #tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@cargo_unl_load_id.ship_rec')
+
+    #con trigger onInserted e OnUpdated richiamiamo nel model sof la funzione insertShipRec per inserire il nome dello shipper o receiver e cargo type    
+    def aggiornaSof(self,record):
+        sof_id = record['sof_id']
+        cargo_un_id = record['cargo_unl_load_id']
+        self.db.deferToCommit(self.db.table('shipsteps.sof').insertShipRec,
+                                    sof_id=sof_id,cargo_un_id=cargo_un_id,
+                                    _deferredId=sof_id)    
         
-        
-        
+    def trigger_onInserted(self,record=None):
+        self.aggiornaSof(record)
+
+    def trigger_onUpdated(self,record=None,old_record=None):
+        self.aggiornaSof(record)
     
-    
-    
+    def trigger_onDeleted(self,record=None):
+        if self.currentTrigger.parent:   
+            return
+        self.aggiornaSof_onDel(record)
+
+    #con trigger onDeleted richiamiamo nel model sof la funzione insertShipRec per togliere il nome dello shipper o receiver e cargo type
+    def aggiornaSof_onDel(self,record):
+        sof_id = record['sof_id']
+        self.db.deferToCommit(self.db.table('shipsteps.sof').insertShipRec,
+                                    sof_id=sof_id,cargo_un_id=None,
+                                    _deferredId=sof_id)    

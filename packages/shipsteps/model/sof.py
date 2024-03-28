@@ -25,6 +25,14 @@ class Table(object):
         tbl.column('int_sof', name_short='!![en]Sof header')
         tbl.column('htmlbag', dtype='X', name_long='HTML Doc Bag')
         tbl.column('htmlbag_lop', dtype='X', name_long='HTML Doc LOP Bag')
+        #tbl.column('shipper_receiver', name_short='!![en]Shipper/Receiver')
+        tbl.column('shipper_receiver',size='22', name_long='!![en]Shippers/Receivers',batch_assign=dict(hasDownArrow=True)
+                    ).relation('ship_rec.id', relation_name='sof_shiprec', mode='foreignkey', onDelete='raise')
+        tbl.column('cargo_type',size='22',name_short='!![en]Cargo type',batch_assign=dict(hasDownArrow=True)
+                   ).relation('cargo_type.id',relation_name='sof_cargotype', mode='foreignkey', onDelete='raise')
+        tbl.column('cargo_consignee_id',size='22',name_short='!![en]Cargo Consignee',batch_assign=dict(hasDownArrow=True)
+                   ).relation('cargo_consignee.id',relation_name='sof_cargocons', mode='foreignkey', onDelete='raise')
+        tbl.aliasColumn('shiprec_fc','@arrival_id.@cargo_lu_arr.shiprec_sof')#, static=True)
         #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@sof_cargo_sof.ship_rec')
         tbl.aliasColumn('cargo_sof', '@sof_cargo_sof.@cargo_unl_load_id.cargo_sof',name_long='!![en]Cargo sof')
@@ -102,7 +110,7 @@ class Table(object):
         tbl.formulaColumn('tot_mov',select=dict(table='shipsteps.daily_sofdetails',
                                                 columns="$tot_progressivo",
                                                 where='$sof_id=#THIS.id',order_by='$date_op DESC',
-                                                limit=1,dtype='N'))
+                                                limit=1),dtype='N')
         tbl.formulaColumn('shortage',select=dict(table='shipsteps.daily_sofdetails',
                                                 columns="$shortage_surplus",
                                                 where='$sof_id=#THIS.id',order_by='$date_op DESC',
@@ -211,7 +219,21 @@ class Table(object):
         else:
             ship_rec=''    
         return ship_rec
-        print(x) 
+         
+    #funzione richiamata dai trigger del sof_cargo model per aggiornare i campi shipper_receiver e cargo_type
+    def insertShipRec(self,sof_id=None,cargo_un_id=None):
+        with self.recordToUpdate(sof_id) as record:
+            shiprec_id=self.db.table('shipsteps.cargo_unl_load').readColumns(columns="""CASE WHEN $operation = 'L' THEN $shipper_id WHEN $operation = 'U' THEN $receiver_id ELSE '' END """,
+                                        where='$id=:cargo_ul',cargo_ul=cargo_un_id)
+            cargo_type_id=self.db.table('shipsteps.cargo_unl_load').readColumns(columns='$cargo_type_id',
+                                                                                where='$id=:cargo_ul',cargo_ul=cargo_un_id)
+            if shiprec_id is None:
+                record['shipper_receiver'] = None
+                record['cargo_type'] = None
+            else:
+                record['shipper_receiver'] = shiprec_id
+                record['cargo_type'] = cargo_type_id
+
    #def pyColumn_carico_del_sof(self,record,field):
    #    
    #    #if not record['pkey']:

@@ -16,7 +16,7 @@ class Table(object):
         tbl.column('shortage_surplus', dtype='N', name_short='!![en]Q.ty Shortage / Surplus', format='#,###.000')
         tbl.column('perc_short_surpl', dtype='N', name_short='!![en]Percentage Shortage / Surplus', format='#,###.000')
         #tbl.aliasColumn('totcargo','@sof_id.tot_cargo_sof', dtype='N', format='#,###.000')
-        #tbl.aliasColumn('agency_id','@sof_id.@arrival_id.agency_id')
+        tbl.aliasColumn('nome_ricevitore','@sof_id.@sof_cargo_sof.@cargo_unl_load_id.@receiver_id.name')
         tbl.formulaColumn('daily_mov',"""'daily cargo discharged  -' || @measure_id.description || ' ' || $qt_mov || '<br>' ||
                                          'total cargo discharged   ' || @measure_id.description || ' ' || $tot_progressivo || '<br>' ||
                                          'remain to be discharged ' || @measure_id.description || ' ' || $shortage_surplus """)
