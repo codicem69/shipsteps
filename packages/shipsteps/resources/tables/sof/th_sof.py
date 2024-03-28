@@ -118,7 +118,7 @@ class Form(BaseComponent):
         fb.br()
         fb.field('shipper_receiver', width='36em', hasDownArrow=True, rowcaption='$name',colspan=2)
         fb.field('cargo_type', width='33em', hasDownArrow=True, colspan=2)
-        fb.field('cargo_consignee_id',hasDownArrow=True, width='90%', lbl='!![en]Cargo dest.')
+        fb.field('cargo_consignee_id',hasDownArrow=True, width='90%', lbl='!![en]Cargo dest.',auxColumns='$address')
         #dopo la stampa del sof ci ritorna la variabile nome_temp con tutti i valori associati dei campi vuoti
         # e tramite il datacontroller assegnamo nel datastore delle variabili con il colore a cui faremo riferimento nel border_color dei campi
         fb.dataController("""if (ca.includes('no nor tendered')){SET nortend = 'red';} else {SET nortend='';}
