@@ -39,18 +39,21 @@ class ViewFromCargoLU(BaseComponent):
         r.fieldcell('shipper_id', hasDownArrow=True,edit=True, width='20em')
         r.fieldcell('receiver_id', hasDownArrow=True,edit=True, width='20em')
         r.fieldcell('charterers_id', hasDownArrow=True,edit=True, width='20em')
-        r.fieldcell('quantity', edit=True, totalize=True, format='#,###.000', dtype='N')
+        r.fieldcell('quantity', edit=dict(validate_notnull=True), totalize=True, format='#,###.000', dtype='N')
         r.cell('tot_progressivo',formula='+=quantity', format='#,###.000', name='Tot.<br>progressivo', dtype='N')
         r.fieldcell('measure_id', hasDownArrow=True, width='5em', edit=dict(validate_notnull=True))
-        r.fieldcell('description', edit=True, width='20em')
-        r.fieldcell('description_it', edit=True, width='20em')
-        r.fieldcell('cargo_type_id', edit=True, width='10em', hasDownArrow=True)
+        r.fieldcell('description', edit=dict(validate_notnull=True), width='20em')
+        r.fieldcell('description_it', edit=dict(validate_notnull=True), width='20em')
+        r.fieldcell('cargo_type_id', edit=dict(validate_notnull=True), width='10em', hasDownArrow=True)
         r.fieldcell('extra_description_cp',edit=True, width='15em')
         r.fieldcell('operation', width='5em', edit=dict(validate_notnull=True))
         #r.fieldcell('foreign_cargo', edit=True, width='5em')
         r.fieldcell('foreign_cargo', values='True:YES,False:NO', edit=dict(validate_notnull=True), width='5em')
-        r.fieldcell('place_origin_goods',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 , edit=True, width='10em')
-        r.fieldcell('place_dest_goods',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 , edit=True, width='10em')    
+        r.fieldcell('place_origin_goods',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 , 
+                    edit=dict(validate_notnull="^#FORM.record.@tip_mov.code?=#v=='alim'"), width='10em')
+        #con validate_notnull="^#FORM.record.@tip_mov.code?=#v=='alim'" verifichiamo che trattasi di prodotti alimentari per rendere obbligatorio il campo
+        r.fieldcell('place_dest_goods',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 ,
+                     edit=dict(validate_notnull="^#FORM.record.@tip_mov.code?=#v=='alim'"), width='10em')    
     
     def th_order(self):
         return 'bln'
