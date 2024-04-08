@@ -1345,6 +1345,7 @@ class Form(BaseComponent):
         #fb.dataController("if(msgspec=='val_bulk')alert(msg_txt);",msgspec='^msg_special',msg_txt = 'Email ready to be sent')
         fb.dataController("""if(msg=='val_bulk'){alert(msg_txt);} if(msg=='val_garb_cp'){SET .email_garbage_cp=true ; alert(msg_txt);}
                              if(msg=='val_integr') {SET .email_integr=true ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if (msg!='') {alert(msg);}
                              if(msg=='val_pmou') {SET .email_pmou=true ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"}); if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msg=='val_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
@@ -1908,6 +1909,25 @@ class Form(BaseComponent):
         flag=record['flag']
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
+        #verifichiamo se i dati per l'integrazione alimentari sono stati inseriti altrimenti ritorniamo con un msg di errore
+        if email_template_id == 'email_integrazione_alim':
+            tbl_cargo = self.db.table('shipsteps.cargo_unl_load')
+            ship,rec,chrt,origin,destination = tbl_cargo.readColumns(columns="""$shipper_id,$receiver_id,$charterers_id,
+                                             $place_origin_goods,$place_dest_goods""", 
+                                             where='$arrival_id=:arr_id', arr_id=record_arr)
+            cargo = []
+            if ship is None:
+                cargo.append('no shipper')
+            if rec is None:
+                cargo.append('no receiver')
+            if chrt is None:
+                cargo.append('no charterers')
+            if origin is None:
+                cargo.append('no place origin goods')
+            if destination is None:
+                cargo.append('no place destination goods')
+            if cargo:
+                return cargo                            
         #verifichiamo se abbiamo inserito il numero di protocollo nsis prima di inviare email a sanimare
         if email_template_id == 'email_sanimare':
             if kwargs['nsisprot'] is None or kwargs['nsisprot'] == '':
