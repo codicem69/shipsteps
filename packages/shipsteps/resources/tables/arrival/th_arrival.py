@@ -1345,7 +1345,7 @@ class Form(BaseComponent):
         #fb.dataController("if(msgspec=='val_bulk')alert(msg_txt);",msgspec='^msg_special',msg_txt = 'Email ready to be sent')
         fb.dataController("""if(msg=='val_bulk'){alert(msg_txt);} if(msg=='val_garb_cp'){SET .email_garbage_cp=true ; alert(msg_txt);}
                              if(msg=='val_integr') {SET .email_integr=true ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if (msg!='') {alert(msg);}
+                             if(msg.includes('no shipper')||msg.includes('no receiver')||msg.includes('no charterers')||msg.includes('no place origin goods')||msg.includes('no place destination goods')){alert(msg);}
                              if(msg=='val_pmou') {SET .email_pmou=true ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"}); if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msg=='val_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
