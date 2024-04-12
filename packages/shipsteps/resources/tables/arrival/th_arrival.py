@@ -1299,7 +1299,7 @@ class Form(BaseComponent):
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         #fb2.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
-       
+        
         fb2.field('email_integr', lbl='', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v!='alim'")#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
         fb2.semaphore('^.email_integr?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v!='alim'")#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
 
@@ -2188,7 +2188,7 @@ class Form(BaseComponent):
                     if email_pec_cc_dest is not None:
                         email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest
         
-        if (email_dest) is not None:
+        if (email_dest) != None and (email_dest) != '':
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record_arr,
                                                           table='shipsteps.arrival',
@@ -2202,7 +2202,7 @@ class Form(BaseComponent):
             
             self.db.commit()
     
-        if (email_pec_dest) is not None:
+        if (email_pec_dest) != None and (email_pec_dest) != '':
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record_arr,
                                                           table='shipsteps.arrival',
