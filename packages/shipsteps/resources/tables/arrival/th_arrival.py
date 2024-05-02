@@ -1368,7 +1368,8 @@ class Form(BaseComponent):
                              if(msg=='val_ricrifiuti') {SET .email_ric_rifiuti_cp=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_tributi') {SET .email_tributi_cp=true; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='vess_serv') {SET .form_services=true;} this.form.save();
-                             if(msg=='val_deroga_gb') if(msg=='val_deroga_gb'){SET .email_garbage_cp=true ; alert(msg_txt);}
+                             if(msg=='val_deroga_gb'){SET .email_garbage_cp=true ; alert(msg_txt);}
+                             if(msg=='bol_deroga_gb'){SET .email_garbage_cp=true ; alert('Stamps inserted');}
                              if(msg=='no_moored') {genro.publish("floating_message",{message:'You must insert in arrival times date and time of vessel moored', messageType:"error"});}
                              if(msg=='no_next_port') {genro.publish("floating_message",{message:'You must insert next port', messageType:"error"});}
                              if(msg=='mod61_arr') {alert(msg_txt);} if(msg=='nota_arr_no') genro.publish("floating_message",{message:'You must first print Nota Arrivo', messageType:"error"}); if(msg=='fal1_arr_no') genro.publish("floating_message",{message:'You must first print Fal1 arrival', messageType:"error"}); if(msg=='fal1arr_notarr') genro.publish("floating_message",{message:'You must first print Fal1 arrival and Nota Arrivo', messageType:"error"});
@@ -1589,19 +1590,19 @@ class Form(BaseComponent):
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
                                 imbarcazione_id='=#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                                 moored='=#FORM.record.@time_arr.moored',nextport='=#FORM.record.@next_port.descrizione',
-                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='bolli',lbl='!![en]Insert only the stamps',value='^.bolli',tag='checkbox',label='Inserisci solo i bolli nella tabella', default=True),dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
-                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                validate_notnull='^.bolli?=#v==true?false:true', hasArrowDown=True,hidden='^.bolli?=#v'),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2,hidden='^.bolli?=#v')]),_onResult="this.form.save();")
         else:                         
             btn_der_cp.dataRpc('nome_temp', self.print_template_derogagb,
                       record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
                                 imbarcazione_id='=#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                                 moored='=#FORM.record.@time_arr.moored',nextport='=#FORM.record.@next_port.descrizione',
-                      _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                      _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='bolli',lbl='!![en]Only insert stamps',value='^.bolli',tag='checkbox', default=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2,hidden='^.bolli?=#v')]),_onResult="this.form.save();")
 
         fb_arr.field('email_garbage_cp', lbl='', margin_top='6px')
         fb_arr.semaphore('^.email_garbage_cp?=#v==true?true:false', margin_top='6px')
@@ -3122,6 +3123,16 @@ class Form(BaseComponent):
     
     @public_method
     def print_template_derogagb(self, record, imbarcazione_id=None,resultAttr=None,selId=None,moored=None,nextport=None,nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
+        tbl_bolli = self.db.table('shipsteps.bolli')
+        agency_id = record['agency_id']
+        if kwargs['bolli']==True:
+            if not tbl_bolli.checkDuplicate(istanza='Deroga Rifiuti',ref_number=record['reference_num']):
+                nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Deroga Rifiuti',
+                                ref_number=record['reference_num'],bolli_tr14=1,bolli_tr22=1,agency_id=agency_id)
+                tbl_bolli.insert(nuovo_record)
+                self.db.commit()   
+            nome_temp='bol_deroga_gb'
+            return nome_temp     
         #msg_special=None
         #facciamo arrivare alla variabile moored la datetime dell'ormeggio e se non presente torna indietro il valore no_moored per far scattare il dataController   
         if moored is None or moored == '':
@@ -3164,8 +3175,7 @@ class Form(BaseComponent):
 
         self.setInClientData(path='gnr.clientprint',
                               value=result.url(timestamp=datetime.now()), fired=True)
-        tbl_bolli = self.db.table('shipsteps.bolli')
-        agency_id = record['agency_id']
+        
         
         if not tbl_bolli.checkDuplicate(istanza='Deroga Rifiuti',ref_number=record['reference_num']):
             nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Deroga Rifiuti',

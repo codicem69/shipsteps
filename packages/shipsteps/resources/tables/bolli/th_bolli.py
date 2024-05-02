@@ -19,7 +19,7 @@ class View(BaseComponent):
         r.fieldcell('nome_agenzia', hidden=True)
 
     def th_order(self):
-        return 'date'
+        return 'date:d'
 
     def th_query(self):
         return dict(column='id', op='contains', val='')
