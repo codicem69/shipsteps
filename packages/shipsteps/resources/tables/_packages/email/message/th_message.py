@@ -3,7 +3,7 @@
 
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method,metadata
-
+from gnr.core.gnrbag import Bag
 
 class View(BaseComponent):
 
@@ -39,6 +39,7 @@ class View(BaseComponent):
         bar=top.slotToolbar('5,sections@in_out,*,sections@sendingstatus,*,updatebtn',
                         childname='upper',_position='<bar')
         bar.updatebtn.slotButton('!!Update',action="""this.form.reload();""")
+        
 
     def th_struct_sending_error(self,struct):
         r = struct.view().rows()
@@ -186,10 +187,65 @@ class Form(BaseComponent):
         errors_bg.top.bar.clearerr.slotButton('Clear errors').dataRpc(
                     self.db.table('email.message').clearErrors, pkey='=#FORM.record.id', _onResult='this.form.reload();')
 
+        #fb.dataRpc('dummy',self.test_email,data_invio='^shipsteps_arrival.form.email_message.form.record.send_date',_if='data_invio', 
+        #                   err_msg='=shipsteps_arrival.form.email_message.form.record.error_msg',tmp_code='=shipsteps_arrival.form.email_message.form.record.template_code',
+        #                   _onResult="""if(result.getItem('email')=='email_dogana'){SET shipsteps_arrival.form.record.@arr_tasklist.email_dogana=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_dogana=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_arr_shiprec'){SET shipsteps_arrival.form.record.@arr_tasklist.email_ship_rec=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_ship_rec=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_frontiera'){SET shipsteps_arrival.form.record.@arr_tasklist.email_frontiera=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_frontiera=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_sanimare'){SET shipsteps_arrival.form.record.@arr_tasklist.email_usma=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_usma=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_pilot_moor'){SET shipsteps_arrival.form.record.@arr_tasklist.email_pilot_moor=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_pilot_moor=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_tug'){SET shipsteps_arrival.form.record.@arr_tasklist.email_tug=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_tug=null;this.form.save();}
+        #                                if(result.getItem('email')=='garbage_email'){SET shipsteps_arrival.form.record.@arr_tasklist.email_garbage=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_garbage=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_pfso'){SET shipsteps_arrival.form.record.@arr_tasklist.email_pfso=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_pfso=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_chemist'){SET shipsteps_arrival.form.record.@arr_tasklist.email_chemist=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_chemist=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_gpg'){SET shipsteps_arrival.form.record.@arr_tasklist.email_gpg=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_gpg=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_ens'){SET shipsteps_arrival.form.record.@arr_tasklist.email_ens=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_ens=null;this.form.save();}
+        #                                if(result.getItem('email')=='not_rifiuti'){SET shipsteps_arrival.form.record.@arr_tasklist.email_garbage_adsp=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_garbage_adsp=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_ric_lps'){SET shipsteps_arrival.form.record.@arr_tasklist.email_ric_lps=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_ric_lps=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_integrazione_alim'){SET shipsteps_arrival.form.record.@arr_tasklist.email_integr=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_integr=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_pmou'){SET shipsteps_arrival.form.record.@arr_tasklist.email_pmou=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_pmou=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_lps_cp'){SET shipsteps_arrival.form.record.@arr_tasklist.email_lps_cp=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_lps_cp=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_chimico_cp'){SET shipsteps_arrival.form.record.@arr_tasklist.email_certchim_cp=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_certchim_cp=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_deroga_garbage'){SET shipsteps_arrival.form.record.@arr_tasklist.email_garbage_cp=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_garbage_cp=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_ricevutarifiuti_cp'){SET shipsteps_arrival.form.record.@arr_tasklist.email_ric_rifiuti_cp=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_ric_rifiuti_cp=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_tug_dep'){SET shipsteps_arrival.form.record.@arr_tasklist.email_tug_dep=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_tug_dep=null;this.form.save();}
+        #                                if(result.getItem('email')=='email_tributi_cp'){SET shipsteps_arrival.form.record.@arr_tasklist.email_tributi_cp=true;this.form.save();}
+        #                                else{SET shipsteps_arrival.form.record.@arr_tasklist.email_tributi_cp=null;this.form.save();}""")
+    
+    #@public_method
+    #def test_email(self, data_invio=None,err_msg=None,tmp_code=None,**kwargs):
+    #    result=Bag()
+    #    if data_invio and err_msg is not None:
+    #        result['email']='error'
+    #        return result
+    #    if data_invio is not None and err_msg==None:
+    #        result['email']=tmp_code
+    #        return result
+
     def th_top_custom(self,top):
         bar = top.bar.replaceSlots('form_delete','send_button,5,form_delete')
         bar.send_button.slotButton('Send message', hidden='^#FORM.record.send_date').dataRpc(
-                    self.db.table('email.message').sendMessage, pkey='=#FORM.record.id')
+                    self.db.table('email.message').sendMessage, pkey='=#FORM.record.id')#,_onResult="""{this.form.reload();}""") 
 
 class FormFromDashboard(Form):
 

@@ -52,7 +52,7 @@ class Table(object):
         tbl.column('error_msg', name_long='Error message')
         tbl.column('error_ts', name_long='Error Timestamp')
         tbl.column('connection_retry', dtype='L')
-        tbl.column('ref_num',size='22',name_long='ref_num')
+        tbl.column('template_code',name_long='Template code')
         tbl.column('arrival_id',size='22',name_short='!!Arrival_id',batch_assign=True).relation('shipsteps.arrival.id',relation_name='email_arr', mode='foreignkey', onDelete='raise')
 
     def defaultValues(self):
@@ -204,7 +204,7 @@ class Table(object):
                   subject=None, body=None, cc_address=None, 
                   reply_to=None, bcc_address=None, attachments=None,weak_attachments=None,
                  message_id=None,message_date=None,message_type=None,
-                 html=False,doCommit=False,headers_kwargs=None,arrival_id=None,**kwargs):
+                 html=False,doCommit=False,headers_kwargs=None,arrival_id=None,tmp_code=None,**kwargs):
 
         message_date = message_date or self.db.workdate
         extra_headers = Bag(dict(message_id=message_id,message_date=str(message_date),reply_to=reply_to))
@@ -229,7 +229,7 @@ class Table(object):
                             extra_headers=extra_headers,
                             message_type=message_type,
                             weak_attachments=weak_attachments,
-                            html=html,dbstore=dbstore,arrival_id=arrival_id,**kwargs)
+                            html=html,dbstore=dbstore,arrival_id=arrival_id,template_code=tmp_code,**kwargs)
 
         message_atc = self.db.table('email.message_atc')
         with self.db.tempEnv(autoCommit=True,**envkw):
@@ -258,13 +258,16 @@ class Table(object):
         return self.newMessage(**mail_handler.mailParsFromUserTemplate(record_id=record_id,letterhead_id=letterhead_id,
                             template_id=template_id,table=table,template_code=template_code,
                             attachments=attachments,to_address=to_address, subject=subject,
-                            cc_address=cc_address,bcc_address=bcc_address,from_address=from_address, account_id=account_id,arrival_id=arrival_id, **kwargs))
+                            cc_address=cc_address,bcc_address=bcc_address,from_address=from_address, account_id=account_id,arrival_id=arrival_id,tmp_code=template_code, **kwargs))
 
 
     @public_method
     def sendMessage(self,pkey=None):
         site = self.db.application.site
         mail_handler = site.getService('mail')
+        #prendiamo la table tasklist per effettuare aggiornamenti ai record una volta inviata la email
+        tbl_tasklist = self.db.table('shipsteps.tasklist')
+        tbl_bunker = self.db.table('shipsteps.bunker')
         with self.recordToUpdate(pkey,for_update='SKIP LOCKED',ignoreMissing=True) as message:
             if not message:
                 return
@@ -294,6 +297,7 @@ class Table(object):
 
                 message['send_date'] = datetime.now()
                 message['bcc_address'] = bcc_address
+                
             except SMTPConnectError as e:
                 message['connection_retry'] = (message['connection_retry'] or 0) + 1
                 if message['connection_retry'] > 10:
@@ -306,6 +310,139 @@ class Table(object):
                 message['error_msg'] = error_msg
                 message['sending_attempt'] = message['sending_attempt'] or  Bag()
                 message['sending_attempt'].child('attempt', ts=ts, error= error_msg)
+       
+        #aggiorniamo i record nella tasklist sulla base dell'email inviata
+        if message['send_date']:              
+            if message['template_code']=='email_dogana':
+                tbl_tasklist.batchUpdate(dict(email_dogana=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_ship_rec':
+                tbl_tasklist.batchUpdate(dict(email_ship_rec=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_frontiera':
+                tbl_tasklist.batchUpdate(dict(email_frontiera=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_sanimare':
+                tbl_tasklist.batchUpdate(dict(email_usma=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_pilot_moor':
+                tbl_tasklist.batchUpdate(dict(email_pilot_moor=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='email_tug':
+                tbl_tasklist.batchUpdate(dict(email_tug=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])      
+            if message['template_code']=='garbage_email':
+                tbl_tasklist.batchUpdate(dict(email_garbage=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])   
+            if message['template_code']=='email_pfso':
+                tbl_tasklist.batchUpdate(dict(email_pfso=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])  
+            if message['template_code']=='email_chemist':
+                tbl_tasklist.batchUpdate(dict(email_chemist=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='email_gpg':
+                tbl_tasklist.batchUpdate(dict(email_gpg=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])  
+            if message['template_code']=='email_ens':
+                tbl_tasklist.batchUpdate(dict(email_ens=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='not_rifiuti':
+                tbl_tasklist.batchUpdate(dict(email_garbage_adsp=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='email_ric_lps':
+                tbl_tasklist.batchUpdate(dict(email_ric_lps=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])   
+            if message['template_code']=='email_integrazione_alim':
+                tbl_tasklist.batchUpdate(dict(email_integr=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])    
+            if message['template_code']=='email_pmou':
+                tbl_tasklist.batchUpdate(dict(email_pmou=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])  
+            if message['template_code']=='email_lps_cp':
+                tbl_tasklist.batchUpdate(dict(email_lps_cp=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])  
+            if message['template_code']=='email_chimico_cp':
+                tbl_tasklist.batchUpdate(dict(email_certchim_cp=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_deroga_garbage':
+                tbl_tasklist.batchUpdate(dict(email_garbage_cp=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])  
+            if message['template_code']=='email_ricevutarifiuti_cp':
+                tbl_tasklist.batchUpdate(dict(email_ric_rifiuti_cp=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])   
+            if message['template_code']=='email_tug_dep':
+                tbl_tasklist.batchUpdate(dict(email_tug_dep=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])     
+            if message['template_code']=='email_tributi_cp':
+                tbl_tasklist.batchUpdate(dict(email_tributi_cp=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_bunkerdoc':
+                tbl_bunker.batchUpdate(dict(doc_cp=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])                                                   
+        if message['error_msg']:              
+            if message['template_code']=='email_dogana':
+                tbl_tasklist.batchUpdate(dict(email_dogana=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_ship_rec':
+                tbl_tasklist.batchUpdate(dict(email_ship_rec=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])   
+            if message['template_code']=='email_frontiera':
+                tbl_tasklist.batchUpdate(dict(email_frontiera=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_sanimare':
+                tbl_tasklist.batchUpdate(dict(email_usma=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_pilot_moor':
+                tbl_tasklist.batchUpdate(dict(email_pilot_moor=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])                          
+            if message['template_code']=='email_tug':
+                tbl_tasklist.batchUpdate(dict(email_tug=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])   
+            if message['template_code']=='garbage_email':
+                tbl_tasklist.batchUpdate(dict(email_garbage=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])   
+            if message['template_code']=='email_pfso':
+                tbl_tasklist.batchUpdate(dict(email_pfso=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_chemist':
+                tbl_tasklist.batchUpdate(dict(email_chemist=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])  
+            if message['template_code']=='email_gpg':
+                tbl_tasklist.batchUpdate(dict(email_gpg=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_ens':
+                tbl_tasklist.batchUpdate(dict(email_ens=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='not_rifiuti':
+                tbl_tasklist.batchUpdate(dict(email_garbage_adsp=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='email_ric_lps':
+                tbl_tasklist.batchUpdate(dict(email_ric_lps=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='email_integrazione_alim':
+                tbl_tasklist.batchUpdate(dict(email_integr=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_pmou':
+                tbl_tasklist.batchUpdate(dict(email_pmou=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])           
+            if message['template_code']=='email_lps_cp':
+                tbl_tasklist.batchUpdate(dict(email_lps_cp=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='email_deroga_garbage':
+                tbl_tasklist.batchUpdate(dict(email_garbage_cp=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])  
+            if message['template_code']=='email_ricevutarifiuti_cp':
+                tbl_tasklist.batchUpdate(dict(email_ric_rifiuti_cp=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='email_tug_dep':
+                tbl_tasklist.batchUpdate(dict(email_tug_dep=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])  
+            if message['template_code']=='email_tributi_cp':
+                tbl_tasklist.batchUpdate(dict(email_tributi_cp=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_bunkerdoc':
+                tbl_bunker.batchUpdate(dict(doc_cp=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])                                          
         self.db.commit()
         
     @public_method

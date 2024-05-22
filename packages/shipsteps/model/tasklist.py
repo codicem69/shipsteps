@@ -3,8 +3,8 @@ from gnr.core.gnrdecorator import public_method
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('tasklist', pkey='id', name_long='!![en]Task list', name_plural='!![en]Task list',
-                                     caption_field='id')
+        tbl=pkg.table('tasklist', pkey='id', name_long='!![en]Task list', name_plural='!![en]Task list',caption_field='id',
+        broadcast="""email_ship_rec,email_dogana,email_frontiera,email_usma,email_pfso,email_pilot_moor,email_tug,email_tug_dep,email_garbage,email_chemist,email_gpg,email_ens,email_ric_lps,email_garbage_adsp,email_integr,email_pmou,email_certchim_cp,email_lps_cp,email,garbage_cp,email_ric_rifiuti_cp,email_tributi_cp""")
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
@@ -54,4 +54,3 @@ class Table(object):
         tbl.aliasColumn('email_account','@arrival_id.email_account_id')
         tbl.formulaColumn('doc_bunker',"""CASE WHEN @arrival_id.@bunker_arr.arrival_id IS NOT NULL AND @arrival_id.@bunker_arr.doc_cp IS False THEN '<br>YOU MUST TO SEND BUNKER DOCS TO CP' ELSE '' END""", dtype='T')
         
-    

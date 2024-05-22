@@ -94,16 +94,20 @@ class FormFromBunker(BaseComponent):
         fb.br()
         fb.field('invio_fatt', placeholder='Insert the fullstyle where to send the invoice in case is different than your Agency', colspan=4, width='69em')
         fb = center.formbuilder(cols=2, border_spacing='4px')
-        fb.semaphore('^.doc_cp?=#v==true?true:false')
+        #fb.semaphore('^.doc_cp?=#v==true?true:false')
+        fb.semaphore('^.doc_cp')
         fb.field('doc_cp', lbl='!![en]Final Bunker Docs sent to CP')
         fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.getParentForm().reload()}""",
             table='shipsteps.bunker',pkey='=#FORM.pkey')
+        fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
+            if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0]['doc_cp'];
+                 console.log("datiCambiamento: ",datiCambiamento)}""",pkey='=#FORM.shipsteps_bunker.form.record.id',table='shipsteps.bunker')
         
         right = bc.roundedGroup(title='!![en]Transportation Company stamp', region='right', width='250px')
         right.img(src='^.stamp_transp', edit=True, crop_width='250px', crop_height='150px', 
                         placeholder=True, upload_folder='*') #upload_folder='site:application', upload_filename='=.id')
         #right.button('!![en]Remove image', hidden='^.stamp_transp?=!#v').dataRpc(self.deleteImage, image='=.stamp_transp')
-        fb.dataController("""if(msg=='val_doccp') {SET .doc_cp=true;alert(msg_txt);}""", msg='^nome_temp',msg_txt = 'Email ready to be sent')
+        fb.dataController("""if(msg=='val_doccp') {SET .doc_cp=false;alert(msg_txt);}""", msg='^nome_temp',msg_txt = 'Email ready to be sent')
         
         fb.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
