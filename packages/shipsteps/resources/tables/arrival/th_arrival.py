@@ -560,7 +560,7 @@ class Form(BaseComponent):
         fb.field('cargo_dest', colspan=2, width='29em' )
         fb.br()
         fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
-        btn_test=fb.Button('test')#, action='SET .@arr_tasklist.email_dogana=true;')
+        #btn_test=fb.Button('test')#, action='SET .@arr_tasklist.email_dogana=true;')
         btn_test.dataRpc('', self.test_but,arrival_id='=#FORM.record.id')
         fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="^#FORM.record.@tip_mov.code?=#v!='pass'")
         #con attributo hidden che punta a tip_mov se diverso dal valore pass nascondiamo il formbuilder della gpg
@@ -575,8 +575,8 @@ class Form(BaseComponent):
       # fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='18em',lblpos='T')
         fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T')
         fb.field('firma_div', tag='textArea')
-    @public_method
-    def test_but(self, arrival_id=None, **kwargs):
+   #@public_method
+   #def test_but(self, arrival_id=None, **kwargs):
        
         tbl_tasklist = self.db.table('shipsteps.tasklist')
         tbl_tasklist.batchUpdate(dict(email_dogana=True),
