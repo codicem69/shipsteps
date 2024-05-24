@@ -576,12 +576,12 @@ class Form(BaseComponent):
         fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T')
         fb.field('firma_div', tag='textArea')
    #@public_method
-   #def test_but(self, arrival_id=None, **kwargs):
-       
-        tbl_tasklist = self.db.table('shipsteps.tasklist')
-        tbl_tasklist.batchUpdate(dict(email_dogana=True),
-                                    where='$arrival_id=:a_id', a_id=arrival_id,for_update=True)
-        self.db.commit()
+    #def test_but(self, arrival_id=None, **kwargs):
+    #   
+    #    tbl_tasklist = self.db.table('shipsteps.tasklist')
+    #    tbl_tasklist.batchUpdate(dict(email_dogana=True),
+    #                                where='$arrival_id=:a_id', a_id=arrival_id,for_update=True)
+    #    self.db.commit()
         
     def datiCaricoBordo(self,bc):
         center = bc.roundedGroup(title='!![en]Cargo on board', region='center', height = '100%').div(margin='10px',margin_left='2px')
