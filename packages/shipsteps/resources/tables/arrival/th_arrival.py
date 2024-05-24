@@ -561,7 +561,7 @@ class Form(BaseComponent):
         fb.br()
         fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
         #btn_test=fb.Button('test')#, action='SET .@arr_tasklist.email_dogana=true;')
-        btn_test.dataRpc('', self.test_but,arrival_id='=#FORM.record.id')
+        #btn_test.dataRpc('', self.test_but,arrival_id='=#FORM.record.id')
         fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="^#FORM.record.@tip_mov.code?=#v!='pass'")
         #con attributo hidden che punta a tip_mov se diverso dal valore pass nascondiamo il formbuilder della gpg
         #fb.field('arrival_id')
