@@ -316,7 +316,7 @@ class Table(object):
             if message['template_code']=='email_dogana':
                 tbl_tasklist.batchUpdate(dict(email_dogana=True),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
-            if message['template_code']=='email_ship_rec':
+            if message['template_code']=='email_arr_shiprec':
                 tbl_tasklist.batchUpdate(dict(email_ship_rec=True),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_frontiera':
