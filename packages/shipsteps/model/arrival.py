@@ -52,7 +52,7 @@ class Table(object):
         tbl.column('note', name_short='!![en]note')
         tbl.column('tip_mov',name_short='!![en]Tip.Mov.', batch_assign=True
                     ).relation('tip_mov.code', relation_name='ship_mov', mode='foreignkey', onDelete='raise')
-        tbl.column('movtype_id',name_short='!![en]Mov. Type', batch_assign=True
+        tbl.column('movtype_id',size='22',name_short='!![en]Mov. Type', batch_assign=True
                     ).relation('mov_type.id', relation_name='movtype', mode='foreignkey', onDelete='raise')
         tbl.column('vessel_stamp', dtype='P', name_long='!![en]Vessel Stamp')
         tbl.column('ctm', dtype='N', name_short='ctm')
