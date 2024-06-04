@@ -29,7 +29,7 @@ class View(BaseComponent):
         arrival.fieldcell('voy_n', width='4em')
         arrival.fieldcell('date', width='5em')
         arrival.fieldcell('vessel_details_id', width='15em', font_weight='bold')
-        arrival.fieldcell('tip_mov', width='6em', font_weight='bold')
+        arrival.fieldcell('movtype_id', width='6em', font_weight='bold')
         expect = r.columnset('colset_expect', name='Expected Times', color='white',background='SeaGreen', font_weight='bold')
         expect.fieldcell('eta', width='5em', Short=True)
         expect.fieldcell('etb', width='5em')
@@ -79,7 +79,7 @@ class View(BaseComponent):
         arrival.fieldcell('agency_id', width='7em')
         arrival.fieldcell('reference_num', width='8em')
         arrival.fieldcell('vessel_details_id', width='15em', font_weight='bold')
-        arrival.fieldcell('tip_mov', width='6em', font_weight='bold')
+        arrival.fieldcell('movtype_id', width='6em', font_weight='bold')
         cargo = r.columnset('colset_cargo', name='Cargo', color='white',background='RosyBrown', font_weight='bold')
         cargo.fieldcell('cargo_dest')
         cargo.fieldcell('cargo_lu_en', width='30em')
@@ -146,8 +146,9 @@ class View(BaseComponent):
     #            dict(code='load',caption='!![en]Loading',condition="$cargo_op='L'")] 
     #
     def th_top_toolbarsuperiore(self,top):
-         top.slotToolbar('5,*,sections@tip_mov,*,5',
-                         childname='superiore',_position='<bar',gradient_from='#999',gradient_to='#666')
+         top.slotToolbar('5,*,sections@movtype_id,*,5',
+                         childname='superiore',_position='<bar',gradient_from='#999',gradient_to='#666',
+                         sections_movtype_id_multiButton=8)
         
     def th_order(self):
         return 'reference_num:d' 
@@ -175,7 +176,7 @@ class View_Filtered_Arrivals(BaseComponent):
         arrival.fieldcell('agency_id', width='7em')
         arrival.fieldcell('reference_num', width='8em')
         arrival.fieldcell('vessel_details_id', width='15em', font_weight='bold')
-        arrival.fieldcell('tip_mov', width='6em', font_weight='bold')
+        arrival.fieldcell('movtype_id', width='6em', font_weight='bold')
         cargo = r.columnset('colset_cargo', name='Cargo', color='white',background='RosyBrown', font_weight='bold')
         cargo.fieldcell('cargo_dest')
         cargo.fieldcell('cargo_lu_en', width='30em')
@@ -242,8 +243,10 @@ class View_Filtered_Arrivals(BaseComponent):
                 dict(code='load',caption='!![en]Loading',condition="$cargo_op='L'")] 
     
     def th_top_toolbarsuperiore(self,top):
-        top.slotToolbar('5,sections@tip_mov,*,sections@shiprec,*,sections@anno,*,sections@operation,5',
-                        childname='superiore',_position='<bar',gradient_from='#999',gradient_to='#666',sections_operation_multiButton=False,
+        top.slotToolbar('5,sections@movtype_id,*,sections@shiprec,*,sections@anno,*,sections@operation,5',
+                        childname='superiore',_position='<bar',gradient_from='#999',gradient_to='#666',
+                        sections_movtype_id_multiButton=8,
+                        sections_operation_multiButton=False,
                         sections_operation_lbl='!![en]Shippers-Receivers',sections_operation_lbl_color='white',
                         sections_operation_width='40em',sections_anno_multiButton=False,
                         sections_anno_lbl='!![en]Year',sections_anno_lbl_color='white',

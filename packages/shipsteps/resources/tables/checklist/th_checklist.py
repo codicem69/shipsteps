@@ -12,7 +12,7 @@ class View(BaseComponent):
         r.fieldcell('description', width='auto')
 
     def th_order(self):
-        return 'movtype_id'
+        return '@movtype_id.hierarchical_descrizione:a'
 
     def th_query(self):
         return dict(column='movtype_id', op='contains', val='')
