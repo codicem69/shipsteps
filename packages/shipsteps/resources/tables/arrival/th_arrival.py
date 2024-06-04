@@ -533,7 +533,8 @@ class Form(BaseComponent):
         fb.field('vessel_details_id',validate_notnull=True) 
         fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome',order_by='$data DESC')
         fb.field('visit_id')
-        fb.field('tip_mov' , hasDownArrow=True,  auxColumns='$description',order_by='$description')
+        fb.field('movtype_id' , hasDownArrow=True,  order_by='$descrizione')
+        #fb.field('tip_mov' , hasDownArrow=True,  auxColumns='$description',order_by='$description')
 
         fb = center1.formbuilder(cols=5, border_spacing='4px',lblpos='T',fldalign='left')
         fb.field('eta' , width='10em')
@@ -838,7 +839,7 @@ class Form(BaseComponent):
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.checklist',button=btn_cl.js_widget)
-        btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record',nome_template='shipsteps.arrival:check_list',
+        btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record',nome_template='shipsteps.arrival:checklist',
                             nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             format_page='A4',_onResult="this.form.save();")
       #  fb1.dataController("if(msg=='check_list') SET .checklist=true", msg='^nome_temp')
@@ -1444,9 +1445,7 @@ class Form(BaseComponent):
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
                              if(msg=='cartella_doc') {SET .cartella_nave=true;}
                              if(msg=='front_nave') {SET .frontespizio=true;}
-                             if(msg=='check_list') {SET .checklist=true;}
-                             if(msg=='check_list_alim') {SET .checklist=true;}
-                             if(msg=='check_list_pass') {SET .checklist=true;}
+                             if(msg=='checklist') {SET .checklist=true;}
                              if(msg=='tributi_cp') {SET .tributi_cp=true;} if(msg=='no_tributi') genro.publish("floating_message",{message:'You must select the record as row in the tribute form', messageType:"error"});
                              if(msg=='form_gdf') {SET .form_gdf=true;}
                              if(msg=='form_immigration_print') {SET .form_immigration=true;}
@@ -2911,12 +2910,12 @@ class Form(BaseComponent):
     def print_template(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[],  nome_vs=None, format_page=None, **kwargs):
         record_arr=record['id']
         flag=record['flag']
-        #verifichiamo che stiamo stampando la checklist e che tipo di movimentazione è stata assegnato all'arrivo
-        #al fine di assegnare il nome template della check list 
-        if nome_template=='shipsteps.arrival:check_list' and record['@tip_mov.code'] == 'alim':
-            nome_template='shipsteps.arrival:check_list_alim'
-        if nome_template=='shipsteps.arrival:check_list' and record['@tip_mov.code'] == 'pass':
-            nome_template='shipsteps.arrival:check_list_pass'
+       ##verifichiamo che stiamo stampando la checklist e che tipo di movimentazione è stata assegnato all'arrivo
+       ##al fine di assegnare il nome template della check list 
+       #if nome_template=='shipsteps.arrival:check_list' and record['@tip_mov.code'] == 'alim':
+       #    nome_template='shipsteps.arrival:check_list_alim'
+       #if nome_template=='shipsteps.arrival:check_list' and record['@tip_mov.code'] == 'pass':
+       #    nome_template='shipsteps.arrival:check_list_pass'
         # Crea stampa
         self.vessel_name = nome_vs
         tbl_arrival = self.db.table('shipsteps.arrival')

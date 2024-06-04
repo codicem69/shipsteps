@@ -52,6 +52,8 @@ class Table(object):
         tbl.column('note', name_short='!![en]note')
         tbl.column('tip_mov',name_short='!![en]Tip.Mov.', batch_assign=True
                     ).relation('tip_mov.code', relation_name='ship_mov', mode='foreignkey', onDelete='raise')
+        tbl.column('movtype_id',name_short='!![en]Mov. Type', batch_assign=True
+                    ).relation('mov_type.id', relation_name='movtype', mode='foreignkey', onDelete='raise')
         tbl.column('vessel_stamp', dtype='P', name_long='!![en]Vessel Stamp')
         tbl.column('ctm', dtype='N', name_short='ctm')
         tbl.column('date_ctm', dtype='D', name_short='date ctm')       
@@ -97,6 +99,7 @@ class Table(object):
         tbl.aliasColumn('map_gate','@agency_id.@agency_sh_gate.map',dtype='P')
         tbl.aliasColumn('timearr_log','@time_arr.time_arr')
         tbl.aliasColumn('timearr2_log','@time_arr.time_arr_2')
+        tbl.aliasColumn('movement_type','@movtype_id.@movtype_check.description')
         tbl.formulaColumn('etb_date','$etb',dtype='D')
         tbl.formulaColumn('fullstyle_forrec',"""CASE WHEN $firma_div IS NULL OR $firma_div = '' THEN @agency_id.fullstyle 
                                                  ELSE $firma_div END""", dtype='T')
