@@ -6,6 +6,7 @@ from gnr.core.gnrdecorator import public_method
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
 
+
 class View(BaseComponent):
 
     def th_struct(self,struct):
@@ -162,11 +163,12 @@ class Form(BaseComponent):
             return 'daily_op'        
 
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,*,10')
+        bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,*,10')
         btn_sof_print=bar.stampa_sof.button('Print SOF')
         btn_sof_arrivo=bar.email_arrivo.button('Email arrival')
         btn_sof_oper=bar.email_operazioni.button('Email operations')
         btn_sof_partenza=bar.email_partenza.button('Email departure')
+        btn_email_to=bar.email_to.button('Email to')
         btn_sof_print.dataRpc('var_sof', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
         btn_sof_arrivo.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',ref_num='=#FORM.record.@arrival_id.reference_num',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -185,6 +187,11 @@ class Form(BaseComponent):
                              table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='template', lbl='Email Template',tag='filteringSelect', value='^.template', 
                              values='email_partenza:without total mov,email_partenza_mov:with total mov')]))
+        btn_email_to.dataRpc('nome_temp', self.email_to,record='=#FORM.record',servizio=['email_to'], email_template_id='',ref_num='=#FORM.record.@arrival_id.reference_num',
+                            nome_template = '',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
+                            _ask=dict(title='!![en]Select the Emails',fields=[dict(name='email_to', lbl='!![en]Emails to', tag='checkboxtext',
+                             table='shipsteps.email_sof', columns='$description',condition='$sof_id=:cod',condition_cod='=#FORM.record.id',
+                             validate_notnull=True,cols=4,popup=True,colspan=2)]),_onResult="""if(result=='email_to')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")
         bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^nome_temp',msg_txt = 'Email ready to be sent')
         
     @public_method
@@ -569,5 +576,113 @@ class Form(BaseComponent):
         
         return nome_temp
 
+    @public_method
+    def email_to(self, record, **kwargs):
+        arrival_id=record['arrival_id']
+        if not record:
+            return
+        #lettura del record_id della tabella arrival
+        record_id=record['id']
+        #lettura dati su tabella arrival
+        tbl_arrival = self.db.table('shipsteps.arrival')
+        vessel_type,vessel_name,eta_arr,ref_num = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,$eta,$reference_num',
+                  where='$agency_id=:ag_id AND $id=:rec_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=arrival_id)
+        eta = eta_arr.strftime("%d/%m/%Y, %H:%M")    
+        
+        
+
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('agz.staff')
+        account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('agz.agency')
+        agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        #preleviamo dai kwargs i servizi per gli aggiornamenti
+        emailto=kwargs['email_to']
+        #trasformiamo la stringa services in una lista
+        servizio=list(emailto.split(","))
+        #troviamo la lunghezza della variabile servizio
+        ln_serv=len(servizio)
+        #assegnamo le varibili liste per inserire successivamente i risultati della ricerca sulla tabella email_services
+        destinatario,email_d, email_cc_d,email_bcc_d=[],[],[],[]
+        #definiamo la variabile contentente la tabella email_services
+        tbl_email_sof=self.db.table('shipsteps.email_sof')
+        #con il ciclo for ad ogni passaggio otteniamo il nome del servizio che passeremo alla query e i risultati saranno appesi alle liste
+        for e in range(ln_serv):
+            serv=servizio[e]
+
+            dest,descr,email_dest,email_type = tbl_email_sof.readColumns(columns="""$dest,$description,$email,$email_type""",
+                                                    where="$id=:serv", serv=serv)
+            
+            if descr is not None and descr !='':
+                destinatario.append(dest +' '+ descr)
+            
+            #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario to:    
+            if email_type is not None and email_type =='to' and ln_serv==1:
+                email_d.append(email_dest)
+            #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario cc:    
+            if email_type is not None and email_type == 'cc' and ln_serv==1:
+                email_cc_d.append(email_dest)
+            #verifichiamo se il servizio è solo uno sarà inserito all'email bcc:     
+            if email_type is not None and email_type =='ccn' and ln_serv==1:
+                email_bcc_d.append(email_dest)        
+            #verifichiamo se il servizio è più di uno sarà inserito all'email to:     
+            if email_type is not None and email_type =='to' and ln_serv>1:
+                email_d.append(email_dest)
+            #verifichiamo se il servizio è più di uno sarà inserito all'email cc:     
+            if email_type is not None and email_type =='cc' and ln_serv>1:
+                email_cc_d.append(email_dest)    
+             #verifichiamo se il servizio è più di uno sarà inserito all'email bcc:    
+            if email_type is not None and email_type == 'ccn' and ln_serv>1:
+                email_bcc_d.append(email_dest)    
+            
+        #trasformiamo le liste in stringhe assegnandole alle relative variabili
+        consignee='<br>'.join([str(item) for item in destinatario])
+        
+        if ln_serv == 1:
+            email_to = ','.join([str(item) for item in email_d])
+        else:
+            email_to = email_mittente    
+        email_cc = ','.join([str(item) for item in email_cc_d])
+        email_bcc = ','.join([str(item) for item in email_bcc_d])
+        
+        
+        now = datetime.now()
+        cur_time = now.strftime("%H:%M:%S")    
+        if cur_time < '13:00:00':
+            sal='Buongiorno,'  
+        elif cur_time < '17:00:00':
+            sal='Buon pomeriggio'
+        elif cur_time < '24:00:00':
+            sal = 'Buonasera,' 
+        elif cur_time < '04:00:00':
+            sal = 'Buona notte,'      
+
+        subject=' '+vessel_type + ' ' + vessel_name + ' ref:' + ref_num
+        body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
+        
+        body_footer= '<br>Cordiali saluti<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
+        
+        body_msg=(sal + '<br>' + " " +vessel_type + ' ' + vessel_name )
+        body_html=(body_header + body_msg + body_footer )
+        
+        if email_to:
+            self.db.table('email.message').newMessage(account_id=account_email,
+                           to_address=email_to,
+                           from_address=email_mittente,
+                           subject=subject, body=body_html, 
+                           cc_address=email_cc, 
+                           bcc_address=email_bcc, arrival_id=arrival_id,
+                           html=True)
+            self.db.commit()
+        
+        if (email_dest) is not None:
+            nome_temp='email_to'
+            return nome_temp
+        
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px')

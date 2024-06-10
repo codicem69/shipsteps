@@ -80,9 +80,9 @@ class Form(BaseComponent):
                                                     newRecordOnly=False,formResource='Form',
                                                     dialog_height='200px',dialog_width='700px')
         center= bc.roundedGroup(region='center',title='Vessel Details', splitter=True).div(margin='10px',margin_right='20px')
-        fb = center.formbuilder(cols=2, border_spacing='4px')
+        fb = center.formbuilder(cols=2, border_spacing='4px',colswidth='auto',fld_width='100%')
         fb.field('owner_id',lbl='Owner',auxColumns='$own_name',
-                        hasDownArrow=True, width='auto', colspan=2)
+                        hasDownArrow=True, width='100%', colspan=2)
         fb.br()
         #fb.field('imo', width='20em' )
         fb.field('callsign', width='10em' )
@@ -90,6 +90,7 @@ class Form(BaseComponent):
         fb.field('dwt', width='10em' )
         fb.field('beam', width='10em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:10 or 10,00' )
         fb.field('mmsi', width='10em' )
+        fb.br()
         fb.field('reg_place',lbl='Reg. place',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome',
                         width='10em' )
         fb.field('reg_num', width='10em' )

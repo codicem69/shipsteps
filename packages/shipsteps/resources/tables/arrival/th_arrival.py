@@ -1341,7 +1341,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_integr = fb2.Button('!![en]Alimentary integration',hidden="^#FORM.record.@tip_mov.code?=#v!='alim'")#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
+        btn_integr = fb2.Button('!![en]Alimentary integration',hidden="=if(mov!='Alimentary' && mov!='Alimentary/UE')" , mov='^#FORM.record.@movtype_id.hierarchical_descrizione')#?=#v!='Alimentary/UE'")#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1362,9 +1362,9 @@ class Form(BaseComponent):
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         #fb2.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
         
-        fb2.field('email_integr', lbl='', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v!='alim'")#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
+        fb2.field('email_integr', lbl='', margin_top='6px',hidden="=if(mov!='Alimentary' && mov!='Alimentary/UE')" , mov='^#FORM.record.@movtype_id.hierarchical_descrizione')#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
         #fb2.semaphore('^.email_integr?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v!='alim'")#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
-        fb2.semaphore('^.email_integr', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v!='alim'")#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
+        fb2.semaphore('^.email_integr', margin_top='6px',hidden="=if(mov!='Alimentary' && mov!='Alimentary/UE')" , mov='^#FORM.record.@movtype_id.hierarchical_descrizione')#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
 
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
@@ -1926,6 +1926,15 @@ class Form(BaseComponent):
                                          if(result=='ws')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")#this.form.save();
                                          #this.form.reload()""")
         fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()")
+        btn_emailextra=fb_extra.button('!![en]Email to services')
+        btn_emailextra.dataRpc('nome_temp', self.email_extra,record='=#FORM.record',servizio=['extra_email'], email_template_id=None,
+                            nome_template = None,nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            _ask=dict(title='!![en]Select the services to update and Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',
+                             table='shipsteps.services_for_email', columns='$description_serv',#values='dogana,gdf,gdf roan,pilot,mooringmen,tug,immigration,sanimare,pfso,garbage,chemist,gpg',
+                             validate_notnull=True,cols=4,popup=True,colspan=2),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]),
+                            _onResult="""if(result=='email_extra')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")
         #avendo creato la formula column nella tasklist per verificare che i documenti del bunker sono stati inviati o no alla cp
         #inseriamo il div che è in riferimento alla valore della formula column 
         fb_extra.div('^.doc_bunker',_virtual_column='@arr_tasklist.doc_bunker', font_weight='bold', color='red')
@@ -2660,6 +2669,158 @@ class Form(BaseComponent):
         
         nome_temp='ws'
         return nome_temp
+    
+    @public_method
+    def email_extra(self, record, **kwargs):
+        arrival_id=record['id']
+        if not record:
+            return
+        #lettura del record_id della tabella arrival
+        record_id=record['id']
+        #lettura dati su tabella arrival
+        tbl_arrival = self.db.table('shipsteps.arrival')
+        vessel_type,vessel_name,eta_arr,info_moor = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,$eta,$info_moor',
+                  where='$agency_id=:ag_id AND $id=:rec_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=record_id)
+        eta = eta_arr.strftime("%d/%m/%Y, %H:%M")    
+        
+        #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
+        attcmt=[]
+        
+        #verifichiamo che nei kwargs['allegati'] non abbiamo il valore nullo e trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
+        if kwargs['allegati'] is not None:
+            lista_all = list(kwargs['allegati'].split(","))
+        else:
+            lista_all = None
+        
+        #lettura degli attachment
+        if lista_all is not None:
+            len_allegati = len(lista_all) #verifichiamo la lunghezza della lista pkeys tabella allegati
+            file_url=[]
+            tbl_att =  self.db.table('shipsteps.arrival_atc') #definiamo la variabile della tabella allegati
+            #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
+            #viene appesa alla variabile lista file_url
+            for e in range(len_allegati):
+                pkeys_att=lista_all[e]
+                fileurl = tbl_att.readColumns(columns='$fileurl',
+                      where='$id=:att_id',
+                        att_id=pkeys_att)
+                if fileurl is not None and fileurl !='':
+                    file_url.append(fileurl)
+        
+            ln = len(file_url)
+            for r in range(ln):
+                fileurl = file_url[r]
+                file_path = fileurl.replace('/home','site')
+                fileSn = self.site.storageNode(file_path)
+                attcmt.append(fileSn.internal_path)
+
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('agz.staff')
+        account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('agz.agency')
+        agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        #preleviamo dai kwargs i servizi per gli aggiornamenti
+        services=kwargs['services']
+        #trasformiamo la stringa services in una lista
+        servizio=list(services.split(","))
+        #troviamo la lunghezza della variabile servizio
+        #print(x)
+        ln_serv=len(servizio)
+        #assegnamo le varibili liste per inserire successivamente i risultati della ricerca sulla tabella email_services
+        destinatario,destinatario_pec,email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d=[],[],[],[],[],[],[]
+        #definiamo la variabile contentente la tabella email_services
+        tbl_email_services=self.db.table('shipsteps.email_services')
+        #con il ciclo for ad ogni passaggio otteniamo il nome del servizio che passeremo alla query e i risultati saranno appesi alle liste
+        for e in range(ln_serv):
+            serv=servizio[e]
+
+            dest,email_dest, email_cc_dest,email_bcc_dest = tbl_email_services.readColumns(columns="""$consignee,$email,$email_cc,$email_bcc""",
+                                                    where="$service_for_email_id=:serv AND $agency_id=:ag_id", serv=serv,
+                                                    ag_id=self.db.currentEnv.get('current_agency_id'))
+            dest_pec,email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$consignee,$email_pec,$email_cc_pec""",
+                                                    where='$service_for_email_id=:serv AND $agency_id=:ag_id AND $email_pec IS NOT NULL', serv=serv,
+                                                    ag_id=self.db.currentEnv.get('current_agency_id'))
+            if dest is not None and dest !='':
+                destinatario.append('a: ' + dest)
+            if dest_pec is not None and dest_pec !='':
+                destinatario_pec.append('a: ' + dest_pec)
+            #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario to:    
+            if email_dest is not None and email_dest !='' and ln_serv==1:
+                email_d.append(email_dest)
+            #verifichiamo se il servizio è più di uno sarà inserito all'email bcc:     
+            if email_dest is not None and email_dest !='' and ln_serv>1:
+                email_bcc_d.append(email_dest)
+            #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario to:    
+            if email_cc_dest is not None and email_cc_dest != '' and ln_serv==1:
+                email_cc_d.append(email_cc_dest)
+             #verifichiamo se il servizio è più di uno sarà inserito all'email bcc:    
+            if email_cc_dest is not None and email_cc_dest != '' and ln_serv>1:
+                email_bcc_d.append(email_cc_dest)    
+            if email_bcc_dest is not None and email_bcc_dest != '':    
+                email_bcc_d.append(email_bcc_dest)
+            if email_pec_dest is not None and email_pec_dest != '':
+                email_pec_d.append(email_pec_dest)
+            if email_pec_cc_dest is not None and email_pec_cc_dest !='':
+                email_pec_cc_d.append(email_pec_cc_dest)
+        #trasformiamo le liste in stringhe assegnandole alle relative variabili
+        consignee='<br>'.join([str(item) for item in destinatario])
+        consignee_pec='<br>'.join([str(item) for item in destinatario_pec])
+        if ln_serv == 1:
+            email_to = ','.join([str(item) for item in email_d])
+        else:
+            email_to = email_mittente    
+        email_cc = ','.join([str(item) for item in email_cc_d])
+        email_bcc = ','.join([str(item) for item in email_bcc_d])
+        email_pec = ','.join([str(item) for item in email_pec_d])
+        email_pec_cc = ','.join([str(item) for item in email_pec_cc_d])
+        
+        now = datetime.now()
+        cur_time = now.strftime("%H:%M:%S")    
+        if cur_time < '13:00:00':
+            sal='Buongiorno,'  
+        elif cur_time < '17:00:00':
+            sal='Buon pomeriggio'
+        elif cur_time < '24:00:00':
+            sal = 'Buonasera,' 
+        elif cur_time < '04:00:00':
+            sal = 'Buona notte,'      
+
+        subject=' '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
+        body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
+        body_header_pec="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee_pec + '<br><br>'
+        body_footer= '<br>Cordiali saluti<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
+        
+        body_msg=(sal + '<br>' + " " +vessel_type + ' ' + vessel_name )
+        body_html=(body_header + body_msg + body_footer )
+        
+        if email_to:
+            self.db.table('email.message').newMessage(account_id=account_email,
+                           to_address=email_to,
+                           from_address=email_mittente,
+                           subject=subject, body=body_html, 
+                           cc_address=email_cc, 
+                           bcc_address=email_bcc, attachments=attcmt,arrival_id=arrival_id,
+                           html=True)
+            self.db.commit()
+        body_html_pec=(body_header_pec + body_msg + body_footer )
+        if email_pec is not None and email_pec!='':
+            
+            self.db.table('email.message').newMessage(account_id=account_emailpec,
+                           to_address=email_pec,
+                           from_address=emailpec_mitt,
+                           subject=subject, body=body_html_pec, 
+                           cc_address=email_pec_cc, 
+                           attachments=attcmt,arrival_id=arrival_id,
+                           html=True)
+            self.db.commit()
+        if (email_dest or email_pec_dest) is not None:
+            nome_temp='email_extra'
+            return nome_temp
 
     @public_method
     def email_arrival_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
