@@ -1964,7 +1964,8 @@ class Form(BaseComponent):
     #    pane.stackTableHandler(relation='@shorepass_arr',formResource='Form')
 
     def garbage(self, pane):
-        pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
+        #pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbage')
+        pane.dialogTableHandler(relation='@garbage_arr')#,viewResource='ViewFromGarbage')
 
     def tributi(self, pane):
         pane.dialogTableHandler(relation='@tributi_arr')#,viewResource='ViewFromTributi')
