@@ -352,10 +352,10 @@ class Table(object):
     def pyColumn_docbefore_cp(self,record,field):
         pkey=record['id']
         tbl_arrival=self.db.table('shipsteps.arrival')
-        code=tbl_arrival.readColumns(columns="@tip_mov.code", where="$id=:id_arr",id_arr=pkey)
+        code=tbl_arrival.readColumns(columns="@movtype_id.hierarchical_descrizione", where="$id=:id_arr",id_arr=pkey)
         pmou = self.db.application.getPreference('pmou',pkg='shipsteps') 
         
-        if code != 'alim' and pmou==True:
+        if code != 'Alimentary/UE' and code != 'Alimentary' and pmou==True:
             result = True
         else:
             result = False    

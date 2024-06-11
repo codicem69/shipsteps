@@ -1341,7 +1341,8 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_integr = fb2.Button('!![en]Alimentary integration',hidden="=if(mov!='Alimentary' && mov!='Alimentary/UE')" , mov='^#FORM.record.@movtype_id.hierarchical_descrizione')#?=#v!='Alimentary/UE'")#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
+        #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
+        btn_integr = fb2.Button('!![en]Alimentary integration',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1362,9 +1363,10 @@ class Form(BaseComponent):
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         #fb2.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
         
-        fb2.field('email_integr', lbl='', margin_top='6px',hidden="=if(mov!='Alimentary' && mov!='Alimentary/UE')" , mov='^#FORM.record.@movtype_id.hierarchical_descrizione')#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
-        #fb2.semaphore('^.email_integr?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v!='alim'")#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
-        fb2.semaphore('^.email_integr', margin_top='6px',hidden="=if(mov!='Alimentary' && mov!='Alimentary/UE')" , mov='^#FORM.record.@movtype_id.hierarchical_descrizione')#attributo hidden per nascondere il widget se il valore tip_mov è diverso da alim
+        fb2.field('email_integr', lbl='', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
+        #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
+        fb2.semaphore('^.email_integr?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
+        #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
 
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
