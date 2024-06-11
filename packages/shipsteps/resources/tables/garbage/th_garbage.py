@@ -67,7 +67,7 @@ class Form(BaseComponent):
         fb.field('note', colspan=3, tag='simpleTextArea' )
 
     def garbageRighe(self,pane):
-        pane.inlineTableHandler(relation='@garbage_arr',viewResource='ViewFromGarbageDet',
+        pane.inlineTableHandler(relation='@garbage',viewResource='ViewFromGarbageDet',
                             picker='tip_garbage_id')
 
     def th_options(self):

@@ -6,7 +6,7 @@ class Table(object):
         self.sysFields(tbl)
 
         tbl.column('garbage_id',size='22', group='_', name_long='garbage_id'
-                    ).relation('garbage.id', relation_name='garbage_arr', mode='foreignkey', onDelete='raise')
+                    ).relation('garbage.id', relation_name='garbage', mode='foreignkey', onDelete='raise')
         tbl.column('tip_garbage_id',size='22', group='_', name_long='!![en]Garbage type'
                     ).relation('tip_garbage.id', relation_name='tipgarb', mode='foreignkey', onDelete='raise')
         tbl.column('measure', name_short='!![en]Measure')

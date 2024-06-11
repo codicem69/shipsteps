@@ -100,6 +100,7 @@ class Table(object):
         tbl.aliasColumn('timearr_log','@time_arr.time_arr')
         tbl.aliasColumn('timearr2_log','@time_arr.time_arr_2')
         tbl.aliasColumn('movement_type','@movtype_id.@movtype_check.description')
+        tbl.formulaColumn('rifiuti_conf', """' - ' || @garbage_arr.@garbage.@tip_garbage_id.description || ' - ' || @garbage_arr.@garbage.measure || ' ' || @garbage_arr.@garbage.quantity""",dtype='T',name_long='Rifiuti da conferire')
         tbl.formulaColumn('etb_date','$etb',dtype='D')
         tbl.formulaColumn('fullstyle_forrec',"""CASE WHEN $firma_div IS NULL OR $firma_div = '' THEN @agency_id.fullstyle 
                                                  ELSE $firma_div END""", dtype='T')

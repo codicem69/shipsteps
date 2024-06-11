@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-04-03T11:59:22.132334+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-06-10T18:32:25.462582+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-06-11T16:07:30.397386+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.garbagetemplategarbage_request</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">garbage_request</code>
@@ -15,27 +15,21 @@
 	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:30px;width:95%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td style="text-align: center;"&gt;
+				&lt;td colspan="2" style="text-align: center;"&gt;
 					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;Modulo di PRENOTAZIONE SERVIZIO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td style="text-align: center;"&gt;
+				&lt;td colspan="2" style="text-align: center;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;RITIRO RIFIUTI DI BORDO&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&amp;nbsp;
-	&lt;table border="1" cellpadding="10" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:95%;"&gt;
+	&lt;table border="1" cellpadding="5" cellspacing="1" class="table_dati" style="border-collapse:collapse;margin-left:20px;width:95%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
-					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PORTO DI&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-				&lt;/td&gt;
+					&lt;span style="font-size:14px;width:10%;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PORTO DI&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$arrival_id_workport&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 				&lt;td&gt;
@@ -49,11 +43,11 @@
 				&lt;td&gt;
 					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Bandiera&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
-					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;&lt;strong&gt;$arrival_id_vessel_imbarcazione_bandiera&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:arial,helvetica,sans-serif;width:10%;"&gt;&lt;span style="font-size:14px;"&gt;&lt;strong&gt;$arrival_id_vessel_imbarcazione_bandiera&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
-					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;STAZZA LORDA&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-size:14px;width:10%;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;STAZZA LORDA&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$arrival_id_vessel_imbarcazione_gt&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 				&lt;td&gt;
@@ -73,13 +67,11 @@
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
-					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Giorni presunti di permanenza&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-size:14px;width:10%;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Giorni presunti di permanenza&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$sosta_gg&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
-				&lt;td&gt;
-					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;NOTE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td&gt;
-					&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$note&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="2"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$note&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
@@ -88,28 +80,28 @@
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td colspan="3" style="text-align: center;"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Rifiuto da scaricare:&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:14px;"&gt;Rifiuti da conferire:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid; border-bottom:1px solid;border-top:1px solid"&gt;
 					&lt;td style="text-align: center;border-right:1px solid;width:450px;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;TIPOLOGIA RIFIUTO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;TIPOLOGIA RIFIUTO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;border-right:1px solid;" width="50px"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;MISURA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;MISURA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;QUANTIT&amp;Agrave;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;QUANTIT&amp;Agrave;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr row_datasource="@garbage_arr" style="border-left:1px solid;border-right:1px solid; border-bottom:1px solid"&gt;
 					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$garbage_type_description&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$garbage_type_description&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$garbage_detail_measure&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$garbage_detail_measure&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$garbage_detail_quantity&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$garbage_detail_quantity&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 			&lt;/tbody&gt;
 		&lt;/table&gt;
 		&lt;div style="text-align: center;"&gt;
-			&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DATI:&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;Informazioni aggiuntive:&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;table cellpadding="10" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:95%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid; border-bottom:1px solid; border-top:1px solid"&gt;
@@ -500,41 +492,41 @@
 <editable _T="NN" dtype="::NN"></editable></gwzqsuhysp></varsbag>
 <parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
-<content_css></content_css>
+<content_css>.table_dati {
+  table-layout: fixed;
+  width: 150px;
+}</content_css>
 <compiled><_garbage_arr _tag="@garbage_arr">&lt;tr row_datasource="@garbage_arr" style="border-left:1px solid;border-right:1px solid; border-bottom:1px solid"&gt;
 					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$@tip_garbage_id.description&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$@tip_garbage_id.description&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$measure&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$measure&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$quantity&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;$quantity&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 			</_garbage_arr>
-<main maintable="shipsteps.garbage" locale="it-IT" virtual_columns="rif_alim_x,bilge_x,cargo_res_x,altro_x,@arrival_id.@invoice_det_id.fullname,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@arrival_id.lastport,@arrival_id.owners,@arrival_id.workport,@arrival_id.@agency_id.fullstyle,datalavoro,sped_fat" columns="$ora_arr,$data_arr,$sosta_gg,$rif_alim_x,$bilge_x,$cargo_res_x,$altro_x,$altro_spec,@arrival_id.@invoice_det_id.fullname,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.description,@arrival_id.@agency_id.address,@arrival_id.@agency_id.tel,@arrival_id.@agency_id.fax,@arrival_id.@agency_id.email,@arrival_id.@agency_id.web,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@arrival_id.@vessel_details_id.@imbarcazione_id.gt,@arrival_id.lastport,@arrival_id.owners,@arrival_id.workport,@arrival_id.@agency_id.fullstyle,$datalavoro,@arrival_id.@agency_id.agency_stamp,$sped_fat,@arrival_id.reference_num,$note,@garbage_arr.@tip_garbage_id.description,@garbage_arr.measure,@garbage_arr.quantity" formats='{"arrival_id_agenzia_agency_stamp": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"ora_arr": "H", "data_arr": "D", "sosta_gg": "A", "rif_alim_x": "A", "bilge_x": "A", "cargo_res_x": "A", "altro_x": "A", "altro_spec": "T", "arrival_id_fatturazione_fullname": "A", "arrival_id_agenzia_agency_name": "T", "arrival_id_agenzia_description": "T", "arrival_id_agenzia_address": "T", "arrival_id_agenzia_tel": "T", "arrival_id_agenzia_fax": "T", "arrival_id_agenzia_email": "T", "arrival_id_agenzia_web": "T", "arrival_id_vessel_imbarcazione_tipo": "T", "arrival_id_vessel_imbarcazione_nome": "T", "arrival_id_vessel_imbarcazione_bandiera": "A", "arrival_id_vessel_imbarcazione_gt": "T", "arrival_id_last_port": "T", "arrival_id_owners_full_name": "T", "arrival_id_workport": "T", "arrival_id_agenzia_fullstyle": "A", "data_di_lavoro": "T", "arrival_id_agenzia_agency_stamp": "P", "sped_fat": "A", "reference_number": "T", "note": "T", "garbage_type_description": "T", "garbage_detail_measure": "T", "garbage_detail_quantity": "T"}::JS'>&lt;div&gt;
+<main maintable="shipsteps.garbage" locale="it-IT" virtual_columns="rif_alim_x,bilge_x,cargo_res_x,altro_x,@arrival_id.@invoice_det_id.fullname,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@arrival_id.lastport,@arrival_id.owners,@arrival_id.workport,@arrival_id.@agency_id.fullstyle,datalavoro,sped_fat" columns="$ora_arr,$data_arr,$sosta_gg,$rif_alim_x,$bilge_x,$cargo_res_x,$altro_x,$altro_spec,@arrival_id.@invoice_det_id.fullname,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.description,@arrival_id.@agency_id.address,@arrival_id.@agency_id.tel,@arrival_id.@agency_id.fax,@arrival_id.@agency_id.email,@arrival_id.@agency_id.web,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@arrival_id.@vessel_details_id.@imbarcazione_id.gt,@arrival_id.lastport,@arrival_id.owners,@arrival_id.workport,@arrival_id.@agency_id.fullstyle,$datalavoro,@arrival_id.@agency_id.agency_stamp,$sped_fat,@arrival_id.reference_num,$note,@garbage_arr.@tip_garbage_id.description,@garbage_arr.measure,@garbage_arr.quantity" formats='{"arrival_id_agenzia_agency_stamp": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"ora_arr": "H", "data_arr": "D", "sosta_gg": "A", "rif_alim_x": "A", "bilge_x": "A", "cargo_res_x": "A", "altro_x": "A", "altro_spec": "T", "arrival_id_fatturazione_fullname": "A", "arrival_id_agenzia_agency_name": "T", "arrival_id_agenzia_description": "T", "arrival_id_agenzia_address": "T", "arrival_id_agenzia_tel": "T", "arrival_id_agenzia_fax": "T", "arrival_id_agenzia_email": "T", "arrival_id_agenzia_web": "T", "arrival_id_vessel_imbarcazione_tipo": "T", "arrival_id_vessel_imbarcazione_nome": "T", "arrival_id_vessel_imbarcazione_bandiera": "A", "arrival_id_vessel_imbarcazione_gt": "T", "arrival_id_last_port": "T", "arrival_id_owners_full_name": "T", "arrival_id_workport": "T", "arrival_id_agenzia_fullstyle": "A", "data_di_lavoro": "T", "arrival_id_agenzia_agency_stamp": "P", "sped_fat": "A", "reference_number": "T", "note": "T", "garbage_type_description": "T", "garbage_detail_measure": "T", "garbage_detail_quantity": "T"}::JS'>&lt;style&gt;.table_dati {
+  table-layout: fixed;
+  width: 150px;
+}&lt;/style&gt;&lt;div&gt;
 	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:30px;width:95%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
-				&lt;td&gt;
-					&amp;#160;&lt;/td&gt;
-				&lt;td style="text-align: center;"&gt;
+				&lt;td colspan="2" style="text-align: center;"&gt;
 					&lt;span style="font-size:16px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;Modulo di PRENOTAZIONE SERVIZIO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
-				&lt;td&gt;
-					&amp;#160;&lt;/td&gt;
-				&lt;td style="text-align: center;"&gt;
+				&lt;td colspan="2" style="text-align: center;"&gt;
 					&lt;span style="font-size:14px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;RITIRO RIFIUTI DI BORDO&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
 	&amp;#160;
-	&lt;table border="1" cellpadding="10" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:95%;"&gt;
+	&lt;table border="1" cellpadding="5" cellspacing="1" class="table_dati" style="border-collapse:collapse;margin-left:20px;width:95%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
-					&lt;div&gt;
-						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PORTO DI&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-				&lt;/td&gt;
+					&lt;span style="font-size:14px;width:10%;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;PORTO DI&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$@arrival_id.workport&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 				&lt;td&gt;
@@ -548,11 +540,11 @@
 				&lt;td&gt;
 					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;Bandiera&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
-					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;&lt;strong&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-family:arial,helvetica,sans-serif;width:10%;"&gt;&lt;span style="font-size:14px;"&gt;&lt;strong&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
-					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;STAZZA LORDA&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-size:14px;width:10%;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;STAZZA LORDA&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.gt&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 				&lt;td&gt;
@@ -572,13 +564,11 @@
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
-					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Giorni presunti di permanenza&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-size:14px;width:10%;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Giorni presunti di permanenza&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$sosta_gg&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
-				&lt;td&gt;
-					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;NOTE&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td&gt;
-					&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:14px;"&gt;$note&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+				&lt;td colspan="2"&gt;
+					&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$note&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
@@ -587,22 +577,22 @@
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td colspan="3" style="text-align: center;"&gt;
-						&lt;strong&gt;&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Rifiuto da scaricare:&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
+						&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;&lt;span style="font-size:14px;"&gt;Rifiuti da conferire:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid; border-bottom:1px solid;border-top:1px solid"&gt;
 					&lt;td style="text-align: center;border-right:1px solid;width:450px;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;TIPOLOGIA RIFIUTO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;TIPOLOGIA RIFIUTO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;td style="text-align: center;border-right:1px solid;" width="50px"&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;MISURA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;MISURA&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-					&lt;td style="text-align: center;border-right:1px solid;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;QUANTIT&amp;#192;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;QUANTIT&amp;#192;&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				
 $@garbage_arr
 &lt;/tbody&gt;
 		&lt;/table&gt;
 		&lt;div style="text-align: center;"&gt;
-			&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;DATI:&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+			&lt;span style="font-size:14px;"&gt;&lt;span style="font-family:tahoma,geneva,sans-serif;"&gt;&lt;strong&gt;Informazioni aggiuntive:&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 		&lt;table cellpadding="10" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:95%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr style="border-left:1px solid;border-right:1px solid; border-bottom:1px solid; border-top:1px solid"&gt;
@@ -658,7 +648,7 @@ $@garbage_arr
 	&amp;#160;&lt;/div&gt;</main></compiled></data>
 <authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
 <private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
-<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" as="t0_quicklist"></quicklist>
 <flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_mail,is_print</flags>
 <required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
 <preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>
