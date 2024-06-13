@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-26T12:52:32.262590+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-04-03T11:59:21.830429+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-03-28T18:24:24.561745+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-06-13T16:55:25.741575+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplateform_immigration</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">form_immigration</code>
@@ -271,16 +271,16 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g7cov8i929>
-<g7covkk349 _pkey="g7covkk349"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<gx2zrmt4n5 _newrecord="True::B" _pkey="gx2zrmt4n5"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/Tipo</fieldname>
-<varname dtype="::NN">vessel_imbarcazione_tipo</varname>
+<fieldname dtype="::NN">Vessel/imbarcazione/Vessel type/Codice</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_vessel_type_codice">vessel_imbarcazione_tipo</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g7covkk349>
+<editable _T="NN" dtype="::NN"></editable></gx2zrmt4n5>
 <g7covlnug1 _pkey="g7covlnug1"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nome</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
@@ -424,7 +424,7 @@
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$cargo_lu_en_ita&amp;#160;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		</_cargo_lu_arr>
-<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.@port.citta_nazione,@vessel_details_id.@imbarcazione_id.@flag.codename,@last_port.citta_nazione,@next_port.citta_nazione,immigration_int,@cargo_lu_arr.cargo_lu_en_ita" columns="@agency_id.agency_name,@agency_id.description,@agency_id.address,@agency_id.tel,@agency_id.email,@agency_id.web,@agency_id.@port.citta_nazione,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.@flag.codename,$etb,$etb,$ets,@dock_id.dock_name,$master_name,$n_crew,@last_port.citta_nazione,@next_port.citta_nazione,$immigration_int,@cargo_lu_arr.cargo_lu_en_ita,$cargo_dest" formats='{"data_ormeggio": "dd/MM/yy", "data_documento": null}::JS' masks='{"data_documento": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "agenzia_description": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agenzia_place_citta_nazione": "A", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "A", "etb": "DH", "data_ormeggio": "DH", "ets": "DH", "banchina_dock_name": "T", "master_name": "T", "n_crew": "N", "last_port": "A", "next_port": "A", "immigration_int": "T", "carichi_sbarco_imbarchi_carico_l_u_ita": "T", "cargo_dest": "T"}::JS'>&lt;div&gt;
+<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.@port.citta_nazione,@vessel_details_id.@imbarcazione_id.@flag.codename,@last_port.citta_nazione,@next_port.citta_nazione,immigration_int,@cargo_lu_arr.cargo_lu_en_ita" columns="@agency_id.agency_name,@agency_id.description,@agency_id.address,@agency_id.tel,@agency_id.email,@agency_id.web,@agency_id.@port.citta_nazione,@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,@vessel_details_id.@imbarcazione_id.nome,@vessel_details_id.@imbarcazione_id.@flag.codename,$etb,$etb,$ets,@dock_id.dock_name,$master_name,$n_crew,@last_port.citta_nazione,@next_port.citta_nazione,$immigration_int,@cargo_lu_arr.cargo_lu_en_ita,$cargo_dest" formats='{"data_ormeggio": "dd/MM/yy", "data_documento": null}::JS' masks='{"data_documento": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_agency_name": "T", "agenzia_description": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "agenzia_web": "T", "agenzia_place_citta_nazione": "A", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "vessel_imbarcazione_bandiera": "A", "etb": "DH", "data_ormeggio": "DH", "ets": "DH", "banchina_dock_name": "T", "master_name": "T", "n_crew": "N", "last_port": "A", "next_port": "A", "immigration_int": "T", "carichi_sbarco_imbarchi_carico_l_u_ita": "T", "cargo_dest": "T"}::JS'>&lt;div&gt;
 	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:96%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
@@ -458,7 +458,7 @@
 	&lt;span style="font-size:20px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$immigration_int&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div style="text-align: center;"&gt;
-	&lt;span style="font-size:18px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;OGGETTO: comunicazione arrivo $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:18px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;OGGETTO: comunicazione arrivo $@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@vessel_details_id.@imbarcazione_id.nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div style="text-align: center;"&gt;
 	&amp;#160;&lt;/div&gt;
@@ -590,7 +590,7 @@ $@cargo_lu_arr
 	&amp;#160;&amp;#160;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; I UNDERSIGNED MASTER OF $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; I UNDERSIGNED MASTER OF $@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@vessel_details_id.@imbarcazione_id.nome &lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;#160;&amp;#160;&amp;#160;&amp;#160;&amp;#160; DECLARES THAT THERE ARE NO CLANDESTINES ON BOARD&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;

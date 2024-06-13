@@ -44,7 +44,7 @@ class ViewIntFat(BaseComponent):
             return
         #lettura del record_id della tabella arrival
         record_id=record['id']
-        vessel_type = record['@vessel_details_id.@imbarcazione_id.tipo']
+        vessel_type = record['@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code']
         vessel_name = record['@vessel_details_id.@imbarcazione_id.nome']
         intfat_id = record['invoice_det_id']
         tbl_invoice = self.db.table('shipsteps.invoice_det')

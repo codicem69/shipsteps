@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-14T18:28:15.242545+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-04-03T11:59:22.107362+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-03-28T17:31:16.471841+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-06-13T17:07:36.653963+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.certsanimaretemplatecert_sanimare</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">cert_sanimare</code>
@@ -29,7 +29,7 @@
 					&lt;div&gt;
 						&amp;nbsp;&lt;/div&gt;
 				&lt;/td&gt;
-				&lt;td width='200px'&gt;
+				&lt;td width="200px"&gt;
 					&amp;nbsp;&lt;/td&gt;
 				&lt;td style="text-align: right;"&gt;
 					&lt;div style="text-align: left;"&gt;
@@ -115,7 +115,7 @@
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;N&amp;deg; Doc.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$doc_n&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td&gt;
+				&lt;td width="70px"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;rilasciato da&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$issuedby&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -726,16 +726,16 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></gcxgvwcl21>
-<gcxgkt5889 _pkey="gcxgkt5889"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/Bandiera</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_vessel_imbarcazione_bandiera">imbarcazione_bandiera</varname>
-<virtual_column _T="NN"></virtual_column>
+<gpxsskiluh _pkey="gpxsskiluh"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/Flag/codename</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_vessel_imbarcazione_flag_codename">imbarcazione_bandiera</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gcxgkt5889>
+<editable _T="NN" dtype="::NN"></editable></gpxsskiluh>
 <gcxgkqgyy9 _pkey="gcxgkqgyy9"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.nome</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/Nome</fieldname>
@@ -746,16 +746,16 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></gcxgkqgyy9>
-<gcxgkp2ysp _pkey="gcxgkp2ysp"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<gx303ibna9 _pkey="gx303ibna9"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/Tipo</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_vessel_imbarcazione_tipo">imbarcazione_tipo</varname>
+<fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/Vessel type/Codice</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_id_vessel_imbarcazione_vessel_type_codice">imbarcazione_tipo</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gcxgkp2ysp>
+<editable _T="NN" dtype="::NN"></editable></gx303ibna9>
 <gcxhak7b1t _pkey="gcxhak7b1t"><fieldpath dtype="::NN">sanification_x</fieldpath>
 <dtype dtype="::NN">A</dtype>
 <fieldname dtype="::NN">sanification_x</fieldname>
@@ -829,7 +829,7 @@
 <parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css></content_css>
-<compiled><main maintable="shipsteps.certsanimare" locale="it-IT" virtual_columns="@arrival_id.@vessel_details_id.@reg_place.citta_nazione,sanification_x,medicines_x,waterbox_x,reg_narcotics_x,newreg_narcotics_x,destroy_med_x,@arrival_id.usma_int" columns="$xconto,$docagent,$doc_n,$issuedby,$datedoc,$navigation,$sanification,$san_nsis,$medicines,$tab_medicine,$med_nsis,$waterbox,$water_nsis,$reg_narcotics,$narcotics_nsis,$newreg_narcotics,$newnarcotics_nsis,$destroy_med,$destroymed_nsis,$visit_date,$date,@arrival_id.@agency_id.agent_name,@arrival_id.@agency_id.birthplace,@arrival_id.@agency_id.birthdate,@arrival_id.@agency_id.residence_address,@arrival_id.@agency_id.cap_residence,@arrival_id.@agency_id.residence_city,@arrival_id.@agency_id.mobile_agent,@arrival_id.@agency_id.cf_agent,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.agency_stamp,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.address,@arrival_id.@agency_id.tel,@arrival_id.@agency_id.email,@arrival_id.@vessel_details_id.@reg_place.citta_nazione,@arrival_id.@vessel_details_id.callsign,@arrival_id.@vessel_details_id.@imbarcazione_id.nt,@arrival_id.@vessel_details_id.@imbarcazione_id.gt,@arrival_id.@vessel_details_id.reg_num,@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@vessel_details_id.@imbarcazione_id.tipo,$sanification_x,$medicines_x,$waterbox_x,$reg_narcotics_x,$newreg_narcotics_x,$destroy_med_x,@arrival_id.usma_int" formats='{"agency_stamp": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"xconto": "T", "docagent": "T", "doc_n": "T", "issuedby": "T", "datedoc": "D", "navigation": "T", "sanification": "B", "san_nsis": "T", "medicines": "B", "tab_medicine": "T", "med_nsis": "T", "waterbox": "B", "water_nsis": "T", "reg_narcotics": "B", "narcotics_nsis": "T", "newreg_narcotics": "B", "newnarcotics_nsis": "T", "destroy_med": "B", "destroymed_nsis": "T", "visit_date": "D", "date": "D", "agent_name": "T", "agent_birthplace": "T", "agent_birthdate": "D", "agent_residence_address": "T", "agent_cap_residence": "A", "agent_residence_city": "T", "agent_mobile": "T", "agent_cf": "A", "port": "T", "agency_stamp": "P", "agency_name": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "vessel_regplace": "A", "callsign": "A", "imbarcazione_nt": "T", "imbarcazione_gt": "T", "vessel_reg_num": "T", "imbarcazione_bandiera": "T", "imbarcazione_nome": "T", "imbarcazione_tipo": "T", "sanification_x": "A", "medicines_x": "A", "waterbox_x": "A", "reg_narcotics_x": "A", "newreg_narcotics_x": "A", "destroy_med_x": "A", "usma_int": "T"}::JS'>&lt;div style="text-align: center;"&gt;
+<compiled><main maintable="shipsteps.certsanimare" locale="it-IT" virtual_columns="@arrival_id.@vessel_details_id.@reg_place.citta_nazione,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,sanification_x,medicines_x,waterbox_x,reg_narcotics_x,newreg_narcotics_x,destroy_med_x,@arrival_id.usma_int" columns="$xconto,$docagent,$doc_n,$issuedby,$datedoc,$navigation,$sanification,$san_nsis,$medicines,$tab_medicine,$med_nsis,$waterbox,$water_nsis,$reg_narcotics,$narcotics_nsis,$newreg_narcotics,$newnarcotics_nsis,$destroy_med,$destroymed_nsis,$visit_date,$date,@arrival_id.@agency_id.agent_name,@arrival_id.@agency_id.birthplace,@arrival_id.@agency_id.birthdate,@arrival_id.@agency_id.residence_address,@arrival_id.@agency_id.cap_residence,@arrival_id.@agency_id.residence_city,@arrival_id.@agency_id.mobile_agent,@arrival_id.@agency_id.cf_agent,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.agency_stamp,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.address,@arrival_id.@agency_id.tel,@arrival_id.@agency_id.email,@arrival_id.@vessel_details_id.@reg_place.citta_nazione,@arrival_id.@vessel_details_id.callsign,@arrival_id.@vessel_details_id.@imbarcazione_id.nt,@arrival_id.@vessel_details_id.@imbarcazione_id.gt,@arrival_id.@vessel_details_id.reg_num,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,$sanification_x,$medicines_x,$waterbox_x,$reg_narcotics_x,$newreg_narcotics_x,$destroy_med_x,@arrival_id.usma_int" formats='{"agency_stamp": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"xconto": "T", "docagent": "T", "doc_n": "T", "issuedby": "T", "datedoc": "D", "navigation": "T", "sanification": "B", "san_nsis": "T", "medicines": "B", "tab_medicine": "T", "med_nsis": "T", "waterbox": "B", "water_nsis": "T", "reg_narcotics": "B", "narcotics_nsis": "T", "newreg_narcotics": "B", "newnarcotics_nsis": "T", "destroy_med": "B", "destroymed_nsis": "T", "visit_date": "D", "date": "D", "agent_name": "T", "agent_birthplace": "T", "agent_birthdate": "D", "agent_residence_address": "T", "agent_cap_residence": "A", "agent_residence_city": "T", "agent_mobile": "T", "agent_cf": "A", "port": "T", "agency_stamp": "P", "agency_name": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "vessel_regplace": "A", "callsign": "A", "imbarcazione_nt": "T", "imbarcazione_gt": "T", "vessel_reg_num": "T", "imbarcazione_bandiera": "A", "imbarcazione_nome": "T", "imbarcazione_tipo": "T", "sanification_x": "A", "medicines_x": "A", "waterbox_x": "A", "reg_narcotics_x": "A", "newreg_narcotics_x": "A", "destroy_med_x": "A", "usma_int": "T"}::JS'>&lt;div style="text-align: center;"&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div style="text-align: center;"&gt;
 	&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&lt;u&gt;RICHIESTA DI PRESTAZIONE TECNICA&lt;/u&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
@@ -847,7 +847,7 @@
 					&lt;div&gt;
 						&amp;nbsp;&lt;/div&gt;
 				&lt;/td&gt;
-				&lt;td width='200px'&gt;
+				&lt;td width="200px"&gt;
 					&amp;nbsp;&lt;/td&gt;
 				&lt;td style="text-align: right;"&gt;
 					&lt;div style="text-align: left;"&gt;
@@ -933,7 +933,7 @@
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;N&amp;deg; Doc.&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$doc_n&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td&gt;
+				&lt;td width="70px"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;rilasciato da&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$issuedby&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
@@ -958,7 +958,7 @@
 						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tipologia del mezzo:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 				&lt;/td&gt;
 				&lt;td colspan="7"&gt;
-					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.tipo&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr height="30px"&gt;
 				&lt;td&gt;
@@ -976,7 +976,7 @@
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Bandiera:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="7"&gt;
-					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.bandiera&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr height="30px"&gt;
 				&lt;td&gt;

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-01-26T17:25:29.416813+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-02-17T12:23:12.958865+01:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2023-02-17T12:21:43.637192+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.prearrivalstemplateprearrivals</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">prearrivals</code>
@@ -50,7 +50,7 @@
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask></ghn41g14wh>
-<gibek3h7lt _newrecord="True::B" _pkey="gibek3h7lt"><fieldpath>@imbarcazione_id.nome</fieldpath>
+<gibeihf28h _pkey="gibeihf28h"><fieldpath>@imbarcazione_id.nome</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">imbarcazione/Nome</fieldname>
 <varname dtype="::NN">imbarcazione_nome</varname>
@@ -58,8 +58,8 @@
 <required_columns _T="NN"></required_columns>
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></gibek3h7lt>
-<gibek72cix _newrecord="True::B" _pkey="gibek72cix"><fieldpath>@imbarcazione_id.tipo</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gibeihf28h>
+<gibeimlt89 _pkey="gibeimlt89"><fieldpath>@imbarcazione_id.tipo</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">imbarcazione/Tipo</fieldname>
 <varname dtype="::NN">imbarcazione_tipo</varname>
@@ -67,7 +67,7 @@
 <required_columns _T="NN"></required_columns>
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></gibek72cix>
+<mask _T="NN" dtype="::NN"></mask></gibeimlt89>
 <ghn428glt5 _pkey="ghn428glt5"><fieldpath>email_cc</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">email_cc</fieldname>

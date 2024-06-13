@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-09-14T18:28:14.997821+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2022-10-17T12:15:56.913978+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-06-13T16:56:02.292410+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatefront_carico</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">front_carico</code>
 <objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">tommaso</userid>
+<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
 <description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Frontespizio Carico</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div id="divCargo" name="divCargo" style="outline:1px solid;padding:5px;margin:20px;
@@ -66,16 +66,16 @@
 <bcc_address _T="NN"></bcc_address>
 <attachments _T="NN"></attachments></email>
 <email_compiled _T="BAG"></email_compiled></metadata>
-<varsbag><g6rt6s7nft _pkey="g6rt6s7nft"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<varsbag><gx2zs60yi9 _newrecord="True::B" _pkey="gx2zs60yi9"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/Tipo</fieldname>
-<varname dtype="::NN">vessel_imbarcazione_tipo</varname>
+<fieldname dtype="::NN">Vessel/imbarcazione/Vessel type/Codice</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_vessel_type_codice">vessel_imbarcazione_tipo</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g6rt6s7nft>
+<editable _T="NN" dtype="::NN"></editable></gx2zs60yi9>
 <g6rtwl7smx _pkey="g6rtwl7smx"><fieldpath dtype="::NN">@cargo_lu_arr.cargo_ship_rec</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Carichi sbarco/imbarchi/Carico L/U shiprec</fieldname>
@@ -111,7 +111,7 @@
 <compiled><_cargo_lu_arr _tag="@cargo_lu_arr">&lt;div row_datasource="@cargo_lu_arr" style="text-align: center;"&gt;
 		&lt;span style="font-size:24px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$cargo_ship_rec&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 	</_cargo_lu_arr>
-<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@cargo_lu_arr.cargo_ship_rec,totcargo" columns="@vessel_details_id.@imbarcazione_id.tipo,@cargo_lu_arr.cargo_ship_rec,@vessel_details_id.@imbarcazione_id.nome,$totcargo" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_tipo": "T", "carichi_sbarco_imbarchi_carico_l_u_shiprec": "T", "vessel_imbarcazione_nome": "T", "tot_carico": "N"}::JS'>&lt;div id="divCargo" name="divCargo" style="outline:1px solid;padding:5px;margin:20px;
+<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@cargo_lu_arr.cargo_ship_rec,totcargo" columns="@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,@cargo_lu_arr.cargo_ship_rec,@vessel_details_id.@imbarcazione_id.nome,$totcargo" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"vessel_imbarcazione_tipo": "T", "carichi_sbarco_imbarchi_carico_l_u_shiprec": "T", "vessel_imbarcazione_nome": "T", "tot_carico": "N"}::JS'>&lt;div id="divCargo" name="divCargo" style="outline:1px solid;padding:5px;margin:20px;
   outline-offset:-10px;height:1040px"&gt;
 	&lt;div style="text-align: center;"&gt;
 		&amp;#160;&lt;/div&gt;
@@ -132,7 +132,7 @@
 	&lt;div style="text-align: center;"&gt;
 		&amp;#160;&lt;/div&gt;
 	&lt;div style="text-align: center;"&gt;
-		&lt;span style="font-size:36px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+		&lt;span style="font-size:36px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 	&lt;div style="text-align: center;"&gt;
 		&amp;#160;&lt;/div&gt;
 	&lt;div style="text-align: center;"&gt;

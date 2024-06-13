@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2022-10-07T12:54:14.905695+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-06-11T17:36:51.520779+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-06-13T16:56:44.800731+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplategarbage_email</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">garbage_email</code>
@@ -64,7 +64,7 @@
 <cc_address _T="NN"></cc_address>
 <bcc_address _T="NN"></bcc_address>
 <attachments _T="NN"></attachments></email>
-<email_compiled><subject>Richiesta servizio ritiro rifiuti $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome ref:$reference_num</subject></email_compiled></metadata>
+<email_compiled><subject>Richiesta servizio ritiro rifiuti $@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@vessel_details_id.@imbarcazione_id.nome ref:$reference_num</subject></email_compiled></metadata>
 <varsbag><g86opnvmht _pkey="g86opnvmht"><fieldpath dtype="::NN">@agency_id.fullstyle</fieldpath>
 <dtype dtype="::NN">A</dtype>
 <fieldname dtype="::NN">Agenzia/fullstyle</fieldname>
@@ -85,16 +85,16 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g86opqlm9t>
-<g86oqepgk1 _pkey="g86oqepgk1"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.tipo</fieldpath>
+<gx2zsx95jl _newrecord="True::B" _pkey="gx2zsx95jl"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Vessel/imbarcazione/Tipo</fieldname>
-<varname dtype="::NN">vessel_imbarcazione_tipo</varname>
+<fieldname dtype="::NN">Vessel/imbarcazione/Vessel type/Codice</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_vessel_type_codice">vessel_imbarcazione_tipo</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g86oqepgk1>
+<editable _T="NN" dtype="::NN"></editable></gx2zsx95jl>
 <g86oqfpn0x _pkey="g86oqfpn0x"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nome</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
@@ -158,7 +158,7 @@
 <parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
 <content_css _T="NN"></content_css>
-<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.fullstyle,@agency_id.fullname,garbage_int,saluto,rifiuti_conf" columns="@agency_id.fullstyle,@agency_id.fullname,@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,@agency_id.agency_name,$garbage_int,$saluto,$reference_num,$rifiuti_conf" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_fullstyle": "A", "agenzia_user_signature": "T", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "agenzia_agency_name": "T", "garbage_int": "T", "greeting": "T", "reference_number": "T", "rifiuti_da_conferire": "T"}::JS'>&lt;div&gt;
+<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.fullstyle,@agency_id.fullname,garbage_int,saluto,rifiuti_conf" columns="@agency_id.fullstyle,@agency_id.fullname,@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,@vessel_details_id.@imbarcazione_id.nome,@agency_id.agency_name,$garbage_int,$saluto,$reference_num,$rifiuti_conf" formats="{}::JS" masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"agenzia_fullstyle": "A", "agenzia_user_signature": "T", "vessel_imbarcazione_tipo": "T", "vessel_imbarcazione_nome": "T", "agenzia_agency_name": "T", "garbage_int": "T", "greeting": "T", "reference_number": "T", "rifiuti_da_conferire": "T"}::JS'>&lt;div&gt;
 	&lt;span style="font-family:courier new,courier,monospace;"&gt;From: $@agency_id.agency_name&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-family:courier new,courier,monospace;"&gt;To: $garbage_int&lt;/span&gt;&lt;/div&gt;
@@ -169,7 +169,7 @@
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-family:courier new,courier,monospace;"&gt;si allega richiesta servizio per ritiro rifiuti $@vessel_details_id.@imbarcazione_id.tipo $@vessel_details_id.@imbarcazione_id.nome .&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-family:courier new,courier,monospace;"&gt;si allega richiesta servizio per ritiro rifiuti $@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@vessel_details_id.@imbarcazione_id.nome .&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
@@ -198,7 +198,7 @@
 	If you have received this message by mistake please eliminate it without copying or sending on it to other people, kindly please giving us communication by e-mail.&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</main></compiled></data>
 <authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
 <private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
-<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" as="t0_quicklist"></quicklist>
+<quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
 <flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_mail</flags>
 <required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
 <preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>

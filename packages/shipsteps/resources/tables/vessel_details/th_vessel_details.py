@@ -76,7 +76,7 @@ class Form(BaseComponent):
        
         bc.contentPane(region='left', width='20%', splitter=True).linkerBox('imbarcazione_id',label='Vessel name',margin='2px',openIfEmpty=True, validate_notnull=True,
                                                     columns='$nome',
-                                                    auxColumns='$tipo,@flag.codename,$imo',
+                                                    auxColumns='$tip_imbarcazione_code,@flag.codename,$imo',
                                                     newRecordOnly=False,formResource='Form',
                                                     dialog_height='200px',dialog_width='700px')
         center= bc.roundedGroup(region='center',title='Vessel Details', splitter=True).div(margin='10px',margin_right='20px')

@@ -585,7 +585,7 @@ class Form(BaseComponent):
         record_id=record['id']
         #lettura dati su tabella arrival
         tbl_arrival = self.db.table('shipsteps.arrival')
-        vessel_type,vessel_name,eta_arr,ref_num = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,$eta,$reference_num',
+        vessel_type,vessel_name,eta_arr,ref_num = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code,@vessel_details_id.@imbarcazione_id.nome,$eta,$reference_num',
                   where='$agency_id=:ag_id AND $id=:rec_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=arrival_id)
         eta = eta_arr.strftime("%d/%m/%Y, %H:%M")    
@@ -670,7 +670,7 @@ class Form(BaseComponent):
         body_msg=(sal + '<br>' + " " +vessel_type + ' ' + vessel_name )
         body_html=(body_header + body_msg + body_footer )
         
-        if email_to:
+        if email_to or email_cc or email_bcc:
             self.db.table('email.message').newMessage(account_id=account_email,
                            to_address=email_to,
                            from_address=email_mittente,

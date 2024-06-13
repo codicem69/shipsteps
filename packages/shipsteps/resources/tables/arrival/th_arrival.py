@@ -2363,7 +2363,7 @@ class Form(BaseComponent):
         record_id=record['id']
         #lettura dati su tabella arrival
         tbl_arrival = self.db.table('shipsteps.arrival')
-        vessel_type,vessel_name,eta_arr,info_moor = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,$eta,$info_moor',
+        vessel_type,vessel_name,eta_arr,info_moor = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tip_imbarcazione.code,@vessel_details_id.@imbarcazione_id.nome,$eta,$info_moor',
                   where='$agency_id=:ag_id AND $id=:rec_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=record_id)
         eta = eta_arr.strftime("%d/%m/%Y, %H:%M")    
@@ -2515,7 +2515,7 @@ class Form(BaseComponent):
             return
         #lettura del record_id della tabella arrival
         record_id=record['id']
-        vessel_type = record['@vessel_details_id.@imbarcazione_id.tipo']
+        vessel_type = record['@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code']
         vessel_name = record['@vessel_details_id.@imbarcazione_id.nome']
         intfat_id = record['invoice_det_id']
         tbl_invoice = self.db.table('shipsteps.invoice_det')
@@ -2575,7 +2575,7 @@ class Form(BaseComponent):
             return
         #lettura del record_id della tabella arrival
         record_id=record['id']
-        vessel_type = record['@vessel_details_id.@imbarcazione_id.tipo']
+        vessel_type = record['@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code']
         vessel_name = record['@vessel_details_id.@imbarcazione_id.nome']
         intfat_id = record['invoice_det_id']
         qt_ws = record['@arr_tasklist.acqua']
@@ -2682,7 +2682,7 @@ class Form(BaseComponent):
         record_id=record['id']
         #lettura dati su tabella arrival
         tbl_arrival = self.db.table('shipsteps.arrival')
-        vessel_type,vessel_name,eta_arr,info_moor = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tipo,@vessel_details_id.@imbarcazione_id.nome,$eta,$info_moor',
+        vessel_type,vessel_name,eta_arr,info_moor = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code,@vessel_details_id.@imbarcazione_id.nome,$eta,$info_moor',
                   where='$agency_id=:ag_id AND $id=:rec_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=record_id)
         eta = eta_arr.strftime("%d/%m/%Y, %H:%M")    
