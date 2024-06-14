@@ -131,7 +131,7 @@ class Main(TableScriptToHtml):
         seconda_col.row(height=5).cell('NUMERO ELICHE  ', font_weight='bold', background='lightgrey')
         seconda_col.row(height=5).cell('N.ELICHE PRUA  ', font_weight='bold', background='lightgrey')
 
-        nave = (self.field('@vessel_details_id.@imbarcazione_id.tipo') + ' ' + self.field('@vessel_details_id.@imbarcazione_id.nome') + '::HTML')
+        nave = (self.field('@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code') + ' ' + self.field('@vessel_details_id.@imbarcazione_id.nome') + '::HTML')
         terza_col = row.cell(width=50).layout(name='nomeNave', um='mm', border_color='black',hasBorderTop=True,
                                     lbl_height=3, style='line-height:5mm;padding-left: 5px;',width=50,content_class='celldata')
         terza_col.row(height=5).cell(nave,font_size='9pt', font_weight='bold')

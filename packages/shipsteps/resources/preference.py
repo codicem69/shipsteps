@@ -56,6 +56,7 @@ class AppPref(object):
         fb.checkbox('^.ue',lbl='Disabilita paesi UE per pratiche Sanimare', default=False)
         fb.br()
         fb.checkbox('^.pmou',lbl='Disabilita invio PMOU notification', default=False)
+        fb.checkbox('^.garbage_adsp',lbl='Disabilita invio Garbage ADSP', default=False)
         fb.checkbox('^.ref_num', lbl='Disabilita Reference number', default=True)
         fb.checkbox(value='^.delrow_arr', lbl='!![en]Enable Delrow bottom on arrival')
         fb.br()

@@ -1245,7 +1245,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi ADSP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='adsp').fetch()
         serv_len=len(service_for_email)
-        btn_gbadsp = fb.Button('!![en]Garbage ADSP', width='10em')
+        btn_gbadsp = fb.Button('!![en]Garbage ADSP', width='10em',hidden='^gnr.app_preference.shipsteps.garbage_adsp')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1272,9 +1272,9 @@ class Form(BaseComponent):
        
        # fb.dataController("if(msgspec=='val_adsp') {SET .email_garbage_adsp=true ; alert('Message created')}", msgspec='^msg_special')
       
-        fb.field('email_garbage_adsp',lbl='', margin_top='5px')
+        fb.field('email_garbage_adsp',lbl='', margin_top='5px',hidden='^gnr.app_preference.shipsteps.garbage_adsp')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
         #fb.semaphore('^.email_garbage_adsp?=#v==true?true:false', margin_top='5px')
-        fb.semaphore('^.email_garbage_adsp', margin_top='5px')
+        fb.semaphore('^.email_garbage_adsp', margin_top='5px',hidden='^gnr.app_preference.shipsteps.garbage_adsp')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
 
        #btn_af = fb.Button('!![en]Email Antifire', width='101px')
        #fb.field('email_antifire',lbl='', margin_top='5px')

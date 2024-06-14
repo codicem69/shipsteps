@@ -59,7 +59,7 @@ class Main(TableScriptToHtml):
     def datiDoc(self, row):
         dati_agent = ('<br>' + "Il sottoscritto " + self.field('@agency_id.agent_name') + " iscritto al N° " + self.field('@agency_id.cciaa_n') + " dell'elenco dei Raccomandatari Marittimi presso la CIAA di "
                       + self.field('@agency_id.cciaa_place') + ", operante nel porto di " + self.field('workport') + " come Raccomandatario Marittimo del/lla:" + '::HTML')
-        nave = (self.field('@vessel_details_id.@imbarcazione_id.tipo') + ' ' + self.field('@vessel_details_id.@imbarcazione_id.nome') + '::HTML')
+        nave = (self.field('@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code') + ' ' + self.field('@vessel_details_id.@imbarcazione_id.nome') + '::HTML')
         dati_layout = row.cell().layout(name='datiDoc', um='mm', border_color='white', lbl_class='smallCaption',
                                     lbl_height=3, style='line-height:5mm;')
         dati_layout.row().cell(dati_agent, font_size='14pt')

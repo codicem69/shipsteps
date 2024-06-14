@@ -176,10 +176,11 @@ class Main(BaseResourcePrint):
         elif cur_time < '04:00:00':
             sal = 'Buona notte,'
 
-        vessel_type = self.get_selection(columns='@vessel_details_id.@imbarcazione_id.tipo').output('list')[0][0]
+        vessel_type = self.get_selection(columns='@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code').output('list')[0][0]
         vessel_name = self.get_selection(columns='@vessel_details_id.@imbarcazione_id.nome').output('list')[0][0]
         visit_id =self.get_selection(columns='visit_id').output('list')[0][0]
         ref_n = self.get_selection(columns='reference_num').output('list')[0][0]
+        arrival_id = self.get_selection(columns='id').output('list')[0][0]
 
         subject='VISIT-ID:'+str(visit_id) + ' - Comunicazione di Partenza ' + str(vessel_type) + ' ' + str(vessel_name) + ' ref:' + str(ref_n)
         body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ str(agency_name) + '<br>' + str(consignee) + '<br><br>'
@@ -195,7 +196,7 @@ class Main(BaseResourcePrint):
                            from_address=email_mittente,
                            subject=subject, body=body_html,
                            cc_address=email_cc,
-                           bcc_address=email_bcc, attachments=attcmt,
+                           bcc_address=email_bcc, attachments=attcmt,arrival_id=arrival_id,
                            html=True)
             self.db.commit()
 
@@ -207,7 +208,7 @@ class Main(BaseResourcePrint):
                            from_address=emailpec_mitt,
                            subject=subject, body=body_html_pec,
                            cc_address=email_pec_cc,
-                           attachments=attcmt,
+                           attachments=attcmt,arrival_id=arrival_id,
                            html=True)
             self.db.commit()
 

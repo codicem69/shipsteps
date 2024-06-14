@@ -86,7 +86,7 @@ class Main(TableScriptToHtml):
       # footer_fatture.cell(self.toText(self.record['tot_fatturato'], format=self.currencyFormat), lbl="Tot. Fatturato", content_class='aligned_right')
     
     def datiNave(self, row):
-        nave = ('<br>' + self.field('@vessel_details_id.@imbarcazione_id.tipo') + ' ' + self.field('@vessel_details_id.@imbarcazione_id.nome') +
+        nave = ('<br>' + self.field('@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code') + ' ' + self.field('@vessel_details_id.@imbarcazione_id.nome') +
                 ' di bandiera ' + self.field('@vessel_details_id.@imbarcazione_id.bandiera') + '::HTML')
         dati_layout = row.cell().layout(name='datiNave', um='mm', border_color='white', lbl_class='smallCaption',
                                     lbl_height=3, style='line-height:5mm;')
