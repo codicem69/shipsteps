@@ -3,6 +3,7 @@
 
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
+from gnr.core.gnrbag import Bag
 
 class View(BaseComponent):
 
@@ -65,6 +66,24 @@ class Form(BaseComponent):
         #fb.field('altro_spec' )
         fb.field('invio_fat', colspan=3, tag='simpleTextArea' )
         fb.field('note', colspan=3, tag='simpleTextArea' )
+
+        btn_note=fb.Button('!![en]Insert note', width='6em')
+        btn_note.dataRpc('.note', self.insertNote,
+                   record='=#FORM.record', 
+                   _ask=dict(title='!![en]Select note to insert',fields=[dict(name='note', lbl='!![en]Note', tag='filteringSelect',
+                            values='1:Si prega effettuare il ritiro alle ore,2:Si prega inserire nel formulario i quantitativi riportati',hasDownArrow=True),
+                            dict(name='ora_ritiro', lbl='!![en]Time', tag='timeTextBox',validate_notnull="^.note?=#v=='1'", 
+                            hidden="^.note?=#v!='1'?true:false")]),_onResult="this.form.save();")
+        
+    @public_method
+    def insertNote(self,**kwargs):
+        if kwargs:
+            if kwargs['note'] == '1':
+                note = 'Si prega effettuare il ritiro alle ore ' + kwargs['ora_ritiro'].strftime("%H:%M") + ' ed inserire nel formulario i quantitativi riportati'   
+            if kwargs['note'] == '2':
+                note = 'Si prega inserire nel formulario i quantitativi riportati'
+        return note
+
 
     def garbageRighe(self,pane):
         pane.inlineTableHandler(relation='@garbage',viewResource='ViewFromGarbageDet',
