@@ -566,7 +566,7 @@ class Form(BaseComponent):
         fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
         #btn_test=fb.Button('test')#, action='SET .@arr_tasklist.email_dogana=true;')
         #btn_test.dataRpc('', self.test_but,arrival_id='=#FORM.record.id')
-        fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="^#FORM.record.@tip_mov.code?=#v!='pass'")
+        fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
         #con attributo hidden che punta a tip_mov se diverso dal valore pass nascondiamo il formbuilder della gpg
         #fb.field('arrival_id')
         fb.field('date_start')
@@ -906,7 +906,7 @@ class Form(BaseComponent):
         #fb1.semaphore('^.tab_servizi?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.tab_servizi', margin_top='5px')
 
-        btn_fc = fb1.Button('!![en]Print Cargo frontespiece',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_fc = fb1.Button('!![en]Print Cargo frontespiece',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -914,9 +914,9 @@ class Form(BaseComponent):
         btn_fc.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             nome_template = 'shipsteps.arrival:front_carico',format_page='A4',_onResult="this.form.save();")
        # fb1.dataController("if(msg=='front_carico') SET .front_carico=true", msg='^nome_temp')
-        fb1.field('front_carico', lbl='', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb1.field('front_carico', lbl='', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #fb1.semaphore('^.front_carico?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb1.semaphore('^.front_carico', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb1.semaphore('^.front_carico', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
 
         btn_trib = fb1.Button('!![en]Tributes', action="""{SET tabname='tributi';}""")
        #fb1.dataController("""var id = button.id; console.log(id);
@@ -1168,7 +1168,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Chimico di porto ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='chem').fetch()
         serv_len=len(service_for_email)
-        btn_chem = fb.Button('!![en]Chemist', width='10em',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_chem = fb.Button('!![en]Chemist', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1192,13 +1192,13 @@ class Form(BaseComponent):
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='chemist',
                                 cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")                                 
         #fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_chemist',lbl='', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb.field('email_chemist',lbl='', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #fb.semaphore('^.email_chemist?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb.semaphore('^.email_chemist', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb.semaphore('^.email_chemist', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #verifichiamo quanti servizi GPG ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='gpg').fetch()
         serv_len=len(service_for_email)
-        btn_gpg = fb.Button('!![en]GPG', width='10em')
+        btn_gpg = fb.Button('!![en]GPG', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1222,11 +1222,11 @@ class Form(BaseComponent):
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='gpg',
                                 cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")                                 
        # fb.dataController("if(msgspec=='val_gpg') {SET .email_gpg=true ; alert('Message created')}", msgspec='^msg_special')
-        fb.field('email_gpg',lbl='', margin_top='5px')
+        fb.field('email_gpg',lbl='', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
         #fb.semaphore('^.email_gpg?=#v==true?true:false', margin_top='5px')
-        fb.semaphore('^.email_gpg', margin_top='5px')
+        fb.semaphore('^.email_gpg', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
 
-        btn_ens = fb.Button('!![en]ENS', width='10em',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_ens = fb.Button('!![en]ENS', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1238,9 +1238,9 @@ class Form(BaseComponent):
                              cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_ens') {SET .email_ens=true ; alert('Message created')}", msgspec='^msg_special')
        
-        fb.field('email_ens',lbl='', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb.field('email_ens',lbl='', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #fb.semaphore('^.email_ens?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb.semaphore('^.email_ens', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb.semaphore('^.email_ens', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
 
         #verifichiamo quanti servizi ADSP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='adsp').fetch()
@@ -1571,16 +1571,16 @@ class Form(BaseComponent):
         #fb_arr.semaphore('^.form_sanimare?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
         fb_arr.semaphore('^.form_sanimare', margin_top='6px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
 
-        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_checklist_f',button=btn_intfiore.js_widget)
         btn_intfiore.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='InterferenzeFiore', 
                                           _virtual_column='lastport,nextport,vesselname,flag,imo,tsl',_onResult="this.form.save();")
-        fb_arr.field('form_checklist_f', lbl='', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb_arr.field('form_checklist_f', lbl='', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #fb_arr.semaphore('^.form_checklist_f?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb_arr.semaphore('^.form_checklist_f', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb_arr.semaphore('^.form_checklist_f', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb_arr.br()
 
         btn_timegate = fb_arr.Button('!![en]Times gate info')
@@ -1625,7 +1625,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_chim_cp = fb_arr.Button('!![en]Email Chemist Cert. CP',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_chim_cp = fb_arr.Button('!![en]Email Chemist Cert. CP',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1645,9 +1645,9 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
 
-        fb_arr.field('email_certchim_cp', lbl='', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb_arr.field('email_certchim_cp', lbl='', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #fb_arr.semaphore('^.email_certchim_cp?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb_arr.semaphore('^.email_certchim_cp', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb_arr.semaphore('^.email_certchim_cp', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
 
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
