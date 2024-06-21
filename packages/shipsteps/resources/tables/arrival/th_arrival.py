@@ -1952,7 +1952,7 @@ class Form(BaseComponent):
         return int_fat
 
     def allegatiArrivo(self,pane):
-        pane.attachmentGrid(viewResource='ViewFromArrivalAtc')
+        pane.attachmentGrid(viewResource='ViewFromArrivalAtc',uploaderButton=True)
         #pane.attachmentGallery(viewResource='ViewFromArrivalAtc')
             
     @public_method
@@ -2792,7 +2792,7 @@ class Form(BaseComponent):
         elif cur_time < '24:00:00':
             sal = 'Buonasera,' 
         elif cur_time < '04:00:00':
-            sal = 'Buona notte,'      
+            sal = 'Buona notte,'      True
 
         subject=' '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
         body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
@@ -2981,7 +2981,7 @@ class Form(BaseComponent):
         if 'template' in kwargs.keys():
             email_template_id=kwargs['template']
 
-        #lettura degli attachment
+        #lettura degli attachmentTrue
         if lista_all is not None:
             len_allegati = len(lista_all) #verifichiamo la lunghezza della lista pkeys tabella allegati
             file_url=[]
