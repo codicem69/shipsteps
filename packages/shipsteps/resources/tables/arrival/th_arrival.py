@@ -2792,7 +2792,7 @@ class Form(BaseComponent):
         elif cur_time < '24:00:00':
             sal = 'Buonasera,' 
         elif cur_time < '04:00:00':
-            sal = 'Buona notte,'      True
+            sal = 'Buona notte,'
 
         subject=' '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
         body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
