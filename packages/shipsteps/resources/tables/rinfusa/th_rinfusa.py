@@ -74,7 +74,7 @@ class FormFromRinfusa(BaseComponent):
     
     def rinfusa_center(self,pane):
         #center = pane.roundedGroup(title='Allegati rinfusa',region='center',width='50%')
-        pane.attachmentGrid(viewResource='ViewFromRinfusa_atc')
+        pane.attachmentGrid(viewResource='ViewFromRinfusa_atc',uploaderButton=True)
        #fb = center.formbuilder(cols=2, border_spacing='4px')
        #fb.dock(id='mydock_1', position='relative')
        #

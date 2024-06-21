@@ -91,7 +91,7 @@ class FormFromCertificates(BaseComponent):
       
         
     def certificates_center(self,pane):
-        pane.attachmentGrid(viewResource='ViewFromCertificates_atc')  
+        pane.attachmentGrid(viewResource='ViewFromCertificates_atc',uploaderButton=True)  
 
     def th_bottom_custom(self, bottom):
         bar = bottom.slotBar('10,stampa_folder,stampa_istanza,email_istanza,*,10')

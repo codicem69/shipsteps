@@ -116,7 +116,7 @@ class FormFromBunker(BaseComponent):
         
     def bunker_att(self,pane):
         #center = pane.roundedGroup(title='Allegati rinfusa',region='center',width='50%')
-        pane.attachmentGrid(viewResource='ViewFromBunker_atc')
+        pane.attachmentGrid(viewResource='ViewFromBunker_atc',uploaderButton=True)
 
     def bunkerRighe(self,bc):
         left = bc.contentPane(region='center',width='500px', datapath='#FORM')

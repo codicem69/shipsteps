@@ -97,7 +97,7 @@ class Form(BaseComponent):
         #form.data('tabop','op')
 
     def allegatiSof(self,pane):
-        pane.attachmentGrid(viewResource='ViewFromSofAtc')
+        pane.attachmentGrid(viewResource='ViewFromSofAtc',uploaderButton=True)
 
     def datiSof(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=5, border_spacing='4px',fld_width='10em')
