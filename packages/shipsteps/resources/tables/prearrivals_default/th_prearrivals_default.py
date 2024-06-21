@@ -50,5 +50,5 @@ class FormFromPrearrival_df(BaseComponent):
         fb.field('body_email', tag='simpleTextArea', editor=True, width='50em', height='50em', colspan=2)
 
     def prearrdf_center(self,pane):
-        pane.attachmentGrid(viewResource='View')  
+        pane.attachmentGrid(viewResource='View',uploaderButton=True)  
 

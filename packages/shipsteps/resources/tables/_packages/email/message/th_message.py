@@ -174,7 +174,7 @@ class Form(BaseComponent):
         tc.contentPane(title='Body').simpleTextArea(value='^.record.body',editor=True)
         sc = tc.stackContainer(title='Attachments')
         sc.plainTableHandler(relation='@attachments',pbl_classes=True)
-        sc.attachmentGrid(pbl_classes=True)
+        sc.attachmentGrid(pbl_classes=True,uploaderButton=True)
         tc.dataController("sc.switchPage(in_out=='O'?1:0)",sc=sc.js_widget,in_out='^#FORM.record.in_out')
         tc.contentPane(title='Body plain', hidden='^.record.body_plain?=!#v').simpleTextArea(value='^.record.body_plain',height='100%')
         errors_pane = tc.contentPane(title='Errors', region='center', datapath='.record')

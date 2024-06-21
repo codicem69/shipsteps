@@ -64,7 +64,7 @@ class Form(BaseComponent):
         #fb.field('port')
 
     def EmailServiceCenter(self,pane):
-        pane.attachmentGrid(viewResource='ViewFromEmailServicesAtc')
+        pane.attachmentGrid(viewResource='ViewFromEmailServicesAtc',uploaderButton=True)
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px')

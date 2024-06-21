@@ -113,7 +113,7 @@ class Form(BaseComponent):
         frame.simpleTextArea(title='Extra',value='^.vess_note',editor=True)
 
     def allegatiNave(self,pane):
-        pane.attachmentGrid(viewResource='ViewFromVesselDocs')
+        pane.attachmentGrid(viewResource='ViewFromVesselDocs',uploaderButton=True)
     
     def docNave(self,pane):
         pane.inlineTableHandler(title='!![en]Ships Docs',relation='@ship_docs',viewResource='ViewFromDoc', export=True)
