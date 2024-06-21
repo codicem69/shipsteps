@@ -150,16 +150,19 @@ class FormFromBunker(BaseComponent):
         if serv_len > 1:                                   
             btn_bunker_email.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
                                 imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.bunker:bunker',format_page='A4',
-                                _ask=dict(title='!![en]Select the services<br>Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
+                                _ask=dict(title='!![en]Select the services<br>Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='bolli',lbl='!![en]Insert only the stamps',value='^.bolli',tag='checkbox',label='Inserisci solo i bolli nella tabella', default=True),
+                                dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
-                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',
-                                 cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip')])) 
+                                validate_notnull='^.bolli?=#v==true?false:true',cols=4,popup=True,colspan=2, hasArrowDown=True,hidden='^.bolli?=#v'),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',hidden='^.bolli?=#v',
+                                 cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip',hidden='^.bolli?=#v')])) 
         else:
             btn_bunker_email.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_bunker_cp',
-                                imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.bunker:bunker',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',
-                                 cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip')]))
+                                imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.bunker:bunker',format_page='A4',
+                                _ask=dict(title='!![en]Select the Attachments<br>Insert the safety data sheets and antifire request confirmation',fields=[dict(name='bolli',lbl='!![en]Insert only the stamps',value='^.bolli',tag='checkbox',label='Inserisci solo i bolli nella tabella', default=True),
+                                     dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',hidden='^.bolli?=#v',
+                                 cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip',hidden='^.bolli?=#v')]))
         
         
         if serv_len > 1:                                   
@@ -167,14 +170,14 @@ class FormFromBunker(BaseComponent):
                                 imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',format_page='A4',
                                 _ask=dict(title='!![en]Select the services<br>Select the Attachments<br>Insert the delivery note and copy of loog and record book',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
-                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',validate_notnull=True,
+                                validate_notnull=True,cols=1,popup=True, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull='^.bolli?=#v==true?false:true',
                                  cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip')]),_onResult="this.form.save();") 
         else:
             self.btn_email_bunkerdoc.dataRpc('nome_temp', self.email_services,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['capitaneria'], email_template_id='email_bunkerdoc',
                                 imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the delivery note and copy of loog and record book',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',width='22em',validate_notnull=True,
-                                 cols=4,popup=True,colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip')]),_onResult="this.form.save();")
+                                 table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull='^.bolli?=#v==true?false:true',
+                                 cols=4,popup=True, colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip')]),_onResult="this.form.save();")
         btn_bunker_emailtrasp.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['trasportatore'], email_template_id='email_bunker_transp',
                             nome_template = 'shipsteps.bunker:bunker_transp',format_page='A4')
         #verifichiamo quanti servizi Antifire ci sono, nel caso più di uno apparirà la dbSelect per la scelta
@@ -198,7 +201,16 @@ class FormFromBunker(BaseComponent):
     def print_template_bunker(self, record,record_arr=None,imbarcazione_id=None, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
         record_id=record['id']
-        
+        tbl_bolli = self.db.table('shipsteps.bolli')
+        agency_id = record_arr['agency_id']
+        if kwargs['bolli']==True:
+            if not tbl_bolli.checkDuplicate(istanza='Istanza Bunker',ref_number=record_arr['reference_num']):
+                nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Bunker',
+                                ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,agency_id=agency_id)
+                tbl_bolli.insert(nuovo_record)
+                self.db.commit()   
+                nome_temp='bol_deroga_gb'
+                return nome_temp 
        #if selId is None:
        #    msg_special = 'yes'
        #    return msg_special
