@@ -201,16 +201,18 @@ class FormFromBunker(BaseComponent):
     def print_template_bunker(self, record,record_arr=None,imbarcazione_id=None, resultAttr=None, nome_template=None, email_template_id=None,servizio=[] , format_page=None, **kwargs):
         #msg_special=None
         record_id=record['id']
-        tbl_bolli = self.db.table('shipsteps.bolli')
-        agency_id = record_arr['agency_id']
-        if kwargs['bolli']==True:
-            if not tbl_bolli.checkDuplicate(istanza='Istanza Bunker',ref_number=record_arr['reference_num']):
-                nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Bunker',
-                                ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,agency_id=agency_id)
-                tbl_bolli.insert(nuovo_record)
-                self.db.commit()   
+        if email_template_id != '':
+            tbl_bolli = self.db.table('shipsteps.bolli')
+            agency_id = record_arr['agency_id']
+            if kwargs['bolli']==True:
+                if not tbl_bolli.checkDuplicate(istanza='Istanza Bunker',ref_number=record_arr['reference_num']):
+                    nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Bunker',
+                                    ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,agency_id=agency_id)
+                    tbl_bolli.insert(nuovo_record)
+                    self.db.commit()   
                 nome_temp='bol_deroga_gb'
                 return nome_temp 
+                
        #if selId is None:
        #    msg_special = 'yes'
        #    return msg_special
