@@ -4,6 +4,7 @@
 from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
 from gnr.core.gnrbag import Bag
+from datetime import datetime
 
 class View(BaseComponent):
 
@@ -83,7 +84,7 @@ class Form(BaseComponent):
                 note = 'Si prega effettuare il ritiro alle ore ' + kwargs['ora_ritiro'].strftime("%H:%M") + ' ed inserire nel formulario i quantitativi riportati'   
             if kwargs['note'] == '2':
                 note = 'Si prega inserire nel formulario i quantitativi riportati'
-          
+        print(x)             
         return note
 
 
