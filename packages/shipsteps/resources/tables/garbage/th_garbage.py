@@ -77,11 +77,13 @@ class Form(BaseComponent):
         
     @public_method
     def insertNote(self,**kwargs):
-        if kwargs:
+        
+        if kwargs:    
             if kwargs['note'] == '1':
                 note = 'Si prega effettuare il ritiro alle ore ' + kwargs['ora_ritiro'].strftime("%H:%M") + ' ed inserire nel formulario i quantitativi riportati'   
             if kwargs['note'] == '2':
                 note = 'Si prega inserire nel formulario i quantitativi riportati'
+          
         return note
 
 
