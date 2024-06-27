@@ -15,7 +15,7 @@ class View(BaseComponent):
         r.fieldcell('importo')
 
     def th_order(self):
-        return 'prot'
+        return 'prot:d'
 
     def th_query(self):
         return dict(column='arrival_id', op='contains', val='')

@@ -51,7 +51,7 @@ class Form(BaseComponent):
         fb.field('comunitari')
         fb.field('extraue')
         right = bc.roundedGroup(region='right',title='!![en]Vessel stamp',width='300px')
-        right.img(src='^.@arrival_id.vessel_stamp', edit=True, crop_width='200px', crop_height='100px', border='2px dotted silver',margin_left='5px',
+        right.img(src='^.@arrival_id.vessel_stamp', edit=True, crop_width='200px', crop_height='200px', border='2px dotted silver',margin_left='5px',
                         placeholder=True,upload_folder='*')
         
     def paxRighe(self,bc):
