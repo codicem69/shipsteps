@@ -150,7 +150,7 @@ class ViewFromShorepassRighe(BaseComponent):
 
             new_crew = self.db.table('shipsteps.shorepass_righe').newrecord(shorepass_id=shorepassid,nome=row['name'],cognome=row['surname'],grado=row['rank'],nazionalita=paese_id,
                         data_nascita=row['birth_date'],luogo_nascita=row['birth_place'],paese_nascita=birthcountry,
-                        sesso=row['gender'],id_doc=row['identity_doc'],id_doc_n=row['doc_n'],id_doc_state=stateid,
+                        sesso=row['gender'],id_doc=row['identity_doc'],id_doc_n=str(row['doc_n']),id_doc_state=stateid,
                         expire_id_doc=row['expire_doc'],expire=expire,start_time=startsp, stop_time=endsp, shorepass=ue_id, **row)
 
             self.db.table('shipsteps.shorepass_righe').insert(new_crew)

@@ -112,13 +112,13 @@ class ViewFromPaxRighe(BaseComponent):
 
             new_pax = self.db.table('shipsteps.paxlist_righe').newrecord(paxlist_id=paxlistid,nome=row['name'],cognome=row['surname'],nazionalita=paese_id,
                         data_nascita=row['birth_date'],luogo_nascita=row['birth_place'],paese_nascita=birthcountry,
-                        sesso=row['gender'],id_doc=row['identity_doc'],id_doc_n=row['doc_n'],id_doc_state=stateid,
+                        sesso=row['gender'],id_doc=row['identity_doc'],id_doc_n=str(row['doc_n']),id_doc_state=stateid,
                         expire_id_doc=row['expire_doc'],portembark=row['port_embark'],portdisembark=row['port_disembark'],transitvisa=row['transit'],
                         visa=row['visa_n'], **row)
-
+            
             self.db.table('shipsteps.paxlist_righe').insert(new_pax)
             result.addItem('inserted_row', row)
-
+            
         self.db.commit()
         return result
     
