@@ -84,7 +84,7 @@ class Form(BaseComponent):
                 note = 'Si prega effettuare il ritiro alle ore ' + kwargs['ora_ritiro'].strftime("%H:%M") + ' ed inserire nel formulario i quantitativi riportati'   
             if kwargs['note'] == '2':
                 note = 'Si prega inserire nel formulario i quantitativi riportati'
-        print(x)             
+                 
         return note
 
 
