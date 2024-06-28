@@ -27,6 +27,7 @@ class View(BaseComponent):
         arrival.fieldcell('visit_id',width='8em')
         arrival.fieldcell('nsis_prot',width='8em')
         arrival.fieldcell('voy_n', width='4em')
+        arrival.fieldcell('@arr_tasklist.email_tributi_cp', width='4em', semaphore=True)
         arrival.fieldcell('date', width='5em')
         arrival.fieldcell('vessel_details_id', width='15em', font_weight='bold')
         arrival.fieldcell('movtype_id', width='6em', font_weight='bold')
