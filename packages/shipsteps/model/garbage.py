@@ -4,7 +4,7 @@
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('garbage', pkey='id', name_long='!![en]Garbage form', 
-                        name_plural='!![en]Garbage form',caption_field='id')
+                        name_plural='!![en]Garbage form',caption_field='arrival_ref')
         self.sysFields(tbl)
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='garbage_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
@@ -21,6 +21,8 @@ class Table(object):
         #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.pyColumn('datalavoro',name_long='!![en]Workdate', static=True)
         tbl.aliasColumn('agency_fullstyle','@arrival_id.@agency_id.fullstyle')
+        tbl.formulaColumn('arrival_ref',"""'Garbage to be delivered ' || @arrival_id.@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code 
+                          || ' ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome""")
         tbl.formulaColumn('sped_fat',"""CASE WHEN $invio_fat <> '' THEN $invio_fat ELSE $agency_fullstyle END""")
         #tbl.formulaColumn('rif_alim_x',"""CASE WHEN $rif_alim = 'true' THEN 'X' ELSE '' END""")
         #tbl.formulaColumn('bilge_x',"""CASE WHEN $bilge = 'true' THEN 'X' ELSE '' END""")
