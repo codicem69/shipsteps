@@ -73,7 +73,7 @@ class Form(BaseComponent):
                    record='=#FORM.record', 
                    _ask=dict(title='!![en]Select note to insert',fields=[dict(name='note', lbl='!![en]Note', tag='filteringSelect',
                             values='1:Si prega effettuare il ritiro alle ore,2:Si prega inserire nel formulario i quantitativi riportati',hasDownArrow=True),
-                            dict(name='ora_ritiro', lbl='!![en]Time', tag='timeTextBox',validate_notnull="^.note?=#v=='1'", 
+                            dict(name='ora_ritiro', lbl='!![en]Time', tag='timeTextBox',validate_notnull="^.note?=#v=='1'", dtype='H',
                             hidden="^.note?=#v!='1'?true:false")]),_onResult="this.form.save();")
         
     @public_method
@@ -84,7 +84,7 @@ class Form(BaseComponent):
                 note = 'Si prega effettuare il ritiro alle ore ' + kwargs['ora_ritiro'].strftime("%H:%M") + ' ed inserire nel formulario i quantitativi riportati'   
             if kwargs['note'] == '2':
                 note = 'Si prega inserire nel formulario i quantitativi riportati'
-                 
+           
         return note
 
 
