@@ -2,7 +2,7 @@
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('adminchargerec', pkey='id', name_long='Administartion charge receipt', name_plural='Administartion charges receipt',caption_field='arrival_id')
+        tbl=pkg.table('adminchargerec', pkey='id', name_long='Administartion charge receipt', name_plural='Administartion charges receipt',caption_field='arr_data')
         self.sysFields(tbl,counter=True)
 
         tbl.column('prot',name_long='!![en]Admin charge number',unique=True)
@@ -10,7 +10,7 @@ class Table(object):
         tbl.column('arrival_id',size='22', group='_', name_long='arrival_id',
                     ).relation('arrival.id', relation_name='admincharge_arrival', mode='foreignkey', onDelete='raise')
         tbl.column('importo',dtype='N',size='10,2',name_long='Importo',format='#,###.00')
-
+        tbl.aliasColumn('arr_data','@arrival_id.arrival_data')
     def counter_prot(self,record=None):
         return dict(format='$YY/$NNNN', code='*', period='YY', date_field='data', showOnLoad=True, date_tolerant=True, recycle=True)
 
