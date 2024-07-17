@@ -3,7 +3,7 @@ import datetime
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('arrival_time', pkey='id', name_long='!![en]arrival times', name_plural='!![en]arrival times',
+        tbl=pkg.table('arrival_time', pkey='id', name_long='!![en]Arrival times', name_plural='!![en]Arrival times',
                                       caption_field='aor')
         self.sysFields(tbl)
 
