@@ -126,6 +126,8 @@ class ViewFromShorepassRighe(BaseComponent):
             if row['nationality']: 
                 if len(row['nationality']) > 2:
                     raise GnrException('Nationality unlocode max 2 letters')
+                if paesi.get(row['nationality']) is None:
+                    raise GnrException(row['nationality'] + ' nationality country code is not valid')
                 paese_id = paesi.get(row['nationality']).get('code')
                 ue = paesi.get(row['nationality']).get('ue')
                 if ue == True:
@@ -138,12 +140,17 @@ class ViewFromShorepassRighe(BaseComponent):
             if row['birth_country']:
                 if len(row['birth_country']) > 2:
                     raise GnrException('Birth Country unlocode max 2 letters')
+                if paesi.get(row['birth_country']) is None:
+                    raise GnrException(row['birth_country'] + ' birth country code is not valid')
                 birthcountry = paesi.get(row['birth_country']).get('code')
+                
             else:
                 birthcountry = None
             if row['doc_state']:
                 if len(row['doc_state']) > 2:
                     raise GnrException('Doc. State unlocode max 2 letters')
+                if paesi.get(row['doc_state']) is None:
+                    raise GnrException(row['doc_state'] + ' doc_state code is not valid')
                 stateid = paesi.get(row['doc_state']).get('code')
             else:
                 stateid = None

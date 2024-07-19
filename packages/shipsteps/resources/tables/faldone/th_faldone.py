@@ -29,8 +29,8 @@ class Form(BaseComponent):
         bc = form.center.borderContainer()
         self.folder(bc.roundedGroupFrame(title='!![en]Folder',region='top',datapath='.record',height='210px', splitter=True))
         tc = bc.tabContainer(margin='2px',region='center')
-        self.protocollo(tc.contentPane(title='!![en]Arrival logs'))
-        self.protAssegnato(tc.contentPane(title='!![en]Corrispondend Arrival logs'))
+        self.protocollo(tc.contentPane(title='!![en]All the Arrival logs'))
+        self.protAssegnato(tc.contentPane(title='!![en]Correspondend Arrival logs'))
 
     def folder(self,pane):
         #pane = form.record
