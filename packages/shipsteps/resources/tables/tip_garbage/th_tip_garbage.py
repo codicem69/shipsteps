@@ -8,7 +8,7 @@ class LookupView(BaseComponent):
 
     def th_struct(self,struct):
         r = struct.view().rows()
-        r.fieldcell('description')
+        r.fieldcell('description',edit=True)
 
     def th_order(self):
         return 'description'
