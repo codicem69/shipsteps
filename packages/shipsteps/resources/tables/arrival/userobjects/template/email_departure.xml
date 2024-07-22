@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-10-25T18:26:04.455405+02:00</_ins_ts>
+<GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2024-07-22T10:45:07.782164+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-06-13T16:46:40.390512+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-07-22T10:57:19.461194+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplateemail_departure</identifier>
 <code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">email_departure</code>
@@ -9,56 +9,52 @@
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
 <userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
-<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Email departure</description>
+<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Email Partenza</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$email_arrival_to$email_sof_to$email_sof_cc$email_arrival_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$email_arrival_to$email_sof_to$email_sof_cc$email_arrival_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;VOYAGE DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;VOYAGE DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;VESSEL:........$imbarcazione_tipo $imbarcazione_nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;VESSEL:........$imbarcazione_tipo $imbarcazione_nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;AGENCY NAME:...$agency_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;AGENCY NAME:...$agency_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;PORT:..........$agenzia_place_citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;PORT:..........$agenzia_place_citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;BERTH:.........$banchina_dock_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;BERTH:.........$banchina_dock_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;INWARD FROM:...$last_port&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;INWARD FROM:...$last_port&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;OUTWARD TO:....$next_port&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;OUTWARD TO:....$next_port&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
+	&lt;div&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$portlog_timearr&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$int_carico&lt;span style="font-family:courier new,courier,monospace;"&gt;$cargo_on_sof&lt;/span&gt;$shipper_or_receiver$portlog_time&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$ets_emaildep&lt;span style="font-family:courier new,courier,monospace;"&gt;$robdep_int&lt;span style="font-family:courier new,courier,monospace;"&gt;${IFO: $ifo_dep} ${DO: $do_dep} ${LO: $lo_dep} ${FW: $fw_dep} &lt;span style="font-family:courier new,courier,monospace;"&gt;$tugs_int ${Arrival: $tug_in} &lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;${- Departure: $tug_out} &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;$draft_int &lt;span style="font-family:courier new,courier,monospace;"&gt;${Departure: AFT $draft_aft_dep} ${Departure: FW $draft_fw_dep}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;unloading completed today at ${hrs $ops_completed}&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$robdep_int&lt;span style="font-family:courier new,courier,monospace;"&gt;${IFO: $ifo_dep} ${DO: $do_dep} ${LO: $lo_dep} ${FW: $fw_dep} &lt;span style="font-family:courier new,courier,monospace;"&gt;$tugs_int ${Arrival: $tug_out} $draft_int_dep &lt;span style="font-family:courier new,courier,monospace;"&gt;${Arrival: AFT $draft_aft_dep} ${Arrival: FW $draft_fw_dep}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;total cargo&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$imbarcazione_tipo $imbarcazione_nome sailed today at ${hrs $sailed}&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$user_signature&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$user_signature&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$fullstyle_for_rec&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$agenzia_fullstyle&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
@@ -78,7 +74,7 @@
 <cc_address _valuelabel="CC">$email_cc</cc_address>
 <bcc_address _valuelabel="BCC">$email_ccn</bcc_address>
 <attachments _T="NN"></attachments></email>
-<email_compiled><subject>$@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@arrival_id.@vessel_details_id.@imbarcazione_id.nome $@arrival_id.@agency_id.@port.descrizione port ref:$@arrival_id.reference_num</subject>
+<email_compiled><subject>$@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@vessel_details_id.@imbarcazione_id.nome $@agency_id.@port.descrizione port ref:$@arrival_id.reference_num</subject>
 <to_address>$email_to</to_address>
 <cc_address>$email_cc</cc_address>
 <bcc_address>$email_ccn</bcc_address></email_compiled></metadata>
@@ -122,7 +118,7 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g8juca920p>
-<gx2zirc2u1 _newrecord="True::B" _pkey="gx2zirc2u1"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code</fieldpath>
+<gx2zezj95d _pkey="gx2zezj95d"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Vessel/imbarcazione/Vessel type/Codice</fieldname>
 <varname dtype="::NN" _loadedValue="vessel_imbarcazione_vessel_type_codice">imbarcazione_tipo</varname>
@@ -131,67 +127,61 @@
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gx2zirc2u1>
-<g8jug26j55 _pkey="g8jug26j55"><fieldpath dtype="::NN">@arrival_id.@vessel_details_id.@imbarcazione_id.nome</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gx2zezj95d>
+<gy9npf43uh _pkey="gy9npf43uh"><fieldpath>@vessel_details_id.@imbarcazione_id.nome</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Vessel/imbarcazione/Nome</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_vessel_imbarcazione_nome">imbarcazione_nome</varname>
+<fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
+<varname dtype="::NN" _loadedValue="vessel_imbarcazione_nome">imbarcazione_nome</varname>
 <virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jug26j55>
-<g8juhtjrdd _pkey="g8juhtjrdd"><fieldpath dtype="::NN">@arrival_id.@agency_id.agency_name</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9npf43uh>
+<gy9npvc3rl _pkey="gy9npvc3rl"><fieldpath>@agency_id.agency_name</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Agenzia/agency_name</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_agenzia_agency_name">agency_name</varname>
+<fieldname dtype="::NN">Agenzia/agency_name</fieldname>
+<varname dtype="::NN" _loadedValue="agenzia_agency_name">agency_name</varname>
 <virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8juhtjrdd>
-<g8juignmwh _pkey="g8juignmwh"><fieldpath dtype="::NN">@arrival_id.@agency_id.@port.citta_nazione</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9npvc3rl>
+<gy9nq5jkxl _pkey="gy9nq5jkxl"><fieldpath>@agency_id.@port.citta_nazione</fieldpath>
 <dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Agenzia/place/citta_nazione</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_agenzia_place_citta_nazione">agenzia_place_citta_nazione</varname>
+<fieldname dtype="::NN">Agenzia/place/citta_nazione</fieldname>
+<varname dtype="::NN">agenzia_place_citta_nazione</varname>
 <virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8juignmwh>
-<g8jul0rtm9 _pkey="g8jul0rtm9"><fieldpath dtype="::NN">@arrival_id.@dock_id.dock_name</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9nq5jkxl>
+<gy9nqhpw95 _pkey="gy9nqhpw95"><fieldpath>@dock_id.dock_name</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Banchina/dock_name</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_banchina_dock_name">banchina_dock_name</varname>
+<fieldname dtype="::NN">Banchina/dock_name</fieldname>
+<varname dtype="::NN">banchina_dock_name</varname>
 <virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jul0rtm9>
-<g8julge2cx _pkey="g8julge2cx"><fieldpath dtype="::NN">@arrival_id.@last_port.citta_nazione</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9nqhpw95>
+<gy9nqtdpoh _pkey="gy9nqtdpoh"><fieldpath>@last_port.citta_nazione</fieldpath>
 <dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/place/citta_nazione</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_place_citta_nazione">last_port</varname>
+<fieldname dtype="::NN">place/citta_nazione</fieldname>
+<varname dtype="::NN" _loadedValue="place_citta_nazione">last_port</varname>
 <virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8julge2cx>
-<g8jullodft _pkey="g8jullodft"><fieldpath dtype="::NN">@arrival_id.@next_port.citta_nazione</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9nqtdpoh>
+<gy9nr38z15 _pkey="gy9nr38z15"><fieldpath>@next_port.citta_nazione</fieldpath>
 <dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/place/citta_nazione</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_place_citta_nazione">next_port</varname>
+<fieldname dtype="::NN">place/citta_nazione</fieldname>
+<varname dtype="::NN" _loadedValue="place_citta_nazione">next_port</varname>
 <virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jullodft>
+<mask _T="NN" dtype="::NN"></mask></gy9nr38z15>
 <g9glv3lhex _pkey="g9glv3lhex"><fieldpath>int_carico</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">int_carico</fieldname>
@@ -201,16 +191,15 @@
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask></g9glv3lhex>
-<g8juoy09qp _pkey="g8juoy09qp"><fieldpath dtype="::NN">@arrival_id.cargo</fieldpath>
+<gy9nsge9h5 _pkey="gy9nsge9h5"><fieldpath>cargo</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Carico</fieldname>
-<varname dtype="::NN">arrival_id_carico</varname>
+<fieldname dtype="::NN">Carico</fieldname>
+<varname dtype="::NN">carico</varname>
 <virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8juoy09qp>
+<mask _T="NN" dtype="::NN"></mask></gy9nsge9h5>
 <g8jvvgq2dt _pkey="g8jvvgq2dt"><fieldpath dtype="::NN">carico_del_sof</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Cargo on sof</fieldname>
@@ -231,131 +220,60 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g8juwd8el5>
-<g8jv0cbuqx _pkey="g8jv0cbuqx"><fieldpath dtype="::NN">@arrival_id.eta</fieldpath>
-<dtype dtype="::NN">DH</dtype>
-<fieldname dtype="::NN">arrival_id/eta</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_eta">eta</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jv0cbuqx>
-<g9gkvrury1 _pkey="g9gkvrury1"><fieldpath>@arrival_id.eta_email</fieldpath>
+<gy9nw3ydh5 _pkey="gy9nw3ydh5"><fieldpath>eta_email</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/eta_email</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_eta_email">eta_email</varname>
+<fieldname dtype="::NN">eta_email</fieldname>
+<varname dtype="::NN">eta_email</varname>
 <virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN"></required_columns>
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9gkvrury1>
-<g8jv0eyv9t _pkey="g8jv0eyv9t"><fieldpath dtype="::NN">@arrival_id.etb</fieldpath>
-<dtype dtype="::NN">DH</dtype>
-<fieldname dtype="::NN">arrival_id/etb</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_etb">etb</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jv0eyv9t>
-<g9gkvu7ivd _pkey="g9gkvu7ivd"><fieldpath>@arrival_id.etb_email</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9nw3ydh5>
+<gy9nwfubc9 _pkey="gy9nwfubc9"><fieldpath>etb_email</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/etb_email</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_etb_email">etb_email</varname>
+<fieldname dtype="::NN">etb_email</fieldname>
+<varname dtype="::NN">etb_email</varname>
 <virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN"></required_columns>
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9gkvu7ivd>
-<g8jv0h5p8h _pkey="g8jv0h5p8h"><fieldpath dtype="::NN">@arrival_id.et_start</fieldpath>
-<dtype dtype="::NN">DH</dtype>
-<fieldname dtype="::NN">arrival_id/et_start</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_et_start">et_start</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jv0h5p8h>
-<g9gkvy9cvd _pkey="g9gkvy9cvd"><fieldpath>@arrival_id.etstart_email</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9nwfubc9>
+<gy9nwj3mc1 _pkey="gy9nwj3mc1"><fieldpath>ets_email</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/etstart_email</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_etstart_email">etstart_email</varname>
+<fieldname dtype="::NN">ets_email</fieldname>
+<varname dtype="::NN">ets_email</varname>
 <virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN"></required_columns>
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9gkvy9cvd>
-<g8jv0j71o1 _pkey="g8jv0j71o1"><fieldpath dtype="::NN">@arrival_id.etc</fieldpath>
-<dtype dtype="::NN">DH</dtype>
-<fieldname dtype="::NN">arrival_id/etc</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_etc">etc</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jv0j71o1>
-<g9gkw2k335 _pkey="g9gkw2k335"><fieldpath>@arrival_id.etc_email</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9nwj3mc1>
+<gy9nxxankp _pkey="gy9nxxankp"><fieldpath>@agency_id.@port.descrizione</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/etc_email</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_etc_email">etc_email</varname>
-<virtual_column _T="B">True</virtual_column>
+<fieldname dtype="::NN">Agenzia/place/Descrizione</fieldname>
+<varname dtype="::NN" _loadedValue="agenzia_place_descrizione">port_name</varname>
+<virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN"></required_columns>
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9gkw2k335>
-<g8jv0loc69 _pkey="g8jv0loc69"><fieldpath dtype="::NN">@arrival_id.ets</fieldpath>
-<dtype dtype="::NN">DH</dtype>
-<fieldname dtype="::NN">arrival_id/ets</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_ets">ets</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jv0loc69>
-<g9gl51jqrl _pkey="g9gl51jqrl"><fieldpath>@arrival_id.ets_email</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/ets_email</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_ets_email">ets_email</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN"></required_columns>
-<df_template _T="NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9gl51jqrl>
-<g8jv7mepu9 _pkey="g8jv7mepu9"><fieldpath dtype="::NN">@arrival_id.@agency_id.@port.descrizione</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Agenzia/place/Descrizione</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_agenzia_place_descrizione">port_name</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jv7mepu9>
-<g8jv9k1xvd _pkey="g8jv9k1xvd"><fieldpath dtype="::NN">@arrival_id.@agency_id.fullstyle</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9nxxankp>
+<gy9o0z1tux _pkey="gy9o0z1tux"><fieldpath>@agency_id.fullstyle</fieldpath>
 <dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Agenzia/fullstyle</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_agenzia_fullstyle">agenzia_fullstyle</varname>
+<fieldname dtype="::NN">Agenzia/fullstyle</fieldname>
+<varname dtype="::NN">agenzia_fullstyle</varname>
 <virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jv9k1xvd>
-<g8jv9mwe55 _pkey="g8jv9mwe55"><fieldpath dtype="::NN">@arrival_id.@agency_id.fullname</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9o0z1tux>
+<gy9nyj8btd _pkey="gy9nyj8btd"><fieldpath>@agency_id.fullname</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Agenzia/user signature</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_agenzia_user_signature">user_signature</varname>
+<fieldname dtype="::NN">Agenzia/user signature</fieldname>
+<varname dtype="::NN" _loadedValue="agenzia_user_signature">user_signature</varname>
 <virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
+<required_columns _T="NN"></required_columns>
+<df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g8jv9mwe55>
+<mask _T="NN" dtype="::NN"></mask></gy9nyj8btd>
 <g8kmg3yztd _pkey="g8kmg3yztd"><fieldpath dtype="::NN">shiprec</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Shipper or Receiver</fieldname>
@@ -396,291 +314,146 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g9gpave1qx>
-<g9gpoplrpd _pkey="g9gpoplrpd"><fieldpath dtype="::NN">time_sof</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">time_sof</fieldname>
-<varname dtype="::NN">time_sof</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gpoplrpd>
-<g9gutabe01 _pkey="g9gutabe01"><fieldpath dtype="::NN">portlog_time</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">portlog_time</fieldname>
-<varname dtype="::NN">portlog_time</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gutabe01>
-<g9gvh1k8x5 _pkey="g9gvh1k8x5"><fieldpath dtype="::NN">@sof_operations.date</fieldpath>
-<dtype dtype="::NN">D</dtype>
-<fieldname dtype="::NN">Operations SOF/date</fieldname>
-<varname dtype="::NN">operations_sof_date</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gvh1k8x5>
-<g9gvh2vib5 _pkey="g9gvh2vib5"><fieldpath dtype="::NN">@sof_operations.day</fieldpath>
+<gy9objd9u1 _pkey="gy9objd9u1"><fieldpath dtype="::NN">portlog_timearr</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Operations SOF/day</fieldname>
-<varname dtype="::NN">operations_sof_day</varname>
-<virtual_column _T="NN"></virtual_column>
+<fieldname dtype="::NN">portlog_timearr</fieldname>
+<varname dtype="::NN">portlog_timearr</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gvh2vib5>
-<g9gvh3rg01 _pkey="g9gvh3rg01"><fieldpath dtype="::NN">@sof_operations.operations</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gy9objd9u1>
+<gy9okbbprt _pkey="gy9okbbprt"><fieldpath dtype="::NN">@arr_details.robarr_int</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">Operations SOF/operations</fieldname>
-<varname dtype="::NN">operations_sof_operations</varname>
-<virtual_column _T="NN"></virtual_column>
+<fieldname dtype="::NN">Arrival details/robarr_int</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_robarr_int">robarr_int</varname>
+<virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gvh3rg01>
-<g9gvh4o68p _pkey="g9gvh4o68p"><fieldpath dtype="::NN">@sof_operations.from</fieldpath>
-<dtype dtype="::NN">H</dtype>
-<fieldname dtype="::NN">Operations SOF/from</fieldname>
-<varname dtype="::NN">operations_sof_from</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gvh4o68p>
-<g9gvh5optt _pkey="g9gvh5optt"><fieldpath dtype="::NN">@sof_operations.to</fieldpath>
-<dtype dtype="::NN">H</dtype>
-<fieldname dtype="::NN">Operations SOF/to</fieldname>
-<varname dtype="::NN">operations_sof_to</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gvh5optt>
-<g9gw6jx5tl _pkey="g9gw6jx5tl"><fieldpath dtype="::NN">sofop_int</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gy9okbbprt>
+<gy9okunsex _pkey="gy9okunsex"><fieldpath dtype="::NN">@arr_details.robdep_int</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">sofop_int</fieldname>
-<varname dtype="::NN">sofop_int</varname>
+<fieldname dtype="::NN">Arrival details/robdep_int</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_robdep_int">robdep_int</varname>
 <virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gw6jx5tl>
-<g9gyzvahc1 _pkey="g9gyzvahc1"><fieldpath dtype="::NN">@arrival_id.@arr_details.robarr_int</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/robarr_int</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_robarr_int">robarr_int</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gyzvahc1>
-<g9gyzw46s1 _pkey="g9gyzw46s1"><fieldpath dtype="::NN">@arrival_id.@arr_details.robdep_int</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/robdep_int</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_robdep_int">robdep_int</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gyzw46s1>
-<g9gyzwyr35 _pkey="g9gyzwyr35"><fieldpath dtype="::NN">@arrival_id.@arr_details.tugs_int</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/tugs_int</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_tugs_int">tugs_int</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gyzwyr35>
-<g9gz34cy0h _pkey="g9gz34cy0h"><fieldpath dtype="::NN">@arrival_id.@arr_details.ifo_arr</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/ifo_arr</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_ifo_arr">ifo_arr</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gz34cy0h>
-<g9ivkk4tt5 _pkey="g9ivkk4tt5"><fieldpath>@arrival_id.@arr_details.ifo_dep</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/ifo_dep</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_ifo_dep">ifo_dep</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN"></required_columns>
-<df_template _T="NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9ivkk4tt5>
-<g9gz35j6uh _pkey="g9gz35j6uh"><fieldpath dtype="::NN">@arrival_id.@arr_details.do_arr</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/do_arr</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_do_arr">do_arr</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gz35j6uh>
-<g9ivkq9bb5 _pkey="g9ivkq9bb5"><fieldpath>@arrival_id.@arr_details.do_dep</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/do_dep</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_do_dep">do_dep</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN"></required_columns>
-<df_template _T="NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9ivkq9bb5>
-<g9gz36umep _pkey="g9gz36umep"><fieldpath dtype="::NN">@arrival_id.@arr_details.lo_arr</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/lo_arr</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_lo_arr">lo_arr</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gz36umep>
-<g9ivkx0db5 _pkey="g9ivkx0db5"><fieldpath>@arrival_id.@arr_details.lo_dep</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/lo_dep</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_lo_dep">lo_dep</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN"></required_columns>
-<df_template _T="NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9ivkx0db5>
-<g9gz383w1d _pkey="g9gz383w1d"><fieldpath dtype="::NN">@arrival_id.@arr_details.fw_arr</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/fw_arr</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_fw_arr">fw_arr</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gz383w1d>
-<g9ivl2sand _pkey="g9ivl2sand"><fieldpath>@arrival_id.@arr_details.fw_dep</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/fw_dep</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_fw_dep">fw_dep</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN"></required_columns>
-<df_template _T="NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9ivl2sand>
-<g9gz3a09gh _pkey="g9gz3a09gh"><fieldpath dtype="::NN">@arrival_id.@arr_details.tug_in</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/tug_in</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_tug_in">tug_in</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gz3a09gh>
-<g9ivlp70bd _pkey="g9ivlp70bd"><fieldpath>@arrival_id.@arr_details.tug_out</fieldpath>
-<dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/tug_out</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_tug_out">tug_out</varname>
-<virtual_column _T="NN"></virtual_column>
-<required_columns _T="NN"></required_columns>
-<df_template _T="NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9ivlp70bd>
-<g9gzk3rek1 _pkey="g9gzk3rek1"><fieldpath dtype="::NN">@arrival_id.@arr_details.draft_int</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gy9okunsex>
+<gy9ol213c9 _pkey="gy9ol213c9"><fieldpath dtype="::NN">@arr_details.tugs_int</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/draft_int</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_draft_int">draft_int</varname>
+<fieldname dtype="::NN">Arrival details/tugs_int</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_tugs_int">tugs_int</varname>
 <virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gzk3rek1>
-<g9gzk75uqh _pkey="g9gzk75uqh"><fieldpath dtype="::NN">@arrival_id.@arr_details.draft_aft_arr</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gy9ol213c9>
+<gy9pn039ox _pkey="gy9pn039ox"><fieldpath dtype="::NN">@arr_details.ifo_dep</fieldpath>
 <dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/draft_aft_arr</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_draft_aft_arr">draft_aft_arr</varname>
+<fieldname dtype="::NN">Arrival details/ifo_dep</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_ifo_dep">ifo_dep</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gzk75uqh>
-<g9gzk8jvnt _pkey="g9gzk8jvnt"><fieldpath dtype="::NN">@arrival_id.@arr_details.draft_fw_arr</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gy9pn039ox>
+<gy9pnbowex _pkey="gy9pnbowex"><fieldpath dtype="::NN">@arr_details.do_dep</fieldpath>
 <dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/draft_fw_arr</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_draft_fw_arr">draft_fw_arr</varname>
+<fieldname dtype="::NN">Arrival details/do_dep</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_do_dep">do_dep</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gzk8jvnt>
-<g9gzk9p155 _pkey="g9gzk9p155"><fieldpath dtype="::NN">@arrival_id.@arr_details.draft_aft_dep</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gy9pnbowex>
+<gy9pnir3nd _pkey="gy9pnir3nd"><fieldpath dtype="::NN">@arr_details.lo_dep</fieldpath>
 <dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/draft_aft_dep</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_draft_aft_dep">draft_aft_dep</varname>
+<fieldname dtype="::NN">Arrival details/lo_dep</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_lo_dep">lo_dep</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gzk9p155>
-<g9gzkakert _pkey="g9gzkakert"><fieldpath dtype="::NN">@arrival_id.@arr_details.draft_fw_dep</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gy9pnir3nd>
+<gy9pnxn0ux _pkey="gy9pnxn0ux"><fieldpath dtype="::NN">@arr_details.fw_dep</fieldpath>
 <dtype dtype="::NN">A</dtype>
-<fieldname dtype="::NN">arrival_id/Arrival details/draft_fw_dep</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_arrival_details_draft_fw_dep">draft_fw_dep</varname>
+<fieldname dtype="::NN">Arrival details/fw_dep</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_fw_dep">fw_dep</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9gzkakert>
-<g9ivv1d50h _pkey="g9ivv1d50h"><fieldpath dtype="::NN">ops_completed</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gy9pnxn0ux>
+<gy9po7jec1 _pkey="gy9po7jec1"><fieldpath dtype="::NN">@arr_details.tug_out</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Arrival details/tug_out</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_tug_out">tug_out</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gy9po7jec1>
+<gy9popy6o9 _pkey="gy9popy6o9"><fieldpath dtype="::NN">@arr_details.draft_int_dep</fieldpath>
+<dtype dtype="::NN">T</dtype>
+<fieldname dtype="::NN">Arrival details/draft_int_dep</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_draft_int_dep">draft_int_dep</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gy9popy6o9>
+<gy9pozef4p _pkey="gy9pozef4p"><fieldpath dtype="::NN">@arr_details.draft_aft_dep</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Arrival details/draft_aft_dep</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_draft_aft_dep">draft_aft_dep</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gy9pozef4p>
+<gy9pp8az95 _pkey="gy9pp8az95"><fieldpath dtype="::NN">@arr_details.draft_fw_dep</fieldpath>
+<dtype dtype="::NN">A</dtype>
+<fieldname dtype="::NN">Arrival details/draft_fw_dep</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_details_draft_fw_dep">draft_fw_dep</varname>
+<virtual_column _T="NN"></virtual_column>
+<required_columns _T="NN" dtype="::NN"></required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></gy9pp8az95>
+<gy9pqeim1l _pkey="gy9pqeim1l"><fieldpath dtype="::NN">@time_arr.sailed</fieldpath>
 <dtype dtype="::NN">DH</dtype>
-<fieldname dtype="::NN">ops_completed</fieldname>
-<varname dtype="::NN">ops_completed</varname>
+<fieldname dtype="::NN">arrival times/sailed</fieldname>
+<varname dtype="::NN" _loadedValue="arrival_times_sailed">sailed</varname>
 <virtual_column _T="NN"></virtual_column>
 <required_columns _T="NN" dtype="::NN"></required_columns>
 <df_template _T="NN" dtype="::NN"></df_template>
-<format dtype="::NN" _loadedValue="hh:mm">HH:mm</format>
+<format dtype="::NN" _loadedValue="::NN">HH:mm</format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></g9ivv1d50h>
-<g9iwbo3x8h _pkey="g9iwbo3x8h"><fieldpath>@arrival_id.ets_emaildep</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></gy9pqeim1l>
+<gy9o46kqjd _pkey="gy9o46kqjd"><fieldpath>privacy</fieldpath>
 <dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/ets_emaildep</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_ets_emaildep">ets_emaildep</varname>
+<fieldname dtype="::NN">Privacy email</fieldname>
+<varname dtype="::NN">privacy_email</varname>
 <virtual_column _T="B">True</virtual_column>
 <required_columns _T="NN"></required_columns>
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask></g9iwbo3x8h>
-<ge8vmz6bw1 _pkey="ge8vmz6bw1"><fieldpath dtype="::NN">@arrival_id.privacy</fieldpath>
-<dtype dtype="::NN">T</dtype>
-<fieldname dtype="::NN">arrival_id/Privacy email</fieldname>
-<varname dtype="::NN" _loadedValue="arrival_id_privacy_email">privacy_email</varname>
-<virtual_column _T="B">True</virtual_column>
-<required_columns _T="NN" dtype="::NN"></required_columns>
-<df_template _T="NN" dtype="::NN"></df_template>
-<format _T="NN" dtype="::NN"></format>
-<mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></ge8vmz6bw1>
-<gfj9skxwzt _pkey="gfj9skxwzt"><fieldpath dtype="::NN">fullstyle_for_rec</fieldpath>
+<mask _T="NN" dtype="::NN"></mask></gy9o46kqjd>
+<gfj9s3gwpd _pkey="gfj9s3gwpd"><fieldpath dtype="::NN">fullstyle_for_rec</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">fullstyle_for_rec</fieldname>
 <varname dtype="::NN">fullstyle_for_rec</varname>
@@ -689,7 +462,7 @@
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gfj9skxwzt></varsbag>
+<editable _T="NN" dtype="::NN"></editable></gfj9s3gwpd></varsbag>
 <parameters><g8jvcuia2p _pkey="g8jvcuia2p"><code dtype="::NN" _loadedValue="::NN">email_to</code>
 <description dtype="::NN" _loadedValue="::NN">email to</description>
 <fieldtype _T="NN" dtype="::NN"></fieldtype>
@@ -716,64 +489,60 @@
 .dotted{
   border: dotted 1px #000000;}
  </content_css>
-<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="email_sof_to,email_arr_to,email_sof_cc,email_arr_cc,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,int_carico,@arrival_id.cargo,carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta_email,@arrival_id.etb_email,@arrival_id.etstart_email,@arrival_id.etc_email,@arrival_id.ets_email,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,shiprec,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,time_sof,portlog_time,sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.draft_int,@arrival_id.ets_emaildep,@arrival_id.privacy,fullstyle_for_rec" columns="$email_sof_to,$email_arr_to,$email_sof_cc,$email_arr_cc,@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@dock_id.dock_name,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,$int_carico,@arrival_id.cargo,$carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta,@arrival_id.eta_email,@arrival_id.etb,@arrival_id.etb_email,@arrival_id.et_start,@arrival_id.etstart_email,@arrival_id.etc,@arrival_id.etc_email,@arrival_id.ets,@arrival_id.ets_email,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,$shiprec,@arrival_id.reference_num,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,$time_sof,$portlog_time,@sof_operations.date,@sof_operations.day,@sof_operations.operations,@sof_operations.from,@sof_operations.to,$sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.ifo_arr,@arrival_id.@arr_details.ifo_dep,@arrival_id.@arr_details.do_arr,@arrival_id.@arr_details.do_dep,@arrival_id.@arr_details.lo_arr,@arrival_id.@arr_details.lo_dep,@arrival_id.@arr_details.fw_arr,@arrival_id.@arr_details.fw_dep,@arrival_id.@arr_details.tug_in,@arrival_id.@arr_details.tug_out,@arrival_id.@arr_details.draft_int,@arrival_id.@arr_details.draft_aft_arr,@arrival_id.@arr_details.draft_fw_arr,@arrival_id.@arr_details.draft_aft_dep,@arrival_id.@arr_details.draft_fw_dep,$ops_completed,@arrival_id.ets_emaildep,@arrival_id.privacy,$fullstyle_for_rec" formats='{"ops_completed": "HH:mm", "email_to": null, "email_cc": null, "email_ccn": null}::JS' masks='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"email_sof_to": "T", "email_arrival_to": "T", "email_sof_cc": "T", "email_arrival_cc": "T", "imbarcazione_tipo": "T", "imbarcazione_nome": "T", "agency_name": "T", "agenzia_place_citta_nazione": "A", "banchina_dock_name": "T", "last_port": "A", "next_port": "A", "int_carico": "T", "arrival_id_carico": "T", "cargo_on_sof": "T", "ship_or_rec": "T", "eta": "DH", "eta_email": "T", "etb": "DH", "etb_email": "T", "et_start": "DH", "etstart_email": "T", "etc": "DH", "etc_email": "T", "ets": "DH", "ets_email": "T", "port_name": "T", "agenzia_fullstyle": "A", "user_signature": "T", "shipper_or_receiver": "T", "reference_number": "T", "times_time_arr": "T", "times_time_arr_2": "T", "time_sof": "A", "portlog_time": "A", "operations_sof_date": "D", "operations_sof_day": "T", "operations_sof_operations": "T", "operations_sof_from": "H", "operations_sof_to": "H", "sofop_int": "T", "robarr_int": "A", "robdep_int": "A", "tugs_int": "A", "ifo_arr": "A", "ifo_dep": "A", "do_arr": "A", "do_dep": "A", "lo_arr": "A", "lo_dep": "A", "fw_arr": "A", "fw_dep": "A", "tug_in": "A", "tug_out": "A", "draft_int": "T", "draft_aft_arr": "A", "draft_fw_arr": "A", "draft_aft_dep": "A", "draft_fw_dep": "A", "ops_completed": "DH", "ets_emaildep": "T", "privacy_email": "T", "fullstyle_for_rec": "T"}::JS'>&lt;style&gt;table, td {
+<compiled><main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="email_sof_to,email_arr_to,email_sof_cc,email_arr_cc,@agency_id.@port.citta_nazione,@last_port.citta_nazione,@next_port.citta_nazione,int_carico,cargo,carico_del_sof,@arrival_id.ship_or_rec,eta_email,etb_email,ets_email,@agency_id.fullstyle,@agency_id.fullname,shiprec,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,portlog_timearr,@arr_details.robarr_int,@arr_details.robdep_int,@arr_details.tugs_int,@arr_details.draft_int_dep,privacy,fullstyle_for_rec" columns="$email_sof_to,$email_arr_to,$email_sof_cc,$email_arr_cc,@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,@vessel_details_id.@imbarcazione_id.nome,@agency_id.agency_name,@agency_id.@port.citta_nazione,@dock_id.dock_name,@last_port.citta_nazione,@next_port.citta_nazione,$int_carico,$cargo,$carico_del_sof,@arrival_id.ship_or_rec,$eta_email,$etb_email,$ets_email,@agency_id.@port.descrizione,@agency_id.fullstyle,@agency_id.fullname,$shiprec,@arrival_id.reference_num,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,$portlog_timearr,@arr_details.robarr_int,@arr_details.robdep_int,@arr_details.tugs_int,@arr_details.ifo_dep,@arr_details.do_dep,@arr_details.lo_dep,@arr_details.fw_dep,@arr_details.tug_out,@arr_details.draft_int_dep,@arr_details.draft_aft_dep,@arr_details.draft_fw_dep,@time_arr.sailed,$privacy,$fullstyle_for_rec" formats='{"sailed": "HH:mm", "email_to": null, "email_cc": null, "email_ccn": null}::JS' masks='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"email_sof_to": "T", "email_arrival_to": "T", "email_sof_cc": "T", "email_arrival_cc": "T", "imbarcazione_tipo": "T", "imbarcazione_nome": "T", "agency_name": "T", "agenzia_place_citta_nazione": "A", "banchina_dock_name": "T", "last_port": "A", "next_port": "A", "int_carico": "T", "carico": "T", "cargo_on_sof": "T", "ship_or_rec": "T", "eta_email": "T", "etb_email": "T", "ets_email": "T", "port_name": "T", "agenzia_fullstyle": "A", "user_signature": "T", "shipper_or_receiver": "T", "reference_number": "T", "times_time_arr": "T", "times_time_arr_2": "T", "portlog_timearr": "T", "robarr_int": "T", "robdep_int": "T", "tugs_int": "T", "ifo_dep": "A", "do_dep": "A", "lo_dep": "A", "fw_dep": "A", "tug_out": "A", "draft_int_dep": "T", "draft_aft_dep": "A", "draft_fw_dep": "A", "sailed": "DH", "privacy_email": "T", "fullstyle_for_rec": "T"}::JS'>&lt;style&gt;table, td {
   border-collapse: collapse;
   border: dotted 1px #000000;
 }
 .dotted{
   border: dotted 1px #000000;}
  &lt;/style&gt;&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$email_arr_to$email_sof_to$email_sof_cc$email_arr_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$email_arr_to$email_sof_to$email_sof_cc$email_arr_cc&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;VOYAGE DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;VOYAGE DETAILS&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;------------------------------&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;VESSEL:........$@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@arrival_id.@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;VESSEL:........$@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;AGENCY NAME:...$@arrival_id.@agency_id.agency_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;AGENCY NAME:...$@agency_id.agency_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;PORT:..........$@arrival_id.@agency_id.@port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;PORT:..........$@agency_id.@port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;BERTH:.........$@arrival_id.@dock_id.dock_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;BERTH:.........$@dock_id.dock_name&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;INWARD FROM:...$@arrival_id.@last_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;INWARD FROM:...$@last_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;OUTWARD TO:....$@arrival_id.@next_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;OUTWARD TO:....$@next_port.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
+	&lt;div&gt;
+		&amp;nbsp;&lt;/div&gt;
+	&lt;div&gt;
+		&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$portlog_timearr&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$int_carico&lt;span style="font-family:courier new,courier,monospace;"&gt;$carico_del_sof&lt;/span&gt;$shiprec$portlog_time&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.ets_emaildep&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.@arr_details.robdep_int&lt;span style="font-family:courier new,courier,monospace;"&gt;${IFO: $@arrival_id.@arr_details.ifo_dep} ${DO: $@arrival_id.@arr_details.do_dep} ${LO: $@arrival_id.@arr_details.lo_dep} ${FW: $@arrival_id.@arr_details.fw_dep} &lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.@arr_details.tugs_int ${Arrival: $@arrival_id.@arr_details.tug_in} &lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;${- Departure: $@arrival_id.@arr_details.tug_out} &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;$@arrival_id.@arr_details.draft_int &lt;span style="font-family:courier new,courier,monospace;"&gt;${Departure: AFT $@arrival_id.@arr_details.draft_aft_dep} ${Departure: FW $@arrival_id.@arr_details.draft_fw_dep}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;unloading completed today at ${hrs $ops_completed^ops_completed}&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arr_details.robdep_int&lt;span style="font-family:courier new,courier,monospace;"&gt;${IFO: $@arr_details.ifo_dep} ${DO: $@arr_details.do_dep} ${LO: $@arr_details.lo_dep} ${FW: $@arr_details.fw_dep} &lt;span style="font-family:courier new,courier,monospace;"&gt;$@arr_details.tugs_int ${Arrival: $@arr_details.tug_out} $@arr_details.draft_int_dep &lt;span style="font-family:courier new,courier,monospace;"&gt;${Arrival: AFT $@arr_details.draft_aft_dep} ${Arrival: FW $@arr_details.draft_fw_dep}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;total cargo&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;Good day,&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@vessel_details_id.@imbarcazione_id.nome sailed today at ${hrs $@time_arr.sailed^sailed}&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;strong&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;Brgds&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$@agency_id.fullname&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.@agency_id.fullname&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:ui-monospace,courier,monospace;"&gt;$@agency_id.fullstyle&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$fullstyle_for_rec&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-&lt;div&gt;
-	&amp;nbsp;&lt;/div&gt;
-&lt;div&gt;
-	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@arrival_id.privacy&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</main></compiled></data>
+	&lt;span style="font-size:10px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$privacy&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;</main></compiled></data>
 <authtags _T="NN" dtype="T" name_long="!![en]Auth tags" print_width="20::L" as="t0_authtags"></authtags>
 <private _T="B" dtype="B" name_long="!![en]Private" print_width="11::L" as="t0_private">False</private>
 <quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
