@@ -70,7 +70,7 @@ class Table(object):
         tbl.pyColumn('privacy',name_long='!![en]Privacy email', static=True, dtype='T')
         tbl.pyColumn('docbefore_cp', dtype='B')
         tbl.pyColumn('conv_ctm')
-        tbl.pyColumn('uesan_pref',name_long='!![en]UE_San_pref',dtype='B',static=True)
+        tbl.pyColumn('uesan_pref',name_long='!![en]UE_San_pref',dtype='B')
        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('n_tug_arr','@extradatacp.n_tug_arr')
         tbl.aliasColumn('n_tug_dep','@extradatacp.n_tug_dep')
