@@ -644,7 +644,7 @@ class Form(BaseComponent):
         #rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
         fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('eosp')
-        fb.field('aor',validate_notnull=True)
+        fb.field('aor')
         fb.field('anchored')
         fb.field('anchor_up')
         fb.field('pob')
