@@ -70,6 +70,7 @@ class Table(object):
         tbl.pyColumn('privacy',name_long='!![en]Privacy email', static=True, dtype='T')
         tbl.pyColumn('docbefore_cp', dtype='B')
         tbl.pyColumn('conv_ctm')
+        tbl.pyColumn('uesan_pref',name_long='!![en]UE_San_pref',dtype='B',static=True)
        #tbl.aliasColumn('carico_a_bordo','@cargo_onboard_arr.carico_a_bordo')
         tbl.aliasColumn('n_tug_arr','@extradatacp.n_tug_arr')
         tbl.aliasColumn('n_tug_dep','@extradatacp.n_tug_dep')
@@ -129,6 +130,7 @@ class Table(object):
                                                 where='$arrival_id=#THIS.id', group_by='@measure_id.description'),
                                     dtype='N',name_long='Tot_Carico')
         tbl.formulaColumn('port_log_time',"""CASE WHEN $timearr_log !='' THEN 'PORTLOG<br>------------------------------<br>' || coalesce($timearr_log,'') || coalesce($timearr2_log ,'') END""")
+        
         #formule column per email servizi
         tbl.formulaColumn('cp_int',select=dict(table='shipsteps.email_services',
                                                 columns='$consignee',
@@ -333,6 +335,29 @@ class Table(object):
                                             THEN true END""", dtype='B')               
         tbl.formulaColumn('refcode',"'%%' || $reference_num || '%%'",dtype='T')
 
+    #pycolumn creata per verificare tramite le preferenze del pkg shipsteps se abilitare o no le pratiche sanimare alle provenienze navi da tutti gli stati
+    # o solo quelli extra ue o se la pratica risulta una Passengers/ONG. Nella th_arrival di shipsteps ho inserito nei widget sanimare della task list la 
+    # variabile hidden che verifica il valore uesan_pref in caso di valore true nasconde il widget 
+    def pyColumn_uesan_pref(self, record, field):
+        pref=self.db.application.getPreference('ue',pkg='shipsteps')
+        movtype=record['@movtype_id.hierarchical_descrizione']
+        lastport=record['last_port']
+        code = self.db.table('unlocode.place').readColumns(columns="""nazione_code""",
+                                                                where="$id=:lp", lp=lastport) 
+        
+        if pref is False:
+            uesan=self.db.table('unlocode.nazione').readColumns(columns="""CASE WHEN $ue is True THEN true ELSE false END""",
+                                                                where="$code=:code", code=code)
+            if movtype == 'Passengers/ONG' and uesan is True:
+                
+                uesan = False  
+                  
+        else:
+            uesan = self.db.table('unlocode.nazione').readColumns(columns="""CASE WHEN $ue is True THEN false ELSE false END""",
+                                                                where="$code=:code", code=code)  
+        
+        return uesan
+    
     def pyColumn_cargo(self,record,field):
        
         pkey=record['id']
