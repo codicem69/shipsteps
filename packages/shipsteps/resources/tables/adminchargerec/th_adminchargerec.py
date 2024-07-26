@@ -70,7 +70,6 @@ class Form(BaseComponent):
             if int(gt) >= 30001:
                 if r['descrizione'] == 'da 30001 a 80000 GT':
                     importo=r['importo'] 
-            print(importo)
         importo = floatToDecimal(importo)
         #print(X)
         #raise GnrException(importo)
