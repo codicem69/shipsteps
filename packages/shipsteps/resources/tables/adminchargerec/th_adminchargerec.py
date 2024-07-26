@@ -6,7 +6,7 @@ from gnr.core.gnrdecorator import public_method
 from gnr.core.gnrnumber import floatToDecimal,decimalRound
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
-
+from gnr.core.gnrlang import GnrException
 class View(BaseComponent):
 
     def th_struct(self,struct):
@@ -72,6 +72,7 @@ class Form(BaseComponent):
                     importo=r['importo'] 
 
         importo = floatToDecimal(importo)
+        raise GnrException(importo)
         return importo
 
     @public_method
