@@ -50,7 +50,7 @@ class Form(BaseComponent):
                          where='').fetch()
         #convertiamo la virgola in gt in punto per la successiva conversione da stringa ad int 
         gt = float(gt.replace(',','.'))
-
+        importo=0
         for r in admincharge:
             if int(gt) <= 500:
                 if r['descrizione'] == 'fino a 500 GT':
@@ -70,9 +70,10 @@ class Form(BaseComponent):
             if int(gt) >= 30001:
                 if r['descrizione'] == 'da 30001 a 80000 GT':
                     importo=r['importo'] 
-
+            print(importo)
         importo = floatToDecimal(importo)
-        raise GnrException(importo)
+        #print(X)
+        #raise GnrException(importo)
         return importo
 
     @public_method
