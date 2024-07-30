@@ -56,7 +56,8 @@ class Table(object):
                     ).relation('mov_type.id', relation_name='movtype', mode='foreignkey', onDelete='raise')
         tbl.column('vessel_stamp', dtype='P', name_long='!![en]Vessel Stamp')
         tbl.column('ctm', dtype='N', name_short='ctm')
-        tbl.column('date_ctm', dtype='D', name_short='date ctm')       
+        tbl.column('date_ctm', dtype='D', name_short='date ctm')
+        tbl.column('p_sanimare', dtype='B', name_short='!![en]Sanimare pratique')       
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
@@ -336,11 +337,12 @@ class Table(object):
         tbl.formulaColumn('refcode',"'%%' || $reference_num || '%%'",dtype='T')
 
     #pycolumn creata per verificare tramite le preferenze del pkg shipsteps se abilitare o no le pratiche sanimare alle provenienze navi da tutti gli stati
-    # o solo quelli extra ue o se la pratica risulta una Passengers/ONG. Nella th_arrival di shipsteps ho inserito nei widget sanimare della task list la 
+    # o solo quelli extra ue o se viene flaggato nell'arrivo pratica sanimare. Nella th_arrival di shipsteps ho inserito nei widget sanimare della task list la 
     # variabile hidden che verifica il valore uesan_pref in caso di valore true nasconde il widget 
     def pyColumn_uesan_pref(self, record, field):
         pref=self.db.application.getPreference('ue',pkg='shipsteps')
         movtype=record['@movtype_id.hierarchical_descrizione']
+        p_sanimare=record['p_sanimare']
         lastport=record['last_port']
         code = self.db.table('unlocode.place').readColumns(columns="""nazione_code""",
                                                                 where="$id=:lp", lp=lastport) 
@@ -348,8 +350,8 @@ class Table(object):
         if pref is False:
             uesan=self.db.table('unlocode.nazione').readColumns(columns="""CASE WHEN $ue is True THEN true ELSE false END""",
                                                                 where="$code=:code", code=code)
-            if movtype == 'Passengers/ONG' and uesan is True:
-                
+            #if movtype == 'Passengers/ONG' and uesan is True:
+            if p_sanimare is True and uesan is True:    
                 uesan = False  
                   
         else:

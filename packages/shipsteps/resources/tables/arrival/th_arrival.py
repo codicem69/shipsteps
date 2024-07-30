@@ -538,6 +538,8 @@ class Form(BaseComponent):
         fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome',order_by='$data DESC')
         fb.field('visit_id')
         fb.field('movtype_id' , hasDownArrow=True,  order_by='$descrizione')
+        fb.field('p_sanimare',label='!![en]Confirmed', lbl='!![en]Sanimare pratique')
+       
         #fb.field('tip_mov' , hasDownArrow=True,  auxColumns='$description',order_by='$description')
 
         fb = center1.formbuilder(cols=5, border_spacing='4px',lblpos='T',fldalign='left')
@@ -657,7 +659,7 @@ class Form(BaseComponent):
         fb.field('last_line')
         fb.field('sailed',border_color="^sail") #tramite il datacontroller in th_sof viene assegnata alla variabile sail il colore del bordo
         fb.field('cosp', lbl='Commenced of <br>Sea Passage',fldvalign='center')
-
+        
         btn_arrivo=fb.button('Email arrival',hidden="^checksof")#.controller.title?=#v!=null")
         btn_partenza=fb.button('Email departure',hidden="^checksof")#.controller.title?=#v!=null")
         fb.dataRpc('checksof', self.checkSof,  record='=#FORM.record', cur_tab='^#FORM.current_tab',titolo='^#FORM.controller.title',
