@@ -498,8 +498,6 @@ class Form(BaseComponent):
         fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
             table='shipsteps.vessel_details',pkey='=#FORM.record.vessel_details_id')
        
-        fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.save();this.form.reload()}""",
-            table='shipsteps.arrival',pkey='=#FORM.record.id')
        
         #fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
         #    if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0]['email_dogana'];
@@ -1315,6 +1313,32 @@ class Form(BaseComponent):
         #fb.semaphore('^.email_ric_lps?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
         fb.semaphore('^.email_ric_lps', margin_top='5px',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
 
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
+        serv_len=len(service_for_email)
+        btn_vent = fb.Button('!![en]Holds ventilation', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
+        fb.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_integr',button=btn_vent.js_widget)
+        if serv_len > 1:
+            btn_vent.dataRpc('nome_temp', self.email_services,
+                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_holds_vent',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        else:
+            btn_vent.dataRpc('nome_temp', self.email_services,
+                  record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_holds_vent',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
+                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        
+        fb.field('email_ventilation', lbl='', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
+        #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
+        fb.semaphore('^.email_ventilation', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
+
         btn_update = fb.Button('!![en]Services updating', width='10em')
         btn_update.dataRpc('nome_temp', self.email_serv_upd,
                    record='=#FORM.record',email_template_id='email_serv_upd',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1336,11 +1360,8 @@ class Form(BaseComponent):
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
-        #datacontroller verifica il valore della variabile msg_special di ritorno dalla funzione per invio email
-        #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
-       
-        #fb.dataController("if(msgspec=='ship_rec_upd') {alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
         
+        #documenti prima dell'arrivo
         div3=rg_prearrival.div('<center><strong><br>Email to Harbour Master <br> Docs before vessel arrival<br></strong>',width='99%',height='20%',margin='auto',
                         padding='2px',hidden="^#FORM.record.docbefore_cp",
                         border='1px solid silver',
@@ -1442,6 +1463,7 @@ class Form(BaseComponent):
                              if(msg=='val_dog') {SET .email_dogana=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec') {SET .email_ship_rec=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msg=='val_chemist_cp') {SET .email_certchim_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_holds') {SET .email_ventilation=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_ricrifiuti') {SET .email_ric_rifiuti_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_tributi') {SET .email_tributi_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='vess_serv') {SET .form_services=true;} this.form.save();
@@ -2381,6 +2403,8 @@ class Form(BaseComponent):
                 nome_temp = 'val_ricrifiuti'       
             elif email_template_id == 'email_tributi_cp':
                 nome_temp = 'val_tributi'  
+            elif email_template_id == 'email_holds_vent':
+                nome_temp = 'val_holds'      
             return nome_temp
     
     @public_method

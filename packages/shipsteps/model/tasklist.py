@@ -46,6 +46,7 @@ class Table(object):
         tbl.column('form_gdfdep', dtype='B', name_short='!![en]Form GdF dep')
         tbl.column('email_ric_rifiuti_cp', dtype='B', name_short='!![en]Email ricevuta rifiuti CP')
         tbl.column('email_tributi_cp', dtype='B', name_short='!![en]Email Tributi CP')
+        tbl.column('email_ventilation', dtype='B', name_short='!![en]Email holds ventilation')
         tbl.column('nsw', dtype='B', name_short='!![en]NSW')
         tbl.column('acqua', name_short='!![en]Water qt.')
         tbl.column('nome_servizio', name_short='!![en]service name')
