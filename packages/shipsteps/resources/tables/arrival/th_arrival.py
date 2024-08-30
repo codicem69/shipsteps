@@ -498,8 +498,8 @@ class Form(BaseComponent):
         fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
             table='shipsteps.vessel_details',pkey='=#FORM.record.vessel_details_id')
        
-        #fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.save();this.form.reload()}""",
-        #    table='shipsteps.tasklist',pkey='=#FORM.record.@arr_tasklist.id')
+        fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.save();this.form.reload()}""",
+            table='shipsteps.arrival',pkey='=#FORM.record.id')
        
         #fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
         #    if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0]['email_dogana'];
@@ -531,7 +531,7 @@ class Form(BaseComponent):
                        if(datiCambiamento['email_tributi_cp'])this.form.externalChange('@arr_tasklist.email_tributi_cp',datiCambiamento['email_tributi_cp']);}"""
                        ,pkey='=#FORM.record.@arr_tasklist.id',table='shipsteps.tasklist')
         
-
+        
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly='^gnr.app_preference.shipsteps.ref_num')
         fb.field('date')
@@ -1362,13 +1362,15 @@ class Form(BaseComponent):
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2),dict(name='fumigation', lbl='!![en]Cargo Fumigated', tag='radioButtonText',values='SI:YES,NO:NO',
+                                                    cols=4,popup=True,colspan=2)]),fumigation='=#FORM.record.fumigated',_onResult="this.form.save();")
         else:    
             btn_integr.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_integrazione_alim',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2),dict(name='fumigation', lbl='!![en]Cargo Fumigated', tag='radioButtonText',values='SI:YES,NO:NO',
+                                                    cols=4,popup=True,colspan=2)]),fumigation='=#FORM.record.fumigated',_onResult="this.form.save();")
         #fb2.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
         
         fb2.field('email_integr', lbl='', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
@@ -2084,7 +2086,20 @@ class Form(BaseComponent):
         tbl_tasklist.batchUpdate(dict(nome_servizio=services),
                                     where='$id=:id_task', id_task=record_tasklist)
         self.db.commit()
-        
+         #verifichiamo se nelle keys di kwargs troviamo la chiave fumigation e lo assegnamo alla variabile fumigation 
+        fumigation = None
+        for chiavi in kwargs.keys():
+            
+            if chiavi=='fumigation':
+                if kwargs['fumigation']:
+                    fumigation=kwargs['fumigation']
+        #avendo preso il valore fumigation nei kwargs andiamo a copiarlo nel record arrival.fumigated che ci servirà nella variabile 
+        #che utilizzeremo nei template per avere la variabile fumigazione                     
+       
+        tbl_arrival = self.db.table('shipsteps.arrival')  
+        tbl_arrival.batchUpdate(dict(fumigated=fumigation),
+                                    where='$id=:id_arr', id_arr=record_arr)
+        self.db.commit()
        # with tbl_tasklist.recordToUpdate('id'==record_tasklist) as rec_tasklist:
        #    rec_tasklist['nome_servizio'] = services
                  
