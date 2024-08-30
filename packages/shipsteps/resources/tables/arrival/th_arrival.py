@@ -585,6 +585,8 @@ class Form(BaseComponent):
       # fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='18em',lblpos='T')
         fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T')
         fb.field('firma_div', tag='textArea')
+        fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
+        fb.radioButtonText(value='^.fumigated', values='SI:YES,NO:NO', lbl='Cargo fumugated?: ') 
    #@public_method
     #def test_but(self, arrival_id=None, **kwargs):
     #   
