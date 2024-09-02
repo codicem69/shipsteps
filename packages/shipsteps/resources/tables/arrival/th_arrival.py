@@ -526,7 +526,9 @@ class Form(BaseComponent):
                        if(datiCambiamento['email_garbage_cp'])this.form.externalChange('@arr_tasklist.email_garbage_cp',datiCambiamento['email_garbage_cp']);
                        if(datiCambiamento['email_ric_rifiuti_cp'])this.form.externalChange('@arr_tasklist.email_ric_rifiuti_cp',datiCambiamento['email_ric_rifiuti_cp']);
                        if(datiCambiamento['email_tug_dep'])this.form.externalChange('@arr_tasklist.email_tug_dep',datiCambiamento['email_tug_dep']);
-                       if(datiCambiamento['email_tributi_cp'])this.form.externalChange('@arr_tasklist.email_tributi_cp',datiCambiamento['email_tributi_cp']);}"""
+                       if(datiCambiamento['email_aeration'])this.form.externalChange('@arr_tasklist.email_aeration',datiCambiamento['email_aeration']);
+                       if(datiCambiamento['email_tributi_cp'])this.form.externalChange('@arr_tasklist.email_tributi_cp',datiCambiamento['email_tributi_cp']);
+                       console.log("datiCambiamento: ",datiCambiamento)}"""
                        ,pkey='=#FORM.record.@arr_tasklist.id',table='shipsteps.tasklist')
         
         
@@ -1315,11 +1317,11 @@ class Form(BaseComponent):
 
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_vent = fb.Button('!![en]Holds ventilation', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
+        btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
         fb.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
-                        """, ca='^.email_integr',button=btn_vent.js_widget)
+                        """, ca='^.email_aeration',button=btn_vent.js_widget)
         if serv_len > 1:
             btn_vent.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_holds_vent',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1335,9 +1337,9 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         
-        fb.field('email_ventilation', lbl='', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
+        fb.field('email_aeration', lbl='', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
         #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
-        fb.semaphore('^.email_ventilation', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
+        fb.semaphore('^.email_aeration', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
 
         btn_update = fb.Button('!![en]Services updating', width='10em')
         btn_update.dataRpc('nome_temp', self.email_serv_upd,
@@ -1463,7 +1465,7 @@ class Form(BaseComponent):
                              if(msg=='val_dog') {SET .email_dogana=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec') {SET .email_ship_rec=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msg=='val_chemist_cp') {SET .email_certchim_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
-                             if(msg=='val_holds') {SET .email_ventilation=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_holds') {SET .email_aeration=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_ricrifiuti') {SET .email_ric_rifiuti_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_tributi') {SET .email_tributi_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='vess_serv') {SET .form_services=true;} this.form.save();
@@ -1979,7 +1981,7 @@ class Form(BaseComponent):
         dlgws.span('^.bollo_virt',_virtual_column='@arr_tasklist.bollo_virt')
         dlgws.hr()
         fb_extra.button('!![en]Virtual stamp', action="genro.wdgById('dialog_boll').show()")
-
+        
     @public_method
     def intfat(self,record, **kwargs):  
         intfat_id = record['invoice_det_id']

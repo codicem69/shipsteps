@@ -376,6 +376,9 @@ class Table(object):
             if message['template_code']=='email_tributi_cp':
                 tbl_tasklist.batchUpdate(dict(email_tributi_cp=True),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_holds_vent':
+                tbl_tasklist.batchUpdate(dict(email_aeration=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_bunkerdoc':
                 tbl_bunker.batchUpdate(dict(doc_cp=True),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])                                                   
@@ -440,9 +443,13 @@ class Table(object):
             if message['template_code']=='email_tributi_cp':
                 tbl_tasklist.batchUpdate(dict(email_tributi_cp=False),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_holds_vent':
+                tbl_tasklist.batchUpdate(dict(email_aeration=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_bunkerdoc':
                 tbl_bunker.batchUpdate(dict(doc_cp=False),
-                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])                                          
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+
         self.db.commit()
         
     @public_method

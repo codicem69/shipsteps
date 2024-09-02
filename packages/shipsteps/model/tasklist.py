@@ -4,7 +4,7 @@ from gnr.core.gnrdecorator import public_method
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('tasklist', pkey='id', name_long='!![en]Task list', name_plural='!![en]Task list',caption_field='id',
-        broadcast="""email_ship_rec,email_dogana,email_frontiera,email_usma,email_pfso,email_pilot_moor,email_tug,email_tug_dep,email_garbage,email_chemist,email_gpg,email_ens,email_ric_lps,email_garbage_adsp,email_integr,email_pmou,email_certchim_cp,email_lps_cp,email,garbage_cp,email_ric_rifiuti_cp,email_tributi_cp""")
+        broadcast="""email_ship_rec,email_dogana,email_frontiera,email_usma,email_pfso,email_pilot_moor,email_tug,email_tug_dep,email_garbage,email_chemist,email_gpg,email_ens,email_ric_lps,email_garbage_adsp,email_integr,email_pmou,email_certchim_cp,email_lps_cp,email,garbage_cp,email_ric_rifiuti_cp,email_aeration,email_tributi_cp""")
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
@@ -46,7 +46,7 @@ class Table(object):
         tbl.column('form_gdfdep', dtype='B', name_short='!![en]Form GdF dep')
         tbl.column('email_ric_rifiuti_cp', dtype='B', name_short='!![en]Email ricevuta rifiuti CP')
         tbl.column('email_tributi_cp', dtype='B', name_short='!![en]Email Tributi CP')
-        tbl.column('email_ventilation', dtype='B', name_short='!![en]Email holds ventilation')
+        tbl.column('email_aeration', dtype='B', name_short='!![en]Email holds ventilation')
         tbl.column('nsw', dtype='B', name_short='!![en]NSW')
         tbl.column('acqua', name_short='!![en]Water qt.')
         tbl.column('nome_servizio', name_short='!![en]service name')
