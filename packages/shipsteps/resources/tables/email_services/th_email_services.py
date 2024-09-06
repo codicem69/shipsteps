@@ -35,7 +35,7 @@ class Form(BaseComponent):
     def th_form(self, form):
         bc = form.center.borderContainer()
         #bc = tc.borderContainer(title='Form')
-        self.EmailServiceTestata(bc.borderContainer(region='top',datapath='.record',height='380px', splitter=True))
+        self.EmailServiceTestata(bc.borderContainer(region='top',datapath='.record',height='420px', splitter=True))
         self.EmailServiceCenter(bc.contentPane(region='center'))
 
     def EmailServiceTestata(self,bc):    
@@ -46,7 +46,7 @@ class Form(BaseComponent):
         fb.br()
         fb.field('service_for_email_id')
         fb.br()
-        fb.field('consignee', width='40em')
+        fb.field('consignee',width='40em', height='5em',tag='textarea')
         fb.br()
         fb.div("!![en]Insert the emails separate by commas",font_weight='bold', margin_top='10px')
         fb.br()

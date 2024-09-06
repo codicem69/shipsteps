@@ -965,7 +965,7 @@ class Form(BaseComponent):
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
       #  fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
         
-        #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
+        #verifichiamo quanti servizi Dogana ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dog').fetch()
         serv_len=len(service_for_email)
         btn_dog = fb.Button('!![en]Customs/GdF', width='10em')
@@ -976,8 +976,9 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_dog.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['dogana','gdf','gdf roan'], email_template_id='email_dogana',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='dog',alternatePkey='consignee',
+                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2 OR $service_for_email_id=:cod3",
+                                condition_cod='dog',condition_cod2='gdf',condition_cod3='gdfroan',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();") 
@@ -1016,8 +1017,8 @@ class Form(BaseComponent):
             btn_fr.dataRpc('nome_temp', self.print_template,
                        record='=#FORM.record', servizio=['immigration'], email_template_id='email_frontiera',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        nome_template = 'shipsteps.arrival:form_immigration', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',format_page='A4',
-                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='imm',alternatePkey='consignee',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='imm',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
@@ -1047,8 +1048,8 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_usma.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['sanimare'], email_template_id='email_sanimare',nsisprot='=#FORM.record.nsis_prot',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='usma',alternatePkey='consignee',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='usma',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
@@ -1067,31 +1068,60 @@ class Form(BaseComponent):
         #fb.semaphore('^.email_usma?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
         fb.semaphore('^.email_usma', margin_top='5px',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
 
+        #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
+        serv_len=len(service_for_email)
         btn_pilot = fb.Button('!![en]Pilot/Moor', width='10em')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_pilot_moor',button=btn_pilot.js_widget)
-        btn_pilot.dataRpc('nome_temp', self.email_services,
-                   record='=#FORM.record', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        if serv_len > 1:
+            btn_usma.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2",
+                                condition_cod='pilot',condition_cod2='moor',order_by='$consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+        else:
+            btn_pilot.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_pilot_moor',lbl='', margin_top='5px')
         #fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
         fb.semaphore('^.email_pilot_moor', margin_top='5px')
         
+        #verifichiamo quanti servizi tug ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='tug').fetch()
+        serv_len=len(service_for_email)
         btn_tug = fb.Button('!![en]Tug', width='10em')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_tug',button=btn_tug.js_widget)
-        btn_tug.dataRpc('nome_temp', self.email_services,
-                   record='=#FORM.record', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        if serv_len > 1:
+            btn_usma.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='tug',order_by='$consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+        else:
+            btn_tug.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
        
         fb.field('email_tug',lbl='', margin_top='5px')
@@ -1110,9 +1140,9 @@ class Form(BaseComponent):
                         
             btn_garb.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record',servizio=['garbage'], email_template_id='garbage_email',
                                 nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',                            
-                                _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='garb',alternatePkey='consignee',
-                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='garb',alternatePkey='id',
+                                order_by='$consignee',validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='garbage',
@@ -1154,8 +1184,9 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_pfso.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pfso'], email_template_id='email_pfso',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='pfso',alternatePkey='consignee',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='pfso',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
@@ -1184,8 +1215,9 @@ class Form(BaseComponent):
         if serv_len >1:
             btn_chem.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['chemist'], email_template_id='email_chemist',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='chem',alternatePkey='consignee',
+                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='chem',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
@@ -1214,8 +1246,9 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_gpg.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['gpg'], email_template_id='email_gpg',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='gpg',alternatePkey='consignee',
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='gpg',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Arrival attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
@@ -1261,8 +1294,8 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_gbadsp.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record', servizio=['adsp'], email_template_id='not_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='adsp',alternatePkey='consignee',
+                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='adsp',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
@@ -1299,8 +1332,8 @@ class Form(BaseComponent):
             btn_riclps.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['sanimare'], email_template_id='email_ric_lps',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the services and the Attachments to send:<br>Free-pratique-sanitary<br>Sanimare declaration<br>Crew list<br>Sanitation certificate<br>Last 3 CSR',
-                                fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='usma',alternatePkey='consignee',
+                                fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='usma',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
@@ -1314,8 +1347,9 @@ class Form(BaseComponent):
         fb.field('email_ric_lps',lbl='', margin_top='5px',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         #fb.semaphore('^.email_ric_lps?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
         fb.semaphore('^.email_ric_lps', margin_top='5px',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
-
-        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
+        
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv OR $service_for_email_id=:serv1 OR $service_for_email_id=:serv2', 
+                                                     serv='cp',serv1='adsp', serv2='chem').fetch()
         serv_len=len(service_for_email)
         btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
         fb.dataController("""var id = button.id; console.log(id);
@@ -1324,11 +1358,13 @@ class Form(BaseComponent):
                         """, ca='^.email_aeration',button=btn_vent.js_widget)
         if serv_len > 1:
             btn_vent.dataRpc('nome_temp', self.email_services,
-                      record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_holds_vent',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
-                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                      record='=#FORM.record', servizio=['capitaneria','adsp','chemist'], email_template_id='email_holds_vent',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2 OR $service_for_email_id=:cod3",condition_cod='cp',
+                                condition_cod2='adsp',condition_cod3='chem',order_by='$consignee',
+                                validate_notnull=True,cols=2,popup=True,colspan=4,border_spacing='2px',hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         else:
             btn_vent.dataRpc('nome_temp', self.email_services,
@@ -1381,8 +1417,9 @@ class Form(BaseComponent):
         if serv_len >1:
             btn_integr.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_integrazione_alim',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='cp',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='fumigation', lbl='!![en]Cargo Fumigated', tag='radioButtonText',values='SI:YES,NO:NO',validate_notnull=True,
@@ -1413,8 +1450,9 @@ class Form(BaseComponent):
         if serv_len >1:
             btn_pmou.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_pmou',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='cp',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
@@ -1640,8 +1678,9 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_lps_cp.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_lps_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='cp',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
@@ -1667,8 +1706,9 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_chim_cp.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_chimico_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='cp',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
@@ -1697,8 +1737,10 @@ class Form(BaseComponent):
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_deroga_garbage',
                                 imbarcazione_id='=#FORM.record.@vessel_details_id.imbarcazione_id',nome_template = 'shipsteps.arrival:deroga_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                                 moored='=#FORM.record.@time_arr.moored',nextport='=#FORM.record.@next_port.descrizione',
-                      _ask=dict(title='!![en]Select the services',fields=[dict(name='bolli',lbl='!![en]Insert only the stamps',value='^.bolli',tag='checkbox',label='Inserisci solo i bolli nella tabella', default=True),dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='bolli',lbl='!![en]Insert only the stamps',value='^.bolli',tag='checkbox',label='Inserisci solo i bolli nella tabella', default=True),
+                                                                          dict(name='services', lbl='!![en]Services',tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='cp',order_by='$consignee',
                                 validate_notnull='^.bolli?=#v==true?false:true', hasArrowDown=True,hidden='^.bolli?=#v'),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2,hidden='^.bolli?=#v')]),_onResult="this.form.save();")
@@ -1731,8 +1773,9 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_rif_cp.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_ricevutarifiuti_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='cp',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
@@ -1754,16 +1797,29 @@ class Form(BaseComponent):
         #fb_dep.semaphore('^.form_services?=#v==true?true:false', margin_top='6px')
         fb_dep.semaphore('^.form_services', margin_top='6px')
 
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv',serv='tug').fetch()
+        serv_len=len(service_for_email)
         btn_tugdep = fb_dep.Button('!![en]Tug departure')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_tug_dep',button=btn_tugdep.js_widget)
-        btn_tugdep.dataRpc('nome_temp', self.email_services,
-                   record='=#FORM.record', servizio=['tug'], email_template_id='email_tug_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                   _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        if serv_len > 1:
+            btn_usma.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['tug'], email_template_id='email_tug_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='tug',order_by='$consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+        else:
+            btn_tugdep.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['tug'], email_template_id='email_tug_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
        
         fb_dep.field('email_tug_dep',lbl='', margin_top='5px')
@@ -1795,8 +1851,9 @@ class Form(BaseComponent):
         if serv_len > 1:
             btn_trib_cp.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_tributi_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
-                                table='shipsteps.email_services',columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='cp',alternatePkey='consignee',
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services',columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='cp',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();") 
@@ -2033,6 +2090,7 @@ class Form(BaseComponent):
     @public_method
     def email_services(self,record,email_template_id=None,servizio=[],nome_temp=None,**kwargs):
     #def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None,**kwargs):
+       
         record_arr=record['id']
         arrival_id=record['id']
         flag=record['flag']
@@ -2103,7 +2161,7 @@ class Form(BaseComponent):
                     std_att=list(kwargs['std_att'].split(","))   
                 else:
                     std_att=None   
-                               
+                              
         #avendo preso il valore services nei kwargs ossia il consignee dell'email sevices andiamo a copiarlo nel record della tasklist nome_servizio 
         record_tasklist=record['@arr_tasklist.id'] 
         tbl_tasklist = self.db.table('shipsteps.tasklist')  
@@ -2121,7 +2179,8 @@ class Form(BaseComponent):
         #che utilizzeremo nei template per avere la variabile fumigazione                     
        
         tbl_arrival = self.db.table('shipsteps.arrival')  
-        tbl_arrival.batchUpdate(dict(fumigated=fumigation),
+        if fumigation:
+            tbl_arrival.batchUpdate(dict(fumigated=fumigation),
                                     where='$id=:id_arr', id_arr=record_arr)
         self.db.commit()
        # with tbl_tasklist.recordToUpdate('id'==record_tasklist) as rec_tasklist:
@@ -2183,16 +2242,23 @@ class Form(BaseComponent):
         #definiamo le tabelle su cui effettuare le ricerche
         tbl_emailservices = self.db.table('shipsteps.email_services')
         tbl_emailserv_atc = self.db.table('shipsteps.email_services_atc')
+        #aggiorniamo la colonna default del service sulla base del servizio selezionato
         #preleviamo il nome esatto del servizio service_for_email_id
-        service_for_email_id = tbl_emailservices.readColumns(columns="$service_for_email_id", where='$service_for_email=:serv AND $consignee=:cons', serv=servizio[0], cons=services)
-        #aggiorniamo a true la colonna default del servizio richiesto
-        tbl_emailservices.batchUpdate(dict(default=True),
-                                    where='$consignee=:cons', cons=services)                         
-        #aggiorniamo a false la colonna default degli eventuali servizi aggiunti non richiesti
-        tbl_emailservices.batchUpdate(dict(default=False),
-                                    where='$consignee != :cons AND $service_for_email_id =:servizio',cons=services, servizio=service_for_email_id)  
-                                                                  
-        self.db.commit()
+        if services:
+            servizi=services.split(',')
+            for s in servizi:
+                for serv in servizio:
+                    service_for_email_id = tbl_emailservices.readColumns(columns="$service_for_email_id", where='$service_for_email=:serv AND $id=:id_cons', serv=serv, id_cons=s)
+
+        
+                    #aggiorniamo a true la colonna default del servizio richiesto
+                    tbl_emailservices.batchUpdate(dict(default=True),
+                                    where='$id=:id_cons', id_cons=s)                         
+                    #aggiorniamo a false la colonna default degli eventuali servizi aggiunti non richiesti
+                    tbl_emailservices.batchUpdate(dict(default=False),
+                                    where='$id != :id_cons AND $service_for_email_id =:servizio',id_cons=s, servizio=service_for_email_id)  
+                                                                
+                    self.db.commit()
         #leggiamo prima gli id dei servizi su email_services così passiamo gli id alla tabella di attachment per la lettura dell'url
         #per poi trasformarlo nel giusto path che appendiamo agli attachment dell'email
         #for e in range(ln_serv):
@@ -2241,7 +2307,7 @@ class Form(BaseComponent):
 
         # Lettura degli account email predefiniti all'interno di Agency e Staff
         tbl_staff =  self.db.table('agz.staff')
-        account_email = tbl_staff.readColumns(columns='$email_account_id',
+        account_email,email_mittente = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address',
                   where='$agency_id=:ag_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'))
         tbl_agency =  self.db.table('agz.agency')
@@ -2251,113 +2317,123 @@ class Form(BaseComponent):
 
       
         #Lettura degli indirizzi email destinatari
+        #assegnamo alla variabile ln_serv la lunghezza dei servizi che nella _ask sono stati inseriti sotto la voce servizio[]
         ln_serv=len(servizio)
         
-        #email_d, email_cc_d, email_pec_d, email_pec_cc_d=[],[],[],[]
-        email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d='','','','',''
-        tbl_email_services=self.db.table('shipsteps.email_services')
-
-        if services !='' and services is not None:
-           
-            for e in range(ln_serv):
-                serv=servizio[e]
-
-                email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
-                                                        where='$service_for_email=:serv AND $agency_id=:ag_id AND $consignee=:cons', serv=serv, cons=services,
-                                                        ag_id=self.db.currentEnv.get('current_agency_id'))
-
-               #email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
-               #                                        where='$service_for_email=:serv AND $agency_id=:ag_id AND $consignee=:cons', serv=serv,cons=services,
-               #                                        ag_id=self.db.currentEnv.get('current_agency_id'))                                                    
-
-
-                if e < (ln_serv-1):
-                    if email_dest is not None:
-                        email_d = email_d + email_dest + ','
-                    if email_cc_dest is not None:
-                        email_cc_d = email_cc_d + email_cc_dest + ','
-                    if email_bcc_dest is not None:
-                        email_bcc_d = email_bcc_d + email_bcc_dest + ','
-                    if email_pec_dest is not None:
-                        email_pec_d = email_pec_d + email_pec_dest + ','
-                    if email_pec_cc_dest is not None:
-                        email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest + ','
-                else:
-                    if email_dest is not None:
-                        email_d = email_d + email_dest
-                    if email_cc_dest is not None:
-                        email_cc_d = email_cc_d + email_cc_dest
-                    if email_bcc_dest is not None:
-                        email_bcc_d = email_bcc_d + email_bcc_dest
-                    if email_pec_dest is not None:
-                        email_pec_d = email_pec_d + email_pec_dest
-                    if email_pec_cc_dest is not None:
-                        email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest
-        else:
-            
-            for e in range(ln_serv):
-                serv=servizio[e]
-
-                email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
-                                                        where='$service_for_email=:serv AND $agency_id=:ag_id', serv=serv,
-                                                        ag_id=self.db.currentEnv.get('current_agency_id'))
-
-               #email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
-               #                                        where='$service_for_email=:serv AND $agency_id=:ag_id AND $consignee=:cons', serv=serv,cons=services,
-               #                                        ag_id=self.db.currentEnv.get('current_agency_id'))                                                    
-
-
-                if e < (ln_serv-1):
-                    if email_dest is not None:
-                        email_d = email_d + email_dest + ','
-                    if email_cc_dest is not None:
-                        email_cc_d = email_cc_d + email_cc_dest + ','
-                    if email_bcc_dest is not None:
-                        email_bcc_d = email_bcc_d + email_bcc_dest + ','
-                    if email_pec_dest is not None:
-                        email_pec_d = email_pec_d + email_pec_dest + ','
-                    if email_pec_cc_dest is not None:
-                        email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest + ','
-                else:
-                    if email_dest is not None:
-                        email_d = email_d + email_dest
-                    if email_cc_dest is not None:
-                        email_cc_d = email_cc_d + email_cc_dest
-                    if email_bcc_dest is not None:
-                        email_bcc_d = email_bcc_d + email_bcc_dest
-                    if email_pec_dest is not None:
-                        email_pec_d = email_pec_d + email_pec_dest
-                    if email_pec_cc_dest is not None:
-                        email_pec_cc_d = email_pec_cc_d + email_pec_cc_dest
         
-        if (email_dest) != None and (email_dest) != '':
-            self.db.table('email.message').newMessageFromUserTemplate(
-                                                          record_id=record_arr,
-                                                          table='shipsteps.arrival',
-                                                          account_id = account_email,
-                                                          to_address=email_d,
-                                                          cc_address=email_cc_d,
-                                                          bcc_address=email_bcc_d,
-                                                          attachments=attcmt,
-                                                          template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+        #email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d='','','','',''
+        #assegnamo le varibili liste per inserire successivamente i risultati della ricerca sulla tabella email_services
+        destinatario,email_d, email_cc_d,email_bcc_d, email_pec_d, email_pec_cc_d=[],[],[],[],[],[]
+        tbl_email_services=self.db.table('shipsteps.email_services')
+        tbl_service_for_email = self.db.table('shipsteps.services_for_email')
+        
+
+        if services is not None:
+            lista_services = services.split(',')
+            ln_services = len(lista_services)
+        else:
+            if ln_serv >= 1:
+                services=''
+                for serv in servizio:
+                    
+                    code = tbl_service_for_email.readColumns(columns="""$code""",
+                                                            where='$description_serv=:serv', serv=serv)  
+                    services += tbl_email_services.readColumns(columns="""$id""",
+                                                            where='$service_for_email_id=:code AND $agency_id=:ag_id', code=code,
+                                                            ag_id=self.db.currentEnv.get('current_agency_id')) + ','
+            lista_services = services.split(',')
+            ln_services = len(lista_services)
             
+        if services !='' and services is not None:
+            
+            for e in range(ln_services):
+                #serv=servizio[e]
+                email_services_id=lista_services[e]
+                dest,email_dest, email_cc_dest,email_bcc_dest, email_pec_dest, email_pec_cc_dest = tbl_email_services.readColumns(columns="""$consignee,$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec""",
+                                                        where='$id=:cons AND $agency_id=:ag_id', cons=email_services_id,
+                                                        ag_id=self.db.currentEnv.get('current_agency_id'))
+                
+                # nella variabile destinatario inseriamo tutti i destinatari dell'email
+                if dest is not None and dest !='':
+                    destinatario.append('a: ' + dest)
+                #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario to:    
+                if email_dest is not None and email_dest !='' and ln_services==1:
+                    email_d.append(email_dest)
+                #verifichiamo se il servizio è più di uno e sarà inserito all'email destinatario to:        
+                if email_dest is not None and email_dest !='' and ln_services>1:
+                    email_d.append(email_dest)
+                #verifichiamo se il servizio è più di uno sarà inserito all'email bcc:     
+                #if email_dest is not None and email_dest !='' and ln_services>1:
+                #    email_bcc_d.append(email_dest)
+                #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario to:    
+                if email_cc_dest is not None and email_cc_dest != '' and ln_services==1:
+                    email_cc_d.append(email_cc_dest)
+                 #verifichiamo se il servizio è più di uno sarà inserito all'email cc:    
+                if email_cc_dest is not None and email_cc_dest != '' and ln_services>1:
+                    email_cc_d.append(email_cc_dest)    
+                if email_bcc_dest is not None and email_bcc_dest != '':    
+                    email_bcc_d.append(email_bcc_dest)
+                if email_pec_dest is not None and email_pec_dest != '':
+                    email_pec_d.append(email_pec_dest)
+                if email_pec_cc_dest is not None and email_pec_cc_dest !='':
+                    email_pec_cc_d.append(email_pec_cc_dest)
+        
+        #se viene popolato il campo email_pec_d quindi sarà creata una pec, andremo ad inserire nella casella cc della pec le altre email normali 
+        # al fine di creare un unica email pec 
+        if email_pec_d:
+            if email_dest is not None:
+                email_pec_cc_d.append(email_dest)
+            if email_cc_dest is not None:
+                email_pec_cc_d.append(email_cc_dest)
+            if email_bcc_dest is not None:
+                email_pec_cc_d.append(email_bcc_dest)
+        
+        #trasformiamo le liste in stringhe assegnandole alle relative variabili
+        #la variabile consignee verrà succesivamente inserita nel campo $int_email nella tabella arrival
+        consignee='<br>'.join([str(item) for item in destinatario])
+        
+        #andiamo ad aggiornare la variabile int_email che sarà utilizzata nel body dei template come destinatari email
+        if consignee:
+            tbl_arrival.batchUpdate(dict(int_email=consignee),
+                                    where='$id=:id_arr', id_arr=record_arr)
             self.db.commit()
-    
-        if (email_pec_dest) != None and (email_pec_dest) != '':
+
+        email_to = ','.join([str(item) for item in email_d]) 
+        email_cc = ','.join([str(item) for item in email_cc_d])
+        email_bcc = ','.join([str(item) for item in email_bcc_d])
+        email_pec = ','.join([str(item) for item in email_pec_d])
+        email_pec_cc = ','.join([str(item) for item in email_pec_cc_d])
+      
+        #se non viene inserito nessun destinatario alla casella a: verrà inserito quella del mittente al fine di far creare il messaggio
+        #normale in quanto verranno inseriti i destinatari nella casella bcc
+        if not email_to:
+            email_to=email_mittente
+       
+        # se la variabile email pec non è vuota creaiamo l'email pec altrimenti quella normale
+        if (email_pec) != None and (email_pec) != '':
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record_arr,
                                                           table='shipsteps.arrival',
                                                           account_id = account_emailpec,
-                                                          to_address=email_pec_d,
-                                                          cc_address=email_pec_cc_d,
+                                                          to_address=email_pec,
+                                                          cc_address=email_pec_cc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
                                                           arrival_id=arrival_id)
-            self.db.commit()
+        else:
+            self.db.table('email.message').newMessageFromUserTemplate(
+                                                          record_id=record_arr,
+                                                          table='shipsteps.arrival',
+                                                          account_id = account_email,
+                                                          to_address=email_to,
+                                                          cc_address=email_cc,
+                                                          bcc_address=email_bcc,
+                                                          attachments=attcmt,
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id)    
+        self.db.commit()   
         
-        
-        if (email_dest or email_pec_dest) is not None:
+        if (email_to or email_pec) is not None:
 
             if email_template_id == 'email_dogana':
                 nome_temp = 'val_dog'
@@ -2528,7 +2604,7 @@ class Form(BaseComponent):
             sal = 'Buonasera,' 
         elif cur_time < '04:00:00':
             sal = 'Buona notte,'      
-
+        
         subject='aggiornamento '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
         body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
         body_header_pec="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee_pec + '<br><br>'
