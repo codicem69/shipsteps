@@ -4,7 +4,7 @@ from gnr.core.gnrdecorator import public_method
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('tasklist', pkey='id', name_long='!![en]Task list', name_plural='!![en]Task list',caption_field='id',
-        broadcast="""email_ship_rec,email_dogana,email_frontiera,email_usma,email_pfso,email_pilot_moor,email_tug,email_tug_dep,email_garbage,email_chemist,email_gpg,email_ens,email_ric_lps,email_garbage_adsp,email_integr,email_pmou,email_certchim_cp,email_lps_cp,email,garbage_cp,email_ric_rifiuti_cp,email_aeration,email_tributi_cp""")
+        broadcast="""email_ship_rec,email_dogana,email_frontiera,email_usma,email_pfso,email_pilot_moor,email_tug,email_tug_dep,email_garbage,email_chemist,email_gpg,email_ens,email_ric_lps,email_garbage_adsp,email_integr,email_pmou,email_certchim_cp,email_certchim_stev,email_lps_cp,email,garbage_cp,email_ric_rifiuti_cp,email_aeration,email_tributi_cp""")
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
@@ -40,6 +40,7 @@ class Table(object):
         tbl.column('form_checklist_f', dtype='B', name_short='!![en]Checklist Fiore')
         tbl.column('master_info', dtype='B', name_short='!![en]Master info')
         tbl.column('email_certchim_cp', dtype='B', name_short='!![en]Email Cert.Chimico HM')
+        tbl.column('email_certchim_stev', dtype='B', name_short='!![en]Email Cert.Chimico Stevedores')
         tbl.column('email_lps_cp', dtype='B', name_short='!![en]Email LPS HM')
         tbl.column('email_garbage_cp', dtype='B', name_short='!![en]Email Garbage HM')
         tbl.column('form_services', dtype='B', name_short='!![en]Form services')

@@ -364,6 +364,9 @@ class Table(object):
             if message['template_code']=='email_chimico_cp':
                 tbl_tasklist.batchUpdate(dict(email_certchim_cp=True),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_chimico_stev':
+                tbl_tasklist.batchUpdate(dict(email_certchim_stev=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_deroga_garbage':
                 tbl_tasklist.batchUpdate(dict(email_garbage_cp=True),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])  
@@ -431,6 +434,12 @@ class Table(object):
             if message['template_code']=='email_lps_cp':
                 tbl_tasklist.batchUpdate(dict(email_lps_cp=False),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+            if message['template_code']=='email_chimico_cp':
+                tbl_tasklist.batchUpdate(dict(email_certchim_cp=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_chimico_stev':
+                tbl_tasklist.batchUpdate(dict(email_certchim_stev=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_deroga_garbage':
                 tbl_tasklist.batchUpdate(dict(email_garbage_cp=False),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])  

@@ -80,3 +80,7 @@ class Table(object):
     @metadata(mandatory=True)
     def sysRecord_adsp(self):
         return self.newrecord(code='adsp',description_serv='adsp')
+    
+    @metadata(mandatory=True)
+    def sysRecord_stevedores(self):
+        return self.newrecord(code='stev',description_serv='stevedores')

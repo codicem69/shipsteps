@@ -523,6 +523,7 @@ class Form(BaseComponent):
                        if(datiCambiamento['email_pmou'])this.form.externalChange('@arr_tasklist.email_pmou',datiCambiamento['email_pmou']);
                        if(datiCambiamento['email_lps_cp'])this.form.externalChange('@arr_tasklist.email_lps_cp',datiCambiamento['email_lps_cp']);
                        if(datiCambiamento['email_certchim_cp'])this.form.externalChange('@arr_tasklist.email_certchim_cp',datiCambiamento['email_certchim_cp']);
+                       if(datiCambiamento['email_certchim_stev'])this.form.externalChange('@arr_tasklist.email_certchim_stev',datiCambiamento['email_certchim_stev']);
                        if(datiCambiamento['email_garbage_cp'])this.form.externalChange('@arr_tasklist.email_garbage_cp',datiCambiamento['email_garbage_cp']);
                        if(datiCambiamento['email_ric_rifiuti_cp'])this.form.externalChange('@arr_tasklist.email_ric_rifiuti_cp',datiCambiamento['email_ric_rifiuti_cp']);
                        if(datiCambiamento['email_tug_dep'])this.form.externalChange('@arr_tasklist.email_tug_dep',datiCambiamento['email_tug_dep']);
@@ -1503,6 +1504,7 @@ class Form(BaseComponent):
                              if(msg=='val_dog') {SET .email_dogana=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec') {SET .email_ship_rec=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msg=='val_chemist_cp') {SET .email_certchim_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_stevedores') {SET .email_certchim_stev=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_holds') {SET .email_aeration=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_ricrifiuti') {SET .email_ric_rifiuti_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_tributi') {SET .email_tributi_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
@@ -1722,6 +1724,34 @@ class Form(BaseComponent):
         fb_arr.field('email_certchim_cp', lbl='', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #fb_arr.semaphore('^.email_certchim_cp?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb_arr.semaphore('^.email_certchim_cp', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+
+        #verifichiamo quanti servizi Impresa portuale ci sono, nel caso più di uno apparirà la dbSelect per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='stev').fetch()
+        serv_len=len(service_for_email)
+        btn_chim_stev = fb_arr.Button('!![en]Email Chemist Cert.<br>to Stevedores',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_certchim_stev',button=btn_chim_stev.js_widget)
+        if serv_len > 1:
+            btn_chim_stev.dataRpc('nome_temp', self.email_services,
+                      record='=#FORM.record', servizio=['stevedores'], email_template_id='email_chimico_stev',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                      _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
+                                condition="$service_for_email_id=:cod",condition_cod='stev',order_by='$consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        else:
+            btn_chim_stev.dataRpc('nome_temp', self.email_services,
+                  record='=#FORM.record', servizio=['stevedores'], email_template_id='email_chimico_stev',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                  _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
+                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+
+        fb_arr.field('email_certchim_stev', lbl='', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        #fb_arr.semaphore('^.email_certchim_cp?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb_arr.semaphore('^.email_certchim_stev', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
 
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
@@ -2482,7 +2512,9 @@ class Form(BaseComponent):
             elif email_template_id == 'email_tributi_cp':
                 nome_temp = 'val_tributi'  
             elif email_template_id == 'email_holds_vent':
-                nome_temp = 'val_holds'      
+                nome_temp = 'val_holds' 
+            elif email_template_id == 'email_chimico_stev':
+                nome_temp = 'val_stevedores'         
             return nome_temp
     
     @public_method
