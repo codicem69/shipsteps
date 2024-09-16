@@ -2064,10 +2064,12 @@ class Form(BaseComponent):
         fb_extra.div('^.doc_bunker',_virtual_column='@arr_tasklist.doc_bunker', font_weight='bold', color='red')
         #fb_more=rg_extra.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
         #fb_extra.button('!![en]Virtual stamp prot.',action='alert(message)',message=re.sub(r'<[^>]*?>', '','^.bollo_virt'),_virtual_column='@arr_tasklist.bollo_virt')
-        dlgws = rg_extra.dialog(nodeId='dialog_boll',style='width:300px;height:100px;',title='!![Virtual stamp]',closable=True)
-        dlgws.span('^.bollo_virt',_virtual_column='@arr_tasklist.bollo_virt')
-        dlgws.hr()
-        fb_extra.button('!![en]Virtual stamp', action="genro.wdgById('dialog_boll').show()")
+        #dlgws = rg_extra.dialog(nodeId='dialog_boll',style='width:300px;height:100px;',title='!![Virtual stamp]',closable=True)
+        #dlgws.span('^.bollo_virt',_virtual_column='@arr_tasklist.bollo_virt')
+        #dlgws.hr()
+        #fb_extra.button('!![en]Virtual stamp', action="genro.wdgById('dialog_boll').show()")
+        fb_extra.button('!![en]Virtual stamp',action="""alert(message);""",_delay=50, message='=#FORM.record.@agency_id.virtual_stamp')
+
         
     @public_method
     def intfat(self,record, **kwargs):  
