@@ -100,8 +100,8 @@ class Form(BaseComponent):
         fb.field('n_eliche_poppa', width='5em' )
         fb.field('n_eliche_prua', width='5em' )
         fb.field('ex_name', width='100%',colspan=2 )
-        fb.field('type',width='100%',colspan=2, values="Portarinfuse liquide,Portarinfuse secche,Portacontainer,Trasp. specializzato,Nave per Merci varie,Nave per Passeggeri,Navi da crociera,Attività Off Shore,Chiatta carichi secchi,Altre navi", tag='filteringSelect')
-      
+        #fb.field('type',width='100%',colspan=2, values="Portarinfuse liquide,Portarinfuse secche,Portacontainer,Trasp. specializzato,Nave per Merci varie,Nave per Passeggeri,Navi da crociera,Attività Off Shore,Chiatta carichi secchi,Altre navi", tag='filteringSelect')
+        fb.field('vessel_type_code',rowcaption='$full_descr', width='100%', colspan=2,order_by='$type')
 
         right = bc.roundedGroup(region='right',title='Vessel Immagine',width='30%',splitter=True)
      

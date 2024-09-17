@@ -19,6 +19,7 @@ class Table(object):
         tbl.column('n_eliche_prua', name_short='!![en]Bow propellers no.')
         tbl.column('ex_name', name_short='!![en]Ex name')
         tbl.column('type', name_short='!![en]Type of ship')
+        tbl.column('vessel_type_code',size='22',name_short='!![en]Vessel type').relation('vessel_type.code',relation_name='vesseltype', mode='foreignkey', onDelete='raise')
         tbl.column('vess_note', name_short='!![en]Note')
         tbl.column('vess_image', dtype='P', name_short='!![en]Vessel photo')
         tbl.aliasColumn('vessel_name','@imbarcazione_id.nome',name_long='!![en]Vessel Name')
