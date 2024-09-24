@@ -53,7 +53,7 @@ class Table(object):
         tbl.column('error_ts', name_long='Error Timestamp')
         tbl.column('connection_retry', dtype='L')
         tbl.column('template_code',name_long='Template code')
-        tbl.column('arrival_id',size='22',name_short='!!Arrival_id',batch_assign=True).relation('shipsteps.arrival.id',relation_name='email_arr', mode='foreignkey', onDelete='raise')
+        tbl.column('arrival_id',size='22',name_short='!!Arrival_id',batch_assign=True).relation('shipsteps.arrival.id',relation_name='email_arr', mode='foreignkey', onDelete='cascade')
 
     def defaultValues(self):
         return dict(account_id=self.db.currentEnv.get('current_account_id'))
