@@ -30,14 +30,12 @@ class View(BaseComponent):
         r.fieldcell('n_eliche_prua',width='5em')
         r.fieldcell('vess_note',width='auto')
         #r.fieldcell('vess_image')
-
+       
     def th_order(self):
         return '@imbarcazione_id.nome'
 
     def th_query(self):
         return dict(column='@imbarcazione_id.nome', op='contains', val='')
-
-
 
 class Form(BaseComponent):
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"

@@ -178,19 +178,19 @@ class FormFromBunker(BaseComponent):
                                 imbarcazione_id='=#FORM/parent/#FORM.record.@vessel_details_id.imbarcazione_id',format_page='A4',_ask=dict(title='!![en]Select the Attachments<br>Insert the delivery note and copy of loog and record book',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.bunker_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull='^.bolli?=#v==true?false:true',
                                  cols=4,popup=True, colspan=2),dict(name='type_atc',lbl='!![en]Type atc',tag='filteringSelect',values='zip:zip,unzip:non compresso',default='unzip')]),_onResult="this.form.save();")
-        btn_bunker_emailtrasp.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['trasportatore'], email_template_id='email_bunker_transp',
+        btn_bunker_emailtrasp.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['trasportatore'], email_template_id='email_bunker_transp',
                             nome_template = 'shipsteps.bunker:bunker_transp',format_page='A4')
         #verifichiamo quanti servizi Antifire ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='antfire').fetch()
         serv_len=len(service_for_email)  
         if serv_len > 1:                  
-            btn_email_antifire.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['antifire'], email_template_id='email_antifire',
+            btn_email_antifire.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['antifire'], email_template_id='email_antifire',
                                 nome_template = 'shipsteps.bunker:bunker_antifire',format_page='A4',
                                 _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
                                     table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='antfire',alternatePkey='consignee',
                                     validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True)]))  
         else:
-            btn_email_antifire.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=['antifire'], email_template_id='email_antifire',
+            btn_email_antifire.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',record_arr='=#FORM/parent/#FORM.record',servizio=['antifire'], email_template_id='email_antifire',
                                 nome_template = 'shipsteps.bunker:bunker_antifire',format_page='A4')                                      
         btn_bunker_docs.dataRpc('nome_temp', self.print_template_bunker,record='=#FORM.record',servizio=[''], email_template_id='',
                             nome_template = 'shipsteps.bunker:bunker_docs',format_page='A4')    
@@ -204,14 +204,15 @@ class FormFromBunker(BaseComponent):
         if email_template_id != '':
             tbl_bolli = self.db.table('shipsteps.bolli')
             agency_id = record_arr['agency_id']
-            if kwargs['bolli']==True:
-                if not tbl_bolli.checkDuplicate(istanza='Istanza Bunker',ref_number=record_arr['reference_num']):
-                    nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Bunker',
-                                    ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,agency_id=agency_id)
-                    tbl_bolli.insert(nuovo_record)
-                    self.db.commit()   
-                nome_temp='bol_deroga_gb'
-                return nome_temp 
+            if 'bolli' in kwargs.keys():
+                if kwargs['bolli']==True:
+                    if not tbl_bolli.checkDuplicate(istanza='Istanza Bunker',ref_number=record_arr['reference_num']):
+                        nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Bunker',
+                                        ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,agency_id=agency_id)
+                        tbl_bolli.insert(nuovo_record)
+                        self.db.commit()   
+                    nome_temp='bol_deroga_gb'
+                    return nome_temp 
                 
        #if selId is None:
        #    msg_special = 'yes'
