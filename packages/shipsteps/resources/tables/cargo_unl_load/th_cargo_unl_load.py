@@ -37,7 +37,7 @@ class ViewFromCargoLU(BaseComponent):
         r.fieldcell('bln', hasDownArrow=True,edit=True, width='7em')
         r.fieldcell('bl_date', edit=True, width='5em')
         r.fieldcell('shipper_id', hasDownArrow=True,edit=True, width='20em')
-        r.fieldcell('receiver_id', hasDownArrow=True,edit=True, width='20em')
+        r.fieldcell('receiver_id', hasDownArrow=True,edit=True, auxColumns='$trader', width='20em')
         r.fieldcell('charterers_id', hasDownArrow=True,edit=True, width='20em')
         r.fieldcell('quantity', edit=dict(validate_notnull=True), totalize=True, format='#,###.000', dtype='N')
         r.cell('tot_progressivo',formula='+=quantity', format='#,###.000', name='Tot.<br>progressivo', dtype='N')
