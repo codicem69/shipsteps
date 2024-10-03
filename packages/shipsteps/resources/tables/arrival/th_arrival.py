@@ -1480,7 +1480,7 @@ class Form(BaseComponent):
         #fb2.field('email_garbage_cp', lbl='', margin_top='6px')
         #fb2.semaphore('^.email_garbage_cp', margin_top='6px')
         #fb.dataController("if(curtab==4){this.form.save();}",curtab='^#FORM.current_tab')
-        fb.dataController("""if(gdfdep==true) {alert(gdfdep_txt);}""",gdfdep='^#FORM.record.gdfdep_timeexp',gdfdep_txt='Print the GDF Form vessel departure')
+        fb.dataController("""if(gdfdep==true && gdf_dep !== true) {alert(gdfdep_txt);}""",gdfdep='^#FORM.record.gdfdep_timeexp',gdf_dep='^gnr.app_preference.shipsteps.gdf_dep',gdfdep_txt='Print the GDF Form vessel departure')
         #fb.dataController("if(msgspec=='val_bulk')alert(msg_txt);",msgspec='^msg_special',msg_txt = 'Email ready to be sent')
         fb.dataController("""if(msg=='val_bulk'){alert(msg_txt);} if(msg=='val_garb_cp'){SET .email_garbage_cp=false ; alert(msg_txt);}
                              if(msg=='val_integr') {SET .email_integr=false ;genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
@@ -1856,7 +1856,8 @@ class Form(BaseComponent):
         #fb_dep.semaphore('^.email_tug_dep?=#v==true?true:false', margin_top='5px')
         fb_dep.semaphore('^.email_tug_dep', margin_top='5px')
 
-        btn_fgdf=fb_dep.Button('!![en]Form GdF Departure',action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
+        btn_fgdf=fb_dep.Button('!![en]Form GdF Departure',hidden='^gnr.app_preference.shipsteps.gdf_dep',#con hidden disabilitiamo il bottone se nelle preferenze è flaggato gdf partenza
+                               action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Partenza_Finanza',
                                                                                pkey: pkey})
@@ -1867,9 +1868,9 @@ class Form(BaseComponent):
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_gdfdep',button=btn_fgdf.js_widget)                                                                               
-        fb_dep.field('form_gdfdep', lbl='', margin_top='6px')
+        fb_dep.field('form_gdfdep', lbl='', margin_top='6px',hidden='^gnr.app_preference.shipsteps.gdf_dep')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato gdf partenza
         #fb_dep.semaphore('^.form_gdfdep?=#v==true?true:false', margin_top='6px')    
-        fb_dep.semaphore('^.form_gdfdep', margin_top='6px')    
+        fb_dep.semaphore('^.form_gdfdep', margin_top='6px',hidden='^gnr.app_preference.shipsteps.gdf_dep')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato gdf partenza
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)

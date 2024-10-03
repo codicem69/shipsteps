@@ -58,6 +58,7 @@ class AppPref(object):
         fb.checkbox('^.pmou',lbl='Disabilita invio PMOU notification', default=False)
         fb.checkbox('^.garbage_adsp',lbl='Disabilita invio Garbage ADSP', default=False)
         fb.checkbox('^.rifiuti_cp',lbl='Disabilita invio ricevuta rifiuti CP', default=False)
+        fb.checkbox('^.gdf_dep',lbl='Disabilita stampa GDF partenza', default=False)
         fb.checkbox('^.ref_num', lbl='Disabilita Reference number', default=True)
         fb.checkbox(value='^.delrow_arr', lbl='!![en]Enable Delrow bottom on arrival')
         fb.br()
