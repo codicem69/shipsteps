@@ -876,12 +876,14 @@ class Form(BaseComponent):
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.modulo_nave',button=btn_mn.js_widget)
         btn_mn.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',_onResult="this.form.save();")
+                            nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',_if="visit_id",visit_id='=#FORM.record.visit_id',
+                            _else="genro.publish('floating_message',{message:msg, messageType:'error'});",
+                            msg='!![en]Please insert the Visit ID',_onResult="this.form.save();")
        # fb1.dataController("if(msg=='mod_nave') SET .checklist=true", msg='^nome_temp')
         fb1.field('modulo_nave', lbl='', margin_top='5px')
         #fb1.semaphore('^.modulo_nave?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.modulo_nave', margin_top='5px')
-
+       
         btn_cn = fb1.Button('!![en]Print Vessel folder')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}

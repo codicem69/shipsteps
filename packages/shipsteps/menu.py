@@ -67,6 +67,7 @@ class Menu(object):
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")       
             shipsteps.webpage('test',filepath='test')
+            shipsteps.webpage('test_2',filepath='test_2')
         else:
             root.thpage(u"!![en]Messages", table="email.message", tags="")
             shipsteps = root.branch(u"shipsteps", tags="")
