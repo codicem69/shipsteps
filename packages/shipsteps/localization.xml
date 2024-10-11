@@ -40,6 +40,7 @@
 <en_tributes base="Tributes" it="Tributi"></en_tributes>
 <en_vessel_details base="Vessel details"></en_vessel_details>
 <en_vessel_services base="Vessel services" it="Servizi Nave"></en_vessel_services>
+<en_various_printing base="Various printing" it="Stampe varie"></en_various_printing>
 <en_messages fr="Messages" de="Nachrichten" en="Messages" it="Messaggi" base="Messages"></en_messages>
 <en_email fr="Email" de="E-Mail-" en="Email" it="Email" base="Email"></en_email></menu>
 <model><_packages><email><message path="model/_packages/email/message.py" ext="py"><en_message fr="Message" de="Nachricht" en="Message" it="Messaggio" base="Message"></en_message>
@@ -706,6 +707,7 @@
 <en_choose_lettehead_to_use_with_this_form base="Choose lettehead to use with this form"></en_choose_lettehead_to_use_with_this_form>
 <en_letterhead fr="Tête" de="Briefkopf" en="Letterhead" it="Carta intestata" base="Letterhead"></en_letterhead>
 <en_print_servicies_table base="Print Servicies table" it="Tabella Servizi"></en_print_servicies_table>
+<en_invoice_heading_missed_do_you_want_to_print_it_ base="Invoice heading missed. Do you want to print it?"></en_invoice_heading_missed_do_you_want_to_print_it_>
 <en_print_cargo_frontespiece base="Print Cargo frontespiece" it="Frontespizio Carico"></en_print_cargo_frontespiece>
 <en_tributes base="Tributes" it="Tributi"></en_tributes>
 <en_select_the_type_of_payment base="Select the type of payment"></en_select_the_type_of_payment>
@@ -1269,4 +1271,4 @@
 <webpages><cruscotto path="webpages/cruscotto.py" ext="py"><en_shippers_receivers base="Shippers/Receivers"></en_shippers_receivers>
 <en_charterers base="Charterers"></en_charterers>
 <en_consigne_notify base="Consigne/Notify"></en_consigne_notify></cruscotto>
-<test_2 path="webpages/test_2.py" ext="py"><en_print_vessel_details base="Print vessel details"></en_print_vessel_details></test_2></webpages></GenRoBag>
+<stampe_varie path="webpages/stampe_varie.py" ext="py"><en_print_vessel_details base="Print vessel details"></en_print_vessel_details></stampe_varie></webpages></GenRoBag>

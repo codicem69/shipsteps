@@ -67,7 +67,7 @@ class Menu(object):
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")       
             shipsteps.webpage('test',filepath='test')
-            shipsteps.webpage('test_2',filepath='test_2')
+            shipsteps.webpage(u"!![en]Various printing",filepath='stampe_varie')
         else:
             root.thpage(u"!![en]Messages", table="email.message", tags="")
             shipsteps = root.branch(u"shipsteps", tags="")
@@ -89,6 +89,7 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Opening gates", table="shipsteps.opening_gate", tags="")
             shipsteps.thpage(u"!![en]Administartion charge receipt", table="shipsteps.adminchargerec", tags="")
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
+            shipsteps.webpage(u"!![en]Various printing",filepath='stampe_varie')
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")
             #email = root.branch(u"!![en]Email", tags="")
             #email.thpage(u"!![en]Messages", table="email.message", tags="")
