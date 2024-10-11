@@ -883,7 +883,18 @@ class Form(BaseComponent):
         fb1.field('modulo_nave', lbl='', margin_top='5px')
         #fb1.semaphore('^.modulo_nave?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.modulo_nave', margin_top='5px')
-       
+        
+        #fb1.button('test', action="""
+        #                    if(!visit_id)
+        #                    genro.dlg.ask("!![en]Warning",
+        #                                  "!![en]Visit ID missed. Do you want print it?",
+        #                                  {'cancel':'Cancel', 'continue':'Continue'},
+        #                                  {'continue': function(){PUBLISH visit=true;}});
+        #                    else {PUBLISH visit=true;}""", visit_id='=#FORM.record.visit_id')
+        #fb1.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        #                    nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',subscribe_visit=True,
+        #                    _onResult="this.form.save();")
+
         btn_cn = fb1.Button('!![en]Print Vessel folder')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -905,13 +916,24 @@ class Form(BaseComponent):
         #fb1.semaphore('^.cartella_nave?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.cartella_nave', margin_top='5px')
 
-        btn_ts = fb1.Button('!![en]Print Servicies table')
+        btn_ts=fb1.button('!![en]Print Servicies table', action="""
+                            if(!invoice_id)
+                            genro.dlg.ask("!![en]Warning",
+                                          "!![en]Invoice heading missed. Do you want to print it?",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue': function(){PUBLISH invoice=true;}});
+                            else {PUBLISH visit=true;}""", invoice_id='=#FORM.record.invoice_det_id')
+        fb1.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+                            nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',subscribe_invoice=True,
+                            _onResult="this.form.save();")
+
+        #btn_ts = fb1.Button('!![en]Print Servicies table')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.tab_servizi',button=btn_ts.js_widget)
-        btn_ts.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',_onResult="this.form.save();")
+        #btn_ts.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        #                    nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',_onResult="this.form.save();")
        # fb1.dataController("if(msg=='tab_servizi') SET .tab_servizi=true", msg='^nome_temp')
         fb1.field('tab_servizi', lbl='', margin_top='5px')
         #fb1.semaphore('^.tab_servizi?=#v==true?true:false', margin_top='5px')
