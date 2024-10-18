@@ -24,6 +24,7 @@ class GnrCustomWebPage(object):
         fb.dbSelect(value='^.imb_id', dbtable='shipsteps.vessel_details',alternatePkey='imbarcazione_id', auxColumns='@imbarcazione_id.nome',
                     selected_vessel_name='.nome_imb',hasDownArrow=True)
         fb.button('!![en]Print vessel details', action='FIRE .stampaSticker')
+
         tbl_htmltemplate = self.db.table('adm.htmltemplate')
         templates= tbl_htmltemplate.query(columns='$id,$name', where='').fetch()
         letterhead=''

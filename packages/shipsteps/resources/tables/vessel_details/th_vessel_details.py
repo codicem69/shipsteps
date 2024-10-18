@@ -6,7 +6,7 @@ from gnr.core.gnrdecorator import public_method
 import re,os
 
 class View(BaseComponent):
-
+    css_requires='warpping'
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('imbarcazione_id', name='Vessel')
@@ -39,7 +39,7 @@ class View(BaseComponent):
 
 class Form(BaseComponent):
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
-
+    css_requires='wrapping'
     def th_form(self, form):
         # pane = form.record
         bc = form.center.borderContainer()
@@ -79,15 +79,14 @@ class Form(BaseComponent):
                                                     dialog_height='200px',dialog_width='700px')
         center= bc.roundedGroup(region='center',title='Vessel Details', splitter=True).div(margin='10px',margin_right='20px')
         fb = center.formbuilder(cols=2, border_spacing='4px',colswidth='auto',fld_width='100%')
-        fb.field('owner_id',lbl='Owner',auxColumns='$own_name',
-                        hasDownArrow=True, width='100%', colspan=2)
+        fb.field('owner_id',lbl='Owner',auxColumns='$own_fullname_wrap',hasDownArrow=True, width='100%', colspan=2)
         fb.br()
         #fb.field('imo', width='20em' )
         fb.field('callsign', width='10em' )
         fb.field('built', width='10em' )
         fb.field('dwt', width='10em' )
         fb.field('beam', width='10em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:10 or 10,00' )
-        fb.field('mmsi', width='10em' )
+        fb.field('mmsi', width='10em',validate_len='9',validate_len_error='Please insert total 9 numbers' )
         fb.br()
         fb.field('reg_place',lbl='Reg. place',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome',
                         width='10em' )
@@ -100,7 +99,7 @@ class Form(BaseComponent):
         fb.field('ex_name', width='100%',colspan=2 )
         #fb.field('type',width='100%',colspan=2, values="Portarinfuse liquide,Portarinfuse secche,Portacontainer,Trasp. specializzato,Nave per Merci varie,Nave per Passeggeri,Navi da crociera,Attività Off Shore,Chiatta carichi secchi,Altre navi", tag='filteringSelect')
         fb.field('vessel_type_code',rowcaption='$full_descr', width='100%', colspan=2,order_by='$type')
-
+       
         right = bc.roundedGroup(region='right',title='Vessel Immagine',width='30%',splitter=True)
      
         right.img(src='^.vess_image', edit=True, crop_width='600px', crop_height='250px', 
