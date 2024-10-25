@@ -277,7 +277,7 @@ class Form(BaseComponent):
 
     def th_form(self, form):
         #con lo store.handler possiamo inserire tutte le virtual_columns che vogliamo avere disponibili nello store
-        form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp,$etb_date,$refcode,$uesan_pref')
+        form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp,$etb_date,$refcode,$uesan_pref,$banchina')
         
         ##all'apertura del form arrival calcoliamo quali sono le partenze finanza non flaggate nella tasklist in modo da notificarle tramite datacontroller 
         #tbl_arrival=self.db.table('shipsteps.arrival')
@@ -2072,6 +2072,7 @@ class Form(BaseComponent):
         btn_dlgws.dataRpc('nome_temp', self.email_ws,record='=#FORM.record',servizio=['ws'], email_template_id='email_water_supply',
                             nome_template = 'shipsteps.arrival:water_supply',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             _onResult="""if(result=='no_int'){genro.publish('floating_message',{message:"manca l'intestazione: inseriscila",messageType:'error',duration_out:6});}
+                                         if(result=='no_dock')genro.publish("floating_message",{message:"manca la banchina: inseriscila", messageType:"error"});
                                          if(result=='ws')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")#this.form.save();
                                          #this.form.reload()""")
         fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()")
@@ -2767,6 +2768,10 @@ class Form(BaseComponent):
         record_id=record['id']
         vessel_type = record['@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code']
         vessel_name = record['@vessel_details_id.@imbarcazione_id.nome']
+        etb = record['etb'].strftime("%d/%m/%Y, %H:%M")
+        moored = record['@time_arr.moored']
+        
+        banchina = record['banchina']
         intfat_id = record['invoice_det_id']
         qt_ws = record['@arr_tasklist.acqua']
         tbl_invoice = self.db.table('shipsteps.invoice_det')
@@ -2778,7 +2783,9 @@ class Form(BaseComponent):
             result['int'] = 'no'
            
             return nome_temp
-        
+        if not banchina:
+            nome_temp='no_dock'
+            return nome_temp
         # Lettura degli account email predefiniti all'interno di Agency e Staff
         tbl_staff =  self.db.table('agz.staff')
         account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
@@ -2842,13 +2849,16 @@ class Form(BaseComponent):
             sal = 'Buonasera,' 
         elif cur_time < '04:00:00':
             sal = 'Buona notte,'      
-        
+        if not moored:
+            ormeggio='con previsto ormeggio il ' + etb + ' c/o banchina ' + banchina
+        else:
+            ormeggio='ormeggiata c/o banchina ' + banchina
         subject='Richiesta fornitura acqua '+vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
         #body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'da: '+ agency_name + '<br>' + consignee + '<br><br>'
         body_footer= 'Cordiali saluti<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
         
-        body_msg=("""<span style="font-family:courier new,courier,monospace;">""" + sal + '<br>' + "con la presente siamo a richiederVi fornitura di tonn."+qt_ws +" di acqua poatbile per " +vessel_type + ' ' + vessel_name + " :" + '<br><br>' +
-                       'Potete fatturare a:<br>' + int_fat + '<br><br> e inviare a:<br>' + agency_name + '<br><br>')
+        body_msg=("""<span style="font-family:courier new,courier,monospace;">""" + sal + '<br>' + "con la presente siamo a richiederVi fornitura di tonn."+qt_ws +" di acqua potabile per " 
+                  +vessel_type + ' ' + vessel_name + '<br><br>' + ormeggio + '<br><br>' + 'Potete fatturare a:<br>' + int_fat + '<br><br> e inviare a:<br>' + agency_name + '<br><br>')
         body_html=(body_msg + body_footer )
         #print(x)
         

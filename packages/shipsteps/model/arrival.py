@@ -92,6 +92,7 @@ class Table(object):
         tbl.aliasColumn('shiprec','@cargo_lu_arr.shiprec', name_long='!![en]ShipRec')
         tbl.aliasColumn('workport','@agency_id.@port.citta_nazione')
         tbl.aliasColumn('email_account_id','@agency_id.@user.email_account_id')
+        tbl.aliasColumn('banchina','@dock_id.dock_name')
         #tbl.aliasColumn('email_int_arr','@arrival_email.email_int')
         tbl.aliasColumn('email_int_sof','@sof_arr.@sof_email.email_int')
         tbl.aliasColumn('sailed','@time_arr.sailed')
