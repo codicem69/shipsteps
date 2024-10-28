@@ -206,9 +206,9 @@ class FormFromBunker(BaseComponent):
             agency_id = record_arr['agency_id']
             if 'bolli' in kwargs.keys():
                 if kwargs['bolli']==True:
-                    if not tbl_bolli.checkDuplicate(istanza='Istanza Bunker',ref_number=record_arr['reference_num']):
+                    if not tbl_bolli.checkDuplicate(istanza='Istanza Bunker',ref_number=record_arr['reference_num'],id_istanza=record['id']):
                         nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Bunker',
-                                        ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,agency_id=agency_id)
+                                        id_istanza=record['id'],ref_number=record_arr['reference_num'],bolli_tr14=1,bolli_tr22=1,agency_id=agency_id)
                         tbl_bolli.insert(nuovo_record)
                         self.db.commit()   
                     nome_temp='bol_deroga_gb'
