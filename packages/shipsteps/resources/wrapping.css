@@ -1,0 +1,18 @@
+.wrappingcolumn {
+  white-space: normal;
+  max-width: 25em;
+  height:fit-content;
+}
+
+.wrappingcolumn_w {
+  white-space: normal;
+  max-width: 10em;
+  height:fit-content;
+  background-color: #8ca0ff;
+}
+
+.column_w {
+  white-space: normal;
+  max-width: 10em;
+  height:fit-content;
+}
