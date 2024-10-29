@@ -14,6 +14,7 @@ class View(BaseComponent):
         r.fieldcell('arrival_id')
         r.fieldcell('emesso', margin_top='5px', semaphore=True, name=' ')
         r.fieldcell('beneficiario_id', width='30em',color="=#ROW.emesso?=#v==true?'green':'red'", name='!![en]Beneficiary')
+        r.fieldcell('iban',width='15em')
         r.fieldcell('causale', width='50em')
         r.fieldcell('importo')
         r.fieldcell('imp_lettere')
@@ -101,13 +102,17 @@ class ViewFromTributi(BaseComponent):
         return nome_temp
 
 class Form(BaseComponent):
-
+    css_requires='wrapping'
     def th_form(self, form):
         pane = form.record
         fb = pane.formbuilder(cols=1, border_spacing='4px')
         fb.field('arrival_id')
-        fb.field('beneficiario_id', width='40em',lbl='!![en]Beneficiary')
-        fb.field('causale', width='40em')
+        fb.field('beneficiario_id', width='40em',lbl='!![en]Beneficiary',selected_iban='.iban')
+        fb.dbSelect('^.caus',lbl='Seleziona tributi CP', width='40em',table='shipsteps.causali_tributicp',columns='$code_pi',
+                    auxColumns='$uo_accertatrice,$descr_pratica_wrap,$oggetto_wrap,$sotto_oggetto_wrap',
+                    selected_descrizione='.causale',selected_tariffa='.importo',selected_iban='.iban',
+                    hasDownArrow=True, hidden='^.@beneficiario_id.beneficiario?=#v!=="Capitaneria"')
+        fb.field('causale',width='40em', tag='simpletextarea')
         fb.field('importo')
         fb.field('imp_lettere')
         fb.field('emesso')
