@@ -111,7 +111,7 @@ class Form(BaseComponent):
         fb.dbSelect('^.caus',lbl='Seleziona tributi CP', width='40em',table='shipsteps.causali_tributicp',columns='$code_pi',
                     auxColumns='$uo_accertatrice,$descr_pratica_wrap,$oggetto_wrap,$sotto_oggetto_wrap',
                     selected_descrizione='.causale',selected_tariffa='.importo',selected_iban='.iban',
-                    hasDownArrow=True, hidden='^.@beneficiario_id.beneficiario?=#v!=="Capitaneria"')
+                    hasDownArrow=True, hidden='^.@beneficiario_id.beneficiario?=#v!=="Tesoreria dello Stato"')
         fb.field('causale',width='40em', tag='simpletextarea')
         fb.field('importo')
         fb.field('imp_lettere')

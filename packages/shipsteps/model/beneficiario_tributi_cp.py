@@ -10,6 +10,6 @@ class Table(object):
         tbl.column('iban', size='27',name_short='!![en]Iban code')
         
     @metadata(mandatory=True)
-    def sysRecord_cp(self):
-        return self.newrecord(beneficiario='Capitaneria')
+    def sysRecord_tesoreria(self):
+        return self.newrecord(beneficiario='Tesoreria dello Stato')
     
