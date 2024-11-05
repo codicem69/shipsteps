@@ -62,7 +62,7 @@ class Table(object):
         tbl.formulaColumn('sof_det',"$sof_n || '-' || @arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
         tbl.formulaColumn('nor_tend_txt', """CASE WHEN $nor_tend is not null THEN 'NOR tendered' || '<br>'  ELSE '' END""", dtype='T')
         tbl.formulaColumn('nor_rec_txt', """CASE WHEN $nor_rec is not null THEN 'NOR received' || '<br>' ELSE '' END""", dtype='T')
-        tbl.formulaColumn('nor_acc_txt', """CASE WHEN $nor_acc is not null THEN 'NOR acceppted' || '<br>' ELSE '' END""", dtype='T')
+        tbl.formulaColumn('nor_acc_txt', """CASE WHEN $nor_acc is not null THEN 'NOR accepted' || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('customs_commenced_txt', """CASE WHEN $customs_commenced is not null THEN 'Customs formalities commenced '  || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('customs_completed_txt', """CASE WHEN $customs_completed is not null THEN 'Customs formalities completed '  || '<br>' ELSE '' END""", dtype='T')
         tbl.formulaColumn('ops_commenced_txt', """CASE WHEN $ops_commenced is not null AND $cargo_op = 'U' THEN 'Unloading commenced '  || '<br>' 
