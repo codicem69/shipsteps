@@ -529,9 +529,16 @@ class Form(BaseComponent):
                        if(datiCambiamento['email_tug_dep'])this.form.externalChange('@arr_tasklist.email_tug_dep',datiCambiamento['email_tug_dep']);
                        if(datiCambiamento['email_aeration'])this.form.externalChange('@arr_tasklist.email_aeration',datiCambiamento['email_aeration']);
                        if(datiCambiamento['email_tributi_cp'])this.form.externalChange('@arr_tasklist.email_tributi_cp',datiCambiamento['email_tributi_cp']);
+                       if(datiCambiamento['n_tug_arr'])this.form.externalChange('@extradatacp.n_tug_arr',datiCambiamento['n_tug_arr']);
                        console.log("datiCambiamento: ",datiCambiamento)}"""
                        ,pkey='=#FORM.record.@arr_tasklist.id',table='shipsteps.tasklist')
         
+        fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
+            if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0];
+                        if(datiCambiamento['n_tug_arr'])this.form.externalChange('@extradatacp.n_tug_arr',datiCambiamento['n_tug_arr']);
+                        if(datiCambiamento['n_tug_dep'])this.form.externalChange('@extradatacp.n_tug_dep',datiCambiamento['n_tug_dep']);
+                        console.log("datiCambiamento: ",datiCambiamento)}"""
+                       ,pkey='=#FORM.record.@extradatacp.id',table='shipsteps.extradaticp')
         
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly='^gnr.app_preference.shipsteps.ref_num')
@@ -1140,13 +1147,15 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='tugs_n', lbl='!![en]Tugs number',validate_notnull=True,
+                                                    cols=4,popup=True,colspan=2)]),tugs_n='=#FORM.record.@extradatacp.n_tug_arr',_onResult="this.form.save();")
         else:
             btn_tug.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2),dict(name='tugs_n', lbl='!![en]Tugs number',validate_notnull=True,
+                                                    cols=4,popup=True,colspan=2)]),tugs_n='=#FORM.record.@extradatacp.n_tug_arr',_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
        
         fb.field('email_tug',lbl='', margin_top='5px')
@@ -1867,13 +1876,15 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='tugs_ndep', lbl='!![en]Tugs number',validate_notnull=True,
+                                                    cols=4,popup=True,colspan=2)]),tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',_onResult="this.form.save();")
         else:
             btn_tugdep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['tug'], email_template_id='email_tug_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2),dict(name='tugs_ndep', lbl='!![en]Tugs number',validate_notnull=True,
+                                                    cols=4,popup=True,colspan=2)]),tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',_onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
        
         fb_dep.field('email_tug_dep',lbl='', margin_top='5px')
@@ -2064,16 +2075,17 @@ class Form(BaseComponent):
         fb_extra.div(height='30px').dock(id='mydock_fat')
         div_extra.paletteGrid(paletteCode='Intestazione Fatture',table='shipsteps.invoice_det',viewResource='ViewIntFat', dockTo='mydock_fat',condition='$id=:invid',condition_invid='^#FORM.record.invoice_det_id')
         
-        dlgws = rg_extra.dialog(nodeId='dialog_ws',style='width:300px;height:100px;',title='Water supply',closable=True)
+        dlgws = rg_extra.dialog(nodeId='dialog_ws',style='width:300px;height:100px;',title='Water supply',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         dlgws.span('Quantity mt.: ')
         dlgws.span().textbox(value='^.acqua',table='shipsteps.arrival', columns='$acqua', width='10em')
         dlgws.hr()
-        btn_dlgws=dlgws.button('Email request ws')
+        btn_dlgws=dlgws.button('Email request ws',action="genro.publish('closeDialog_ws');")
         btn_dlgws.dataRpc('nome_temp', self.email_ws,record='=#FORM.record',servizio=['ws'], email_template_id='email_water_supply',
                             nome_template = 'shipsteps.arrival:water_supply',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             _onResult="""if(result=='no_int'){genro.publish('floating_message',{message:"manca l'intestazione: inseriscila",messageType:'error',duration_out:6});}
                                          if(result=='no_dock')genro.publish("floating_message",{message:"manca la banchina: inseriscila", messageType:"error"});
-                                         if(result=='ws')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")#this.form.save();
+                                         if(result=='ws_serv')genro.publish("floating_message",{message:"Email ready to be sent<br>Service inserted inside the services table", messageType:"message"});
+                                         if(result=='ws')genro.publish("floating_message",{message:"Email ready to be sent<br>Service already present inside services table", messageType:"warning",duration:6});this.form.save();""")#this.form.save();
                                          #this.form.reload()""")
         fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()")
         btn_emailextra=fb_extra.button('!![en]Email to services')
@@ -2241,6 +2253,38 @@ class Form(BaseComponent):
             tbl_arrival.batchUpdate(dict(fumigated=fumigation),
                                     where='$id=:id_arr', id_arr=record_arr)
         self.db.commit()
+        #verifichiamo se nelle keys di kwargs troviamo la chiave tugs_n e lo assegnamo alla variabile tugs_n 
+        tugs_n = None
+        for chiavi in kwargs.keys():
+            
+            if chiavi=='tugs_n':
+                if kwargs['tugs_n']:
+                    tugs_n=kwargs['tugs_n']
+        #avendo preso il valore tugs_n nei kwargs andiamo a copiarlo nel record arrival.form.record.@extradatacp.n_tug_arr che ci servirà nella variabile 
+        #che utilizzeremo nei template per avere la variabile numero rimorchi          
+        record_extradaticp=record['@extradatacp.id']
+        tbl_extradaticp = self.db.table('shipsteps.extradaticp')  
+        if tugs_n:
+            tbl_extradaticp.batchUpdate(dict(n_tug_arr=tugs_n),
+                                    where='$id=:id_extra', id_extra=record_extradaticp)
+        self.db.commit()
+        
+        #verifichiamo se nelle keys di kwargs troviamo la chiave tugs_n_dep e lo assegnamo alla variabile tugs_n_dep 
+        tugs_ndep = None
+        for chiavi in kwargs.keys():
+            
+            if chiavi=='tugs_ndep':
+                if kwargs['tugs_ndep']:
+                    tugs_ndep=kwargs['tugs_ndep']
+        #avendo preso il valore tugs_n_dep nei kwargs andiamo a copiarlo nel record arrival.form.record.@extradatacp.n_tug_dep che ci servirà nella variabile 
+        #che utilizzeremo nei template per avere la variabile numero rimorchi          
+        record_extradaticp=record['@extradatacp.id']
+        tbl_extradaticp = self.db.table('shipsteps.extradaticp')  
+        if tugs_ndep:
+            tbl_extradaticp.batchUpdate(dict(n_tug_dep=tugs_ndep),
+                                    where='$id=:id_extra', id_extra=record_extradaticp)    
+        self.db.commit()
+        
        # with tbl_tasklist.recordToUpdate('id'==record_tasklist) as rec_tasklist:
        #    rec_tasklist['nome_servizio'] = services
                  
@@ -2867,9 +2911,21 @@ class Form(BaseComponent):
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
                            cc_address=email_cc,arrival_id=arrival_id,
+                           tmp_code='ws',
                            html=True)
         self.db.commit()
-        
+        #inseriamo nella tabella servizi nave l'acqua richiesta
+        tbl_services = self.db.table('shipsteps.services')
+        services_id = tbl_services.readColumns(columns="$id", where='$description ILIKE:descr', descr='fresh water')
+        tbl_vessel_services = self.db.table('shipsteps.vessel_services') 
+        if not tbl_vessel_services.checkDuplicate(services_id=services_id,arrival_id=arrival_id,note='Richiesta inviata il '+str(self.db.workdate)):
+                nuovo_record = dict(services_id=services_id,descrizione='mt.'+str(qt_ws),note='Richiesta inviata il '+str(self.db.workdate),
+                                arrival_id=arrival_id)
+                tbl_vessel_services.insert(nuovo_record)
+                self.db.commit()
+                nome_temp = 'ws_serv'
+                return nome_temp  
+        #print(x) 
         nome_temp='ws'
         return nome_temp
     

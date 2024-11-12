@@ -384,7 +384,9 @@ class Table(object):
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_bunkerdoc':
                 tbl_bunker.batchUpdate(dict(doc_cp=True),
-                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])                                                   
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+
+
         if message['error_msg']:              
             if message['template_code']=='email_dogana':
                 tbl_tasklist.batchUpdate(dict(email_dogana=False),

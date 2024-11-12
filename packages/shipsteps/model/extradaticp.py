@@ -4,7 +4,7 @@ from email.policy import default
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('extradaticp', pkey='id', name_long='!![en]Extra data CP', name_plural='!![en]Extra data CP',
-                                      caption_field='id')
+                                      caption_field='id',broadcast="""n_tug_arr,n_tug_dep""")
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
