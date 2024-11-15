@@ -5,7 +5,7 @@ from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
-
+from gnr.core.gnrbag import Bag
 
 class View(BaseComponent):
 
@@ -67,7 +67,7 @@ class ViewFromSof(BaseComponent):
 class Form(BaseComponent):
     py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor,gnrcomponents/attachmanager/attachmanager:AttachManager'
     def th_form(self, form):
-        form.store.handler('load',virtual_columns='$measure_sof,@arrival_id.reference_num,$ship_rec') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
+        form.store.handler('load',virtual_columns='$measure_sof,@arrival_id.reference_num,$ship_rec,$tot_mov,$shortage') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
         # filtrare in daily_sofdetails la misura da applicare in base al carico applicato
         bc = form.center.borderContainer()
         self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='130px', background='lightgrey', splitter=True))
@@ -366,14 +366,30 @@ class Form(BaseComponent):
         fb = frame.formbuilder(cols=1, border_spacing='4px',fld_width='50em', width='800px')
         fb.simpleTextArea(value='^.remarks_rs',editor=True, height='200px')
         fb.br()
-        fb.button('Inserisci',lbl='Remark Wheat/Corn',action="""SET ^.remarks_rs = note_remark;this.form.save();
-                                            alert("Controlla il salvataggio");""",
-                    note_remark='=gnr.app_preference.shipsteps.remarks_wheat_corn')
+        #fb.button('Inserisci',lbl='Remark Wheat/Corn',action="""SET ^.remarks_rs = note_remark;this.form.save();
+        #                                    alert("Controlla il salvataggio");""",
+        #            note_remark='=gnr.app_preference.shipsteps.remarks_wheat_corn')
+        btn_remarks=fb.button('Inserisci',lbl='Remark Wheat/Corn')
+        btn_remarks.dataRpc('dummy', self.leggi_remarks,record='=#FORM.record',shortage='=#FORM.record.shortage',
+                            _onResult="""SET ^.remarks_rs = result.getItem('remarks_corn');this.form.save();alert("Controlla le quantità e il salvataggio");""")
         
-
     @public_method
-    def leggi_remarks(self,**kwargs):
-        return 'prova'
+    def leggi_remarks(self,record=None,shortage=None,**kwargs):
+        #prendiamo dalle preferenze la dicitura remarks dove dentro ci sono le variabili descritte con ${} da sostituire
+        remarks=self.db.application.getPreference('shipsteps.remarks_wheat_corn')
+        tot_mov=str(round(record['tot_mov'],3)).replace(".", ",")
+        #assegnamo alle variabili da sostiutire nel corpo del msg i relativi valori
+        variables = {
+            "${tot_mov}": tot_mov,
+            "${shortage}": str(round(shortage,3)).replace(".", ",")
+        }
+        #con il ciclo for sostituiamo le variabili nei remarks prelevati dalle preferenze
+        for variable_key, variable_value in variables.items():
+            remarks= remarks.replace(variable_key, variable_value)
+        #inseriamo i remarks in una bag che ci tornerà sulla chiamata della Rpc
+        result = Bag()
+        result['remarks_corn']=remarks    
+        return result
       
     def onbehalf_remarks(self,frame):
         frame.simpleTextArea(value='^.onbehalf',editor=True)

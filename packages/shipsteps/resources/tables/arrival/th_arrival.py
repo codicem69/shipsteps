@@ -16,6 +16,7 @@ import subprocess #per apertura file tramite programma di sistema
 #import datetime
 import re
 
+
 class View(BaseComponent):
     
     def th_struct(self,struct):
@@ -274,11 +275,10 @@ class View_Filtered_Arrivals(BaseComponent):
     
 class Form(BaseComponent):
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
-
+    
     def th_form(self, form):
         #con lo store.handler possiamo inserire tutte le virtual_columns che vogliamo avere disponibili nello store
         form.store.handler('load',virtual_columns='$workport,$docbefore_cp,$gdfdep_timeexp,$etb_date,$refcode,$uesan_pref,$banchina')
-        
         ##all'apertura del form arrival calcoliamo quali sono le partenze finanza non flaggate nella tasklist in modo da notificarle tramite datacontroller 
         #tbl_arrival=self.db.table('shipsteps.arrival')
         #tbl_arr_time=self.db.table('shipsteps.arrival_time')
@@ -308,8 +308,8 @@ class Form(BaseComponent):
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
         tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
         bc_tasklist = tc_task.borderContainer(title="<div style='color:red;'>Task list</div>", region='center')#title='!![en]Task List'
-        
-        tc_arrtimes = tc.borderContainer(title='!![en]<strong>Arrival Times</strong>')
+        #disabilitato tc_arrtimes per uso dialog con pulsante
+        #tc_arrtimes = tc.borderContainer(title='!![en]<strong>Arrival Times</strong>')
         #tab arrivals details con tc_arrtimes disabilitati per uso unico tab e form
         #tc_details = tc.tabContainer(title='!![en]<strong>Arrival/Departure Details</strong>')
         #self.arrival_times(tc_details.contentPane(title='!![en]<strong>Vessel Times</strong>',height='100%', background = '#f2f0e8'))
@@ -335,9 +335,12 @@ class Form(BaseComponent):
         self.times(bc_tasklist.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
         self.times_sof(tc_sof.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
         self.taskList(bc_tasklist.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True))
-        tc_task.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
-        tc_task.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
-        tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
+        #disabilitato tabContainer shorepass per utilizzo dialog
+        #tc_task.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
+        #disabilitato tabContainer paxlist per utilizzo dialog
+        #tc_task.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
+        #disabilitato tabContainer Vessel services per utilizzo dialog
+        #tc_task.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
         #tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
@@ -364,8 +367,8 @@ class Form(BaseComponent):
 
         self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
         self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
-        
-        self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details',height='100%', region='top', background = '#f2f0e8', pageName='arrtime'))
+        #disabilitato tabContainer tempi e dettagli nave per dialog con pulsante
+        #self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details',height='100%', region='top', background = '#f2f0e8', pageName='arrtime'))
 
         tc.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait')
         self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
@@ -486,7 +489,7 @@ class Form(BaseComponent):
         #center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')
         #center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px',margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
-
+        
         center = bc.roundedGroup(title='!![en]Vessel arrival', region='left',datapath='.record',width='210px', height = '100%',splitter=True).div(margin='10px',margin_left='2px')
         center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
         
@@ -497,8 +500,8 @@ class Form(BaseComponent):
         #onDbChanges in caso di modifica dati su vessel_details il form arrival viene aggiornato        
         fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
             table='shipsteps.vessel_details',pkey='=#FORM.record.vessel_details_id')
-       
-       
+        
+        
         #fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
         #    if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0]['email_dogana'];
         #         console.log("datiCambiamento: ",datiCambiamento)}""",pkey='=#FORM.record.@arr_tasklist.id',table='shipsteps.tasklist')
@@ -959,6 +962,21 @@ class Form(BaseComponent):
         fb1.semaphore('^.front_carico', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
 
         btn_trib = fb1.Button('!![en]Tributes', action="""{SET tabname='tributi';}""")
+
+        div1_2=rg_prearrival.div('<center><strong>Crew / Pax List</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb1_doc=div1_2.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
+        fb1_doc.button('!![en]Crew List', action="genro.wdgById('dialog_crew').show();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_crew',parentRatio=.9,title='Crew List',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg.stackTableHandler(relation='@shorepass_arr',
+                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        fb1_doc.br()
+        fb1_doc.button('!![en]Pax List', action="genro.wdgById('dialog_pax').show();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_pax',parentRatio=.9,title='Pax List',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg.stackTableHandler(relation='@paxlist_arr',
+                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
        #fb1.dataController("""var id = button.id; console.log(id);
        #                if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
        #                else {document.getElementById(id).style.backgroundColor = '';}
@@ -1820,6 +1838,17 @@ class Form(BaseComponent):
         #fb_arr.semaphore('^.email_garbage_cp?=#v==true?true:false', margin_top='6px')
         fb_arr.semaphore('^.email_garbage_cp', margin_top='6px')
 
+        div_arr_times=rg_arrival.div('<center><strong>VESSEL TIMES / DETAILS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb_time=div_arr_times.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='14em')
+        fb_time.button('!![en]Times / Details', action="genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};",
+                                    rec_id='=#FORM.record.@time_arr.arrival_id')
+        dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg.multiButtonForm(relation='@time_arr',formResource='Form',
+                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        
         div_dep=rg_arrival.div('<center><strong>DEPARTURE</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
@@ -1850,8 +1879,12 @@ class Form(BaseComponent):
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         fb_dep.field('email_ric_rifiuti_cp', lbl='', margin_top='6px',hidden='^gnr.app_preference.shipsteps.rifiuti_cp')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True
         #fb_dep.semaphore('^.email_ric_rifiuti_cp?=#v==true?true:false', margin_top='6px')
-        fb_dep.semaphore('^.email_ric_rifiuti_cp', margin_top='6px',hidden='^gnr.app_preference.shipsteps.rifiuti_cp')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True
-        btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET tabname='services';}""")
+        fb_dep.semaphore('^.email_ric_rifiuti_cp', margin_top='6px',hidden='^gnr.app_preference.shipsteps.rifiuti_cp')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True        
+        #btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET tabname='services';}""")
+        btn_vs=fb_dep.button('!![en]Vessel services', action="genro.wdgById('dialog_services').show();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',
+                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2107,8 +2140,16 @@ class Form(BaseComponent):
         #dlgws.hr()
         #fb_extra.button('!![en]Virtual stamp', action="genro.wdgById('dialog_boll').show()")
         fb_extra.button('!![en]Virtual stamp',action="""alert(message);""",_delay=50, message='=#FORM.record.@agency_id.virtual_stamp')
-
         
+        #fb_extra.dataController("""if(rec) console.log('record'+rec);""",rec='^#FORM.record.@time_arr.arrival_id')
+        #fb_extra.dataController("""console.log(frm);""",subscribe_rec=True,frm=mb.js_form)
+        #self.services(fb_extra.contentPane(title='Services'))
+        #print(x)
+    #def services(self,pane):
+    #    dlg = pane.dialog(nodeId='dialog_test',parentRatio=.9,title='Times',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+    #    dlg.multiButtonForm(relation='@time_arr',formResource='Form',
+    #                        pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+            
     @public_method
     def intfat(self,record, **kwargs):  
         intfat_id = record['invoice_det_id']

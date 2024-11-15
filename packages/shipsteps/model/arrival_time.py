@@ -4,7 +4,7 @@ import datetime
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('arrival_time', pkey='id', name_long='!![en]Arrival times', name_plural='!![en]Arrival times',
-                                      caption_field='aor')
+                                      caption_field='arr_data')
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
@@ -24,7 +24,7 @@ class Table(object):
         tbl.column('sailed', dtype='DH', name_short='!![en]Vessel sailed')
         tbl.column('cosp', dtype='DH', name_short='!![en]Commenced of sea pass')
        # tbl.aliasColumn('agency_id','@arrival_id.agency_id')
-        
+        tbl.aliasColumn('arr_data','@arrival_id.arrival_data')
         tbl.formulaColumn('sosta_gg', """'Giorni ' || EXTRACT(DAY FROM TO_TIMESTAMP(to_char(@arrival_id.ets,:df), 'YYYY-MM-DD')-TO_TIMESTAMP(to_char($moored,:df), 'YYYY-MM-DD'))""",var_df='YYYY-MM-DD HH24:MI')
        # tbl.aliasColumn('time_from_sof','@arrival_id.@sof_arr.time_sof')
         tbl.formulaColumn('eosp_txt', """CASE WHEN $eosp is not null THEN 'Eosp' || '<br>' ELSE '' END""", dtype='T')
