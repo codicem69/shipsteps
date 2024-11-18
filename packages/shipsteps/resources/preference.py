@@ -20,6 +20,8 @@ class AppPref(object):
         # Nei **kwargs c'è già il livello di path dati corretto   
         fb.div('', width='60em')
         fb.simpleTextArea('^.remarks_wheat_corn',lbl='Remarks wheat/corn',width='60em', height='100px',editor=True)
+        fb.div("""Inserire testo remark ricevitore con le variabili ${tot_mov} per totale sbarcato e ${shortage} per ammanco:<br><br>
+                    TTL CARGO UNLOADED AS PER SHORE SCALE TONS ${tot_mov} WITH A SHORTAGE AGAINST THE B/L FIGURE OF TONS ${shortage}""")
         #grid = bc.contentPane(region='center').quickGrid(value='^.remarks')
         #grid.tools('delrow,addrow,export')
         #grid.column('code', width='30em', name='!![en]Code', edit=True)
