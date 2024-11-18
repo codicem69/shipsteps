@@ -2178,7 +2178,8 @@ class Form(BaseComponent):
         pane.dialogTableHandler(relation='@garbage_arr')#,viewResource='ViewFromGarbage')
 
     def tributi(self, pane):
-        pane.dialogTableHandler(relation='@tributi_arr')#,viewResource='ViewFromTributi')
+        pane.dialogTableHandler(relation='@tributi_arr',dialog_height='3000px',
+                                   dialog_width='4000px')#,viewResource='ViewFromTributi')
 
     @public_method
     def rinfusaLazyMode(self,pane):

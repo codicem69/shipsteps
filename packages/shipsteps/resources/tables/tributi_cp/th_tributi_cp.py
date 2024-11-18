@@ -129,9 +129,16 @@ class Form(BaseComponent):
                                 validate_notnull=True,cols=4,popup=True,colspan=2),dict(name='letterhead', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$name',
                              table='adm.htmltemplate')]),_onResult="this.form.save()")
+        dlg = pane.dialog(nodeId='dialog_poste',parentRatio=1,title='Times',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        bc = dlg.borderContainer()
+        top = bc.contentPane(region='top', height='100%')
+        top.htmliframe(src="""https://pagamenti.poste.it/""",
+                                                    height='100%',width='100%',border='0px')
+        fb.button('Sito Poste', action="genro.wdgById('dialog_poste').show()")
 
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='800px')
+        return dict(parentRatio=1)
+        #return dict(dialog_height='400px', dialog_width='800px')
 
     @public_method
     def print_template_tributi(self, record, resultAttr=None,selId=None, servizio=[] , format_page=None, **kwargs):
