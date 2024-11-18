@@ -110,8 +110,9 @@ class Form(BaseComponent):
         fb.field('beneficiario_id', width='40em',lbl='!![en]Beneficiary',selected_iban='.iban')
         fb.dbSelect('^.caus',lbl='Seleziona tributi CP', width='40em',table='shipsteps.causali_tributicp',columns='$code_pi',
                     auxColumns='$uo_accertatrice,$descr_pratica_wrap,$oggetto_wrap,$sotto_oggetto_wrap',
-                    selected_descrizione='.causale',selected_tariffa='.importo',selected_iban='.iban',
+                    selected_descrizione='.causal',selected_tariffa='.importo',selected_iban='.iban',
                     hasDownArrow=True, hidden='^.@beneficiario_id.beneficiario?=#v!=="Tesoreria dello Stato"')
+        fb.dataController("if(causal) SET .causale=causal + ' ' + vess_type +' '+nome_nave", causal='^.causal',vess_type='^.@arrival_id.@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code',nome_nave='^.@arrival_id.@vessel_details_id.@imbarcazione_id.nome')
         fb.field('causale',width='40em', tag='simpletextarea')
         fb.field('importo')
         fb.field('imp_lettere')
