@@ -29,7 +29,7 @@ class View(BaseComponent):
         arrival.fieldcell('visit_id',width='8em')
         arrival.fieldcell('nsis_prot',width='8em')
         arrival.fieldcell('voy_n', width='4em')
-        arrival.fieldcell('@arr_tasklist.email_tributi_cp', width='4em', semaphore=True)
+        arrival.fieldcell('@arr_tasklist.email_tributi_cp', width='4em', semaphore=True,hidden='^gnr.app_preference.shipsteps.email_tributi_cp')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
         arrival.fieldcell('date', width='5em')
         arrival.fieldcell('vessel_details_id', width='15em', font_weight='bold')
         arrival.fieldcell('movtype_id', width='6em', font_weight='bold')
@@ -304,7 +304,7 @@ class Form(BaseComponent):
         tc = form.center.tabContainer(selected='.current_tab')
         bc = tc.borderContainer(title='!![en]<strong>Arrival</strong>')
         tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center',selected='^.tabnumber')#,hidden='^#FORM.record.@last_port.nazione_code?=!(#v=="IT"||#v=="LM")')#,hidden="^#FORM.record.@last_port.nazione_code?=#v!='IT'")
-        bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>')
+        bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>',hidden='^gnr.app_preference.shipsteps.nsw_cp')#attributo hidden per nascondere il tab se flaggato nelle preferenze disabilita NSW CP
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
         tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
         bc_tasklist = tc_task.borderContainer(title="<div style='color:red;'>Task list</div>", region='center')#title='!![en]Task List'
@@ -841,12 +841,17 @@ class Form(BaseComponent):
         self.times(frame) #per non riscrivere lo stesso codice di times passiamo direttamente self.times(frame)
     
     def taskList(self, bc_tasklist):
+        nsw_pref = self.db.application.getPreference('nsw_cp',pkg='shipsteps')
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%').div(margin='10px',margin_left='2px')
         rg_prearrival2 = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival - Email</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='220px').div(margin='10px',margin_left='2px')
         rg_arrival = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='440px').div(margin='10px',margin_left='2px')
-        rg_arrival_nsw = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure NSW</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='680px').div(margin='10px',margin_left='2px')
-        rg_extra = bc_tasklist.roundedGroup(title='!![en]<strong>Extra</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='480px').div(margin='10px',margin_left='2px')
-        
+        if nsw_pref == False:
+            rg_arrival_nsw = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure NSW</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='680px').div(margin='10px',margin_left='2px')
+            rg_extra = bc_tasklist.roundedGroup(title='!![en]<strong>Extra</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='480px').div(margin='10px',margin_left='2px')
+        else:
+            rg_arrival_nsw = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure NSW</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='680px',hidden=True).div(margin='10px',margin_left='2px')
+            rg_extra = bc_tasklist.roundedGroup(title='!![en]<strong>Extra</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='240px').div(margin='10px',margin_left='2px')
+
         tbl_email_services = self.db.table('shipsteps.email_services')
 
         #definizione primo rettangolo di stampa all'interno del roundedGroup Pre Arrival
@@ -1942,7 +1947,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_trib_cp = fb_dep.Button('!![en]Email Tributes CP')
+        btn_trib_cp = fb_dep.Button('!![en]Email Tributes CP',hidden='^gnr.app_preference.shipsteps.email_tributi_cp')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1962,9 +1967,9 @@ class Form(BaseComponent):
                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")                                  
-        fb_dep.field('email_tributi_cp', lbl='', margin_top='6px')
+        fb_dep.field('email_tributi_cp', lbl='', margin_top='6px',hidden='^gnr.app_preference.shipsteps.email_tributi_cp')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
         #fb_dep.semaphore('^.email_tributi_cp?=#v==true?true:false', margin_top='6px')    
-        fb_dep.semaphore('^.email_tributi_cp', margin_top='6px')    
+        fb_dep.semaphore('^.email_tributi_cp', margin_top='6px',hidden='^gnr.app_preference.shipsteps.email_tributi_cp')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
         
         #rg_arrival.div('&nbsp').field('nsw', table='shipsteps.tasklist', label='NSW', lbl='Sistema NSW')                                                           
         rg_arrival_nsw.div('&nbsp').checkbox(value='^.nsw', label='NSW', lbl='Sistema NSW')                                                           

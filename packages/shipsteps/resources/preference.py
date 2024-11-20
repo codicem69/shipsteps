@@ -62,6 +62,8 @@ class AppPref(object):
         fb.checkbox('^.rifiuti_cp',lbl='Disabilita invio ricevuta rifiuti CP', default=False)
         fb.checkbox('^.gdf_dep',lbl='Disabilita stampa GDF partenza', default=False)
         fb.checkbox('^.ref_num', lbl='Disabilita Reference number', default=True)
+        fb.checkbox('^.email_tributi_cp', lbl='Disabilita email tributi CP', default=True)
+        fb.checkbox('^.nsw_cp', lbl='Disabilita sistema NSW CP', default=True)
         fb.checkbox(value='^.delrow_arr', lbl='!![en]Enable Delrow bottom on arrival')
         fb.br()
         fb.div('!![en]<strong>Times for shorepass</strong>')
