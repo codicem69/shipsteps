@@ -317,14 +317,17 @@ class Form(BaseComponent):
 
         tc_undertask = bc_tasklist.tabContainer(margin='2px', region='bottom', height='150px', splitter=True,selectedPage='^tabname')
         tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
-        tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
+        #disabilitato tabcontainer Application per uso dialog con pulsante
+        #tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
         tc_bl = tc.borderContainer(title='!![en]<strong>Loading Cargoes</strong>')
-        tc_usma = tc.borderContainer(title='!![en]<strong>Sanimare certificates</strong>')
+        #disabilitato tabcontainer Sanimare certificates per uso dialog con pulsante
+        #tc_usma = tc.borderContainer(title='!![en]<strong>Sanimare certificates</strong>')
         #tc_parapon = bc_task3.tabContainer(title='pippo')
         self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = '#f2f0e8'))
         #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
         tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
-        tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
+        #disabilitato tabcontainer Sanimare certificates per uso dialog con pulsante
+        #tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
         tc_email = tc.borderContainer(title='!![en]<strong>Email in/out</strong>')
         tc_email.contentPane(title='!![en]Email in/out',height='100%').remote(self.emailInOutLazyMode,_waitingMessage='!![en]Please wait')
 
@@ -351,10 +354,11 @@ class Form(BaseComponent):
         self.garbage(tc_undertask.contentPane(title='!![en]Garbage', pageName='garbage'))
         self.tributi(tc_undertask.contentPane(title='!![en]Tributes HM',pageName='tributi'))
         #self.rinfusa(tc_app.contentPane(title='!![en]Bulk Application'))
-        tc_app.contentPane(title='!![en]Bulk Application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
-        #self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
-        tc_app.contentPane(title='!![en]Bunker Application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
-        tc_app.contentPane(title='!![en]Certificates Application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
+        #disabilitato tabcontainer Application per uso dialog con pulsante
+        #tc_app.contentPane(title='!![en]Bulk Application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
+        ##self.bunker(tc_app.contentPane(title='!![en]Bunker Application'))
+        #tc_app.contentPane(title='!![en]Bunker Application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
+        #tc_app.contentPane(title='!![en]Certificates Application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
 
         #self.gpg(bc.borderContainer(region='center',datapath='.@gpg_arr',height='300px', splitter=True, background = 'lavenderblush'))
 
@@ -847,10 +851,10 @@ class Form(BaseComponent):
         rg_arrival = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='440px').div(margin='10px',margin_left='2px')
         if nsw_pref == False:
             rg_arrival_nsw = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure NSW</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='680px').div(margin='10px',margin_left='2px')
-            rg_extra = bc_tasklist.roundedGroup(title='!![en]<strong>Extra</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='480px').div(margin='10px',margin_left='2px')
+            rg_extra = bc_tasklist.roundedGroup(title='!![en]<strong>Extra</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='480px').div(margin='10px',margin_left='2px')
         else:
             rg_arrival_nsw = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure NSW</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='680px',hidden=True).div(margin='10px',margin_left='2px')
-            rg_extra = bc_tasklist.roundedGroup(title='!![en]<strong>Extra</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='240px').div(margin='10px',margin_left='2px')
+            rg_extra = bc_tasklist.roundedGroup(title='!![en]<strong>Extra</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='240px').div(margin='10px',margin_left='2px')
 
         tbl_email_services = self.db.table('shipsteps.email_services')
 
@@ -975,13 +979,15 @@ class Form(BaseComponent):
         fb1_doc=div1_2.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
         fb1_doc.button('!![en]Crew List', action="genro.wdgById('dialog_crew').show();")
         dlg = bc_tasklist.dialog(nodeId='dialog_crew',parentRatio=.9,title='Crew List',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
-        dlg.stackTableHandler(relation='@shorepass_arr',
-                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        dlg.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg.stackTableHandler(relation='@shorepass_arr',
+        #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         fb1_doc.br()
         fb1_doc.button('!![en]Pax List', action="genro.wdgById('dialog_pax').show();")
         dlg = bc_tasklist.dialog(nodeId='dialog_pax',parentRatio=.9,title='Pax List',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
-        dlg.stackTableHandler(relation='@paxlist_arr',
-                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        dlg.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg.stackTableHandler(relation='@paxlist_arr',
+        #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
        #fb1.dataController("""var id = button.id; console.log(id);
        #                if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
        #                else {document.getElementById(id).style.backgroundColor = '';}
@@ -1885,19 +1891,7 @@ class Form(BaseComponent):
         fb_dep.field('email_ric_rifiuti_cp', lbl='', margin_top='6px',hidden='^gnr.app_preference.shipsteps.rifiuti_cp')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True
         #fb_dep.semaphore('^.email_ric_rifiuti_cp?=#v==true?true:false', margin_top='6px')
         fb_dep.semaphore('^.email_ric_rifiuti_cp', margin_top='6px',hidden='^gnr.app_preference.shipsteps.rifiuti_cp')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True        
-        #btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET tabname='services';}""")
-        btn_vs=fb_dep.button('!![en]Vessel services', action="genro.wdgById('dialog_services').show();")
-        dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
-        dlg.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',
-                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        fb1.dataController("""var id = button.id; console.log(id);
-                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
-                        else {document.getElementById(id).style.backgroundColor = '';}
-                        """, ca='^.form_services',button=btn_vs.js_widget)
-        fb_dep.field('form_services', lbl='', margin_top='6px')
-        #fb_dep.semaphore('^.form_services?=#v==true?true:false', margin_top='6px')
-        fb_dep.semaphore('^.form_services', margin_top='6px')
-
+        
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv',serv='tug').fetch()
         serv_len=len(service_for_email)
         btn_tugdep = fb_dep.Button('!![en]Tug departure')
@@ -2094,6 +2088,51 @@ class Form(BaseComponent):
         #fb_extra.dataController("""genro.publish("floating_message",{message:'prova'), messageType:"message"}""")
        #genro.publish("floating_message",{message:"Email ready to be sent", messageType:"message"});
 
+        div_service=rg_extra.div('<center><strong>SERVICES</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb_serv=div_service.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='15em')
+        #btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET tabname='services';}""")
+        btn_vs=fb_serv.button('!![en]Vessel services', action="genro.wdgById('dialog_services').show();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',
+        #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        fb_serv.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.form_services',button=btn_vs.js_widget)
+        fb_serv.field('form_services', lbl='', margin_top='6px')
+        #fb_dep.semaphore('^.form_services?=#v==true?true:false', margin_top='6px')
+        fb_serv.semaphore('^.form_services', margin_top='6px')
+
+        div_app=rg_extra.div('<center><strong>APPLICATIONS</strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb_app=div_app.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
+        btn_bulk=fb_app.button('!![en]Bulk Application', action="genro.wdgById('dialog_bulk').show();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_bulk',parentRatio=1,title='Bulk application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg.contentPane(title='!![en]Bulk Application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg.stackTableHandler(relation='@rinfusa_arr',formResource='FormFromRinfusa',
+        #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        btn_bunk=fb_app.button('!![en]Bunker Application', action="genro.wdgById('dialog_bunker').show();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_bunker',parentRatio=1,title='Bunker application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg.contentPane(title='!![en]Bunker Application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker',
+        #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        btn_cert=fb_app.button('!![en]Certificate Application CP', action="genro.wdgById('dialog_cert').show();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_cert',parentRatio=1,title='Certicate application CP',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg.contentPane(title='!![en]Certificates Application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg.stackTableHandler(relation='@istanza_cert_arr',formResource='FormFromCertificates',
+        #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        btn_sancert=fb_app.button('!![en]Sanimare Certificates', action="genro.wdgById('dialog_sancert').show();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_sancert',parentRatio=1,title='Sanimare certificates',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg.stackTableHandler(relation='@certusma_arr',formResource='FormFromCertusma',
+        #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        
         div_extra=rg_extra.div('<center><strong>EXTRA</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
@@ -2154,7 +2193,11 @@ class Form(BaseComponent):
     #    dlg = pane.dialog(nodeId='dialog_test',parentRatio=.9,title='Times',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
     #    dlg.multiButtonForm(relation='@time_arr',formResource='Form',
     #                        pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-            
+
+    @public_method
+    def sanCertLazyMode(self,pane):
+        pane.stackTableHandler(relation='@certusma_arr',formResource='FormFromCertusma',view_store__onBuilt=True)
+
     @public_method
     def intfat(self,record, **kwargs):  
         intfat_id = record['invoice_det_id']
