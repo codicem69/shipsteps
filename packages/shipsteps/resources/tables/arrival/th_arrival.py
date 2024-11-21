@@ -978,14 +978,15 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb1_doc=div1_2.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
         fb1_doc.button('!![en]Crew List', action="genro.wdgById('dialog_crew').show();")
-        dlg = bc_tasklist.dialog(nodeId='dialog_crew',parentRatio=.9,title='Crew List',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_crew',parentRatio=.9,title='Crew List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         dlg.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@shorepass_arr',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         fb1_doc.br()
         fb1_doc.button('!![en]Pax List', action="genro.wdgById('dialog_pax').show();")
-        dlg = bc_tasklist.dialog(nodeId='dialog_pax',parentRatio=.9,title='Pax List',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_pax',parentRatio=.9,title='Pax List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         dlg.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
+        
         #dlg.stackTableHandler(relation='@paxlist_arr',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
        #fb1.dataController("""var id = button.id; console.log(id);
