@@ -482,8 +482,8 @@ class Form(BaseComponent):
 
     @public_method
     def servicesLazyMode(self,pane):
-        pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',
-                                view_store__onBuilt=True)
+        pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',saveButton=True,semaphore=True,pbl_classes=True,
+                                view_store__onBuilt=True,extendedQuery=True)
 
     #def services(self,pane):
     #    pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices')
@@ -2096,7 +2096,8 @@ class Form(BaseComponent):
         fb_serv=div_service.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='15em')
         #btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET tabname='services';}""")
         btn_vs=fb_serv.button('!![en]Vessel services', action="genro.wdgById('dialog_services').show();")
-        dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
+        #print(x)
         dlg.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
