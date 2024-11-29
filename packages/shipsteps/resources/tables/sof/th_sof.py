@@ -163,7 +163,9 @@ class Form(BaseComponent):
             return 'daily_op'        
 
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,*,10')
+        bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,50,times,*')
+        btn_times=bar.times.button('Times', action="genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};",
+                                    rec_id='=#FORM.record.@time_arr.arrival_id')
         btn_sof_print=bar.stampa_sof.button('Print SOF')
         btn_sof_arrivo=bar.email_arrivo.button('Email arrival')
         btn_sof_oper=bar.email_operazioni.button('Email operations')

@@ -54,7 +54,7 @@ class ViewFromVesselServices(BaseComponent):
                             fields=[dict(name='ctm', lbl='!![en]Amount', tag='numberTextBox',validate_notnull=True,table='shipsteps.arrival',
                             cols=1,popup=True,colspan=2),dict(name='datectm', lbl='!![en]Date receipt', tag='dateTextBox',validate_notnull=True,
                             cols=1,popup=True,colspan=2)]))#,_onCalling="{SET #FORM.record.ctm=ctm; SET #FORM.record.date_ctm=datectm;}this.form.save();")
-
+    
     @public_method
     def insert_StdServices(self, record, **kwargs):
         record_id = record['id']
