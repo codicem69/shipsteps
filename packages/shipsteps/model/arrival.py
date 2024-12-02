@@ -57,6 +57,8 @@ class Table(object):
         tbl.column('vessel_stamp', dtype='P', name_long='!![en]Vessel Stamp')
         tbl.column('ctm', dtype='N', name_short='ctm')
         tbl.column('date_ctm', dtype='D', name_short='date ctm')
+        tbl.column('durata_anchor', dtype='T', name_short='durata_anchor')
+        tbl.column('anchor_value', dtype='N', name_short='anchor_value')
         tbl.column('p_sanimare', dtype='B', name_short='!![en]Sanimare pratique') 
         tbl.column('fumigated', dtype='T', name_short='!![en]Cargo fumigated', default=False)     
         tbl.column('int_email', name_short='!![en]Header email')  

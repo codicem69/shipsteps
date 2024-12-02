@@ -5,6 +5,7 @@ from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
+from gnr.core.gnrnumber import floatToDecimal,decimalRound
 
 class View(BaseComponent):
 
@@ -39,9 +40,14 @@ class ViewFromVesselServices(BaseComponent):
         return '_row_count'
         
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('addrow','addrow,10,servizi_std,*,stampa_services,stampa_serv_int,5,ctm')
+        bar = view.top.bar.replaceSlots('addrow','addrow,10,servizi_std,*,stampa_services,stampa_serv_int,5,ctm,tax_ancor')
         btn_services_std=bar.servizi_std.button('!![en]Insert standard services')
+        btn_tax_ancor=bar.tax_ancor.button('!![en]Insert Anchorage dues')
         btn_services_std.dataRpc('nome_temp', self.insert_StdServices,record='=#FORM.record')
+        btn_tax_ancor.dataRpc('nome_temp', self.print_template_services,record='=#FORM.record',nome_template = 'shipsteps.arrival:tax_anchor',format_page='A4',
+                              _ask=dict(title='!![en]Italian Anchorage Dues',fields=[dict(name='durata',lbl='!![en]Duration',tag='filteringSelect',
+                                values='30gg:30 Giorni,1 Anno:1 Anno',hasDownArrow=True,validate_notnull=True),
+                                dict(name='importo', lbl='!![en]Price', tag='numberTextBox',validate_notnull=True,cols=4,popup=True,colspan=2)]))
         btn_print_services=bar.stampa_services.button('!![en]Print Vessel services')
         btn_print_services.dataRpc('nome_temp', self.print_template_services,record='=#FORM.record',
                             nome_template = 'shipsteps.arrival:vess_serv',format_page='A4')
@@ -70,7 +76,7 @@ class ViewFromVesselServices(BaseComponent):
                 tbl_vessel_serv.insert(nuovo_rec)
             
         self.db.commit() 
-    
+
     @public_method
     def print_template_services(self, record, nome_template=None, format_page=None, **kwargs):
          # Crea stampa
@@ -83,8 +89,38 @@ class ViewFromVesselServices(BaseComponent):
                 date_ctm=kwargs['datectm']
                 tbl_arrival.batchUpdate(dict(ctm=ctm,date_ctm=date_ctm),
                                     where='$id=:id_arr', id_arr=record_id)
-                self.db.commit()    
-
+                self.db.commit()
+            #inseriamo nella tabella servizi il ctm
+                tbl_services = self.db.table('shipsteps.services')
+                services_id = tbl_services.readColumns(columns="$id", where='$description ILIKE:descr', descr='cash to master')
+                tbl_vessel_services = self.db.table('shipsteps.vessel_services')
+                    
+                if not tbl_vessel_services.checkDuplicate(services_id=services_id,arrival_id=record_id,note='Richiesta inviata il '+str(self.db.workdate)):
+                        nuovo_record = dict(services_id=services_id,descrizione='Euro '+str(decimalRound(ctm,2)),data_serv=date_ctm, note='Modulo stampato il '+str(self.db.workdate),
+                                        arrival_id=record_id)
+                        tbl_vessel_services.insert(nuovo_record)
+                        self.db.commit()    
+        #verifichiamo se stiamo stampando la tassa ancoraggio e inseriamo i valori nella tabella arrivo
+        if nome_template == 'shipsteps.arrival:tax_anchor':
+            if kwargs:
+                durata=kwargs['durata']
+                importo=kwargs['importo']
+                tbl_arrival.batchUpdate(dict(durata_anchor=durata,anchor_value=importo),
+                                    where='$id=:id_arr', id_arr=record_id)
+                self.db.commit()
+                #inseriamo nella tabella servizi la tassa ancoraggio
+                tbl_services = self.db.table('shipsteps.services')
+                services_id = tbl_services.readColumns(columns="$id", where='$description ILIKE:descr', descr='italian anchorage dues')
+                tbl_vessel_services = self.db.table('shipsteps.vessel_services')
+                if durata == '30gg':
+                    durata = '30 days'
+                else:
+                    durata = '1 year'     
+                if not tbl_vessel_services.checkDuplicate(services_id=services_id,arrival_id=record_id,note='Richiesta inviata il '+str(self.db.workdate)):
+                        nuovo_record = dict(services_id=services_id,descrizione=durata,data_serv=self.db.workdate, note='Modulo stampato il '+str(self.db.workdate),
+                                        arrival_id=record_id)
+                        tbl_vessel_services.insert(nuovo_record)
+                        self.db.commit()
         builder = TableTemplateToHtml(table=tbl_arrival)
         #nome_template = nome_template #'shipsteps.arrival:check_list'
 
