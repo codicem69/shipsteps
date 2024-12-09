@@ -483,7 +483,7 @@ class Form(BaseComponent):
     @public_method
     def servicesLazyMode(self,pane):
         pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',saveButton=True,semaphore=True,pbl_classes=True,
-                                view_store__onBuilt=True,extendedQuery=True)
+                                view_store__onBuilt=True)
 
     #def services(self,pane):
     #    pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices')
@@ -844,6 +844,30 @@ class Form(BaseComponent):
     def times_sof(self,frame):
         self.times(frame) #per non riscrivere lo stesso codice di times passiamo direttamente self.times(frame)
     
+    @public_method
+    def checkEmail(self,record=None,rec_id=None,rootenv=None,**kwargs):
+        #print(x)
+        dati=[]
+        if kwargs['sof_id']:
+            sof_id=kwargs['sof_id']
+            
+            emailsof=self.db.table('shipsteps.email_sof').query(columns='$id,$description,$email', where='$sof_id=:sof_id',sof_id=sof_id).fetch() 
+            
+            for r in emailsof:
+                dati.append(r[0]+':'+str(r[1])+' - '+r[2])
+        emailarr=self.db.table('shipsteps.email_arr').query(columns='$id,$description,$email', where='$arrival_id=:a_id',a_id=rec_id).fetch()
+        for r in emailarr:
+            
+            dati.append(r[0]+':'+str(r[1])+' - '+r[2])
+
+        dati = ",".join(dati)
+        result=Bag()
+        result['lista_emails'] = dati
+        if kwargs['sof_id']:
+            result['sof_id'] = sof_id
+        
+        return result
+    
     def taskList(self, bc_tasklist):
         nsw_pref = self.db.application.getPreference('nsw_cp',pkg='shipsteps')
         rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%').div(margin='10px',margin_left='2px')
@@ -864,7 +888,7 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb1=div1.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
-     
+        
         btn_cl = fb1.Button('!![en]Print Check list')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -1013,16 +1037,32 @@ class Form(BaseComponent):
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_ship_rec',button=btn_sr.js_widget)
-        btn_sr.dataRpc('nome_temp', self.email_arrival_sof,
-                   record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                   _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
+        #btn_sr.dataRpc('nome_temp', self.email_arrival_sof,
+        #           record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+        #           _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
+        #                     hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
+        #                                        condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+        #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+        #                     cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.sof_id?=!#v',
+        #                     values='=#FORM.lista_emails',cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        #con la prima dataRpc facciamo la ricerca delle email relative al sof selezionato e assegnamo allo store current.dati_emails la lista delle emails
+        #che sarà letta dal secondo Rpc e ci farà scegliere eventuali email da rimuovere e allegati
+        btn_sr.dataRpc('current.dati_emails', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
+                        _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
-                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
+        fb.dataRpc('nome_temp', self.email_arrival_sof,
+                   record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                   sof_id='=current.dati_emails.sof_id',
+                   _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.sof_id?=!#v',
+                             values='=current.dati_emails.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^current.dati_emails',_onResult="this.form.save();")
+
         fb.field('email_ship_rec',lbl='', margin_top='5px')
         #fb.semaphore('^.email_ship_rec?=#v==true?true:false', margin_top='5px')
-        fb.semaphore('^.email_ship_rec', margin_top='5px')
+        fb.semaphore('^.email_ship_rec', margin_top='5px')  
+        
         #datacontroller verifica il valore della variabile nome_temp di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
       #  fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
@@ -1455,13 +1495,24 @@ class Form(BaseComponent):
         fb.div()
      
         btn_upd_shiprec = fb.Button('!![en]Ship/Rec. updating', width='10em')
-        btn_upd_shiprec.dataRpc('nome_temp', self.email_arrival_sof,
-                   record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                   _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
+        btn_upd_shiprec.dataRpc('current.dati_emails', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
+                        _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
-                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
+        fb.dataRpc('nome_temp', self.email_arrival_sof,
+                   record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                   sof_id='=current.dati_emails.sof_id',
+                   _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]))
+                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.sof_id?=!#v',
+                             values='=current.dati_emails.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^current.dati_emails',_onResult="this.form.save();")
+        #btn_upd_shiprec.dataRpc('nome_temp', self.email_arrival_sof,
+        #           record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+        #           _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
+        #                     hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
+        #                                        condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+        #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+        #                     cols=4,popup=True,colspan=2)]))
         
         #documenti prima dell'arrivo
         div3=rg_prearrival.div('<center><strong><br>Email to Harbour Master <br> Docs before vessel arrival<br></strong>',width='99%',height='20%',margin='auto',
@@ -2195,7 +2246,9 @@ class Form(BaseComponent):
     #    dlg = pane.dialog(nodeId='dialog_test',parentRatio=.9,title='Times',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
     #    dlg.multiButtonForm(relation='@time_arr',formResource='Form',
     #                        pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-
+    @public_method
+    def test(self,record,rec_id,**kwargs):
+        print(x)
     @public_method
     def sanCertLazyMode(self,pane):
         pane.stackTableHandler(relation='@certusma_arr',formResource='FormFromCertusma',view_store__onBuilt=True)
@@ -3229,58 +3282,184 @@ class Form(BaseComponent):
                 return nome_temp
         else:
             return
+        
+        ##inizializziamo le variabili per le email
+        #email_arr_to,email_arr_cc,email_arr_bcc='','',''
+        #email_a_to,email_a_cc,email_a_bcc=[],[],[]
+        ##definiamo le tabelle dove prelevare l'email
+        #tbl_email_sof=self.db.table('shipsteps.email_sof')
+        #tbl_email_arr=self.db.table('shipsteps.email_arr')
+        ##verifichiamo la lunghezza del servizio arrivatoci tramite il bottone di invio email e con i cicli for preleviamo i
+        ##dati email dalle relative tabelle- tramite l'uso delle liste con gli append aggiungiamo l'email 
+        #ln_serv=len(servizio)
+        #for e in range(ln_serv):
+        #    serv=servizio[e]
+        #    if serv=='arr':
+        #        email_to = tbl_email_arr.query(columns="$email",
+        #                                            where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
+        #                                            type='to').fetch()
+        #        for e in range(len(email_to)):
+        #            email_a_to.append(email_to[e][0])
+#
+        #        email_cc = tbl_email_arr.query(columns="$email",
+        #                                            where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
+        #                                            type='cc').fetch()  
+        #        for e in range(len(email_cc)):
+        #            email_a_cc.append(email_cc[e][0])
+#
+        #        email_bcc = tbl_email_arr.query(columns="$email",
+        #                                            where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
+        #                                            type='ccn').fetch()
+        #        for e in range(len(email_bcc)):
+        #            email_a_bcc.append(email_bcc[e][0])
+        #        
+        #    elif serv=='sof':
+        #        email_to = tbl_email_sof.query(columns="$email",
+        #                                            where='$sof_id=:s_id and $email_type=:type', s_id=sof_id,
+        #                                            type='to').fetch()  
+        #        for e in range(len(email_to)):
+        #            email_a_to.append(email_to[e][0])
+#
+        #        email_cc = tbl_email_sof.query(columns="$email",
+        #                                            where='$sof_id=:s_id and $email_type=:type', s_id=sof_id,
+        #                                            type='cc').fetch()
+        #        for e in range(len(email_cc)):
+        #            email_a_cc.append(email_cc[e][0]) 
+#
+        #        email_bcc = tbl_email_sof.query(columns="$email",
+        #                                            where='$sof_id=:s_id and $email_type=:type', s_id=sof_id,
+        #                                            type='ccn').fetch()  
+        #        for e in range(len(email_bcc)):
+        #            email_a_bcc.append(email_bcc[e][0])
+        ##estraiamo le stringhe email dalle liste
+        #email_arr_to=','.join([str(item) for item in email_a_to])
+        #email_arr_cc=','.join([str(item) for item in email_a_cc])                    
+        #email_arr_bcc=','.join([str(item) for item in email_a_bcc])
+        ##verifichiamo che non mancano email destinatari TO e CCN altrimenti ritorniamo con la variabile nome_temp che innesca il messaggio
+        ##verifichiamo se non presente l'email to allora inseriamo l'email del mittente
+        #if email_arr_to == email_arr_bcc == '':  
+        #    nome_temp = 'no_email'
+        #    return nome_temp
+        #elif email_arr_to =='':    
+        #    email_arr_to=email_mittente 
         #inizializziamo le variabili per le email
         email_arr_to,email_arr_cc,email_arr_bcc='','',''
-        email_a_to,email_a_cc,email_a_bcc=[],[],[]
+        email_a_to,email_a_to_descr,email_a_cc,email_a_cc_descr,email_a_bcc=[],[],[],[],[]
         #definiamo le tabelle dove prelevare l'email
         tbl_email_sof=self.db.table('shipsteps.email_sof')
         tbl_email_arr=self.db.table('shipsteps.email_arr')
+        #verifichiamo se ci sono email da rimuovere sulle due tabelle email_sof e email_arr creando delle condition 
+        #che andremo ad applicare alle query nel ciclo for
+        if kwargs['email_removed']:
+            email_removed=kwargs['email_removed'].split(",")
+            condition_emailsof = ["$sof_id=:s_id and $email_type=:type"]
+            condition_emailsof_descr = ["$sof_id=:s_id and $dest=:dest"]
+            for r in email_removed:
+                condition_emailsof.append("$id<>'"+r+"'")
+                condition_emailsof_descr.append("$id<>'"+r+"'")
+            condition_emailsof = ' AND '.join(condition_emailsof)
+            condition_emailsof_descr = ' AND '.join(condition_emailsof_descr)
+        else:
+            condition_emailsof = ''.join(["$sof_id=:s_id and $email_type=:type"])
+            condition_emailsof_descr = ''.join(["$sof_id=:s_id and $dest=:dest"])
+           
+        if kwargs['email_removed']:
+            email_removed=kwargs['email_removed'].split(",")
+            condition_emailarr = ["$arrival_id=:a_id and $email_type=:type"]
+            condition_emailarr_descr = ["$arrival_id=:a_id and $dest=:dest"]
+            for r in email_removed:
+                condition_emailarr.append("$id<>'"+r+"'")
+                condition_emailarr_descr.append("$id<>'"+r+"'")
+            condition_emailarr = ' AND '.join(condition_emailarr)
+            condition_emailarr_descr = ' AND '.join(condition_emailarr_descr) 
+        else:
+            condition_emailarr = ''.join(["$arrival_id=:a_id and $email_type=:type"])
+            condition_emailarr_descr = ''.join(["$arrival_id=:a_id and $dest=:dest"])   
         #verifichiamo la lunghezza del servizio arrivatoci tramite il bottone di invio email e con i cicli for preleviamo i
         #dati email dalle relative tabelle- tramite l'uso delle liste con gli append aggiungiamo l'email 
+
         ln_serv=len(servizio)
         for e in range(ln_serv):
             serv=servizio[e]
             if serv=='arr':
                 email_to = tbl_email_arr.query(columns="$email",
-                                                    where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
+                                                    where=condition_emailarr, a_id=record_arr,
                                                     type='to').fetch()
+                email_to_descr = tbl_email_arr.query(columns="$dest ||': '||$description||'<br>'",
+                                                    where=condition_emailarr_descr, a_id=record_arr,
+                                                    dest='to').fetch()
                 for e in range(len(email_to)):
                     email_a_to.append(email_to[e][0])
+                for e in range(len(email_to_descr)):
+                    email_a_to_descr.append(email_to_descr[e][0])    
 
                 email_cc = tbl_email_arr.query(columns="$email",
-                                                    where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
+                                                    where=condition_emailarr, a_id=record_arr,
                                                     type='cc').fetch()  
+                email_cc_descr = tbl_email_arr.query(columns="$dest ||': '||$description||'<br>'",
+                                                    where=condition_emailarr_descr, a_id=record_arr,
+                                                    dest='cc').fetch()
+                
                 for e in range(len(email_cc)):
                     email_a_cc.append(email_cc[e][0])
+                for e in range(len(email_cc_descr)):
+                    email_a_cc_descr.append(email_cc_descr[e][0])    
 
                 email_bcc = tbl_email_arr.query(columns="$email",
-                                                    where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
+                                                    where=condition_emailarr, a_id=record_arr,
                                                     type='ccn').fetch()
                 for e in range(len(email_bcc)):
                     email_a_bcc.append(email_bcc[e][0])
+                   
                 
             elif serv=='sof':
                 email_to = tbl_email_sof.query(columns="$email",
-                                                    where='$sof_id=:s_id and $email_type=:type', s_id=sof_id,
-                                                    type='to').fetch()  
+                                                    where=condition_emailsof, s_id=sof_id,
+                                                    type='to').fetch() 
+                email_to_descr = tbl_email_sof.query(columns="$dest ||': '||$description||'<br>'",
+                                                    where=condition_emailsof_descr, s_id=sof_id,
+                                                    dest='to').fetch()
+                 
                 for e in range(len(email_to)):
                     email_a_to.append(email_to[e][0])
+                for e in range(len(email_to_descr)):
+                    email_a_to_descr.append(email_to_descr[e][0])  
 
                 email_cc = tbl_email_sof.query(columns="$email",
-                                                    where='$sof_id=:s_id and $email_type=:type', s_id=sof_id,
+                                                    where=condition_emailsof, s_id=sof_id,
                                                     type='cc').fetch()
+                email_cc_descr = tbl_email_sof.query(columns="$dest ||': '||$description||'<br>'",
+                                                     where=condition_emailsof_descr, s_id=sof_id,
+                                                    dest='cc').fetch()
+                                                    #where='$sof_id=:s_id and $dest=:dest', s_id=sof_id,
+                                                    #dest='cc').fetch()
+                
                 for e in range(len(email_cc)):
                     email_a_cc.append(email_cc[e][0]) 
+                for e in range(len(email_cc_descr)):
+                    email_a_cc_descr.append(email_cc_descr[e][0])
 
                 email_bcc = tbl_email_sof.query(columns="$email",
-                                                    where='$sof_id=:s_id and $email_type=:type', s_id=sof_id,
+                                                    where=condition_emailsof, s_id=sof_id,
                                                     type='ccn').fetch()  
                 for e in range(len(email_bcc)):
                     email_a_bcc.append(email_bcc[e][0])
+                 
         #estraiamo le stringhe email dalle liste
         email_arr_to=','.join([str(item) for item in email_a_to])
         email_arr_cc=','.join([str(item) for item in email_a_cc])                    
         email_arr_bcc=','.join([str(item) for item in email_a_bcc])
+        #estraiamo le stringhe email_descr dalle liste
+        email_descr_to=''.join([str(item) for item in email_a_to_descr])
+        email_descr_cc=''.join([str(item) for item in email_a_cc_descr])
+        email_descr = email_descr_to + email_descr_cc
+        #avendo il valore email_descr ossia i destinatari che appaiono nel body della email li copiamo nel record arrival email_dest_to 
+        record_tasklist=record['@arr_tasklist.id'] 
+        tbl_arrival = self.db.table('shipsteps.arrival')  
+        tbl_arrival.batchUpdate(dict(email_dest_to=email_descr),
+                                    where='$id=:a_id', a_id=record_arr)
+        self.db.commit()
+          
         #verifichiamo che non mancano email destinatari TO e CCN altrimenti ritorniamo con la variabile nome_temp che innesca il messaggio
         #verifichiamo se non presente l'email to allora inseriamo l'email del mittente
         if email_arr_to == email_arr_bcc == '':  

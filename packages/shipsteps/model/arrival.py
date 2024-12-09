@@ -61,7 +61,8 @@ class Table(object):
         tbl.column('anchor_value', dtype='N', name_short='anchor_value')
         tbl.column('p_sanimare', dtype='B', name_short='!![en]Sanimare pratique') 
         tbl.column('fumigated', dtype='T', name_short='!![en]Cargo fumigated', default=False)     
-        tbl.column('int_email', name_short='!![en]Header email')  
+        tbl.column('int_email', name_short='!![en]Header email')
+        tbl.column('email_dest_to', name_short='!![en]Email dest to')  
         #tbl.formulaColumn('cargoboard',select=dict(table='shipsteps.cargo_transit', columns='SUM($description)', where='$arrival_id=#THIS.id'), dtype='T',name_long='cargo on board')
         tbl.pyColumn('cargo',name_long='!![en]Cargo', static=True)
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
@@ -340,7 +341,7 @@ class Table(object):
         tbl.formulaColumn('gdfdep_timeexp',"""CASE WHEN @time_arr.sailed < NOW() AND @arr_tasklist.form_gdfdep IS NULL OR @arr_tasklist.form_gdfdep = false 
                                             THEN true END""", dtype='B')               
         tbl.formulaColumn('refcode',"'%%' || $reference_num || '%%'",dtype='T')
-
+        
     #pycolumn creata per verificare tramite le preferenze del pkg shipsteps se abilitare o no le pratiche sanimare alle provenienze navi da tutti gli stati
     # o solo quelli extra ue o se viene flaggato nell'arrivo pratica sanimare. Nella th_arrival di shipsteps ho inserito nei widget sanimare della task list la 
     # variabile hidden che verifica il valore uesan_pref in caso di valore true nasconde il widget 

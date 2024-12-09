@@ -120,7 +120,9 @@ class Table(object):
         tbl.formulaColumn('measure_sof',select=dict(table='shipsteps.cargo_unl_load', columns="$measure_id",
                                                     where='$id=#THIS.@sof_cargo_sof.cargo_unl_load_id'),name_long='measure_sof')
         
-     
+        tbl.formulaColumn('email_sof',select=dict(table='shipsteps.email_sof', columns="""$id,$dest,$description,email)""",
+                                                    where='$sof_id=#THIS.id'))
+        
         tbl.aliasColumn('measure','@sof_daily.@measure_id.description')
         tbl.aliasColumn('place_origin_goods','@sof_cargo_sof.@cargo_unl_load_id.@place_origin_goods.citta_nazione')
 
