@@ -2407,13 +2407,20 @@ class Form(BaseComponent):
                     tugs_n=kwargs['tugs_n']
         #avendo preso il valore tugs_n nei kwargs andiamo a copiarlo nel record arrival.form.record.@extradatacp.n_tug_arr che ci servirà nella variabile 
         #che utilizzeremo nei template per avere la variabile numero rimorchi          
-        record_extradaticp=record['@extradatacp.id']
+        #verifichiamo prima se il record nella tab extardaticp con assegnato l'arrival_id sia esistente
+        #nel caso positivo con batchUpdate aggiorniamo il valore della variabile altrimenti creiamo il nuovo record con la variabile
         tbl_extradaticp = self.db.table('shipsteps.extradaticp')  
-        if tugs_n:
+        extradaticp = tbl_extradaticp.record(arrival_id=arrival_id, ignoreMissing=True, for_update=True).output('bag')
+        extradaticp_id = extradaticp['id']
+        if tugs_n and extradaticp_id:
             tbl_extradaticp.batchUpdate(dict(n_tug_arr=tugs_n),
-                                    where='$id=:id_extra', id_extra=record_extradaticp)
-        self.db.commit()
-        
+                                    where='$id=:id_extra', id_extra=extradaticp_id)
+            self.db.commit()
+        elif tugs_n and not extradaticp_id:
+            nuovo_record = tbl_extradaticp.newrecord(arrival_id=arrival_id, n_tug_arr=tugs_n)
+            tbl_extradaticp.insert(nuovo_record)
+            self.db.commit()
+
         #verifichiamo se nelle keys di kwargs troviamo la chiave tugs_n_dep e lo assegnamo alla variabile tugs_n_dep 
         tugs_ndep = None
         for chiavi in kwargs.keys():
@@ -2423,12 +2430,14 @@ class Form(BaseComponent):
                     tugs_ndep=kwargs['tugs_ndep']
         #avendo preso il valore tugs_n_dep nei kwargs andiamo a copiarlo nel record arrival.form.record.@extradatacp.n_tug_dep che ci servirà nella variabile 
         #che utilizzeremo nei template per avere la variabile numero rimorchi          
-        record_extradaticp=record['@extradatacp.id']
-        tbl_extradaticp = self.db.table('shipsteps.extradaticp')  
-        if tugs_ndep:
+        if tugs_ndep and extradaticp_id:
             tbl_extradaticp.batchUpdate(dict(n_tug_dep=tugs_ndep),
-                                    where='$id=:id_extra', id_extra=record_extradaticp)    
-        self.db.commit()
+                                    where='$id=:id_extra', id_extra=extradaticp_id)
+            self.db.commit()
+        elif tugs_ndep and not extradaticp_id:
+            nuovo_record = tbl_extradaticp.newrecord(arrival_id=arrival_id, n_tug_dep=tugs_ndep)
+            tbl_extradaticp.insert(nuovo_record)
+            self.db.commit()
         
        # with tbl_tasklist.recordToUpdate('id'==record_tasklist) as rec_tasklist:
        #    rec_tasklist['nome_servizio'] = services
