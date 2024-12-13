@@ -17,7 +17,7 @@ class Main(TableScriptToHtml):
     empty_row=dict()
     #Grazie a questo parametro in caso di mancanza di dati verrà stampata una griglia vuota invece di una pagina bianca
     virtual_columns = '@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@arrival_id.lastport' #aggiungiamo le colonne calcolate
-    
+
     def docHeader(self, header):
         head = header.layout(name='doc_header', margin='5mm', border_width=0)
         row = head.row()
@@ -136,13 +136,15 @@ class Main(TableScriptToHtml):
         dati_firma = layout.row(height=5, lbl_height=2, lbl_class='smallCaption')
  
         self.datiFirma(dati_firma)
-      
+
     def datiFirma(self, row):
         firma = row.cell().layout(name='firma', um='mm', border_color='white', lbl_class='smallCaption',
                                     lbl_height=3, style='line-height:5mm;')
         stamp=self.field('@arrival_id.vessel_stamp')
         firma.row(height=0).cell("""<img src="%s" width="auto" height="200">::HTML""" %stamp,width=0,content_class='aligned_center')
-         
+        firma.row(height=0).cell(self.pageCounter('page: '+'%s/%s'))
+
+
     def outputDocName(self, ext=''):
         #Questo metodo definisce il nome del file di output
         if ext and not ext[0] == '.':

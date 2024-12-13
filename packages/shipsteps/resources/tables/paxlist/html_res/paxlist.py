@@ -122,6 +122,8 @@ class Main(TableScriptToHtml):
         r = l.row(row_border=False,height=5)
         timbro=self.record['@arrival_id.vessel_stamp']
         r.cell("""<img src="%s" width="auto" height="80">::HTML""" %timbro,width=0)
+        #r.cell('page no.'+str(self.current_page_number+1))
+        r.cell(self.pageCounter('page: '+'%s/%s'))
 
     def calcDocFooterHeight(self):  
             if self.record['noteproforma']:

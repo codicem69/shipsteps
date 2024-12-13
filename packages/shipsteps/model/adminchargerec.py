@@ -11,13 +11,14 @@ class Table(object):
                     ).relation('arrival.id', relation_name='admincharge_arrival', mode='foreignkey', onDelete='raise')
         tbl.column('importo',dtype='N',size='10,2',name_long='Importo',format='#,###.00')
         tbl.aliasColumn('arr_data','@arrival_id.arrival_data')
+    
     def counter_prot(self,record=None):
         return dict(format='$YY/$NNNN', code='*', period='YY', date_field='data', showOnLoad=True, date_tolerant=True, recycle=True)
+        #return dict(format='$YY/$NNNN', code='*', period='YY', date_field='data', showOnLoad=True, date_tolerant=True, recycle=True)
 
     def randomValues(self):
         return dict(data = dict(sorted=True))
     
     def defaultValues(self):
         return dict(agency_id=self.db.currentEnv.get('current_agency_id'))
-    
     

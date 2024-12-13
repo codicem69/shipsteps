@@ -8,7 +8,7 @@ class Table(object):
         self.sysFields(tbl,counter='agency_id')
         
         tbl.column('data', dtype='D', name_short='!![en]date')
-        tbl.column('data_prat', dtype='D', name_short='!![en]Pratique date')
+        #tbl.column('data_prat', dtype='D', name_short='!![en]Pratique date')
         tbl.column('prot_n', name_short='!![en]Log number')
         tbl.column('fald_n',size='22', name_long='!![en]Folder',batch_assign=dict(hasDownArrow=True)
                     ).relation('faldone.id', relation_name='numero_faldone', mode='foreignkey', onDelete='raise')

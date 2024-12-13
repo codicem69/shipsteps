@@ -1455,7 +1455,14 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv OR $service_for_email_id=:serv1 OR $service_for_email_id=:serv2', 
                                                      serv='cp',serv1='adsp', serv2='chem').fetch()
         serv_len=len(service_for_email)
-        btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
+        #datacontroller per impostare variabile hidden del bottone hold ventilation
+        fb.dataController("if(alim!='Alimentary/UE' && alim!='Alimentary' || fum=='NO'){SET .holds_btn=true;}else{SET .holds_btn=false;}", 
+                          alim='^#FORM.record.@movtype_id.hierarchical_descrizione',
+                          fum='^#FORM.record.fumigated')
+        btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="^#FORM.record.@arr_tasklist.holds_btn")
+                             #hidden="""==_alim!=='Alimentary/UE' && _alim!=='Alimentary' || _fum==='NO'""",_alim="""^#FORM.record.@movtype_id.hierarchical_descrizione""",
+                             #                                       _fum="""^#FORM.record.fumigated""")
+        #btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
         fb.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1477,9 +1484,10 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         
-        fb.field('email_aeration', lbl='', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
+        fb.field('email_aeration', lbl='', margin_top='6px',hidden="^#FORM.record.@arr_tasklist.holds_btn")
         #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
-        fb.semaphore('^.email_aeration', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
+        fb.semaphore('^.email_aeration', margin_top='6px',hidden="^#FORM.record.@arr_tasklist.holds_btn")
+        #fb.semaphore('^.email_aeration', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
 
         btn_update = fb.Button('!![en]Services updating', width='10em')
         btn_update.dataRpc('nome_temp', self.email_serv_upd,

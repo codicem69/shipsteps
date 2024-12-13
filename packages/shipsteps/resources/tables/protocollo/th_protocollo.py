@@ -30,7 +30,7 @@ class ViewFromFolder(BaseComponent):
         r.fieldcell('_row_count')
         r.fieldcell('agency_id')
         r.fieldcell('data')
-        r.fieldcell('data_prat', width='6em')
+        #r.fieldcell('data_prat', width='6em')
         r.fieldcell('prot_n',width='6em')
         r.fieldcell('fald_n')
         r.fieldcell('arrival_id')
@@ -56,7 +56,7 @@ class Form(BaseComponent):
         #fb.field('_row_count')
         fb.field('agency_id', readOnly=True )
         fb.field('data')
-        fb.field('data_prat')
+        #fb.field('data_prat')
         fb.field('prot_n')
         fb.field('fald_n',hasDownArrow=True)
         fb.br()
@@ -69,5 +69,8 @@ class Form(BaseComponent):
 
 
     def th_options(self):
-        return dict(dialog_windowRatio = 1, annotations= True )
-        #return dict(dialog_height='400px', dialog_width='600px')
+        return dict(dialog_windowRatio = 1, annotations= True ,defaultPrompt=dict(title='!![en]Record date', fields=self.newRecParameters()) )
+
+    def newRecParameters(self):
+        return [dict(value='^.data', lbl='!![en]Record date',tag='dateTextBox',
+                    validate_notnull=True, hasDownArrow=True)]
