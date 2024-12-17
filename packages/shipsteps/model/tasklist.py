@@ -52,6 +52,17 @@ class Table(object):
         tbl.column('acqua', name_short='!![en]Water qt.')
         tbl.column('nome_servizio', name_short='!![en]service name')
         tbl.column('p_date', dtype='D', name_short='p_date')
+        #checkbox per attivazione campi tasklist
+        tbl.column('e_customs', dtype='B', name_short='Customs')
+        tbl.column('e_frontiera', dtype='B', name_short='Immigration')
+        tbl.column('e_pilotmoor', dtype='B', name_short='Pilot/moor')
+        tbl.column('e_tugarr', dtype='B', name_short='Tug Arrival')
+        tbl.column('e_tugdep', dtype='B', name_short='Tug Departure')
+        tbl.column('e_garbage', dtype='B', name_short='Garbage pick-up')
+        tbl.column('e_pfso', dtype='B', name_short='PFSO')
+        tbl.column('e_chemist', dtype='B', name_short='Chemist')
+        tbl.column('e_ens', dtype='B', name_short='ENS')
+
         #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('email_account','@arrival_id.email_account_id')
         tbl.aliasColumn('bollo_virt','@arrival_id.@agency_id.virtual_stamp')
