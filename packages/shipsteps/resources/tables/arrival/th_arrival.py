@@ -1063,17 +1063,17 @@ class Form(BaseComponent):
         #                     values='=#FORM.lista_emails',cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         #con la prima dataRpc facciamo la ricerca delle email relative al sof selezionato e assegnamo allo store current.dati_emails la lista delle emails
         #che sarà letta dal secondo Rpc e ci farà scegliere eventuali email da rimuovere e allegati
-        btn_sr.dataRpc('emailsof.datiemails_arr', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
+        btn_sr.dataRpc('emailsof', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
         fb.dataRpc('nome_temp', self.email_arrival_sof,
                    record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                   sof_id='=emailsof.datiemails_arr.sof_id',
+                   sof_id='=emailsof.sof_id',
                    _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.emailsof.datiemails_arr.sof_id?=!#v',
-                             values='=emailsof.datiemails_arr.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^emailsof.datiemails_arr',_onResult="this.form.save();")
+                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.emailsof.sof_id?=!#v',
+                             values='=emailsof.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^emailsof',_onResult="this.form.save();")
 
         fb.field('email_ship_rec',lbl='', margin_top='5px')
         #fb.semaphore('^.email_ship_rec?=#v==true?true:false', margin_top='5px')
