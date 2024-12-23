@@ -847,7 +847,7 @@ class Form(BaseComponent):
         self.times(frame) #per non riscrivere lo stesso codice di times passiamo direttamente self.times(frame)
     
     @public_method
-    def checkEmail(self,record=None,rec_id=None,**kwargs):
+    def checkEmail(self,rec_id=None,**kwargs):
         #print(x)
         dati=[]
         if kwargs['sof_id']:
@@ -1049,10 +1049,10 @@ class Form(BaseComponent):
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
 
         btn_sr = fb.Button('!![en]Shipper/Receivers', width='10em')
-        #fb.dataController("""var id = button.id;
-        #                if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
-        #                else {document.getElementById(id).style.backgroundColor = '';}
-        #                """, ca='^.email_ship_rec',button=btn_sr.js_widget)
+        fb.dataController("""var id = button.id;
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_ship_rec',button=btn_sr.js_widget)
         #btn_sr.dataRpc('nome_temp', self.email_arrival_sof,
         #           record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
         #           _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
@@ -1063,7 +1063,7 @@ class Form(BaseComponent):
         #                     values='=#FORM.lista_emails',cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         #con la prima dataRpc facciamo la ricerca delle email relative al sof selezionato e assegnamo allo store current.dati_emails la lista delle emails
         #che sarà letta dal secondo Rpc e ci farà scegliere eventuali email da rimuovere e allegati
-        btn_sr.dataRpc('emailsof', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
+        btn_sr.dataRpc('emailsof', self.checkEmail, rec_id='^#FORM.record.id',
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
@@ -1072,7 +1072,7 @@ class Form(BaseComponent):
                    sof_id='=emailsof.sof_id',
                    _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.emailsof.sof_id?=!#v',
+                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',#hidden='^.emailsof.sof_id?=!#v',
                              values='=emailsof.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^emailsof',_onResult="this.form.save();")
 
         fb.field('email_ship_rec',lbl='', margin_top='5px')
@@ -1533,7 +1533,7 @@ class Form(BaseComponent):
         fb.div()
      
         btn_upd_shiprec = fb.Button('!![en]Ship/Rec. updating', width='10em')
-        btn_upd_shiprec.dataRpc('dati_emails', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
+        btn_upd_shiprec.dataRpc('dati_emails', self.checkEmail, rec_id='^#FORM.record.id',
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
