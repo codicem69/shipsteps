@@ -5,7 +5,7 @@ from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
-
+from gnr.app.gnrapp import GnrApp
 
 class View(BaseComponent):
 
@@ -136,10 +136,27 @@ class Form(BaseComponent):
         top.htmliframe(src="""https://pagamenti.poste.it/""",
                                                     height='100%',width='100%',border='0px')
         fb.button('Sito Poste', action="genro.wdgById('dialog_poste').show()")
+        #btn_app=fb.button('testapp')
+        #btn_app.dataRpc('datiapp', self.testapp,record='=#FORM.record',_ask="Attenzione confermi l'addebito sulla carta?")
 
     def th_options(self):
         return dict(parentRatio=1)
         #return dict(dialog_height='400px', dialog_width='800px')
+
+    #@public_method
+    #def testapp(self,record=None,**kwargs):
+    #    vess_type=record['@arrival_id.@vessel_details_id.@imbarcazione_id.nome']
+    #    nome_imb=record['@arrival_id.@vessel_details_id.@imbarcazione_id.nome']
+    #    causale='Tributi '+record['causale']
+    #    num_carta = self.db.application.getPreference('carta',pkg='shipsteps')
+    #    app_carte = GnrApp('carte')
+    #    db_carte = app_carte.db
+    #    tbl_mov = db_carte.table('carte.movimenti')
+    #    myquery = tbl_mov.query(columns="$descrizione",
+    #              where='@carta_id.num_carta = :carta',
+    #              carta=num_carta).fetch()
+    #    
+    #    print(x)
 
     @public_method
     def print_template_tributi(self, record, resultAttr=None,selId=None, servizio=[] , format_page=None, **kwargs):

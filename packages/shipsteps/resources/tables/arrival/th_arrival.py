@@ -847,7 +847,7 @@ class Form(BaseComponent):
         self.times(frame) #per non riscrivere lo stesso codice di times passiamo direttamente self.times(frame)
     
     @public_method
-    def checkEmail(self,record=None,rec_id=None,rootenv=None,**kwargs):
+    def checkEmail(self,record=None,rec_id=None,**kwargs):
         #print(x)
         dati=[]
         if kwargs['sof_id']:
@@ -951,7 +951,7 @@ class Form(BaseComponent):
         #                                  {'continue': function(){PUBLISH visit=true;}});
         #                    else {PUBLISH visit=true;}""", visit_id='=#FORM.record.visit_id')
         #fb1.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-        #                    nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',subscribe_visit=True,
+        #                    nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',visit=True,
         #                    _onResult="this.form.save();")
 
         btn_cn = fb1.Button('!![en]Print Vessel folder')
@@ -983,7 +983,7 @@ class Form(BaseComponent):
                                           {'continue': function(){PUBLISH invoice=true;}});
                             else {PUBLISH invoice=true;}""", invoice_id='=#FORM.record.invoice_det_id')
         fb1.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',subscribe_invoice=True,
+                            nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',invoice=True,
                             _onResult="this.form.save();")
 
         #btn_ts = fb1.Button('!![en]Print Servicies table')
@@ -1072,7 +1072,7 @@ class Form(BaseComponent):
                    sof_id='=current.dati_emails_arr.sof_id',
                    _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.sof_id?=!#v',
+                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.current.dati_emails_arr.sof_id?=!#v',
                              values='=current.dati_emails_arr.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^current.dati_emails_arr',_onResult="this.form.save();")
 
         fb.field('email_ship_rec',lbl='', margin_top='5px')
@@ -1541,7 +1541,7 @@ class Form(BaseComponent):
                    sof_id='=current.dati_emails.sof_id',
                    _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.sof_id?=!#v',
+                             cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^current.dati_emails.sof_id?=!#v',
                              values='=current.dati_emails.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^current.dati_emails',_onResult="this.form.save();")
         #btn_upd_shiprec.dataRpc('nome_temp', self.email_arrival_sof,
         #           record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',

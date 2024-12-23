@@ -1,4 +1,10 @@
 # preference.py
+from gnr.app.gnrapp import GnrApp
+from gnr.core.gnrdecorator import public_method
+from gnr.core.gnrbag import Bag
+from gnr.app.gnrdeploy import ProjectMaker, InstanceMaker, SiteMaker,PackageMaker, PathResolver,ThPackageResourceMaker
+import os
+
 class AppPref(object):
 
     def permission_shipsteps(self, **kwargs):
@@ -70,6 +76,58 @@ class AppPref(object):
         fb.br()
         fb.timeTextBox('^.start',lbl='!![en]Start time')
         fb.timeTextBox('^.end',lbl='!![en]End time') 
+        #fb.textbox(value='^.project_name',validate_onAccept='SET .package_name=null;',validate_onReject='SET .package_name = null;',
+        #            validate_notnull=True,
+        #            validate_remote=self.getProjectPath,lbl='Project')
+        #fb.filteringSelect(value='^.package_name',lbl='Package',validate_notnull=True,
+        #            values='^.packages',width='7em')
+        #fb.checkbox('^.carte_cred',lbl='Visualizza carte dal pkg carte')
+        #fb.dataRpc('.package_name',self.getProjectPath,value='cart',carte_c='^.carte_cred',_if='carte_c')
+        #fb.dataRpc('.result_carte',self.packageName,package_name='^.package_name.data.packages',_if='package_name')
+        #fb.dataController("""if(msg=='Not existing project'){alert(msg);}""",msg='^.package_name.errorcode')
+        #fb.button('test',action="alert('ciao');")
+        #fb.filteringSelect('^.carta',lbl='Seleziona la carta di addebito',values='^.result_carte')
+        #print(x)
+
+    #@public_method
+    #def packageName(self,package_name=None,**kwargs):
+    #    myapp = GnrApp(package_name)
+    #    mydb = myapp.db
+    #
+    #    if package_name=='carte':
+    #        tbl_carte = mydb.table('carte.carta')
+    #        carte = tbl_carte.query(columns="$descr_carta,$num_carta",
+    #                where='').fetch()
+    #        valori_carte=[]
+    #        for r in carte:
+    #                valori_carte.append(r['num_carta']+':'+r['descr_carta'])
+    #        result_carte = ",".join(valori_carte)
+    #        return result_carte
+    #    else:
+    #        return 'Error'
+    #
+    #
+    #@public_method
+    #def getProjectPath(self,value=None,**kwargs):
+    #    p = PathResolver()
+    #    data = Bag()
+    #    #print(x)
+    #    try:
+    #        path = p.project_name_to_path(value)
+    #        instances_path = os.path.join(path,'instances')
+    #        packages_path = os.path.join(path,'packages')
+    #        if os.path.exists(instances_path):
+    #            instances = [l for l in os.listdir(instances_path) if os.path.isdir(os.path.join(instances_path,l))]
+    #        else:
+    #            instances = []
+    #        packages = [l for l in os.listdir(packages_path) if os.path.isdir(os.path.join(packages_path,l))]
+    #        data['instances'] = ','.join(instances) if instances else None
+    #        data['packages'] =','.join(packages) if packages else None
+    #        data['instance_name'] = instances[0] if instances else None
+    #        return Bag(dict(errorcode=None,data=data))
+    #    except Exception:
+    #        #return Bag(dict(errorcode=None,data='error'))
+    #        return Bag(dict(errorcode='Not existing project',data=data))
 
 #class UserPref(object):
 #    def prefpane_shipsteps(self, parent, **kwargs):
