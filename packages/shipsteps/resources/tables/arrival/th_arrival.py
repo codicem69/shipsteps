@@ -870,6 +870,30 @@ class Form(BaseComponent):
         
         return result
     
+    @public_method
+    def checkEmailSof(self,record=None,rec_id=None,**kwargs):
+        #print(x)
+        dati=[]
+        if kwargs['sof_id']:
+            sof_id=kwargs['sof_id']
+            
+            emailsof=self.db.table('shipsteps.email_sof').query(columns='$id,$description,$email', where='$sof_id=:sof_id',sof_id=sof_id).fetch() 
+            
+            for r in emailsof:
+                dati.append(r[0]+':'+str(r[1])+' - '+r[2])
+        emailarr=self.db.table('shipsteps.email_arr').query(columns='$id,$description,$email', where='$arrival_id=:a_id',a_id=rec_id).fetch()
+        for r in emailarr:
+            
+            dati.append(r[0]+':'+str(r[1])+' - '+r[2])
+
+        dati = ",".join(dati)
+        result=Bag()
+        result['lista_emails'] = dati
+        if kwargs['sof_id']:
+            result['sof_id'] = sof_id
+        
+        return result
+    
     def checkTasklist(self,frame):
         center = frame.roundedGroup(title='!![en]Tasklist selection',table='shipsteps.tasklist',datapath='.record.@arr_tasklist', region='center').div(margin='10px',margin_left='2px')
         #rg_arr = frame.roundedGroup(title='!![en]Arrival',datapath='.record',width='100%', height = '10%').div(margin='10px',margin_left='2px')
@@ -1063,7 +1087,7 @@ class Form(BaseComponent):
         #                     values='=#FORM.lista_emails',cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         #con la prima dataRpc facciamo la ricerca delle email relative al sof selezionato e assegnamo allo store current.dati_emails la lista delle emails
         #che sarà letta dal secondo Rpc e ci farà scegliere eventuali email da rimuovere e allegati
-        btn_sr.dataRpc('emailsof', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
+        btn_sr.dataRpc('emailsof', self.checkEmailSof,  record='=#FORM.record',rec_id='^#FORM.record.id',
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
