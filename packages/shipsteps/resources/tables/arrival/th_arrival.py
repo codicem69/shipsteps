@@ -1049,10 +1049,10 @@ class Form(BaseComponent):
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
 
         btn_sr = fb.Button('!![en]Shipper/Receivers', width='10em')
-        fb.dataController("""var id = button.id;
-                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
-                        else {document.getElementById(id).style.backgroundColor = '';}
-                        """, ca='^.email_ship_rec',button=btn_sr.js_widget)
+        #fb.dataController("""var id = button.id;
+        #                if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+        #                else {document.getElementById(id).style.backgroundColor = '';}
+        #                """, ca='^.email_ship_rec',button=btn_sr.js_widget)
         #btn_sr.dataRpc('nome_temp', self.email_arrival_sof,
         #           record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
         #           _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
