@@ -1069,7 +1069,7 @@ class Form(BaseComponent):
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
         fb.dataRpc('nome_temp', self.email_arrival_sof,
                    record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                   sof_id='=emailsof.dati_emails_arr.sof_id',
+                   sof_id='=emailsof.datiemails_arr.sof_id',
                    _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^.emailsof.datiemails_arr.sof_id?=!#v',
