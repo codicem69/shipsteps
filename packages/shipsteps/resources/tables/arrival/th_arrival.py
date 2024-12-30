@@ -985,7 +985,7 @@ class Form(BaseComponent):
                                           {'continue': function(){PUBLISH invoice=true;}});
                             else {PUBLISH invoice=true;}""", invoice_id='=#FORM.record.invoice_det_id')
         fb1.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',invoice=True,
+                            nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',subscribe_invoice=True,
                             _onResult="this.form.save();")
 
         #btn_ts = fb1.Button('!![en]Print Servicies table')
