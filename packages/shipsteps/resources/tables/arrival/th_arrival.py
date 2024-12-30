@@ -520,6 +520,7 @@ class Form(BaseComponent):
                        if(datiCambiamento['email_frontiera'])this.form.externalChange('@arr_tasklist.email_frontiera',datiCambiamento['email_frontiera']);
                        if(datiCambiamento['email_usma'])this.form.externalChange('@arr_tasklist.email_usma',datiCambiamento['email_usma']);
                        if(datiCambiamento['email_pilot_moor'])this.form.externalChange('@arr_tasklist.email_pilot_moor',datiCambiamento['email_pilot_moor']);
+                       if(datiCambiamento['email_moor'])this.form.externalChange('@arr_tasklist.email_moor',datiCambiamento['email_moor']);
                        if(datiCambiamento['email_tug'])this.form.externalChange('@arr_tasklist.email_tug',datiCambiamento['email_tug']);
                        if(datiCambiamento['email_garbage'])this.form.externalChange('@arr_tasklist.email_garbage',datiCambiamento['email_garbage']);
                        if(datiCambiamento['email_pfso'])this.form.externalChange('@arr_tasklist.email_pfso',datiCambiamento['email_pfso']);
@@ -877,6 +878,7 @@ class Form(BaseComponent):
         fb.field('e_customs', label_color='white')
         fb.field('e_frontiera', label_color='white')
         fb.field('e_pilotmoor', label_color='white')
+        fb.field('e_moor', label_color='white')
         fb.field('e_tugarr', label_color='white')
         fb.field('e_tugdep', label_color='white')
         fb.field('e_garbage', label_color='white')
@@ -1189,14 +1191,14 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
-        btn_pilot = fb.Button('!![en]Pilot/Moor', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true')
+        btn_pilot = fb.Button('!![en]Pilot', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true')
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_pilot_moor',button=btn_pilot.js_widget)
         if serv_len > 1:
-            btn_usma.dataRpc('nome_temp', self.email_services,
-                       record='=#FORM.record', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+            btn_pilot.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2",
                                 condition_cod='pilot',condition_cod2='moor',order_by='$consignee',
@@ -1207,7 +1209,7 @@ class Form(BaseComponent):
                                 cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
         else:
             btn_pilot.dataRpc('nome_temp', self.email_services,
-                       record='=#FORM.record', servizio=['pilot','mooringmen'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
@@ -1215,6 +1217,36 @@ class Form(BaseComponent):
         fb.field('email_pilot_moor',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true')
         #fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
         fb.semaphore('^.email_pilot_moor', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true')
+
+        #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='moor').fetch()
+        serv_len=len(service_for_email)
+        btn_moor = fb.Button('!![en]Mooringmen', width='10em',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_moor',button=btn_moor.js_widget)
+        if serv_len > 1:
+            btn_moor.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['mooringmen'], email_template_id='email_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2",
+                                condition_cod='pilot',condition_cod2='moor',order_by='$consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+        else:
+            btn_moor.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['mooringmen'], email_template_id='email_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+       # fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
+        fb.field('email_moor',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true')
+        #fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
+        fb.semaphore('^.email_moor', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true')
         
         #verifichiamo quanti servizi tug ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='tug').fetch()
@@ -1649,6 +1681,7 @@ class Form(BaseComponent):
                              if(msg=='val_tug') {SET .email_tug=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_tug_dep') {SET .email_tug_dep=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_pil_moor') {SET .email_pilot_moor=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_moor') {SET .email_moor=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_usma') {SET .email_usma=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_lps') {SET .email_ric_lps=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_lps_cp') {SET .email_lps_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
@@ -2739,6 +2772,8 @@ class Form(BaseComponent):
                 nome_temp = 'val_pfso'
             elif email_template_id == 'email_pilot_moor':
                 nome_temp = 'val_pil_moor'
+            elif email_template_id == 'email_moor':
+                nome_temp = 'val_moor'    
             elif email_template_id == 'email_tug':
                 nome_temp = 'val_tug'
             elif email_template_id == 'email_tug_dep':

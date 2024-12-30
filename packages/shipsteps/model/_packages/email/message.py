@@ -327,7 +327,10 @@ class Table(object):
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_pilot_moor':
                 tbl_tasklist.batchUpdate(dict(email_pilot_moor=True),
-                                    where='$arrival_id=:a_id', a_id=message['arrival_id']) 
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_moor':
+                tbl_tasklist.batchUpdate(dict(email_moor=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])     
             if message['template_code']=='email_tug':
                 tbl_tasklist.batchUpdate(dict(email_tug=True),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])      
@@ -402,7 +405,10 @@ class Table(object):
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_pilot_moor':
                 tbl_tasklist.batchUpdate(dict(email_pilot_moor=False),
-                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])                          
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
+            if message['template_code']=='email_moor':
+                tbl_tasklist.batchUpdate(dict(email_moor=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])                              
             if message['template_code']=='email_tug':
                 tbl_tasklist.batchUpdate(dict(email_tug=False),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])   
