@@ -11,7 +11,7 @@ class View(BaseComponent):
         r.fieldcell('_row_count')
         r.fieldcell('agency_id')
         r.fieldcell('data')
-        r.fieldcell('data_prat', width='6em')
+        #r.fieldcell('data_prat', width='6em')
         r.fieldcell('prot_n',width='6em')
         r.fieldcell('fald_n')
         r.fieldcell('arrival_id')
