@@ -64,6 +64,8 @@ class Table(object):
         tbl.column('e_pfso', dtype='B', name_short='PFSO')
         tbl.column('e_chemist', dtype='B', name_short='Chemist')
         tbl.column('e_ens', dtype='B', name_short='ENS')
+        tbl.column('e_aeration', dtype='B', name_short='Holds Aeration')
+        tbl.column('e_checklist', dtype='B', name_short='Check List Fiore')
 
         #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('email_account','@arrival_id.email_account_id')

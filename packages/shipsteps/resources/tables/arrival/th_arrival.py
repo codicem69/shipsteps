@@ -885,6 +885,8 @@ class Form(BaseComponent):
         fb.field('e_pfso', label_color='white')
         fb.field('e_chemist', label_color='white')
         fb.field('e_ens', label_color='white')
+        fb.field('e_aeration', label_color='white')
+        fb.field('e_checklist', label_color='white')
 
     def taskList(self, bc_tasklist):
         nsw_pref = self.db.application.getPreference('nsw_cp',pkg='shipsteps')
@@ -1517,8 +1519,8 @@ class Form(BaseComponent):
                                                      serv='cp',serv1='adsp', serv2='chem').fetch()
         serv_len=len(service_for_email)
         #datacontroller per impostare variabile hidden del bottone hold ventilation
-        fb.dataController("if(alim!='Alimentary/UE' && alim!='Alimentary' || fum=='NO'){SET .holds_btn=true;}else{SET .holds_btn=false;}", 
-                          alim='^#FORM.record.@movtype_id.hierarchical_descrizione',
+        fb.dataController("if(alim!='Alimentary/UE' && alim!='Alimentary' || hold_aer==true || fum=='NO'){SET .holds_btn=true;}else{SET .holds_btn=false;}", 
+                          alim='^#FORM.record.@movtype_id.hierarchical_descrizione',hold_aer='^#FORM.record.@arr_tasklist.e_aeration',
                           fum='^#FORM.record.fumigated')
         btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="^#FORM.record.@arr_tasklist.holds_btn")
                              #hidden="""==_alim!=='Alimentary/UE' && _alim!=='Alimentary' || _fum==='NO'""",_alim="""^#FORM.record.@movtype_id.hierarchical_descrizione""",
@@ -1830,16 +1832,20 @@ class Form(BaseComponent):
         #fb_arr.semaphore('^.form_sanimare?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
         fb_arr.semaphore('^.form_sanimare', margin_top='6px',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
 
-        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        #datacontroller per impostare variabile hidden del bottone hold ventilation
+        fb.dataController("if(alim!='Alimentary/UE' && alim!='Alimentary' || cklist==true){SET .ckl_btn=true;}else{SET .ckl_btn=false;}", 
+                          alim='^#FORM.record.@movtype_id.hierarchical_descrizione',cklist='^#FORM.record.@arr_tasklist.e_checklist')
+        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="^#FORM.record.@arr_tasklist.ckl_btn")
+        #btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; console.log(id);
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_checklist_f',button=btn_intfiore.js_widget)
         btn_intfiore.dataRpc('nome_temp', self.apridoc,record='=#FORM.record',nome_form='InterferenzeFiore', 
                                           _virtual_column='lastport,nextport,vesselname,flag,imo,tsl',_onResult="this.form.save();")
-        fb_arr.field('form_checklist_f', lbl='', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb_arr.field('form_checklist_f', lbl='', margin_top='6px',hidden="^#FORM.record.@arr_tasklist.ckl_btn")
         #fb_arr.semaphore('^.form_checklist_f?=#v==true?true:false', margin_top='6px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb_arr.semaphore('^.form_checklist_f', margin_top='6px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        fb_arr.semaphore('^.form_checklist_f', margin_top='6px',hidden="^#FORM.record.@arr_tasklist.ckl_btn")
         fb_arr.br()
 
         btn_timegate = fb_arr.Button('!![en]Times gate info')
