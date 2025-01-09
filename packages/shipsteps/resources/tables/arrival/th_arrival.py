@@ -1833,8 +1833,8 @@ class Form(BaseComponent):
         fb_arr.semaphore('^.form_sanimare', margin_top='6px',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
 
         #datacontroller per impostare variabile hidden del bottone hold ventilation
-        fb.dataController("if(alim!='Alimentary/UE' && alim!='Alimentary' || cklist==true){SET .ckl_btn=true;}else{SET .ckl_btn=false;}", 
-                          alim='^#FORM.record.@movtype_id.hierarchical_descrizione',cklist='^#FORM.record.@arr_tasklist.e_checklist')
+        fb.dataController("if(movtype=='Passengers/UE' || movtype=='Passengers' || movtype=='Passengers/ONG' || cklist==true){SET .ckl_btn=true;}else{SET .ckl_btn=false;}", 
+                          movtype='^#FORM.record.@movtype_id.hierarchical_descrizione',cklist='^#FORM.record.@arr_tasklist.e_checklist')
         btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="^#FORM.record.@arr_tasklist.ckl_btn")
         #btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; console.log(id);
