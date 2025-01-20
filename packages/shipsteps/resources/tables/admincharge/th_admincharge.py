@@ -9,8 +9,8 @@ class LookupView(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('_row_count', counter=True, name='N.',width='3em')
-        r.fieldcell('descrizione')
-        r.fieldcell('importo')
+        r.fieldcell('descrizione', edit=True)
+        r.fieldcell('importo', edit=True)
 
     def th_order(self):
         return '_row_count'

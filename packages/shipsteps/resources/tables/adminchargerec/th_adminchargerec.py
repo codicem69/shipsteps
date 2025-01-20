@@ -52,24 +52,24 @@ class Form(BaseComponent):
         gt = float(gt.replace(',','.'))
         importo=0
         for r in admincharge:
-            if int(gt) <= 500:
-                if r['descrizione'] == 'fino a 500 GT':
+            if int(gt) >= 500:
+                if r['descrizione'] == 'da 500 GT':
                     importo=r['importo']
-            if int(gt) >= 501 and int(gt) <=2000:
-                if r['descrizione'] == 'da 501 a 2000 GT':
-                    importo=r['importo']  
-            if int(gt) >= 2001 and int(gt) <=5000:
-                if r['descrizione'] == 'da 2001 a 5000 GT':
-                    importo=r['importo'] 
-            if int(gt) >= 5001 and int(gt) <=10000:
-                if r['descrizione'] == 'da 5001 a 10000 GT':
-                    importo=r['importo'] 
-            if int(gt) >= 10001 and int(gt) <=30000:
-                if r['descrizione'] == 'da 10001 a 30000 GT':
-                    importo=r['importo'] 
-            if int(gt) >= 30001:
-                if r['descrizione'] == 'da 30001 a 80000 GT':
-                    importo=r['importo'] 
+            #if int(gt) >= 501 and int(gt) <=2000:
+            #    if r['descrizione'] == 'da 501 a 2000 GT':
+            #        importo=r['importo']  
+            #if int(gt) >= 2001 and int(gt) <=5000:
+            #    if r['descrizione'] == 'da 2001 a 5000 GT':
+            #        importo=r['importo'] 
+            #if int(gt) >= 5001 and int(gt) <=10000:
+            #    if r['descrizione'] == 'da 5001 a 10000 GT':
+            #        importo=r['importo'] 
+            #if int(gt) >= 10001 and int(gt) <=30000:
+            #    if r['descrizione'] == 'da 10001 a 30000 GT':
+            #        importo=r['importo'] 
+            #if int(gt) >= 30001:
+            #    if r['descrizione'] == 'da 30001 a 80000 GT':
+            #        importo=r['importo'] 
         importo = floatToDecimal(importo)
         #print(X)
         #raise GnrException(importo)
