@@ -496,10 +496,10 @@ class Form(BaseComponent):
         #center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px',margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
         
-        center = bc.roundedGroup(title='!![en]Vessel arrival', region='left',datapath='.record',width='210px', height = '100%',splitter=True).div(margin='10px',margin_left='2px')
+        center = bc.roundedGroup(title='!![en]Vessel arrival', region='left',datapath='.record',width='12%', height = '100%',splitter=True).div(margin='10px',margin_left='2px')
         center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
         
-        center2 = bc.roundedGroup(title='!![en]EXTRA',region='right',width='440px', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
+        center2 = bc.roundedGroup(title='!![en]EXTRA',region='right',width='30%', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
        # center3 = bc.roundedGroup(title='!![en]EXTRA',region='right',datapath='.record',width='240px',margin_left='0px', margin_top='150px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]Times',table='shipsteps.arrival_time',region='center',datapath='.record.@time_arr',width='245px', height = '350px', margin_left='1385px').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
