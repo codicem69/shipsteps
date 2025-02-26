@@ -21,7 +21,7 @@ class Table(object):
 
     def config_db(self, pkg):
         tbl =  pkg.table('message', rowcaption='subject', pkey='id',
-                     name_long='!!Message', name_plural='!!Messages',partition_account_id='account_id')
+                     name_long='!!Message', name_plural='!!Messages', partition_agency_id='agency_id')
         self.sysFields(tbl,draftField=True)
         tbl.column('in_out', size='1', name_long='!!I/O', name_short='!!I/O',values='I:Input,O:Output')
         tbl.column('to_address',name_long='!!To',_sendback=True)
@@ -54,6 +54,9 @@ class Table(object):
         tbl.column('connection_retry', dtype='L')
         tbl.column('template_code',name_long='Template code')
         tbl.column('arrival_id',size='22',name_short='!!Arrival_id',batch_assign=True).relation('shipsteps.arrival.id',relation_name='email_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
+        tbl.column('agency_id',size='22',name_long='!![en]Agency',batch_assign=True).relation(
+                                    'agz.agency.id',relation_name='agency_arrival', mode='foreignkey', onDelete='raise')
+
 
     def defaultValues(self):
         return dict(account_id=self.db.currentEnv.get('current_account_id'))
