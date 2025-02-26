@@ -479,6 +479,7 @@ class Form(BaseComponent):
     def email_sof(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
         record_arr=record['arrival_id']
         arrival_id=record['arrival_id']
+        agency_id=self.db.currentEnv.get('current_agency_id')
         #verifichiamo che ci sia il record
         if not record:
             return
@@ -670,7 +671,8 @@ class Form(BaseComponent):
                                                           bcc_address=email_arr_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=agency_id)
         
         self.db.commit()
         #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero
@@ -683,6 +685,7 @@ class Form(BaseComponent):
     @public_method
     def email_to(self, record, **kwargs):
         arrival_id=record['arrival_id']
+        agency_id=self.db.currentEnv.get('current_agency_id')
         if not record:
             return
         #lettura del record_id della tabella arrival
@@ -781,7 +784,7 @@ class Form(BaseComponent):
                            subject=subject, body=body_html, 
                            cc_address=email_cc, 
                            bcc_address=email_bcc, arrival_id=arrival_id,
-                           html=True)
+                           agency_id=agency_id,html=True)
             self.db.commit()
         
         if (email_dest) is not None:

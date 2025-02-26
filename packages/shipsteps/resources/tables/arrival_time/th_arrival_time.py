@@ -214,7 +214,8 @@ class Form(BaseComponent):
     
     @public_method
     def email_arrdep(self, record,email_template_id=None,servizio=[],selPkeys_att=None, **kwargs):
-        
+        #agency_id=self.db.currentEnv.get('current_agency_id')
+        agency_id=record['@arrival_id.agency_id']
         record_arr=record['arrival_id']
         arrival_id=record['arrival_id']
         #verifichiamo che ci sia il record
@@ -412,7 +413,7 @@ class Form(BaseComponent):
                                                           bcc_address=email_arr_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,agency_id=agency_id)
         
         self.db.commit()
         #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero

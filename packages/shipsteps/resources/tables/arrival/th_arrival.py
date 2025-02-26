@@ -2752,7 +2752,8 @@ class Form(BaseComponent):
                                                           cc_address=email_pec_cc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=record['agency_id'])
         else:
             self.db.table('email.message').newMessageFromUserTemplate(
                                                           record_id=record_arr,
@@ -2763,7 +2764,8 @@ class Form(BaseComponent):
                                                           bcc_address=email_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)    
+                                                          arrival_id=arrival_id,
+                                                          agency_id=record['agency_id'])    
         self.db.commit()   
         
         if (email_to or email_pec) is not None:
@@ -2958,8 +2960,9 @@ class Form(BaseComponent):
                            subject=subject, body=body_html, 
                            cc_address=email_cc, 
                            bcc_address=email_bcc, attachments=attcmt,arrival_id=arrival_id,
-                           html=True)
+                           agency_id=record['agency_id'],html=True)
             self.db.commit()
+
         body_html_pec=(body_header_pec + body_msg + body_footer )
         if email_pec is not None and email_pec!='':
             
@@ -2969,7 +2972,7 @@ class Form(BaseComponent):
                            subject=subject, body=body_html_pec, 
                            cc_address=email_pec_cc, 
                            attachments=attcmt,arrival_id=arrival_id,
-                           html=True)
+                           agency_id=record['agency_id'],html=True)
             self.db.commit()
         if (email_dest or email_pec_dest) is not None:
             nome_temp='val_upd'
@@ -2978,6 +2981,7 @@ class Form(BaseComponent):
 
     @public_method
     def email_intfat(self, record, **kwargs):
+        
         arrival_id=record['id']
         if not record:
             return
@@ -3029,7 +3033,7 @@ class Form(BaseComponent):
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
                            cc_address='',arrival_id=arrival_id,
-                           html=True)
+                           agency_id=record['agency_id'],html=True)
         self.db.commit()
         
         nome_temp='intfat'
@@ -3144,7 +3148,7 @@ class Form(BaseComponent):
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
                            cc_address=email_cc,arrival_id=arrival_id,
-                           tmp_code='ws',
+                           tmp_code='ws',agency_id=record['agency_id'],
                            html=True)
         self.db.commit()
         #inseriamo nella tabella servizi nave l'acqua richiesta
@@ -3297,7 +3301,7 @@ class Form(BaseComponent):
                            subject=subject, body=body_html, 
                            cc_address=email_cc, 
                            bcc_address=email_bcc, attachments=attcmt,arrival_id=arrival_id,
-                           html=True)
+                           agency_id=record['agency_id'],html=True)
             self.db.commit()
         body_html_pec=(body_header_pec + body_msg + body_footer )
         if email_pec is not None and email_pec!='':
@@ -3308,7 +3312,7 @@ class Form(BaseComponent):
                            subject=subject, body=body_html_pec, 
                            cc_address=email_pec_cc, 
                            attachments=attcmt,arrival_id=arrival_id,
-                           html=True)
+                           agency_id=record['agency_id'],html=True)
             self.db.commit()
         if (email_dest or email_pec_dest) is not None:
             nome_temp='email_extra'
@@ -3565,7 +3569,7 @@ class Form(BaseComponent):
                                                           bcc_address=email_arr_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,agency_id=record['agency_id'])
         self.db.commit()
         #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero
         if email_template_id == 'email_updating_shiprec':
@@ -3679,7 +3683,7 @@ class Form(BaseComponent):
                                                           bcc_address=email_arr_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,agency_id=record['agency_id'])
         
         self.db.commit()
         #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero

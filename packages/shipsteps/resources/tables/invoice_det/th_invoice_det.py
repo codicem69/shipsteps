@@ -91,7 +91,7 @@ class ViewIntFat(BaseComponent):
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
                            cc_address='',ref_num=ref_num,
-                           arrival_id=arrival_id,html=True)
+                           arrival_id=arrival_id,agency_id=record['agency_id'],html=True)
         self.db.commit()
         
         nome_temp='intfat'

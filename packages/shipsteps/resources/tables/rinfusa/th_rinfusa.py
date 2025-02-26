@@ -188,6 +188,9 @@ class FormFromRinfusa(BaseComponent):
     @public_method
     def email_services(self, record,email_template_id=None,servizio=[], **kwargs):
         arrival_id=record['arrival_id'] 
+        
+        agency_id=self.db.currentEnv.get('current_agency_id')
+       
         id_rinfusa_atc=record['id']
         record=record['arrival_id']        
         if not record:
@@ -313,7 +316,8 @@ class FormFromRinfusa(BaseComponent):
                                                           bcc_address=email_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=agency_id)
             self.db.commit()
 
         if (email_pec_dest) is not None:
@@ -325,7 +329,8 @@ class FormFromRinfusa(BaseComponent):
                                                           cc_address=email_pec_cc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=agency_id)
             self.db.commit()
         
         

@@ -5,6 +5,7 @@ from gnr.web.gnrbaseclasses import BaseComponent
 from gnr.core.gnrdecorator import public_method
 import re,os
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
+from gnr.core.gnrlang import GnrException
 from datetime import datetime
 import zipfile
 import os
@@ -291,7 +292,8 @@ class FormFromBunker(BaseComponent):
         arrival_id=record['arrival_id'] 
         id_bunker_atc=record['id']
         record=record['arrival_id']  
-             
+        agency_id=self.db.currentEnv.get('current_agency_id')
+
         if not record:
             return
         #verifichiamo che stiamo inviando docs dopo bunker e aggiungiamo alla lista gli allegati selezionati           
@@ -445,7 +447,8 @@ class FormFromBunker(BaseComponent):
                                                           bcc_address=email_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=agency_id)
             self.db.commit()
 
         if (email_pec_dest) is not None:
@@ -457,7 +460,8 @@ class FormFromBunker(BaseComponent):
                                                           cc_address=email_pec_cc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=agency_id)
             self.db.commit()
         
         
@@ -473,6 +477,8 @@ class FormFromBunker(BaseComponent):
     def email_trasportatore(self, record,email_template_id=None,servizio=[], **kwargs):
         record_id=record['arrival_id']
         arrival_id=record['arrival_id']
+        agency_id=self.db.currentEnv.get('current_agency_id')
+
         if not record:
             return
         #lettura del record_id della tabella arrival
@@ -532,14 +538,17 @@ class FormFromBunker(BaseComponent):
         body_html=(body_header + body_msg + body_footer )
         #print(x)
         email_to=record['email_transp']
+        
         if (email_to) is not None:
             self.db.table('email.message').newMessage(account_id=account_email,
                            to_address=email_to,
                            from_address=email_mittente,
                            subject=subject, body=body_html, 
                            attachments=attcmt,arrival_id=arrival_id,
-                           html=True)
+                           agency_id=agency_id,html=True)
             self.db.commit()
+        else:
+            raise GnrException('You must insert carrier email')   
         
         if email_to is not None:
             nome_temp='val_upd'
@@ -549,7 +558,8 @@ class FormFromBunker(BaseComponent):
     def email_antifire(self, record,email_template_id=None,servizio=[], **kwargs):
         arrival_id=record['arrival_id']
         record=record['id']
-        
+        agency_id=self.db.currentEnv.get('current_agency_id')
+
         if not record:
             return
 
@@ -615,7 +625,8 @@ class FormFromBunker(BaseComponent):
                                                           bcc_address=email_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=agency_id)
             self.db.commit()
         
         if (email_pec_dest) is not None:
@@ -627,7 +638,8 @@ class FormFromBunker(BaseComponent):
                                                           cc_address=email_pec_cc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=agency_id)
             self.db.commit()
         
         
