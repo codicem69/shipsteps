@@ -51,7 +51,7 @@ class View(BaseComponent):
         result=Bag()
         count_replace = 0
         pkeys_del=''
-        print(X)
+        
         for row in self.utils.quickThermo(reader()):
             if facility_code.get(row['imo_port_facility_number']):
                 
@@ -85,8 +85,6 @@ class View(BaseComponent):
         result.addItem('updated_row', count_replace)
         result.addItem('deleted_row', record_cancellati)            
        
-        
-        
         return "Items updated "+str(count_replace) +"<br> Record deleted " + str(record_cancellati )
         
 class Form(BaseComponent):
@@ -103,7 +101,6 @@ class Form(BaseComponent):
         fb.field('latitudine' )
         fb.field('piano_approvato' )
         fb.field('ultimo_agg' )
-
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
