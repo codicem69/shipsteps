@@ -10,4 +10,4 @@ class Table(object):
         tbl.column('longitudine', name_short='!![en]Longitude')
         tbl.column('latitudine', name_short='!![en]Latitude')
         tbl.column('piano_approvato', dtype='B', name_short='!![en]Plan approved')
-        tbl.column('ultimo_agg', dtype='DH', name_short='!![en]Last updated')
+        tbl.column('ultimo_agg', name_short='!![en]Last updated')
