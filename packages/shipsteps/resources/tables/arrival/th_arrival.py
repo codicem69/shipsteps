@@ -860,15 +860,19 @@ class Form(BaseComponent):
                 dati.append(r[0]+':'+str(r[1])+' - '+r[2])
         emailarr=self.db.table('shipsteps.email_arr').query(columns='$id,$description,$email', where='$arrival_id=:a_id',a_id=rec_id).fetch()
         for r in emailarr:
-            
-            dati.append(r[0]+':'+str(r[1])+' - '+r[2])
+            if ',' in r[2]: 
+                string_list = r[2].split(",")
+                for email in string_list:
+                    dati.append(r[0]+':'+str(r[1])+' - '+ email)
+            else:            
+                dati.append(r[0]+':'+str(r[1])+' - '+r[2])
 
         dati = ",".join(dati)
         result=Bag()
         result['lista_emails'] = dati
         if kwargs['sof_id']:
             result['sof_id'] = sof_id
-        
+       
         return result
     
     def checkTasklist(self,frame):
@@ -1071,6 +1075,7 @@ class Form(BaseComponent):
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
+    
         fb.dataRpc('nome_temp', self.email_arrival_sof,
                    record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    sof_id='=emailsof.sof_id',
@@ -1078,7 +1083,7 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',#hidden='^.emailsof.sof_id?=!#v',
                              values='=emailsof.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^emailsof',_onResult="this.form.save();")
-
+                   
         fb.field('email_ship_rec',lbl='', margin_top='5px')
         #fb.semaphore('^.email_ship_rec?=#v==true?true:false', margin_top='5px')
         fb.semaphore('^.email_ship_rec', margin_top='5px')  
@@ -1571,13 +1576,20 @@ class Form(BaseComponent):
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
-        fb.dataRpc('nome_temp', self.email_arrival_sof,
+        fb.dataRpc('nome_temp', self.email_arrival_sof, subscribe_dati_emails=True,
                    record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
-                   sof_id='=dati_emails.sof_id',
-                   _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                   sof_id='=dati_emails.sof_id',_ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^dati_emails.sof_id?=!#v',
                              values='=dati_emails.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^dati_emails',_onResult="this.form.save();")
+        #fb.dataRpc('nome_temp', self.email_arrival_sof,
+        #           record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+        #           sof_id='=dati_emails.sof_id',
+        #           _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+        #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+        #                     cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',hidden='^dati_emails.sof_id?=!#v',
+        #                     values='=dati_emails.lista_emails',cols=4,popup=True,colspan=2)]),lista_email='^dati_emails',_onResult="this.form.save();")
+        
         #btn_upd_shiprec.dataRpc('nome_temp', self.email_arrival_sof,
         #           record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
         #           _ask=dict(title='!![en]Select the SOF and Attachments',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',

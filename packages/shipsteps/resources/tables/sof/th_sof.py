@@ -210,8 +210,12 @@ class Form(BaseComponent):
             dati.append(r[0]+':'+str(r[1])+' - '+r[2])
         emailarr=self.db.table('shipsteps.email_arr').query(columns='$id,$description,$email', where='$arrival_id=:a_id',a_id=a_id).fetch()
         for r in emailarr:
-            
-            dati.append(r[0]+':'+str(r[1])+' - '+r[2])
+            if ',' in r[2]: 
+                string_list = r[2].split(",")
+                for email in string_list:
+                    dati.append(r[0]+':'+str(r[1])+' - '+ email)
+            else:            
+                dati.append(r[0]+':'+str(r[1])+' - '+r[2])
 
         dati = ",".join(dati)
         return dati
