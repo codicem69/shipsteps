@@ -28,7 +28,8 @@ class ViewFromEmailArrival(BaseComponent):
         r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('dest', width='10em',edit=True)
         r.fieldcell('description', width='30em',edit=True)
-        r.fieldcell('email',  edit=dict(validate_notnull=True), width='20em')
+        r.fieldcell('email', edit=dict(validate_notnull=True,validate_regex=" ![,]",
+                                       validate_regex_error='You can insert only one email without comma'), width='20em')
         r.fieldcell('email_type', edit=dict(validate_notnull=True))
 
     def th_order(self):
@@ -36,6 +37,10 @@ class ViewFromEmailArrival(BaseComponent):
     
     def th_options(self):
         return dict(grid_selfDragRows=True)
+
+    @public_method
+    def check_email(self,**kwargs):
+        print(x)
 
 class Form(BaseComponent):
 

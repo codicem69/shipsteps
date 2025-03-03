@@ -536,6 +536,7 @@ class Form(BaseComponent):
                        if(datiCambiamento['email_certchim_stev'])this.form.externalChange('@arr_tasklist.email_certchim_stev',datiCambiamento['email_certchim_stev']);
                        if(datiCambiamento['email_garbage_cp'])this.form.externalChange('@arr_tasklist.email_garbage_cp',datiCambiamento['email_garbage_cp']);
                        if(datiCambiamento['email_ric_rifiuti_cp'])this.form.externalChange('@arr_tasklist.email_ric_rifiuti_cp',datiCambiamento['email_ric_rifiuti_cp']);
+                       if(datiCambiamento['email_pilot_dep'])this.form.externalChange('@arr_tasklist.email_pilot_dep',datiCambiamento['email_pilot_dep']);
                        if(datiCambiamento['email_tug_dep'])this.form.externalChange('@arr_tasklist.email_tug_dep',datiCambiamento['email_tug_dep']);
                        if(datiCambiamento['email_aeration'])this.form.externalChange('@arr_tasklist.email_aeration',datiCambiamento['email_aeration']);
                        if(datiCambiamento['email_tributi_cp'])this.form.externalChange('@arr_tasklist.email_tributi_cp',datiCambiamento['email_tributi_cp']);
@@ -882,6 +883,7 @@ class Form(BaseComponent):
         fb.field('e_customs', label_color='white')
         fb.field('e_frontiera', label_color='white')
         fb.field('e_pilotmoor', label_color='white')
+        fb.field('e_pilotdep', label_color='white')
         fb.field('e_moor', label_color='white')
         fb.field('e_tugarr', label_color='white')
         fb.field('e_tugdep', label_color='white')
@@ -1225,7 +1227,7 @@ class Form(BaseComponent):
         #fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
         fb.semaphore('^.email_pilot_moor', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true')
 
-        #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
+        #verifichiamo quanti servizi mooringmen ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='moor').fetch()
         serv_len=len(service_for_email)
         btn_moor = fb.Button('!![en]Mooringmen', width='10em',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true')
@@ -1695,6 +1697,7 @@ class Form(BaseComponent):
                              if(msg=='val_tug') {SET .email_tug=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_tug_dep') {SET .email_tug_dep=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_pil_moor') {SET .email_pilot_moor=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_pil_dep') {SET .email_pilot_dep=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_moor') {SET .email_moor=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_usma') {SET .email_usma=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_lps') {SET .email_ric_lps=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
@@ -2033,6 +2036,35 @@ class Form(BaseComponent):
         #fb_dep.semaphore('^.email_ric_rifiuti_cp?=#v==true?true:false', margin_top='6px')
         fb_dep.semaphore('^.email_ric_rifiuti_cp', margin_top='6px',hidden='^gnr.app_preference.shipsteps.rifiuti_cp')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True        
         
+        #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
+        serv_len=len(service_for_email)
+        btn_pilot_dep = fb_dep.Button('!![en]Pilot departure',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
+        fb1.dataController("""var id = button.id; console.log(id);
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_pilot_dep',button=btn_pilot_dep.js_widget)
+        if serv_len > 1:
+            btn_pilot_dep.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2",
+                                condition_cod='pilot',condition_cod2='moor',order_by='$consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+        else:
+            btn_pilot_dep.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+      
+        fb_dep.field('email_pilot_dep',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
+        fb_dep.semaphore('^.email_pilot_dep', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
+
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv',serv='tug').fetch()
         serv_len=len(service_for_email)
         btn_tugdep = fb_dep.Button('!![en]Tug departure',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true')
@@ -2792,6 +2824,8 @@ class Form(BaseComponent):
                 nome_temp = 'val_pfso'
             elif email_template_id == 'email_pilot_moor':
                 nome_temp = 'val_pil_moor'
+            elif email_template_id == 'email_pilot_dep':
+                nome_temp = 'val_pil_dep'
             elif email_template_id == 'email_moor':
                 nome_temp = 'val_moor'    
             elif email_template_id == 'email_tug':
