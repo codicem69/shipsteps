@@ -50,6 +50,7 @@ class View(BaseComponent):
         reader = self.utils.getReader(filepath)
         result=Bag()
         count_replace = 0
+        count_inserted = 0
         pkeys_del=''
         
         for row in self.utils.quickThermo(reader()):
@@ -67,7 +68,8 @@ class View(BaseComponent):
                         nome_porto=row['port_name'],nome_facility=row['facility_name'],descrizione=row['description'],longitudine=row['longitude'],
                          latitudine=row['latitude'],piano_approvato=row['plan_approved'],ultimo_agg=row['last_updated'], **row)
             
-                self.db.table('shipsteps.port_facility').insert(new_facility)    
+                self.db.table('shipsteps.port_facility').insert(new_facility)
+                count_inserted += 1    
         #cancelliamo i record che non sono presenti nella lista importata
         #dividiamo la lista pkeys_del in liste da 1000
         if pkeys_del:
@@ -83,9 +85,9 @@ class View(BaseComponent):
         if len(pkeys_del) > 0:
             record_cancellati = len(pkeys_del)  
         result.addItem('updated_row', count_replace)
-        result.addItem('deleted_row', record_cancellati)            
-       
-        return "Items updated "+str(count_replace) +"<br> Record deleted " + str(record_cancellati )
+        result.addItem('inserted_row', count_inserted)            
+        result.addItem('deleted_row', record_cancellati)
+        return "Items inserted " + str(count_inserted) +"<br>Items updated "+str(count_replace) +"<br>Record deleted " + str(record_cancellati )
         
 class Form(BaseComponent):
 

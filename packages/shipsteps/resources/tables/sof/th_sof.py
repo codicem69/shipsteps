@@ -177,26 +177,26 @@ class Form(BaseComponent):
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=#FORM.lista_emails',cols=4,popup=True,colspan=2)]))
+                             values='=#FORM.lista_emails',cols=3,popup=True,colspan=2)]))
         btn_sof_oper.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_operations',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='template', lbl='Email Template',tag='filteringSelect', value='^.template', 
-                             values='email_operations:without total mov,email_operations_mov:with total mov'),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=#FORM.lista_emails',cols=4,popup=True,colspan=2)]))
+                             values='email_operations:without total mov,email_operations_mov:with total mov',validate_notnull=True),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
+                             values='=#FORM.lista_emails',cols=3,popup=True,colspan=2)]))
         btn_sof_partenza.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_partenza',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='template', lbl='Email Template',tag='filteringSelect', value='^.template', 
-                             values='email_partenza:without total mov,email_partenza_mov:with total mov'),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=#FORM.lista_emails',cols=4,popup=True,colspan=2)]))
+                             values='email_partenza:without total mov,email_partenza_mov:with total mov',validate_notnull=True),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
+                             values='=#FORM.lista_emails',cols=3,popup=True,colspan=2)]))
         btn_email_to.dataRpc('nome_temp', self.email_to,record='=#FORM.record',servizio=['email_to'], email_template_id='',ref_num='=#FORM.record.@arrival_id.reference_num',
                             nome_template = '',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Emails',fields=[dict(name='email_to', lbl='!![en]Emails to', tag='checkboxtext',
                              table='shipsteps.email_sof', columns='$description',condition='$sof_id=:cod',condition_cod='=#FORM.record.id',
-                             validate_notnull=True,cols=4,popup=True,colspan=2)]),_onResult="""if(result=='email_to')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")
+                             validate_notnull=True,cols=3,popup=True,colspan=2)]),_onResult="""if(result=='email_to')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")
         bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^nome_temp',msg_txt = 'Email ready to be sent')
         bar.dataRpc('.lista_emails', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
                     _if='rec_id')
@@ -210,11 +210,11 @@ class Form(BaseComponent):
             dati.append(r[0]+':'+str(r[1])+' - '+r[2])
         emailarr=self.db.table('shipsteps.email_arr').query(columns='$id,$description,$email', where='$arrival_id=:a_id',a_id=a_id).fetch()
         for r in emailarr:
-            if ',' in r[2]: 
-                string_list = r[2].split(",")
-                for email in string_list:
-                    dati.append(r[0]+':'+str(r[1])+' - '+ email)
-            else:            
+            #if ',' in r[2]: 
+            #    string_list = r[2].split(",")
+            #    for email in string_list:
+            #        dati.append(r[0]+':'+str(r[1])+' - '+ email)
+            #else:            
                 dati.append(r[0]+':'+str(r[1])+' - '+r[2])
 
         dati = ",".join(dati)

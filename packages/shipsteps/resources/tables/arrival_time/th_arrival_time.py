@@ -86,11 +86,11 @@ class Form(BaseComponent):
             dati.append(r[0]+':'+str(r[1])+' - '+r[2])
         emailarr=self.db.table('shipsteps.email_arr').query(columns='$id,$description,$email', where='$arrival_id=:a_id',a_id=a_id).fetch()
         for r in emailarr:
-            if ',' in r[2]: 
-                string_list = r[2].split(",")
-                for email in string_list:
-                    dati.append(r[0]+':'+str(r[1])+' - '+ email)
-            else:            
+            #if ',' in r[2]: 
+            #    string_list = r[2].split(",")
+            #    for email in string_list:
+            #        dati.append(r[0]+':'+str(r[1])+' - '+ email)
+            #else:            
                 dati.append(r[0]+':'+str(r[1])+' - '+r[2])
 
         dati = ",".join(dati)
@@ -131,13 +131,13 @@ class Form(BaseComponent):
         btn_arrivo.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_arrivo',
                             nome_template = 'shipsteps.arrival:email_arrivo',format_page='A4',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=current.lista_emails.lista_emails',cols=4,popup=True,colspan=2),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             values='=current.lista_emails.lista_emails',cols=3,popup=True,colspan=2),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         btn_partenza.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_departure',
                             nome_template = 'shipsteps.arrival:email_departure',format_page='A4',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=current.lista_emails.lista_emails',cols=4,popup=True,colspan=2),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             values='=current.lista_emails.lista_emails',cols=3,popup=True,colspan=2),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2)]))
         fb.dataRpc('current.lista_emails', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
