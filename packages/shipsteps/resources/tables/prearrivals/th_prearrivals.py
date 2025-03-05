@@ -60,7 +60,7 @@ class Form(BaseComponent):
 
     @public_method
     def email_prearrival(self, record,email_template_id=None, **kwargs):
-        #print(x)
+        agency_id=self.db.currentEnv.get('current_agency_id')
         id_prearr_atc=record['prearr_descr']
         record_id=record['id']        
         if not record_id:
@@ -125,7 +125,8 @@ class Form(BaseComponent):
                                                           cc_address=email_cc,
                                                           bcc_address=email_bcc,
                                                           attachments=attcmt,
-                                                          template_code=email_template_id)
+                                                          template_code=email_template_id,
+                                                          agency_id=agency_id)
             self.db.commit()
         
         
