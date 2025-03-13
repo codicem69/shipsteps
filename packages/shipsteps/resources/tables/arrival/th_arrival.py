@@ -306,8 +306,9 @@ class Form(BaseComponent):
         tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center',selected='^.tabnumber')#,hidden='^#FORM.record.@last_port.nazione_code?=!(#v=="IT"||#v=="LM")')#,hidden="^#FORM.record.@last_port.nazione_code?=#v!='IT'")
         bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>',hidden='^gnr.app_preference.shipsteps.nsw_cp')#attributo hidden per nascondere il tab se flaggato nelle preferenze disabilita NSW CP
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
-        tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
-        bc_tasklist = tc_task.borderContainer(title="<div style='color:red;'>Task list</div>", region='center')#title='!![en]Task List'
+        #tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
+        bc_tasklist = tc.borderContainer(title='!![en]<strong>Task List</strong>')
+        #bc_tasklist = tc_task.borderContainer(title="<div style='color:red;'>Task list</div>", region='center')#title='!![en]Task List'
         #disabilitato tc_arrtimes per uso dialog con pulsante
         #tc_arrtimes = tc.borderContainer(title='!![en]<strong>Arrival Times</strong>')
         #tab arrivals details con tc_arrtimes disabilitati per uso unico tab e form
@@ -315,7 +316,8 @@ class Form(BaseComponent):
         #self.arrival_times(tc_details.contentPane(title='!![en]<strong>Vessel Times</strong>',height='100%', background = '#f2f0e8'))
         #self.arr_details(tc_details.contentPane(title='!![en]<strong>Draft/Remains Details</strong>',height='100%', background = '#f2f0e8'))
 
-        tc_undertask = bc_tasklist.tabContainer(margin='2px', region='bottom', height='150px', splitter=True,selectedPage='^tabname')
+        #tc_undertask = bc_tasklist.tabContainer(margin='2px', region='bottom', height='130px', splitter=True,selectedPage='^tabname')
+        tc_undertask = bc_tasklist.borderContainer(region='bottom',height='130px', splitter=True,closable=True).tabContainer(margin='2px',region='top',height='130px', selectedPage='^tabname')
         tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
         #disabilitato tabcontainer Application per uso dialog con pulsante
         #tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
@@ -339,7 +341,9 @@ class Form(BaseComponent):
         self.times(bc_tasklist.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
         self.times_sof(tc_sof.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
         self.taskList(bc_tasklist.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True))
-
+        
+        bc_tasklist.contentPane(region='right', width='45%',splitter=True,closable=True,rounded=5,border='1px solid',border_color='grey').remote(self.checklistLazyMode,_waitingMessage='!![en]Please wait')
+        #self.checklist(bc_tasklist.borderContainer(region='right',width='45%',splitter=True,closable=True))
         #disabilitato tabContainer shorepass per utilizzo dialog
         #tc_task.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
         #disabilitato tabContainer paxlist per utilizzo dialog
@@ -847,7 +851,12 @@ class Form(BaseComponent):
 
     def times_sof(self,frame):
         self.times(frame) #per non riscrivere lo stesso codice di times passiamo direttamente self.times(frame)
-    
+
+    @public_method
+    def checklistLazyMode(self,pane):
+        pane.inlineTableHandler(title='!![en]Vessel checklist', relation='@checktask_arrival', viewResource='ViewFromTCheckList',view_store__onBuilt=True)
+        #center = frame.roundedGroup(title='!![en]Checklist',font_weight='bold', region='center',datapath='.record').div(margin='10px',margin_left='2px')
+
     @public_method
     def checkEmail(self,rec_id=None,**kwargs):
         #print(x)
@@ -2367,9 +2376,7 @@ class Form(BaseComponent):
     #    dlg = pane.dialog(nodeId='dialog_test',parentRatio=.9,title='Times',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
     #    dlg.multiButtonForm(relation='@time_arr',formResource='Form',
     #                        pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-    @public_method
-    def test(self,record,rec_id,**kwargs):
-        print(x)
+   
     @public_method
     def sanCertLazyMode(self,pane):
         pane.stackTableHandler(relation='@certusma_arr',formResource='FormFromCertusma',view_store__onBuilt=True)

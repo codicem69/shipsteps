@@ -22,11 +22,18 @@ class View(BaseComponent):
 class Form(BaseComponent):
 
     def th_form(self, form):
-        pane = form.record
-        fb = pane.formbuilder(cols=1, border_spacing='4px',colswidth='auto',fld_width='100%')
+        #pane = form.record
+        bc = form.center.borderContainer()
+        self.checklistTestata(bc.borderContainer(region='top',datapath='.record',height='50%',splitter=True))
+        self.checklistRighe(bc.contentPane(region='center',splitter=True))
+    
+    def checklistTestata(self,bc):
+        fb = bc.formbuilder(cols=1, border_spacing='4px',colswidth='auto',fld_width='100%')
         fb.field('movtype_id', hasDownArrow=True, width='20em' )
         fb.field('description', tag='simpleTextArea', editor=True, width='100%', height='50em' )
 
+    def checklistRighe(self,pane):
+        pane.inlineTableHandler(relation='@cecklist_righe',viewResource='ViewFromRighe')
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
