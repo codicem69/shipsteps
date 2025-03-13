@@ -40,7 +40,7 @@ class ViewFromTCheckList(BaseComponent):
 
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('delrow','load_checklist,25,delrow')
-        btn_checklist=bar.load_checklist.button('!![en]Load checklist ')
+        btn_checklist=bar.load_checklist.button('!![en]Load checklist ',disabled="""^#FORM.shipsteps_tasklist_check.view.count.shown""")
         btn_checklist.dataRpc('nome_temp', self.load_Checklist,record='=#FORM.record')
 
     @public_method

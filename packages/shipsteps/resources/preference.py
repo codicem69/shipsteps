@@ -8,14 +8,25 @@ import os
 class AppPref(object):
 
     def permission_shipsteps(self, **kwargs):
-        return 'user'
+        return 'admin'
         
     def prefpane_shipsteps(self,parent,**kwargs):
         tc = parent.tabContainer(margin='2px',**kwargs)
+        #self.data(tc.borderContainer(title='!![en]Loading/Save data'))
         self.note_remarks(tc.borderContainer(title='!!Remarks'))
         #self.loghi(tc.borderContainer(title='!!Logos'))
         self.privacy(tc.borderContainer(title='!!Email Privacy'))
         self.extra(tc.borderContainer(title='!!Extra'))
+
+    #def data(self,pane):
+    #    fb = pane.formbuilder(cols=1,border_spacing='3px', margin='10px')
+    #    fb.div('Press button to load/save default data')
+    #    fb.button('Load data',action="""genro.mainGenroWindow.genro.publish('open_batch');
+    #                                    genro.serverCall('_package.shipsteps.loadStartupData',null,function(){});
+    #                                    """,_tags='_DEV_')
+    #    fb.button('Save data',action="""genro.mainGenroWindow.genro.publish('open_batch');
+    #                                    genro.serverCall('_package.shipsteps.createStartupData',null,function(){});
+    #                                """,_tags='_DEV_')
 
     def note_remarks(self,pane):       
         #pane = parent.contentPane(**kwargs)
