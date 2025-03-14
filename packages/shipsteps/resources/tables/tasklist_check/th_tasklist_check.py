@@ -41,12 +41,15 @@ class ViewFromTCheckList(BaseComponent):
     def th_view(self,view):
         bar = view.top.bar.replaceSlots('delrow','load_checklist,25,delrow')
         btn_checklist=bar.load_checklist.button('!![en]Load checklist ',disabled="""^#FORM.shipsteps_tasklist_check.view.count.shown""")
-        btn_checklist.dataRpc('nome_temp', self.load_Checklist,record='=#FORM.record')
+        btn_checklist.dataRpc(self.load_Checklist,record='=#FORM.record',
+                              _onResult="if(result=='no_movtype'){genro.publish('floating_message',{message:'Please insert before movtype', messageType:'error'});}")
 
     @public_method
     def load_Checklist(self, record, **kwargs):
         record_id = record['id']
         movtype_id=record['movtype_id']
+        if not movtype_id:
+            return 'no_movtype'
         tbl_checklist = self.db.table('shipsteps.checklist')
         checklist_id=tbl_checklist.readColumns(columns='$id', where='$movtype_id=:mov_id', mov_id=movtype_id)
         tbl_ckRighe = self.db.table('shipsteps.checklist_righe')
