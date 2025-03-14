@@ -118,7 +118,7 @@ class Form(BaseComponent):
         fb.field('imp_lettere')
         fb.field('emesso')
         btn_trib = fb.Button('!![en]Print Tributes')
-        fb.dataController("""var id = button.id; console.log(id);
+        fb.dataController("""var id = button.id;
                         if(msg=='tributi_cp') {SET .emesso=true;}
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}

@@ -925,7 +925,7 @@ class Form(BaseComponent):
         fb1=div1.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
         
         btn_cl = fb1.Button('!![en]Print Check list')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.checklist',button=btn_cl.js_widget)
@@ -937,7 +937,7 @@ class Form(BaseComponent):
         #fb1.semaphore('^.checklist?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.checklist', margin_top='5px')
         btn_fs = fb1.Button('!![en]Print Frontespicie')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.frontespizio',button=btn_fs.js_widget)
@@ -949,7 +949,7 @@ class Form(BaseComponent):
         fb1.semaphore('^.frontespizio', margin_top='5px')
 
         btn_mn = fb1.Button('!![en]Print Vessel module')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.modulo_nave',button=btn_mn.js_widget)
@@ -974,11 +974,11 @@ class Form(BaseComponent):
         #                    _onResult="this.form.save();")
 
         btn_cn = fb1.Button('!![en]Print Vessel folder')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.cartella_nave',button=btn_cn.js_widget)
-       #fb1.dataController("""var id = button.id; console.log(id);
+       #fb1.dataController("""var id = button.id; 
        #                if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
        #                else if (ca==false){document.getElementById(id).style.backgroundColor = 'salmon';}
        #                else {document.getElementById(id).style.backgroundColor = 'lightgrey';}
@@ -1006,7 +1006,7 @@ class Form(BaseComponent):
                             _onResult="this.form.save();")
 
         #btn_ts = fb1.Button('!![en]Print Servicies table')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.tab_servizi',button=btn_ts.js_widget)
@@ -1018,7 +1018,7 @@ class Form(BaseComponent):
         fb1.semaphore('^.tab_servizi', margin_top='5px')
 
         btn_fc = fb1.Button('!![en]Print Cargo frontespiece',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.front_carico',button=btn_fc.js_widget)
@@ -1048,7 +1048,7 @@ class Form(BaseComponent):
         
         #dlg.stackTableHandler(relation='@paxlist_arr',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-       #fb1.dataController("""var id = button.id; console.log(id);
+       #fb1.dataController("""var id = button.id; 
        #                if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
        #                else {document.getElementById(id).style.backgroundColor = '';}
        #                """, ca='^.tributi_cp',button=btn_trib.js_widget)                     
@@ -1107,7 +1107,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dog').fetch()
         serv_len=len(service_for_email)
         btn_dog = fb.Button('!![en]Customs/GdF', width='10em',hidden='^#FORM.record.@arr_tasklist.e_customs?=#v==true')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_dogana',button=btn_dog.js_widget)
@@ -1147,7 +1147,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='imm').fetch()
         serv_len=len(service_for_email)
         btn_fr = fb.Button('!![en]Immigration', width='10em',hidden='^#FORM.record.@arr_tasklist.e_frontiera?=#v==true')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_frontiera',button=btn_fr.js_widget)
@@ -1179,7 +1179,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
         btn_usma = fb.Button('!![en]Sanimare', width='10em',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_usma',button=btn_usma.js_widget)
@@ -1210,7 +1210,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
         btn_pilot = fb.Button('!![en]Pilot', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_pilot_moor',button=btn_pilot.js_widget)
@@ -1240,7 +1240,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='moor').fetch()
         serv_len=len(service_for_email)
         btn_moor = fb.Button('!![en]Mooringmen', width='10em',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_moor',button=btn_moor.js_widget)
@@ -1270,7 +1270,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='tug').fetch()
         serv_len=len(service_for_email)
         btn_tug = fb.Button('!![en]Tug', width='10em',hidden='^#FORM.record.@arr_tasklist.e_tugarr?=#v==true')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_tug',button=btn_tug.js_widget)
@@ -1301,7 +1301,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='garb').fetch()
         serv_len=len(service_for_email)
         btn_garb = fb.Button('!![en]Garbage pick-up', width='10em',hidden='^#FORM.record.@arr_tasklist.e_garbage?=#v==true')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_garbage',button=btn_garb.js_widget)
@@ -1347,7 +1347,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pfso').fetch()
         serv_len=len(service_for_email)
         btn_pfso = fb.Button('!![en]PFSO', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pfso?=#v==true')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_pfso',button=btn_pfso.js_widget)
@@ -1385,7 +1385,7 @@ class Form(BaseComponent):
         
         btn_chem = fb.Button('!![en]Chemist', width='10em',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #btn_chem = fb.Button('!![en]Chemist', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_chemist',button=btn_chem.js_widget)
@@ -1416,7 +1416,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='gpg').fetch()
         serv_len=len(service_for_email)
         btn_gpg = fb.Button('!![en]GPG', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_gpg',button=btn_gpg.js_widget)
@@ -1451,7 +1451,7 @@ class Form(BaseComponent):
                           ens_tasklist='^#FORM.record.@arr_tasklist.e_ens')
         btn_ens = fb.Button('!![en]ENS', width='10em',hidden="""^#FORM.record.@arr_tasklist.ens_btn""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #btn_ens = fb.Button('!![en]ENS', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_ens',button=btn_ens.js_widget)
@@ -1470,7 +1470,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='adsp').fetch()
         serv_len=len(service_for_email)
         btn_gbadsp = fb.Button('!![en]Garbage ADSP', width='10em',hidden='^gnr.app_preference.shipsteps.garbage_adsp')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_garbage_adsp',button=btn_gbadsp.js_widget)
@@ -1507,7 +1507,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
         btn_riclps = fb.Button('!![en]LPS request', width='10em',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_ric_lps',button=btn_riclps.js_widget)
@@ -1542,7 +1542,7 @@ class Form(BaseComponent):
                              #hidden="""==_alim!=='Alimentary/UE' && _alim!=='Alimentary' || _fum==='NO'""",_alim="""^#FORM.record.@movtype_id.hierarchical_descrizione""",
                              #                                       _fum="""^#FORM.record.fumigated""")
         #btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
-        fb.dataController("""var id = button.id; console.log(id);
+        fb.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_aeration',button=btn_vent.js_widget)
@@ -1620,7 +1620,7 @@ class Form(BaseComponent):
         serv_len=len(service_for_email)
         #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
         btn_integr = fb2.Button('!![en]Alimentary integration',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_integr',button=btn_integr.js_widget)
@@ -1653,7 +1653,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         btn_pmou = fb2.Button('!![en]PMOU notification',hidden='^gnr.app_preference.shipsteps.pmou')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_pmou',button=btn_pmou.js_widget)
@@ -1798,7 +1798,7 @@ class Form(BaseComponent):
         #btn_fgdf_cp.dataController("SET .p_date=pratique_date;",_ask=dict(title='!![en]Insert pratique date',
         #                                            fields=[dict(name='pratique_date', lbl='!![en]Date', tag='dateTextBox',
         #                                            cols=4,popup=True,colspan=2)])) 
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_gdf',button=btn_fgdf_cp.js_widget)
@@ -1817,7 +1817,7 @@ class Form(BaseComponent):
         fb_arr.semaphore('^.form_gdf', margin_top='6px')
 
         btn_fimm_cp = fb_arr.Button('!![en]Form Immigration')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_immigration',button=btn_fimm_cp.js_widget)
@@ -1829,7 +1829,7 @@ class Form(BaseComponent):
         fb_arr.semaphore('^.form_immigration', margin_top='6px')
 
         btn_fprov_cp = fb_arr.Button('!![en]Form Provisions')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_provision',button=btn_fprov_cp.js_widget)
@@ -1846,7 +1846,7 @@ class Form(BaseComponent):
         #fb_arr.br()
         
         btn_fsan = fb_arr.Button('!![en]Sanimare declaration',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_sanimare',button=btn_fsan.js_widget)
@@ -1861,7 +1861,7 @@ class Form(BaseComponent):
                           movtype='^#FORM.record.@movtype_id.hierarchical_descrizione',cklist='^#FORM.record.@arr_tasklist.e_checklist')
         btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="^#FORM.record.@arr_tasklist.ckl_btn")
         #btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_checklist_f',button=btn_intfiore.js_widget)
@@ -1873,7 +1873,7 @@ class Form(BaseComponent):
         fb_arr.br()
 
         btn_timegate = fb_arr.Button('!![en]Times gate info')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.master_info',button=btn_timegate.js_widget)
@@ -1888,7 +1888,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         btn_lps_cp = fb_arr.Button('!![en]Email LPS CP',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_lps_cp',button=btn_lps_cp.js_widget)
@@ -1916,7 +1916,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         btn_chim_cp = fb_arr.Button('!![en]Email Chemist Cert. CP',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""")#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_certchim_cp',button=btn_chim_cp.js_widget)
@@ -1944,7 +1944,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='stev').fetch()
         serv_len=len(service_for_email)
         btn_chim_stev = fb_arr.Button('!![en]Email Chemist Cert.<br>to Stevedores',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""")#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_certchim_stev',button=btn_chim_stev.js_widget)
@@ -1973,7 +1973,7 @@ class Form(BaseComponent):
         serv_len=len(service_for_email)
         fb_arr.br()
         btn_der_cp = fb_arr.Button('!![en]Email Waste derogation CP')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_garbage_cp',button=btn_der_cp.js_widget)
@@ -2022,7 +2022,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         btn_rif_cp = fb_dep.Button('!![en]Email Waste Receipt CP',hidden='^gnr.app_preference.shipsteps.rifiuti_cp')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_ric_rifiuti_cp',button=btn_rif_cp.js_widget)
@@ -2049,7 +2049,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
         btn_pilot_dep = fb_dep.Button('!![en]Pilot departure',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_pilot_dep',button=btn_pilot_dep.js_widget)
@@ -2077,7 +2077,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv',serv='tug').fetch()
         serv_len=len(service_for_email)
         btn_tugdep = fb_dep.Button('!![en]Tug departure',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_tug_dep',button=btn_tugdep.js_widget)
@@ -2113,7 +2113,7 @@ class Form(BaseComponent):
                                                                                {SET .form_gdfdep=true;}
                                                                                this.form.save();""",
                                                                                pkey='=#FORM.pkey')
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_gdfdep',button=btn_fgdf.js_widget)                                                                               
@@ -2124,7 +2124,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         btn_trib_cp = fb_dep.Button('!![en]Email Tributes CP',hidden='^gnr.app_preference.shipsteps.email_tributi_cp')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
-        fb1.dataController("""var id = button.id; console.log(id);
+        fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_tributi_cp',button=btn_trib_cp.js_widget)
@@ -2282,7 +2282,7 @@ class Form(BaseComponent):
         dlg.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        fb_serv.dataController("""var id = button.id; console.log(id);
+        fb_serv.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_services',button=btn_vs.js_widget)

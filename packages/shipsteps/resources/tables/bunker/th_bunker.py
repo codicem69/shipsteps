@@ -110,7 +110,7 @@ class FormFromBunker(BaseComponent):
         #right.button('!![en]Remove image', hidden='^.stamp_transp?=!#v').dataRpc(self.deleteImage, image='=.stamp_transp')
         fb.dataController("""if(msg=='val_doccp') {SET .doc_cp=false;alert(msg_txt);}""", msg='^nome_temp',msg_txt = 'Email ready to be sent')
         
-        fb.dataController("""var id = button.id; console.log(id);
+        fb.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = 'goldenrod';}
                         """, ca='^.doc_cp',button=self.btn_email_bunkerdoc.js_widget)
