@@ -95,7 +95,8 @@ class Form(BaseComponent):
         self.allegatiSof(tc.contentPane(title='!![en]SOF Attachments', height='100%'))
         #tc.dataController("""{SET #THIS.tabname='operations';}""")
         #form.data('tabop','op')
-     
+        
+        
     def allegatiSof(self,pane):
         pane.attachmentGrid(viewResource='ViewFromSofAtc',uploaderButton=True)
 
@@ -200,7 +201,8 @@ class Form(BaseComponent):
         bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^nome_temp',msg_txt = 'Email ready to be sent')
         bar.dataRpc('.lista_emails', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
                     _if='rec_id')
-
+        
+        #print(X)
     @public_method
     def checkEmail(self,record=None,rec_id=None,**kwargs):
         a_id=record['arrival_id']

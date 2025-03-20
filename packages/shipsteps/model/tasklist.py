@@ -4,7 +4,7 @@ from gnr.core.gnrdecorator import public_method
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('tasklist', pkey='id', name_long='!![en]Task list', name_plural='!![en]Task list',caption_field='id',
-        broadcast="""email_ship_rec,email_dogana,email_frontiera,email_usma,email_pfso,email_pilot_moor,email_pilot_dep,email_moor,email_tug,email_tug_dep,email_garbage,email_chemist,email_gpg,email_ens,email_ric_lps,email_garbage_adsp,email_integr,email_pmou,email_certchim_cp,email_certchim_stev,email_lps_cp,email,garbage_cp,email_ric_rifiuti_cp,email_aeration,email_tributi_cp""")
+        broadcast="""email_ship_rec,email_dogana,email_frontiera,email_usma,email_pfso,email_pilot_moor,email_pilot_dep,email_moor,email_moor_dep,email_tug,email_tug_dep,email_garbage,email_chemist,email_gpg,email_ens,email_ric_lps,email_garbage_adsp,email_integr,email_pmou,email_certchim_cp,email_certchim_stev,email_lps_cp,email,garbage_cp,email_ric_rifiuti_cp,email_aeration,email_tributi_cp""")
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
@@ -24,6 +24,7 @@ class Table(object):
         tbl.column('email_pilot_moor', dtype='B', name_short='!![en]Email Pilot Moor')
         tbl.column('email_pilot_dep', dtype='B', name_short='!![en]Email Pilot dep')
         tbl.column('email_moor', dtype='B', name_short='!![en]Email Mooringmen')
+        tbl.column('email_moor_dep', dtype='B', name_short='!![en]Email Mooringmen dep')
         tbl.column('email_tug', dtype='B', name_short='!![en]Email Tug')
         tbl.column('email_tug_dep', dtype='B', name_short='!![en]Email Tug dep')
         tbl.column('email_garbage', dtype='B', name_short='!![en]Email Garbage')
@@ -60,6 +61,7 @@ class Table(object):
         tbl.column('e_pilotmoor', dtype='B', name_short='Pilot')
         tbl.column('e_pilotdep', dtype='B', name_short='Pilot Departure')
         tbl.column('e_moor', dtype='B', name_short='Mooringmen')
+        tbl.column('e_moordep', dtype='B', name_short='Mooringmen Departure')
         tbl.column('e_tugarr', dtype='B', name_short='Tug Arrival')
         tbl.column('e_tugdep', dtype='B', name_short='Tug Departure')
         tbl.column('e_garbage', dtype='B', name_short='Garbage pick-up')

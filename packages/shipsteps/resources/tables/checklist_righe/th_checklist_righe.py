@@ -28,7 +28,7 @@ class ViewFromRighe(BaseComponent):
         return '_row_count'
 
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('delrow','importer,batchAssign,delrow')
+        bar = view.top.bar.replaceSlots('delrow','importer,delrow')
         
 class Form(BaseComponent):
 
