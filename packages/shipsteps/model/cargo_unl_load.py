@@ -54,7 +54,7 @@ class Table(object):
                                         dtype='T', name_long='ShipRec_sof')
         tbl.formulaColumn('tot_cargo',select=dict(table='shipsteps.cargo_unl_load',
                                                 columns='SUM($quantity)',
-                                                where='$id=#THIS.id'),
+                                                where='$arrival_id=#THIS.@arrival_id.id'),
                                     dtype='N',name_long='!![en]Cargo total', format='#,###.000')
         tbl.formulaColumn('cargo_ship_rec', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Shippers: ' || @shipper_id.name || '<br>' 
                                             WHEN $operation = 'U' THEN '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Receivers: ' || @receiver_id.name || '<br>' ELSE 'NIL' END """,
