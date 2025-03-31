@@ -135,7 +135,8 @@ class Form(BaseComponent):
         top = bc.contentPane(region='top', height='100%')
         top.htmliframe(src="""https://pagamenti.poste.it/""",
                                                     height='100%',width='100%',border='0px')
-        fb.button('Sito Poste', action="genro.wdgById('dialog_poste').show()")
+        #fb.button('Sito Poste', action="genro.wdgById('dialog_poste').show()")
+        fb.button('Sito Poste pagamenti',action='genro.openBrowserTab("https://www.poste.it/paga-online/")')
         #btn_app=fb.button('testapp')
         #btn_app.dataRpc('datiapp', self.testapp,record='=#FORM.record',_ask="Attenzione confermi l'addebito sulla carta?")
 
