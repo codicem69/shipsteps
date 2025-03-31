@@ -87,6 +87,7 @@ class AppPref(object):
         fb.br()
         fb.timeTextBox('^.start',lbl='!![en]Start time')
         fb.timeTextBox('^.end',lbl='!![en]End time') 
+        fb.textBox('^.link_poste',lbl='!![en]Link Poste payment', colspan=2, width='100%')
         #fb.textbox(value='^.project_name',validate_onAccept='SET .package_name=null;',validate_onReject='SET .package_name = null;',
         #            validate_notnull=True,
         #            validate_remote=self.getProjectPath,lbl='Project')
