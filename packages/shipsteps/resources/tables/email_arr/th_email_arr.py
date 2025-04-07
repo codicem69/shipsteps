@@ -31,16 +31,12 @@ class ViewFromEmailArrival(BaseComponent):
         r.fieldcell('email', edit=dict(validate_notnull=True,validate_regex=" ![,]",
                                        validate_regex_error='You can insert only one email without comma'), width='20em')
         r.fieldcell('email_type', edit=dict(validate_notnull=True))
-
+        
     def th_order(self):
         return '_row_count'
     
     def th_options(self):
         return dict(grid_selfDragRows=True)
-
-    @public_method
-    def check_email(self,**kwargs):
-        print(x)
 
 class Form(BaseComponent):
 
@@ -52,7 +48,6 @@ class Form(BaseComponent):
         fb.field('description' )
         fb.field('email' )
         fb.field('email_type' )
-
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )

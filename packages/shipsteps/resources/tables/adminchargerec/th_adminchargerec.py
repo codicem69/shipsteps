@@ -14,7 +14,7 @@ class View(BaseComponent):
         r.fieldcell('prot')
         r.fieldcell('data')
         r.fieldcell('arrival_id')
-        r.fieldcell('importo')
+        r.fieldcell('importo', totalize=True)
 
     def th_order(self):
         return 'prot:d'

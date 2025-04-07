@@ -371,7 +371,6 @@ class Form(BaseComponent):
         tc = bc.tabContainer(margin='2px', region='center', height='auto', splitter=True)
 
         tc_under_car = tc_car.tabContainer(title='!![en]Cargo onboard')
-        
         self.carbordoArr(tc_under_car.contentPane(title="!![en]Cargo onboard on arrival",datapath='.record'))
         self.carbordoDep(tc_under_car.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
 
