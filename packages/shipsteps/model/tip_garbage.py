@@ -33,3 +33,11 @@ class Table(object):
     @metadata(mandatory=True)
     def sysRecord_dirtyoil(self):
         return self.newrecord(description='Dirty oil - olio sporco')
+    
+    @metadata(mandatory=True)
+    def sysRecord_medical(self):
+        return self.newrecord(description='Medical - Rifiuti sanitari')
+    
+    @metadata(mandatory=True)
+    def sysRecord_sewage(self):
+        return self.newrecord(description='Sewage - Acque reflue di scarico')

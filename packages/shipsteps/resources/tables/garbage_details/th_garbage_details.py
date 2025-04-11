@@ -32,7 +32,11 @@ class ViewFromGarbageDet(BaseComponent):
 
     def th_query(self):
         return dict(column='id', op='contains', val='')
-
+    
+    #def th_view(self, view):
+    #    view.dataController("""if(tip_garbage=='Bilge - Acque oleose di sentina') genro.publish("floating_message",{message:tip_garbage, messageType:"message"});
+    #                        """,
+    #                    tip_garbage='^shipsteps_garbage.form.shipsteps_garbage_details.view.grid.selectedId?_tip_garbage_id_description')
 class Form(BaseComponent):
 
     def th_form(self, form):

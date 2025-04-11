@@ -566,3 +566,4 @@ class Table(object):
         record['note'] = None
         record['vessel_stamp'] = None
         
+    

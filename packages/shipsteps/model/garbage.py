@@ -34,4 +34,11 @@ class Table(object):
         
         return data_lavoro
 
-    
+    def setvalueTasklist(self, garbage_id=None,custombtn=None):
+        with self.recordToUpdate(garbage_id) as record:
+            arrival_id = record['arrival_id']
+            tbl_tasklist = self.db.table('shipsteps.tasklist')
+            rec_updated=tbl_tasklist.batchUpdate(dict(btn_customgb=custombtn),
+                                    where='$arrival_id=:a_id', a_id=arrival_id)
+            
+            self.db.commit()

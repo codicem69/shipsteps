@@ -509,8 +509,11 @@ class Form(BaseComponent):
         #onDbChanges in caso di modifica dati su vessel_details il form arrival viene aggiornato        
         fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
             table='shipsteps.vessel_details',pkey='=#FORM.record.vessel_details_id')
-        
-        
+        fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
+                       let datiCambiamento = cambiamentoDelRecordCorrente[0];
+                       if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)) this.form.externalChange('@arr_tasklist.btn_customgb',datiCambiamento['btn_customgb']);""",
+            table='shipsteps.tasklist',pkey='=#FORM.record.@arr_tasklist.id')
+                             
         #fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
         #    if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0]['email_dogana'];
         #         console.log("datiCambiamento: ",datiCambiamento)}""",pkey='=#FORM.record.@arr_tasklist.id',table='shipsteps.tasklist')
@@ -519,6 +522,7 @@ class Form(BaseComponent):
         fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
             if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0];
                        if(datiCambiamento['email_dogana'])this.form.externalChange('@arr_tasklist.email_dogana',datiCambiamento['email_dogana']);
+                       if(datiCambiamento['email_doganagb'])this.form.externalChange('@arr_tasklist.email_doganagb',datiCambiamento['email_doganagb']);
                        if(datiCambiamento['email_ship_rec'])this.form.externalChange('@arr_tasklist.email_ship_rec',datiCambiamento['email_ship_rec']);
                        if(datiCambiamento['email_frontiera'])this.form.externalChange('@arr_tasklist.email_frontiera',datiCambiamento['email_frontiera']);
                        if(datiCambiamento['email_usma'])this.form.externalChange('@arr_tasklist.email_usma',datiCambiamento['email_usma']);
@@ -547,7 +551,7 @@ class Form(BaseComponent):
                        if(datiCambiamento['n_tug_arr'])this.form.externalChange('@extradatacp.n_tug_arr',datiCambiamento['n_tug_arr']);
                        console.log("datiCambiamento: ",datiCambiamento)}"""
                        ,pkey='=#FORM.record.@arr_tasklist.id',table='shipsteps.tasklist')
-        
+                        #if(datiCambiamento['btn_customgb'])this.form.externalChange('@arr_tasklist.btn_customgb',datiCambiamento['btn_customgb']);
         fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
             if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0];
                         if(datiCambiamento['n_tug_arr'])this.form.externalChange('@extradatacp.n_tug_arr',datiCambiamento['n_tug_arr']);
@@ -1679,6 +1683,35 @@ class Form(BaseComponent):
         #fb2.semaphore('^.email_pmou?=#v==true?true:false', margin_top='6px',hidden='^gnr.app_preference.shipsteps.pmou')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
         fb2.semaphore('^.email_pmou', margin_top='6px',hidden='^gnr.app_preference.shipsteps.pmou')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
 
+        #verifichiamo quanti servizi Dogana ci sono, nel caso più di uno apparirà la dbSelect per la scelta
+        service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dogpec').fetch()
+        serv_len=len(service_for_email)
+        btn_doggb = fb2.Button('!![en]Customs garbage notif.',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
+        fb2.dataController("""var id = button.id; 
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_doganagb',button=btn_doggb.js_widget)
+        if serv_len > 1:
+            btn_doggb.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['dogana_pec'], email_template_id='email_dogana_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
+                                table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",
+                                condition_cod='dogpec',order_by='$consignee',
+                                validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();") 
+        else:
+            btn_doggb.dataRpc('nome_temp', self.email_services,
+                       record='=#FORM.record', servizio=['dogana_pec'], email_template_id='email_dogana_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+        #datacontroller verifica il valore della variabile nome_temp di ritorno dalla funzione per invio email
+        #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
+       # fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Message created')}", msgspec='^nome_temp')
+        fb2.field('email_doganagb',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
+        #fb.semaphore("^.email_dogana?=#v===true?true:fasle", margin_top='5px')
+        fb2.semaphore("^.email_doganagb", margin_top='5px',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
         #btn_garb_cp = fb2.Button('!![en]Email Garbage form')
         #btn_garb_cp.dataRpc('nome_temp', self.email_services,
         #          record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_garbage_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1715,6 +1748,7 @@ class Form(BaseComponent):
                              if(msg=='val_lps_cp') {SET .email_lps_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='form_immigration') {SET .email_frontiera=false; alert(msg_txt);}
                              if(msg=='val_dog') {SET .email_dogana=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='val_doggb') {SET .email_doganagb=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='ship_rec') {SET .email_ship_rec=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});} if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msg=='val_chemist_cp') {SET .email_certchim_cp=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_stevedores') {SET .email_certchim_stev=false; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
@@ -2835,7 +2869,7 @@ class Form(BaseComponent):
         #normale in quanto verranno inseriti i destinatari nella casella bcc
         if not email_to:
             email_to=email_mittente
-       
+        
         # se la variabile email pec non è vuota creaiamo l'email pec altrimenti quella normale
         if (email_pec) != None and (email_pec) != '':
             self.db.table('email.message').newMessageFromUserTemplate(
@@ -2860,12 +2894,15 @@ class Form(BaseComponent):
                                                           template_code=email_template_id,
                                                           arrival_id=arrival_id,
                                                           agency_id=record['agency_id'])    
+            
         self.db.commit()   
         
         if (email_to or email_pec) is not None:
 
             if email_template_id == 'email_dogana':
                 nome_temp = 'val_dog'
+            elif email_template_id == 'email_dogana_rifiuti':
+                nome_temp = 'val_doggb'
             elif email_template_id == 'email_frontiera':
                 nome_temp = 'val_imm'
             elif email_template_id == 'email_sanimare':
