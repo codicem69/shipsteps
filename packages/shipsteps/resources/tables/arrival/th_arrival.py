@@ -562,7 +562,7 @@ class Form(BaseComponent):
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly='^gnr.app_preference.shipsteps.ref_num')
         fb.field('date')
-        fb.field('vessel_details_id',validate_notnull=True) 
+        fb.field('vessel_details_id',validate_notnull=True, hasDownArrow=True) 
         fb.field('pfda_id' , hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome',order_by='$data DESC')
         fb.field('visit_id')
         fb.field('movtype_id' , hasDownArrow=True,  order_by='$descrizione')
