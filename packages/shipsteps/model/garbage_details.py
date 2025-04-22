@@ -21,7 +21,7 @@ class Table(object):
             self.aggiornaTasklist(record,custombtn)    
     
     def trigger_onUpdated(self,record=None,old_record=None):
-        print(X)
+        
         if record['tip_garbage_id']=='sludge________________' or record['tip_garbage_id']=='bilge_________________' or record['tip_garbage_id']=='sewage________________' or record['tip_garbage_id']=='dirtyoil______________':
             custombtn=True
             self.aggiornaTasklist(record,custombtn)
