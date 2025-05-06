@@ -17,6 +17,19 @@ class Table(object):
                     ).relation('arrival.id', relation_name='prot_arr', mode='foreignkey', onDelete='raise')
         tbl.column('description', name_short='!![en]Description')
         
+        tbl.pyColumn('protocollati',name_long='!![en]protocollati', static=True)
+
+    def pyColumn_protocollati(self,record,field):
+       
+        tbl_prot = self.db.table('shipsteps.protocollo')
+        arrivi_prot = tbl_prot.query(columns='$arrival_id',where='').fetch()
+        arrival_id=[]
+        for r in arrivi_prot:
+            if not r['arrival_id'] == None:
+                arrival_id.append(r['arrival_id'])                       
+        
+        return arrival_id
+        
     def counter_prot_n(self,record=None):
         #2021/000001
         tbl_agency = self.db.table('agz.agency')

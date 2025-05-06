@@ -60,7 +60,10 @@ class Form(BaseComponent):
         fb.field('prot_n')
         fb.field('fald_n',hasDownArrow=True)
         fb.br()
-        fb.field('arrival_id',order_by='$arrival_data DESC', hasDownArrow=True, width='50em',colspan=2,selected_cargo_descr='.description')
+        fb.field('arrival_id',order_by='$arrival_data DESC', hasDownArrow=True, width='50em',colspan=2,selected_cargo_descr='.description',
+                 condition='$id NOT IN :arr_id',
+                    condition_arr_id='=^.protocollati') #nella condition cerchiamo l'id che non sono stati ancora inseriti nel protocollo tramite la
+                                                        #pyColumn protocollati 
         #fb.dbSelect(dbtable='shipsteps.arrival',lbl='!![en]Arrival',auxColumns='$arrival_data',
         #            selected_arrival_data='.description',order_by='$arrival_data DESC',
         #                hasDownArrow=True, width='28em', colspan=2)
