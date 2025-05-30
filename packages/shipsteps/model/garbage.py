@@ -28,7 +28,11 @@ class Table(object):
         #tbl.formulaColumn('bilge_x',"""CASE WHEN $bilge = 'true' THEN 'X' ELSE '' END""")
         #tbl.formulaColumn('cargo_res_x',"""CASE WHEN $cargo_res = 'true' THEN 'X' ELSE '' END""")
         #tbl.formulaColumn('altro_x',"""CASE WHEN $altro = 'true' THEN 'X' ELSE '' END""")
-
+        tbl.subQueryColumn('dettaglio_garbage', query=dict(table='shipsteps.garbage_details',
+                                                                columns="$garbage_descr,$measure,$quantity",
+                                                                where='$garbage_id=#THIS.id'), 
+                                                 mode='json', name_long='Dettaglio garbage')
+        
     def pyColumn_datalavoro(self,record,field):
         data_lavoro=self.db.workdate
         

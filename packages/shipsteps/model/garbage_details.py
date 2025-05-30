@@ -11,7 +11,8 @@ class Table(object):
                     ).relation('tip_garbage.id', relation_name='tipgarb', mode='foreignkey', onDelete='raise')
         tbl.column('measure', name_short='!![en]Measure')
         tbl.column('quantity', name_short='!![en]Quantity')
-        
+        tbl.aliasColumn('garbage_descr', '@tip_garbage_id.description',name_long='descrizione prodotto')
+
     def trigger_onInserted(self,record=None):
         if record['tip_garbage_id']=='sludge________________' or record['tip_garbage_id']=='bilge_________________' or record['tip_garbage_id']=='sewage________________' or record['tip_garbage_id']=='dirtyoil______________':
             custombtn=True
