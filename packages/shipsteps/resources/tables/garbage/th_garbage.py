@@ -19,7 +19,7 @@ class View(BaseComponent):
         #r.fieldcell('cargo_res')
         #r.fieldcell('altro')
         #r.fieldcell('altro_spec')
-        #r.fieldcell('dettaglio_garbage',width='100%')
+        r.fieldcell('dettaglio_garbage',width='100%', format=None)
         r.fieldcell('invio_fat',width='100%')
         r.fieldcell('note', width='100%')
         
