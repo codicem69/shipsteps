@@ -19,8 +19,10 @@ class View(BaseComponent):
         #r.fieldcell('cargo_res')
         #r.fieldcell('altro')
         #r.fieldcell('altro_spec')
+        #r.fieldcell('dettaglio_garbage',width='100%')
         r.fieldcell('invio_fat',width='100%')
         r.fieldcell('note', width='100%')
+        
 
     def th_order(self):
         return 'arrival_id'
@@ -41,8 +43,9 @@ class ViewFromGarbage(BaseComponent):
         #r.fieldcell('cargo_res', edit=True)
         #r.fieldcell('altro', edit=True)
         #r.fieldcell('altro_spec', edit=True, width='25em')
-        r.fieldcell('invio_fat', edit=True, width='40em')
+        r.fieldcell('invio_fat', edit=True, width='20em')
         r.fieldcell('note', edit=True, width='30em')
+        #r.fieldcell('dettaglio_garbage', edit=True, width='30em')
         
 class Form(BaseComponent):
 

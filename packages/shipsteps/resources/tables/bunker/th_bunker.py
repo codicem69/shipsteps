@@ -109,6 +109,7 @@ class FormFromBunker(BaseComponent):
                         placeholder=True, upload_folder='*') #upload_folder='site:application', upload_filename='=.id')
         #right.button('!![en]Remove image', hidden='^.stamp_transp?=!#v').dataRpc(self.deleteImage, image='=.stamp_transp')
         fb.dataController("""if(msg=='val_doccp') {SET .doc_cp=false;alert(msg_txt);}""", msg='^nome_temp',msg_txt = 'Email ready to be sent')
+        fb.dataController("""if(msg=='bol_deroga_gb') {SET .doc_cp=false;}""", msg='^nome_temp')        
         
         fb.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
