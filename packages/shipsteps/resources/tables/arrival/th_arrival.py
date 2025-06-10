@@ -317,7 +317,7 @@ class Form(BaseComponent):
         #self.arr_details(tc_details.contentPane(title='!![en]<strong>Draft/Remains Details</strong>',height='100%', background = '#f2f0e8'))
 
         #tc_undertask = bc_tasklist.tabContainer(margin='2px', region='bottom', height='130px', splitter=True,selectedPage='^tabname')
-        tc_undertask = bc_tasklist.borderContainer(region='bottom',height='130px', splitter=True,closable=True).tabContainer(margin='2px',region='top',height='130px', selectedPage='^tabname')
+        tc_undertask = bc_tasklist.borderContainer(region='bottom',height='150px', splitter=True,closable=True).tabContainer(margin='2px',region='top',height='150px', selectedPage='^tabname')
         tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
         #disabilitato tabcontainer Application per uso dialog con pulsante
         #tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
