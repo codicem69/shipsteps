@@ -10,6 +10,8 @@ class Table(object):
         tbl.column('arrival_id',size='22', name_long='arrival_id'
                     ).relation('arrival.id', relation_name='sof_arr', mode='foreignkey', onDelete='cascade',onDuplicate=False)
         tbl.column('sof_n',dtype='T', name_short='!![en]SOF n.')
+        tbl.column('et_start', dtype='DH', name_short='!![en]ET start')
+        tbl.column('etc', dtype='DH', name_short='!![en]ETC')
         tbl.column('nor_tend', dtype='DH', name_short='!![en]NOR tendered')
         tbl.column('nor_rec', dtype='DH', name_short='!![en]NOR received')
         tbl.column('nor_acc', dtype='T', name_short='!![en]NOR accepted')
@@ -119,7 +121,8 @@ class Table(object):
         #che ci servirà in th_daily_sofdetails a filtrare il solo tipo di misura da scegliere tramite la condition nel campo measure_id
         tbl.formulaColumn('measure_sof',select=dict(table='shipsteps.cargo_unl_load', columns="$measure_id",
                                                     where='$id=#THIS.@sof_cargo_sof.cargo_unl_load_id'),name_long='measure_sof')
-        
+        tbl.formulaColumn('etstart_email',"""CASE WHEN $ops_commenced IS NULL AND $et_start IS NOT NULL THEN :etstdescr || to_char($et_start, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etstdescr='ET Start ops:..',var_df='DD/MM/YYYY HH24:MI')
+        tbl.formulaColumn('etc_email',"""CASE WHEN $ops_completed IS NULL AND $etc IS NOT NULL THEN :etcdescr || to_char($etc, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etcdescr='ETC:...........',var_df='DD/MM/YYYY HH24:MI')
         tbl.aliasColumn('measure','@sof_daily.@measure_id.description')
         tbl.aliasColumn('place_origin_goods','@sof_cargo_sof.@cargo_unl_load_id.@place_origin_goods.citta_nazione')
 

@@ -36,8 +36,8 @@ class View(BaseComponent):
         expect = r.columnset('colset_expect', name='Expected Times', color='white',background='SeaGreen', font_weight='bold')
         expect.fieldcell('eta', width='5em', Short=True)
         expect.fieldcell('etb', width='5em')
-        expect.fieldcell('et_start', width='5em')
-        expect.fieldcell('etc', width='5em')
+        #expect.fieldcell('et_start', width='5em')
+        #expect.fieldcell('etc', width='5em')
         expect.fieldcell('ets', width='5em')
         draft = r.columnset('colset_draft', name='Draft', color='white',background='SaddleBrown', font_weight='bold')
         draft.fieldcell('draft_aft_arr', width='3em')
@@ -559,6 +559,9 @@ class Form(BaseComponent):
                         console.log("datiCambiamento: ",datiCambiamento)}"""
                        ,pkey='=#FORM.record.@extradatacp.id',table='shipsteps.extradaticp')
         
+        #fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
+        #    table='shipsteps.arrival_time',pkey='=#FORM.record.@time_arr.arrival_id')
+        
         fb.field('agency_id', readOnly=True )
         fb.field('reference_num', readOnly='^gnr.app_preference.shipsteps.ref_num')
         fb.field('date')
@@ -573,15 +576,18 @@ class Form(BaseComponent):
         fb = center1.formbuilder(cols=5, border_spacing='4px',lblpos='T',fldalign='left')
         fb.field('eta' , width='10em')
         fb.field('etb' , width='10em')
-        fb.field('et_start' , width='10em')
-        fb.field('etc' , width='10em')
+        
+        #fb.field('et_start' , width='10em')
+        #fb.field('etc' , width='10em')
         fb.field('ets', width='10em' )
+        fb.field('dock_id', colspan=2, width='100%' )
         fb.field('draft_aft_arr', width='5em', placeholder='eg:4 or 4,5')
         fb.field('draft_fw_arr' , width='5em', placeholder='eg:4 or 4,5')
         fb.field('draft_aft_dep' , width='5em', placeholder='eg:4 or 4,5')
         fb.field('draft_fw_dep' , width='5em', placeholder='eg:4 or 4,5')
-        fb.field('dock_id' )
-        fb.field('info_moor',width='30em', colspan=2 ,placeholder='e.g. Inizio ormeggio il ... ore ....')
+        #fb.field('dock_id' )
+        fb.field('info_moor',width='140%', colspan=2 ,placeholder='e.g. Inizio ormeggio il ... ore ....', tag='textArea')
+        fb.field('voy_n', width='10')
         fb.field('master_name' )
         fb.field('n_crew' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
         fb.field('n_passengers' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
@@ -590,11 +596,11 @@ class Form(BaseComponent):
         fb.field('departure_lp' , width='10em')
         fb.field('next_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
         fb.field('eta_np' , width='10em')
-        fb.field('voy_n', width='10')
-        fb.field('mandatory', colspan=3 , width='47em')
-        fb.field('cargo_dest', colspan=2, width='29em' )
         fb.br()
-        fb.field('invoice_det_id',colspan=5 ,width='78em', hasDownArrow=True)
+        fb.field('mandatory', colspan=3 , width='98%')
+        fb.field('cargo_dest', colspan=2, width='100%')
+        fb.br()
+        fb.field('invoice_det_id',colspan=5 ,width='100%', hasDownArrow=True)
         #btn_test=fb.Button('test')#, action='SET .@arr_tasklist.email_dogana=true;')
         #btn_test.dataRpc('', self.test_but,arrival_id='=#FORM.record.id')
         fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
@@ -846,12 +852,19 @@ class Form(BaseComponent):
         center = frame.roundedGroup(title='!![en]Expected Times',font_weight='bold', region='center',datapath='.record').div(margin='10px',margin_left='2px')
         #rg_arr = frame.roundedGroup(title='!![en]Arrival',datapath='.record',width='100%', height = '10%').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=6, border_spacing='4px',fld_width='10em',lbl_color='white',lbl_font_weight='bold', font_weight='bold')
-        fb.field('eta' , width='10em')
-        fb.field('etb' , width='10em')
-        fb.field('et_start' , width='10em')
-        fb.field('etc' , width='10em')
-        fb.field('ets', width='10em' )
-        fb.field('dock_id', width='15em' )
+        #fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
+        #    if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0];
+        #                if(datiCambiamento['arr_form'])this.form.externalChange('@time_arr.arr_form',datiCambiamento['arr_form']);
+        #                console.log("datiCambiamento: ",datiCambiamento)}"""
+        #               ,pkey='=#FORM.record.@time_arr.id',table='shipsteps.arrival_time')
+        #fb.dataController("if(_aor || _eosp){SET .@time_arr.arr_form=true;} else {SET .@time_arr.arr_form=false;}",_aor="^shipsteps_arrival.form.record.@time_arr.aor",_eosp="^shipsteps_arrival.form.record.@time_arr.eosp")
+        #fb.field('eta' , width='10em',hidden="""^shipsteps_arrival.form.record.@time_arr.aor""",aor="^shipsteps_arrival.form.record.@time_arr.aor",eosp="^shipsteps_arrival.form.record.@time_arr.eosp")
+        fb.field('eta' , width='10em',hidden="""==arr_road || end_osp""",arr_road="^shipsteps_arrival.form.record.@time_arr.aor",end_osp="^shipsteps_arrival.form.record.@time_arr.eosp")
+        fb.field('etb' , width='10em', hidden="""^shipsteps_arrival.form.record.@time_arr.moored""")
+        #fb.field('et_start' , width='10em')
+        #fb.field('etc' , width='10em')
+        fb.field('ets', width='10em', hidden="""^shipsteps_arrival.form.record.@time_arr.sailed""" )
+        fb.field('dock_id', width='15em', disabled="""^shipsteps_arrival.form.record.@time_arr.sailed""" )
 
     def times_sof(self,frame):
         self.times(frame) #per non riscrivere lo stesso codice di times passiamo direttamente self.times(frame)
@@ -2045,10 +2058,14 @@ class Form(BaseComponent):
         fb_time=div_arr_times.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='14em')
         fb_time.button('!![en]Times / Details', action="genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};",
                                     rec_id='=#FORM.record.@time_arr.arrival_id')
-        dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
-        dlg.multiButtonForm(relation='@time_arr',formResource='Form',
-                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         
+        dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=False,subscribe_closeDialog_ws="this.widget.hide();")
+        #dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        frame=dlg.framePane(height='300px',width='300px').multiButtonForm(relation='@time_arr',formResource='Form',
+                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        bar = frame.bottom.slotBar('*,closeDlg,*',height='22px',border='1px solid silver')
+        bar.closeDlg.button('Close window',action='PUBLISH closeDialog_ws;this.form.reload();')
+
         #thtimes= bc_tasklist.dialogTableHandler(relation='@time_arr',formResource='Form',dialog_parentRatio=.9,
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         #btn_time=fb_time.button('!![en]Times / Details')

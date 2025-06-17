@@ -65,3 +65,6 @@ class Table(object):
                                           coalesce('Vessel sailed-----------------' || to_char($sailed, :df) || '<br>' ,'') || coalesce('Commenced of sea passage------' || to_char($cosp, :df) || '<br>', '')""", dtype='T',var_df='DD/MM/YYYY HH24:MI')
         
     
+    def trigger_onInserted(self, record):
+        if record['arrival_id'] :
+            self.db.table('shipsteps.arrival').notifyDbUpdate(record['arrival_id'])
