@@ -68,3 +68,7 @@ class Table(object):
     def trigger_onInserted(self, record):
         if record['arrival_id'] :
             self.db.table('shipsteps.arrival').notifyDbUpdate(record['arrival_id'])
+    
+    def trigger_onUpdated(self, record,old_record):
+        if record['arrival_id'] :
+            self.db.table('shipsteps.arrival').notifyDbUpdate(record['arrival_id'])

@@ -38,42 +38,42 @@ class Form(BaseComponent):
     def th_form(self, form):
         bc = form.center.borderContainer()
         self.arrival_details(bc)
-        pane = form.record
-        fb = pane.formbuilder(cols=1, border_spacing='4px')
-        #fb.field('arrival_id' )
-        #fb.field('eosp' )
-        #fb.field('aor' )
-        #fb.field('anchored' )
-        #fb.field('anchor_up' )
-        #fb.field('pob' )
-        #fb.field('first_rope' )
-        #fb.field('moored' )
-        #fb.field('poff')
-        #fb.field('gangway' )
-        #fb.field('free_p' )
-        #fb.field('pobd',border_color="^pildep") #tramite il datacontroller in th_sof viene assegnata alla variabile pildep il colore del bordo
-        #fb.field('last_line' )
-        #fb.field('sailed' ,border_color="^sail") #tramite il datacontroller in th_sof viene assegnata alla variabile sail il colore del bordo
-        #fb.field('cosp' )
-        #con il datacontroller all'inserimento dei dati in pobd e sailed risettiamo le variabili pildep e sail in null per togliere il colore rosso del bordo
-        fb.dataController("""if(pobd!=null){SET pildep=null;} if(sailed!=null){SET sail=null;}""",pobd='^.pobd',sailed='^.sailed')
-        btn_arrivo=fb.button('Email arrival',hidden="^checksof")#.controller.title?=#v!=null")
-        btn_partenza=fb.button('Email departure',hidden="^checksof")#.controller.title?=#v!=null")
-        fb.dataRpc('checksof', self.checkSof,  record='=#FORM.record', cur_tab='^#FORM/parent/#FORM.current_tab',
-                   rec_id='=.id',pkey='^#FORM.record.id',_if="cur_tab==5||rec_id")
-
-        btn_arrivo.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_arrivo',
-                            nome_template = 'shipsteps.arrival:email_arrivo',format_page='A4',
-                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=current.dati_emails.lista_emails',cols=4,popup=True,colspan=2),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]))
-        btn_partenza.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_departure',
-                            nome_template = 'shipsteps.arrival:email_departure',format_page='A4',
-                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=current.dati_emails.lista_emails',cols=4,popup=True,colspan=2),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
-                             cols=4,popup=True,colspan=2)]))
+        #pane = form.record
+        #fb = pane.formbuilder(cols=1, border_spacing='4px')
+        ##fb.field('arrival_id' )
+        ##fb.field('eosp' )
+        ##fb.field('aor' )
+        ##fb.field('anchored' )
+        ##fb.field('anchor_up' )
+        ##fb.field('pob' )
+        ##fb.field('first_rope' )
+        ##fb.field('moored' )
+        ##fb.field('poff')
+        ##fb.field('gangway' )
+        ##fb.field('free_p' )
+        ##fb.field('pobd',border_color="^pildep") #tramite il datacontroller in th_sof viene assegnata alla variabile pildep il colore del bordo
+        ##fb.field('last_line' )
+        ##fb.field('sailed' ,border_color="^sail") #tramite il datacontroller in th_sof viene assegnata alla variabile sail il colore del bordo
+        ##fb.field('cosp' )
+        ##con il datacontroller all'inserimento dei dati in pobd e sailed risettiamo le variabili pildep e sail in null per togliere il colore rosso del bordo
+        #fb.dataController("""if(pobd!=null){SET pildep=null;} if(sailed!=null){SET sail=null;}""",pobd='^.pobd',sailed='^.sailed')
+        #btn_arrivo=fb.button('Email arrival',hidden="^checksof")#.controller.title?=#v!=null")
+        #btn_partenza=fb.button('Email departure',hidden="^checksof")#.controller.title?=#v!=null")
+        #fb.dataRpc('checksof', self.checkSof,  record='=#FORM.record', cur_tab='^#FORM/parent/#FORM.current_tab',
+        #           rec_id='=.id',pkey='^#FORM.record.id',_if="cur_tab==5||rec_id")
+#
+        #btn_arrivo.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_arrivo',
+        #                    nome_template = 'shipsteps.arrival:email_arrivo',format_page='A4',
+        #                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
+        #                     values='=current.dati_emails.lista_emails',cols=4,popup=True,colspan=2),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+        #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+        #                     cols=4,popup=True,colspan=2)]))
+        #btn_partenza.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_departure',
+        #                    nome_template = 'shipsteps.arrival:email_departure',format_page='A4',
+        #                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
+        #                     values='=current.dati_emails.lista_emails',cols=4,popup=True,colspan=2),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+        #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+        #                     cols=4,popup=True,colspan=2)]))
         #fb.dataRpc('current.dati_emails', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
         #            _if='rec_id')
 
@@ -100,9 +100,12 @@ class Form(BaseComponent):
         return result
     
     def arrival_details(self, bc):
-        rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
-        rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='.record.@arrival_id.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
-        rg_details_dep = bc.roundedGroup(title='!![en]Departure details',table='shipsteps.arrival_det', region='center',datapath='.record.@arrival_id.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
+        #rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='#FORM.record',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
+        #rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det', region='center',datapath='#FORM.record.@arrival_id.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
+        #rg_details_dep = bc.roundedGroup(title='!![en]Departure details',table='shipsteps.arrival_det', region='center',datapath='#FORM.record.@arrival_id.@arr_details',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
+        rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',datapath='.record',region='left',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
+        rg_details = bc.roundedGroup(title='!![en]Arrival details',table='shipsteps.arrival_det',datapath='.record.@arrival_id.@arr_details', region='center',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
+        rg_details_dep = bc.roundedGroup(title='!![en]Departure details',table='shipsteps.arrival_det',datapath='.record.@arrival_id.@arr_details', region='center',width='350px', height = '100%',margin_left='350px').div(margin='10px',margin_left='2px')
         #rg_extra = bc.roundedGroup(title='!![en]Extra data CP on Arrival/Departure',table='shipsteps.extradaticp', region='center',datapath='.record.@extradatacp',width='auto', height = 'auto', margin_left='550px').div(margin='10px',margin_left='2px')
         fb = rg_times.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
         fb.field('arrival_id', hidden=True)
@@ -427,4 +430,4 @@ class Form(BaseComponent):
             return nome_temp
             
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px' )
+        return dict(dialog_height='400px', dialog_width='600px')#,liveUpdate=True )

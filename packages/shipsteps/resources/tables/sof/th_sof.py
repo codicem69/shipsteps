@@ -149,8 +149,15 @@ class Form(BaseComponent):
                              if (ops_comm!=null){SET opscomm=null;}
                              if (ops_compl!=null){SET opscompl=null;}
                              if (doc_onb!=null){SET doconb=null;}
+                            
                           """,nor_tend='^.nor_tend',nor_rec='^.nor_rec',nor_acc='^.nor_acc',cust_comp='^.customs_completed',ops_comm='^.ops_commenced',
                               ops_compl='^.ops_completed',doc_onb='^.doc_onboard')
+        fb.dataController("""if (worked==true && ops_comm===null){SET opscomm='red';} else {SET opscomm='';}""",worked='^#FORM.worked',ops_comm='^.ops_commenced')
+        
+        fb.dataController("""SET nortend = ''; SET norrec = ''; SET noracc = ''; SET custcomp = ''; SET opscomm = ''; SET opscompl = ''; SET doconb = ''; 
+                             SET pildep = ''; SET sail = '';"""
+                          ,rec_id='^#FORM.record.id',_if='rec_id')
+
         #fb.dataController("""if(tab=='op'){SET #FORM.tabname='operations';alert(msg_txt);}""",tab='op',msg_txt='fatto', _onStart=True)
         #fb.data('#FORM.tabname', "operations")
         #fb.dataController("""if(^#FORM.shipsteps_sof_cargo.view.count.total>0){SET #FORM.tabname=operations;}""")
@@ -173,8 +180,9 @@ class Form(BaseComponent):
 
     def th_bottom_custom(self, bottom):
         bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,50,times,*')
-        btn_times=bar.times.button('Times', action="genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};",
-                                    rec_id='=#FORM.record.@time_arr.arrival_id')
+        btn_times=bar.times.button('Times', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto della Form principale', messageType:'error'}); " \
+                                                        "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",
+                                                         rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM/parent/#FORM.controller.locked')
         btn_sof_print=bar.stampa_sof.button('Print SOF')
         btn_sof_arrivo=bar.email_arrivo.button('Email arrival')
         btn_sof_oper=bar.email_operazioni.button('Email operations')
@@ -209,6 +217,10 @@ class Form(BaseComponent):
         bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^nome_temp',msg_txt = 'Email ready to be sent')
         bar.dataRpc('.lista_emails', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
                     _if='rec_id')
+        #dataRpc che scatterà all'apertura del SOF per verificare se nella descrizione delle operazioni troviamo 'worked' o 'not worked' impostando la variabile .worked
+        # a true o false che poi tramite il dataController in alto setterà il colore del bordo del campo unloading_commenced
+        bar.dataRpc('.worked', self.checkWorked,  record='=#FORM.record',rec_id='^#FORM.record.id',
+                    _if='rec_id')
         
         #print(X)
     @public_method
@@ -230,6 +242,22 @@ class Form(BaseComponent):
         dati = ",".join(dati)
         return dati
     
+    @public_method
+    def checkWorked(self, record=None,rec_id=None,**kwargs):
+        a_id=record['arrival_id']
+        worked=self.db.table('shipsteps.sof_operations').query(columns='$id,$operations', where='$sof_id=:sof_id',sof_id=rec_id).fetch() 
+        ops=False
+        for r in worked:
+            if r['operations']!=None:
+                if 'not worked' in r['operations'].lower():
+                    ops=False
+                elif 'worked' in r['operations'].lower():
+                    ops=True
+                else:
+                    ops=False
+        return ops
+
+
     @public_method
     def print_sof(self, record, resultAttr=None, nome_template=None, format_page=None, **kwargs):
         #msg_special=None

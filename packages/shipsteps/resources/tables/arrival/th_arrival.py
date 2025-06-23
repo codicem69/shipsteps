@@ -859,12 +859,11 @@ class Form(BaseComponent):
         #               ,pkey='=#FORM.record.@time_arr.id',table='shipsteps.arrival_time')
         #fb.dataController("if(_aor || _eosp){SET .@time_arr.arr_form=true;} else {SET .@time_arr.arr_form=false;}",_aor="^shipsteps_arrival.form.record.@time_arr.aor",_eosp="^shipsteps_arrival.form.record.@time_arr.eosp")
         #fb.field('eta' , width='10em',hidden="""^shipsteps_arrival.form.record.@time_arr.aor""",aor="^shipsteps_arrival.form.record.@time_arr.aor",eosp="^shipsteps_arrival.form.record.@time_arr.eosp")
-        fb.field('eta' , width='10em',hidden="""==arr_road || end_osp""",arr_road="^shipsteps_arrival.form.record.@time_arr.aor",end_osp="^shipsteps_arrival.form.record.@time_arr.eosp")
-        fb.field('etb' , width='10em', hidden="""^shipsteps_arrival.form.record.@time_arr.moored""")
-        #fb.field('et_start' , width='10em')
-        #fb.field('etc' , width='10em')
-        fb.field('ets', width='10em', hidden="""^shipsteps_arrival.form.record.@time_arr.sailed""" )
-        fb.field('dock_id', width='15em', disabled="""^shipsteps_arrival.form.record.@time_arr.sailed""" )
+        fb.field('eta' , width='10em',hidden="""==arr_road || end_osp""",arr_road="^#FORM.record.@time_arr.aor",
+                                      end_osp="^#FORM.record.@time_arr.eosp")
+        fb.field('etb' , width='10em', hidden="""^#FORM.record.@time_arr.moored""")
+        fb.field('ets', width='10em', hidden="""^#FORM.record.@time_arr.sailed""" )
+        fb.field('dock_id', width='15em', disabled="""^#FORM.record.@time_arr.sailed""" )
 
     def times_sof(self,frame):
         self.times(frame) #per non riscrivere lo stesso codice di times passiamo direttamente self.times(frame)
@@ -2056,16 +2055,30 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_time=div_arr_times.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='14em')
-        fb_time.button('!![en]Times / Details', action="genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};",
-                                    rec_id='=#FORM.record.@time_arr.arrival_id')
+        fb_time.button('!![en]Times / Details', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto', messageType:'error'}); " \
+                                                        "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",
+                                                         rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM.controller.locked')
         
         dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=False,subscribe_closeDialog_ws="this.widget.hide();")
         #dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
-        frame=dlg.framePane(height='300px',width='300px').multiButtonForm(relation='@time_arr',formResource='Form',
-                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        bar = frame.bottom.slotBar('*,closeDlg,*',height='22px',border='1px solid silver')
-        bar.closeDlg.button('Close window',action='PUBLISH closeDialog_ws;this.form.reload();')
-
+        #frame=dlg.framePane(height='300px',width='300px').multiButtonForm(relation='@time_arr',table='shipsteps.arrival_time',formResource='Form',
+        #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True,condition='$arrival_id=:arrid',
+        #                        condition_arrid='^#FORM.record.id',condition__onBuilt=True)#,liveUpdate=True)
+        frame=dlg.framePane(height='300px',width='300px')
+        bc=frame.borderContainer(region='center')
+        self.arrival_details(bc )
+       #frame=dlg.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
+        #bar = frame.bottom.slotBar('*,closeDlg,*',height='22px',border='1px solid silver')
+        barTop = frame.top.slotBar('viewlocker,*,savebtn,40,cancel,*,closeDlg',height='22px',border='1px solid silver',toolbar=True)
+        barTop.savebtn.button('!!Save',action='this.form.save();')
+        barTop.cancel.button('!!Cancel',action="""var _this = this;
+                                                  genro.dlg.ask("!![en]Warning",
+                                                 "!!Vuoi proseguire? Eventuali variazioni non salvate nella Form principale verranno perse.",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue': function(){_this.form.reload();PUBLISH closeDialog_ws;}})""")
+        #barTop.savebtn.button('!!Save',iconClass='fh_semaphore',action='this.form.publish("save",{destPkey:"*dismiss*"})')
+        barTop.closeDlg.button('!!Close',action='PUBLISH closeDialog_ws;')#this.form.reload();')
+        
         #thtimes= bc_tasklist.dialogTableHandler(relation='@time_arr',formResource='Form',dialog_parentRatio=.9,
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         #btn_time=fb_time.button('!![en]Times / Details')
@@ -2467,10 +2480,12 @@ class Form(BaseComponent):
     #    dlg.multiButtonForm(relation='@time_arr',formResource='Form',
     #                        pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
 
-    @public_method
-    def timesCertLazyMode(self,pane):
-        pane.multiButtonForm(relation='@time_arr',formResource='Form',
-                            pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+        
+    #@public_method
+    #def timesCertLazyMode(self,pane,**kwargs):
+    #    pane.multiButtonForm(relation='@time_arr',formResource='Form',
+    #                        pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+    
     @public_method
     def sanCertLazyMode(self,pane):
         pane.stackTableHandler(relation='@certusma_arr',formResource='FormFromCertusma',view_store__onBuilt=True)
@@ -4320,5 +4335,5 @@ class Form(BaseComponent):
 
     
     def th_options(self):
-        return dict(dialog_height='400px', dialog_width='600px', duplicate=True)
+        return dict(dialog_height='400px', dialog_width='600px', duplicate=True,liveUpdate=True)
    
