@@ -28,8 +28,8 @@ class ViewFromRighe(BaseComponent):
         return '_row_count'
 
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('delrow','importer,delrow')
-        
+        bar = view.top.bar.replaceSlots('searchOn,delrow','test,*,searchOn,importer,delrow')
+        bar.test.div("Se non inseriamo il carattere '-' all'inizio della riga non verrà visualizzata la checkbox nella checklist" )
 class Form(BaseComponent):
 
     def th_form(self, form):

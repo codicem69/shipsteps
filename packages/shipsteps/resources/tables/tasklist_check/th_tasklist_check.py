@@ -24,7 +24,12 @@ class ViewFromTCheckList(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('_row_count', counter=True, name='N.',width='3em',hidden=True)
         r.fieldcell('arrival_id')
-        r.fieldcell('done', edit=True)
+        r.fieldcell('done', edit=True,_customGetter="""
+                                function(row){
+                                    if(row.description.charAt(0)!='-'){
+                                        return '&nbsp;';
+                                    }
+                                    return;}""")
         r.fieldcell('description', edit=True,width='70%',_customGetter="""function(row)
                         {
                          var descr_b = dataTemplate("<div><s>$description</s></div>",row);
