@@ -604,7 +604,7 @@ class Form(BaseComponent):
         fb.field('mandatory', colspan=3 , width='98%')
         fb.field('cargo_dest', colspan=2, width='100%')
         fb.br()
-        fb.field('invoice_det_id',colspan=5 ,width='100%', hasDownArrow=True)
+        #fb.field('invoice_det_id',colspan=5 ,width='100%', hasDownArrow=True)
         #btn_test=fb.Button('test')#, action='SET .@arr_tasklist.email_dogana=true;')
         #btn_test.dataRpc('', self.test_but,arrival_id='=#FORM.record.id')
         fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
