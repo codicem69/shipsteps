@@ -163,7 +163,7 @@ class FormFromCertificates(BaseComponent):
             #se lanciamo l'email per la CP inseriamo i bolli nella sua tabella
             agency_id = record_arr['agency_id']
             tbl_bolli = self.db.table('shipsteps.bolli')
-            note = record['motivo_istanza'] + ' ' + record['certificato']
+            note = str(record['motivo_istanza']) + ' ' + str(record['certificato'])
             if not tbl_bolli.checkDuplicate(istanza='Istanza Certificato',ref_number=record_arr['reference_num'],id_istanza=record['id']):
                 nuovo_record = dict(date=datetime.now(),imbarcazione_id=imbarcazione_id,istanza='Istanza Certificato',
                                 id_istanza=record['id'],ref_number=record_arr['reference_num'],bolli_tr14=1,note=note, agency_id=agency_id)

@@ -125,7 +125,7 @@ class Form(BaseComponent):
         #fb.field('ship_rec', readOnly=True, width='30em',height='2em',tag='textArea')
         fb.field('onbehalf', width='100%', placeholder='insert the name of society', tag='textArea', colspan=2)
         fb.field('int_sof', placeholder='eg.: Fiore Srl')
-        fb.field('shipper_receiver', width='99%', hasDownArrow=True, rowcaption='$name',colspan=3)
+        fb.field('shipper_receiver', width='99%', hasDownArrow=True, rowcaption='$name',auxColumns='$trader',colspan=3)
         fb.field('cargo_type', width='20em', hasDownArrow=True, colspan=1)
         fb.field('cargo_consignee_id',hasDownArrow=True, width='90%', lbl='!![en]Cargo dest.',auxColumns='$address', colspan=2)
         fb.div('^#FORM.record.ship_rec',lbl='Ship_Rec', width='80%',rowspan=3, colspan=3)

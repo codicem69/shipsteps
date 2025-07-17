@@ -319,6 +319,7 @@ class Form(BaseComponent):
         #tc_undertask = bc_tasklist.tabContainer(margin='2px', region='bottom', height='130px', splitter=True,selectedPage='^tabname')
         tc_undertask = bc_tasklist.borderContainer(region='bottom',height='150px', splitter=True,closable=True).tabContainer(margin='2px',region='top',height='150px', selectedPage='^tabname')
         tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
+        
         #disabilitato tabcontainer Application per uso dialog con pulsante
         #tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
         tc_bl = tc.borderContainer(title='!![en]<strong>Loading Cargoes</strong>')
@@ -333,6 +334,8 @@ class Form(BaseComponent):
         tc_email = tc.borderContainer(title='!![en]<strong>Email in/out</strong>')
         tc_email.contentPane(title='!![en]Email in/out',height='100%').remote(self.emailInOutLazyMode,_waitingMessage='!![en]Please wait')
 
+        tc_fda = tc.borderContainer(title='!![en]<strong>FDA</strong>',selectedPage='^.tabname')
+        
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
 
         self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = '#f2f0e8'))
@@ -354,6 +357,7 @@ class Form(BaseComponent):
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
         #tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
         tc_sof.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
+        tc_fda.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]FDA',pageName='fda',height='100%').remote(self.fdaLazyMode,_waitingMessage='!![en]Please wait')
         
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
         
@@ -671,6 +675,10 @@ class Form(BaseComponent):
     @public_method
     def sofLazyMode(self,pane):
         pane.stackTableHandler(relation='@sof_arr',view_store__onBuilt=True,liveUpdate=True)
+
+    @public_method
+    def fdaLazyMode(self,pane):
+        pane.stackTableHandler(relation='@fda_arr',view_store__onBuilt=True,liveUpdate=True)    
 
     #def sof(self,pane):
     #    pane.stackTableHandler(relation='@sof_arr')#, formResource='FormSof')
@@ -1011,16 +1019,70 @@ class Form(BaseComponent):
         #fb1.semaphore('^.cartella_nave?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.cartella_nave', margin_top='5px')
 
-        btn_ts=fb1.button('!![en]Print Servicies table', action="""
+        template_id = self.db.table('adm.userobject').readColumns(columns="$id",
+                  where='$tbl=:tbl AND $code=:code', tbl='shipsteps.fda', code='tab_servizi_fda')
+        template_id_pfda = self.db.table('adm.userobject').readColumns(columns="$id",
+                  where='$tbl=:tbl AND $code=:code', tbl='shipsteps.fda', code='tab_servizi')
+        #btn_ts=fb1.button('!![en]Print Servicies table',ask=dict(title='PFDA',fields=[dict(lbl='SELECT PFDA FROM FDA TABLE',hasDownArrow=True,
+        #                                                         name='pkey',tag='dbselect',dbtable='shipsteps.fda',auxColumns='@pfda_id.cargo',
+        #                                                         columns='$id,$invoice_det_id',selected_invoice_det_id='.invoice_id',
+        #                                                        condition='$arrival_id=:aid',condition_aid='=#FORM.record.id')]),
+        #                    action="""
+        #                    var tp = {template:template_id};
+        #                       var kw = objectExtract(this.getInheritedAttributes(),"batch_*",true);
+        #                       kw.table = 'shipsteps.fda';
+        #                       kw.resource = "print_template";
+        #                       kw.res_type = "print";
+        #                       kw.templates = "A3_orizz";
+        #                       kw.pkey = pkey;
+        #                       kw.publishOnResult = "tabservizi_eseguito"
+        #                       kw.extra_parameters = new gnr.GnrBag({template_id:tp.template,table:kw.table});
+        #                    var _this = this;
+        #                    var tabserv = _this.setRelativeData('.tab_servizi', true);   
+        #                    if(!invoice_id)
+        #                    genro.dlg.ask("!![en]Warning",
+        #                                  "!![en]Invoice heading missed. Do you want to print it?",
+        #                                  {'cancel':'Cancel', 'continue':'Continue'},
+        #                                  {'continue': function(){var tp = {template:template_id_pfda}; kw.table = 'shipsteps.fda';var _this = this;
+        #                                  kw.extra_parameters = new gnr.GnrBag({template_id:tp.template,table:kw.table});tabserv;                       
+        #                                                          genro.publish("table_script_run",kw);}});
+        #                    else {
+        #                    genro.publish("table_script_run",kw);SET .tab_servizi=true;}""", template_id=template_id,template_id_pfda=template_id_pfda,invoice_id='=.invoice_id')
+        btn_ts=fb1.button('!![en]Print Servicies table',ask=dict(title='!![en]Servicies Table',fields=[dict(lbl='!![en]SELECT THE SERVICE TABLE',hasDownArrow=True,
+                                                                 name='pkey',tag='dbselect',dbtable='shipsteps.fda',auxColumns='@pfda_id.cargo',
+                                                                 columns='$id,$invoice_det_id',selected_invoice_det_id='.invoice_id',
+                                                                condition='$arrival_id=:aid',condition_aid='=#FORM.record.id',validate_notnull=True)]),
+                            action="""
+                            var tp = {template:template_id};
+                               var kw = objectExtract(this.getInheritedAttributes(),"batch_*",true);
+                               kw.table = 'shipsteps.fda';
+                               kw.resource = "print_template";
+                               kw.res_type = "print";
+                               kw.templates = "A3_orizz";
+                               kw.pkey = pkey;
+                               kw.publishOnResult = "tabservizi_eseguito"
+                               kw.extra_parameters = new gnr.GnrBag({template_id:tp.template,table:kw.table});  
                             if(!invoice_id)
                             genro.dlg.ask("!![en]Warning",
                                           "!![en]Invoice heading missed. Do you want to print it?",
                                           {'cancel':'Cancel', 'continue':'Continue'},
-                                          {'continue': function(){PUBLISH invoice=true;}});
-                            else {PUBLISH invoice=true;}""", invoice_id='=#FORM.record.invoice_det_id')
-        fb1.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
-                            nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',subscribe_invoice=True,
-                            _onResult="this.form.save();")
+                                          {'continue': function(){var tp = {template:template_id_pfda}; kw.table = 'shipsteps.fda';var _this = this;
+                                          kw.extra_parameters = new gnr.GnrBag({template_id:tp.template,table:kw.table});                      
+                                                                  genro.publish("table_script_run",kw);}});
+                            else {
+                            genro.publish("table_script_run",kw);}""", template_id=template_id,template_id_pfda=template_id_pfda,invoice_id='=.invoice_id')
+        fb1.dataController("SET .tab_servizi=true; genro.publish('floating_message',{message:'stampa eseguita', messageType:'message'});", subscribe_tabservizi_eseguito=True)
+        #btn_ts=fb1.button('!![en]Print Servicies table', action="""
+        #                    if(!invoice_id)
+        #                    genro.dlg.ask("!![en]Warning",
+        #                                  "!![en]Invoice heading missed. Do you want to print it?",
+        #                                  {'cancel':'Cancel', 'continue':'Continue'},
+        #                                  {'continue': function(){PUBLISH invoice=true;}});
+        #                    else {PUBLISH invoice=true;}""", invoice_id='=#FORM.record.invoice_det_id')
+        #fb1.dataRpc('nome_temp', self.print_template,record='=#FORM.record', nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        #                    nome_template = 'shipsteps.arrival:tab_servizi',format_page='A3',subscribe_invoice=True,
+        #                    _onResult="this.form.save();")
+        
 
         #btn_ts = fb1.Button('!![en]Print Servicies table')
         fb1.dataController("""var id = button.id; 

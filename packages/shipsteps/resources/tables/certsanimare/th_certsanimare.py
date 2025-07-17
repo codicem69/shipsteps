@@ -219,8 +219,9 @@ class FormFromCertusma(BaseComponent):
     def email_services(self, record,email_template_id=None,servizio=[], **kwargs):
         id_rinfusa_atc=record['id']
         arrival_id=record['arrival_id']
-        record=record['arrival_id']        
-        if not record:
+        
+        record_arr=record['arrival_id']        
+        if not record_arr:
             return
         tbl_att =  self.db.table('shipsteps.rinfusa_atc')
         fileurl = tbl_att.query(columns='$fileurl',
@@ -341,7 +342,7 @@ class FormFromCertusma(BaseComponent):
         
         if (email_dest) is not None:
             self.db.table('email.message').newMessageFromUserTemplate(
-                                                          record_id=record,
+                                                          record_id=record_arr,
                                                           table='shipsteps.arrival',
                                                           account_id = account_email,
                                                           to_address=email_to,
@@ -349,19 +350,22 @@ class FormFromCertusma(BaseComponent):
                                                           bcc_address=email_bcc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=self.db.currentEnv.get('current_agency_id'))
+            
             self.db.commit()
 
         if (email_pec_dest) is not None:
             self.db.table('email.message').newMessageFromUserTemplate(
-                                                          record_id=record,
+                                                          record_id=record_arr,
                                                           table='shipsteps.arrival',
                                                           account_id = account_emailpec,
                                                           to_address=email_pec,
                                                           cc_address=email_pec_cc,
                                                           attachments=attcmt,
                                                           template_code=email_template_id,
-                                                          arrival_id=arrival_id)
+                                                          arrival_id=arrival_id,
+                                                          agency_id=self.db.currentEnv.get('current_agency_id'))
             self.db.commit()
         
         

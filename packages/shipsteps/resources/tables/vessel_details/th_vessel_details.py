@@ -24,7 +24,7 @@ class View(BaseComponent):
         r.fieldcell('reg_place')
         r.fieldcell('reg_num',width='8em')
         r.fieldcell('ex_name')
-        r.fieldcell('type')
+        r.fieldcell('vessel_type_code')
         r.fieldcell('n_eliche',width='5em')
         r.fieldcell('n_eliche_poppa',width='5em')
         r.fieldcell('n_eliche_prua',width='5em')

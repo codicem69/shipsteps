@@ -33,6 +33,8 @@ class Menu(object):
             shipsteps.thpage(u"email_sof", table="shipsteps.email_sof", tags="")
             shipsteps.thpage(u"!![en]ExtradataCP", table="shipsteps.extradaticp", tags="")
             shipsteps.thpage(u"!![en]Folder", table="shipsteps.faldone", tags="")
+            shipsteps.thpage(u"!![en]Final DA", table="shipsteps.fda", tags="")
+            shipsteps.thpage(u"!![en]FDA righe", table="shipsteps.fda_righe", tags="")
             shipsteps.thpage(u"!![en]Garbage form", table="shipsteps.garbage", tags="")
             shipsteps.thpage(u"GPG", table="shipsteps.gpg", tags="")
             shipsteps.thpage(u"!![en]Harbour Master certificates", table="shipsteps.istanza_cp_cert", tags="")
