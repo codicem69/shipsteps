@@ -170,8 +170,8 @@ class ViewFromRigheFda(BaseComponent):
                             nuovo_rec = dict(fda_id=record['id'],description="ANTIFIRE / ANTIPOLLUTION", importo_pfda=r[l]) 
                             tbl_fdaRighe.insert(nuovo_rec)             
         for s in serviziextra:
-            if not tbl_fdaRighe.checkDuplicate(fda_id=record['id'],description=s['descrizione_servizio']+' '+s['descrizione']):
-                nuovo_rec = dict(fda_id=record['id'],description=s['descrizione_servizio']+' '+s['descrizione'], importo_pfda=s['tariffa']) 
+            if not tbl_fdaRighe.checkDuplicate(fda_id=record['id'],description=str(s['descrizione_servizio'])+' '+str(s['descrizione'])):
+                nuovo_rec = dict(fda_id=record['id'],description=str(s['descrizione_servizio'])+' '+str(s['descrizione']), importo_pfda=s['tariffa']) 
                 tbl_fdaRighe.insert(nuovo_rec)    
         for r in record_pfda:
             for l in r.keys():                                   
