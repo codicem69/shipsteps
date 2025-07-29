@@ -7,6 +7,7 @@ from gnr.core.gnrbag import Bag
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
 from gnr.core.gnrlang import GnrException
+import xlwt
 
 class View(BaseComponent):
 
@@ -59,7 +60,9 @@ class ViewFromPaxRighe(BaseComponent):
         r.fieldcell('visa_n', edit=True)
     
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,importa_pax,10,batchAssign,10,stampa_pax')
+        bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,temp_pax,10,importa_pax,10,batchAssign,10,stampa_pax')
+        btn_tmppax = bar.temp_pax.button('Scarica Pax temp. file')
+        btn_tmppax.dataRpc('',self.crea_excel_file)
         btn_importa_crew = bar.importa_pax.paletteImporter(paletteCode='xls_importer',
                             dockButton_iconClass=False,
                             title='!!Importa pax',
@@ -81,7 +84,47 @@ class ViewFromPaxRighe(BaseComponent):
         #btn_print_paxlist.dataRpc('nome_temp', self.print_paxlist,record='=#FORM.record',vessel_name='=#FORM.record.@arrival_id.@vessel_details_id.@imbarcazione_id.nome',
         #                    nome_template = 'shipsteps.paxlist:paxlist',format_page='A4',_lockScreen=dict(message='Please Wait'))
         
+    @public_method
+    def crea_excel_file(self):
+        workbook = xlwt.Workbook()
+        sheet = workbook.add_sheet('Foglio1')
+        # Definisce lo stile di formato testo
+        text_style = xlwt.easyxf(num_format_str='@')  # '@' = formato testo
+        
+        # Intestazioni di colonna personalizzate
+        intestazioni = ['name','surname','nationality','birth_date','birth_place','birth_country','gender','identity_doc','doc_n','doc_state','expire_doc','port_embark','port_disembark','transit','visa_n']
+        # Scrive le intestazioni nella prima riga
+        for col, titolo in enumerate(intestazioni):
+            sheet.write(0, col, titolo, text_style)        
+        #dati da inserire
+        dati = []
+        # Scrive i dati a partire dalla seconda riga (indice 1)
+        #for riga, record in enumerate(dati, start=1):
+        #    for col, valore in enumerate(record):
+        #        sheet.write(riga, col, valore, text_style)
+               
+        # Numero di righe e colonne da riempire
+        num_righe = 500
+        num_colonne = 15
 
+        # Scrive dati in ogni cella come testo
+        for riga in range(1,num_righe):
+            for colonna in range(num_colonne):
+                valore =''
+                sheet.write(riga, colonna, valore, text_style)
+
+        # impostiamo il percorso del file
+        file_sn_out = self.site.storageNode('home:form_standard', 'paxlist_import.xls')
+        # Salva il file
+        workbook.save(file_sn_out.internal_path)
+        #print(x)
+        nome_file_out = 'paxlist_import.xls'
+        path_pdf = self.site.storageNode('home:form_standard', nome_file_out)
+        result=self.site.storageNode(path_pdf)
+        self.setInClientData(path='gnr.clientprint',
+                              value=result.url(), fired=True)
+        return result
+    
     @public_method
     def importaPax(self, filepath=None, record=None, **kwargs):
         "Importa Excel pax list con nazioni"

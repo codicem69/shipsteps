@@ -7,6 +7,10 @@ from gnr.core.gnrbag import Bag
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
 from gnr.core.gnrlang import GnrException
+from gnr.core.gnrxls import XlsxWriter
+import xlwt
+import os
+import tempfile
 
 class View(BaseComponent):
 
@@ -70,7 +74,9 @@ class ViewFromShorepassRighe(BaseComponent):
         return dict(grid_selfDragRows=True)
     
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,importa_crew,10,batchAssign,10,stampa_shorepass,10,stampa_crewlist')
+        bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,temp_crew,10,importa_crew,10,batchAssign,10,stampa_shorepass,10,stampa_crewlist')
+        btn_tmpcrew = bar.temp_crew.button('Scarica crew temp. file')
+        btn_tmpcrew.dataRpc('',self.crea_excel_file)
         btn_importa_crew = bar.importa_crew.paletteImporter(paletteCode='xls_importer',
                             dockButton_iconClass=False,
                             title='!!Importa crew',
@@ -95,6 +101,48 @@ class ViewFromShorepassRighe(BaseComponent):
 
     def th_order(self):
         return '_row_count'
+    
+    @public_method
+    def crea_excel_file(self):
+        workbook = xlwt.Workbook()
+        sheet = workbook.add_sheet('Foglio1')
+        # Definisce lo stile di formato testo
+        text_style = xlwt.easyxf(num_format_str='@')  # '@' = formato testo
+        
+        # Intestazioni di colonna personalizzate
+        intestazioni = ['name','surname','rank','nationality','birth_date','birth_place','birth_country','gender','identity_doc','doc_n','doc_state','expire_doc']
+        # Scrive le intestazioni nella prima riga
+        for col, titolo in enumerate(intestazioni):
+            sheet.write(0, col, titolo, text_style)        
+        #dati da inserire
+        dati = []
+        # Scrive i dati a partire dalla seconda riga (indice 1)
+        #for riga, record in enumerate(dati, start=1):
+        #    for col, valore in enumerate(record):
+        #        sheet.write(riga, col, valore, text_style)
+               
+        # Numero di righe e colonne da riempire
+        num_righe = 500
+        num_colonne = 12
+
+        # Scrive dati in ogni cella come testo
+        for riga in range(1,num_righe):
+            for colonna in range(num_colonne):
+                valore =''
+                sheet.write(riga, colonna, valore, text_style)
+
+        # impostiamo il percorso del file
+        file_sn_out = self.site.storageNode('home:form_standard', 'crewlist_import.xls')
+        # Salva il file
+        workbook.save(file_sn_out.internal_path)
+        #print(x)
+        nome_file_out = 'crewlist_import.xls'
+        path_pdf = self.site.storageNode('home:form_standard', nome_file_out)
+        result=self.site.storageNode(path_pdf)
+        self.setInClientData(path='gnr.clientprint',
+                              value=result.url(), fired=True)
+        return result
+
 
    #def th_bottom_custom(self, bottom):
    #    bar = bottom.slotBar('10,importa_crew,*,10')

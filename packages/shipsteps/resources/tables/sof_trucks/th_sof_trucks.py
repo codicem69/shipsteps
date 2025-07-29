@@ -15,6 +15,8 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.shared import OxmlElement
 from docx.oxml.shared import qn
 from time import sleep
+import xlwt
+
 class View(BaseComponent):
 
     def th_struct(self,struct):
@@ -57,7 +59,9 @@ class ViewFromTrucks(BaseComponent):
         return dict(grid_selfDragRows=True)
     
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,importa_trucks,10,outturn,10,batchAssign')
+        bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,tmp_truck,10,importa_trucks,10,outturn,10,batchAssign')
+        btn_tmptruck = bar.tmp_truck.button('Scarica distinta trasporti vuota')
+        btn_tmptruck.dataRpc('',self.crea_excel_file)
         btn_importa_trucks = bar.importa_trucks.paletteImporter(paletteCode='xls_importer',
                             dockButton_iconClass=False,
                             title='!!Importa distinta trasporti',
@@ -72,7 +76,47 @@ class ViewFromTrucks(BaseComponent):
         btn_outturn=bar.outturn.button('!![en]Outturn report')
         btn_outturn.dataRpc('nome_temp',self.outturn,record='=#FORM.record',_virtual_column='$workport',_lockScreen=dict(thermo=True))#,_lockScreen=dict(message='Please Wait')) 
       
-       
+    @public_method
+    def crea_excel_file(self):
+        workbook = xlwt.Workbook()
+        sheet = workbook.add_sheet('Foglio1')
+        # Definisce lo stile di formato testo
+        text_style = xlwt.easyxf(num_format_str='@')  # '@' = formato testo
+        
+        # Intestazioni di colonna personalizzate
+        intestazioni = ['data','targa','tara','lordo','netto']
+        # Scrive le intestazioni nella prima riga
+        for col, titolo in enumerate(intestazioni):
+            sheet.write(0, col, titolo, text_style)        
+        #dati da inserire
+        dati = []
+        # Scrive i dati a partire dalla seconda riga (indice 1)
+        #for riga, record in enumerate(dati, start=1):
+        #    for col, valore in enumerate(record):
+        #        sheet.write(riga, col, valore, text_style)
+               
+        # Numero di righe e colonne da riempire
+        num_righe = 500
+        num_colonne = 5
+
+        # Scrive dati in ogni cella come testo
+        for riga in range(1,num_righe):
+            for colonna in range(num_colonne):
+                valore =''
+                sheet.write(riga, colonna, valore, text_style)
+
+        # impostiamo il percorso del file
+        file_sn_out = self.site.storageNode('home:form_standard', 'distinta_camion.xls')
+        # Salva il file
+        workbook.save(file_sn_out.internal_path)
+        #print(x)
+        nome_file_out = 'distinta_camion.xls'
+        path_pdf = self.site.storageNode('home:form_standard', nome_file_out)
+        result=self.site.storageNode(path_pdf)
+        self.setInClientData(path='gnr.clientprint',
+                              value=result.url(), fired=True)
+        return result
+   
     @public_method
     def importaDistinta(self, filepath=None, record=None, **kwargs):
         "Importa Excel distinta trasporti"

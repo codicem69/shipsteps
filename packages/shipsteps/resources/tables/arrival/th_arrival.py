@@ -517,7 +517,11 @@ class Form(BaseComponent):
                        let datiCambiamento = cambiamentoDelRecordCorrente[0];
                        if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)) this.form.externalChange('@arr_tasklist.btn_customgb',datiCambiamento['btn_customgb']);""",
             table='shipsteps.tasklist',pkey='=#FORM.record.@arr_tasklist.id')
-                             
+        fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
+            if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0];
+                        if(datiCambiamento['invoice_det_id'])this.form.externalChange('invoice_det_id',datiCambiamento['invoice_det_id']);
+                        console.log("datiCambiamento: ",datiCambiamento)}"""
+                       ,pkey='=#FORM.record.id',table='shipsteps.arrival')                     
         #fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
         #    if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0]['email_dogana'];
         #         console.log("datiCambiamento: ",datiCambiamento)}""",pkey='=#FORM.record.@arr_tasklist.id',table='shipsteps.tasklist')
@@ -563,6 +567,7 @@ class Form(BaseComponent):
                         console.log("datiCambiamento: ",datiCambiamento)}"""
                        ,pkey='=#FORM.record.@extradatacp.id',table='shipsteps.extradaticp')
         
+        
         #fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
         #    table='shipsteps.arrival_time',pkey='=#FORM.record.@time_arr.arrival_id')
         
@@ -604,7 +609,8 @@ class Form(BaseComponent):
         fb.field('mandatory', colspan=3 , width='98%')
         fb.field('cargo_dest', colspan=2, width='100%')
         fb.br()
-        #fb.field('invoice_det_id',colspan=5 ,width='100%', hasDownArrow=True)
+        fb.field('invoice_det_id',colspan=5 ,width='100%', hasDownArrow=True)
+        #fb.field('@invoice_det_id.fullname',lbl='!![en]Invoicing',colspan=5 ,width='100%', hasDownArrow=True,readOnly=True, tag='textBox')
         #btn_test=fb.Button('test')#, action='SET .@arr_tasklist.email_dogana=true;')
         #btn_test.dataRpc('', self.test_but,arrival_id='=#FORM.record.id')
         fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
@@ -1288,13 +1294,20 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
-        btn_pilot = fb.Button('!![en]Pilot', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true')
+        btn_pilot = fb.Button('!![en]Pilot', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true',
+                              action="""var azione = "PUBLISH pilota";
+                                        if(!invoice_id)
+                                        genro.dlg.ask("!![en]Warning",
+                                          "!![en]Invoice heading missed. Do you want to continue?",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue':azione});
+                                          else (PUBLISH pilota);""",invoice_id='=#FORM.record.invoice_det_id')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_pilot_moor',button=btn_pilot.js_widget)
         if serv_len > 1:
-            btn_pilot.dataRpc('nome_temp', self.email_services,
+            fb1.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2",
@@ -1303,13 +1316,15 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_pilota=True)
         else:
-            btn_pilot.dataRpc('nome_temp', self.email_services,
+            fb1.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_pilota=True)
+            
+
        # fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_pilot_moor',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true')
         #fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
@@ -1318,13 +1333,20 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi mooringmen ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='moor').fetch()
         serv_len=len(service_for_email)
-        btn_moor = fb.Button('!![en]Mooringmen', width='10em',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true')
+        btn_moor = fb.Button('!![en]Mooringmen', width='10em',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true',
+                              action="""var azione = "PUBLISH mooringmen";
+                                        if(!invoice_id)
+                                        genro.dlg.ask("!![en]Warning",
+                                          "!![en]Invoice heading missed. Do you want to continue?",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue':azione});
+                                          else (PUBLISH mooringmen);""",invoice_id='=#FORM.record.invoice_det_id')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_moor',button=btn_moor.js_widget)
         if serv_len > 1:
-            btn_moor.dataRpc('nome_temp', self.email_services,
+            fb1.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['mooringmen'], email_template_id='email_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2",
@@ -1333,13 +1355,13 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_mooringmen=True)
         else:
-            btn_moor.dataRpc('nome_temp', self.email_services,
+            fb1.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['mooringmen'], email_template_id='email_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_mooringmen=True)
        # fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_moor',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true')
         #fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
@@ -1348,13 +1370,20 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi tug ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='tug').fetch()
         serv_len=len(service_for_email)
-        btn_tug = fb.Button('!![en]Tug', width='10em',hidden='^#FORM.record.@arr_tasklist.e_tugarr?=#v==true')
+        btn_tug = fb.Button('!![en]Tug', width='10em',hidden='^#FORM.record.@arr_tasklist.e_tugarr?=#v==true',
+                              action="""var azione = "PUBLISH tug";
+                                        if(!invoice_id)
+                                        genro.dlg.ask("!![en]Warning",
+                                          "!![en]Invoice heading missed. Do you want to continue?",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue':azione});
+                                          else (PUBLISH tug);""",invoice_id='=#FORM.record.invoice_det_id')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_tug',button=btn_tug.js_widget)
         if serv_len > 1:
-            btn_usma.dataRpc('nome_temp', self.email_services,
+            fb1.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='tug',order_by='$consignee',
@@ -1363,14 +1392,14 @@ class Form(BaseComponent):
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
                                 cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='tugs_n', lbl='!![en]Tugs number',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),tugs_n='=#FORM.record.@extradatacp.n_tug_arr',_onResult="this.form.save();")
+                                                    cols=4,popup=True,colspan=2)]),tugs_n='=#FORM.record.@extradatacp.n_tug_arr',_onResult="this.form.save();",subscribe_tug=True)
         else:
-            btn_tug.dataRpc('nome_temp', self.email_services,
+            fb1.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='tugs_n', lbl='!![en]Tugs number',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),tugs_n='=#FORM.record.@extradatacp.n_tug_arr',_onResult="this.form.save();")
+                                                    cols=4,popup=True,colspan=2)]),tugs_n='=#FORM.record.@extradatacp.n_tug_arr',_onResult="this.form.save();",subscribe_tug=True)
        # fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
        
         fb.field('email_tug',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_tugarr?=#v==true')
@@ -1379,7 +1408,14 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi garbage ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='garb').fetch()
         serv_len=len(service_for_email)
-        btn_garb = fb.Button('!![en]Garbage pick-up', width='10em',hidden='^#FORM.record.@arr_tasklist.e_garbage?=#v==true')
+        btn_garb = fb.Button('!![en]Garbage pick-up', width='10em',hidden='^#FORM.record.@arr_tasklist.e_garbage?=#v==true',
+                              action="""var azione = "PUBLISH garbage";
+                                        if(!invoice_id)
+                                        genro.dlg.ask("!![en]Warning",
+                                          "!![en]Invoice heading missed. Do you want to continue?",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue':azione});
+                                          else (PUBLISH garbage);""",invoice_id='=#FORM.record.invoice_det_id')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1387,7 +1423,7 @@ class Form(BaseComponent):
         if serv_len > 1:
             agency=self.db.currentEnv.get('current_agency_id')
                         
-            btn_garb.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record',servizio=['garbage'], email_template_id='garbage_email',
+            fb1.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record',servizio=['garbage'], email_template_id='garbage_email',
                                 nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',                            
                                 _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',condition="$service_for_email_id=:cod",condition_cod='garb',alternatePkey='id',
@@ -1395,15 +1431,15 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='garbage',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save()") 
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save()",subscribe_garbage=True) 
         else:
-            btn_garb.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
+            fb1.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record.id',servizio=['garbage'], email_template_id='garbage_email',
                                 nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',                            
                                 _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='garbage',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_garbage=True)
        #btn_garb.dataRpc('nome_temp', self.print_template_garbage,record='=#FORM.record',servizio=['garbage'], email_template_id='garbage_email',
        #                    nome_template = 'shipsteps.garbage:garbage_request',format_page='A4',selId='=#FORM.shipsteps_garbage.view.grid.selectedId',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',                            
        #                    _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='dbSelect',hasDownArrow=True,
@@ -1494,13 +1530,20 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi GPG ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='gpg').fetch()
         serv_len=len(service_for_email)
-        btn_gpg = fb.Button('!![en]GPG', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
+        btn_gpg = fb.Button('!![en]GPG', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""",
+                              action="""var azione = "PUBLISH gpg";
+                                        if(!invoice_id)
+                                        genro.dlg.ask("!![en]Warning",
+                                          "!![en]Invoice heading missed. Do you want to continue?",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue':azione});
+                                          else (PUBLISH gpg);""",invoice_id='=#FORM.record.invoice_det_id')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_gpg',button=btn_gpg.js_widget)
         if serv_len > 1:
-            btn_gpg.dataRpc('nome_temp', self.email_services,
+            fb1.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['gpg'], email_template_id='email_gpg',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                       _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee', auxColumns='$email,$email_cc,$email_bcc,$email_pec,$email_cc_pec',
@@ -1509,15 +1552,15 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='gpg',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_gpg=True)
         else:
-            btn_gpg.dataRpc('nome_temp', self.email_services,
+            fb1.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['gpg'], email_template_id='email_gpg',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Arrival attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='gpg',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")                                 
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_gpg=True)                                 
        # fb.dataController("if(msgspec=='val_gpg') {SET .email_gpg=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_gpg',lbl='', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
         #fb.semaphore('^.email_gpg?=#v==true?true:false', margin_top='5px')
@@ -2207,13 +2250,20 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
-        btn_pilot_dep = fb_dep.Button('!![en]Pilot departure',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
-        fb1.dataController("""var id = button.id;
+        btn_pilot_dep = fb_dep.Button('!![en]Pilot departure',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true',
+                              action="""var azione = "PUBLISH pilotdep";
+                                        if(!invoice_id)
+                                        genro.dlg.ask("!![en]Warning",
+                                          "!![en]Invoice heading missed. Do you want to continue?",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue':azione});
+                                          else (PUBLISH pilotadep);""",invoice_id='=#FORM.record.invoice_det_id')
+        fb_dep.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_pilot_dep',button=btn_pilot_dep.js_widget)
         if serv_len > 1:
-            btn_pilot_dep.dataRpc('nome_temp', self.email_services,
+            fb_dep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2",
@@ -2222,13 +2272,13 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_pilotdep=True)
         else:
-            btn_pilot_dep.dataRpc('nome_temp', self.email_services,
+            fb_dep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_pilot_dep=True)
       
         fb_dep.field('email_pilot_dep',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
         fb_dep.semaphore('^.email_pilot_dep', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
@@ -2236,13 +2286,20 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi mooringmen ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='moor').fetch()
         serv_len=len(service_for_email)
-        btn_moor_dep = fb_dep.Button('!![en]Mooringmen departure',hidden='^#FORM.record.@arr_tasklist.e_moordep?=#v==true')
+        btn_moor_dep = fb_dep.Button('!![en]Mooringmen departure',hidden='^#FORM.record.@arr_tasklist.e_moordep?=#v==true',
+                              action="""var azione = "PUBLISH moordep";
+                                        if(!invoice_id)
+                                        genro.dlg.ask("!![en]Warning",
+                                          "!![en]Invoice heading missed. Do you want to continue?",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue':azione});
+                                          else (PUBLISH moordep);""",invoice_id='=#FORM.record.invoice_det_id')
         fb_dep.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_moor_dep',button=btn_moor_dep.js_widget)
         if serv_len > 1:
-            btn_moor_dep.dataRpc('nome_temp', self.email_services,
+            fb_dep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['mooringmen'], email_template_id='email_moor_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod OR $service_for_email_id=:cod2",
@@ -2251,13 +2308,13 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_moordep=True)
         else:
-            btn_moor_dep.dataRpc('nome_temp', self.email_services,
+            fb_dep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['mooringmen'], email_template_id='email_moor_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_moordep=True)
        # fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
         fb_dep.field('email_moor_dep',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_moordep?=#v==true')
         #fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
@@ -2265,13 +2322,20 @@ class Form(BaseComponent):
 
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv',serv='tug').fetch()
         serv_len=len(service_for_email)
-        btn_tugdep = fb_dep.Button('!![en]Tug departure',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true')
-        fb1.dataController("""var id = button.id; 
+        btn_tugdep = fb_dep.Button('!![en]Tug departure',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true',
+                              action="""var azione = "PUBLISH tugdep";
+                                        if(!invoice_id)
+                                        genro.dlg.ask("!![en]Warning",
+                                          "!![en]Invoice heading missed. Do you want to continue?",
+                                          {'cancel':'Cancel', 'continue':'Continue'},
+                                          {'continue':azione});
+                                          else (PUBLISH tugdep);""",invoice_id='=#FORM.record.invoice_det_id')
+        fb_dep.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_tug_dep',button=btn_tugdep.js_widget)
         if serv_len > 1:
-            btn_usma.dataRpc('nome_temp', self.email_services,
+            fb_dep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['tug'], email_template_id='email_tug_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the services',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services', columns='$consignee',condition="$service_for_email_id=:cod",condition_cod='tug',order_by='$consignee',
@@ -2280,14 +2344,14 @@ class Form(BaseComponent):
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
                                 cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='tugs_ndep', lbl='!![en]Tugs number',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',_onResult="this.form.save();")
+                                                    cols=4,popup=True,colspan=2)]),tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',_onResult="this.form.save();",subscribe_tugdep=True)
         else:
-            btn_tugdep.dataRpc('nome_temp', self.email_services,
+            fb_dep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['tug'], email_template_id='email_tug_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='tugs_ndep', lbl='!![en]Tugs number',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',_onResult="this.form.save();")
+                                                    cols=4,popup=True,colspan=2)]),tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',_onResult="this.form.save();",subscribe_tugdep=True)
        # fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
        
         fb_dep.field('email_tug_dep',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true')
@@ -2302,7 +2366,7 @@ class Form(BaseComponent):
                                                                                {SET .form_gdfdep=true;}
                                                                                this.form.save();""",
                                                                                pkey='=#FORM.pkey')
-        fb1.dataController("""var id = button.id; 
+        fb_dep.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.form_gdfdep',button=btn_fgdf.js_widget)                                                                               
@@ -2604,7 +2668,7 @@ class Form(BaseComponent):
     @public_method
     def email_services(self,record,email_template_id=None,servizio=[],nome_temp=None,**kwargs):
     #def email_services(self, record,email_template_id=None,servizio=[],selPkeys_att=None,**kwargs):
-       
+        
         record_arr=record['id']
         arrival_id=record['id']
         flag=record['flag']
@@ -2682,6 +2746,23 @@ class Form(BaseComponent):
         tbl_tasklist.batchUpdate(dict(nome_servizio=services),
                                     where='$id=:id_task', id_task=record_tasklist)
         self.db.commit()
+
+        #verifichiamo se nelle keys di kwargs troviamo la chiave int_fat e lo assegnamo alla variabile int_fat
+        int_fat = None
+        for chiavi in kwargs.keys():
+            
+            if chiavi=='int_fat':
+                if kwargs['int_fat']:
+                    int_fat=kwargs['int_fat']
+        #avendo preso il valore int_fat nei kwargs andiamo a copiarlo nel record arrival.invoice_det_id che ci servirà nella variabile 
+        #che utilizzeremo nei template per avere la variabile intestazione fattura                     
+       
+        tbl_arrival = self.db.table('shipsteps.arrival')  
+        if int_fat:
+            tbl_arrival.batchUpdate(dict(invoice_det_id=int_fat),
+                                    where='$id=:id_arr', id_arr=record_arr)
+        self.db.commit()
+
          #verifichiamo se nelle keys di kwargs troviamo la chiave fumigation e lo assegnamo alla variabile fumigation 
         fumigation = None
         for chiavi in kwargs.keys():

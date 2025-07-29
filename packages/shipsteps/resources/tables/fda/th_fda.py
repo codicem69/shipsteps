@@ -48,13 +48,30 @@ class Form(BaseComponent):
         bc_fdarighe = bc.borderContainer(region = 'center',margin='2px')
         
         self.righeFDA(bc_fdarighe.contentPane(title='!![en]FDA rows',height='100%'))
-    
+        
     def datiFDA(self,pane):
         
-        fb = pane.formbuilder(cols=3, border_spacing='4px')
+        fb = pane.formbuilder(cols=4, border_spacing='4px')
         fb.field('arrival_id' )
         fb.field('pfda_id',hasDownArrow=True,  auxColumns='$data,@imbarcazione_id.nome,@cliente_id.cliente_full',order_by='$data DESC' )
         fb.field('invoice_det_id',hasDownArrow=True ,width='80em')
+        #btn_inv=fb.button('!![en]Set invoice header')
+        #btn_inv.dataRpc(self.setInvoice,record='=#FORM.record',_onResult='genro.publish("floating_message",{message:result, messageType:"message"});')
+        
+    @public_method
+    def setInvoice(self,record,**kwargs):
+        tbl_arrival = self.db.table('shipsteps.arrival')  
+        record_arr=record['arrival_id']
+
+        if record['invoice_det_id']:
+            tbl_arrival.batchUpdate(dict(invoice_det_id=record['invoice_det_id']),
+                                    where='$id=:id_arr', id_arr=record_arr)
+            self.db.commit()
+            result = 'Invoice settled'
+        else:
+            result ='No invoice header'    
+        
+        return result
 
     def righeFDA(self,pane):
         pane.inlineTableHandler(relation='@fda_righe',viewResource='ViewFromRigheFda',liveUpdate=True)
