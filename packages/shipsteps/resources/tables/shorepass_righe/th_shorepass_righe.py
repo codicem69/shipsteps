@@ -77,6 +77,8 @@ class ViewFromShorepassRighe(BaseComponent):
         bar = view.top.bar.replaceSlots('addrow','addrow,resourcePrints,10,temp_crew,10,importa_crew,10,batchAssign,10,stampa_shorepass,10,stampa_crewlist')
         btn_tmpcrew = bar.temp_crew.button('Scarica crew temp. file')
         btn_tmpcrew.dataRpc('',self.crea_excel_file)
+        #bar.dataController("genro.openWindow(url,filename);",url='=result',filename='crewlist_import.xls', subscribe_print_crew=True)
+
         btn_importa_crew = bar.importa_crew.paletteImporter(paletteCode='xls_importer',
                             dockButton_iconClass=False,
                             title='!!Importa crew',
@@ -101,7 +103,7 @@ class ViewFromShorepassRighe(BaseComponent):
 
     def th_order(self):
         return '_row_count'
-    
+
     @public_method
     def crea_excel_file(self):
         workbook = xlwt.Workbook()

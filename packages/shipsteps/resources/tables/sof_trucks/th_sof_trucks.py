@@ -103,7 +103,7 @@ class ViewFromTrucks(BaseComponent):
         for riga in range(1,num_righe):
             for colonna in range(num_colonne):
                 valore =''
-                sheet.write(riga, colonna, valore, text_style)
+                sheet.write(riga, colonna, valore)
 
         # impostiamo il percorso del file
         file_sn_out = self.site.storageNode('home:form_standard', 'distinta_camion.xls')
@@ -179,9 +179,9 @@ class ViewFromTrucks(BaseComponent):
         shortage = f"{str(shortage).replace('.',',')}"
         shortage_perc=str(round(record_sof['shortage']/record_sof['tot_cargo_sof']*100,3))+str('%')
         shortage_perc = f"{str(shortage_perc).replace('.',',')}"
-        nome_file = 'Outturn.docx'
+        nome_file = 'Outturn.docx'.lower()
         nome_file_out = 'Outturn_filled.docx'
-        file_sn_out = self.site.storageNode('home:form_standard', 'Outturn_filled.docx')
+        file_sn_out = self.site.storageNode('home:stampe_template', 'Outturn_filled.docx')
         data_report = record['ops_completed'].strftime("%d/%m/%Y")
         
         variables = {
@@ -271,7 +271,7 @@ class ViewFromTrucks(BaseComponent):
         #apriamo direttamente il file salvato con il programma standard di sistema
         filename=output_file_path
               
-        path_pdf = self.site.storageNode('home:form_standard', nome_file_out)
+        path_pdf = self.site.storageNode('home:stampe_template', nome_file_out)
         
         #path_pdf=path + str('/') + nome_form + str('.pdf')
         result=self.site.storageNode(path_pdf)

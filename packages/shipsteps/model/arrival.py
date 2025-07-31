@@ -1,5 +1,6 @@
 # encoding: utf-8
 from datetime import datetime
+from gnr.core.gnrdecorator import public_method
 
 
 class Table(object):
@@ -566,4 +567,3 @@ class Table(object):
         record['note'] = None
         record['vessel_stamp'] = None
         
-    
