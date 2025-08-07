@@ -40,7 +40,7 @@ class Form(BaseComponent):
         rg_extra=bc.roundedGroup(region='center',title='Extra',width='50%').div(margin='10px',margin_right='20px')
         fb = rg_map.formbuilder(cols=2, border_spacing='4px')
         #fb = pane.formbuilder(cols=2, border_spacing='4px')
-        fb.img(src='^.map', edit=True, crop_width='400px', crop_height='300px', 
+        fb.img(src='^.map', edit=True, crop_width='600px', crop_height='400px', 
                         placeholder=True, upload_folder='*')
         fb = rg_extra.formbuilder(cols=2, border_spacing='4px')
         fb.field('agency_id')

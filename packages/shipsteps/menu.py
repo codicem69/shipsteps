@@ -48,8 +48,7 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Port Facilities", table="shipsteps.port_facility", tags="")
             shipsteps.thpage(u"!![en]Sanimare certificates", table="shipsteps.certsanimare", tags="")
             shipsteps.thpage(u"!![en]Send Pre-Arrivals", table="shipsteps.prearrivals", tags="")
-            shipsteps.thpage(u"!![en]Services emails", table="shipsteps.email_services", tags="")
-           
+            shipsteps.thpage(u"!![en]Services emails", table="shipsteps.email_services", tags="")          
             shipsteps.thpage(u"Shippers-Receivers", table="shipsteps.ship_rec", tags="")
             shipsteps.webpage("!![en]Shippers/Receivers/Charterers", filepath="/shipsteps/cruscotto")
             shipsteps.thpage(u"!![en]Pre-Arrivals files", table="shipsteps.prearrivals_default",formResource='FormFromPrearrival_df', tags="")
@@ -66,6 +65,8 @@ class Menu(object):
             shipsteps.thpage(u"!![en]Tributes", table="shipsteps.tributi_cp", tags="")
             shipsteps.thpage(u"!![en]Vessel details", table="shipsteps.vessel_details", tags="")
             shipsteps.thpage(u"!![en]Vessel services", table="shipsteps.vessel_services", tags="")
+            shipsteps.thpage(u"!![en]Unsealing", table="shipsteps.unsealing", tags="")
+            shipsteps.thpage(u"!![en]unsealing rows", table="shipsteps.unsealing_righe", tags="")
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")       
             shipsteps.webpage('test',filepath='test')

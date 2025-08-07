@@ -274,7 +274,7 @@ class View_Filtered_Arrivals(BaseComponent):
         return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
     
 class Form(BaseComponent):
-    py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager"
+    py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager,gnrcomponents/pagededitor/pagededitor:PagedEditor"
     
     def th_form(self, form):
         #con lo store.handler possiamo inserire tutte le virtual_columns che vogliamo avere disponibili nello store
@@ -375,14 +375,17 @@ class Form(BaseComponent):
         tc = bc.tabContainer(margin='2px', region='center', height='auto', splitter=True)
 
         tc_under_car = tc_car.tabContainer(title='!![en]Cargo onboard')
+        
         self.carbordoArr(tc_under_car.contentPane(title="!![en]Cargo onboard on arrival",datapath='.record'))
         self.carbordoDep(tc_under_car.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
-
+        
         self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
         self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
         #disabilitato tabContainer tempi e dettagli nave per dialog con pulsante
         #self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details',height='100%', region='top', background = '#f2f0e8', pageName='arrtime'))
-
+        #tc_under_unseal = tc_car.tabContainer(title='!![en]Unsealing')
+        tc_car.borderContainer(title='!![en]Unsealing',region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Unsealing',pageName='unsealing',height='100%').remote(self.unsealingLazyMode,_waitingMessage='!![en]Please wait')
+       
         tc.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait')
         self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
         tc.contentPane(title='!![en]Vessel details').templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
@@ -394,6 +397,7 @@ class Form(BaseComponent):
     #    
     #def arr_details(self, pane):
     #    pane.stackTableHandler(relation='@arr_details')
+        
     @public_method
     def emailInOutLazyMode(self,pane):
         pane.stackTableHandler(table='email.message',relation='@email_arr',condition="$arrival_id=:cod",condition_cod='=#FORM.record.id',liveUpdate=True,view_store__onBuilt=True, extendedQuery=True)
@@ -669,8 +673,10 @@ class Form(BaseComponent):
 
     #def car_ric(self,pane):
     #     pane.stackTableHandler(table='shipsteps.ship_rec', formResource='Form',view_store_onStart=True)
+    @public_method
+    def unsealingLazyMode(self,pane):
+        pane.stackTableHandler(relation='@unsealing_arr',view_store__onBuilt=True,liveUpdate=True)
 
-        
     @public_method
     def charterersLazyMode(self,pane):
         pane.inlineTableHandler(table='shipsteps.charterers',datapath='#FORM.charterers',parentForm=False,saveButton=True,semaphore=True,viewResource='ViewFromCharterers',view_store_onStart=True,view_store__onBuilt=True)
