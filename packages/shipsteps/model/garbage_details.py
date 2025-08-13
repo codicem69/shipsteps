@@ -13,35 +13,39 @@ class Table(object):
         tbl.column('quantity', name_short='!![en]Quantity')
         tbl.aliasColumn('garbage_descr', '@tip_garbage_id.description',name_long='descrizione prodotto')
 
+   #def setCustombtn(self,record):
+   #    if record['tip_garbage_id']=='sludge________________' or record['tip_garbage_id']=='bilge_________________' or record['tip_garbage_id']=='dirtyoil______________':
+   #        custombtn=True
+   #        
+   #    elif not record['tip_garbage_id']=='sludge________________' or record['tip_garbage_id']=='bilge_________________' or record['tip_garbage_id']=='dirtyoil________________' or record['tip_garbage_id']=='dirtyoil______________':
+   #            custombtn=True
+   #    else:
+   #            custombtn=False
+   #    self.aggiornaTasklist(record,custombtn)
+
     def trigger_onInserted(self,record=None):
-        if record['tip_garbage_id']=='sludge________________' or record['tip_garbage_id']=='bilge_________________' or record['tip_garbage_id']=='sewage________________' or record['tip_garbage_id']=='dirtyoil______________':
-            custombtn=True
-            self.aggiornaTasklist(record,custombtn)
-        else:
-            custombtn=False
-            self.aggiornaTasklist(record,custombtn)    
-    
-    def trigger_onUpdated(self,record=None,old_record=None):
+        self.aggiornaTasklist(record)
+        #self.setCustombtn(record)
         
-        if record['tip_garbage_id']=='sludge________________' or record['tip_garbage_id']=='bilge_________________' or record['tip_garbage_id']=='sewage________________' or record['tip_garbage_id']=='dirtyoil______________':
-            custombtn=True
-            self.aggiornaTasklist(record,custombtn)
-        else:
-            custombtn=False
-            self.aggiornaTasklist(record,custombtn)
-
+    def trigger_onUpdated(self,record=None,old_record=None):
+        self.aggiornaTasklist(record)
+        #self.setCustombtn(record)
+ 
     def trigger_onDeleted(self,record=None):
-        if self.currentTrigger.parent:
-            return
-        if record['tip_garbage_id']=='sludge________________' or record['tip_garbage_id']=='bilge_________________' or record['tip_garbage_id']=='sewage________________' or record['tip_garbage_id']=='dirtyoil______________':
-            custombtn=False
-            self.aggiornaTasklist(record,custombtn)
-        else:
-            custombtn=True
-            self.aggiornaTasklist(record,custombtn)
-
-    def aggiornaTasklist(self,record,custombtn=None):
+        self.aggiornaTasklist(record)
+        #self.setCustombtn(record)
+ 
+    def aggiornaTasklist(self,record):
         garbage_id = record['garbage_id']
-        self.db.deferToCommit(self.db.table('shipsteps.garbage').setvalueTasklist,
-                                    garbage_id=garbage_id,custombtn=custombtn,
-                                    _deferredId=garbage_id)
+        tbl_garbagedet = self.db.table('shipsteps.garbage_details')
+        garbage_details = tbl_garbagedet.query(columns='$tip_garbage_id', where='$garbage_id=:garbage_id',garbage_id=garbage_id).fetch()
+        garbage_annexI={'sludge________________','bilge_________________','dirtyoil______________'}
+        annexI = [d for d in garbage_details if d["tip_garbage_id"] in garbage_annexI]
+        if annexI:
+            custombtn = True
+        else:
+            custombtn =False
+
+        self.db.table('shipsteps.garbage').setvalueTasklist(
+                                    garbage_id=garbage_id,custombtn=custombtn)
+                             

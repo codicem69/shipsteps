@@ -38,6 +38,7 @@ class Table(object):
         
         return data_lavoro
 
+    
     def setvalueTasklist(self, garbage_id=None,custombtn=None):
         with self.recordToUpdate(garbage_id) as record:
             arrival_id = record['arrival_id']
