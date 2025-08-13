@@ -22,6 +22,10 @@ class Table(object):
         return self.newrecord(code='dog',description_serv='dogana')
     
     @metadata(mandatory=True)
+    def sysRecord_dogana_pec(self):
+        return self.newrecord(code='dogpec',description_serv='dogana_pec')
+    
+    @metadata(mandatory=True)
     def sysRecord_ens(self):
         return self.newrecord(code='ens',description_serv='ens')
 
