@@ -40,9 +40,12 @@ class ViewFromVesselServices(BaseComponent):
         return '_row_count'
         
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('addrow','addrow,10,servizi_std,*,stampa_services,stampa_serv_int,5,ctm,tax_ancor')
+        bar = view.top.bar.replaceSlots('addrow','addrow,10,servizi_std,*,stampa_services,stampa_serv_int,5,ctm,tax_ancor,print_ta')
         btn_services_std=bar.servizi_std.button('!![en]Insert standard services')
         btn_tax_ancor=bar.tax_ancor.button('!![en]Insert Anchorage dues')
+        btn_stampa_ta=bar.print_ta.button('!![en]Print Request Anchorage dues')
+        btn_stampa_ta.dataRpc('nome_temp', self.print_template_services,record='=#FORM.record',
+                            nome_template = 'shipsteps.arrival:tax_anchor',format_page='A4')
         btn_services_std.dataRpc('nome_temp', self.insert_StdServices,record='=#FORM.record')
         btn_tax_ancor.dataRpc('nome_temp', self.print_template_services,record='=#FORM.record',nome_template = 'shipsteps.arrival:tax_anchor',format_page='A4',
                               _ask=dict(title='!![en]Italian Anchorage Dues',fields=[dict(name='durata',lbl='!![en]Duration',tag='filteringSelect',
@@ -102,7 +105,7 @@ class ViewFromVesselServices(BaseComponent):
                         self.db.commit()    
         #verifichiamo se stiamo stampando la tassa ancoraggio e inseriamo i valori nella tabella arrivo
         if nome_template == 'shipsteps.arrival:tax_anchor':
-            if kwargs:
+            if "durata" in kwargs:
                 durata=kwargs['durata']
                 importo=kwargs['importo']
                 tbl_arrival.batchUpdate(dict(durata_anchor=durata,anchor_value=importo),
@@ -121,6 +124,7 @@ class ViewFromVesselServices(BaseComponent):
                                         arrival_id=record_id)
                         tbl_vessel_services.insert(nuovo_record)
                         self.db.commit()
+                        
         builder = TableTemplateToHtml(table=tbl_arrival)
         #nome_template = nome_template #'shipsteps.arrival:check_list'
 
