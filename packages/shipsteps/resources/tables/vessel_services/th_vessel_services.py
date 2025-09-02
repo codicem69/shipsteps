@@ -45,7 +45,7 @@ class ViewFromVesselServices(BaseComponent):
         btn_tax_ancor=bar.tax_ancor.button('!![en]Insert Anchorage dues')
         btn_stampa_ta=bar.print_ta.button('!![en]Print Request Anchorage dues')
         btn_stampa_ta.dataRpc('nome_temp', self.print_template_services,record='=#FORM.record',
-                            nome_template = 'shipsteps.arrival:tax_anchor',format_page='A4')
+                            nome_template = 'shipsteps.arrival:tax_anchor',format_page='A4',_onResult="""if(result=='no_ta'){genro.publish("floating_message",{message:'Please insert before the Italian Anchorage dues', messageType:"error"});}""")
         btn_services_std.dataRpc('nome_temp', self.insert_StdServices,record='=#FORM.record')
         btn_tax_ancor.dataRpc('nome_temp', self.print_template_services,record='=#FORM.record',nome_template = 'shipsteps.arrival:tax_anchor',format_page='A4',
                               _ask=dict(title='!![en]Italian Anchorage Dues',fields=[dict(name='durata',lbl='!![en]Duration',tag='filteringSelect',
@@ -124,7 +124,9 @@ class ViewFromVesselServices(BaseComponent):
                                         arrival_id=record_id)
                         tbl_vessel_services.insert(nuovo_record)
                         self.db.commit()
-                        
+            elif not record['anchor_value']:
+                nome_temp = 'no_ta'
+                return nome_temp
         builder = TableTemplateToHtml(table=tbl_arrival)
         #nome_template = nome_template #'shipsteps.arrival:check_list'
 
