@@ -50,7 +50,7 @@ class ViewFromTCheckList(BaseComponent):
         return '_row_count'
 
     def th_view(self,view):
-        bar = view.top.bar.replaceSlots('delrow','load_checklist,25,delrow')
+        bar = view.top.bar.replaceSlots('delrow','load_checklist,resourcePrints,25,delrow')
         btn_checklist=bar.load_checklist.button('!![en]Load checklist ',disabled="""^#FORM.shipsteps_tasklist_check.view.count.shown""")
         btn_checklist.dataRpc(self.load_Checklist,record='=#FORM.record',
                               _onResult="if(result=='no_movtype'){genro.publish('floating_message',{message:'Please insert before movtype', messageType:'error'});}")

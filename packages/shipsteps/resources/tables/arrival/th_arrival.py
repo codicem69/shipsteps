@@ -966,8 +966,8 @@ class Form(BaseComponent):
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.checklist',button=btn_cl.js_widget)
-        btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record',nome_template='shipsteps.arrival:checklist',
-                            nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+        btn_cl.dataRpc('nome_temp', self.print_template,record='=#FORM.record',nome_template='shipsteps.arrival:checklist_task',
+                            nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',righe_cl='=#FORM.shipsteps_tasklist_check.view.count.total',
                             format_page='A4',_onResult="this.form.save();")
       #  fb1.dataController("if(msg=='check_list') SET .checklist=true", msg='^nome_temp')
         fb1.field('checklist', lbl='', margin_top='5px')
@@ -1895,7 +1895,8 @@ class Form(BaseComponent):
                              if(msg=='tab_servizi') {SET .tab_servizi=true;}
                              if(msg=='cartella_doc') {SET .cartella_nave=true;}
                              if(msg=='front_nave') {SET .frontespizio=true;}
-                             if(msg=='checklist') {SET .checklist=true;}
+                             if(msg=='checklist_task') {SET .checklist=true;}
+                             if(msg=='no_cl')genro.publish("floating_message",{message:'You must first load the checklist', messageType:"error"});
                              if(msg=='tributi_cp') {SET .tributi_cp=true;} if(msg=='no_tributi') genro.publish("floating_message",{message:'You must select the record as row in the tribute form', messageType:"error"});
                              if(msg=='form_gdf') {SET .form_gdf=true;}
                              if(msg=='form_immigration_print') {SET .form_immigration=true;}
@@ -4012,6 +4013,10 @@ class Form(BaseComponent):
     def print_template(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[],  nome_vs=None, format_page=None, **kwargs):
         record_arr=record['id']
         flag=record['flag']
+        if "righe_cl" in kwargs:
+            if kwargs['righe_cl'] == 0:
+                return 'no_cl'
+
        ##verifichiamo che stiamo stampando la checklist e che tipo di movimentazione è stata assegnato all'arrivo
        ##al fine di assegnare il nome template della check list 
        #if nome_template=='shipsteps.arrival:check_list' and record['@tip_mov.code'] == 'alim':
