@@ -9,9 +9,9 @@ class Table(object):
         tbl.column('owner_id', size='22', name_short='owner_id').relation('owner.id',relation_name='owner_vessdet', mode='foreignkey', onDelete='raise')
         tbl.column('callsign', size=':10', name_short='!![en]Call sign',validate_case='u')#validate u imposta tutte lettere maiuscole
         tbl.column('built', size='4', name_short='!![en]Built')
-        tbl.column('dwt', name_short='dwt')
-        tbl.column('beam', name_short='!![en]Beam')
-        tbl.column('mmsi', name_short='mmsi')
+        tbl.column('dwt', name_short='dwt', dtype='N',size='10,2',format='####.00')
+        tbl.column('beam', name_short='!![en]Beam', dtype='N',size='10,2',format='####.00')
+        tbl.column('mmsi', name_short='mmsi', size=':9',validate_len='9')
         tbl.column('reg_place', size='22', name_short='!![en]Registration place').relation('unlocode.place.id',relation_name='reg_place_un', mode='foreignkey', onDelete='raise')
         tbl.column('reg_num', name_short='!![en]Registration no.')
         tbl.column('n_eliche', name_short='!![en]Propellers no.')
