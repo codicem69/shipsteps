@@ -85,7 +85,7 @@ class Form(BaseComponent):
         fb.field('callsign', width='10em' )
         fb.field('built', width='10em' )
         fb.field('dwt', width='10em' )
-        fb.field('beam', width='10em',validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:10 or 10,00' )
+        fb.field('beam', width='10em')#,validate_regex=" ^[0-9,]*$",validate_regex_error='Insert only numbers and comma', placeholder='eg:10 or 10,00' )
         fb.field('mmsi', width='10em',validate_len='9',validate_len_error='Please insert total 9 numbers' )
         fb.br()
         fb.field('reg_place',lbl='Reg. place',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome',
