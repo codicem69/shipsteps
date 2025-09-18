@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-04-03T11:59:21.953912+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2024-06-13T16:59:13.786623+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2025-09-18T09:42:22.645654+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.arrivaltemplatevess_serv</identifier>
-<code size=":40" name_long="!![en]Code" indexed="y" dtype="A" print_width="30::L" as="t0_code">vess_serv</code>
-<objtype size=":20" name_long="!![en]Object Type" indexed="y" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
+<code size=":40" name_long="!![en]Code" indexed="True::B" dtype="A" print_width="30::L" as="t0_code">vess_serv</code>
+<objtype size=":20" name_long="!![en]Object Type" indexed="True::B" dtype="A" print_width="15::L" as="t0_objtype">template</objtype>
 <pkg size=":50" name_long="!![en]Package" dtype="A" print_width="30::L" as="t0_pkg">shipsteps</pkg>
 <tbl size=":50" name_long="!![en]Table" dtype="A" print_width="30::L" as="t0_tbl">shipsteps.arrival</tbl>
-<userid size=":50" name_long="!![en]User ID" indexed="y" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
-<description size=":50" name_long="!![en]Description" indexed="y" dtype="A" print_width="30::L" as="t0_description">Vessel Services</description>
+<userid size=":50" name_long="!![en]User ID" indexed="True::B" dtype="A" print_width="30::L" as="t0_userid">admin</userid>
+<description size=":50" name_long="!![en]Description" indexed="True::B" dtype="A" print_width="30::L" as="t0_description">Vessel Services</description>
 <notes _T="NN" dtype="T" name_long="!![en]Notes" as="t0_notes"></notes>
 <data dtype="X" name_long="!![en]Data" print_width="12::L" as="t0_data"><content>&lt;div style="text-align: center;"&gt;
 	&amp;nbsp;&lt;/div&gt;
@@ -18,7 +18,7 @@
 &lt;div style="text-align: center;"&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div style="text-align: center;"&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:94%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td class="td_l" style="text-align: left;"&gt;
@@ -27,33 +27,22 @@
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$imbarcazione_nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Port: $place_citta_nazione&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;arrived:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: left;"&gt;
+				&lt;td colspan="2" style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$moored&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;sailed:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$sailed&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
-				&lt;td class="td_f" colspan="2" style="text-align: left;"&gt;
-					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Please endorse mentioned services provided during the Port stay of:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td colspan="2" style="text-align: left;"&gt;
-					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$imbarcazione_tipo $imbarcazione_nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="3" style="text-align: left;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Please endorse mentioned services provided during the Port stay:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
@@ -61,7 +50,7 @@
 &lt;div style="text-align: center;"&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@vess_services" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@vess_services" style="border-collapse:collapse;margin-left:20px;width:94%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
@@ -75,7 +64,7 @@
 		&amp;nbsp;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:94%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
@@ -94,7 +83,7 @@
 	&lt;div&gt;
 		&amp;nbsp;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:94%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td&gt;
@@ -132,7 +121,7 @@
 <bcc_address _T="NN"></bcc_address>
 <attachments _T="NN"></attachments></email>
 <email_compiled _T="BAG"></email_compiled></metadata>
-<varsbag><gx2zv4mk21 _newrecord="True::B" _pkey="gx2zv4mk21"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code</fieldpath>
+<varsbag><gx31ex4jhl _pkey="gx31ex4jhl"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Vessel/imbarcazione/Vessel type/Codice</fieldname>
 <varname dtype="::NN" _loadedValue="vessel_imbarcazione_vessel_type_codice">imbarcazione_tipo</varname>
@@ -141,7 +130,7 @@
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gx2zv4mk21>
+<editable _T="NN" dtype="::NN"></editable></gx31ex4jhl>
 <gahd0iqzzl _pkey="gahd0iqzzl"><fieldpath dtype="::NN">@vessel_details_id.@imbarcazione_id.nome</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">Vessel/imbarcazione/Nome</fieldname>
@@ -257,7 +246,7 @@
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$descrizione&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		</_vess_services>
-<main maintable="shipsteps.arrival" locale="it-IT" virtual_columns="@agency_id.fullstyle,@vess_services.notaiterna,@agency_id.@port.citta_nazione" columns="@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,@vessel_details_id.@imbarcazione_id.nome,@time_arr.moored,@time_arr.sailed,@agency_id.fullstyle,@vess_services.@services_id.description,@vess_services.notaiterna,@vess_services.descrizione,@vess_services.data_serv,@agency_id.@port.citta_nazione,$master_name" formats='{"moored": "dd/MM/yy", "sailed": "dd/MM/yy"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"imbarcazione_tipo": "T", "imbarcazione_nome": "T", "moored": "DH", "sailed": "DH", "agenzia_fullstyle": "A", "service_type_description": "T", "services_notaiterna": "A", "services_descrizione": "T", "services_data_serv": "D", "place_citta_nazione": "A", "master_name": "T"}::JS'>&lt;style&gt;.td_l{width: 200px;
+<main maintable="shipsteps.arrival" locale="it" virtual_columns="@agency_id.fullstyle,@vess_services.notaiterna,@agency_id.@port.citta_nazione" columns="@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,@vessel_details_id.@imbarcazione_id.nome,@time_arr.moored,@time_arr.sailed,@agency_id.fullstyle,@vess_services.@services_id.description,@vess_services.notaiterna,@vess_services.descrizione,@vess_services.data_serv,@agency_id.@port.citta_nazione,$master_name" formats='{"moored": "dd/MM/yy", "sailed": "dd/MM/yy"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"imbarcazione_tipo": "T", "imbarcazione_nome": "T", "moored": "DH", "sailed": "DH", "agenzia_fullstyle": "A", "service_type_description": "T", "services_notaiterna": "A", "services_descrizione": "T", "services_data_serv": "D", "place_citta_nazione": "A", "master_name": "T"}::JS'>&lt;style&gt;.td_l{width: 200px;
 }
 .td_f{width: 5px;
 }
@@ -272,7 +261,7 @@
 	&amp;#160;&lt;/div&gt;
 
 &lt;div style="text-align: center;"&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
+	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:94%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td class="td_l" style="text-align: left;"&gt;
@@ -281,33 +270,22 @@
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Port: $@agency_id.@port.citta_nazione&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;arrived:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td style="text-align: left;"&gt;
+				&lt;td colspan="2" style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@time_arr.moored^moored&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;#160;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;#160;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
 				&lt;td style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;sailed:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td style="text-align: left;"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@time_arr.sailed^sailed&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;#160;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;#160;&lt;/td&gt;
 			&lt;/tr&gt;
 			&lt;tr&gt;
-				&lt;td class="td_f" colspan="2" style="text-align: left;"&gt;
-					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Please endorse mentioned services provided during the Port stay of:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
-				&lt;td colspan="2" style="text-align: left;"&gt;
-					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;$@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code $@vessel_details_id.@imbarcazione_id.nome&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+				&lt;td colspan="3" style="text-align: left;"&gt;
+					&lt;span style="font-size:12px;"&gt;&lt;strong&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Please endorse mentioned services provided during the Port stay:&lt;/span&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		&lt;/tbody&gt;
 	&lt;/table&gt;
@@ -317,7 +295,7 @@
 	&amp;#160;&lt;/div&gt;
 
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@vess_services" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" row_datasource="@vess_services" style="border-collapse:collapse;margin-left:20px;width:94%;"&gt;
 		&lt;tbody&gt;
 			
 $@vess_services
@@ -328,7 +306,7 @@ $@vess_services
 &lt;/div&gt;
 
 &lt;div&gt;
-	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
+	&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:94%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td&gt;
@@ -347,7 +325,7 @@ $@vess_services
 	&lt;div&gt;
 		&amp;#160;&lt;/div&gt;
 	&lt;div&gt;
-		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:19cm;"&gt;
+		&lt;table border="1" cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;width:94%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td&gt;
@@ -375,4 +353,7 @@ $@vess_services
 <quicklist _T="NN" dtype="B" name_long="!![en]Quicklist" print_width="13::L" as="t0_quicklist"></quicklist>
 <flags dtype="T" name_long="!![en]Flags" print_width="20::L" as="t0_flags">is_print</flags>
 <required_pkg _T="NN" name_long="!![en]Required pkg" dtype="T" print_width="20::L" as="t0_required_pkg"></required_pkg>
-<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview></GenRoBag>
+<preview _T="NN" name_long="!![en][it]Preview" dtype="T" as="t0_preview"></preview>
+<is_mail _T="B" sql_formula=":email ILIKE ANY(string_to_array($flags,','))" virtual_column="True::B" dtype="B" var_email="is_mail" static="True::B" as="t0_is_mail">False</is_mail>
+<is_row _T="B" sql_formula=":row ILIKE ANY(string_to_array($flags,','))" virtual_column="True::B" dtype="B" var_row="is_row" static="True::B" as="t0_is_row">False</is_row>
+<is_print _T="B" sql_formula=":print ILIKE ANY(string_to_array($flags,','))" virtual_column="True::B" dtype="B" var_print="is_print" static="True::B" as="t0_is_print">True</is_print></GenRoBag>

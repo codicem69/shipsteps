@@ -44,7 +44,7 @@ class Form(BaseComponent):
         # pane = form.record
         bc = form.center.borderContainer()
         
-        self.vesselName(bc.borderContainer(region='top',datapath='.record',height='295px', splitter=True,background='lightyellow'))
+        self.vesselName(bc.borderContainer(region='top',datapath='.record',height='295px', splitter=True,background='#d9dbdf'))
      #   self.vesselDetails(bc.borderContainer(region='center',datapath='.record',height='450px', width='50%', splitter=True))
        # bc = bc.borderContainer(region='right', width='50%', splitter=True)
         tc = bc.tabContainer(margin='2px',region='center')
