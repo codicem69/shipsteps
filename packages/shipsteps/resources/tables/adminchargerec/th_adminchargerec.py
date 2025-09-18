@@ -49,7 +49,7 @@ class Form(BaseComponent):
         admincharge = tbl_admincharge.query(columns="$importo,$descrizione",
                          where='').fetch()
         #convertiamo la virgola in gt in punto per la successiva conversione da stringa ad int 
-        gt = float(gt.replace(',','.'))
+        #gt = float(gt.replace(',','.'))
         importo=0
         for r in admincharge:
             if int(gt) >= 500:
