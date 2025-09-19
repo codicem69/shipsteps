@@ -33,7 +33,8 @@ class Form(BaseComponent):
         fb = pane.formbuilder(cols=2, border_spacing='4px')
         fb.field('prot' )
         fb.field('data',validate_notnull=True )
-        fb.field('arrival_id' , hasDownArrow=True, order_by='$date DESC', colspan=2, width='100%')
+        fb.field('arrival_id' , hasDownArrow=True, order_by='$date DESC', colspan=2, width='100%', condition='@vessel_details_id.@imbarcazione_id.gt>500.00')
+        #impostata la condition nella selezione degli arrivi navi di cui vengono visualizzati solo le navi con GT maggiore a 500
         fb.br()
         fb.field('importo' )
         fb.br()
@@ -71,8 +72,8 @@ class Form(BaseComponent):
             #    if r['descrizione'] == 'da 30001 a 80000 GT':
             #        importo=r['importo'] 
         importo = floatToDecimal(importo)
-        #print(X)
-        #raise GnrException(importo)
+        if importo == 0:
+            raise GnrException('Vessel with GT less than 500')
         return importo
 
     @public_method
