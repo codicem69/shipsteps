@@ -9,7 +9,7 @@ class View(BaseComponent):
     def th_struct(self,struct):
         r = struct.view().rows()
         r.fieldcell('unsealing_id')
-        r.fieldcell('position_id')
+        r.fieldcell('position')
         r.fieldcell('seals')
 
     def th_order(self):
@@ -24,7 +24,10 @@ class ViewFromUnsealingRows(BaseComponent):
         r = struct.view().rows()
         r.fieldcell('_row_count', counter=True, name='N.',width='3em')
         r.fieldcell('unsealing_id',edit=True)
-        r.fieldcell('position_id',edit=True,width='50%')
+        sealposition =  [r['description'] for r in self.db.table('shipsteps.seal_position').query(columns='$description',distinct=True).fetch()]
+        r.fieldcell('position', values=','.join(sealposition),
+                              edit=True,width='50%',hasArrowDown=True)
+        #r.fieldcell('position_id',edit=True,width='50%')
         r.fieldcell('seals',edit=True,width='50%')
 
     def th_order(self):
@@ -39,7 +42,7 @@ class Form(BaseComponent):
         pane = form.record
         fb = pane.formbuilder(cols=2, border_spacing='4px')
         fb.field('unsealing_id' )
-        fb.field('position_id' )
+        fb.field('position' )
         fb.field('seals' )
 
 
