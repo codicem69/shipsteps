@@ -72,6 +72,7 @@ class Menu(object):
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")       
             shipsteps.webpage('test',filepath='test')
             shipsteps.webpage(u"!![en]Various printing",filepath='stampe_varie')
+            shipsteps.webpage(u"!![en]FTP page",filepath='ftpserv/ftp_page')
         else:
             root.thpage(u"!![en]Messages", table="email.message", tags="")
             shipsteps = root.branch(u"shipsteps", tags="")
@@ -95,6 +96,7 @@ class Menu(object):
             shipsteps.lookups(u"Lookup tables", lookup_manager="shipsteps")
             shipsteps.webpage(u"!![en]Various printing",filepath='stampe_varie')
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")
+            shipsteps.webpage(u"!![en]FTP page",filepath='ftpserv/ftp_page')
             #email = root.branch(u"!![en]Email", tags="")
             #email.thpage(u"!![en]Messages", table="email.message", tags="")
             proforma_da = root.branch(u"proforma da", tags="")
@@ -114,6 +116,7 @@ class Menu(object):
             agz = root.branch(u"Agencies", tags="")
             #agz.thpage(u"Agencies", table="agz.agency", tags="")
             agz.thpage(u"Staff", table="agz.staff", tags="")
-
+            ftp = root.branch(u"FTP", tags="user")
+            ftp.webpage(u"!![en]FTP page",filepath='ftpserv/ftp_page')
 
 
