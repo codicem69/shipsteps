@@ -72,7 +72,7 @@ class Menu(object):
             shipsteps.tableBranch("Ultimi arrivi", table="shipsteps.arrival",query_limit=5, query_order_by="$reference_num desc")       
             shipsteps.webpage('test',filepath='test')
             shipsteps.webpage(u"!![en]Various printing",filepath='stampe_varie')
-            shipsteps.webpage(u"!![en]FTP page",filepath='ftpserv/ftp_page')
+            shipsteps.webpage(u"!![en]Server page",filepath='ftpserv/server_page')
         else:
             root.thpage(u"!![en]Messages", table="email.message", tags="")
             shipsteps = root.branch(u"shipsteps", tags="")
@@ -117,6 +117,6 @@ class Menu(object):
             #agz.thpage(u"Agencies", table="agz.agency", tags="")
             agz.thpage(u"Staff", table="agz.staff", tags="")
             ftp = root.branch(u"FTP", tags="user")
-            ftp.webpage(u"!![en]FTP page",filepath='ftpserv/ftp_page')
+            ftp.webpage(u"!![en]Server page",filepath='ftpserv/server_page')
 
 
