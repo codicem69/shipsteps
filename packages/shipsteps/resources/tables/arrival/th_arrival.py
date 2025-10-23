@@ -1806,11 +1806,17 @@ class Form(BaseComponent):
         #fb2.semaphore('^.email_pmou?=#v==true?true:false', margin_top='6px',hidden='^gnr.app_preference.shipsteps.pmou')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
         fb2.semaphore('^.email_pmou', margin_top='6px',hidden='^gnr.app_preference.shipsteps.pmou')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
 
+
+        div4=rg_prearrival.div('<center><strong><br>Customs garbage notification<br></strong>',width='99%',height='20%',margin='auto',
+                        padding='2px',hidden="^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true",
+                        border='1px solid silver',
+                        margin_top='1px',margin_left='4px')
+        fb3 = div4.formbuilder(colspan=1,cols=3, border_spacing='2px',fld_width='150px')
         #verifichiamo quanti servizi Dogana ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dogpec').fetch()
         serv_len=len(service_for_email)
-        btn_doggb = fb2.Button('!![en]Customs garbage notif.',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
-        fb2.dataController("""var id = button.id; 
+        btn_doggb = fb3.Button('!![en]Customs garbage notif.',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
+        fb3.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_doganagb',button=btn_doggb.js_widget)
@@ -1832,9 +1838,9 @@ class Form(BaseComponent):
         #datacontroller verifica il valore della variabile nome_temp di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
        # fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Message created')}", msgspec='^nome_temp')
-        fb2.field('email_doganagb',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
+        fb3.field('email_doganagb',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
         #fb.semaphore("^.email_dogana?=#v===true?true:fasle", margin_top='5px')
-        fb2.semaphore("^.email_doganagb", margin_top='5px',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
+        fb3.semaphore("^.email_doganagb", margin_top='5px',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
         #btn_garb_cp = fb2.Button('!![en]Email Garbage form')
         #btn_garb_cp.dataRpc('nome_temp', self.email_services,
         #          record='=#FORM.record.id', servizio=['capitaneria'], email_template_id='email_garbage_cp',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
