@@ -35,7 +35,8 @@ class Form(BaseComponent):
     def th_form(self,form):
         bc = form.center.borderContainer()
         self.datiShiprec(bc.roundedGroupFrame(title='Shippers / Receivers',region='top',datapath='.record',height='130px', background='lightgrey', splitter=True))
-        self.emailShiprec(bc.contentPane(title='Email Shippers Receivers', region='center'))
+        #self.emailShiprec(bc.contentPane(title='Email Shippers Receivers', region='center'))
+        self.emailShiprec(bc)
 
     def datiShiprec(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=1, border_spacing='4px',fld_width='60em')
@@ -46,8 +47,22 @@ class Form(BaseComponent):
         fb.field('city' )
         fb.field('trader' )
 
-    def emailShiprec(self,pane):
-        pane.inlineTableHandler(title='Email Shippers Receivers', relation='@email_shiprec',viewResource='ViewFromEmailShiprec',export=True)
+    #def emailShiprec(self,pane):
+    #    pane.inlineTableHandler(title='Email Shippers Receivers', relation='@email_shiprec',viewResource='ViewFromEmailShiprec',export=True)
+
+    def emailShiprec(self,bc):
+        bc.roundedGroupFrame(title='!![en]Email Shipper/Receiver',width='50%', 
+                             height='100%',region='left',splitter=True, 
+                             closable=True).contentPane(width='100%', 
+                                                        height='100%').inlineTableHandler(title='Email Shippers Receivers', 
+                                                                                                        relation='@email_shiprec',
+                                                                                                        viewResource='ViewFromEmailShiprec',export=True)
+        bc.roundedGroupFrame(title='!![en]Email Shipper/Receiver q.ty destination',width='48%', 
+                             height='100%',region='right',margin_left='5%', 
+                             closable=True).contentPane(width='100%', 
+                                                        height='100%').inlineTableHandler(title='Email Shippers Receivers q.ty destination', 
+                                                                                                        relation='@email_shiprec_dest',
+                                                                                                        viewResource='ViewFromEmailShiprecDest',export=True)
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
