@@ -455,7 +455,7 @@ class Form(BaseComponent):
                                                              condition='$dailysof_id=:dailysof_id',
                                                              default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
                                                              condition_dailysof_id='^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
-                                                             viewResource='ViewFromDailyQTdest',condition__onStart=True,edit = True)
+                                                             viewResource='ViewFromDailyQTdest',condition__onStart=True,edit = True,autoSave=True)
         fb= rg.div(margin_left='30%',margin_right='50%').formbuilder(cols=2, border_spacing='4px',fld_width='10em')
         #fb=left.contentPane(region='center',width='auto').div(margin_left='30%',margin_right='50%').formbuilder(cols=2, border_spacing='4px',fld_width='10em')
         fb.br()
