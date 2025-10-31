@@ -1,6 +1,11 @@
 # encoding: utf-8
 from gnr.core.gnrdecorator import public_method
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
+from gnr.core.gnrbag import Bag
+#import pandas as pd
+#from datetime import date
+from collections import defaultdict
+
 
 class Table(object):
     def config_db(self,pkg):
@@ -51,6 +56,9 @@ class Table(object):
         tbl.pyColumn('shiprec_bl',name_long='!![en]Shipper or Receiver BL')
         tbl.pyColumn('carico_del_sof',name_long='!![en]Cargo on sof')
         tbl.pyColumn('carico_sofbl',name_long='!![en]Cargo on sof BL')
+        tbl.pyColumn('carico_bl_it', name_long='!![en]Cargo on sof BL it')
+        tbl.pyColumn('events_rows',dtype='X',required_columns='$id',name_long='Q.tà magazzini')
+        tbl.pyColumn('qta_mag',dtype='X',required_columns='$id',name_long='Qta x data magazzini')
         #tbl.pyColumn('email_sof_to',name_long='!![en]Email sof to', static=True)
         #tbl.pyColumn('email_sof_cc',name_long='!![en]Email sof cc', static=True)
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
@@ -125,9 +133,103 @@ class Table(object):
         tbl.formulaColumn('etc_email',"""CASE WHEN $ops_completed IS NULL AND $etc IS NOT NULL THEN :etcdescr || to_char($etc, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etcdescr='ETC:...........',var_df='DD/MM/YYYY HH24:MI')
         tbl.aliasColumn('measure','@sof_daily.@measure_id.description')
         tbl.aliasColumn('place_origin_goods','@sof_cargo_sof.@cargo_unl_load_id.@place_origin_goods.citta_nazione')
+       
+    #definiamo questa pyColumn per utilizzarla come dati template nell'invio email
+    def pyColumn_events_rows(self,record=None,field=None):
+        if not record.get('sof_n'):
+            return Bag(dict(error='Missing sof'))
+        #prendiamo id del primo carico abbinato al sof
+        cargo_id = record['@sof_cargo_sof'].keys()[0]
+        #possiamo ora prendere il valore operation avendo la chiave del carico abbinato
+        if cargo_id:
+            operation=record['@sof_cargo_sof.'+cargo_id+'.@cargo_unl_load_id.operation']
+        movim=''
+        if operation =='U':
+            movim= 'scaricato'
+        else:
+            movim= 'caricato'
+        tot_cargo = record.get('tot_cargo_sof')
+        tbl_qtdest = self.db.table('shipsteps.qt_destino')
+        pkey=record.get('id') or record.get('pkey') #se lanciata in una view vuole record['id] se in un template vuole record['pkey] - con il get nel caso non esiste la key non torna l'errore
 
+        recordsRate = tbl_qtdest.query(columns='@wharehouse_id.descrizione as magazzino, SUM($tot_xdate) as qta',
+                                                    where='@dailysof_id.sof_id = :sof_id',group_by='@wharehouse_id.descrizione',
+                                                    sof_id=pkey, order_by='@wharehouse_id.descrizione').fetch()
+       
+        #aggiungiamo a recordsRate i vari dati 'Totale / Totale B/L / rimanenza e percentuale 
+        tot_movimentato=0
+        for r in recordsRate:
+            tot_movimentato+= r['qta']
+        recordsRate.append(dict(magazzino='Totale '+movim,qta=tot_movimentato))
+        recordsRate.append(dict(magazzino='Totale B/Ls',qta=tot_cargo))
+        rimanenza = tot_cargo - tot_movimentato
+        perc_rimanenza = round((rimanenza/tot_cargo)*100,2)
+        
+        descr_rim = ''
+        if rimanenza >= 0:
+            if record['ops_completed']:
+                descr_rim = 'Ammanco'
+            else:
+                descr_rim='Rimanenza'
+        else:
+            descr_rim = 'Maggior prodotto'
+        recordsRate.append(dict(magazzino=descr_rim,qta=rimanenza))
+        recordsRate.append(dict(magazzino='Percentuale '+descr_rim +' '+str(perc_rimanenza)))
+        #creiamo la bag e aggiungiamo l'attributo format per visualizzare correttamente le cifre con la virgola
+        rows = Bag()
+        for n,r in enumerate(recordsRate,1):
+            #print(X)
+            rows['r_%s'%(n)]=Bag(r)
+            rows.setAttr('r_%s'%(n)+'.qta',format='#,###.000')
+        #print(x)   
+        return rows
+    
+    #definiamo questa pyColumn per utilizzarla come dati template nell'invio email
+    def pyColumn_qta_mag(self,record=None,field=None):
+        if not record.get('sof_n'):
+            return Bag(dict(error='Missing sof'))
+        #prendiamo id del primo carico abbinato al sof
+        cargo_id = record['@sof_cargo_sof'].keys()[0]
+        #possiamo ora prendere il valore operation avendo la chiave del carico abbinato
+        if cargo_id:
+            operation=record['@sof_cargo_sof.'+cargo_id+'.@cargo_unl_load_id.operation']
+        movim=''
+        if operation =='U':
+            movim= 'scaricato'
+        else:
+            movim= 'caricato'
+        tot_cargo = record.get('tot_cargo_sof')
+        tbl_qtdest = self.db.table('shipsteps.qt_destino')
+        pkey=record.get('id') or record.get('pkey') #se lanciata in una view vuole record['id] se in un template vuole record['pkey] - con il get nel caso non esiste la key non torna l'errore
+
+        recordsRate = tbl_qtdest.query(columns='@wharehouse_id.descrizione as magazzino, SUM($tot_xdate) as qta',
+                                                    where='@dailysof_id.sof_id = :sof_id',group_by='@wharehouse_id.descrizione',
+                                                    sof_id=pkey, order_by='@wharehouse_id.descrizione').fetch()
+        recordsRateDate = tbl_qtdest.query(columns='@dailysof_id.date_op as date_op,@wharehouse_id.descrizione as magazzino, SUM($tot_xdate) as qta',
+                                                    where='@dailysof_id.sof_id = :sof_id',group_by='@wharehouse_id.descrizione,@dailysof_id.date_op',
+                                                    sof_id=pkey, order_by='@dailysof_id.date_op,@wharehouse_id.descrizione').fetch()
+       
+
+        #newrecordsRateDate = []
+        #for r in recordsRateDate:
+        #    newrecordsRateDate.append(dict(date_op=r['date_op'],magazzino=r['magazzino'],qta=r['qta']))
+        #df = pd.DataFrame(newrecordsRateDate)
+        #totali = defaultdict(int)
+        #for r in recordsRateDate:
+        #    totali[r["date_op"].strftime("%d-%m-%Y")] += r["qta"]
+
+      
+        #creiamo la bag e aggiungiamo l'attributo format per visualizzare correttamente le cifre con la virgola
+        rows = Bag()
+        for n,r in enumerate(recordsRateDate,1):
+            #print(X)
+            rows['r_%s'%(n)]=Bag(r)
+            rows.setAttr('r_%s'%(n)+'.qta',format='#,###.000')
+        #print(x)   
+        return rows
+        
     def pyColumn_carico_del_sof(self,record,field):
-        p_key=record['id']
+        p_key=record.get('id') or record.get('pkey')
         #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
         carico = self.db.table('shipsteps.sof_cargo').query(columns="@cargo_unl_load_id.operation,coalesce('BL no.' || @cargo_unl_load_id.bln,''), @cargo_unl_load_id.@measure_id.description, @cargo_unl_load_id.quantity,@cargo_unl_load_id.description",
                                                                 where='sof_id=:sofid',sofid=p_key).fetch()
@@ -158,7 +260,7 @@ class Table(object):
         return descr_carico
 
     def pyColumn_carico_sofbl(self,record,field):
-        p_key=record['id']
+        p_key=record.get('id') or record.get('pkey')
         #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
         carico = self.db.table('shipsteps.sof_cargo').query(columns="""@cargo_unl_load_id.@measure_id.description, @cargo_unl_load_id.quantity,@cargo_unl_load_id.description,
                                                                      coalesce('BL no.' || @cargo_unl_load_id.bln,''),coalesce(' Dated ' || to_char(@cargo_unl_load_id.bl_date, :df),'') || coalesce(' ' || @cargo_unl_load_id.@place_origin_goods.citta_nazione,'')""",
@@ -175,7 +277,34 @@ class Table(object):
                                                                 where='sof_id=:sofid',sofid=p_key, group_by='@cargo_unl_load_id.@measure_id.description,@cargo_unl_load_id.operation').fetch()
         totale_carico=''
         for c in range(len(tot_carico)):
-            totale_carico += '-Total Bill of lading quantity: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>'
+            totale_carico += '- Total Bill of lading quantity: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>'
+            
+        #inseriamo in un unica variabile tutti i dati relativi al carico sopra calcolati
+        if cargo != '' or totale_carico != '':
+            descr_carico = cargo + '<br>' + totale_carico
+        else:
+            descr_carico = ''
+        return descr_carico
+    
+    def pyColumn_carico_bl_it(self,record,field):
+        p_key=record.get('id') or record.get('pkey')
+        #prepariamo i dati per la descrizione del carico con le relative BL e operazioni unloding/loading
+        carico = self.db.table('shipsteps.sof_cargo').query(columns="""@cargo_unl_load_id.@measure_id.description, @cargo_unl_load_id.quantity,@cargo_unl_load_id.description_it,
+                                                                     coalesce('B/L no.' || @cargo_unl_load_id.bln,''),coalesce(' del ' || to_char(@cargo_unl_load_id.bl_date, :df),'') || coalesce(' ' || @cargo_unl_load_id.@place_origin_goods.citta_nazione,'')""",
+                                                                where='sof_id=:sofid',sofid=p_key,df='DD/MM/YYYY').fetch()
+        #print(x)                                                                
+        cargo=''
+        for c in range(len(carico)):
+            if c in range(0,len(carico)-1):
+                cargo += '- ' + str(carico[c][0]) + ' ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + str(carico[c][4]) + '<br>'
+            else:
+                cargo += '- ' + str(carico[c][0]) + ' ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + str(carico[c][4])
+        #prepariamo i dati per il totale carico
+        tot_carico = self.db.table('shipsteps.sof_cargo').query(columns="@cargo_unl_load_id.operation, @cargo_unl_load_id.@measure_id.description, SUM(@cargo_unl_load_id.quantity)",
+                                                                where='sof_id=:sofid',sofid=p_key, group_by='@cargo_unl_load_id.@measure_id.description,@cargo_unl_load_id.operation').fetch()
+        totale_carico=''
+        for c in range(len(tot_carico)):
+            totale_carico += ' - ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) +' Totale q.tà B/Ls' + '<br>'
             
         #inseriamo in un unica variabile tutti i dati relativi al carico sopra calcolati
         if cargo != '' or totale_carico != '':

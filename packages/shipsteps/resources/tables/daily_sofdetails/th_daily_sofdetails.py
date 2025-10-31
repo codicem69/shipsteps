@@ -55,7 +55,7 @@ class ViewFromSofDailyOp(BaseComponent):
         for r in range (n_cargo):
             tot_cargo += tbl_cargo.readColumns(columns='$quantity', where='$id=:cargo_id', cargo_id=cargo_id[r][0])
         tot_progressivo = kwargs['row_attr']['tot_progres']
-        shortage_surplus = float(tot_cargo) - tot_progressivo
+        shortage_surplus = float(tot_cargo) - float(tot_progressivo)
         perc_short_surpl = shortage_surplus/float(tot_cargo)*100
         row['tot_progressivo']=tot_progressivo
         row['shortage_surplus']=shortage_surplus

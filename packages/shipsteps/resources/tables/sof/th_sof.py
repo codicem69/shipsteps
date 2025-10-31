@@ -80,7 +80,14 @@ class Form(BaseComponent):
         self.cargoSof(tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo'))
        # self.arrivalTimes(tc.contentPane(title='!![en]Arr/Dep Times', pageName='arr_times'))
         self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
-        self.dailyOperations(tc.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
+        #self.dailyOperations(tc.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
+        bc_daily=tc.borderContainer(title='!![en]SOF Daily handling bulk cargo',region='center',pageName='daily_op')#.borderContainer(region='left',splitter=True,height='100%', width='50%',pageName='daily_op')#, datapath='.record.sof_daily')#.tabContainer(height='100%')
+        self.dailyOperations(bc_daily)
+        
+        #self.dailyOperations(tc.borderContainer(region='center',title='!![en]SOF Daily handling bulk cargo',pageName='daily_op').borderContainer(region='left',splitter=True,height='100%', width='40%').contentPane(width='100%', height='100%'))
+        
+        #self.dailyQuantityDest(tc.borderContainer(region='center',title='!![en]SOF Daily handling bulk cargo',pageName='daily_op').borderContainer(region='center',splitter=True,height='100%', width='60%').contentPane(width='100%', height='100%'))
+        #self.dailyOperations(bc_daily.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
         self.trucksDetails(tc.contentPane(title='!![en]Trucks details'))
 
         tc_rem = tc.tabContainer(title='!![en]Remarks',margin='2px',tabPosition='left-h')#, region='center', height='450px', splitter=True)
@@ -93,6 +100,7 @@ class Form(BaseComponent):
         tc_tanks = tc.tabContainer(title='!![en]Tank times',margin='2px')
         self.tanks(tc_tanks.contentPane(title='Time tanks'))
         self.emailSof(tc.contentPane(title='Email SOF'))
+        self.emailSofQT(tc.contentPane(title='Email SOF Qta destino'))
         self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
         self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
         self.editLop(tc.framePane(title='!![EN]Edit LOP', datapath='#FORM.editPagine'))
@@ -214,7 +222,8 @@ class Form(BaseComponent):
                             _ask=dict(title='!![en]Select the Emails',fields=[dict(name='email_to', lbl='!![en]Emails to', tag='checkboxtext',
                              table='shipsteps.email_sof', columns='$description',condition='$sof_id=:cod',condition_cod='=#FORM.record.id',
                              validate_notnull=True,cols=3,popup=True,colspan=2)]),_onResult="""if(result=='email_to')genro.publish("floating_message",{message:"email ready to be sent", messageType:"message"});this.form.save();""")
-        bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"})""", msgspec='^nome_temp',msg_txt = 'Email ready to be sent')
+        bar.dataController("""if(msgspec=='arrival_sof') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
+                              if(msgspec=='qt_destino') genro.publish("floating_message",{message:msg_txt, messageType:"message"});""", msgspec='^nome_temp',msg_txt = 'Email ready to be sent')
         bar.dataRpc('.lista_emails', self.checkEmail,  record='=#FORM.record',rec_id='^#FORM.record.id',
                     _if='rec_id')
         #dataRpc che scatterà all'apertura del SOF per verificare se nella descrizione delle operazioni troviamo 'worked' o 'not worked' impostando la variabile .worked
@@ -413,9 +422,56 @@ class Form(BaseComponent):
     def operationsSof(self,pane):
         pane.inlineTableHandler(relation='@sof_operations',viewResource='ViewFromSofOperations',liveUpdate=True)
 
-    def dailyOperations(self,pane):
-        pane.inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp',liveUpdate=True)
+    def dailyOperations(self,bc_daily):
+        bc = bc_daily#.borderContainer(region='center',splitter=True,height='100%', width='100%')
+        center_bc = bc_daily.borderContainer(height='100%', width='100%')#region='center',splitter=True,height='100%', width='100%')
+        #left.roundedGroupFrame(title='!![en]Daily quantity handled',region='left',width='40%', 
+        #                       height='100%',splitter=True,datapath='#FORM').contentPane(width='100%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp', view_grid_autoSelect=True)
+        bc_daily.roundedGroupFrame(title='!![en]Daily quantity handled',width='40%', height='100%',region='left',splitter=True, closable=True).contentPane(width='100%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp', view_grid_autoSelect=True)
+        #left.contentPane(region='left',width='40%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp',liveUpdate=True)
+        #left.roundedGroupFrame(title='!![en]Quantity by destination',region='right',width='50%', height='100%',splitter=True,datapath='#FORM').contentPane(region='right',width='40%').inlineTableHandler(table='shipsteps.qt_destino',
+        #                                                     view_grid_autoSelect=True,
+        #                                                     condition='$dailysof_id=:dailysof_id',
+        #                                                     #default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+        #                                                     condition_dailysof_id='=^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+        #                                                     viewResource='ViewFromDailyQTdest',condition__onStart=True)
+        bc_daily.roundedGroupFrame(title='!![en]Sent email for daily destinations quantity',
+                                   width='30%', height='100%',
+                                   region='right',
+                                   splitter=True, 
+                                   closable=True).contentPane(width='100%', height='100%').plainTableHandler(table='shipsteps.ck_emailqtdest',
+                                                                                                             viewResource='View',
+                                                                                                             condition='$arrival_id=:a_id',
+                                                                                                             condition_a_id='^#FORM.record.arrival_id',liveUpdate=True,
+                                                                                                             _onStart=True)
+        #bc_daily.roundedGroupFrame(title='Email inviate',width='30%', height='100%',region='right',splitter=True, closable=True).contentPane(width='100%', height='100%').inlineTableHandler(table='shipsteps.qt_destino',
+        #                                                     condition='$dailysof_id=:dailysof_id',
+        #                                                     default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+        #                                                     condition_dailysof_id='^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+        #                                                     viewResource='ViewFromDailyQTdest',condition__onStart=True,edit = True)
+        
+        rg=center_bc.roundedGroup(title='!![en]daily destinations quantity',region='top',width='25%', height='70px',margin_left='42%')
+        center_bc.contentPane(width='25%', region='center',margin_left='42%',margin_right='10px').inlineTableHandler(table='shipsteps.qt_destino',
+                                                             condition='$dailysof_id=:dailysof_id',
+                                                             default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+                                                             condition_dailysof_id='^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+                                                             viewResource='ViewFromDailyQTdest',condition__onStart=True,edit = True)
+        fb= rg.div(margin_left='30%',margin_right='50%').formbuilder(cols=2, border_spacing='4px',fld_width='10em')
+        #fb=left.contentPane(region='center',width='auto').div(margin_left='30%',margin_right='50%').formbuilder(cols=2, border_spacing='4px',fld_width='10em')
+        fb.br()
+        btn_qtday = fb.button('!![en]Email daily destination q.ty', width='auto')#,hidden="^#FORM.shipsteps_qt_destino.view.grid.selectedId?=!#v")
+        btn_qtday.dataRpc('nome_temp', self.email_sofqt,record='=#FORM.record',servizio=['arr','sof'], email_template_id='qt_day',
+                            nome_template = 'shipsteps.sof:qt_day',format_page='A4',
+                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
+        #fb.div('email creata il ')
+    #def dailyOperations(self,pane):
+    #    pane.inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp',liveUpdate=True)
 
+
+        #pane.inlineTableHandler(table='shipsteps.qt_destino',condition='$dailysof_id=:dailysof_id',default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',viewResource='ViewFromDailyQTdest',liveUpdate=True)
+    
     def trucksDetails(self,pane):
         pane.inlineTableHandler(relation='@sof_trucks',viewResource='ViewFromTrucks',liveUpdate=True)    
 
@@ -472,6 +528,9 @@ class Form(BaseComponent):
 
     def emailSof(self,pane):
         pane.inlineTableHandler(title='Email SOF', relation='@sof_email',viewResource='ViewFromSofEmail',liveUpdate=True)
+    
+    def emailSofQT(self,pane):
+        pane.inlineTableHandler(title='Email SOF Qta destino', relation='@sof_email_qt',viewResource='ViewFromSofEmailQtDest',liveUpdate=True)
 
     def editSof(self, frame):
         bar = frame.top.slotBar('10, lett_select,*',height='20px',border_bottom='1px solid silver')
@@ -721,6 +780,141 @@ class Form(BaseComponent):
         #if email_template_id == 'email_ormeggio' or email_template_id == 'email_operations' or email_template_id == 'email_operations_mov' or email_template_id == 'email_partenza':
         if email_template_id != '' or email_template_id != None:
             nome_temp = 'arrival_sof'
+        
+        return nome_temp
+
+    @public_method
+    def email_sofqt(self, record,email_template_id=None, **kwargs):
+        record_arr=record['arrival_id']
+        arrival_id=record['arrival_id']
+        agency_id=self.db.currentEnv.get('current_agency_id')
+        #verifichiamo che ci sia il record
+        if not record:
+            return
+        #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
+        attcmt=[]
+        
+        #verifichiamo che nei kwargs['allegati'] non abbiamo il valore nullo e trasformiamo la stringa pkeys allegati in una lista prelevandoli dai kwargs ricevuti tramite bottone
+        if kwargs['allegati'] is not None:
+            lista_all = list(kwargs['allegati'].split(","))
+        else:
+            lista_all = None
+        
+        #verifichiamo nei kwargs['template'] il valore assegnato dalla nostra scelta al lancio dell'email ossia l'email_template_id
+        if 'template' in kwargs.keys():
+            email_template_id=kwargs['template']
+
+        #lettura degli attachment
+        if lista_all is not None:
+            len_allegati = len(lista_all) #verifichiamo la lunghezza della lista pkeys tabella allegati
+            file_url=[]
+            tbl_att =  self.db.table('shipsteps.sof_atc') #definiamo la variabile della tabella allegati
+            #ciclo for per la lettura dei dati sulla tabella allegati ritornando su ogni ciclo tramite la pkey dell'allegato la colonna $fileurl e alla fine
+            #viene appesa alla variabile lista file_url
+            for e in range(len_allegati):
+                pkeys_att=lista_all[e]
+                fileurl = tbl_att.readColumns(columns='$fileurl',
+                      where='$id=:att_id',
+                        att_id=pkeys_att)
+                if fileurl is not None and fileurl !='':
+                    file_url.append(fileurl)
+        
+            ln = len(file_url)
+            for r in range(ln):
+                fileurl = file_url[r]
+                file_path = fileurl.replace('/home','site')
+                fileSn = self.site.storageNode(file_path)
+                attcmt.append(fileSn.internal_path)
+
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('agz.staff')
+        account_email,email_mittente = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('agz.agency')
+        account_emailpec = tbl_agency.readColumns(columns='$emailpec_account_id',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+
+        #verifichiamo e assegnamo alla variabile sof_id arrivatoci dal bottone di invio email
+        if kwargs:
+            sof_id=kwargs['record_attr']['_pkey']
+            if sof_id is None:
+                nome_temp='no_sof'
+                return nome_temp
+        else:
+            return
+        
+        #inizializziamo le variabili per le email
+        email_arr_to,email_arr_cc,email_arr_bcc='','',''
+        email_a_to,email_a_to_descr,email_a_cc,email_a_cc_descr,email_a_bcc=[],[],[],[],[]
+        #definiamo le tabelle dove prelevare l'email
+        tbl_email_qt=self.db.table('shipsteps.email_qt_destino')
+        
+        email_to = tbl_email_qt.query(columns="$email",
+                                                    where="$sof_id=:s_id and $email_type=:type", s_id=sof_id,
+                                                    type='to').fetch() 
+        email_to_descr = tbl_email_qt.query(columns="$dest ||': '||$description||'<br>'",
+                                             where="$sof_id=:s_id and $dest=:dest", s_id=sof_id,
+                                             dest='to').fetch()
+                 
+        for e in range(len(email_to)):
+            email_a_to.append(email_to[e][0])
+        for e in range(len(email_to_descr)):
+            email_a_to_descr.append(email_to_descr[e][0])  
+
+        email_cc = tbl_email_qt.query(columns="$email",
+                                       where="$sof_id=:s_id and $email_type=:type", s_id=sof_id,
+                                       type='cc').fetch()
+        email_cc_descr = tbl_email_qt.query(columns="$dest ||': '||$description||'<br>'",
+                                             where="$sof_id=:s_id and $dest=:dest", s_id=sof_id,
+                                             dest='cc').fetch()
+              
+        for e in range(len(email_cc)):
+            email_a_cc.append(email_cc[e][0]) 
+        for e in range(len(email_cc_descr)):
+            email_a_cc_descr.append(email_cc_descr[e][0])
+
+        email_bcc = tbl_email_qt.query(columns="$email",
+                                        where="$sof_id=:s_id and $email_type=:type", s_id=sof_id,
+                                        type='ccn').fetch()  
+        for e in range(len(email_bcc)):
+            email_a_bcc.append(email_bcc[e][0])
+                 
+        #estraiamo le stringhe email dalle liste
+        email_arr_to=','.join([str(item) for item in email_a_to])
+        email_arr_cc=','.join([str(item) for item in email_a_cc])                    
+        email_arr_bcc=','.join([str(item) for item in email_a_bcc])
+        #estraiamo le stringhe email_descr dalle liste
+        email_descr_to=''.join([str(item) for item in email_a_to_descr])
+        email_descr_cc=''.join([str(item) for item in email_a_cc_descr])
+        email_descr = email_descr_to + email_descr_cc
+          
+        #verifichiamo che non mancano email destinatari TO e CCN altrimenti ritorniamo con la variabile nome_temp che innesca il messaggio
+        #verifichiamo se non presente l'email to allora inseriamo l'email del mittente
+        if email_arr_to == email_arr_bcc == '':  
+            nome_temp = 'no_email'
+            return nome_temp
+        elif email_arr_to =='':    
+            email_arr_to=email_mittente 
+        #creiamo il nuovo messaggio e con il db.commit lo salviamo nella tabella di uscita email pronto per l'invio                                        
+        self.db.table('email.message').newMessageFromUserTemplate(
+                                                          record_id=sof_id,
+                                                          table='shipsteps.sof',
+                                                          account_id = account_email,
+                                                          to_address=email_arr_to,
+                                                          cc_address=email_arr_cc,
+                                                          bcc_address=email_arr_bcc,
+                                                          attachments=attcmt,
+                                                          template_code=email_template_id,
+                                                          arrival_id=arrival_id,
+                                                          agency_id=agency_id)
+        
+        self.db.commit()
+        #ritorniamo con la variabile nome_temp per l'innesco del messaggio e il settaggio della checklist invio email a vero
+        #if email_template_id == 'email_ormeggio' or email_template_id == 'email_operations' or email_template_id == 'email_operations_mov' or email_template_id == 'email_partenza':
+        if email_template_id != '' or email_template_id != None:
+            nome_temp = 'qt_destino'
         
         return nome_temp
 

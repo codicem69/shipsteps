@@ -271,6 +271,7 @@ class Table(object):
         #prendiamo la table tasklist per effettuare aggiornamenti ai record una volta inviata la email
         tbl_tasklist = self.db.table('shipsteps.tasklist')
         tbl_bunker = self.db.table('shipsteps.bunker')
+        tbl_ckemaildest = self.db.table('shipsteps.ck_emailqtdest')
         with self.recordToUpdate(pkey,for_update='SKIP LOCKED',ignoreMissing=True) as message:
             if not message:
                 return
@@ -400,7 +401,9 @@ class Table(object):
             if message['template_code']=='email_bunkerdoc':
                 tbl_bunker.batchUpdate(dict(doc_cp=True),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
-
+            if message['template_code']=='qt_day':
+                nuovo_rec = dict(arrival_id=message['arrival_id'],issued_date=message['__ins_ts'],user=message['__ins_user'],send_date=message['send_date'])
+                tbl_ckemaildest.insert(nuovo_rec)
 
         if message['error_msg']:              
             if message['template_code']=='email_dogana':
@@ -487,6 +490,7 @@ class Table(object):
             if message['template_code']=='email_bunkerdoc':
                 tbl_bunker.batchUpdate(dict(doc_cp=False),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
+
 
         self.db.commit()
         return message
