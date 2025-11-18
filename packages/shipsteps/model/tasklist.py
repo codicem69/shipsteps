@@ -78,4 +78,61 @@ class Table(object):
         tbl.aliasColumn('bollo_virt','@arrival_id.@agency_id.virtual_stamp')
         tbl.formulaColumn('doc_bunker',"""CASE WHEN @arrival_id.@bunker_arr.arrival_id IS NOT NULL AND @arrival_id.@bunker_arr.doc_cp IS False THEN '<br>YOU MUST TO SEND BUNKER DOCS TO CP' ELSE '' END""", dtype='T')
     
-    
+    #aggiorniamo la tasklist se l'email creata viene cancellata riportatndo a None il valore della checkbox
+    #la def aggiornaCheckBox viene richiamata dal modulo message dela pkg email sotto _packages
+    def aggiornaCheckBox(self,arrival_id=None, template_code=None):
+        with self.recordToUpdate(arrival_id=arrival_id) as record:
+                if template_code == 'email_dogana':
+                    record['email_dogana'] = None
+                if template_code == 'email_frontiera':
+                    record['email_frontiera'] = None
+                if template_code == 'email_sanimare':
+                    record['email_usma'] = None
+                if template_code == 'email_pilot_moor':
+                    record['email_pilot_moor'] = None
+                if template_code == 'email_moor':
+                    record['email_moor'] = None
+                if template_code == 'email_tug':
+                    record['email_tug'] = None
+                if template_code == 'garbage_email':
+                    record['email_garbage'] = None
+                if template_code == 'email_pfso':
+                    record['email_pfso'] = None
+                if template_code == 'email_chemist':
+                    record['email_chemist'] = None
+                if template_code == 'email_gpg':
+                    record['email_gpg'] = None
+                if template_code == 'email_ens':
+                    record['email_ens'] = None
+                if template_code == 'not_rifiuti':
+                    record['email_garbage_adsp'] = None
+                if template_code == 'email_ric_lps':
+                    record ['email_ric_lps'] = None
+                if template_code == 'email_holds_vent':
+                    record['email_aeration'] = None
+                if template_code == 'email_arr_shiprec':
+                    record['email_ship_rec'] = None
+                if template_code == 'email_integrazione_alim':
+                    record['email_integr'] = None
+                if template_code == 'email_pmou':
+                    record['email_pmou'] = None
+                if template_code == 'email_dogana_rifiuti':
+                    record['email_doganagb'] = None
+                if template_code == 'email_lps_cp':
+                    record['email_lps_cp'] = None
+                if template_code == 'email_chimico_cp':
+                    record['email_certchim_cp'] = None
+                if template_code == 'email_chimico_stev':
+                    record['email_certchim_stev'] = None
+                if template_code == 'email_deroga_garbage':
+                    record['email_garbage_cp'] = None
+                if template_code == 'email_ricevutarifiuti_cp':
+                    record['email_ric_rifiuti_cp'] = None
+                if template_code == 'email_tributi_cp':
+                    record['email_tributi_cp'] = None
+                if template_code == 'email_pilot_dep':
+                    record['email_pilot_dep'] = None
+                if template_code == 'email_moor_dep':
+                    record['email_moor_dep'] = None
+                if template_code == 'email_tug_dep':
+                    record['email_tug_dep'] = None

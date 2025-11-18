@@ -80,8 +80,10 @@ class Form(BaseComponent):
         self.cargoSof(tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo'))
        # self.arrivalTimes(tc.contentPane(title='!![en]Arr/Dep Times', pageName='arr_times'))
         self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
+        #tc.contentPane(title='!![en]SOF Operations',pageName='operations').remote(self.operationsSof,_waitingMessage='!![en]Please wait')
         #self.dailyOperations(tc.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
         bc_daily=tc.borderContainer(title='!![en]SOF Daily handling bulk cargo',region='center',pageName='daily_op')#.borderContainer(region='left',splitter=True,height='100%', width='50%',pageName='daily_op')#, datapath='.record.sof_daily')#.tabContainer(height='100%')
+        
         self.dailyOperations(bc_daily)
         
         #self.dailyOperations(tc.borderContainer(region='center',title='!![en]SOF Daily handling bulk cargo',pageName='daily_op').borderContainer(region='left',splitter=True,height='100%', width='40%').contentPane(width='100%', height='100%'))
@@ -418,10 +420,11 @@ class Form(BaseComponent):
     #                    margin_top='1px',margin_left='4px')
     #    fb = div_tug.formbuilder(cols=1, border_spacing='4px',fld_width='10em')
     #    fb.field('tug_out',placeholder='e.g. 1')
-
+    
+    
     def operationsSof(self,pane):
         pane.inlineTableHandler(relation='@sof_operations',viewResource='ViewFromSofOperations',liveUpdate=True)
-
+    
     def dailyOperations(self,bc_daily):
         bc = bc_daily#.borderContainer(region='center',splitter=True,height='100%', width='100%')
         center_bc = bc_daily.borderContainer(height='100%', width='100%')#region='center',splitter=True,height='100%', width='100%')
@@ -435,7 +438,7 @@ class Form(BaseComponent):
         #                                                     #default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
         #                                                     condition_dailysof_id='=^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
         #                                                     viewResource='ViewFromDailyQTdest',condition__onStart=True)
-        bc_daily.roundedGroupFrame(title='!![en]Sent email for daily destinations quantity',
+        bc_daily.roundedGroupFrame(title='!![en]Report for Sent daily destinations quantity email',
                                    width='30%', height='100%',
                                    region='right',
                                    splitter=True, 

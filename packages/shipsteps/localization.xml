@@ -308,6 +308,10 @@
 <email_shiprec path="model/email_shiprec.py" ext="py"><en_destination base="Destination"></en_destination>
 <en_name_description base="Name description"></en_name_description>
 <en_email_type base="Email type"></en_email_type></email_shiprec>
+<email_shiprecdest path="model/email_shiprecdest.py" ext="py"><en_email_std_shiprec_q_ty_dest_ base="Email std shiprec q.ty dest."></en_email_std_shiprec_q_ty_dest_>
+<en_destination base="Destination"></en_destination>
+<en_name_description base="Name description"></en_name_description>
+<en_email_type base="Email type"></en_email_type></email_shiprecdest>
 <email_sof path="model/email_sof.py" ext="py"><en_destination base="Destination"></en_destination>
 <en_name_description base="Name description"></en_name_description>
 <en_email_type base="Email type"></en_email_type></email_sof>
@@ -1045,6 +1049,8 @@
 <en_arrival_attachments base="Arrival Attachments"></en_arrival_attachments></th_certsanimare></certsanimare>
 <daily_sofdetails><th_daily_sofdetails path="resources/tables/daily_sofdetails/th_daily_sofdetails.py" ext="py"><en_total_quantity_handled base="Total Quantity Handled" it="Totale q.tà movimentate"></en_total_quantity_handled>
 <en_shortage_surplus base="Shortage / Surplus"></en_shortage_surplus></th_daily_sofdetails></daily_sofdetails>
+<email_qt_destino><th_email_qt_destino path="resources/tables/email_qt_destino/th_email_qt_destino.py" ext="py"><en_select_the_shippers_receivers_for_q_ty_destination base="Select the Shippers/Receivers for q.ty destination"></en_select_the_shippers_receivers_for_q_ty_destination>
+<en_shippers_receivers base="Shippers/Receivers"></en_shippers_receivers></th_email_qt_destino></email_qt_destino>
 <email_services><th_email_services path="resources/tables/email_services/th_email_services.py" ext="py"><en_email_services base="Email services"></en_email_services>
 <en_insert_the_emails_separate_by_commas base="Insert the emails separate by commas" it="Inserisci l'emails separate dalla virgola"></en_insert_the_emails_separate_by_commas></th_email_services></email_services>
 <email_sof><th_email_sof path="resources/tables/email_sof/th_email_sof.py" ext="py"><en_select_the_shiipers_receivers base="Select the Shiipers/Receivers"></en_select_the_shiipers_receivers>
@@ -1091,6 +1097,8 @@
 <en_services base="Services"></en_services>
 <en_type_atc base="Type atc"></en_type_atc></th_rinfusa></rinfusa>
 <ship_doc><th_ship_doc path="resources/tables/ship_doc/th_ship_doc.py" ext="py"><en_insert_certificates base="Insert certificates"></en_insert_certificates></th_ship_doc></ship_doc>
+<ship_rec><th_ship_rec path="resources/tables/ship_rec/th_ship_rec.py" ext="py"><en_email_shipper_receiver base="Email Shipper/Receiver"></en_email_shipper_receiver>
+<en_email_shipper_receiver_q_ty_destination base="Email Shipper/Receiver q.ty destination"></en_email_shipper_receiver_q_ty_destination></th_ship_rec></ship_rec>
 <shorepass><th_shorepass path="resources/tables/shorepass/th_shorepass.py" ext="py"><en_from_date base="From date"></en_from_date>
 <en_to_date base="To date"></en_to_date>
 <en_shorepass_details base="Shorepass details"></en_shorepass_details>
@@ -1119,9 +1127,9 @@
 <en_extra_data_cp_on_arrival_departure base="Extra data CP on Arrival/Departure"></en_extra_data_cp_on_arrival_departure>
 <en_daily_quantity_handled base="Daily quantity handled" it="Quantità giornaliere movimentate"></en_daily_quantity_handled>
 <en_quantity_by_destination base="Quantity by destination"></en_quantity_by_destination>
-<en_sent_email_for_daily_destinations_quantity base="Sent email for daily destinations quantity" it="Email quantità giornaliere per destinazione inviate"></en_sent_email_for_daily_destinations_quantity>
+<en_report_for_sent_daily_destinations_quantity_email base="Report for Sent daily destinations quantity email" it="Report email q.tà/ destino inviate"></en_report_for_sent_daily_destinations_quantity_email>
 <en_daily_destinations_quantity base="daily destinations quantity" it="Quantità giornaliere per destinazione"></en_daily_destinations_quantity>
-<en_email_daily_destination_q_ty base="Email daily destination q.ty" it="Email q.ta giornaliere per destino"></en_email_daily_destination_q_ty>
+<en_email_daily_destination_q_ty base="Email daily destination q.ty" it="Email q.tà giornaliere per destino"></en_email_daily_destination_q_ty>
 <en_master_remarks base="Master Remarks"></en_master_remarks>
 <en_note_general_remarks base="Note / General Remarks"></en_note_general_remarks></th_sof></sof>
 <sof_cargo><th_sof_cargo path="resources/tables/sof_cargo/th_sof_cargo.py" ext="py"><en_cargo base="Cargo" it="Carico"></en_cargo></th_sof_cargo></sof_cargo>

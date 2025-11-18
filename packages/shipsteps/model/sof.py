@@ -236,9 +236,9 @@ class Table(object):
         cargo=''
         for c in range(len(carico)):
             if carico[c][0]== 'U':
-                cargo += '- Unloading cargo: ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + ' ' + str(carico[c][4]) + '<br>'
+                cargo += '- Unloading cargo: ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]).replace('.', ',') + ' ' + str(carico[c][4]) + '<br>'
             elif carico[c][0]== 'L':
-                cargo += '- Loading cargo: ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]) + ' ' + str(carico[c][4]) + '<br>'
+                cargo += '- Loading cargo: ' + str(carico[c][1]) + ' ' + str(carico[c][2]) + ' ' + str(carico[c][3]).replace('.', ',') + ' ' + str(carico[c][4]) + '<br>'
             else:
                 cargo = ''
         #prepariamo i dati per il totale carico
@@ -247,9 +247,9 @@ class Table(object):
         totale_carico=''
         for c in range(len(tot_carico)):
             if tot_carico[c][0]== 'U':
-                totale_carico += '- Tot. unloading cargo: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>'
+                totale_carico += '- Tot. unloading cargo: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]).replace('.', ',') + '<br>'
             elif tot_carico[c][0]== 'L':
-                totale_carico += '- Tot. loading cargo: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]) + '<br>' 
+                totale_carico += '- Tot. loading cargo: ' + str(tot_carico[c][1]) + ' ' + str(tot_carico[c][2]).replace('.', ',') + '<br>' 
             else:
                 totale_carico =''
         #inseriamo in un unica variabile tutti i dati relativi al carico sopra calcolati

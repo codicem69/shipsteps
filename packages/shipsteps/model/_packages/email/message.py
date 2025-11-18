@@ -514,3 +514,129 @@ class Table(object):
         attachment_root= self.pkg.attributes.get('attachment_root') or 'mail'
         return '/'.join(['%s:%s' %(attachment_root,message_record['account_id']),year,
                             month,message_record['id']])
+
+    #aggiorniamo alla cancellazione dell'email le checkbox della tasklist
+    def trigger_onDeleted(self, record):
+        self.aggiornaTL(record)
+
+    def aggiornaTL(self,record):
+        arrival_id = record['arrival_id']
+        template_code=record['template_code']
+        self.db.deferToCommit(self.db.table('shipsteps.tasklist').aggiornaCheckBox,
+                                    arrival_id=arrival_id,
+                                    template_code=template_code,
+                                    _deferredId=arrival_id)
+
+    def reimpostaTL(self,record):
+        tbl_tasklist=self.db.table('shipsteps.tasklist')
+        tasklist = tbl_tasklist.query(columns='*', where='$arrival_id=:a_id',a_id=record.get('arrival_id')).fetchAsDict('arrival_id')
+
+        if record['arrival_id'] and record['template_code'] =='email_dogana':
+            if tasklist[record.get('arrival_id')]['email_dogana'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_dogana=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_frontiera':
+            if tasklist[record.get('arrival_id')]['email_frontiera'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_frontiera=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_sanimare':
+            if tasklist[record.get('arrival_id')]['email_usma'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_usma=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_pilot_moor':
+            if tasklist[record.get('arrival_id')]['email_pilot_moor'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_pilot_moor=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_moor':
+            if tasklist[record.get('arrival_id')]['email_moor'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_moor=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_tug':
+            if tasklist[record.get('arrival_id')]['email_tug'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_tug=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='garbage_email':
+            if tasklist[record.get('arrival_id')]['email_garbage'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_garbage=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_pfso':
+            if tasklist[record.get('arrival_id')]['email_pfso'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_pfso=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_chemist':
+            if tasklist[record.get('arrival_id')]['email_chemist'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_chemist=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_gpg':
+            if tasklist[record.get('arrival_id')]['email_gpg'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_gpg=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_ens':
+            if tasklist[record.get('arrival_id')]['email_ens'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_ens=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='not_rifiuti':
+            if tasklist[record.get('arrival_id')]['email_garbage_adsp'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_garbage_adsp=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_ric_lps':
+            if tasklist[record.get('arrival_id')]['email_ric_lps'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_ric_lps=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_holds_vent':
+            if tasklist[record.get('arrival_id')]['email_aeration'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_aeration=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_arr_shiprec':
+            if tasklist[record.get('arrival_id')]['email_ship_rec'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_ship_rec=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_integrazione_alim':
+            if tasklist[record.get('arrival_id')]['email_integr'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_integr=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_pmou':
+            if tasklist[record.get('arrival_id')]['email_pmou'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_pmou=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_dogana_rifiuti':
+            if tasklist[record.get('arrival_id')]['email_doganagb'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_doganagb=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_lps_cp':
+            if tasklist[record.get('arrival_id')]['email_lps_cp'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_lps_cp=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_chimico_cp':
+            if tasklist[record.get('arrival_id')]['email_certchim_cp'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_certchim_cp=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_chimico_stev':
+            if tasklist[record.get('arrival_id')]['email_certchim_stev'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_certchim_stev=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_deroga_garbage':
+            if tasklist[record.get('arrival_id')]['email_garbage_cp'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_garbage_cp=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_ricevutarifiuti_cp':
+            if tasklist[record.get('arrival_id')]['email_ric_rifiuti_cp'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_ric_rifiuti_cp=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_tributi_cp':
+            if tasklist[record.get('arrival_id')]['email_tributi_cp'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_tributi_cp=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_pilot_dep':
+            if tasklist[record.get('arrival_id')]['email_pilot_dep'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_pilot_dep=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_moor_dep':
+            if tasklist[record.get('arrival_id')]['email_moor_dep'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_moor_dep=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+        if record['arrival_id'] and record['template_code'] =='email_tug_dep':
+            if tasklist[record.get('arrival_id')]['email_tug_dep'] is not True:
+                tbl_tasklist.batchUpdate(dict(email_tug_dep=None),
+                                    where='$arrival_id=:a_id', a_id=record['arrival_id'])
+
