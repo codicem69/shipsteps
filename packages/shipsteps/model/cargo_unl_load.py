@@ -59,8 +59,8 @@ class Table(object):
         tbl.formulaColumn('cargo_ship_rec', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Shippers: ' || @shipper_id.name || '<br>' 
                                             WHEN $operation = 'U' THEN '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Receivers: ' || @receiver_id.name || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U shiprec')
-        tbl.formulaColumn('tip_cargo_dogana',"""CASE WHEN $foreign_cargo = 'True' THEN 'Merce estera da importare'
-                                                WHEN $foreign_cargo = 'False' THEN 'Merce scortata da T2L' ELSE '' END""")
+        tbl.formulaColumn('tip_cargo_dogana',"""CASE WHEN $operation = 'U' and $foreign_cargo = 'True' THEN 'Merce estera da importare'
+                                                WHEN $operation = 'U' and $foreign_cargo = 'False' THEN 'Merce scortata da T2L' ELSE '' END""")
         tbl.formulaColumn('sof_shiprec', """CASE WHEN $operation = 'L' THEN 'Shippers' 
                                             WHEN $operation = 'U' THEN 'Receivers' ELSE '' END """,
                             dtype='T', name_long='sof_shiprec')
