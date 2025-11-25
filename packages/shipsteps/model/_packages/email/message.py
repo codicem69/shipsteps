@@ -522,7 +522,8 @@ class Table(object):
     def aggiornaTL(self,record):
         arrival_id = record['arrival_id']
         template_code=record['template_code']
-        self.db.deferToCommit(self.db.table('shipsteps.tasklist').aggiornaCheckBox,
+        if arrival_id:
+            self.db.deferToCommit(self.db.table('shipsteps.tasklist').aggiornaCheckBox,
                                     arrival_id=arrival_id,
                                     template_code=template_code,
                                     _deferredId=arrival_id)
