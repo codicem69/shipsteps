@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-02-01T18:19:53.414449+01:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2025-06-16T18:12:55.008674+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2025-12-10T10:38:55.673839+01:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.softemplateemail_operations_mov</identifier>
 <code size=":40" name_long="!![en]Code" indexed="True::B" dtype="A" print_width="30::L" as="t0_code">email_operations_mov</code>
@@ -86,7 +86,7 @@
 			&amp;nbsp;&lt;/div&gt;
 	&lt;/div&gt;
 	&lt;div&gt;
-		&lt;table cellpadding="1" cellspacing="1" row_datasource="@sof_daily" style="border-collapse:collapse;width:50%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" row_datasource="qt_handled" style="border-collapse:collapse;width:50%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td&gt;
@@ -105,15 +105,15 @@
 				&lt;/tr&gt;
 				&lt;tr&gt;
 					&lt;td&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$daily_date_op&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$mov.date_op&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$daily_measure&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$mov.measure&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: right;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$daily_qt_mov&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$mov.qt_mov&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: right;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$daily_tot_progressivo&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$mov.tot_progressivo&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: right;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$daily_shortage_surplus&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$mov.shortage_surplus&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 			&lt;/tbody&gt;
 		&lt;/table&gt;
@@ -166,7 +166,7 @@
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
 <editable _T="NN" dtype="::NN"></editable></g8juc260e9>
-<h2kdfoedzd _newrecord="True::B" _pkey="h2kdfoedzd"><fieldpath dtype="::NN">@arrival_id.email_dest_to</fieldpath>
+<h2kdfoedzd _pkey="h2kdfoedzd"><fieldpath dtype="::NN">@arrival_id.email_dest_to</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">arrival_id/email_dest_to</fieldname>
 <varname dtype="::NN" _loadedValue="arrival_id_email_dest_to">email_dest_to</varname>
@@ -353,7 +353,7 @@
 <df_template _T="NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask></g9gkvu7ivd>
-<h8cr5gljpl _newrecord="True::B" _pkey="h8cr5gljpl"><fieldpath dtype="::NN">etstart_email</fieldpath>
+<h8dj8559xt _pkey="h8dj8559xt"><fieldpath dtype="::NN">etstart_email</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">etstart_email</fieldname>
 <varname dtype="::NN">etstart_email</varname>
@@ -362,8 +362,8 @@
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></h8cr5gljpl>
-<h8cr5kvhdl _newrecord="True::B" _pkey="h8cr5kvhdl"><fieldpath dtype="::NN">etc_email</fieldpath>
+<editable _T="NN" dtype="::NN"></editable></h8dj8559xt>
+<h8dj82y9sx _pkey="h8dj82y9sx"><fieldpath dtype="::NN">etc_email</fieldpath>
 <dtype dtype="::NN">T</dtype>
 <fieldname dtype="::NN">etc_email</fieldname>
 <varname dtype="::NN">etc_email</varname>
@@ -372,7 +372,7 @@
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></h8cr5kvhdl>
+<editable _T="NN" dtype="::NN"></editable></h8dj82y9sx>
 <g8jv0loc69 _pkey="g8jv0loc69"><fieldpath dtype="::NN">@arrival_id.ets</fieldpath>
 <dtype dtype="::NN">DH</dtype>
 <fieldname dtype="::NN">arrival_id/ets</fieldname>
@@ -771,7 +771,17 @@
 <df_template _T="NN" dtype="::NN"></df_template>
 <format _T="NN" dtype="::NN"></format>
 <mask _T="NN" dtype="::NN"></mask>
-<editable _T="NN" dtype="::NN"></editable></gtlebmamnd></varsbag>
+<editable _T="NN" dtype="::NN"></editable></gtlebmamnd>
+<hdrlw0tm55 _pkey="hdrlw0tm55"><fieldpath dtype="::NN">qt_handled</fieldpath>
+<dtype dtype="::NN">X</dtype>
+<fieldname dtype="::NN">mov</fieldname>
+<varname dtype="::NN">mov</varname>
+<virtual_column _T="B">True</virtual_column>
+<required_columns dtype="::NN">$sof_n</required_columns>
+<df_template _T="NN" dtype="::NN"></df_template>
+<format _T="NN" dtype="::NN"></format>
+<mask _T="NN" dtype="::NN"></mask>
+<editable _T="NN" dtype="::NN"></editable></hdrlw0tm55></varsbag>
 <parameters><g8jvcuia2p _pkey="g8jvcuia2p"><code dtype="::NN" _loadedValue="::NN">email_to</code>
 <description dtype="::NN" _loadedValue="::NN">email to</description>
 <fieldtype _T="NN" dtype="::NN"></fieldtype>
@@ -811,11 +821,11 @@
 					&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;${to hrs $to}&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
 		</_sof_operations>
-<_sof_daily _tag="@sof_daily">&lt;tr&gt;
+<qt_handled>&lt;tr&gt;
 					&lt;td&gt;
 						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$date_op&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: center;"&gt;
-						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$@measure_id.description&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$measure&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: right;"&gt;
 						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$qt_mov&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 					&lt;td style="text-align: right;"&gt;
@@ -823,8 +833,8 @@
 					&lt;td style="text-align: right;"&gt;
 						&lt;span style="font-size:11px;"&gt;&lt;span style="font-family:courier new,courier,monospace;"&gt;$shortage_surplus&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;/tr&gt;
-			</_sof_daily>
-<main maintable="shipsteps.sof" locale="it" virtual_columns="email_sof_to,email_arr_to,email_sof_cc,email_arr_cc,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,int_carico,@arrival_id.cargo,carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta_email,@arrival_id.etb_email,etstart_email,etc_email,@arrival_id.ets_email,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,shiprec,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,time_sof,portlog_time,sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.draft_int,@arrival_id.privacy,fullstyle_for_rec,@sof_tanks.portlog_tanks_time" columns="$email_sof_to,@arrival_id.email_dest_to,$email_arr_to,$email_sof_cc,$email_arr_cc,@arrival_id.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@dock_id.dock_name,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,$int_carico,@arrival_id.cargo,$carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta,@arrival_id.eta_email,@arrival_id.etb,@arrival_id.etb_email,$etstart_email,$etc_email,@arrival_id.ets,@arrival_id.ets_email,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,$shiprec,@arrival_id.reference_num,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,$time_sof,$portlog_time,@sof_operations.date,@sof_operations.day,@sof_operations.operations,@sof_operations.from,@sof_operations.to,$sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.ifo_arr,@arrival_id.@arr_details.do_arr,@arrival_id.@arr_details.lo_arr,@arrival_id.@arr_details.fw_arr,@arrival_id.@arr_details.tug_in,@arrival_id.@arr_details.draft_int,@arrival_id.@arr_details.draft_aft_arr,@arrival_id.@arr_details.draft_fw_arr,@arrival_id.@arr_details.draft_aft_dep,@arrival_id.@arr_details.draft_fw_dep,@arrival_id.@time_arr.moored,@arrival_id.privacy,$fullstyle_for_rec,@sof_daily.date_op,@sof_daily.@measure_id.description,@sof_daily.qt_mov,@sof_daily.tot_progressivo,@sof_daily.shortage_surplus,@sof_daily.perc_short_surpl,@sof_tanks.portlog_tanks_time" formats='{"moored": "HH:mm", "email_to": null, "email_cc": null, "email_ccn": null}::JS' masks='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"email_sof_to": "T", "email_dest_to": "T", "email_arrival_to": "T", "email_sof_cc": "T", "email_arrival_cc": "T", "imbarcazione_tipo": "T", "imbarcazione_nome": "T", "agency_name": "T", "agenzia_place_citta_nazione": "A", "banchina_dock_name": "T", "last_port": "A", "next_port": "A", "int_carico": "T", "arrival_id_carico": "T", "cargo_on_sof": "T", "ship_or_rec": "T", "eta": "DH", "eta_email": "T", "etb": "DH", "etb_email": "T", "etstart_email": "T", "etc_email": "T", "ets": "DH", "ets_email": "T", "port_name": "T", "agenzia_fullstyle": "A", "user_signature": "T", "shipper_or_receiver": "T", "reference_number": "T", "times_time_arr": "T", "times_time_arr_2": "T", "time_sof": "A", "portlog_time": "A", "operations_sof_date": "D", "operations_sof_day": "T", "operations_sof_operations": "T", "operations_sof_from": "H", "operations_sof_to": "H", "sofop_int": "T", "robarr_int": "A", "robdep_int": "A", "tugs_int": "A", "ifo_arr": "A", "do_arr": "A", "lo_arr": "A", "fw_arr": "A", "tug_in": "A", "draft_int": "T", "draft_aft_arr": "A", "draft_fw_arr": "A", "draft_aft_dep": "A", "draft_fw_dep": "A", "moored": "DH", "privacy_email": "T", "fullstyle_for_rec": "T", "daily_date_op": "D", "daily_measure": "T", "daily_qt_mov": "N", "daily_tot_progressivo": "N", "daily_shortage_surplus": "N", "daily_perc_short_surpl": "N", "portlog_tanks_time": "A"}::JS'>&lt;style&gt;table, td {
+			</qt_handled>
+<main maintable="shipsteps.sof" locale="it" virtual_columns="email_sof_to,email_arr_to,email_sof_cc,email_arr_cc,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,int_carico,@arrival_id.cargo,carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta_email,@arrival_id.etb_email,etstart_email,etc_email,@arrival_id.ets_email,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,shiprec,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,time_sof,portlog_time,sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.draft_int,@arrival_id.privacy,fullstyle_for_rec,@sof_tanks.portlog_tanks_time,qt_handled,$sof_n" columns="$email_sof_to,@arrival_id.email_dest_to,$email_arr_to,$email_sof_cc,$email_arr_cc,@arrival_id.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.@port.citta_nazione,@arrival_id.@dock_id.dock_name,@arrival_id.@last_port.citta_nazione,@arrival_id.@next_port.citta_nazione,$int_carico,@arrival_id.cargo,$carico_del_sof,@arrival_id.ship_or_rec,@arrival_id.eta,@arrival_id.eta_email,@arrival_id.etb,@arrival_id.etb_email,$etstart_email,$etc_email,@arrival_id.ets,@arrival_id.ets_email,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.fullstyle,@arrival_id.@agency_id.fullname,$shiprec,@arrival_id.reference_num,@arrival_id.@time_arr.time_arr,@arrival_id.@time_arr.time_arr_2,$time_sof,$portlog_time,@sof_operations.date,@sof_operations.day,@sof_operations.operations,@sof_operations.from,@sof_operations.to,$sofop_int,@arrival_id.@arr_details.robarr_int,@arrival_id.@arr_details.robdep_int,@arrival_id.@arr_details.tugs_int,@arrival_id.@arr_details.ifo_arr,@arrival_id.@arr_details.do_arr,@arrival_id.@arr_details.lo_arr,@arrival_id.@arr_details.fw_arr,@arrival_id.@arr_details.tug_in,@arrival_id.@arr_details.draft_int,@arrival_id.@arr_details.draft_aft_arr,@arrival_id.@arr_details.draft_fw_arr,@arrival_id.@arr_details.draft_aft_dep,@arrival_id.@arr_details.draft_fw_dep,@arrival_id.@time_arr.moored,@arrival_id.privacy,$fullstyle_for_rec,@sof_daily.date_op,@sof_daily.@measure_id.description,@sof_daily.qt_mov,@sof_daily.tot_progressivo,@sof_daily.shortage_surplus,@sof_daily.perc_short_surpl,@sof_tanks.portlog_tanks_time,$qt_handled" formats='{"moored": "HH:mm", "email_to": null, "email_cc": null, "email_ccn": null}::JS' masks='{"email_to": null, "email_cc": null, "email_ccn": null}::JS' editcols="{}::JS" df_templates="{}::JS" dtypes='{"email_sof_to": "T", "email_dest_to": "T", "email_arrival_to": "T", "email_sof_cc": "T", "email_arrival_cc": "T", "imbarcazione_tipo": "T", "imbarcazione_nome": "T", "agency_name": "T", "agenzia_place_citta_nazione": "A", "banchina_dock_name": "T", "last_port": "A", "next_port": "A", "int_carico": "T", "arrival_id_carico": "T", "cargo_on_sof": "T", "ship_or_rec": "T", "eta": "DH", "eta_email": "T", "etb": "DH", "etb_email": "T", "etstart_email": "T", "etc_email": "T", "ets": "DH", "ets_email": "T", "port_name": "T", "agenzia_fullstyle": "A", "user_signature": "T", "shipper_or_receiver": "T", "reference_number": "T", "times_time_arr": "T", "times_time_arr_2": "T", "time_sof": "A", "portlog_time": "A", "operations_sof_date": "D", "operations_sof_day": "T", "operations_sof_operations": "T", "operations_sof_from": "H", "operations_sof_to": "H", "sofop_int": "T", "robarr_int": "A", "robdep_int": "A", "tugs_int": "A", "ifo_arr": "A", "do_arr": "A", "lo_arr": "A", "fw_arr": "A", "tug_in": "A", "draft_int": "T", "draft_aft_arr": "A", "draft_fw_arr": "A", "draft_aft_dep": "A", "draft_fw_dep": "A", "moored": "DH", "privacy_email": "T", "fullstyle_for_rec": "T", "daily_date_op": "D", "daily_measure": "T", "daily_qt_mov": "N", "daily_tot_progressivo": "N", "daily_shortage_surplus": "N", "daily_perc_short_surpl": "N", "portlog_tanks_time": "A", "mov": "X"}::JS'>&lt;style&gt;table, td {
   border-collapse: collapse;
   border: dotted 1px #000000;
 }
@@ -907,7 +917,7 @@ $@sof_operations
 			&amp;#160;&lt;/div&gt;
 	&lt;/div&gt;
 	&lt;div&gt;
-		&lt;table cellpadding="1" cellspacing="1" row_datasource="@sof_daily" style="border-collapse:collapse;width:50%;"&gt;
+		&lt;table cellpadding="1" cellspacing="1" row_datasource="qt_handled" style="border-collapse:collapse;width:50%;"&gt;
 			&lt;tbody&gt;
 				&lt;tr&gt;
 					&lt;td&gt;
@@ -925,7 +935,7 @@ $@sof_operations
 						quantity&lt;/span&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/td&gt;
 				&lt;/tr&gt;
 				
-$@sof_daily
+$qt_handled
 &lt;/tbody&gt;
 		&lt;/table&gt;
 	&lt;/div&gt;

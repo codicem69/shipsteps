@@ -5,7 +5,7 @@ from gnr.core.gnrbag import Bag
 #import pandas as pd
 #from datetime import date
 from collections import defaultdict
-
+from gnr.core.gnrnumber import floatToDecimal,decimalRound
 
 class Table(object):
     def config_db(self,pkg):
@@ -59,6 +59,7 @@ class Table(object):
         tbl.pyColumn('carico_bl_it', name_long='!![en]Cargo on sof BL it')
         tbl.pyColumn('events_rows',dtype='X',required_columns='$id',name_long='Q.tà magazzini')
         tbl.pyColumn('qta_mag',dtype='X',required_columns='$id',name_long='Qta x data magazzini')
+        
         #tbl.pyColumn('email_sof_to',name_long='!![en]Email sof to', static=True)
         #tbl.pyColumn('email_sof_cc',name_long='!![en]Email sof cc', static=True)
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
@@ -133,6 +134,30 @@ class Table(object):
         tbl.formulaColumn('etc_email',"""CASE WHEN $ops_completed IS NULL AND $etc IS NOT NULL THEN :etcdescr || to_char($etc, :df) || ' WP/AGW<br>' ELSE '' END""", dtype='T',var_etcdescr='ETC:...........',var_df='DD/MM/YYYY HH24:MI')
         tbl.aliasColumn('measure','@sof_daily.@measure_id.description')
         tbl.aliasColumn('place_origin_goods','@sof_cargo_sof.@cargo_unl_load_id.@place_origin_goods.citta_nazione')
+        tbl.pyColumn('qt_handled',dtype='X',required_columns='$sof_n',name_long='mov')
+
+    def pyColumn_qt_handled(self,record=None,field=None):
+        if not record.get('sof_n'):
+            return Bag(dict(error='Missing data'))
+        sof_id = record.get('pkey') or record.get('id')
+        tbl_dailyMov = self.db.table('shipsteps.daily_sofdetails')
+        records_dailymov = tbl_dailyMov.query(columns='$_row_count,$date_op,@measure_id.description as measure,$qt_mov,$tot_progressivo,$shortage_surplus,$perc_short_surpl,$totcargo', where='$sof_id=:sof_id',sof_id=sof_id).fetch()
+        rows = Bag()
+        tot_progres = 0
+        #for r in records_dailymov:
+        for n,r in enumerate(records_dailymov,1):
+            qt_mov = r['qt_mov']
+            tot_progres += qt_mov
+            r['tot_progressivo']=tot_progres
+            r['shortage_surplus']=r['totcargo']-tot_progres
+            r['perc_short_surpl']=decimalRound(r['shortage_surplus']/r['totcargo']*100)
+            rows['r_%s'%(n)]=Bag(r)
+            rows.setAttr('r_%s'%(n)+'.qt_mov',format='#,###.000')
+            rows.setAttr('r_%s'%(n)+'.tot_progressivo',format='#,###.000')
+            rows.setAttr('r_%s'%(n)+'.shortage_surplus',format='#,###.000')
+            rows.setAttr('r_%s'%(n)+'.perc_short_surpl',format='#,###.00')
+        #print(x)   
+        return rows
        
     #definiamo questa pyColumn per utilizzarla come dati template nell'invio email
     def pyColumn_events_rows(self,record=None,field=None):

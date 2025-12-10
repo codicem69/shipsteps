@@ -41,7 +41,7 @@ class ViewFromSofDailyOp(BaseComponent):
                           range_alto='value>0',range_alto_style='color:black;font-weight:bold;',range_basso='value<0',range_basso_style='font-weight:bold;color:red;')
         r.cell('shortage_perc',formula='shortage>=0?shortage/totcargo*100:-shortage/totcargo*100', format='#,###.000', name='Shortage / Surplus %', dtype='N', 
                                range_alto='shortage>0',range_alto_style='color:black;font-weight:bold;',range_basso='shortage<0',range_basso_style='font-weight:bold;color:red;')
-        
+        r.fieldcell('tot_progressivo',calculated=True,width='7em',name='tot_progr', dtype='N',format='###.00',totalize=True,formula='+=qt_mov')
     @public_method
     def th_remoteRowController(self,row=None,field=None,**kwargs):
         field=field
@@ -67,6 +67,7 @@ class ViewFromSofDailyOp(BaseComponent):
     
     def th_options(self):
         return dict(grid_selfDragRows=True)
+    
     
 class Form(BaseComponent):
 

@@ -1,5 +1,6 @@
 # encoding: utf-8
 from gnr.core.gnrbag import Bag
+from gnr.core.gnrnumber import floatToDecimal,decimalRound
 
 class Table(object):
     def config_db(self,pkg):
@@ -39,7 +40,9 @@ class Table(object):
                                                                 where='$dailysof_id=#THIS.id'), 
                                                  mode='json', name_long='Dettaglio giornaliero')
         tbl.pyColumn('events_rows',dtype='X',required_columns='$id',name_long='Q.tà magazzini')
-
+        tbl.pyColumn('qt_progres',dtype='N',name_long='Qta progressiva')
+        tbl.pyColumn('qt_handled',dtype='X',required_columns='$date_op',name_long='mov')
+       
     def formulaColumn_carico(self):
         depositi = self.db.table('shipsteps.magazzini').query().fetch()
         result = []
@@ -52,6 +55,40 @@ class Table(object):
         #print(x)
         return result    
     
+    #definiamo questa pyColumn per utilizzarla come dati template nell'invio email
+    def pyColumn_qt_handled(self,record=None,field=None):
+        if not record.get('date_op'):
+            return Bag(dict(error='Missing data'))
+        sof_id = record.get('sof_id')
+        tbl_dailyMov = self.db.table('shipsteps.daily_sofdetails')
+        records_dailymov = tbl_dailyMov.query(columns='*,$totcargo', where='$sof_id=:sof_id',sof_id=sof_id).fetch()
+        rows = Bag()
+        tot_progres = 0
+        #for r in records_dailymov:
+        for n,r in enumerate(records_dailymov,1):
+            qt_mov = r['qt_mov']
+            tot_progres += qt_mov
+            r['tot_progressivo']=tot_progres
+            r['shortage_surplus']=r['totcargo']-tot_progres
+            r['perc_short_surpl']=decimalRound(r['shortage_surplus']/r['totcargo']*100)
+            rows['r_%s'%(n)]=Bag(r)
+            #rows.setAttr('r_%s'%(n)+'.qta',format='#,###.000')
+        #print(x)   
+        return rows
+           
+
+    def pyColumn_qt_progres(self,record=None,field=None):
+        sof_id = record.get('sof_id')
+        tbl_dailyMov = self.db.table('shipsteps.daily_sofdetails')
+        records_dailymov = tbl_dailyMov.query(columns='*', where='$sof_id=:sof_id',sof_id=sof_id).fetch()
+        tot_progres = 0
+        for r in records_dailymov:
+            qt_mov = r['qt_mov']
+            tot_progres += qt_mov
+            
+        if r['id'] == record.get('id'):
+                exit()    
+        return tot_progres
     #definiamo questa pyColumn per utilizzarla come dati template nell'invio email
     def pyColumn_events_rows(self,record=None,field=None):
         if not record.get('sof_id'):
@@ -110,3 +147,27 @@ class Table(object):
             rows.setAttr('r_%s'%(n)+'.qta',format='#,###.000')
         #print(x)   
         return rows
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+           

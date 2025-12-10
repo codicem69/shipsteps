@@ -2270,7 +2270,7 @@ class Form(BaseComponent):
                                           "!![en]Invoice heading missed. Do you want to continue?",
                                           {'cancel':'Cancel', 'continue':'Continue'},
                                           {'continue':azione});
-                                          else (PUBLISH pilotadep);""",invoice_id='=#FORM.record.invoice_det_id')
+                                          else (PUBLISH pilotdep);""",invoice_id='=#FORM.record.invoice_det_id')
         fb_dep.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2291,7 +2291,7 @@ class Form(BaseComponent):
                        record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_pilot_dep=True)
+                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_pilotdep=True)
       
         fb_dep.field('email_pilot_dep',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
         fb_dep.semaphore('^.email_pilot_dep', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
