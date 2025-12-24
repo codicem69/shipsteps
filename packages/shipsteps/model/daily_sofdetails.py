@@ -24,7 +24,7 @@ class Table(object):
                                          'remain to be discharged ' || @measure_id.description || ' ' || $shortage_surplus """)
         
         tbl.formulaColumn('totcargo',select=dict(table='shipsteps.cargo_unl_load',
-                                                columns='SUM($quantity)',
+                                                columns='SUM($quantity) as quantity',
                                                 where='$id=#THIS.@sof_id.@sof_cargo_sof.cargo_unl_load_id'),
                                     dtype='N',name_long='!![en]Cargo total', format='#,###.000')
         #tbl.formulaColumn('measure_sof',select=dict(table='shipsteps.cargo_unl_load', columns="$measure_id",

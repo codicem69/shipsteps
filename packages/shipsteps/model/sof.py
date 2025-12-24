@@ -135,13 +135,23 @@ class Table(object):
         tbl.aliasColumn('measure','@sof_daily.@measure_id.description')
         tbl.aliasColumn('place_origin_goods','@sof_cargo_sof.@cargo_unl_load_id.@place_origin_goods.citta_nazione')
         tbl.pyColumn('qt_handled',dtype='X',required_columns='$sof_n',name_long='mov')
-
+        
     def pyColumn_qt_handled(self,record=None,field=None):
         if not record.get('sof_n'):
             return Bag(dict(error='Missing data'))
         sof_id = record.get('pkey') or record.get('id')
         tbl_dailyMov = self.db.table('shipsteps.daily_sofdetails')
-        records_dailymov = tbl_dailyMov.query(columns='$_row_count,$date_op,@measure_id.description as measure,$qt_mov,$tot_progressivo,$shortage_surplus,$perc_short_surpl,$totcargo', where='$sof_id=:sof_id',sof_id=sof_id).fetch()
+        records_dailymov = tbl_dailyMov.query(columns='$_row_count,$date_op,@measure_id.description as measure,$qt_mov,$tot_progressivo,$shortage_surplus,$perc_short_surpl,$sof_id', where='$sof_id=:sof_id',sof_id=sof_id,order_by='$_row_count').fetch()
+        tbl_cargo = self.db.table('shipsteps.cargo_unl_load')
+        tbl_sofCargo = self.db.table('shipsteps.sof_cargo')
+        cargo_id = tbl_sofCargo.query(columns='$cargo_unl_load_id', where='$sof_id=:sof_id', sof_id=sof_id).fetch()
+        totcargo = 0
+        for r in cargo_id:
+            totcargo += tbl_cargo.readColumns(columns="""$quantity""", where='$id=:id_cargo', id_cargo=r['cargo_unl_load_id'])
+            
+        
+        #tbl_cargo.record(sof_id, for_update=True).output('bag')
+        #print(X)
         rows = Bag()
         tot_progres = 0
         #for r in records_dailymov:
@@ -149,8 +159,8 @@ class Table(object):
             qt_mov = r['qt_mov']
             tot_progres += qt_mov
             r['tot_progressivo']=tot_progres
-            r['shortage_surplus']=r['totcargo']-tot_progres
-            r['perc_short_surpl']=decimalRound(r['shortage_surplus']/r['totcargo']*100)
+            r['shortage_surplus']=totcargo-tot_progres
+            r['perc_short_surpl']=decimalRound(r['shortage_surplus']/totcargo*100)
             rows['r_%s'%(n)]=Bag(r)
             rows.setAttr('r_%s'%(n)+'.qt_mov',format='#,###.000')
             rows.setAttr('r_%s'%(n)+'.tot_progressivo',format='#,###.000')

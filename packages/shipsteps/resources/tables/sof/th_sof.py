@@ -6,6 +6,7 @@ from gnr.core.gnrdecorator import public_method
 from gnr.web.gnrbaseclasses import TableTemplateToHtml
 from datetime import datetime
 from gnr.core.gnrbag import Bag
+import pytz
 
 class View(BaseComponent):
 
@@ -118,8 +119,10 @@ class Form(BaseComponent):
         fb = pane.div(margin_left='5px',margin_right='auto').formbuilder(cols=5, border_spacing='4px',fld_width='10em')
         #fb.field('arrival_id')
         fb.field('sof_n', readOnly=True)
-        fb.field('et_start' , width='10em')
-        fb.field('etc' , width='10em')       
+        fb.field('et_start', width='10em',validate_remote=self.checkDate,validate_etstart='=#FORM.record.et_start',validate_arr_id='=#FORM.record.arrival_id', validate_remote_error='Error!',validate_campo='et_start')
+        #fb.field('et_start' , width='10em',validate_onAccept='FIRE #FORM.et_start')
+        #fb.dataRpc('', self.checkDate, etstart='=.et_start',arr_id='=.arrival_id',_fired='^#FORM.et_start', _onResult="""if(result!=null) {alert(result);}""")
+        fb.field('etc' , width='10em',validate_onAccept="if(value > min){return false;}""",validate_min='^.et_start')       
         fb.br()
         fb.field('nor_tend',border_color="^nortend")
         fb.field('nor_rec',border_color="^norrec")
@@ -173,7 +176,29 @@ class Form(BaseComponent):
         #fb.dataController("""if(^#FORM.shipsteps_sof_cargo.view.count.total>0){SET #FORM.tabname=operations;}""")
         fb.dataRpc('#FORM.tabname', self.checkCargoSof,  record='=#FORM.record',rec_id='^#FORM.record.id',
                     _if='rec_id',tabname='=#FORM.tabname')
-            
+
+    @public_method
+    def checkDate(self,etstart=None, arr_id=None,campo=None,**kwargs):
+        tbl_arr =self.db.table('shipsteps.arrival')
+        etb,etd = tbl_arr.readColumns(columns="""$etb,$ets""", where='$id=:arr_id', arr_id=arr_id)
+        tz = pytz.timezone('Europe/Rome')
+        utc = pytz.UTC
+        if campo == 'et_start':
+            etstart=etstart.astimezone(tz) #arrivando nei kwargs il valore orario sballato di etstart con questo metodo lo convertiamo in quello di roma
+            etb=etb.replace(tzinfo=utc)
+            etd=etd.replace(tzinfo=utc)
+            etstart=etstart.replace(tzinfo=utc)
+            #print(X)
+            if etstart and etb:
+                if etstart > etb:
+                #if etstart.strftime('%Y%m%d%H%M%S') < etb.strftime('%Y%m%d%H%M%S'):
+                #if etstart.strftime('%F%H%M%S') < etb.strftime('%F%H%M%S'):
+                    result = True
+                else:
+                    result = False
+                return result
+        #print(x)
+
     @public_method
     def checkCargoSof(self,record,**kwargs):
         
