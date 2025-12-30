@@ -119,10 +119,17 @@ class Form(BaseComponent):
         fb = pane.div(margin_left='5px',margin_right='auto').formbuilder(cols=5, border_spacing='4px',fld_width='10em')
         #fb.field('arrival_id')
         fb.field('sof_n', readOnly=True)
-        fb.field('et_start', width='10em',validate_remote=self.checkDate,validate_etstart='=#FORM.record.et_start',validate_arr_id='=#FORM.record.arrival_id', validate_remote_error='Error!',validate_campo='et_start')
+        fb.field('et_start', width='10em',validate_remote=self.checkDate,validate_etstart='=.et_start',validate_arr_id='=#FORM.record.arrival_id',
+                                          validate_remote_error='Error!',validate_campo='et_start',validate_ets='^.@arrival_id.ets',validate_etb='^.@arrival_id.etb',
+                                          validate_etc='=.etc')
         #fb.field('et_start' , width='10em',validate_onAccept='FIRE #FORM.et_start')
         #fb.dataRpc('', self.checkDate, etstart='=.et_start',arr_id='=.arrival_id',_fired='^#FORM.et_start', _onResult="""if(result!=null) {alert(result);}""")
-        fb.field('etc' , width='10em',validate_onAccept="if(value > min){return false;}""",validate_min='^.et_start')       
+        fb.field('etc' , width='10em',validate_remote=self.checkDate,validate_etc='=.etc',
+                                      validate_arr_id='=#FORM.record.arrival_id', validate_remote_error='Error!',
+                                      validate_campo='etc',validate_ets='^.@arrival_id.ets',validate_etb='^.@arrival_id.etb',validate_etstart='=.et_start')
+        #fb.field('etc' , width='10em',validate_onAccept="if(value > min){return false;}""",validate_min='^.et_start')
+        #fb.field('etc' , width='10em',validate_onAccept="if(value value ==> min || value <== max ){return false;}""",validate_min='^.et_start',validate_max='^.@arrival_id.ets')       
+        #fb.dataController("""if(etstart<etb){alert('Controlla ETB ET_START')};""",etb='^.@arrival_id.etb',etstart='^.et_start',etc='.etc',ets='^.@arrival_id.ets')
         fb.br()
         fb.field('nor_tend',border_color="^nortend")
         fb.field('nor_rec',border_color="^norrec")
@@ -178,26 +185,69 @@ class Form(BaseComponent):
                     _if='rec_id',tabname='=#FORM.tabname')
 
     @public_method
-    def checkDate(self,etstart=None, arr_id=None,campo=None,**kwargs):
-        tbl_arr =self.db.table('shipsteps.arrival')
-        etb,etd = tbl_arr.readColumns(columns="""$etb,$ets""", where='$id=:arr_id', arr_id=arr_id)
+    def checkDate(self,etstart=None,etc=None, arr_id=None,campo=None,ets=None,etb=None,**kwargs):
+        #print(x)
+        #tbl_arr =self.db.table('shipsteps.arrival')
+        #etb,etd = tbl_arr.readColumns(columns="""$etb,$ets""", where='$id=:arr_id', arr_id=arr_id)
         tz = pytz.timezone('Europe/Rome')
         utc = pytz.UTC
-        if campo == 'et_start':
-            etstart=etstart.astimezone(tz) #arrivando nei kwargs il valore orario sballato di etstart con questo metodo lo convertiamo in quello di roma
+        if etb:
             etb=etb.replace(tzinfo=utc)
-            etd=etd.replace(tzinfo=utc)
+        if ets:
+            ets=ets.replace(tzinfo=utc)
+        if etstart:
+            etstart=etstart.astimezone(tz) #arrivando nei kwargs il valore orario sballato di etstart con questo metodo lo convertiamo in quello di roma 
             etstart=etstart.replace(tzinfo=utc)
+        if etc:
+            etc=etc.astimezone(tz) #arrivando nei kwargs il valore orario sballato di etstart con questo metodo lo convertiamo in quello di roma
+            etc=etc.replace(tzinfo=utc)
+        
+        if campo == 'et_start':
             #print(X)
             if etstart and etb:
                 if etstart > etb:
-                #if etstart.strftime('%Y%m%d%H%M%S') < etb.strftime('%Y%m%d%H%M%S'):
-                #if etstart.strftime('%F%H%M%S') < etb.strftime('%F%H%M%S'):
                     result = True
                 else:
                     result = False
-                return result
-        #print(x)
+            if etstart and etc:
+                if etstart < etc:
+                    result = True
+                else:
+                    result = False
+            if etb and etstart and etc:
+                if etstart < etc or etb < etstart:
+                    result = True 
+                if etstart > etb and etstart >= etc:
+                    result = False
+                if etstart <= etb and etstart <= etc:
+                    result = False   
+            #print(result)              
+            return result
+       
+        if campo == 'etc':
+            #print(X)
+            if etc and ets:
+                if etc < ets:
+                    result = True
+                else:
+                    result = False
+            #print('etc < ets= '+ str(result) )
+            if etstart and etc:
+                if etc > etstart:
+                    result = True
+                else:
+                    result = False
+            #return result
+            if etc and ets and etstart:
+                if etc < ets or etc > etstart:
+                    result = True 
+                if etc < ets and etc <= etstart:
+                    result = False
+                if etc >= ets and etc > etstart:
+                    result = False                    
+            #print(result)
+            return result
+        
 
     @public_method
     def checkCargoSof(self,record,**kwargs):
