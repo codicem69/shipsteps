@@ -117,6 +117,8 @@ class Menu(object):
             agz = root.branch(u"Agencies", tags="")
             #agz.thpage(u"Agencies", table="agz.agency", tags="")
             agz.thpage(u"Staff", table="agz.staff", tags="")
+            adm = root.branch(u"adm", tags="UserExtra")
+            adm.thpage(u"!!Counters", table="adm.counter",tags='UserExtra')
             ftp = root.branch(u"FTP", tags="user")
             ftp.webpage(u"!![en]Server page",filepath='ftpserv/server_page')
 

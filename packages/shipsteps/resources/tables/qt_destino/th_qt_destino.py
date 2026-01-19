@@ -36,7 +36,6 @@ class ViewFromDailyQTdest(BaseComponent):
     def th_options(self):
         return dict(grid_selfDragRows=True)
 
-
 class Form(BaseComponent):
 
     def th_form(self, form):
