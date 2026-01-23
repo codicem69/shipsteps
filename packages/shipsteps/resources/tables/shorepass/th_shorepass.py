@@ -16,6 +16,7 @@ class View(BaseComponent):
         r.fieldcell('data_part', name='!![en]To date')
         r.fieldcell('comunitari')
         r.fieldcell('extraue')
+        r.fieldcell('arr_dep')
         
     def th_order(self):
         return 'arrival_id'
