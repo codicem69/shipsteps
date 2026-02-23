@@ -7,7 +7,7 @@ class Table(object):
     def config_db(self,pkg):
         
         tbl=pkg.table('arrival', pkey='id', name_long='!![en]Arrival', name_plural='!![en]Arrivals',
-                                 caption_field='arrival_data',broadcast="""invoice_det_id""")
+                                 caption_field='arrival_data',broadcast="""invoice_det_id,eta,etb,ets,dock_id""")
         self.sysFields(tbl,counter=True)
         #tolto la colonna agency_id perchè inserita nel package agz con la customizzazione di shipsteps
         #tbl.column('agency_id',size='22',name_long='!![en]Agency').relation(

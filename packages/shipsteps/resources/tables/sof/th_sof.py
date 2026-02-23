@@ -118,6 +118,13 @@ class Form(BaseComponent):
     def datiSof(self,pane):
         fb = pane.div(margin_left='5px',margin_right='auto').formbuilder(cols=5, border_spacing='4px',fld_width='10em')
         #fb.field('arrival_id')
+        fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
+            if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0];
+            if(datiCambiamento['et_start'])this.form.externalChange('et_start',datiCambiamento['et_start']);
+            if(datiCambiamento['etc'])this.form.externalChange('etc',datiCambiamento['etc']);           
+            console.log("datiCambiamento: ",datiCambiamento)}"""
+            ,pkey='=#FORM.record.id',table='shipsteps.sof')
+         
         fb.field('sof_n', readOnly=True)
         fb.field('et_start', width='10em',validate_remote=self.checkDate,validate_etstart='=.et_start',validate_arr_id='=#FORM.record.arrival_id',
                                           validate_remote_error='Error!',validate_campo='et_start',validate_ets='^.@arrival_id.ets',validate_etb='^.@arrival_id.etb',
@@ -267,33 +274,47 @@ class Form(BaseComponent):
         bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,50,times,*')
         btn_times=bar.times.button('Times', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto della Form principale', messageType:'error'}); " \
                                                         "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",
-                                                         rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM/parent/#FORM.controller.locked')
-        btn_sof_print=bar.stampa_sof.button('Print SOF')
-        btn_sof_arrivo=bar.email_arrivo.button('Email arrival')
-        btn_sof_oper=bar.email_operazioni.button('Email operations')
-        btn_sof_partenza=bar.email_partenza.button('Email departure')
-        btn_email_to=bar.email_to.button('Email to')
+                                                         rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM/parent/#FORM.controller.locked', disabled='^#FORM/parent/#FORM.controller.locked')
+        btn_sof_print=bar.stampa_sof.button('Print SOF', disabled='^#FORM/parent/#FORM.controller.locked')
+        btn_sof_arrivo=bar.email_arrivo.button('Email arrival',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')
+        btn_sof_oper=bar.email_operazioni.button('Email operations',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')
+        btn_sof_partenza=bar.email_partenza.button('Email departure',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')
+        btn_email_to=bar.email_to.button('Email to', disabled='^#FORM/parent/#FORM.controller.locked')
         btn_sof_print.dataRpc('var_sof', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
         btn_sof_arrivo.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',ref_num='=#FORM.record.@arrival_id.reference_num',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=#FORM.lista_emails',cols=3,popup=True,colspan=2)]))
+                             values='=#FORM.lista_emails',cols=3,popup=True,colspan=2),
+                             dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True),
+                             dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True, hidden="""^#FORM/parent/#FORM.record.@time_arr.moored"""),
+                             dict(name='etstart',lbl='!![en]ET Start',tag='dateTimeTextBox',popup=True, hidden="""^#FORM.record.ops_commenced"""),
+                             dict(name='etc',lbl='!![en]ETC',tag='dateTimeTextBox',popup=True, hidden="""^#FORM.record.ops_completed"""),
+                             dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True, hidden="""^#FORM/parent/#FORM.record.@time_arr.sailed""")]),
+                             etb='=#FORM/parent/#FORM.record.etb',etstart='=#FORM.record.et_start',etc='=#FORM.record.etc',ets='=#FORM/parent/#FORM.record.ets',dock_id='=#FORM/parent/#FORM.record.dock_id')
         btn_sof_oper.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_operations',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='template', lbl='Email Template',tag='filteringSelect', value='^.template', 
                              values='email_operations:without total mov,email_operations_mov:with total mov',validate_notnull=True),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=#FORM.lista_emails',cols=3,popup=True,colspan=2)]))
+                             values='=#FORM.lista_emails',cols=3,popup=True,colspan=2),
+                             dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True),
+                             dict(name='etstart',lbl='!![en]ET Start',tag='dateTimeTextBox',popup=True, hidden="""^#FORM.record.ops_commenced"""),
+                             dict(name='etc',lbl='!![en]ETC',tag='dateTimeTextBox',popup=True, hidden="""^#FORM.record.ops_completed"""),
+                             dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True, hidden="""^#FORM/parent/#FORM.record.@time_arr.sailed""")]),
+                             etb='=#FORM/parent/#FORM.record.etb',etstart='=#FORM.record.et_start',etc='=#FORM.record.etc',ets='=#FORM/parent/#FORM.record.ets',dock_id='=#FORM/parent/#FORM.record.dock_id')
         btn_sof_partenza.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_partenza',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                              table='shipsteps.sof_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',#'=#FORM/parent/#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='template', lbl='Email Template',tag='filteringSelect', value='^.template', 
                              values='email_partenza:without total mov,email_partenza_mov:with total mov',validate_notnull=True),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',
-                             values='=#FORM.lista_emails',cols=3,popup=True,colspan=2)]))
+                             values='=#FORM.lista_emails',cols=3,popup=True,colspan=2),
+                             dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True),
+                             dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True, hidden="""^#FORM/parent/#FORM.record.@time_arr.sailed""")]),
+                             ets='=#FORM/parent/#FORM.record.ets',dock_id='=#FORM/parent/#FORM.record.dock_id')
         btn_email_to.dataRpc('nome_temp', self.email_to,record='=#FORM.record',servizio=['email_to'], email_template_id='',ref_num='=#FORM.record.@arrival_id.reference_num',
                             nome_template = '',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',
                             _ask=dict(title='!![en]Select the Emails',fields=[dict(name='email_to', lbl='!![en]Emails to', tag='checkboxtext',
@@ -662,6 +683,38 @@ class Form(BaseComponent):
         #verifichiamo che ci sia il record
         if not record:
             return
+        #verifichiamo se nelle keys di kwargs troviamo le chiavi etb,ets,dock_id e le assegnamo alle variabili
+        etb = ets = dock_id = None
+        for chiavi in kwargs.keys():
+            if chiavi=='etb':
+                if kwargs['etb']:    
+                    etb=kwargs['etb']
+            if chiavi=='ets':
+                if kwargs['ets']:    
+                    ets=kwargs['ets']
+            if chiavi=='dock_id':  
+                if kwargs['dock_id']:  
+                    dock_id=kwargs['dock_id']
+        
+        tbl_arrival = self.db.table('shipsteps.arrival') 
+        if etb or ets or dock_id:
+            tbl_arrival.batchUpdate(dict(etb=etb,ets=ets,dock_id=dock_id),
+                                    where='$id=:id_arr', id_arr=arrival_id)
+            self.db.commit()
+        #verifichiamo se nelle keys di kwargs troviamo le chiavi etb,ets,dock_id e le assegnamo alle variabili
+        etstart = etc =None
+        for chiavi in kwargs.keys():
+            if chiavi=='etstart':
+                if kwargs['etstart']:    
+                    etstart=kwargs['etstart']
+            if chiavi=='etc':
+                if kwargs['etc']:    
+                    etc=kwargs['etc']
+        tbl_sof = self.db.table('shipsteps.sof') 
+        if etstart or etc:
+            tbl_sof.batchUpdate(dict(et_start=etstart,etc=etc),
+                                    where='$arrival_id=:arr_id', arr_id=arrival_id)
+            self.db.commit()
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
         

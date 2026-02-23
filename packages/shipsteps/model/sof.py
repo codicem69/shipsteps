@@ -9,7 +9,7 @@ from gnr.core.gnrnumber import floatToDecimal,decimalRound
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('sof', pkey='id', name_long='sof', name_plural='sof',caption_field='sof_det')
+        tbl=pkg.table('sof', pkey='id', name_long='sof', name_plural='sof',caption_field='sof_det',broadcast="et_start,etc")
         self.sysFields(tbl,counter=True)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id'

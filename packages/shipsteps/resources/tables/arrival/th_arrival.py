@@ -524,6 +524,10 @@ class Form(BaseComponent):
         fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
             if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0];
                         if(datiCambiamento['invoice_det_id'])this.form.externalChange('invoice_det_id',datiCambiamento['invoice_det_id']);
+                        if(datiCambiamento['dock_id'])this.form.externalChange('dock_id',datiCambiamento['dock_id']);
+                        if(datiCambiamento['eta'])this.form.externalChange('eta',datiCambiamento['eta']);
+                        if(datiCambiamento['etb'])this.form.externalChange('etb',datiCambiamento['etb']);
+                        if(datiCambiamento['ets'])this.form.externalChange('ets',datiCambiamento['ets']);
                         console.log("datiCambiamento: ",datiCambiamento)}"""
                        ,pkey='=#FORM.record.id',table='shipsteps.arrival')                     
         #fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
@@ -919,6 +923,27 @@ class Form(BaseComponent):
         if kwargs['sof_id']:
             result['sof_id'] = sof_id
         
+        #verifichiamo se nelle keys di kwargs troviamo le chiavi eta,etb,ets,dock_id e le assegnamo alle variabili
+        eta = etb = ets = dock_id = None
+        for chiavi in kwargs.keys():
+            if chiavi=='eta':
+                if kwargs['eta']:  
+                    eta=kwargs['eta']
+            if chiavi=='etb':
+                if kwargs['etb']:    
+                    etb=kwargs['etb']
+            if chiavi=='ets':
+                if kwargs['ets']:    
+                    ets=kwargs['ets']
+            if chiavi=='dock_id':  
+                if kwargs['dock_id']:  
+                    dock_id=kwargs['dock_id']
+        
+        tbl_arrival = self.db.table('shipsteps.arrival') 
+        if eta or etb or ets or dock_id:
+            tbl_arrival.batchUpdate(dict(eta=eta,etb=etb,ets=ets,dock_id=dock_id),
+                                    where='$id=:id_arr', id_arr=rec_id)
+            self.db.commit()
         return result
     
     def checkTasklist(self,frame):
@@ -961,7 +986,7 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb1=div1.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
         
-        btn_cl = fb1.Button('!![en]Print Check list')
+        btn_cl = fb1.Button('!![en]Print Check list',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -973,7 +998,7 @@ class Form(BaseComponent):
         fb1.field('checklist', lbl='', margin_top='5px')
         #fb1.semaphore('^.checklist?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.checklist', margin_top='5px')
-        btn_fs = fb1.Button('!![en]Print Frontespicie')
+        btn_fs = fb1.Button('!![en]Print Frontespicie',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -985,7 +1010,7 @@ class Form(BaseComponent):
         #fb1.semaphore('^.frontespizio?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.frontespizio', margin_top='5px')
 
-        btn_mn = fb1.Button('!![en]Print Vessel module')
+        btn_mn = fb1.Button('!![en]Print Vessel module',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1010,7 +1035,7 @@ class Form(BaseComponent):
         #                    nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',visit=True,
         #                    _onResult="this.form.save();")
 
-        btn_cn = fb1.Button('!![en]Print Vessel folder')
+        btn_cn = fb1.Button('!![en]Print Vessel folder',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1060,7 +1085,7 @@ class Form(BaseComponent):
         #                                                          genro.publish("table_script_run",kw);}});
         #                    else {
         #                    genro.publish("table_script_run",kw);SET .tab_servizi=true;}""", template_id=template_id,template_id_pfda=template_id_pfda,invoice_id='=.invoice_id')
-        btn_ts=fb1.button('!![en]Print Servicies table',ask=dict(title='!![en]Servicies Table',fields=[dict(lbl='!![en]SELECT THE SERVICE TABLE',hasDownArrow=True,
+        btn_ts=fb1.button('!![en]Print Servicies table',disabled='^#FORM.controller.locked',ask=dict(title='!![en]Servicies Table',fields=[dict(lbl='!![en]SELECT THE SERVICE TABLE',hasDownArrow=True,
                                                                  name='pkey',tag='dbselect',dbtable='shipsteps.fda',auxColumns='@pfda_id.cargo',
                                                                  columns='$id,$invoice_det_id',selected_invoice_det_id='.invoice_id',
                                                                 condition='$arrival_id=:aid',condition_aid='=#FORM.record.id',validate_notnull=True)]),
@@ -1108,7 +1133,8 @@ class Form(BaseComponent):
         #fb1.semaphore('^.tab_servizi?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.tab_servizi', margin_top='5px')
 
-        btn_fc = fb1.Button('!![en]Print Cargo frontespiece',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_fc = fb1.Button('!![en]Print Cargo frontespiece',disabled='^#FORM.controller.locked',
+                            hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1120,20 +1146,20 @@ class Form(BaseComponent):
         #fb1.semaphore('^.front_carico?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.semaphore('^.front_carico', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
 
-        btn_trib = fb1.Button('!![en]Tributes', action="""{SET tabname='tributi';}""")
+        btn_trib = fb1.Button('!![en]Tributes', action="""{SET tabname='tributi';}""",disabled='^#FORM.controller.locked')
 
         div1_2=rg_prearrival.div('<center><strong>Crew / Pax List</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb1_doc=div1_2.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
-        fb1_doc.button('!![en]Crew List', action="genro.wdgById('dialog_crew').show();")
+        fb1_doc.button('!![en]Crew List', action="genro.wdgById('dialog_crew').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_crew',parentRatio=.9,title='Crew List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         dlg.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@shorepass_arr',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         fb1_doc.br()
-        fb1_doc.button('!![en]Pax List', action="genro.wdgById('dialog_pax').show();")
+        fb1_doc.button('!![en]Pax List', action="genro.wdgById('dialog_pax').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_pax',parentRatio=.9,title='Pax List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         dlg.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
         
@@ -1158,7 +1184,7 @@ class Form(BaseComponent):
         fb = div2.formbuilder(colspan=1,cols=3, border_spacing='1px', colswidth='4px')
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
 
-        btn_sr = fb.Button('!![en]Shipper/Receivers', width='10em')
+        btn_sr = fb.Button('!![en]Shipper/Receivers', width='10em',disabled='^#FORM.controller.locked')
         fb.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1173,19 +1199,41 @@ class Form(BaseComponent):
         #                     values='=#FORM.lista_emails',cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
         #con la prima dataRpc facciamo la ricerca delle email relative al sof selezionato e assegnamo allo store current.dati_emails la lista delle emails
         #che sarà letta dal secondo Rpc e ci farà scegliere eventuali email da rimuovere e allegati
+        
         btn_sr.dataRpc('emailsof', self.checkEmail, rec_id='^#FORM.record.id',
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
-                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
-    
+                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();PUBLISH emailsof;")
+        
+        #fb.dataRpc('nome_temp', self.email_arrival_sof,
+        #           record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+        #           sof_id='=emailsof.sof_id',
+        #           _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+        #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+        #                     cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',#hidden='^.emailsof.sof_id?=!#v',
+        #                     values='=emailsof.lista_emails',cols=3,popup=True,colspan=2),
+        #                         dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+        #                         dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+        #                         dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+        #                         dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+        #                         eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+        #                         _onResult="this.form.save();", subscribe_shiprec=True)#,lista_email='^emailsof')
+
         fb.dataRpc('nome_temp', self.email_arrival_sof,
                    record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_arr_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    sof_id='=emailsof.sof_id',
-                   _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
-                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+                   _ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[
+                                 dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                            table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                              cols=4,popup=True,colspan=2),dict(name='email_removed', lbl='!![en]Remove emails', tag='checkboxtext',#hidden='^.emailsof.sof_id?=!#v',
-                             values='=emailsof.lista_emails',cols=3,popup=True,colspan=2)]),lista_email='^emailsof',_onResult="this.form.save();")
-                   
+                             values='=emailsof.lista_emails',cols=3,popup=True,colspan=2)]),subscribe_emailsof=True,
+                                 _onResult="this.form.save();")           
         fb.field('email_ship_rec',lbl='', margin_top='5px')
         #fb.semaphore('^.email_ship_rec?=#v==true?true:false', margin_top='5px')
         fb.semaphore('^.email_ship_rec', margin_top='5px')  
@@ -1197,7 +1245,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Dogana ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dog').fetch()
         serv_len=len(service_for_email)
-        btn_dog = fb.Button('!![en]Customs/GdF', width='10em',hidden='^#FORM.record.@arr_tasklist.e_customs?=#v==true')
+        btn_dog = fb.Button('!![en]Customs/GdF', width='10em',hidden='^#FORM.record.@arr_tasklist.e_customs?=#v==true',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1210,13 +1258,41 @@ class Form(BaseComponent):
                                 condition_cod='dog',condition_cod2='gdf',condition_cod3='gdfroan',order_by='$consignee',
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                cols=4,popup=True,colspan=2)]),_onResult="this.form.save();") 
+                                cols=4,popup=True,colspan=2),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();") 
         else:
+            #btn_dog.dataController("if(locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto', messageType:'error'});" \
+            #                          "else {SET #FORM.record.dock_id=dock_id; PUBLISH custom;}",locked='=#FORM.controller.locked',
+            #                       _ask=dict(title='Confirm data',
+            #                       fields=[dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True),
+            #                               dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+            #                       dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+            #                       dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True)]),eta='=#FORM.record.eta'
+            #                       ,etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id')
+            
+            #fb.dataRpc('nome_temp', self.email_services,
+            #           record='=#FORM.record', servizio=['dogana','gdf','gdf roan'], email_template_id='email_dogana',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
+            #            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+            #                     table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
+            #                     cols=4,popup=True,colspan=2)]),subscribe_custom=True,_onCalling="this.form.save();",_onResult="this.form.save();")
+            
             btn_dog.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['dogana','gdf','gdf roan'], email_template_id='email_dogana',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                         _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();")
+                                 cols=4,popup=True,colspan=2),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
+            
         #datacontroller verifica il valore della variabile nome_temp di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
        # fb.dataController("if(msgspec=='val_dog') {SET .email_dogana=true ; alert('Message created')}", msgspec='^nome_temp')
@@ -1237,7 +1313,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Immigration ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='imm').fetch()
         serv_len=len(service_for_email)
-        btn_fr = fb.Button('!![en]Immigration', width='10em',hidden='^#FORM.record.@arr_tasklist.e_frontiera?=#v==true')
+        btn_fr = fb.Button('!![en]Immigration', width='10em',hidden='^#FORM.record.@arr_tasklist.e_frontiera?=#v==true',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1252,7 +1328,13 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='immigration',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
         else:
              btn_fr.dataRpc('nome_temp', self.print_template,
                        record='=#FORM.record', servizio=['immigration'], email_template_id='email_frontiera',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1261,7 +1343,13 @@ class Form(BaseComponent):
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='immigration',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_imm') {SET .email_frontiera=true; alert('Message created')}", msgspec='^nome_temp')
         fb.field('email_frontiera',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_frontiera?=#v==true')
         #fb.semaphore('^.email_frontiera?=#v==true?true:false', margin_top='5px')
@@ -1269,7 +1357,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Sanimare ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
-        btn_usma = fb.Button('!![en]Sanimare', width='10em',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
+        btn_usma = fb.Button('!![en]Sanimare', width='10em',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1283,7 +1371,13 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
         else:
             btn_usma.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['sanimare'], email_template_id='email_sanimare',nsisprot='=#FORM.record.nsis_prot',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1291,7 +1385,13 @@ class Form(BaseComponent):
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_usma') {SET .email_usma=true ; alert('Message created')}", msgspec='^nome_temp')
         fb.field('email_usma',lbl='', margin_top='5px',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         #fb.semaphore('^.email_usma?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
@@ -1300,7 +1400,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
-        btn_pilot = fb.Button('!![en]Pilot', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true',
+        btn_pilot = fb.Button('!![en]Pilot', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH pilota";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -1322,13 +1422,25 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_pilota=True)
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_pilota=True)
         else:
             fb1.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_pilota=True)
+                                 cols=4,popup=True,colspan=2),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_pilota=True)
             
 
        # fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
@@ -1339,7 +1451,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi mooringmen ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='moor').fetch()
         serv_len=len(service_for_email)
-        btn_moor = fb.Button('!![en]Mooringmen', width='10em',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true',
+        btn_moor = fb.Button('!![en]Mooringmen', width='10em',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH mooringmen";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -1361,13 +1473,25 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_mooringmen=True)
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_mooringmen=True)
         else:
             fb1.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['mooringmen'], email_template_id='email_moor',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_mooringmen=True)
+                                 cols=4,popup=True,colspan=2),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_mooringmen=True)
        # fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_moor',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true')
         #fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
@@ -1376,7 +1500,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi tug ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='tug').fetch()
         serv_len=len(service_for_email)
-        btn_tug = fb.Button('!![en]Tug', width='10em',hidden='^#FORM.record.@arr_tasklist.e_tugarr?=#v==true',
+        btn_tug = fb.Button('!![en]Tug', width='10em',hidden='^#FORM.record.@arr_tasklist.e_tugarr?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH tug";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -1398,14 +1522,26 @@ class Form(BaseComponent):
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
                                 cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='tugs_n', lbl='!![en]Tugs number',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),tugs_n='=#FORM.record.@extradatacp.n_tug_arr',_onResult="this.form.save();",subscribe_tug=True)
+                                                    cols=4,popup=True,colspan=2),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",tugs_n='=#FORM.record.@extradatacp.n_tug_arr',subscribe_tug=True)
         else:
             fb1.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['tug'], email_template_id='email_tug',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='tugs_n', lbl='!![en]Tugs number',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),tugs_n='=#FORM.record.@extradatacp.n_tug_arr',_onResult="this.form.save();",subscribe_tug=True)
+                                                    cols=4,popup=True,colspan=2),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",tugs_n='=#FORM.record.@extradatacp.n_tug_arr',subscribe_tug=True)
        # fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
        
         fb.field('email_tug',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_tugarr?=#v==true')
@@ -1414,7 +1550,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi garbage ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='garb').fetch()
         serv_len=len(service_for_email)
-        btn_garb = fb.Button('!![en]Garbage pick-up', width='10em',hidden='^#FORM.record.@arr_tasklist.e_garbage?=#v==true',
+        btn_garb = fb.Button('!![en]Garbage pick-up', width='10em',hidden='^#FORM.record.@arr_tasklist.e_garbage?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH garbage";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -1467,7 +1603,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi PFSO ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pfso').fetch()
         serv_len=len(service_for_email)
-        btn_pfso = fb.Button('!![en]PFSO', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pfso?=#v==true')
+        btn_pfso = fb.Button('!![en]PFSO', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pfso?=#v==true',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1482,7 +1618,13 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='pfso',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();") 
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
         else:
             btn_pfso.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pfso'], email_template_id='email_pfso',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1490,7 +1632,13 @@ class Form(BaseComponent):
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='pfso',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")                                 
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
        # fb.dataController("if(msgspec=='val_pfso') {SET .email_pfso=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_pfso',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pfso?=#v==true')
         #fb.semaphore('^.email_pfso?=#v==true?true:false', margin_top='5px')
@@ -1504,7 +1652,7 @@ class Form(BaseComponent):
                           typemov='^#FORM.record.@movtype_id.hierarchical_descrizione',
                           chemist_tasklist='^#FORM.record.@arr_tasklist.e_chemist')
         
-        btn_chem = fb.Button('!![en]Chemist', width='10em',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_chem = fb.Button('!![en]Chemist', width='10em',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #btn_chem = fb.Button('!![en]Chemist', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -1520,7 +1668,13 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='chemist',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();") 
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();") 
         else:
             btn_chem.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['chemist'], email_template_id='email_chemist',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1528,7 +1682,13 @@ class Form(BaseComponent):
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='chemist',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")                                 
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")                              
         #fb.dataController("if(msgspec=='val_chemist') {SET .email_chemist=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_chemist',lbl='', margin_top='5px',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""")#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
         #fb.semaphore('^.email_chemist?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
@@ -1537,6 +1697,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='gpg').fetch()
         serv_len=len(service_for_email)
         btn_gpg = fb.Button('!![en]GPG', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""",
+                              disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH gpg";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -1558,7 +1719,13 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='gpg',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_gpg=True)
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_gpg=True)
         else:
             fb1.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['gpg'], email_template_id='email_gpg',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1566,7 +1733,13 @@ class Form(BaseComponent):
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='gpg',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_gpg=True)                                 
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_gpg=True)                                 
        # fb.dataController("if(msgspec=='val_gpg') {SET .email_gpg=true ; alert('Message created')}", msgspec='^msg_special')
         fb.field('email_gpg',lbl='', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
         #fb.semaphore('^.email_gpg?=#v==true?true:false', margin_top='5px')
@@ -1577,7 +1750,7 @@ class Form(BaseComponent):
                           else if(ens_tasklist==true){SET .ens_btn=true;}else{SET .ens_btn=false;}""", 
                           typemov='^#FORM.record.@movtype_id.hierarchical_descrizione',
                           ens_tasklist='^#FORM.record.@arr_tasklist.e_ens')
-        btn_ens = fb.Button('!![en]ENS', width='10em',hidden="""^#FORM.record.@arr_tasklist.ens_btn""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_ens = fb.Button('!![en]ENS', width='10em',hidden="""^#FORM.record.@arr_tasklist.ens_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #btn_ens = fb.Button('!![en]ENS', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -1597,7 +1770,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi ADSP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='adsp').fetch()
         serv_len=len(service_for_email)
-        btn_gbadsp = fb.Button('!![en]Garbage ADSP', width='10em',hidden='^gnr.app_preference.shipsteps.garbage_adsp')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
+        btn_gbadsp = fb.Button('!![en]Garbage ADSP', width='10em',hidden='^gnr.app_preference.shipsteps.garbage_adsp',disabled='^#FORM.controller.locked')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1611,7 +1784,13 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='adsp',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
         else:
             btn_gbadsp.dataRpc('nome_temp', self.email_services,
                   record='=#FORM.record', servizio=['adsp'], email_template_id='not_rifiuti',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
@@ -1619,7 +1798,13 @@ class Form(BaseComponent):
                              table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',validate_notnull=True,
                              cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='adsp',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();")
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
        
        
        # fb.dataController("if(msgspec=='val_adsp') {SET .email_garbage_adsp=true ; alert('Message created')}", msgspec='^msg_special')
@@ -1634,7 +1819,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Sanimare ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
-        btn_riclps = fb.Button('!![en]LPS request', width='10em',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
+        btn_riclps = fb.Button('!![en]LPS request', width='10em',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1666,7 +1851,7 @@ class Form(BaseComponent):
         fb.dataController("if(alim!='Alimentary/UE' && alim!='Alimentary' || hold_aer==true || fum=='NO'){SET .holds_btn=true;}else{SET .holds_btn=false;}", 
                           alim='^#FORM.record.@movtype_id.hierarchical_descrizione',hold_aer='^#FORM.record.@arr_tasklist.e_aeration',
                           fum='^#FORM.record.fumigated')
-        btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="^#FORM.record.@arr_tasklist.holds_btn")
+        btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="^#FORM.record.@arr_tasklist.holds_btn",disabled='^#FORM.controller.locked')
                              #hidden="""==_alim!=='Alimentary/UE' && _alim!=='Alimentary' || _fum==='NO'""",_alim="""^#FORM.record.@movtype_id.hierarchical_descrizione""",
                              #                                       _fum="""^#FORM.record.fumigated""")
         #btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
@@ -1697,7 +1882,7 @@ class Form(BaseComponent):
         #fb.semaphore('^.email_aeration', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
 
 
-        btn_update = fb.Button('!![en]Services updating', width='10em')
+        btn_update = fb.Button('!![en]Services updating', width='10em',disabled='^#FORM.controller.locked')
         btn_update.dataRpc('nome_temp', self.email_serv_upd,
                    record='=#FORM.record',email_template_id='email_serv_upd',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the services to update and Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',
@@ -1710,11 +1895,21 @@ class Form(BaseComponent):
         fb.div()
         fb.div()
      
-        btn_upd_shiprec = fb.Button('!![en]Ship/Rec. updating', width='10em')
+        btn_upd_shiprec = fb.Button('!![en]Ship/Rec. updating', width='10em',disabled='^#FORM.controller.locked')
+        #btn_upd_shiprec.dataRpc('dati_emails', self.checkEmail, rec_id='^#FORM.record.id',
+        #                _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
+        #                     hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
+        #                                        condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
         btn_upd_shiprec.dataRpc('dati_emails', self.checkEmail, rec_id='^#FORM.record.id',
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
-                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)]))
+                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True)]),
+                                 eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();")
         fb.dataRpc('nome_temp', self.email_arrival_sof, subscribe_dati_emails=True,
                    record='=#FORM.record', servizio=['arr','sof'], email_template_id='email_updating_shiprec',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    sof_id='=dati_emails.sof_id',_ask=dict(title='!![en]Select the Attachments/emails to remove',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -1747,7 +1942,8 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
-        btn_integr = fb2.Button('!![en]Alimentary integration',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
+        btn_integr = fb2.Button('!![en]Alimentary integration',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'"""
+                                ,disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1761,14 +1957,18 @@ class Form(BaseComponent):
                                 validate_notnull=True,cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='fumigation', lbl='!![en]Cargo Fumigated', tag='radioButtonText',values='SI:YES,NO:NO',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),fumigation='=#FORM.record.fumigated',_onResult="this.form.save();")
+                                                    cols=4,popup=True,colspan=2),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True)]),
+                                 eta='=#FORM.record.eta',_onResult="this.form.save();",fumigation='=#FORM.record.fumigated')
         else:    
             btn_integr.dataRpc('nome_temp', self.email_services,
                       record='=#FORM.record', servizio=['capitaneria'], email_template_id='email_integrazione_alim',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                       _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='fumigation', lbl='!![en]Cargo Fumigated', tag='radioButtonText',values='SI:YES,NO:NO',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),fumigation='=#FORM.record.fumigated',_onResult="this.form.save();")
+                                                    cols=4,popup=True,colspan=2),
+                                 dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True)]),
+                                 eta='=#FORM.record.eta',fumigation='=#FORM.record.fumigated',_onResult="this.form.save();")
         #fb2.dataController("if(msgspec=='val_integr') {SET .email_integr=true ; alert('Message created')}", msgspec='^msg_special')
         
         fb2.field('email_integr', lbl='', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
@@ -1780,7 +1980,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_pmou = fb2.Button('!![en]PMOU notification',hidden='^gnr.app_preference.shipsteps.pmou')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
+        btn_pmou = fb2.Button('!![en]PMOU notification',hidden='^gnr.app_preference.shipsteps.pmou',disabled='^#FORM.controller.locked')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1815,7 +2015,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Dogana ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dogpec').fetch()
         serv_len=len(service_for_email)
-        btn_doggb = fb3.Button('!![en]Customs garbage notif.',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true')
+        btn_doggb = fb3.Button('!![en]Customs garbage notif.',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true',disabled='^#FORM.controller.locked')
         fb3.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1958,7 +2158,7 @@ class Form(BaseComponent):
         #                      
         #fb_arr.br()
         #fb_arr.br()
-        btn_fgdf_cp = fb_arr.Button('!![en]Form GdF')
+        btn_fgdf_cp = fb_arr.Button('!![en]Form GdF',disabled='^#FORM.controller.locked')
         
        
         #btn_fgdf_cp.dataController("SET .p_date=pratique_date;",_ask=dict(title='!![en]Insert pratique date',
@@ -1982,7 +2182,7 @@ class Form(BaseComponent):
         #fb_arr.semaphore('^.form_gdf?=#v==true?true:false', margin_top='6px')
         fb_arr.semaphore('^.form_gdf', margin_top='6px')
 
-        btn_fimm_cp = fb_arr.Button('!![en]Form Immigration')
+        btn_fimm_cp = fb_arr.Button('!![en]Form Immigration',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1994,7 +2194,7 @@ class Form(BaseComponent):
         #fb_arr.semaphore('^.form_immigration?=#v==true?true:false', margin_top='6px')
         fb_arr.semaphore('^.form_immigration', margin_top='6px')
 
-        btn_fprov_cp = fb_arr.Button('!![en]Form Provisions')
+        btn_fprov_cp = fb_arr.Button('!![en]Form Provisions',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2011,7 +2211,7 @@ class Form(BaseComponent):
 
         #fb_arr.br()
         
-        btn_fsan = fb_arr.Button('!![en]Sanimare declaration',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
+        btn_fsan = fb_arr.Button('!![en]Sanimare declaration',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2025,7 +2225,7 @@ class Form(BaseComponent):
         #datacontroller per impostare variabile hidden del bottone hold ventilation
         fb.dataController("if(movtype=='Passengers/UE' || movtype=='Passengers' || movtype=='Passengers/ONG' || cklist==true){SET .ckl_btn=true;}else{SET .ckl_btn=false;}", 
                           movtype='^#FORM.record.@movtype_id.hierarchical_descrizione',cklist='^#FORM.record.@arr_tasklist.e_checklist')
-        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="^#FORM.record.@arr_tasklist.ckl_btn")
+        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="^#FORM.record.@arr_tasklist.ckl_btn",disabled='^#FORM.controller.locked')
         #btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -2038,7 +2238,7 @@ class Form(BaseComponent):
         fb_arr.semaphore('^.form_checklist_f', margin_top='6px',hidden="^#FORM.record.@arr_tasklist.ckl_btn")
         fb_arr.br()
 
-        btn_timegate = fb_arr.Button('!![en]Times gate info')
+        btn_timegate = fb_arr.Button('!![en]Times gate info',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2053,7 +2253,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_lps_cp = fb_arr.Button('!![en]Email LPS CP',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
+        btn_lps_cp = fb_arr.Button('!![en]Email LPS CP',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2081,7 +2281,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_chim_cp = fb_arr.Button('!![en]Email Chemist Cert. CP',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""")#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
+        btn_chim_cp = fb_arr.Button('!![en]Email Chemist Cert. CP',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2109,7 +2309,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Impresa portuale ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='stev').fetch()
         serv_len=len(service_for_email)
-        btn_chim_stev = fb_arr.Button('!![en]Email Chemist Cert.<br>to Stevedores',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""")#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
+        btn_chim_stev = fb_arr.Button('!![en]Email Chemist Cert.<br>to Stevedores',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2138,7 +2338,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         fb_arr.br()
-        btn_der_cp = fb_arr.Button('!![en]Email Waste derogation CP')
+        btn_der_cp = fb_arr.Button('!![en]Email Waste derogation CP',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2173,9 +2373,9 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_time=div_arr_times.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='14em')
-        fb_time.button('!![en]Times / Details', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto', messageType:'error'}); " \
+        fb_time.button('!![en]Times / Details',disabled='^#FORM.controller.locked', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto', messageType:'error'}); " \
                                                         "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",
-                                                         rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM.controller.locked')
+                                                         rec_id='=#FORM.record.@time_arr.arrival_id')
         
         dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=False,subscribe_closeDialog_ws="this.widget.hide();")
         #dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
@@ -2209,7 +2409,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_rif_cp = fb_dep.Button('!![en]Email Waste Receipt CP',hidden='^gnr.app_preference.shipsteps.rifiuti_cp')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True
+        btn_rif_cp = fb_dep.Button('!![en]Email Waste Receipt CP',hidden='^gnr.app_preference.shipsteps.rifiuti_cp',disabled='^#FORM.controller.locked')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2236,7 +2436,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_trib_cp = fb_dep.Button('!![en]Email Tributes CP',hidden='^gnr.app_preference.shipsteps.email_tributi_cp')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
+        btn_trib_cp = fb_dep.Button('!![en]Email Tributes CP',hidden='^gnr.app_preference.shipsteps.email_tributi_cp',disabled='^#FORM.controller.locked')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2263,7 +2463,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
-        btn_pilot_dep = fb_dep.Button('!![en]Pilot departure',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true',
+        btn_pilot_dep = fb_dep.Button('!![en]Pilot departure',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH pilotdep";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -2285,13 +2485,21 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_pilotdep=True)
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_pilotdep=True)
         else:
             fb_dep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['pilot'], email_template_id='email_pilot_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_pilotdep=True)
+                                 cols=4,popup=True,colspan=2),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_pilotdep=True)
       
         fb_dep.field('email_pilot_dep',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
         fb_dep.semaphore('^.email_pilot_dep', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true')
@@ -2299,7 +2507,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi mooringmen ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='moor').fetch()
         serv_len=len(service_for_email)
-        btn_moor_dep = fb_dep.Button('!![en]Mooringmen departure',hidden='^#FORM.record.@arr_tasklist.e_moordep?=#v==true',
+        btn_moor_dep = fb_dep.Button('!![en]Mooringmen departure',hidden='^#FORM.record.@arr_tasklist.e_moordep?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH moordep";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -2321,13 +2529,21 @@ class Form(BaseComponent):
                                 table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
-                                cols=4,popup=True,colspan=2, hasArrowDown=True)]),_onResult="this.form.save();",subscribe_moordep=True)
+                                cols=4,popup=True,colspan=2, hasArrowDown=True),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_moordep=True)
         else:
             fb_dep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['mooringmen'], email_template_id='email_moor_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
-                                 cols=4,popup=True,colspan=2)]),_onResult="this.form.save();",subscribe_moordep=True)
+                                 cols=4,popup=True,colspan=2),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",subscribe_moordep=True)
        # fb.dataController("if(msgspec=='val_pil_moor') {SET .email_pilot_moor=true ; alert('Message created')}", msgspec='^msg_special')
         fb_dep.field('email_moor_dep',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_moordep?=#v==true')
         #fb.semaphore('^.email_pilot_moor?=#v==true?true:false', margin_top='5px')
@@ -2335,7 +2551,7 @@ class Form(BaseComponent):
 
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv',serv='tug').fetch()
         serv_len=len(service_for_email)
-        btn_tugdep = fb_dep.Button('!![en]Tug departure',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true',
+        btn_tugdep = fb_dep.Button('!![en]Tug departure',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH tugdep";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -2357,21 +2573,29 @@ class Form(BaseComponent):
                                 cols=4,popup=True,colspan=2),dict(name='std_att', lbl='!![en]Service attachments', tag='checkboxtext',hasDownArrow=True,
                                 table='shipsteps.email_services_atc', columns='$description', auxColumns='$maintable_id',condition="@maintable_id.service_for_email_id=:cod",condition_cod='sanimare',
                                 cols=4,popup=True,colspan=2, hasArrowDown=True),dict(name='tugs_ndep', lbl='!![en]Tugs number',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',_onResult="this.form.save();",subscribe_tugdep=True)
+                                                    cols=4,popup=True,colspan=2),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',subscribe_tugdep=True)
         else:
             fb_dep.dataRpc('nome_temp', self.email_services,
                        record='=#FORM.record', servizio=['tug'], email_template_id='email_tug_dep',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                        _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
                                  table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM.record.id',
                                  cols=4,popup=True,colspan=2),dict(name='tugs_ndep', lbl='!![en]Tugs number',validate_notnull=True,
-                                                    cols=4,popup=True,colspan=2)]),tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',_onResult="this.form.save();",subscribe_tugdep=True)
+                                                    cols=4,popup=True,colspan=2),
+                                 dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True),
+                                 dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                                 ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
+                                 _onResult="this.form.save();",tugs_ndep='=#FORM.record.@extradatacp.n_tug_dep',subscribe_tugdep=True)
        # fb.dataController("if(msgspec=='val_tug') {SET .email_tug=true ; alert('Message created')}", msgspec='^msg_special')
        
         fb_dep.field('email_tug_dep',lbl='', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true')
         #fb_dep.semaphore('^.email_tug_dep?=#v==true?true:false', margin_top='5px')
         fb_dep.semaphore('^.email_tug_dep', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true')
 
-        btn_fgdf=fb_dep.Button('!![en]Form GdF Departure',hidden='^gnr.app_preference.shipsteps.gdf_dep',#con hidden disabilitiamo il bottone se nelle preferenze è flaggato gdf partenza
+        btn_fgdf=fb_dep.Button('!![en]Form GdF Departure',hidden='^gnr.app_preference.shipsteps.gdf_dep',disabled='^#FORM.controller.locked',#con hidden disabilitiamo il bottone se nelle preferenze è flaggato gdf partenza
                                action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Partenza_Finanza',
@@ -2517,7 +2741,7 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb_serv=div_service.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='15em')
         #btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET tabname='services';}""")
-        btn_vs=fb_serv.button('!![en]Vessel services', action="genro.wdgById('dialog_services').show();")
+        btn_vs=fb_serv.button('!![en]Vessel services', action="genro.wdgById('dialog_services').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         #print(x)
         dlg.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
@@ -2537,22 +2761,22 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_app=div_app.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
-        btn_bulk=fb_app.button('!![en]Bulk Application', action="genro.wdgById('dialog_bulk').show();")
+        btn_bulk=fb_app.button('!![en]Bulk Application', action="genro.wdgById('dialog_bulk').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_bulk',parentRatio=1,title='Bulk application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         dlg.contentPane(title='!![en]Bulk Application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@rinfusa_arr',formResource='FormFromRinfusa',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        btn_bunk=fb_app.button('!![en]Bunker Application', action="genro.wdgById('dialog_bunker').show();")
+        btn_bunk=fb_app.button('!![en]Bunker Application', action="genro.wdgById('dialog_bunker').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_bunker',parentRatio=1,title='Bunker application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         dlg.contentPane(title='!![en]Bunker Application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        btn_cert=fb_app.button('!![en]Certificate Application CP', action="genro.wdgById('dialog_cert').show();")
+        btn_cert=fb_app.button('!![en]Certificate Application CP', action="genro.wdgById('dialog_cert').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_cert',parentRatio=1,title='Certicate application CP',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         dlg.contentPane(title='!![en]Certificates Application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@istanza_cert_arr',formResource='FormFromCertificates',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        btn_sancert=fb_app.button('!![en]Sanimare Certificates', action="genro.wdgById('dialog_sancert').show();")
+        btn_sancert=fb_app.button('!![en]Sanimare Certificates', action="genro.wdgById('dialog_sancert').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_sancert',parentRatio=1,title='Sanimare certificates',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         dlg.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@certusma_arr',formResource='FormFromCertusma',
@@ -2589,8 +2813,8 @@ class Form(BaseComponent):
                                          if(result=='ws_serv')genro.publish("floating_message",{message:"Email ready to be sent<br>Service inserted inside the services table", messageType:"message"});
                                          if(result=='ws')genro.publish("floating_message",{message:"Email ready to be sent<br>Service already present inside services table", messageType:"warning",duration:6});this.form.save();""")#this.form.save();
                                          #this.form.reload()""")
-        fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()")
-        btn_emailextra=fb_extra.button('!![en]Email to services')
+        fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()",disabled='^#FORM.controller.locked')
+        btn_emailextra=fb_extra.button('!![en]Email to services',disabled='^#FORM.controller.locked')
         btn_emailextra.dataRpc('nome_temp', self.email_extra,record='=#FORM.record',servizio=['extra_email'], email_template_id=None,
                             nome_template = None,nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             _ask=dict(title='!![en]Select the services to update and Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',
@@ -2760,6 +2984,27 @@ class Form(BaseComponent):
                                     where='$id=:id_task', id_task=record_tasklist)
         self.db.commit()
 
+        #verifichiamo se nelle keys di kwargs troviamo le chiavi eta,etb,ets,dock_id e le assegnamo alle variabili
+        eta = etb = ets = dock_id = None
+        for chiavi in kwargs.keys():
+            if chiavi=='eta':
+                if kwargs['eta']:  
+                    eta=kwargs['eta']
+            if chiavi=='etb':
+                if kwargs['etb']:    
+                    etb=kwargs['etb']
+            if chiavi=='ets':
+                if kwargs['ets']:    
+                    ets=kwargs['ets']
+            if chiavi=='dock_id':  
+                if kwargs['dock_id']:  
+                    dock_id=kwargs['dock_id']
+        
+        tbl_arrival = self.db.table('shipsteps.arrival') 
+        if eta or etb or ets or dock_id:
+            tbl_arrival.batchUpdate(dict(eta=eta,etb=etb,ets=ets,dock_id=dock_id),
+                                    where='$id=:id_arr', id_arr=record_arr)
+        
         #verifichiamo se nelle keys di kwargs troviamo la chiave int_fat e lo assegnamo alla variabile int_fat
         int_fat = None
         for chiavi in kwargs.keys():
