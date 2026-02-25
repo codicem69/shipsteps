@@ -2375,7 +2375,7 @@ class Form(BaseComponent):
         fb_time=div_arr_times.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='14em')
         fb_time.button('!![en]Times / Details',disabled='^#FORM.controller.locked', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto', messageType:'error'}); " \
                                                         "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",
-                                                         rec_id='=#FORM.record.@time_arr.arrival_id')
+                                                         rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM/parent/#FORM.controller.locked')
         
         dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=False,subscribe_closeDialog_ws="this.widget.hide();")
         #dlg = bc_tasklist.dialog(nodeId='dialog_time',parentRatio=.9,title='Times / Details',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
