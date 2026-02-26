@@ -922,27 +922,48 @@ class Form(BaseComponent):
         result['lista_emails'] = dati
         if kwargs['sof_id']:
             result['sof_id'] = sof_id
-        
-        #verifichiamo se nelle keys di kwargs troviamo le chiavi eta,etb,ets,dock_id e le assegnamo alle variabili
+       
+        #verifichiamo se nelle keys di kwargs troviamo le chiavi eta,etb,ets,dock_id e le aggiungiamo al dizionario da bassare sulla batchUpdate
+        datiArrToUpd = {}
         eta = etb = ets = dock_id = None
         for chiavi in kwargs.keys():
             if chiavi=='eta':
                 if kwargs['eta']:  
                     eta=kwargs['eta']
+                    datiArrToUpd['eta']=eta
             if chiavi=='etb':
                 if kwargs['etb']:    
                     etb=kwargs['etb']
+                    datiArrToUpd['etb']=etb
             if chiavi=='ets':
                 if kwargs['ets']:    
                     ets=kwargs['ets']
+                    datiArrToUpd['ets']=ets
             if chiavi=='dock_id':  
                 if kwargs['dock_id']:  
                     dock_id=kwargs['dock_id']
+                    datiArrToUpd['dock_id']=dock_id
         
         tbl_arrival = self.db.table('shipsteps.arrival') 
         if eta or etb or ets or dock_id:
-            tbl_arrival.batchUpdate(dict(eta=eta,etb=etb,ets=ets,dock_id=dock_id),
-                                    where='$id=:id_arr', id_arr=rec_id)
+            tbl_arrival.batchUpdate(datiArrToUpd,where='$id=:id_arr', id_arr=rec_id)
+            self.db.commit()
+        #verifichiamo se nelle keys di kwargs troviamo le chiavi et_start,etc e le aggiungiamo al dizionario da bassare sulla batchUpdate
+        datiSofToUpd = {}
+        et_start = etc = None  
+        for chiavi in kwargs.keys():
+            if chiavi=='et_start':
+                if kwargs['et_start']:  
+                    et_start=kwargs['et_start']
+                    datiSofToUpd['et_start']=et_start
+            if chiavi=='etc':
+                if kwargs['etc']:    
+                    etc=kwargs['etc']  
+                    datiSofToUpd['etc']=etc
+        tbl_sof = self.db.table('shipsteps.sof') 
+        #print(X)
+        if et_start or etc:
+            tbl_sof.batchUpdate(datiSofToUpd, where='$id=:sof_id', sof_id=sof_id)
             self.db.commit()
         return result
     
@@ -1203,9 +1224,11 @@ class Form(BaseComponent):
         btn_sr.dataRpc('emailsof', self.checkEmail, rec_id='^#FORM.record.id',
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
-                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),
+                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True,selected_et_start='.et_start',selected_etc='.etc'),
                                  dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True),
                                  dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='et_start',lbl='!![en]ET Start',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etc',lbl='!![en]ETC',tag='dateTimeTextBox',popup=True),
                                  dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
                                  dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True)]),
                                  eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
@@ -1903,10 +1926,12 @@ class Form(BaseComponent):
         btn_upd_shiprec.dataRpc('dati_emails', self.checkEmail, rec_id='^#FORM.record.id',
                         _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
-                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True),
+                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True,selected_et_start='.et_start',selected_etc='.etc'),
                                  dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True),
                                  dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
                                  dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
+                                 dict(name='et_start',lbl='!![en]ET Start',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etc',lbl='!![en]ETC',tag='dateTimeTextBox',popup=True),
                                  dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True)]),
                                  eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
                                  _onResult="this.form.save();")
@@ -2984,26 +3009,30 @@ class Form(BaseComponent):
                                     where='$id=:id_task', id_task=record_tasklist)
         self.db.commit()
 
-        #verifichiamo se nelle keys di kwargs troviamo le chiavi eta,etb,ets,dock_id e le assegnamo alle variabili
+        datiArrToUpd = {}
         eta = etb = ets = dock_id = None
         for chiavi in kwargs.keys():
             if chiavi=='eta':
                 if kwargs['eta']:  
                     eta=kwargs['eta']
+                    datiArrToUpd['eta']=eta
             if chiavi=='etb':
                 if kwargs['etb']:    
                     etb=kwargs['etb']
+                    datiArrToUpd['etb']=etb
             if chiavi=='ets':
                 if kwargs['ets']:    
                     ets=kwargs['ets']
+                    datiArrToUpd['ets']=ets
             if chiavi=='dock_id':  
                 if kwargs['dock_id']:  
                     dock_id=kwargs['dock_id']
+                    datiArrToUpd['dock_id']=dock_id
         
         tbl_arrival = self.db.table('shipsteps.arrival') 
         if eta or etb or ets or dock_id:
-            tbl_arrival.batchUpdate(dict(eta=eta,etb=etb,ets=ets,dock_id=dock_id),
-                                    where='$id=:id_arr', id_arr=record_arr)
+            tbl_arrival.batchUpdate(datiArrToUpd,where='$id=:id_arr', id_arr=arrival_id)
+            self.db.commit()
         
         #verifichiamo se nelle keys di kwargs troviamo la chiave int_fat e lo assegnamo alla variabile int_fat
         int_fat = None

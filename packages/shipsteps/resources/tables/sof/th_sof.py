@@ -683,37 +683,42 @@ class Form(BaseComponent):
         #verifichiamo che ci sia il record
         if not record:
             return
-        #verifichiamo se nelle keys di kwargs troviamo le chiavi etb,ets,dock_id e le assegnamo alle variabili
+        #verifichiamo se nelle keys di kwargs troviamo le chiavi etb,ets,dock_id e le aggiungiamo al dizionario da bassare sulla batchUpdate
+        datiArrToUpd = {}
         etb = ets = dock_id = None
         for chiavi in kwargs.keys():
             if chiavi=='etb':
                 if kwargs['etb']:    
                     etb=kwargs['etb']
+                    datiArrToUpd['etb']=etb
             if chiavi=='ets':
                 if kwargs['ets']:    
                     ets=kwargs['ets']
+                    datiArrToUpd['ets']=ets
             if chiavi=='dock_id':  
                 if kwargs['dock_id']:  
                     dock_id=kwargs['dock_id']
+                    datiArrToUpd['dock_id']=dock_id
         
         tbl_arrival = self.db.table('shipsteps.arrival') 
         if etb or ets or dock_id:
-            tbl_arrival.batchUpdate(dict(etb=etb,ets=ets,dock_id=dock_id),
-                                    where='$id=:id_arr', id_arr=arrival_id)
+            tbl_arrival.batchUpdate(datiArrToUpd, where='$id=:id_arr', id_arr=arrival_id)
             self.db.commit()
-        #verifichiamo se nelle keys di kwargs troviamo le chiavi etb,ets,dock_id e le assegnamo alle variabili
+        #verifichiamo se nelle keys di kwargs troviamo le chiavi etb,ets,dock_id e le aggiungiamo al dizionario da bassare sulla batchUpdate
+        datiSofToUpd = {}
         etstart = etc =None
         for chiavi in kwargs.keys():
             if chiavi=='etstart':
                 if kwargs['etstart']:    
                     etstart=kwargs['etstart']
+                    datiSofToUpd['et_start']=etstart
             if chiavi=='etc':
                 if kwargs['etc']:    
                     etc=kwargs['etc']
+                    datiSofToUpd['etc']=etc
         tbl_sof = self.db.table('shipsteps.sof') 
         if etstart or etc:
-            tbl_sof.batchUpdate(dict(et_start=etstart,etc=etc),
-                                    where='$arrival_id=:arr_id', arr_id=arrival_id)
+            tbl_sof.batchUpdate(datiSofToUpd, where='$arrival_id=:arr_id', arr_id=arrival_id)
             self.db.commit()
         #creiamo la variabile lista attcmt dove tramite il ciclo for andremo a sostituire la parola 'site' con '/home'
         attcmt=[]
