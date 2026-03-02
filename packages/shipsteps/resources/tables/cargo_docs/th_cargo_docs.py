@@ -67,7 +67,7 @@ class FormFromCargodocs(BaseComponent):
         return dict(dialog_height='400px', dialog_width='600px')
 
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_cargoman,20,stampa_mates,*,10')
+        bar = bottom.slotBar('10,stampa_cargoman,20,stampa_mates,*,stampa_cm,stampa_mr,*')
         btn_cm_print=bar.stampa_cargoman.button('Print Cargo Manifest')
         btn_mr_print=bar.stampa_mates.button("Print Mate's Receipt")
         btn_cm_print.dataRpc('', self.print_template,record='=#FORM.record',nome_template = 'shipsteps.cargo_docs:cargo_manifest',
@@ -78,6 +78,18 @@ class FormFromCargodocs(BaseComponent):
         _ask=dict(title='!![en]Select the letterhead',fields=[dict(name='letterhead', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$name',
                              table='adm.htmltemplate')]))
+        bar.stampa_cm.button('!![en]Print Cargo manifest res',
+                                        action="""genro.publish("table_script_run",{table:"shipsteps.cargo_docs",
+                                                                               res_type:'print',
+                                                                               resource:'stampa_cm',
+                                                                               pkey: pkey});""",
+                                                                               pkey='=#FORM.pkey')
+        bar.stampa_mr.button("!![en]Print Mate's receipt res",
+                                        action="""genro.publish("table_script_run",{table:"shipsteps.cargo_docs",
+                                                                               res_type:'print',
+                                                                               resource:'stampa_mr',
+                                                                               pkey: pkey});""",
+                                                                               pkey='=#FORM.pkey')
 
     @public_method
     def print_template(self, record, resultAttr=None, nome_template=None,format_page=None, **kwargs):

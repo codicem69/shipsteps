@@ -51,7 +51,6 @@ class ViewFromBlRighe(BaseComponent):
     def th_query(self):
         return dict(column='_row_count', op='contains', val='')
 
-
 class Form(BaseComponent):
 
     def th_form(self, form):
