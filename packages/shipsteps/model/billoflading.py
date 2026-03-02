@@ -25,5 +25,5 @@ class Table(object):
         tbl.column('remarks', name_short='Remarks')            
 
         tbl.formulaColumn('scn',"""coalesce('(s): ' || @shipper_id.fullname_sr,'') || '<br>' || coalesce('(c): ' || @consignee_id.fullname_cn,'')
-                                   || '<br>' || coalesce('(n): ' || @notify_id.fullname_cn,'')""" )
+                                   || '<br>' || coalesce('(n): ' || @notify_id.fullname_cn,'') || :html""", var_html='::HTML')
        
