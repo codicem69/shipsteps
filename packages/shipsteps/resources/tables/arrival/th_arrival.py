@@ -1227,9 +1227,9 @@ class Form(BaseComponent):
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True,selected_et_start='.et_start',selected_etc='.etc'),
                                  dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True),
                                  dict(name='eta',lbl='!![en]ETA',tag='dateTimeTextBox',popup=True),
+                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
                                  dict(name='et_start',lbl='!![en]ET Start',tag='dateTimeTextBox',popup=True),
                                  dict(name='etc',lbl='!![en]ETC',tag='dateTimeTextBox',popup=True),
-                                 dict(name='etb',lbl='!![en]ETB',tag='dateTimeTextBox',popup=True),
                                  dict(name='ets',lbl='!![en]ETS',tag='dateTimeTextBox',popup=True)]),
                                  eta='=#FORM.record.eta',etb='=#FORM.record.etb',ets='=#FORM.record.ets',dock_id='=#FORM.record.dock_id',
                                  _onResult="this.form.save();PUBLISH emailsof;")
