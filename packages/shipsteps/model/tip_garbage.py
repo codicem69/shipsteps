@@ -2,7 +2,7 @@ from gnr.core.gnrdecorator import metadata
 
 class Table(object):
     def config_db(self,pkg):
-        tbl=pkg.table('tip_garbage', pkey='id', name_long='!![en]Garbage type', name_plural='!![en]garbage types',caption_field='description',lookup=True)
+        tbl=pkg.table('tip_garbage', pkey='id', name_long='!![en]Garbage type', name_plural='!![en]garbage types',caption_field='description',lookup=True,order_by='description')
         self.sysFields(tbl, counter=True)      
         tbl.column('description', name_short='!![en]Garbage type')
 
