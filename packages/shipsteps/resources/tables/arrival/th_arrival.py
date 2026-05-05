@@ -15,7 +15,7 @@ import os
 import subprocess #per apertura file tramite programma di sistema
 #import datetime
 import re
-
+from datetime import timedelta
 
 class View(BaseComponent):
     
@@ -363,6 +363,7 @@ class Form(BaseComponent):
         
         self.garbage(tc_undertask.contentPane(title='!![en]Garbage', pageName='garbage'))
         self.tributi(tc_undertask.contentPane(title='!![en]Tributes HM',pageName='tributi'))
+        self.todo(tc_undertask.contentPane(title='!![en]Todo',pageName='todo'))
         #self.rinfusa(tc_app.contentPane(title='!![en]Bulk Application'))
         #disabilitato tabcontainer Application per uso dialog con pulsante
         #tc_app.contentPane(title='!![en]Bulk Application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
@@ -638,13 +639,262 @@ class Form(BaseComponent):
         fb.field('firma_div', tag='textArea')
         fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
         fb.radioButtonText(value='^.fumigated', values='SI:YES,NO:NO', lbl='Cargo fumugated?: ') 
-   #@public_method
-    #def test_but(self, arrival_id=None, **kwargs):
-    #   
-    #    tbl_tasklist = self.db.table('shipsteps.tasklist')
-    #    tbl_tasklist.batchUpdate(dict(email_dogana=True),
-    #                                where='$arrival_id=:a_id', a_id=arrival_id,for_update=True)
-    #    self.db.commit()
+        fb.dataRpc('todos_to_notify',self.getPendingTodos,rec_id='=#FORM.record.id', _fired='^.pkey')
+        # Trigger per aprire il dialog quando arrivano i todos
+        fb.dataController(
+        """
+        if (todos && todos.len && todos.len() > 0) {
+            SET currentTodos = todos;
+            genro.wdgById('dlg_todos').show();
+        }
+        """,
+        todos='^todos_to_notify',
+        )
+
+    
+        self._todosDialog(bc)
+    
+    
+    def _todosDialog(self, pane):
+        dlg = pane.dialog(
+            title='!!Pending Todos',
+            closable=True,
+            height='500px',
+            width='600px',
+            openAt='center',
+            nodeId='dlg_todos',
+            subscribe_todos_open="""
+                var grid = genro.nodeById('grid_todos');
+                if(grid && grid.widget){
+                    setTimeout(function(){
+                        grid.widget.resize();
+                        grid.widget.render();
+                    }, 100);
+                }
+            """
+        )
+        
+        dlg_bc = dlg.borderContainer(height='100%')
+        
+        # ── CENTER: griglia todos ─────────────────────────────────────────
+        center_pane = dlg_bc.contentPane(region='center', style='padding:4px;')
+        grid = center_pane.quickGrid(
+            value='^todos_to_notify',
+            height='100%',
+            selectionMode='row',
+            nodeId='grid_todos',selectedId='.selected_row_key'
+        )
+        grid.column('id', hidden=True)
+        grid.column('title',  name='!!Title', width='220px')
+        grid.column('description',  name='!!Description', width='220px')
+        grid.column('remind_at',    name='!!Remind at',   width='130px')
+        grid.column('snooze_until', name='!!Snooze until',width='130px')
+        grid.column('done',         name='!!Done',        width='60px', dtype='B')
+        
+        center_pane.dataController(
+                                     """
+                                     if(selected_row_key && todos){
+                                         var row = todos.getItem(selected_row_key);
+                                         if(row){
+                                             SET .selected_todo_id = row.getItem('id');
+                                             SET .selected_todo_arrid = row.getItem('arrival_id');
+                                             SET .selected_todo_rowkey = row.getItem('pkey');
+                                         }
+                                     }
+                                     """,
+                                     selected_row_key='^.selected_row_key',
+                                     todos='=todos_to_notify'
+                                     )
+        # ── BOTTOM: bottoni snooze + done ─────────────────────────────────
+        bottom_pane = dlg_bc.contentPane(
+            region='bottom', height='60px',
+            style='padding:8px; border-top:1px solid #ddd; display:flex; gap:6px; align-items:center;'
+        )
+        
+        for label, minutes in [('15m', 15), ('30m', 30), ('1h', 60), ('2h', 120), ('1d', 1440)]:
+            bottom_pane.button(
+                f'!!Snooze {label}',
+                action="""
+                       if(selected_id){
+                   genro.publish('snoozeTodo', {
+                       todo_id: selected_id,
+                       arrid: arrival_id,
+                       row_key: row_key,
+                       minutes: mins
+                   });
+               }else{
+                   genro.dlg.alert("Seleziona un todo");
+               }
+                   """,
+                selected_id='=.selected_todo_id',
+                arrival_id='=.selected_todo_arrid',
+                row_key='=.selected_todo_rowkey',
+                mins=minutes,
+                style='font-size:11px;'
+            )
+        
+        bottom_pane.button(
+            '!!Done ✓',
+            action="""
+                     if(selected_id){
+                         genro.publish('doneTodo', {
+                             todo_id: selected_id,
+                             arrid: arrival_id,
+                             row_key: row_key
+                         });
+                     }else{
+                         genro.dlg.alert("Seleziona un todo");
+                     }
+                 """,
+            selected_id='=.selected_todo_id',
+            arrival_id='=.selected_todo_arrid',
+            row_key='=.selected_todo_rowkey',
+            style='background:#27ae60; color:white; margin-left:12px;'
+        )
+        
+        bottom_pane.button(
+            '!!Chiudi',
+            action="genro.wdgById('dlg_todos').hide();",
+            style='margin-left:auto;'
+        )
+        
+       # ── RPC snooze ────────────────────────────────────────────────────
+        pane.dataRpc(
+            '.snooze_result',
+            self.snoozeTodo,
+            subscribe_snoozeTodo=True,
+            _onResult="""
+                var todos = genro.getData('todos_to_notify');
+                if(todos && result){
+                    todos.popNode(result);
+                    var gridNode = genro.nodeById('grid_todos');
+                    if(gridNode && gridNode.widget){
+                        gridNode.widget.render();
+                    }
+                }
+                if(!todos || todos.len() === 0){
+                    genro.wdgById('dlg_todos').hide();
+                }
+            """,
+            row_key='=.selected_row_key',
+            todo_id='=.selected_todo_id',
+            arrid='=.selected_todo_arrid'
+        )
+      #pane.dataRpc(
+      #    '.snooze_result', self.snoozeTodo,
+      #    subscribe_snoozeTodo=True,
+      #    #todo_id='=#snoozeTodo.todo_id',
+      #    #minutes='=#snoozeTodo.minutes',
+      #    _onResult="FIRE .refreshTodos;"
+      #)
+
+       # ── RPC done ──────────────────────────────────────────────────────
+        pane.dataRpc(
+           '.done_result', self.doneTodo,
+           subscribe_doneTodo=True,
+           _onResult="""
+                var todos = genro.getData('todos_to_notify');
+                if(todos && result){
+                    todos.popNode(result);
+                    var gridNode = genro.nodeById('grid_todos');
+                    if(gridNode && gridNode.widget){
+                        gridNode.widget.render();
+                    }
+                }
+                if(!todos || todos.len() === 0){
+                    genro.wdgById('dlg_todos').hide();
+                }
+            """,
+            row_key='=.selected_row_key',
+            todo_id='=.selected_todo_id',
+            arrid='=.selected_todo_arrid'
+        )
+
+       # ── Refresh dopo snooze/done ──────────────────────────────────────
+        pane.dataRpc(
+           '.todos_to_notify', self.getPendingTodos,
+           rec_id='=#FORM.record.id',
+           _fired='^.refreshTodos',
+           _onResult="""
+                var todos = genro.getData('todos_to_notify');
+                if(todos && result){
+                    todos.popNode(result);
+                    var gridNode = genro.nodeById('grid_todos');
+                    if(gridNode && gridNode.widget){
+                        gridNode.widget.render();
+                    }
+                }
+                if(!todos || todos.len() === 0){
+                    genro.wdgById('dlg_todos').hide();
+                }
+            """,
+            row_key='=.selected_row_key',
+            todo_id='=.selected_todo_id',
+            arrid='=.selected_todo_arrid'
+        )
+       #top.dataRpc(None,self.db.table('salt.movim').creaTrasferimento, 
+       #                 subscribe_trasferimento=True, _onResult='this.form.reload();') 
+
+    
+
+    #funzione per ricerca todo
+    @public_method
+    def getPendingTodos(self, rec_id=None):
+        now = datetime.now() #self.db.currentTimestamp()
+        
+        rows = self.db.table('shipsteps.todo').query(
+            where="""$arrival_id=:arr_id
+            AND $done IS NOT TRUE
+            AND (
+                (
+                    $snooze_until IS NOT NULL 
+                    AND $snooze_until <= :now
+                )
+                OR (
+                    $snooze_until IS NULL
+                    AND (
+                        $due_date <= :now
+                        OR $remind_at <= :now
+                    )
+                )
+            )
+            """,arr_id=rec_id,
+            now=now
+        ).fetch()
+        result = Bag()
+
+        #for i, r in enumerate(rows):
+        #    row = Bag()
+        #    row['id'] = r['id']
+        #    row['title'] = r['title']
+        #    row['description'] = r['description']
+        #    row['remind_at'] = r['remind_at'].strftime("%d/%m/%Y") if r['remind_at'] else ''
+        #    row['snooze_until'] = r['snooze_until'].strftime("%d/%m/%Y") if r['snooze_until'] else ''
+        #    row['done'] = r['done']
+        #    result[f'r_{i}'] = row
+
+        for i, row in enumerate(rows):
+            result.setItem(f'r_{i}', Bag(row))
+        return result
+        
+    @public_method
+    def snoozeTodo(self, todo_id=None,arrid=None,row_key=None, minutes=None, **kwargs):
+        
+        snooze_until = datetime.now() + timedelta(minutes=int(minutes))
+        self.db.table('shipsteps.todo').batchUpdate(dict(snooze_until=snooze_until),
+                                    where='$id=:pkey_todo', pkey_todo=todo_id)
+        self.db.commit()
+        return row_key
+    
+    @public_method
+    def doneTodo(self, todo_id=None,arrid=None,row_key=None, **kwargs):
+        
+        self.db.table('shipsteps.todo').batchUpdate(dict(done=True),
+                                    where='$id=:pkey_todo', pkey_todo=todo_id)
+        
+        self.db.commit()
+        return row_key
+
         
     def datiCaricoBordo(self,bc):
         center = bc.roundedGroup(title='!![en]Cargo on board', region='center', height = '100%').div(margin='10px',margin_left='2px')
@@ -2911,6 +3161,10 @@ class Form(BaseComponent):
         pane.dialogTableHandler(relation='@tributi_arr',dialog_height='3000px',
                                    dialog_width='4000px')#,viewResource='ViewFromTributi')
 
+    def todo(self, pane):
+        pane.dialogTableHandler(relation='@todo_arr',dialog_height='3000px',
+                                   dialog_width='4000px')
+        
     @public_method
     def rinfusaLazyMode(self,pane):
         pane.stackTableHandler(relation='@rinfusa_arr',formResource='FormFromRinfusa',view_store__onBuilt=True)

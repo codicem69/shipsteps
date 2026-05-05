@@ -121,7 +121,7 @@ class Main(TableScriptToHtml):
         
         r = l.row(row_border=False,height=5)
         timbro=self.record['@arrival_id.vessel_stamp']
-        r.cell("""<img src="%s" width="auto" height="80">::HTML""" %timbro,width=0)
+        r.cell("""<img src="%s" width="auto" height="200">::HTML""" %timbro,width=0)
         #r.cell('page no.'+str(self.current_page_number+1))
         r.cell(self.pageCounter('page: '+'%s/%s'))
 
@@ -130,6 +130,6 @@ class Main(TableScriptToHtml):
             
                 return self.doc_header_height + 50
             else:
-                return self.doc_footer_height    
+                return self.doc_footer_height + 30
 
         
