@@ -17,7 +17,7 @@ class GnrCustomWebPage(object):
                 agency_id=agency_id,
                 columns='$agency_name'
             ) or ''
-        print(agency_name)
+
         port_name = ''
         if port_id:
             port_name = self.db.table('unlocode.place').readColumns(
@@ -35,7 +35,7 @@ class GnrCustomWebPage(object):
                     font_size='100px', color='#384D63',
                     margin_top='20px', margin_bottom='30px')
         wrapper.div(agency_name + ' - ' + port_name,
-                    font_size='50px', color='#384D63',
+                    font_size='70px', color='#1d3355ff',font_weight='bold',
                     margin_top='20px', margin_bottom='30px')
         wrapper.img(src='/_rsrc/common/html_pages/images/splash_logo.png',
                     style='width:20%;margin-top:30px;')
