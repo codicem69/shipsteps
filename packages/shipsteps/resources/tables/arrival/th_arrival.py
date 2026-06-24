@@ -1670,6 +1670,63 @@ class Form(BaseComponent):
         #fb.semaphore('^.email_usma?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")#nascondiamo il widget in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
         fb.semaphore('^.email_usma', margin_top='5px',hidden="^#FORM.record.uesan_pref?=#v==true")#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
 
+        #bottone per aprire link whatsapp copiare testo e poi successivamente copiare manualmente per l'invio msg ai piloti
+        # Nel tuo metodo all'interno della Form, dove definisci i bottoni:
+
+        fb.Button('Gruppo Piloti', width='10em',disabled='^#FORM.controller.locked').dataRpc(
+            # 1. Puntiamo a un metodo Python nel tuo componente/table che genererà il testo
+            self.invia_testo_whatsapp, 
+
+            # 2. Passiamo i dati attuali del record della Form
+            record='=#FORM.record',
+
+            # 3. La tua struttura _ask per raccogliere i dati aggiuntivi
+            _ask=dict(
+                title='Seleziona Dati per WhatsApp',
+                fields=[
+                    dict(name='lato_ormeggio',lbl='Lato ormeggio',tag='filteringSelect',values='Dritto,Sinistro,Andana', validate_notnull=True),
+                    dict(name='eta', lbl='ETA', tag='dateTimeTextBox', popup=True, validate_notnull=True),
+                    dict(name='etb', lbl='ETB', tag='dateTimeTextBox', popup=True, validate_notnull=True),
+                    dict(name='ets', lbl='ETS', tag='dateTimeTextBox', popup=True, validate_notnull=True),
+                    dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+            # Pre-compiliamo i campi dell'_ask con i valori attuali del record
+            eta='=#FORM.record.eta',
+            etb='=#FORM.record.etb',
+            ets='=#FORM.record.ets',
+            dock_id='=#FORM.record.dock_id',
+            vess_type='=#FORM.record.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code',
+            nome_nave='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+            loa='=#FORM.record.@vessel_details_id.@imbarcazione_id.loa',  
+            gt='=#FORM.record.@vessel_details_id.@imbarcazione_id.gt',
+            dock_name='=#FORM.record.@dock_id.dock_name',
+            msg_type='arrival',
+            # 4. IL TRUCCO: Quando il server ha finito, riceve il testo (result) e lo gestisce in JS
+            _onResult="""
+                this.form.save(); // Salva la form come facevi prima
+
+                if (result && result.testo_messaggio) {
+                    var testo = result.testo_messaggio;
+                    var nomeGruppo = result.nome_gruppo || "Gruppo Piloti";
+
+                    // Determina la scorciatoia da mostrare nell'alert
+                    var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                    var tastoIncolla = isMac ? 'CMD + V' : 'CTRL + V';
+
+                    // Copia nella Clipboard (Clipboard API)
+                    navigator.clipboard.writeText(testo).then(function() {
+                        alert('MESSAGGIO COPIATO!\\n\\nOra si aprirà WhatsApp Web:\\n1. Cerca il gruppo "' + nomeGruppo + '"\\n2. Entra nella chat, premi ' + tastoIncolla + ' e invia.');
+
+                        // Apre il tab usando l'istruzione nativa Genropy
+                        genro.openBrowserTab('https://web.whatsapp.com');
+                    }).catch(function(err) {
+                        alert('Errore nella copia automatica negli appunti: ' + err);
+                    });
+                }
+            """
+        )
+
+        #fb.button('Gruppo Piloti', width='10em',action="genro.openBrowserTab('https://web.whatsapp.com');")  
+        fb.br() 
         #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
@@ -2735,6 +2792,57 @@ class Form(BaseComponent):
         #fb_dep.semaphore('^.email_tributi_cp?=#v==true?true:false', margin_top='6px')    
         fb_dep.semaphore('^.email_tributi_cp', margin_top='6px',hidden='^gnr.app_preference.shipsteps.email_tributi_cp')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
         
+        #whatsapp msg piloti
+        fb_dep.Button('Gruppo Piloti',disabled='^#FORM.controller.locked').dataRpc(
+            # 1. Puntiamo a un metodo Python nel tuo componente/table che genererà il testo
+            self.invia_testo_whatsapp, 
+
+            # 2. Passiamo i dati attuali del record della Form
+            record='=#FORM.record',
+
+            # 3. La tua struttura _ask per raccogliere i dati aggiuntivi
+            _ask=dict(
+                title='Seleziona Dati per WhatsApp',
+                fields=[
+                    dict(name='lato_ormeggio',lbl='Lato ormeggio',tag='filteringSelect',values='Dritto,Sinistro,Andana'),
+                    dict(name='ets', lbl='ETS', tag='dateTimeTextBox', popup=True, validate_notnull=True),
+                    dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+            # Pre-compiliamo i campi dell'_ask con i valori attuali del record
+            eta='=#FORM.record.eta',
+            etb='=#FORM.record.etb',
+            ets='=#FORM.record.ets',
+            dock_id='=#FORM.record.dock_id',
+            vess_type='=#FORM.record.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code',
+            nome_nave='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
+            loa='=#FORM.record.@vessel_details_id.@imbarcazione_id.loa',  
+            gt='=#FORM.record.@vessel_details_id.@imbarcazione_id.gt',
+            dock_name='=#FORM.record.@dock_id.dock_name',
+            msg_type='departure',
+            # 4. IL TRUCCO: Quando il server ha finito, riceve il testo (result) e lo gestisce in JS
+            _onResult="""
+                this.form.save(); // Salva la form come facevi prima
+
+                if (result && result.testo_messaggio) {
+                    var testo = result.testo_messaggio;
+                    var nomeGruppo = result.nome_gruppo || "Gruppo Piloti";
+
+                    // Determina la scorciatoia da mostrare nell'alert
+                    var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+                    var tastoIncolla = isMac ? 'CMD + V' : 'CTRL + V';
+
+                    // Copia nella Clipboard (Clipboard API)
+                    navigator.clipboard.writeText(testo).then(function() {
+                        alert('MESSAGGIO COPIATO!\\n\\nOra si aprirà WhatsApp Web:\\n1. Cerca il gruppo "' + nomeGruppo + '"\\n2. Entra nella chat, premi ' + tastoIncolla + ' e invia.');
+
+                        // Apre il tab usando l'istruzione nativa Genropy
+                        genro.openBrowserTab('https://web.whatsapp.com');
+                    }).catch(function(err) {
+                        alert('Errore nella copia automatica negli appunti: ' + err);
+                    });
+                }
+            """
+        )
+        fb_dep.br(),
         #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
@@ -3125,6 +3233,58 @@ class Form(BaseComponent):
     #def timesCertLazyMode(self,pane,**kwargs):
     #    pane.multiButtonForm(relation='@time_arr',formResource='Form',
     #                        pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
+    
+    @public_method
+    def invia_testo_whatsapp(self, record=None, msg_type=None, eta=None, etb=None, ets=None,vess_type=None, nome_nave=None,dock_name=None,lato_ormeggio=None,loa=None,gt=None, **kwargs):
+        # 'record' contiene i dati della form
+        # 'services', 'eta', 'etb', ecc. contengono i dati modificati o inseriti dall'utente nell'_ask
+        
+        # Prepariamo le stringhe delle date formattate se presenti
+        eta_str = eta.strftime('%d/%m/%Y %H:%M') if isinstance(eta, datetime) else (eta or '-')
+        etb_str = etb.strftime('%d/%m/%Y %H:%M') if isinstance(etb, datetime) else (etb or '-')
+        ets_str = ets.strftime('%d/%m/%Y %H:%M') if isinstance(ets, datetime) else (ets or '-')
+        #Impostiamo i dati per il saluto
+        now = datetime.now()
+        cur_time = now.strftime("%H:%M:%S")    
+        if cur_time < '13:00:00':
+            sal='Buongiorno,'  
+        elif cur_time < '17:00:00':
+            sal='Buon pomeriggio,'
+        elif cur_time < '24:00:00':
+            sal = 'Buonasera,' 
+        elif cur_time < '04:00:00':
+            sal = 'Buona notte,' 
+        # Componiamo il testo usando la sintassi di WhatsApp (*grassetto*)
+        if msg_type=='arrival':
+            linee_messaggio = [
+            sal,
+            "",
+            f"previsto ormeggio *{vess_type} {nome_nave}* il *{etb_str}*",
+            "",
+            f"LOA: *{loa}* - GT: *{gt}*",
+            "",
+            f"Banchina: *{dock_name}* - lato ormeggio: *{lato_ormeggio}*",
+            "",
+            f"ETS: *{ets_str}*",
+            "",
+            "saluti"]
+        elif msg_type=='departure':
+            linee_messaggio = [
+            sal,
+            "",
+            f"prevista partenza *{vess_type} {nome_nave}* il *{ets_str}*",
+            "",
+            f"LOA: *{loa}* - GT: *{gt}*",
+            "",
+            "saluti"]
+
+        testo_finale = "\n".join(linee_messaggio)
+
+        # Ritorniamo un dizionario al client JavaScript
+        return dict(
+            testo_messaggio=testo_finale,
+            nome_gruppo="Gruppo Piloti" # Nome suggerito all'utente per la ricerca su WA
+        )
     
     @public_method
     def sanCertLazyMode(self,pane):
