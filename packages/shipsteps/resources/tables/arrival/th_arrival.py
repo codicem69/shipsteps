@@ -1688,7 +1688,7 @@ class Form(BaseComponent):
                     dict(name='eta', lbl='ETA', tag='dateTimeTextBox', popup=True, validate_notnull=True),
                     dict(name='etb', lbl='ETB', tag='dateTimeTextBox', popup=True, validate_notnull=True),
                     dict(name='ets', lbl='ETS', tag='dateTimeTextBox', popup=True, validate_notnull=True),
-                    dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True)]),
+                    dict(name='dock_id',lbl='!![en]Dock',columns='$id',table='shipsteps.dock',tag='dbSelect',hasDownArrow=True,selected_dock_name='.dock_name')]),
             # Pre-compiliamo i campi dell'_ask con i valori attuali del record
             eta='=#FORM.record.eta',
             etb='=#FORM.record.etb',
@@ -3235,10 +3235,21 @@ class Form(BaseComponent):
     #                        pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
     
     @public_method
-    def invia_testo_whatsapp(self, record=None, msg_type=None, eta=None, etb=None, ets=None,vess_type=None, nome_nave=None,dock_name=None,lato_ormeggio=None,loa=None,gt=None, **kwargs):
+    def invia_testo_whatsapp(self, record=None, msg_type=None, eta=None, etb=None, ets=None,vess_type=None, nome_nave=None,dock_id=None,dock_name=None,lato_ormeggio=None,loa=None,gt=None, **kwargs):
         # 'record' contiene i dati della form
         # 'services', 'eta', 'etb', ecc. contengono i dati modificati o inseriti dall'utente nell'_ask
         
+        arrival_id=record['id']
+        datiArrToUpd = {}
+        datiArrToUpd['eta']=eta
+        datiArrToUpd['etb']=etb
+        datiArrToUpd['ets']=ets
+        datiArrToUpd['dock_id']=dock_id
+        print(dock_name)
+        tbl_arrival = self.db.table('shipsteps.arrival') 
+        if eta or etb or ets or dock_id:
+            tbl_arrival.batchUpdate(datiArrToUpd,where='$id=:id_arr', id_arr=arrival_id)
+            self.db.commit()
         # Prepariamo le stringhe delle date formattate se presenti
         eta_str = eta.strftime('%d/%m/%Y %H:%M') if isinstance(eta, datetime) else (eta or '-')
         etb_str = etb.strftime('%d/%m/%Y %H:%M') if isinstance(etb, datetime) else (etb or '-')
@@ -3279,7 +3290,7 @@ class Form(BaseComponent):
             "saluti"]
 
         testo_finale = "\n".join(linee_messaggio)
-
+        
         # Ritorniamo un dizionario al client JavaScript
         return dict(
             testo_messaggio=testo_finale,
