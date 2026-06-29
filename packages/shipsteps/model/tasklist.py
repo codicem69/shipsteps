@@ -4,7 +4,7 @@ from gnr.core.gnrdecorator import public_method
 class Table(object):
     def config_db(self,pkg):
         tbl=pkg.table('tasklist', pkey='id', name_long='!![en]Task list', name_plural='!![en]Task list',caption_field='id',
-        broadcast="""email_ship_rec,email_dogana,email_doganagb,email_frontiera,email_usma,email_pfso,email_pilot_moor,email_pilot_dep,email_moor,email_moor_dep,email_tug,email_tug_dep,email_garbage,email_chemist,email_gpg,email_ens,email_ric_lps,email_garbage_adsp,email_integr,email_pmou,email_certchim_cp,email_certchim_stev,email_lps_cp,email,garbage_cp,email_ric_rifiuti_cp,email_aeration,email_tributi_cp,btn_customgb""")
+        broadcast="""email_ship_rec,email_eori,email_dogana,email_doganagb,email_frontiera,email_usma,email_pfso,email_pilot_moor,email_pilot_dep,email_moor,email_moor_dep,email_tug,email_tug_dep,email_garbage,email_chemist,email_gpg,email_ens,email_ric_lps,email_garbage_adsp,email_integr,email_pmou,email_certchim_cp,email_certchim_stev,email_lps_cp,email,garbage_cp,email_ric_rifiuti_cp,email_aeration,email_tributi_cp,btn_customgb""")
         self.sysFields(tbl)
 
         tbl.column('arrival_id',size='22', name_long='arrival_id',unique=True
@@ -17,6 +17,7 @@ class Table(object):
         tbl.column('front_carico', dtype='B', name_short='!![en]Cargo Frontispiece')
         #tbl.column('tributi_cp', dtype='B', name_short='!![en]Tributi CP')
         tbl.column('email_ship_rec', dtype='B', name_short='!![en]Email Shipper/Receivers')
+        tbl.column('email_eori', dtype='B', name_short='!![en]Email request EORI')
         tbl.column('email_dogana', dtype='B', name_short='!![en]Email Custom GdF')
         tbl.column('email_doganagb', dtype='B', name_short='!![en]Email Custom garbage notif.')
         tbl.column('email_frontiera', dtype='B', name_short='!![en]Email Immigration')
@@ -57,6 +58,7 @@ class Table(object):
         tbl.column('nome_servizio', name_short='!![en]service name')
         tbl.column('p_date', dtype='D', name_short='p_date')
         #checkbox per attivazione campi tasklist
+        tbl.column('e_eori', dtype='B', name_short='Eori')
         tbl.column('e_customs', dtype='B', name_short='Customs')
         tbl.column('e_frontiera', dtype='B', name_short='Immigration')
         tbl.column('e_pilotmoor', dtype='B', name_short='Pilot')

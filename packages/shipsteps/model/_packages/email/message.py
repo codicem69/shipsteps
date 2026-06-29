@@ -317,6 +317,9 @@ class Table(object):
        
         #aggiorniamo i record nella tasklist sulla base dell'email inviata
         if message['send_date']:              
+            if message['template_code']=='email_eori':
+                tbl_tasklist.batchUpdate(dict(email_eori=True),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_dogana':
                 tbl_tasklist.batchUpdate(dict(email_dogana=True),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])
@@ -405,7 +408,10 @@ class Table(object):
                 nuovo_rec = dict(arrival_id=message['arrival_id'],issued_date=message['__ins_ts'],user=message['__ins_user'],send_date=message['send_date'])
                 tbl_ckemaildest.insert(nuovo_rec)
 
-        if message['error_msg']:              
+        if message['error_msg']:
+            if message['template_code']=='email_eori':
+                tbl_tasklist.batchUpdate(dict(email_eori=False),
+                                    where='$arrival_id=:a_id', a_id=message['arrival_id'])
             if message['template_code']=='email_dogana':
                 tbl_tasklist.batchUpdate(dict(email_dogana=False),
                                     where='$arrival_id=:a_id', a_id=message['arrival_id'])

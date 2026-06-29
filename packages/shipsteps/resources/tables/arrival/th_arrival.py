@@ -538,6 +538,7 @@ class Form(BaseComponent):
         #con questo metodo viene aggiornata la form senza notifica di salvamento mettendo nella table tasklist l'opzione broadcast con tutti i campi interessati
         fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
             if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0];
+                       if(datiCambiamento['email_eori'])this.form.externalChange('@arr_tasklist.email_eori',datiCambiamento['email_eori']);
                        if(datiCambiamento['email_dogana'])this.form.externalChange('@arr_tasklist.email_dogana',datiCambiamento['email_dogana']);
                        if(datiCambiamento['email_doganagb'])this.form.externalChange('@arr_tasklist.email_doganagb',datiCambiamento['email_doganagb']);
                        if(datiCambiamento['email_ship_rec'])this.form.externalChange('@arr_tasklist.email_ship_rec',datiCambiamento['email_ship_rec']);
@@ -1514,7 +1515,23 @@ class Form(BaseComponent):
         #datacontroller verifica il valore della variabile nome_temp di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
       #  fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
+        fb.dataController("""if(typemov!=='Alimentary' && typemov!=='Generic'){SET .eori_btn=true;}
+                          else if(chemist_tasklist==true){SET .eori_btn=true;}else{SET .eori_btn=false;}""", 
+                          typemov='^#FORM.record.@movtype_id.hierarchical_descrizione',
+                          eori_tasklist='^#FORM.record.@arr_tasklist.e_eori')
+        btn_eori = fb.Button('!![en]Eori request', width='10em',hidden="^#FORM.record.@arr_tasklist.eori_btn",disabled='^#FORM.controller.locked')
+        btn_eori.dataRpc('nome_temp', self.eoriEmail, record='^#FORM.record',
+                        _ask=dict(title='Select the emails',fields=[dict(name='email_arr', lbl='!![en]Email Arrival',tag='checkboxtext',columns='$id',
+                             hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.email_arr',condition="$arrival_id =:cod",
+                                                condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)],
+                            _onResult="""this.form.save();"""))
         
+        fb.dataController("""var id = button.id; 
+                        if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
+                        else {document.getElementById(id).style.backgroundColor = '';}
+                        """, ca='^.email_eori',button=btn_eori.js_widget)
+        fb.field('email_eori',lbl='', margin_top='5px',hidden="^#FORM.record.@arr_tasklist.eori_btn")
+        fb.semaphore('^.email_eori', margin_top='5px',hidden="^#FORM.record.@arr_tasklist.eori_btn")  
         #verifichiamo quanti servizi Dogana ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dog').fetch()
         serv_len=len(service_for_email)
@@ -2393,6 +2410,7 @@ class Form(BaseComponent):
                              if(msg=='ship_rec_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"}); if(msg=='no_email') genro.publish("floating_message",{message:'You must insert destination email as TO or BCC', messageType:"error"}); if(msg=='no_sof') genro.publish("floating_message",{message:'You must select the SOF or you must create new one', messageType:"error"});
                              if(msg=='val_upd') genro.publish("floating_message",{message:msg_txt, messageType:"message"});
                              if(msg=='val_adsp') {SET .email_garbage_adsp=false ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
+                             if(msg=='email_eori') {SET .email_eori=false ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_ens') {SET .email_ens=false ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_gpg') {SET .email_gpg=false ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
                              if(msg=='val_chemist') {SET .email_chemist=false ; genro.publish("floating_message",{message:msg_txt, messageType:"message"});}
@@ -4340,6 +4358,94 @@ class Form(BaseComponent):
             self.db.commit()
         if (email_dest or email_pec_dest) is not None:
             nome_temp='email_extra'
+            return nome_temp
+
+    @public_method
+    def eoriEmail(self, record, **kwargs):
+        
+        if not record:
+            return
+        rec_id = record['id']
+        #lettura dati su tabella arrival
+        tbl_arrival = self.db.table('shipsteps.arrival')
+        vessel_type,vessel_name,eta_arr,info_moor = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code,@vessel_details_id.@imbarcazione_id.nome,$eta,$info_moor',
+                  where='$agency_id=:ag_id AND $id=:rec_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=rec_id)
+
+        # Lettura degli account email predefiniti all'interno di Agency e Staff
+        tbl_staff =  self.db.table('agz.staff')
+        account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
+                  where='$agency_id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        tbl_agency =  self.db.table('agz.agency')
+        agency_name,ag_fullstyle,account_emailpec,emailpec_mitt = tbl_agency.readColumns(columns='$agency_name,$fullstyle,$emailpec_account_id, @emailpec_account_id.address',
+                  where='$id=:ag_id',
+                    ag_id=self.db.currentEnv.get('current_agency_id'))
+        #preleviamo dai kwargs i servizi per gli aggiornamenti
+        emails_eori=kwargs['email_arr']
+        #trasformiamo la stringa services in una lista
+        emailArr=list(emails_eori.split(","))
+        #troviamo la lunghezza della variabile servizio
+        #print(x)
+        ln_email=len(emailArr)
+        #assegnamo le varibili liste per inserire successivamente i risultati della ricerca sulla tabella email_services
+        destinatario,email_d, email_cc_d,email_bcc_d=[],[],[],[]
+        #definiamo la variabile contentente la tabella email_arr
+        tbl_email_arr=self.db.table('shipsteps.email_arr')
+        #con il ciclo for ad ogni passaggio otteniamo il nome del servizio che passeremo alla query e i risultati saranno appesi alle liste
+        for e in range(ln_email):
+            idEmail=emailArr[e]
+
+            dest,description, email_dest,email_type = tbl_email_arr.readColumns(columns="""$dest,$description,$email,$email_type""",
+                                                    where="$id=:idEmail AND $arrival_id=:arr_id", idEmail=idEmail,
+                                                    arr_id=rec_id)
+            
+            if description is not None and description !='':
+                destinatario.append(dest + ': ' + description)
+            
+            #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario to:    
+            if email_dest is not None and email_dest !='' and email_type == 'to':
+                email_d.append(email_dest)
+            #verifichiamo se il servizio è più di uno sarà inserito all'email bcc:     
+            if email_dest is not None and email_dest !='' and email_type == 'ccn':
+                email_bcc_d.append(email_dest)
+            #verifichiamo se il servizio è solo uno sarà inserito all'email destinatario cc:    
+            if email_dest is not None and email_dest != '' and email_type == 'cc':
+                email_cc_d.append(email_dest)
+            
+            
+        #trasformiamo le liste in stringhe assegnandole alle relative variabili
+        consignee='<br>'.join([str(item) for item in destinatario])
+        
+        if ln_email == 1:
+            email_to = ','.join([str(item) for item in email_d])
+        else:
+            email_to = email_mittente    
+        email_cc = ','.join([str(item) for item in email_cc_d])
+        email_bcc = ','.join([str(item) for item in email_bcc_d])
+        
+        
+        subject='EORI number request - '+ vessel_type + ' ' + vessel_name + ' ref:' + record['reference_num']
+        body_header="""<span style="font-family:courier new,courier,monospace;">""" + 'from: '+ agency_name + '<br>' + consignee + '<br><br>'
+        body_footer= '<br>Awaiting for your reply, Brgds.<br><br>' + user_fullname + '<br><br>' + ag_fullstyle + """</span></div>"""
+        
+        body_msg=('Good day,'+ '<br>' + """in accordance with the new European regulations, in order to complete the customs formalities 
+                  related to the import of cargo, we need the EORI number and the name of the carrier. """ )
+        body_html=(body_header + body_msg + body_footer )
+        
+        if email_to:
+            self.db.table('email.message').newMessage(account_id=account_email,
+                           to_address=email_to,
+                           from_address=email_mittente,
+                           subject=subject, body=body_html, 
+                           cc_address=email_cc, 
+                           bcc_address=email_bcc, arrival_id=rec_id,
+                           tmp_code='email_eori',
+                           agency_id=record['agency_id'],html=True)
+            self.db.commit()
+        
+        if (email_dest) is not None:
+            nome_temp='email_eori'
             return nome_temp
 
     @public_method
