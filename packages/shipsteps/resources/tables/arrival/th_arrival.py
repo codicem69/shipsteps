@@ -1222,6 +1222,7 @@ class Form(BaseComponent):
         center = frame.roundedGroup(title='!![en]Tasklist selection',table='shipsteps.tasklist',datapath='.record.@arr_tasklist', region='center').div(margin='10px',margin_left='2px')
         #rg_arr = frame.roundedGroup(title='!![en]Arrival',datapath='.record',width='100%', height = '10%').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=1, border_spacing='4px', font_weight='bold')
+        fb.field('e_eori', label_color='white')
         fb.field('e_customs', label_color='white')
         fb.field('e_frontiera', label_color='white')
         fb.field('e_pilotmoor', label_color='white')
@@ -1515,18 +1516,19 @@ class Form(BaseComponent):
         #datacontroller verifica il valore della variabile nome_temp di ritorno dalla funzione per invio email
         #e setta il valore della campo checkbox a true e lancia il messaggio 'Messaggio Creato'
       #  fb.dataController("if(msgspec=='ship_rec') {SET .email_ship_rec=true ; alert('Message created')} if(msgspec=='no_email') alert('You must insert destination email as TO or BCC'); if(msgspec=='no_sof') alert('You must select the SOF or you must create new one');", msgspec='^msg_special')
+                
         fb.dataController("""if(typemov!=='Alimentary' && typemov!=='Generic'){SET .eori_btn=true;}
-                          else if(chemist_tasklist==true){SET .eori_btn=true;}else{SET .eori_btn=false;}""", 
+                          else if(eori_tasklist==true){SET .eori_btn=true;}else{SET .eori_btn=false;}""", 
                           typemov='^#FORM.record.@movtype_id.hierarchical_descrizione',
                           eori_tasklist='^#FORM.record.@arr_tasklist.e_eori')
         btn_eori = fb.Button('!![en]Eori request', width='10em',hidden="^#FORM.record.@arr_tasklist.eori_btn",disabled='^#FORM.controller.locked')
-        btn_eori.dataRpc('nome_temp', self.eoriEmail, record='^#FORM.record',
+        btn_eori.dataRpc('nome_temp', self.eoriEmail, record='=^#FORM.record',
                         _ask=dict(title='Select the emails',fields=[dict(name='email_arr', lbl='!![en]Email Arrival',tag='checkboxtext',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.email_arr',condition="$arrival_id =:cod",
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)],
                             _onResult="""this.form.save();"""))
         
-        fb.dataController("""var id = button.id; 
+        fb.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
                         """, ca='^.email_eori',button=btn_eori.js_widget)
