@@ -501,8 +501,37 @@ class Form(BaseComponent):
 
     #def services(self,pane):
     #    pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices')
+    def th_bottom_custom(self, bottom):
+        bar = bottom.slotToolbar('*,movimenti,*')
 
+        bar.movimenti.button('Movimenti banchina',disabled='^#FORM.btn_mov',
+                     iconClass='iconbox note',
+                     action="genro.publish('open_dock_movements',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+        
+        #^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers
     def datiArrivo(self,bc):
+        dlg = bc.dialog(
+        title='Movimenti banchina',
+        width='900px',
+        height='600px',closable=True)
+
+        dlg.dataController("""dlg.show();""", dlg=dlg.js_widget, subscribe_open_dock_movements=True)
+
+        dlg.stackTableHandler(
+        table='shipsteps.movimenti_banchina',
+        relation='@mov_banchina',viewResource='View',
+        formResource='Form',
+        dialog=True)
+
+        bc.dataController("""if(locked==false && !!dock && !!moored) {SET .btn_mov=false;}
+                          else{SET .btn_mov=true;}""", 
+                          locked='^#FORM.controller.locked',
+                          dock='^#FORM.record.dock_id',
+                          moored='^#FORM.record.@time_arr.moored')
+        #ondition='$arrival_id=:arrival_id',
+        #ondition_arrival_id='=.selected_arrival_id',
+        #efault_kwargs=dict(arrival_id='=^.selected_arrival_id'),dialog=True)
+
         #center = bc.roundedGroup(title='!![en]Vessel arrival', region='center',datapath='.record',width='210px', height = '100%').div(margin='10px',margin_left='2px')
         #center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')
         #center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
@@ -592,25 +621,63 @@ class Form(BaseComponent):
        
         #fb.field('tip_mov' , hasDownArrow=True,  auxColumns='$description',order_by='$description')
 
-        fb = center1.formbuilder(cols=5, border_spacing='4px',lblpos='T',fldalign='left')
+        fb = center1.formbuilder(cols=6, border_spacing='4px',lblpos='T',fldalign='left')
         fb.field('eta' , width='10em')
         fb.field('etb' , width='10em')
         
         #fb.field('et_start' , width='10em')
         #fb.field('etc' , width='10em')
         fb.field('ets', width='10em' )
-        fb.field('dock_id', colspan=2, width='100%' )
+        #fb.field('dock_id', colspan=2, width='100%', readOnly='^#FORM.record.@time_arr.moored?=#v')
+        fb.field('dock_id', colspan=2, width='100%', disabled='^#FORM.record.@time_arr.moored?=#v')
+        #fb.div(' - ').button('ℹ',action="""genro.dlg.alert(
+        #     "Il molo può essere modificato solo dalla form 'Movimenti banchina'.")""",
+        #    hidden='^#FORM.record.@time_arr.moored?=!#v', border_spacing='100px')
+        fb.button('Info',action="""
+                            genro.dlg.ask(
+                                "!![en]Warning",
+                                "La banchina può essere modificata solo dalla form 'Movimenti banchina'. Vuoi cambiarla?",
+                                {'cancel':'NO','continue':'YES'},
+                                {'continue':function(){
+                                    genro.publish('open_dock_movements',{arrival_id:arr_id});
+                                }}
+                            );
+                            """,arr_id='=#FORM.record.id',
+                            hidden='^#FORM.record.@time_arr.moored?=!#v',margin_left='10px',margin_top='0px',iconClass='iconbox info',disabled='^#FORM.btn_mov')
+        #genro.publish('open_dock_movements',{arrival_id: arr_id});",arr_id='=#FORM.record.id'
+         #action="""
+         #                   var tp = {template:template_id};
+         #                      var kw = objectExtract(this.getInheritedAttributes(),"batch_*",true);
+         #                      kw.table = 'shipsteps.fda';
+         #                      kw.resource = "print_template";
+         #                      kw.res_type = "print";
+         #                      kw.templates = "A3_orizz";
+         #                      kw.pkey = pkey;
+         #                      kw.publishOnResult = "tabservizi_eseguito"
+         #                      kw.extra_parameters = new gnr.GnrBag({template_id:tp.template,table:kw.table});  
+         #                   if(!invoice_id)
+         #                   genro.dlg.ask("!![en]Warning",
+         #                                 "!![en]Invoice heading missed. Do you want to print it?",
+         #                                 {'cancel':'Cancel', 'continue':'Continue'},
+         #                                 {'continue': function(){var tp = {template:template_id_pfda}; kw.table = 'shipsteps.fda';var _this = this;
+         #                                 kw.extra_parameters = new gnr.GnrBag({template_id:tp.template,table:kw.table});                      
+         #                                                         genro.publish("table_script_run",kw);}});
+         #                   else {
+         #                   genro.publish("table_script_run",kw);}""", template_id=template_id,template_id_pfda=template_id_pfda,invoice_id='=.invoice_id')
+        fb.br()
         fb.field('draft_aft_arr', width='5em', placeholder='eg:4 or 4,5')
         fb.field('draft_fw_arr' , width='5em', placeholder='eg:4 or 4,5')
         fb.field('draft_aft_dep' , width='5em', placeholder='eg:4 or 4,5')
         fb.field('draft_fw_dep' , width='5em', placeholder='eg:4 or 4,5')
         #fb.field('dock_id' )
         fb.field('info_moor',width='140%', colspan=2 ,placeholder='e.g. Inizio ormeggio il ... ore ....', tag='textArea')
+        fb.br()
         fb.field('voy_n', width='10em')
         fb.field('master_name' )
         fb.field('n_crew' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
         fb.field('n_passengers' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
         fb.field('email_obj', width='20em')
+        fb.br()
         fb.field('last_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
         fb.field('departure_lp' , width='10em')
         fb.field('next_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
@@ -1138,7 +1205,7 @@ class Form(BaseComponent):
                                       end_osp="^#FORM.record.@time_arr.eosp")
         fb.field('etb' , width='10em', hidden="""^#FORM.record.@time_arr.moored""")
         fb.field('ets', width='10em', hidden="""^#FORM.record.@time_arr.sailed""" )
-        fb.field('dock_id', width='15em', disabled="""^#FORM.record.@time_arr.sailed""" )
+        fb.field('dock_id', width='15em', disabled='^#FORM.record.@time_arr.moored?=#v')
 
     def times_sof(self,frame):
         self.times(frame) #per non riscrivere lo stesso codice di times passiamo direttamente self.times(frame)

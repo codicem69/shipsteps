@@ -569,3 +569,13 @@ class Table(object):
         record['note'] = None
         record['vessel_stamp'] = None
         
+    def aggiornaDati(self,arrival_id=None,dock_id=None):
+           
+            with self.recordToUpdate(arrival_id) as record:
+                record['dock_id'] = dock_id        
+
+    #def trigger_onUpdating(self, record=None, old_record=None, **kwargs):
+    #    if record['dock_id'] != old_record['dock_id']:
+    #        raise Exception(
+    #            "La banchina può essere modificata solo tramite i Movimenti banchina."
+    #    )
