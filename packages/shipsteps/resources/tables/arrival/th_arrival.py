@@ -306,6 +306,7 @@ class Form(BaseComponent):
         tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center',selected='^.tabnumber')#,hidden='^#FORM.record.@last_port.nazione_code?=!(#v=="IT"||#v=="LM")')#,hidden="^#FORM.record.@last_port.nazione_code?=#v!='IT'")
         bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>',hidden='^gnr.app_preference.shipsteps.nsw_cp')#attributo hidden per nascondere il tab se flaggato nelle preferenze disabilita NSW CP
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
+        
         #tc_task = tc.tabContainer(title='!![en]<strong>Task List</strong>',region='center',selectedPage='^tabname')
         bc_tasklist = tc.borderContainer(title='!![en]<strong>Task List</strong>')
         #bc_tasklist = tc_task.borderContainer(title="<div style='color:red;'>Task list</div>", region='center')#title='!![en]Task List'
@@ -507,7 +508,7 @@ class Form(BaseComponent):
         bar.movimenti.button('Movimenti banchina',disabled='^#FORM.btn_mov',
                      iconClass='iconbox note',
                      action="genro.publish('open_dock_movements',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
-        
+
         #^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers
     def datiArrivo(self,bc):
         dlg = bc.dialog(
@@ -528,6 +529,8 @@ class Form(BaseComponent):
                           locked='^#FORM.controller.locked',
                           dock='^#FORM.record.dock_id',
                           moored='^#FORM.record.@time_arr.moored')
+        
+        
         #ondition='$arrival_id=:arrival_id',
         #ondition_arrival_id='=.selected_arrival_id',
         #efault_kwargs=dict(arrival_id='=^.selected_arrival_id'),dialog=True)
