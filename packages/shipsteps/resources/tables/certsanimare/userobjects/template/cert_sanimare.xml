@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <GenRoBag><_ins_ts _tag="__ins_ts" _T="DH" dtype="DH" name_long="!![en]Insert date" indexed="True::B" group="zzz" onInserting="setTSNow" _sysfield="True::B" as="t0___ins_ts">2023-04-03T11:59:22.107362+02:00</_ins_ts>
 <_del_ts _tag="__del_ts" _T="NN" dtype="DH" name_long="!![en]Logical delete date" indexed="True::B" group="zzz" _sysfield="True::B" as="t0___del_ts"></_del_ts>
-<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2026-07-06T12:21:15.459030+02:00</_mod_ts>
+<_mod_ts _tag="__mod_ts" _T="DH" dtype="DH" name_long="!![en]Update date" indexed="True::B" group="zzz" onInserting="setTSNow" onUpdating="setTSNow" _sysfield="True::B" print_width="26::L" as="t0___mod_ts">2026-07-06T15:52:35.254028+02:00</_mod_ts>
 <_ins_user _tag="__ins_user" _T="NN" name_long="!![en]User Insert" group="zzz" onInserting="setCurrentUser" _sysfield="True::B" dtype="T" as="t0___ins_user"></_ins_user>
 <identifier size=":120" unique="True::B" indexed="True::B" sql_value="COALESCE(:tbl,:pkg,'')||:objtype||:code|| CASE WHEN :private THEN :userid ELSE '' END" dtype="A" as="t0_identifier">shipsteps.certsanimaretemplatecert_sanimare</identifier>
 <code size=":40" name_long="!![en]Code" indexed="True::B" dtype="A" print_width="30::L" as="t0_code">cert_sanimare</code>
@@ -16,7 +16,7 @@
 &lt;div style="text-align: center;"&gt;
 	&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&lt;u&gt;RICHIESTA DI PRESTAZIONE TECNICA&lt;/u&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="0" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td height="50px" style="border: 1px solid; text-align: center;" width="180px"&gt;
@@ -40,9 +40,9 @@
 	&lt;/table&gt;
 &lt;/div&gt;
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
+	&lt;table cellspacing="0" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
 		&lt;tbody&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td width="100px"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Il/la sottoscritto/a &lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="2"&gt;
@@ -56,7 +56,7 @@
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agent_birthdate&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;residente a&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
@@ -72,7 +72,7 @@
 				&lt;td width="150px"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agent_mobile&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;in qualit&amp;agrave; di&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="2"&gt;
@@ -82,7 +82,7 @@
 				&lt;td colspan="4"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$xconto&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Codice Fiscale:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="2"&gt;
@@ -92,7 +92,7 @@
 				&lt;td colspan="4"&gt;
 					&amp;nbsp;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Recapiti&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="4"&gt;
@@ -102,7 +102,7 @@
 				&lt;td colspan="2"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$agenzia_email&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Documento:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td width="110px"&gt;
@@ -128,9 +128,9 @@
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; DATI DEL MEZZO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
+	&lt;table cellspacing="0" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
 		&lt;tbody&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td width="180px"&gt;
 					&lt;div&gt;
 						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tipologia del mezzo:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
@@ -138,25 +138,25 @@
 				&lt;td colspan="7"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$imbarcazione_tipo&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Nome:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="7"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$imbarcazione_nome&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Compartimento:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="7"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$vessel_regplace&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Bandiera:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="7"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$imbarcazione_bandiera&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;N&amp;deg; di iscrizione:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
@@ -192,7 +192,7 @@
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; La prestazione tecnica relativa al rilascio dei seguenti certificati:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
+	&lt;table cellspacing="0" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="border: 1px solid; text-align: center;" width="14px"&gt;
@@ -265,38 +265,28 @@
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; A tal fine allega una copia del certificato di classe attestante il tipo di navigazione.&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
-		&lt;tbody&gt;
-			&lt;tr&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;FIRMA&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;
-					&lt;div&gt;
-						&lt;u&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$port, $date&lt;/span&gt;&lt;/span&gt;&lt;/u&gt;&lt;/div&gt;
-					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Luogo e data&lt;/span&gt;&lt;/span&gt; &lt;/span&gt;&lt;/div&gt;
-				&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					$agency_stamp&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-			&lt;/tr&gt;
-		&lt;/tbody&gt;
-	&lt;/table&gt;
+	&lt;table style="width:98%;margin-top:15px;"&gt;
+    &lt;tr&gt;
+
+        &lt;td style="width:55%;vertical-align:top;"&gt;
+            &lt;div&gt;&lt;u&gt;$port, $date&lt;/u&gt;&lt;/div&gt;
+            &lt;div style="font-size:11px;"&gt;Luogo e data&lt;/div&gt;
+        &lt;/td&gt;
+
+        &lt;td style="width:45%;text-align:center;vertical-align:top;"&gt;
+
+    &lt;div style="font-weight:bold;margin-bottom:6px;"&gt;
+        FIRMA
+    &lt;/div&gt;
+
+    &lt;div style="line-height:0;font-size:0;"&gt;
+        $agency_stamp
+    &lt;/div&gt;
+
+&lt;/td&gt;
+
+    &lt;/tr&gt;
+&lt;/table&gt;
 	&lt;div&gt;
 		&amp;nbsp;&lt;/div&gt;
 &lt;/div&gt;
@@ -820,13 +810,46 @@
 <editable _T="NN" dtype="::NN"></editable></gd1wkm7qxl></varsbag>
 <parameters _T="BAG"></parameters>
 <email><attached_reports _T="BAG"></attached_reports></email>
-<content_css></content_css>
-<compiled><main maintable="shipsteps.certsanimare" locale="it" virtual_columns="@arrival_id.@vessel_details_id.@reg_place.citta_nazione,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,sanification_x,medicines_x,waterbox_x,reg_narcotics_x,newreg_narcotics_x,destroy_med_x,@arrival_id.usma_int" columns="$xconto,$docagent,$doc_n,$issuedby,$datedoc,$navigation,$sanification,$san_nsis,$medicines,$tab_medicine,$med_nsis,$waterbox,$water_nsis,$reg_narcotics,$narcotics_nsis,$newreg_narcotics,$newnarcotics_nsis,$destroy_med,$destroymed_nsis,$visit_date,$date,@arrival_id.@agency_id.agent_name,@arrival_id.@agency_id.birthplace,@arrival_id.@agency_id.birthdate,@arrival_id.@agency_id.residence_address,@arrival_id.@agency_id.cap_residence,@arrival_id.@agency_id.residence_city,@arrival_id.@agency_id.mobile_agent,@arrival_id.@agency_id.cf_agent,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.agency_stamp,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.address,@arrival_id.@agency_id.tel,@arrival_id.@agency_id.email,@arrival_id.@vessel_details_id.@reg_place.citta_nazione,@arrival_id.@vessel_details_id.callsign,@arrival_id.@vessel_details_id.@imbarcazione_id.nt,@arrival_id.@vessel_details_id.@imbarcazione_id.gt,@arrival_id.@vessel_details_id.reg_num,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,$sanification_x,$medicines_x,$waterbox_x,$reg_narcotics_x,$newreg_narcotics_x,$destroy_med_x,@arrival_id.usma_int" formats='{"datedoc": "dd/MM/YYYY", "visit_date": "dd/MM/YYYY", "date": "dd/MM/YYYY", "agent_birthdate": "dd/MM/YYYY", "agency_stamp": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"xconto": "T", "docagent": "T", "doc_n": "T", "issuedby": "T", "datedoc": "D", "navigation": "T", "sanification": "B", "san_nsis": "T", "medicines": "B", "tab_medicine": "T", "med_nsis": "T", "waterbox": "B", "water_nsis": "T", "reg_narcotics": "B", "narcotics_nsis": "T", "newreg_narcotics": "B", "newnarcotics_nsis": "T", "destroy_med": "B", "destroymed_nsis": "T", "visit_date": "D", "date": "D", "agent_name": "T", "agent_birthplace": "T", "agent_birthdate": "D", "agent_residence_address": "T", "agent_cap_residence": "A", "agent_residence_city": "T", "agent_mobile": "T", "agent_cf": "A", "port": "T", "agency_stamp": "P", "agency_name": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "vessel_regplace": "A", "callsign": "A", "imbarcazione_nt": "T", "imbarcazione_gt": "T", "vessel_reg_num": "T", "imbarcazione_bandiera": "A", "imbarcazione_nome": "T", "imbarcazione_tipo": "T", "sanification_x": "A", "medicines_x": "A", "waterbox_x": "A", "reg_narcotics_x": "A", "newreg_narcotics_x": "A", "destroy_med_x": "A", "usma_int": "T"}::JS'>&lt;div style="text-align: center;"&gt;
+<content_css>td{
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+    line-height:1.20;
+    padding:0 2px;
+    vertical-align:top;
+}
+
+table{
+    width:98%;
+    border-collapse:collapse;
+    table-layout:auto;
+}
+.nowrap{
+    white-space:nowrap;
+}
+</content_css>
+<compiled><main maintable="shipsteps.certsanimare" locale="it" virtual_columns="@arrival_id.@vessel_details_id.@reg_place.citta_nazione,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,sanification_x,medicines_x,waterbox_x,reg_narcotics_x,newreg_narcotics_x,destroy_med_x,@arrival_id.usma_int" columns="$xconto,$docagent,$doc_n,$issuedby,$datedoc,$navigation,$sanification,$san_nsis,$medicines,$tab_medicine,$med_nsis,$waterbox,$water_nsis,$reg_narcotics,$narcotics_nsis,$newreg_narcotics,$newnarcotics_nsis,$destroy_med,$destroymed_nsis,$visit_date,$date,@arrival_id.@agency_id.agent_name,@arrival_id.@agency_id.birthplace,@arrival_id.@agency_id.birthdate,@arrival_id.@agency_id.residence_address,@arrival_id.@agency_id.cap_residence,@arrival_id.@agency_id.residence_city,@arrival_id.@agency_id.mobile_agent,@arrival_id.@agency_id.cf_agent,@arrival_id.@agency_id.@port.descrizione,@arrival_id.@agency_id.agency_stamp,@arrival_id.@agency_id.agency_name,@arrival_id.@agency_id.address,@arrival_id.@agency_id.tel,@arrival_id.@agency_id.email,@arrival_id.@vessel_details_id.@reg_place.citta_nazione,@arrival_id.@vessel_details_id.callsign,@arrival_id.@vessel_details_id.@imbarcazione_id.nt,@arrival_id.@vessel_details_id.@imbarcazione_id.gt,@arrival_id.@vessel_details_id.reg_num,@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename,@arrival_id.@vessel_details_id.@imbarcazione_id.nome,@arrival_id.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code,$sanification_x,$medicines_x,$waterbox_x,$reg_narcotics_x,$newreg_narcotics_x,$destroy_med_x,@arrival_id.usma_int" formats='{"datedoc": "dd/MM/YYYY", "visit_date": "dd/MM/YYYY", "date": "dd/MM/YYYY", "agent_birthdate": "dd/MM/YYYY", "agency_stamp": "auto"}::JS' masks="{}::JS" editcols="{}::JS" df_templates="{}::JS" dtypes='{"xconto": "T", "docagent": "T", "doc_n": "T", "issuedby": "T", "datedoc": "D", "navigation": "T", "sanification": "B", "san_nsis": "T", "medicines": "B", "tab_medicine": "T", "med_nsis": "T", "waterbox": "B", "water_nsis": "T", "reg_narcotics": "B", "narcotics_nsis": "T", "newreg_narcotics": "B", "newnarcotics_nsis": "T", "destroy_med": "B", "destroymed_nsis": "T", "visit_date": "D", "date": "D", "agent_name": "T", "agent_birthplace": "T", "agent_birthdate": "D", "agent_residence_address": "T", "agent_cap_residence": "A", "agent_residence_city": "T", "agent_mobile": "T", "agent_cf": "A", "port": "T", "agency_stamp": "P", "agency_name": "T", "agenzia_address": "T", "agenzia_tel": "T", "agenzia_email": "T", "vessel_regplace": "A", "callsign": "A", "imbarcazione_nt": "T", "imbarcazione_gt": "T", "vessel_reg_num": "T", "imbarcazione_bandiera": "A", "imbarcazione_nome": "T", "imbarcazione_tipo": "T", "sanification_x": "A", "medicines_x": "A", "waterbox_x": "A", "reg_narcotics_x": "A", "newreg_narcotics_x": "A", "destroy_med_x": "A", "usma_int": "T"}::JS'>&lt;style&gt;td{
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+    line-height:1.20;
+    padding:0 2px;
+    vertical-align:top;
+}
+
+table{
+    width:98%;
+    border-collapse:collapse;
+    table-layout:auto;
+}
+.nowrap{
+    white-space:nowrap;
+}
+
+&lt;/style&gt;&lt;div style="text-align: center;"&gt;
 	&amp;nbsp;&lt;/div&gt;
 &lt;div style="text-align: center;"&gt;
 	&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&lt;u&gt;RICHIESTA DI PRESTAZIONE TECNICA&lt;/u&gt;&lt;/strong&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
+	&lt;table cellpadding="1" cellspacing="0" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td height="50px" style="border: 1px solid; text-align: center;" width="180px"&gt;
@@ -850,9 +873,9 @@
 	&lt;/table&gt;
 &lt;/div&gt;
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
+	&lt;table cellspacing="0" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
 		&lt;tbody&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td width="100px"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Il/la sottoscritto/a &lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="2"&gt;
@@ -866,7 +889,7 @@
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@agency_id.birthdate^agent_birthdate&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;residente a&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
@@ -882,7 +905,7 @@
 				&lt;td width="150px"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@agency_id.mobile_agent&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;in qualit&amp;agrave; di&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="2"&gt;
@@ -892,7 +915,7 @@
 				&lt;td colspan="4"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$xconto&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Codice Fiscale:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="2"&gt;
@@ -902,7 +925,7 @@
 				&lt;td colspan="4"&gt;
 					&amp;nbsp;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Recapiti&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="4"&gt;
@@ -912,7 +935,7 @@
 				&lt;td colspan="2"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@agency_id.email&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Documento:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td width="110px"&gt;
@@ -938,9 +961,9 @@
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; DATI DEL MEZZO&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
+	&lt;table cellspacing="0" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
 		&lt;tbody&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td width="180px"&gt;
 					&lt;div&gt;
 						&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Tipologia del mezzo:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
@@ -948,25 +971,25 @@
 				&lt;td colspan="7"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.@tip_imbarcazione_code.code&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Nome:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="7"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.nome&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Compartimento:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="7"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@vessel_details_id.@reg_place.citta_nazione&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Bandiera:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td colspan="7"&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@vessel_details_id.@imbarcazione_id.@flag.codename&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 			&lt;/tr&gt;
-			&lt;tr height="25px"&gt;
+			&lt;tr height="10px"&gt;
 				&lt;td&gt;
 					&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;N&amp;deg; di iscrizione:&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
 				&lt;td&gt;
@@ -1002,7 +1025,7 @@
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; La prestazione tecnica relativa al rilascio dei seguenti certificati:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
+	&lt;table cellspacing="0" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
 		&lt;tbody&gt;
 			&lt;tr&gt;
 				&lt;td style="border: 1px solid; text-align: center;" width="14px"&gt;
@@ -1075,38 +1098,28 @@
 	&amp;nbsp;&lt;/div&gt;
 &lt;div&gt;
 	&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; A tal fine allega una copia del certificato di classe attestante il tipo di navigazione.&lt;/strong&gt;&lt;/span&gt;&lt;/span&gt;&lt;br /&gt;
-	&lt;table cellpadding="1" cellspacing="1" style="border-collapse:collapse;margin-left:20px;margin-top:15px;width:98%;"&gt;
-		&lt;tbody&gt;
-			&lt;tr&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;&lt;span style="font-size:12px;"&gt;FIRMA&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;
-					&lt;div&gt;
-						&lt;u&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;$@arrival_id.@agency_id.@port.descrizione, $date^date&lt;/span&gt;&lt;/span&gt;&lt;/u&gt;&lt;/div&gt;
-					&lt;div&gt;
-						&lt;span style="font-size:12px;"&gt;&lt;span style="font-size:12px;"&gt;&lt;span style="font-family:arial,helvetica,sans-serif;"&gt;Luogo e data&lt;/span&gt;&lt;/span&gt; &lt;/span&gt;&lt;/div&gt;
-				&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					$@arrival_id.@agency_id.agency_stamp^agency_stamp&lt;/td&gt;
-			&lt;/tr&gt;
-			&lt;tr&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-				&lt;td&gt;
-					&amp;nbsp;&lt;/td&gt;
-			&lt;/tr&gt;
-		&lt;/tbody&gt;
-	&lt;/table&gt;
+	&lt;table style="width:98%;margin-top:15px;"&gt;
+    &lt;tr&gt;
+
+        &lt;td style="width:55%;vertical-align:top;"&gt;
+            &lt;div&gt;&lt;u&gt;$@arrival_id.@agency_id.@port.descrizione, $date^date&lt;/u&gt;&lt;/div&gt;
+            &lt;div style="font-size:11px;"&gt;Luogo e data&lt;/div&gt;
+        &lt;/td&gt;
+
+        &lt;td style="width:45%;text-align:center;vertical-align:top;"&gt;
+
+    &lt;div style="font-weight:bold;margin-bottom:6px;"&gt;
+        FIRMA
+    &lt;/div&gt;
+
+    &lt;div style="line-height:0;font-size:0;"&gt;
+        $@arrival_id.@agency_id.agency_stamp^agency_stamp
+    &lt;/div&gt;
+
+&lt;/td&gt;
+
+    &lt;/tr&gt;
+&lt;/table&gt;
 	&lt;div&gt;
 		&amp;nbsp;&lt;/div&gt;
 &lt;/div&gt;
