@@ -1,0 +1,36 @@
+.vessel_details{
+    background: url(/_rsrc/pkg_shipsteps/icons/vessel_details.svg);
+    height:16px;
+    width:16px;
+    background-size:contain;
+}
+.fda{
+    background: url(/_rsrc/pkg_shipsteps/icons/fda.svg);
+    height:16px;
+    width:16px;
+    background-size:contain;
+}
+.cargo_vessel{
+    background: url(/_rsrc/pkg_shipsteps/icons/cargo_vessel.png);
+    height:16px;
+    width:16px;
+    background-size:contain;
+}
+.cargo_loading{
+    background: url(/_rsrc/pkg_shipsteps/icons/cargo_loading.svg);
+    height:16px;
+    width:16px;
+    background-size:contain;
+}
+.shifting{
+    background: url(/_rsrc/pkg_shipsteps/icons/shifting.svg);
+    height:16px;
+    width:16px;
+    background-size:contain;
+}
+.email_address{
+    background: url(/_rsrc/pkg_shipsteps/icons/email_address.svg);
+    height:16px;
+    width:16px;
+    background-size:contain;
+}

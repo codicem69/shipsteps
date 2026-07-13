@@ -271,8 +271,9 @@ class View_Filtered_Arrivals(BaseComponent):
             del_row = False
    
         return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
-    
+   
 class Form(BaseComponent):
+    css_requires='icons.css'
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager,gnrcomponents/pagededitor/pagededitor:PagedEditor"
     
     def th_form(self, form):
@@ -302,7 +303,9 @@ class Form(BaseComponent):
 
         tc = form.center.tabContainer(selected='.current_tab')
         bc = tc.borderContainer(title='!![en]<strong>Arrival</strong>')
-        tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center',selected='^.tabnumber')#,hidden='^#FORM.record.@last_port.nazione_code?=!(#v=="IT"||#v=="LM")')#,hidden="^#FORM.record.@last_port.nazione_code?=#v!='IT'")
+        #disabilitato tabContainer carico a favore dialog con pulsante
+        #tc_car = tc.tabContainer(title='!![en]<strong>Cargo</strong>',region='center',selected='^.tabnumber')#,hidden='^#FORM.record.@last_port.nazione_code?=!(#v=="IT"||#v=="LM")')#,hidden="^#FORM.record.@last_port.nazione_code?=#v!='IT'")
+        
         bc_extracp = tc.borderContainer(title='!![en]<strong>Extra dati CP</strong>',hidden='^gnr.app_preference.shipsteps.nsw_cp')#attributo hidden per nascondere il tab se flaggato nelle preferenze disabilita NSW CP
         bc_att = tc.borderContainer(title='!![en]<strong>Attachments</strong>')
         
@@ -319,23 +322,27 @@ class Form(BaseComponent):
         #tc_undertask = bc_tasklist.tabContainer(margin='2px', region='bottom', height='130px', splitter=True,selectedPage='^tabname')
         tc_undertask = bc_tasklist.borderContainer(region='bottom',height='150px', splitter=True,closable=True).tabContainer(margin='2px',region='top',height='150px', selectedPage='^tabname')
         tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
-        
+        tc_sof.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
+
         #disabilitato tabcontainer Application per uso dialog con pulsante
         #tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
-        tc_bl = tc.borderContainer(title='!![en]<strong>Loading Cargoes</strong>')
+        #disabilitato Loading cargo a favore palette con pulsante
+        #tc_bl = tc.borderContainer(title='!![en]<strong>Loading Cargoes</strong>')
+        #tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
         #disabilitato tabcontainer Sanimare certificates per uso dialog con pulsante
         #tc_usma = tc.borderContainer(title='!![en]<strong>Sanimare certificates</strong>')
         #tc_parapon = bc_task3.tabContainer(title='pippo')
         self.extraDatiCP(bc_extracp.borderContainer(region='center', splitter=True, background = '#f2f0e8'))
         #self.usmaCert(bc_usma.borderContainer(title='!![en]Renew certificates Sanimare',region='center', splitter=True, background = 'seashell'))
-        tc_bl.contentPane(title='!![en]Loading Cargoes',height='100%').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
+        
         #disabilitato tabcontainer Sanimare certificates per uso dialog con pulsante
         #tc_usma.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
         tc_email = tc.borderContainer(title='!![en]<strong>Email in/out</strong>')
         tc_email.contentPane(title='!![en]Email in/out',height='100%').remote(self.emailInOutLazyMode,_waitingMessage='!![en]Please wait')
+        #disabilitato fda tabContainer a favore di palette con pulsante
+        #tc_fda = tc.borderContainer(title='!![en]<strong>FDA</strong>',selectedPage='^.tabname')
+        #tc_fda.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]FDA',pageName='fda',height='100%').remote(self.fdaLazyMode,_waitingMessage='!![en]Please wait')
 
-        tc_fda = tc.borderContainer(title='!![en]<strong>FDA</strong>',selectedPage='^.tabname')
-        
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
 
         self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = '#f2f0e8'))
@@ -356,8 +363,8 @@ class Form(BaseComponent):
         
         #self.sof(tc_sof.contentPane(title='!![en]Sof',height='100%'))
         #tc_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
-        tc_sof.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
-        tc_fda.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]FDA',pageName='fda',height='100%').remote(self.fdaLazyMode,_waitingMessage='!![en]Please wait')
+        
+        
         
         #self.allegatiArrivo(tc_task.contentPane(title='Attachments', region='center', height='100%', splitter=True))
         
@@ -375,26 +382,21 @@ class Form(BaseComponent):
 
         tc = bc.tabContainer(margin='2px', region='center', height='auto', splitter=True)
 
-        tc_under_car = tc_car.tabContainer(title='!![en]Cargo onboard')
+        #dati CARICO
+        #tc_under_car = tc_car.tabContainer(title='!![en]Cargo onboard')
+        #self.carbordoArr(tc_under_car.contentPane(title="!![en]Cargo onboard on arrival",datapath='.record'))
+        #self.carbordoDep(tc_under_car.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
+        #self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
+        #self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
+        ##tc_under_unseal = tc_car.tabContainer(title='!![en]Unsealing')
+        #tc_car.borderContainer(title='!![en]Unsealing',region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Unsealing',pageName='unsealing',height='100%').remote(self.unsealingLazyMode,_waitingMessage='!![en]Please wait')
         
-        self.carbordoArr(tc_under_car.contentPane(title="!![en]Cargo onboard on arrival",datapath='.record'))
-        self.carbordoDep(tc_under_car.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
-        
-        self.datiCarico(tc_car.contentPane(title='!![en]Cargo loading / unloading'))
-        self.datiCaricoTransit(tc_car.contentPane(title='!![en]Transit cargo',datapath='.record'))
         #disabilitato tabContainer tempi e dettagli nave per dialog con pulsante
         #self.arrival_details(tc_arrtimes.borderContainer(title='!![en]Arrival/Departure details',height='100%', region='top', background = '#f2f0e8', pageName='arrtime'))
-        #tc_under_unseal = tc_car.tabContainer(title='!![en]Unsealing')
-        tc_car.borderContainer(title='!![en]Unsealing',region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Unsealing',pageName='unsealing',height='100%').remote(self.unsealingLazyMode,_waitingMessage='!![en]Please wait')
-       
-        tc.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait') 
- 
- 
- 
- 
- 
- 
- 
+        
+        #disabilitato tabContainer a favore palette con pulsante
+        #tc.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait') 
+  
         self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
         #tabContainer con dettagli della nave
         #tc.contentPane(title='!![en]Vessel details').templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
@@ -511,17 +513,29 @@ class Form(BaseComponent):
     #    pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices')
     def th_bottom_custom(self, bottom):
         
-        bar = bottom.slotToolbar('*,v_details,10,movimenti,*')
-
-        bar.movimenti.button('Movimenti banchina',disabled='^#FORM.btn_mov',
-                     iconClass='iconbox note',
-                     action="genro.publish('open_dock_movements',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+        bar = bottom.slotToolbar('*,v_details,10,email_arr,10,movimenti,10,carico,10,load_cargo,10,fda,*')
         bar.v_details.button('!![en]Vessel details',disabled='^#FORM.controller.locked',
-                     iconClass='iconbox info',
+                     iconClass='vessel_details',
                      action="genro.publish('open_vessel_details',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+        bar.email_arr.button('!![en]Emails arrival',disabled='^#FORM.controller.locked',
+                     iconClass='email_address',
+                     action="genro.publish('open_email_arr',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+        bar.movimenti.button('Movimenti banchina',disabled='^#FORM.btn_mov',
+                     iconClass='shifting',
+                     action="genro.publish('open_dock_movements',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+        bar.carico.button('!![en]Cargo loading / unloading',disabled='^#FORM.controller.locked',
+                     iconClass='cargo_vessel',
+                     action="genro.publish('open_cargo',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+        bar.load_cargo.button('!![en]Loading Cargo',disabled='^#FORM.controller.locked',
+                     iconClass='cargo_loading',
+                     action="genro.publish('open_loadingcargo',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+        bar.fda.button('!![en]Final D/A',disabled='^#FORM.controller.locked',
+                     iconClass='fda',
+                     action="genro.publish('open_fda',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
 
         #^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers
     def datiArrivo(self,bc):
+        #MOVIMENTI BANCHINA
         dlg = bc.dialog(
         title='Movimenti banchina',
         width='900px',
@@ -540,7 +554,16 @@ class Form(BaseComponent):
                           locked='^#FORM.controller.locked',
                           dock='^#FORM.record.dock_id',
                           moored='^#FORM.record.@time_arr.moored')
-        
+
+        #EMAIL ARRIVAL     
+        dlg_email = bc.palette(title='!![en]Email arrival',closable=True,paletteCode='email_arr',dockButton=True,
+        width='1800px',
+        height='900px')
+
+        dlg_email.dataController("""dlg.show();""", dlg=dlg_email.js_widget, subscribe_open_email_arr=True)
+        dlg_email.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
+
+        #VESSEL DETAILS
         dlg_vdet = bc.palette(paletteCode='v_details',dockButton=True,
         title='!![en]Vessel details',closable=True,
         width='600px',
@@ -551,10 +574,45 @@ class Form(BaseComponent):
         dlg_vdet.contentPane().templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
                                                 template='dettaglio_imb',noModal=True)
         
-        #ondition='$arrival_id=:arrival_id',
-        #ondition_arrival_id='=.selected_arrival_id',
-        #efault_kwargs=dict(arrival_id='=^.selected_arrival_id'),dialog=True)
+        #CARICO 
+        dlg_car = bc.dialog(title='!![en]Cargo loading / unloading',closable=True,
+        width='1800px',
+        height='900px')
 
+        dlg_car.dataController("""dlg.show();""", dlg=dlg_car.js_widget, subscribe_open_cargo=True)
+
+        bc_cargo = dlg_car.borderContainer()
+        top = bc_cargo.contentPane(region='top', height='40px')
+        top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
+        # Tab centrali
+        tc_center = bc_cargo.tabContainer(region='center', width='100%')
+        #pane = tc_center.contentPane(title='Cargo')
+        tc_under_c = tc_center.tabContainer(title='!![en]Cargo onboard')
+        self.carbordoArr(tc_under_c.contentPane(title="!![en]Cargo onboard on arrival",datapath='.record'))
+        self.carbordoDep(tc_under_c.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
+        self.datiCarico(tc_center.contentPane(title='!![en]Cargo loading / unloading'))
+        self.datiCaricoTransit(tc_center.contentPane(title='!![en]Transit cargo',datapath='.record'))
+        #UNSEALING
+        tc_center.borderContainer(title='!![en]Unsealing',region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Unsealing',pageName='unsealing',height='100%').remote(self.unsealingLazyMode,_waitingMessage='!![en]Please wait')
+        
+        #LOADING CARGO
+        #CARICO 
+        dlg_loadcar = bc.palette(paletteCode='loadcargo',dockButton=True,
+        title='!![en]Loading Cargo',closable=True,
+        width='1800px',
+        height='900px')
+
+        dlg_loadcar.dataController("""dlg.show();""", dlg=dlg_loadcar.js_widget, subscribe_open_loadingcargo=True)
+        dlg_loadcar.stackTableHandler(relation='@cargodocs_arr',formResource='FormFromCargodocs',view_store__onBuilt=True)
+        
+        #FINAL D/A
+        dlg_fda = bc.palette(paletteCode='fda',dockButton=True,
+        title='!![en]Final D/A',closable=True,
+        width='1800px',
+        height='900px')
+
+        dlg_fda.dataController("""dlg.show();""", dlg=dlg_fda.js_widget, subscribe_open_fda=True)
+        dlg_fda.stackTableHandler(table='shipsteps.fda',relation='@fda_arr',formResource='Form',view_store__onBuilt=True)
         #center = bc.roundedGroup(title='!![en]Vessel arrival', region='center',datapath='.record',width='210px', height = '100%').div(margin='10px',margin_left='2px')
         #center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')
         #center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
