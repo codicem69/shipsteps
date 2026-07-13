@@ -582,8 +582,9 @@ class Form(BaseComponent):
         dlg_car.dataController("""dlg.show();""", dlg=dlg_car.js_widget, subscribe_open_cargo=True)
 
         bc_cargo = dlg_car.borderContainer()
-        top = bc_cargo.contentPane(region='top', height='40px')
-        top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
+        top = bc_cargo.contentPane(region='top', height='60px')
+        #top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('M/V '+'^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
+        top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('== tipo + " " + nome',tipo='^#FORM.record.@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code', nome='^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
         # Tab centrali
         tc_center = bc_cargo.tabContainer(region='center', width='100%')
         #pane = tc_center.contentPane(title='Cargo')
