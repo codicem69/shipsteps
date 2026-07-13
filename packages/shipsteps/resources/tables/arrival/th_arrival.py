@@ -18,7 +18,6 @@ import re
 from datetime import timedelta
 
 class View(BaseComponent):
-    
     def th_struct(self,struct):
         "Vista standard"
         r = struct.view().rows()  
@@ -388,10 +387,18 @@ class Form(BaseComponent):
         #tc_under_unseal = tc_car.tabContainer(title='!![en]Unsealing')
         tc_car.borderContainer(title='!![en]Unsealing',region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Unsealing',pageName='unsealing',height='100%').remote(self.unsealingLazyMode,_waitingMessage='!![en]Please wait')
        
-        tc.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait')
+        tc.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait') 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
         self.NoteArrival(tc.contentPane(title='Arrival Note',datapath='.record'))
-        tc.contentPane(title='!![en]Vessel details').templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
-                                                template='dettaglio_imb')
+        #tabContainer con dettagli della nave
+        #tc.contentPane(title='!![en]Vessel details').templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
+        #                                        template='dettaglio_imb')
 
     #arrival times e details su tabContainer separati e con stackTableHandler disabiltati e utilizzato la form unica
     #def arrival_times(self, pane):
@@ -503,11 +510,15 @@ class Form(BaseComponent):
     #def services(self,pane):
     #    pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices')
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotToolbar('*,movimenti,*')
+        
+        bar = bottom.slotToolbar('*,v_details,10,movimenti,*')
 
         bar.movimenti.button('Movimenti banchina',disabled='^#FORM.btn_mov',
                      iconClass='iconbox note',
                      action="genro.publish('open_dock_movements',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+        bar.v_details.button('!![en]Vessel details',disabled='^#FORM.controller.locked',
+                     iconClass='iconbox info',
+                     action="genro.publish('open_vessel_details',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
 
         #^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers
     def datiArrivo(self,bc):
@@ -530,6 +541,15 @@ class Form(BaseComponent):
                           dock='^#FORM.record.dock_id',
                           moored='^#FORM.record.@time_arr.moored')
         
+        dlg_vdet = bc.palette(paletteCode='v_details',dockButton=True,
+        title='!![en]Vessel details',closable=True,
+        width='600px',
+        height='550px',
+        top='100px',
+        left='300px')
+        dlg_vdet.dataController("""dlg.show();""", dlg=dlg_vdet.js_widget, subscribe_open_vessel_details=True)
+        dlg_vdet.contentPane().templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
+                                                template='dettaglio_imb',noModal=True)
         
         #ondition='$arrival_id=:arrival_id',
         #ondition_arrival_id='=.selected_arrival_id',
