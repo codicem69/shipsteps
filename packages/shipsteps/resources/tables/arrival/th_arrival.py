@@ -364,8 +364,10 @@ class Form(BaseComponent):
 
         #tc_undertask = bc_tasklist.tabContainer(margin='2px', region='bottom', height='130px', splitter=True,selectedPage='^tabname')
         tc_undertask = bc_tasklist.borderContainer(region='bottom',height='150px', splitter=True,closable=True).tabContainer(margin='2px',region='top',height='150px', selectedPage='^tabname')
-        tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
-        tc_sof.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
+        
+        #RIMOSSO TAB SOF A FAVORE PULSANTE CHE APRE UNA PALETTE CON IL SOF
+        #tc_sof = tc.borderContainer(title='!![en]<strong>SOF</strong>',selectedPage='^.tabname')
+        #tc_sof.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
 
         #disabilitato tabcontainer Application per uso dialog con pulsante
         #tc_app = tc.tabContainer(title='!![en]<strong>Applications</strong>')
@@ -392,7 +394,8 @@ class Form(BaseComponent):
         #visualizziamo in alto alle pagine tasklist e arrival times gli expected times
         self.checkTasklist(bc_tasklist.borderContainer(region='left',width='10%', background = 'SlateGrey', splitter=True, closable='close'))
         self.times(bc_tasklist.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
-        self.times_sof(tc_sof.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
+        #self.times_sof(tc_sof.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
+        self.times_sof(bc_tasklist)
         self.taskList(bc_tasklist.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True))
         
         bc_tasklist.contentPane(region='right', width='45%',splitter=True,closable=True,rounded=5,border='1px solid',border_color='grey').remote(self.checklistLazyMode,_waitingMessage='!![en]Please wait')
@@ -556,7 +559,7 @@ class Form(BaseComponent):
     #    pane.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices')
     def th_bottom_custom(self, bottom):
         
-        bar = bottom.slotToolbar('*,v_details,10,email_arr,10,movimenti,10,carico,10,load_cargo,10,fda,*')
+        bar = bottom.slotToolbar('*,v_details,10,email_arr,10,movimenti,10,carico,10,load_cargo,10,sof,10,fda,*')
         bar.v_details.button('!![en]Vessel details',disabled='^#FORM.controller.locked',
                      iconClass='vessel_details',
                      action="genro.publish('open_vessel_details',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
@@ -572,6 +575,9 @@ class Form(BaseComponent):
         bar.load_cargo.button('!![en]Loading Cargo',disabled='^#FORM.controller.locked',
                      iconClass='cargo_loading',
                      action="genro.publish('open_loadingcargo',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+        bar.sof.button('!![en]SOF',disabled='^#FORM.controller.locked',
+                     iconClass='sof',
+                     action="genro.publish('open_sof',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
         bar.fda.button('!![en]Final D/A',disabled='^#FORM.controller.locked',
                      iconClass='fda',
                      action="genro.publish('open_fda',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
@@ -649,6 +655,18 @@ class Form(BaseComponent):
         dlg_loadcar.dataController("""dlg.show();""", dlg=dlg_loadcar.js_widget, subscribe_open_loadingcargo=True)
         dlg_loadcar.stackTableHandler(relation='@cargodocs_arr',formResource='FormFromCargodocs',view_store__onBuilt=True)
         
+        #SOF
+        dlg_sof = bc.palette(paletteCode='sof',dockButton=True,
+        title='!![en]Statment of Facts',closable=True,
+        width='1800px',
+        height='900px')
+
+        dlg_sof.dataController("""dlg.show();""", dlg=dlg_sof.js_widget, subscribe_open_sof=True)
+        #bc_sof = dlg_sof.borderContainer()
+        #tc_sof = bc_sof.tabContainer(region='center', width='100%')
+        dlg_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
+        #stackTableHandler(table='shipsteps.fda',relation='@fda_arr',formResource='Form',view_store__onBuilt=True)
+
         #FINAL D/A
         dlg_fda = bc.palette(paletteCode='fda',dockButton=True,
         title='!![en]Final D/A',closable=True,
