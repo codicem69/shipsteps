@@ -17,9 +17,41 @@ import subprocess #per apertura file tramite programma di sistema
 import re
 from datetime import timedelta
 
+
 class View(BaseComponent):
     def th_struct(self,struct):
         "Vista standard"
+        r = struct.view().rows()  
+        arrival = r.columnset('colset_arrival', name='Arrival', color='white',background='DarkSlateBlue', font_weight='bold')
+        arrival.fieldcell('agency_id', width='7em')
+        arrival.fieldcell('reference_num', width='8em')
+        arrival.fieldcell('protfald', width='7em')
+        arrival.fieldcell('visit_id',width='8em')
+        arrival.fieldcell('@arr_tasklist.email_tributi_cp', width='4em', semaphore=True,hidden='^gnr.app_preference.shipsteps.email_tributi_cp')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
+        arrival.fieldcell('date', width='5em')
+        arrival.fieldcell('vessel_details_id', width='15em', font_weight='bold')
+        arrival.fieldcell('movtype_id', width='6em', font_weight='bold')
+        expect = r.columnset('colset_expect', name='Expected Times', color='white',background='SeaGreen', font_weight='bold')
+        expect.fieldcell('eta', width='5em', Short=True)
+        expect.fieldcell('etb', width='5em')
+        #expect.fieldcell('et_start', width='5em')
+        #expect.fieldcell('etc', width='5em')
+        expect.fieldcell('ets', width='5em')
+        berth = r.columnset('colset_berth', name='Berth', color='white',background='Gray', font_weight='bold')
+        berth.fieldcell('dock_id', width='5em')
+        lastport = r.columnset('colset_lastport', name='Last Port', color='white',background='SlateGray', font_weight='bold')
+        lastport.fieldcell('last_port', width='7em')
+        nextport = r.columnset('colset_nextport', name='Next Port', color='white',background='Maroon', font_weight='bold')
+        nextport.fieldcell('next_port', width='7em')
+
+        cargo = r.columnset('colset_cargo', name='Cargo', color='white',background='RosyBrown', font_weight='bold')
+        #cargo.fieldcell('cargo_dest')
+        cargo.fieldcell('cargo_lu_en', width='30em')
+        cargo.fieldcell('@cargo_lu_arr.tot_cargo', width='8em')
+        #cargo.fieldcell('ship_rec', width='30em')
+
+    def th_struct_completa(self,struct):
+        "Vista Completa"
         r = struct.view().rows()  
         arrival = r.columnset('colset_arrival', name='Arrival', color='white',background='DarkSlateBlue', font_weight='bold')
         arrival.fieldcell('agency_id', width='7em')
@@ -73,7 +105,7 @@ class View(BaseComponent):
         cargo.fieldcell('cargo_lu_en', width='30em')
         cargo.fieldcell('@cargo_lu_arr.tot_cargo', width='8em')
         cargo.fieldcell('ship_rec', width='30em')
-        
+
     def th_struct_clientecarico(self,struct):
         "Vista ClienteCarico"
         r = struct.view().rows()
@@ -168,8 +200,19 @@ class View(BaseComponent):
         else:
             del_row = False
         
-        return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
- 
+        return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row,liveUpdate=True)
+    
+    #def th_condition(self):
+    #    # 1. Calcola la data di oggi e la data di 60 giorni fa
+    #    oggi = datetime.today()
+    #    trenta_giorni_fa = oggi - timedelta(days=60)
+#
+    #    # 2. Passa le date calcolate come parametri alla query
+    #    return dict(
+    #        condition='$date >= :data_inizio AND $date <= :data_fine',
+    #        condition_data_inizio=trenta_giorni_fa,
+    #        condition_data_fine=oggi)
+    
 class View_Filtered_Arrivals(BaseComponent):
     def th_struct(self,struct):
         
@@ -258,7 +301,7 @@ class View_Filtered_Arrivals(BaseComponent):
         return 'reference_num:d' 
 
     def th_query(self):
-        return dict(column='@vessel_details_id.@imbarcazione_id.nome', op='contains', val='', runOnStart=True)
+        return dict(column='@vessel_details_id.@imbarcazione_id.nome', op='contains', val='', runOnStart=True, limit=100)
 
     def th_options(self):
         #se l'utente connesso ha i privilegi di admin/superadmin/sviluppatore visualizzerà il tasto - per la cancellazione del record
