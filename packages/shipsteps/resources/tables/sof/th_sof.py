@@ -74,8 +74,12 @@ class Form(BaseComponent):
     def th_form(self, form):
         form.store.handler('load',virtual_columns='$measure_sof,@arrival_id.reference_num,$ship_rec,$tot_mov,$shortage') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
         # filtrare in daily_sofdetails la misura da applicare in base al carico applicato
+        #form.top.slotToolbar('*,stackButtons,*')
+        #bc = form.center.stackContainer()
         bc = form.center.borderContainer()
+       
         self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='155px', background='lightgrey', splitter=True))
+        
         tc = bc.tabContainer(region = 'center',margin='2px',selectedPage='^.tabname')
         
         self.cargoSof(tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo'))
@@ -273,7 +277,7 @@ class Form(BaseComponent):
     def th_bottom_custom(self, bottom):
         bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,50,times,*')
         btn_times=bar.times.button('Times', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto della Form principale', messageType:'error'}); " \
-                                                        "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",
+                                                        "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",iconClass='clock',
                                                          rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM/parent/#FORM.controller.locked', disabled='^#FORM/parent/#FORM.controller.locked')
         btn_sof_print=bar.stampa_sof.button('Print SOF', disabled='^#FORM/parent/#FORM.controller.locked')
         btn_sof_arrivo=bar.email_arrivo.button('Email arrival',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')

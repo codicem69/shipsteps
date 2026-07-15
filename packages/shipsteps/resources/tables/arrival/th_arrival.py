@@ -635,8 +635,7 @@ class Form(BaseComponent):
         #top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('M/V '+'^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
         top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('== tipo + " " + nome',tipo='^#FORM.record.@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code', nome='^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
         # Tab centrali
-        tc_center = bc_cargo.tabContainer(region='center', width='100%')
-        #pane = tc_center.contentPane(title='Cargo')
+        tc_center = bc_cargo.tabContainer(region='center', width='100%')     
         tc_under_c = tc_center.tabContainer(title='!![en]Cargo onboard')
         self.carbordoArr(tc_under_c.contentPane(title="!![en]Cargo onboard on arrival",datapath='.record'))
         self.carbordoDep(tc_under_c.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
@@ -647,13 +646,13 @@ class Form(BaseComponent):
         
         #LOADING CARGO
         #CARICO 
-        dlg_loadcar = bc.palette(paletteCode='loadcargo',dockButton=True,
+        dlg_loadingcargo = bc.palette(paletteCode='loadingcargo',dockButton=True,
         title='!![en]Loading Cargo',closable=True,
         width='1800px',
         height='900px')
 
-        dlg_loadcar.dataController("""dlg.show();""", dlg=dlg_loadcar.js_widget, subscribe_open_loadingcargo=True)
-        dlg_loadcar.stackTableHandler(relation='@cargodocs_arr',formResource='FormFromCargodocs',view_store__onBuilt=True)
+        dlg_loadingcargo.dataController("""dlg.show();""", dlg=dlg_loadingcargo.js_widget, subscribe_open_loadingcargo=True)
+        dlg_loadingcargo.stackTableHandler(table='shipsteps.cargo_docs',relation='@cargodocs_arr',formResource='FormFromCargodocs',view_store__onBuilt=True)
         
         #SOF
         dlg_sof = bc.palette(paletteCode='sof',dockButton=True,
@@ -5038,10 +5037,11 @@ class Form(BaseComponent):
     def print_template(self, record, resultAttr=None, nome_template=None, email_template_id=None,servizio=[],  nome_vs=None, format_page=None, **kwargs):
         record_arr=record['id']
         flag=record['flag']
+        
         if "righe_cl" in kwargs:
             if kwargs['righe_cl'] == 0:
                 return 'no_cl'
-
+        
        ##verifichiamo che stiamo stampando la checklist e che tipo di movimentazione è stata assegnato all'arrivo
        ##al fine di assegnare il nome template della check list 
        #if nome_template=='shipsteps.arrival:check_list' and record['@tip_mov.code'] == 'alim':

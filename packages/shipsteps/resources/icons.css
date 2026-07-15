@@ -40,3 +40,9 @@
     width:16px;
     background-size:contain;
 }
+.clock{
+    background: url(/_rsrc/pkg_shipsteps/icons/clock.svg);
+    height:16px;
+    width:16px;
+    background-size:contain;
+}

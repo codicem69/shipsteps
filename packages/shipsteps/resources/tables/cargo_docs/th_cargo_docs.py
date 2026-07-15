@@ -70,11 +70,11 @@ class FormFromCargodocs(BaseComponent):
         bar = bottom.slotBar('10,stampa_cargoman,20,stampa_mates,*,stampa_cm,stampa_mr,*')
         btn_cm_print=bar.stampa_cargoman.button('Print Cargo Manifest')
         btn_mr_print=bar.stampa_mates.button("Print Mate's Receipt")
-        btn_cm_print.dataRpc('', self.print_template,record='=#FORM.record',nome_template = 'shipsteps.cargo_docs:cargo_manifest',
+        btn_cm_print.dataRpc('', self.print_cargo_template,record='=#FORM.record',nome_template = 'shipsteps.cargo_docs:cargo_manifest',
         _ask=dict(title='!![en]Select the letterhead',fields=[dict(name='letterhead', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$name',
                              table='adm.htmltemplate')]))
-        btn_mr_print.dataRpc('', self.print_template,record='=#FORM.record',nome_template = 'shipsteps.cargo_docs:mates_receipt',
+        btn_mr_print.dataRpc('', self.print_cargo_template,record='=#FORM.record',nome_template = 'shipsteps.cargo_docs:mates_receipt',
         _ask=dict(title='!![en]Select the letterhead',fields=[dict(name='letterhead', lbl='!![en]Letterhead', tag='dbSelect',columns='$id',
                              hasDownArrow=True, auxColumns='$name',
                              table='adm.htmltemplate')]))
@@ -92,12 +92,12 @@ class FormFromCargodocs(BaseComponent):
                                                                                pkey='=#FORM.pkey')
 
     @public_method
-    def print_template(self, record, resultAttr=None, nome_template=None,format_page=None, **kwargs):
+    def print_cargo_template(self, record, resultAttr=None, nome_template=None,format_page=None, **kwargs):
         
         record_id=record['id']
         #verifichiamo nei kwargs se abbiamo la letterhead da passare come carta intestata 
         if kwargs:
-           letterhead=kwargs['letterhead']
+           letterhead = kwargs.get('letterhead', '')
         else:
            letterhead=''
         tbl_sof = self.db.table('shipsteps.cargo_docs')
