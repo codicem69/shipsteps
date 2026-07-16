@@ -390,7 +390,7 @@ class Form(BaseComponent):
 
         self.allegatiArrivo(bc_att.contentPane(title='!![en]Attachments', height='100%'))
 
-        self.datiArrivo(bc.borderContainer(region='top',height='400px', splitter=True, background = '#f2f0e8'))
+        self.datiArrivo(bc.borderContainer(region='top',height='600px', splitter=True, background = '#f2f0e8'))
         #visualizziamo in alto alle pagine tasklist e arrival times gli expected times
         self.checkTasklist(bc_tasklist.borderContainer(region='left',width='10%', background = 'SlateGrey', splitter=True, closable='close'))
         self.times(bc_tasklist.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
@@ -591,12 +591,12 @@ class Form(BaseComponent):
         height='600px',closable=True)
 
         dlg.dataController("""dlg.show();""", dlg=dlg.js_widget, subscribe_open_dock_movements=True)
-
-        dlg.stackTableHandler(
-        table='shipsteps.movimenti_banchina',
-        relation='@mov_banchina',viewResource='View',
-        formResource='Form',
-        dialog=True)
+        dlg.contentPane(title="!![en]Vessel's movements").remote(self.movDockLazyMode,_waitingMessage='!![en]Please wait') 
+        #dlg.stackTableHandler(
+        #table='shipsteps.movimenti_banchina',
+        #relation='@mov_banchina',viewResource='View',
+        #formResource='Form',
+        #dialog=True)
 
         bc.dataController("""if(locked==false && !!dock && !!moored) {SET .btn_mov=false;}
                           else{SET .btn_mov=true;}""", 
@@ -610,7 +610,9 @@ class Form(BaseComponent):
         height='900px')
 
         dlg_email.dataController("""dlg.show();""", dlg=dlg_email.js_widget, subscribe_open_email_arr=True)
-        dlg_email.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
+        dlg_email.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait') 
+  
+        #dlg_email.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
 
         #VESSEL DETAILS
         dlg_vdet = bc.palette(paletteCode='v_details',dockButton=True,
@@ -620,6 +622,7 @@ class Form(BaseComponent):
         top='100px',
         left='300px')
         dlg_vdet.dataController("""dlg.show();""", dlg=dlg_vdet.js_widget, subscribe_open_vessel_details=True)
+        
         dlg_vdet.contentPane().templateChunk(table='shipsteps.arrival', record_id='^#FORM.record.id',
                                                 template='dettaglio_imb',noModal=True)
         
@@ -652,7 +655,8 @@ class Form(BaseComponent):
         height='900px')
 
         dlg_loadingcargo.dataController("""dlg.show();""", dlg=dlg_loadingcargo.js_widget, subscribe_open_loadingcargo=True)
-        dlg_loadingcargo.stackTableHandler(table='shipsteps.cargo_docs',relation='@cargodocs_arr',formResource='FormFromCargodocs',view_store__onBuilt=True)
+        dlg_loadingcargo.contentPane(title='!![en]Loading Cargoes',height='100%').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg_loadingcargo.stackTableHandler(table='shipsteps.cargo_docs',relation='@cargodocs_arr',formResource='FormFromCargodocs',view_store__onBuilt=True)
         
         #SOF
         dlg_sof = bc.palette(paletteCode='sof',dockButton=True,
@@ -664,6 +668,7 @@ class Form(BaseComponent):
         #bc_sof = dlg_sof.borderContainer()
         #tc_sof = bc_sof.tabContainer(region='center', width='100%')
         dlg_sof.contentPane(title='!![en]Sof',pageName='sof',height='100%').remote(self.sofLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg_sof.stackTableHandler(relation='@sof_arr',view_store__onBuilt=True,liveUpdate=True)
         #stackTableHandler(table='shipsteps.fda',relation='@fda_arr',formResource='Form',view_store__onBuilt=True)
 
         #FINAL D/A
@@ -673,16 +678,17 @@ class Form(BaseComponent):
         height='900px')
 
         dlg_fda.dataController("""dlg.show();""", dlg=dlg_fda.js_widget, subscribe_open_fda=True)
-        dlg_fda.stackTableHandler(table='shipsteps.fda',relation='@fda_arr',formResource='Form',view_store__onBuilt=True)
+        dlg_fda.contentPane(title='!![en]FDA',pageName='fda',height='100%').remote(self.fdaLazyMode,_waitingMessage='!![en]Please wait')
+        #dlg_fda.stackTableHandler(table='shipsteps.fda',relation='@fda_arr',formResource='Form',view_store__onBuilt=True)
         #center = bc.roundedGroup(title='!![en]Vessel arrival', region='center',datapath='.record',width='210px', height = '100%').div(margin='10px',margin_left='2px')
         #center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record',width='960px', height = '100%', margin_left='210px').div(margin='10px',margin_left='2px')
         #center2 = bc.roundedGroup(title='!![en]Special security guards',table='shipsteps.gpg',region='center',datapath='.record.@gpg_arr',width='240px', height = '150px', margin_left='1170px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]EXTRA',region='center',datapath='.record',width='240px',margin_left='1170px', margin_top='150px').div(margin='10px',margin_left='2px')
         
-        center = bc.roundedGroup(title='!![en]Vessel arrival', region='left',datapath='.record',width='12%', height = '100%',splitter=True).div(margin='10px',margin_left='2px')
+        center = bc.roundedGroup(title='!![en]Vessel arrival', region='left',datapath='.record',width='13%', height = '100%',splitter=True).div(margin='10px',margin_left='2px')
         center1 = bc.roundedGroup(title='!![en]Arrival details',region='center',datapath='.record', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
         
-        center2 = bc.roundedGroup(title='!![en]EXTRA',region='right',width='15%', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
+        center2 = bc.roundedGroup(title='!![en]EXTRA',region='right',width='20%', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
        # center3 = bc.roundedGroup(title='!![en]EXTRA',region='right',datapath='.record',width='240px',margin_left='0px', margin_top='150px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]Times',table='shipsteps.arrival_time',region='center',datapath='.record.@time_arr',width='245px', height = '350px', margin_left='1385px').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
@@ -771,7 +777,8 @@ class Form(BaseComponent):
         #fb.field('etc' , width='10em')
         fb.field('ets', width='10em' )
         #fb.field('dock_id', colspan=2, width='100%', readOnly='^#FORM.record.@time_arr.moored?=#v')
-        fb.field('dock_id', colspan=2, width='100%', disabled='^#FORM.record.@time_arr.moored?=#v')
+        fb.br()
+        fb.field('dock_id', colspan=1, width='100%', disabled='^#FORM.record.@time_arr.moored?=#v')
         #fb.div(' - ').button('ℹ',action="""genro.dlg.alert(
         #     "Il molo può essere modificato solo dalla form 'Movimenti banchina'.")""",
         #    hidden='^#FORM.record.@time_arr.moored?=!#v', border_spacing='100px')
@@ -806,27 +813,31 @@ class Form(BaseComponent):
          #                                                         genro.publish("table_script_run",kw);}});
          #                   else {
          #                   genro.publish("table_script_run",kw);}""", template_id=template_id,template_id_pfda=template_id_pfda,invoice_id='=.invoice_id')
+        fb.field('info_moor',width='140%', colspan=2 ,placeholder='e.g. Inizio ormeggio il ... ore ....', tag='textArea')
         fb.br()
         fb.field('draft_aft_arr', width='5em', placeholder='eg:4 or 4,5')
         fb.field('draft_fw_arr' , width='5em', placeholder='eg:4 or 4,5')
         fb.field('draft_aft_dep' , width='5em', placeholder='eg:4 or 4,5')
         fb.field('draft_fw_dep' , width='5em', placeholder='eg:4 or 4,5')
         #fb.field('dock_id' )
-        fb.field('info_moor',width='140%', colspan=2 ,placeholder='e.g. Inizio ormeggio il ... ore ....', tag='textArea')
+        
         fb.br()
         fb.field('voy_n', width='10em')
         fb.field('master_name' )
         fb.field('n_crew' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
         fb.field('n_passengers' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
-        fb.field('email_obj', width='20em')
+        
         fb.br()
         fb.field('last_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
         fb.field('departure_lp' , width='10em')
         fb.field('next_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
         fb.field('eta_np' , width='10em')
         fb.br()
-        fb.field('mandatory', colspan=3 , width='98%')
+        fb.field('email_obj', width='20em')
         fb.field('cargo_dest', colspan=2, width='100%')
+        fb.br()
+        fb.field('mandatory', colspan=3 , width='98%')
+        
         fb.br()
         fb.field('invoice_det_id',colspan=5 ,width='100%', hasDownArrow=True)
         #fb.field('@invoice_det_id.fullname',lbl='!![en]Invoicing',colspan=5 ,width='100%', hasDownArrow=True,readOnly=True, tag='textBox')
@@ -1323,7 +1334,11 @@ class Form(BaseComponent):
     @public_method
     def emailArrivalLazyMode(self,pane):
         pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival',view_store__onBuilt=True)
-
+    
+    @public_method
+    def movDockLazyMode(self,pane):
+        pane.stackTableHandler(table='shipsteps.movimenti_banchina',relation='@mov_banchina',viewResource='View',formResource='Form',dialog=True,view_store__onBuilt=True)
+    
     def NoteArrival(self,frame):
         frame.simpleTextArea(title='Arrival note',value='^.note',editor=True)
 

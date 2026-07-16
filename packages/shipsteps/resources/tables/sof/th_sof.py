@@ -70,6 +70,7 @@ class ViewFromSof(BaseComponent):
         
 
 class Form(BaseComponent):
+    css_requires='icons.css'
     py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor,gnrcomponents/attachmanager/attachmanager:AttachManager'
     def th_form(self, form):
         form.store.handler('load',virtual_columns='$measure_sof,@arrival_id.reference_num,$ship_rec,$tot_mov,$shortage') #facciamo arrivare nello store il valore della formulaColumn in sof measure_sof per 
@@ -109,7 +110,7 @@ class Form(BaseComponent):
         self.emailSof(tc.contentPane(title='Email SOF'))
         self.emailSofQT(tc.contentPane(title='Email SOF Qta destino'))
         self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
-        self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
+        #self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
         self.editLop(tc.framePane(title='!![EN]Edit LOP', datapath='#FORM.editPagine'))
         self.allegatiSof(tc.contentPane(title='!![en]SOF Attachments', height='100%'))
         #tc.dataController("""{SET #THIS.tabname='operations';}""")
@@ -279,11 +280,11 @@ class Form(BaseComponent):
         btn_times=bar.times.button('Times',width='6em', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto della Form principale', messageType:'error'}); " \
                                                         "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",iconClass='clock',
                                                          rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM/parent/#FORM.controller.locked', disabled='^#FORM/parent/#FORM.controller.locked')
-        btn_sof_print=bar.stampa_sof.button('Print SOF', disabled='^#FORM/parent/#FORM.controller.locked')
-        btn_sof_arrivo=bar.email_arrivo.button('Email arrival',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')
-        btn_sof_oper=bar.email_operazioni.button('Email operations',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')
-        btn_sof_partenza=bar.email_partenza.button('Email departure',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')
-        btn_email_to=bar.email_to.button('Email to', disabled='^#FORM/parent/#FORM.controller.locked')
+        btn_sof_print=bar.stampa_sof.button('SOF',width='6em',iconClass='printer', disabled='^#FORM/parent/#FORM.controller.locked')
+        btn_sof_arrivo=bar.email_arrivo.button('Arrival',width='6em',iconClass='email',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')
+        btn_sof_oper=bar.email_operazioni.button('Operations',width='7em',iconClass='email',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')
+        btn_sof_partenza=bar.email_partenza.button('Departure',width='7em',iconClass='email',disabled="==f_lock || !aor",aor='^#FORM/parent/#FORM.record.@time_arr.aor',f_lock='^#FORM/parent/#FORM.controller.locked')
+        btn_email_to=bar.email_to.button('Email to',width='6em',iconClass='email', disabled='^#FORM/parent/#FORM.controller.locked')
         btn_sof_print.dataRpc('var_sof', self.print_sof,record='=#FORM.record',nome_template = 'shipsteps.sof:sof',format_page='A4')
         btn_sof_arrivo.dataRpc('nome_temp', self.email_sof,record='=#FORM.record',servizio=['arr','sof'], email_template_id='email_ormeggio',ref_num='=#FORM.record.@arrival_id.reference_num',
                             nome_template = 'shipsteps.sof:email_ormeggio',format_page='A4',selPkeys_att='=#FORM/parent/#FORM.attachments.view.grid.currentSelectedPkeys',

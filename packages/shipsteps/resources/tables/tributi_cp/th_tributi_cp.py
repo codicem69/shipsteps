@@ -133,8 +133,8 @@ class Form(BaseComponent):
         dlg = pane.dialog(nodeId='dialog_poste',parentRatio=1,title='Times',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         bc = dlg.borderContainer()
         top = bc.contentPane(region='top', height='100%')
-        top.htmliframe(src="""https://pagamenti.poste.it/""",
-                                                    height='100%',width='100%',border='0px')
+        #top.htmliframe(src="""https://pagamenti.poste.it/""",
+        #                                            height='100%',width='100%',border='0px')
         #fb.button('Sito Poste', action="genro.wdgById('dialog_poste').show()")
         
         fb.button('Sito Poste pagamenti',action='genro.openBrowserTab(link_poste)',link_poste = self.db.application.getPreference('link_poste',pkg='shipsteps'))
