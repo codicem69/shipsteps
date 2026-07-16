@@ -563,7 +563,7 @@ class Form(BaseComponent):
         bar.v_details.button('!![en]Vessel details',disabled='^#FORM.controller.locked',
                      iconClass='vessel_details',
                      action="genro.publish('open_vessel_details',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
-        bar.email_arr.button('!![en]Emails arrival',disabled='^#FORM.controller.locked',
+        bar.email_arr.button('!![en]Emails arrival', width='9em',disabled='^#FORM.controller.locked',
                      iconClass='email',
                      action="genro.publish('open_email_arr',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
         bar.movimenti.button('Movimenti banchina',disabled='^#FORM.btn_mov',
