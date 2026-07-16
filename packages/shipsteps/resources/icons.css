@@ -1,3 +1,6 @@
+
+
+
 .vessel_details{
     background: url(/_rsrc/pkg_shipsteps/icons/vessel_details.svg);
     height:16px;
@@ -28,11 +31,14 @@
     width:16px;
     background-size:contain;
 }
-.email_address{
-    background: url(/_rsrc/pkg_shipsteps/icons/email_address.svg);
-    height:16px;
+.email{
+    display: inline-block;
     width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/email_address.svg) center center no-repeat;
     background-size:contain;
+    flex-shrink:0;
+    float: left;
 }
 .sof{
     background: url(/_rsrc/pkg_shipsteps/icons/sof.svg);
@@ -45,4 +51,66 @@
     height:16px;
     width:16px;
     background-size:contain;
+    float: left;
+}
+.whatsapp{
+    background: url(/_rsrc/pkg_shipsteps/icons/whatsapp.svg);
+    height:16px;
+    width:16px;
+    background-size:contain;
+    float: left;
+}
+.printer{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/printer.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}
+.water{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/water.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}
+.document{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/document.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}
+.pax{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/pax.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}
+.crew{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/crew.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}
+.tax{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/tax.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
 }

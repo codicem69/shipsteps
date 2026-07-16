@@ -276,7 +276,7 @@ class Form(BaseComponent):
 
     def th_bottom_custom(self, bottom):
         bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,50,times,*')
-        btn_times=bar.times.button('Times', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto della Form principale', messageType:'error'}); " \
+        btn_times=bar.times.button('Times',width='6em', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto della Form principale', messageType:'error'}); " \
                                                         "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",iconClass='clock',
                                                          rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM/parent/#FORM.controller.locked', disabled='^#FORM/parent/#FORM.controller.locked')
         btn_sof_print=bar.stampa_sof.button('Print SOF', disabled='^#FORM/parent/#FORM.controller.locked')

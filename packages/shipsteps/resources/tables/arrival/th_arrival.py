@@ -564,7 +564,7 @@ class Form(BaseComponent):
                      iconClass='vessel_details',
                      action="genro.publish('open_vessel_details',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
         bar.email_arr.button('!![en]Emails arrival',disabled='^#FORM.controller.locked',
-                     iconClass='email_address',
+                     iconClass='email',
                      action="genro.publish('open_email_arr',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
         bar.movimenti.button('Movimenti banchina',disabled='^#FORM.btn_mov',
                      iconClass='shifting',
@@ -1468,7 +1468,7 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb1=div1.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
         
-        btn_cl = fb1.Button('!![en]Print Check list',disabled='^#FORM.controller.locked')
+        btn_cl = fb1.Button('!![en]Print Check list',iconClass='printer',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1480,7 +1480,7 @@ class Form(BaseComponent):
         fb1.field('checklist', lbl='', margin_top='5px')
         #fb1.semaphore('^.checklist?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.checklist', margin_top='5px')
-        btn_fs = fb1.Button('!![en]Print Frontespicie',disabled='^#FORM.controller.locked')
+        btn_fs = fb1.Button('!![en]Print Frontespicie',iconClass='printer',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1492,7 +1492,7 @@ class Form(BaseComponent):
         #fb1.semaphore('^.frontespizio?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.frontespizio', margin_top='5px')
 
-        btn_mn = fb1.Button('!![en]Print Vessel module',disabled='^#FORM.controller.locked')
+        btn_mn = fb1.Button('!![en]Print Vessel module',iconClass='printer',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1517,7 +1517,7 @@ class Form(BaseComponent):
         #                    nome_template = 'shipsteps.arrival:mod_nave',format_page='A4',visit=True,
         #                    _onResult="this.form.save();")
 
-        btn_cn = fb1.Button('!![en]Print Vessel folder',disabled='^#FORM.controller.locked')
+        btn_cn = fb1.Button('!![en]Print Vessel folder',iconClass='printer',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1567,7 +1567,7 @@ class Form(BaseComponent):
         #                                                          genro.publish("table_script_run",kw);}});
         #                    else {
         #                    genro.publish("table_script_run",kw);SET .tab_servizi=true;}""", template_id=template_id,template_id_pfda=template_id_pfda,invoice_id='=.invoice_id')
-        btn_ts=fb1.button('!![en]Print Servicies table',disabled='^#FORM.controller.locked',ask=dict(title='!![en]Servicies Table',fields=[dict(lbl='!![en]SELECT THE SERVICE TABLE',hasDownArrow=True,
+        btn_ts=fb1.button('!![en]Print Servicies table',iconClass='printer',disabled='^#FORM.controller.locked',ask=dict(title='!![en]Servicies Table',fields=[dict(lbl='!![en]SELECT THE SERVICE TABLE',hasDownArrow=True,
                                                                  name='pkey',tag='dbselect',dbtable='shipsteps.fda',auxColumns='@pfda_id.cargo',
                                                                  columns='$id,$invoice_det_id',selected_invoice_det_id='.invoice_id',
                                                                 condition='$arrival_id=:aid',condition_aid='=#FORM.record.id',validate_notnull=True)]),
@@ -1615,7 +1615,7 @@ class Form(BaseComponent):
         #fb1.semaphore('^.tab_servizi?=#v==true?true:false', margin_top='5px')
         fb1.semaphore('^.tab_servizi', margin_top='5px')
 
-        btn_fc = fb1.Button('!![en]Print Cargo frontespiece',disabled='^#FORM.controller.locked',
+        btn_fc = fb1.Button('!![en]Print Cargo frontespiece',iconClass='printer',disabled='^#FORM.controller.locked',
                             hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -1628,20 +1628,20 @@ class Form(BaseComponent):
         #fb1.semaphore('^.front_carico?=#v==true?true:false', margin_top='5px',hidden="^#FORM.record.@tip_mov.code?=#v=='pass'")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.semaphore('^.front_carico', margin_top='5px',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
 
-        btn_trib = fb1.Button('!![en]Tributes', action="""{SET tabname='tributi';}""",disabled='^#FORM.controller.locked')
+        btn_trib = fb1.Button('!![en]Tributes', iconClass='tax', action="""{SET tabname='tributi';}""",disabled='^#FORM.controller.locked')
 
         div1_2=rg_prearrival.div('<center><strong>Crew / Pax List</strong>',width='99%',height='20%',margin='auto',
                         padding='2px',
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb1_doc=div1_2.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
-        fb1_doc.button('!![en]Crew List', action="genro.wdgById('dialog_crew').show();",disabled='^#FORM.controller.locked')
+        fb1_doc.button('!![en]Crew List', iconClass='crew', action="genro.wdgById('dialog_crew').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_crew',parentRatio=.9,title='Crew List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         dlg.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@shorepass_arr',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         fb1_doc.br()
-        fb1_doc.button('!![en]Pax List', action="genro.wdgById('dialog_pax').show();",disabled='^#FORM.controller.locked')
+        fb1_doc.button('!![en]Pax List', iconClass='pax',action="genro.wdgById('dialog_pax').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_pax',parentRatio=.9,title='Pax List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         dlg.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
         
@@ -1666,7 +1666,7 @@ class Form(BaseComponent):
         fb = div2.formbuilder(colspan=1,cols=3, border_spacing='1px', colswidth='4px')
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
 
-        btn_sr = fb.Button('!![en]Shipper/Receivers', width='10em',disabled='^#FORM.controller.locked')
+        btn_sr = fb.Button('!![en]Shipper/Receivers', width='11em',disabled='^#FORM.controller.locked',iconClass='email')
         fb.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1730,7 +1730,7 @@ class Form(BaseComponent):
                           else if(eori_tasklist==true){SET .eori_btn=true;}else{SET .eori_btn=false;}""", 
                           typemov='^#FORM.record.@movtype_id.hierarchical_descrizione',
                           eori_tasklist='^#FORM.record.@arr_tasklist.e_eori')
-        btn_eori = fb.Button('!![en]Eori request', width='10em',hidden="^#FORM.record.@arr_tasklist.eori_btn",disabled='^#FORM.controller.locked')
+        btn_eori = fb.Button('!![en]Eori request', width='11em',iconClass='email',hidden="^#FORM.record.@arr_tasklist.eori_btn",disabled='^#FORM.controller.locked')
         btn_eori.dataRpc('nome_temp', self.eoriEmail, record='=^#FORM.record',
                         _ask=dict(title='Select the emails',fields=[dict(name='email_arr', lbl='!![en]Email Arrival',tag='checkboxtext',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.email_arr',condition="$arrival_id =:cod",
@@ -1746,7 +1746,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Dogana ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dog').fetch()
         serv_len=len(service_for_email)
-        btn_dog = fb.Button('!![en]Customs/GdF', width='10em',hidden='^#FORM.record.@arr_tasklist.e_customs?=#v==true',disabled='^#FORM.controller.locked')
+        btn_dog = fb.Button('!![en]Customs/GdF', width='11em',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_customs?=#v==true',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1814,7 +1814,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Immigration ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='imm').fetch()
         serv_len=len(service_for_email)
-        btn_fr = fb.Button('!![en]Immigration', width='10em',hidden='^#FORM.record.@arr_tasklist.e_frontiera?=#v==true',disabled='^#FORM.controller.locked')
+        btn_fr = fb.Button('!![en]Immigration', width='11em',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_frontiera?=#v==true',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1858,7 +1858,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Sanimare ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
-        btn_usma = fb.Button('!![en]Sanimare', width='10em',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
+        btn_usma = fb.Button('!![en]Sanimare', width='11em',iconClass='email',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -1901,7 +1901,7 @@ class Form(BaseComponent):
         #bottone per aprire link whatsapp copiare testo e poi successivamente copiare manualmente per l'invio msg ai piloti
         # Nel tuo metodo all'interno della Form, dove definisci i bottoni:
 
-        fb.Button('Gruppo Piloti', width='10em',disabled='^#FORM.controller.locked').dataRpc(
+        fb.Button('Gruppo Piloti', width='11em',disabled='^#FORM.controller.locked',iconClass='whatsapp').dataRpc(
             # 1. Puntiamo a un metodo Python nel tuo componente/table che genererà il testo
             self.invia_testo_whatsapp, 
 
@@ -1958,7 +1958,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
-        btn_pilot = fb.Button('!![en]Pilot', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true',disabled='^#FORM.controller.locked',
+        btn_pilot = fb.Button('!![en]Pilot', width='11em',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_pilotmoor?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH pilota";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -2009,7 +2009,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi mooringmen ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='moor').fetch()
         serv_len=len(service_for_email)
-        btn_moor = fb.Button('!![en]Mooringmen', width='10em',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true',disabled='^#FORM.controller.locked',
+        btn_moor = fb.Button('!![en]Mooringmen', width='11em',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_moor?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH mooringmen";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -2058,7 +2058,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi tug ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='tug').fetch()
         serv_len=len(service_for_email)
-        btn_tug = fb.Button('!![en]Tug', width='10em',hidden='^#FORM.record.@arr_tasklist.e_tugarr?=#v==true',disabled='^#FORM.controller.locked',
+        btn_tug = fb.Button('!![en]Tug', width='11em',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_tugarr?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH tug";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -2108,7 +2108,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi garbage ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='garb').fetch()
         serv_len=len(service_for_email)
-        btn_garb = fb.Button('!![en]Garbage pick-up', width='10em',hidden='^#FORM.record.@arr_tasklist.e_garbage?=#v==true',disabled='^#FORM.controller.locked',
+        btn_garb = fb.Button('!![en]Garbage pick-up', width='11em',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_garbage?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH garbage";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -2161,7 +2161,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi PFSO ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pfso').fetch()
         serv_len=len(service_for_email)
-        btn_pfso = fb.Button('!![en]PFSO', width='10em',hidden='^#FORM.record.@arr_tasklist.e_pfso?=#v==true',disabled='^#FORM.controller.locked')
+        btn_pfso = fb.Button('!![en]PFSO', width='11em',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_pfso?=#v==true',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2210,7 +2210,7 @@ class Form(BaseComponent):
                           typemov='^#FORM.record.@movtype_id.hierarchical_descrizione',
                           chemist_tasklist='^#FORM.record.@arr_tasklist.e_chemist')
         
-        btn_chem = fb.Button('!![en]Chemist', width='10em',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_chem = fb.Button('!![en]Chemist', width='11em',iconClass='email',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #btn_chem = fb.Button('!![en]Chemist', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -2254,7 +2254,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi GPG ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='gpg').fetch()
         serv_len=len(service_for_email)
-        btn_gpg = fb.Button('!![en]GPG', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""",
+        btn_gpg = fb.Button('!![en]GPG', width='11em',iconClass='email',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""",
                               disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH gpg";
                                         if(!invoice_id)
@@ -2308,7 +2308,7 @@ class Form(BaseComponent):
                           else if(ens_tasklist==true){SET .ens_btn=true;}else{SET .ens_btn=false;}""", 
                           typemov='^#FORM.record.@movtype_id.hierarchical_descrizione',
                           ens_tasklist='^#FORM.record.@arr_tasklist.e_ens')
-        btn_ens = fb.Button('!![en]ENS', width='10em',hidden="""^#FORM.record.@arr_tasklist.ens_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore tip_mov = pass
+        btn_ens = fb.Button('!![en]ENS', width='11em',iconClass='email',hidden="""^#FORM.record.@arr_tasklist.ens_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         #btn_ens = fb.Button('!![en]ENS', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -2328,7 +2328,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi ADSP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='adsp').fetch()
         serv_len=len(service_for_email)
-        btn_gbadsp = fb.Button('!![en]Garbage ADSP', width='10em',hidden='^gnr.app_preference.shipsteps.garbage_adsp',disabled='^#FORM.controller.locked')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
+        btn_gbadsp = fb.Button('!![en]Garbage ADSP',iconClass='email', width='11em',hidden='^gnr.app_preference.shipsteps.garbage_adsp',disabled='^#FORM.controller.locked')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2377,7 +2377,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Sanimare ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='usma').fetch()
         serv_len=len(service_for_email)
-        btn_riclps = fb.Button('!![en]LPS request', width='10em',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
+        btn_riclps = fb.Button('!![en]LPS request', width='11em',iconClass='email',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2409,7 +2409,7 @@ class Form(BaseComponent):
         fb.dataController("if(alim!='Alimentary/UE' && alim!='Alimentary' || hold_aer==true || fum=='NO'){SET .holds_btn=true;}else{SET .holds_btn=false;}", 
                           alim='^#FORM.record.@movtype_id.hierarchical_descrizione',hold_aer='^#FORM.record.@arr_tasklist.e_aeration',
                           fum='^#FORM.record.fumigated')
-        btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="^#FORM.record.@arr_tasklist.holds_btn",disabled='^#FORM.controller.locked')
+        btn_vent = fb.Button('!![en]Holds aeration', width='11em',iconClass='email',hidden="^#FORM.record.@arr_tasklist.holds_btn",disabled='^#FORM.controller.locked')
                              #hidden="""==_alim!=='Alimentary/UE' && _alim!=='Alimentary' || _fum==='NO'""",_alim="""^#FORM.record.@movtype_id.hierarchical_descrizione""",
                              #                                       _fum="""^#FORM.record.fumigated""")
         #btn_vent = fb.Button('!![en]Holds aeration', width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
@@ -2440,7 +2440,7 @@ class Form(BaseComponent):
         #fb.semaphore('^.email_aeration', margin_top='6px',hidden="^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'")
 
 
-        btn_update = fb.Button('!![en]Services updating', width='10em',disabled='^#FORM.controller.locked')
+        btn_update = fb.Button('!![en]Services updating', width='11em',iconClass='email',disabled='^#FORM.controller.locked')
         btn_update.dataRpc('nome_temp', self.email_serv_upd,
                    record='=#FORM.record',email_template_id='email_serv_upd',selPkeys_att='=#FORM.attachments.view.grid.currentSelectedPkeys',
                    _ask=dict(title='!![en]Select the services to update and Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',
@@ -2453,7 +2453,7 @@ class Form(BaseComponent):
         fb.div()
         fb.div()
      
-        btn_upd_shiprec = fb.Button('!![en]Ship/Rec. updating', width='10em',disabled='^#FORM.controller.locked')
+        btn_upd_shiprec = fb.Button('!![en]Ship/Rec. updating', width='11em',iconClass='email',disabled='^#FORM.controller.locked')
         #btn_upd_shiprec.dataRpc('dati_emails', self.checkEmail, rec_id='^#FORM.record.id',
         #                _ask=dict(title='Select the sof',fields=[dict(name='sof_id', lbl='!![en]sof', tag='dbSelect',columns='$id',
         #                     hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.sof',condition="$arrival_id =:cod",
@@ -2502,7 +2502,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
-        btn_integr = fb2.Button('!![en]Alimentary integration',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'"""
+        btn_integr = fb2.Button('!![en]Alimentary integration',iconClass='email',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'"""
                                 ,disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -2540,7 +2540,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_pmou = fb2.Button('!![en]PMOU notification',hidden='^gnr.app_preference.shipsteps.pmou',disabled='^#FORM.controller.locked')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
+        btn_pmou = fb2.Button('!![en]PMOU notification',iconClass='email',hidden='^gnr.app_preference.shipsteps.pmou',disabled='^#FORM.controller.locked')#attributo hidden per nascondere il widget se il valore nelle preferenze pmou è True
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2575,7 +2575,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Dogana ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='dogpec').fetch()
         serv_len=len(service_for_email)
-        btn_doggb = fb3.Button('!![en]Customs garbage notif.',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true',disabled='^#FORM.controller.locked')
+        btn_doggb = fb3.Button('!![en]Customs garbage notif.',iconClass='email',hidden='^#FORM.record.@arr_tasklist.btn_customgb?=#v!=true',disabled='^#FORM.controller.locked')
         fb3.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2719,7 +2719,7 @@ class Form(BaseComponent):
         #                      
         #fb_arr.br()
         #fb_arr.br()
-        btn_fgdf_cp = fb_arr.Button('!![en]Form GdF',disabled='^#FORM.controller.locked')
+        btn_fgdf_cp = fb_arr.Button('!![en]Form GdF',iconClass='printer',disabled='^#FORM.controller.locked')
         
        
         #btn_fgdf_cp.dataController("SET .p_date=pratique_date;",_ask=dict(title='!![en]Insert pratique date',
@@ -2743,7 +2743,7 @@ class Form(BaseComponent):
         #fb_arr.semaphore('^.form_gdf?=#v==true?true:false', margin_top='6px')
         fb_arr.semaphore('^.form_gdf', margin_top='6px')
 
-        btn_fimm_cp = fb_arr.Button('!![en]Form Immigration',disabled='^#FORM.controller.locked')
+        btn_fimm_cp = fb_arr.Button('!![en]Form Immigration',iconClass='printer',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2755,7 +2755,7 @@ class Form(BaseComponent):
         #fb_arr.semaphore('^.form_immigration?=#v==true?true:false', margin_top='6px')
         fb_arr.semaphore('^.form_immigration', margin_top='6px')
 
-        btn_fprov_cp = fb_arr.Button('!![en]Form Provisions',disabled='^#FORM.controller.locked')
+        btn_fprov_cp = fb_arr.Button('!![en]Form Provisions',iconClass='printer',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2772,7 +2772,7 @@ class Form(BaseComponent):
 
         #fb_arr.br()
         
-        btn_fsan = fb_arr.Button('!![en]Sanimare declaration',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
+        btn_fsan = fb_arr.Button('!![en]Sanimare declaration',iconClass='printer',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2786,7 +2786,7 @@ class Form(BaseComponent):
         #datacontroller per impostare variabile hidden del bottone hold ventilation
         fb.dataController("if(movtype=='Passengers/UE' || movtype=='Passengers' || movtype=='Passengers/ONG' || cklist==true){SET .ckl_btn=true;}else{SET .ckl_btn=false;}", 
                           movtype='^#FORM.record.@movtype_id.hierarchical_descrizione',cklist='^#FORM.record.@arr_tasklist.e_checklist')
-        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="^#FORM.record.@arr_tasklist.ckl_btn",disabled='^#FORM.controller.locked')
+        btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',iconClass='printer',hidden="^#FORM.record.@arr_tasklist.ckl_btn",disabled='^#FORM.controller.locked')
         #btn_intfiore = fb_arr.Button('!![en]CheckList Fiore',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v=='Passengers/UE' || #v=='Passengers'""")#attributo hidden nascondiamo il widget se il valore tip_mov = pass
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -2799,7 +2799,7 @@ class Form(BaseComponent):
         fb_arr.semaphore('^.form_checklist_f', margin_top='6px',hidden="^#FORM.record.@arr_tasklist.ckl_btn")
         fb_arr.br()
 
-        btn_timegate = fb_arr.Button('!![en]Times gate info',disabled='^#FORM.controller.locked')
+        btn_timegate = fb_arr.Button('!![en]Times gate info',iconClass='printer',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2814,7 +2814,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_lps_cp = fb_arr.Button('!![en]Email LPS CP',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
+        btn_lps_cp = fb_arr.Button('!![en]Email LPS CP',iconClass='email',hidden="^#FORM.record.uesan_pref?=#v==true",disabled='^#FORM.controller.locked')#nascondiamo il widget in base al valore della pyColumn uesan_pref nella tabella arrival
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2842,7 +2842,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_chim_cp = fb_arr.Button('!![en]Email Chemist Cert. CP',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
+        btn_chim_cp = fb_arr.Button('!![en]Email Chemist Cert. CP',iconClass='email',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2870,7 +2870,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi Impresa portuale ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='stev').fetch()
         serv_len=len(service_for_email)
-        btn_chim_stev = fb_arr.Button('!![en]Email Chemist Cert.<br>to Stevedores',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
+        btn_chim_stev = fb_arr.Button('!![en]Email Chemist Cert.<br>to Stevedores',iconClass='email',hidden="""^#FORM.record.@arr_tasklist.chemist_btn""",disabled='^#FORM.controller.locked')#attributo hidden nascondiamo il widget se il valore chemist_btn asseganto con il dataController è = true
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2899,7 +2899,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         fb_arr.br()
-        btn_der_cp = fb_arr.Button('!![en]Email Waste derogation CP',disabled='^#FORM.controller.locked')
+        btn_der_cp = fb_arr.Button('!![en]Email Waste derogation CP',iconClass='email',disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2934,7 +2934,7 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_time=div_arr_times.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='14em')
-        fb_time.button('!![en]Times / Details',disabled='^#FORM.controller.locked', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto', messageType:'error'}); " \
+        fb_time.button('!![en]Times / Details',disabled='^#FORM.controller.locked', iconClass='clock',action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto', messageType:'error'}); " \
                                                         "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",
                                                          rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM/parent/#FORM.controller.locked')
         
@@ -2970,7 +2970,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_rif_cp = fb_dep.Button('!![en]Email Waste Receipt CP',hidden='^gnr.app_preference.shipsteps.rifiuti_cp',disabled='^#FORM.controller.locked')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True
+        btn_rif_cp = fb_dep.Button('!![en]Email Waste Receipt CP',iconClass='email',hidden='^gnr.app_preference.shipsteps.rifiuti_cp',disabled='^#FORM.controller.locked')#attributo hidden per nascondere il widget se il valore nelle preferenze rifiuti_cp è True
         fb1.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -2997,7 +2997,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi CP ci sono, nel caso più di uno apparirà la dbSelect per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
-        btn_trib_cp = fb_dep.Button('!![en]Email Tributes CP',hidden='^gnr.app_preference.shipsteps.email_tributi_cp',disabled='^#FORM.controller.locked')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
+        btn_trib_cp = fb_dep.Button('!![en]Email Tributes CP',iconClass='email',hidden='^gnr.app_preference.shipsteps.email_tributi_cp',disabled='^#FORM.controller.locked')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -3022,7 +3022,7 @@ class Form(BaseComponent):
         fb_dep.semaphore('^.email_tributi_cp', margin_top='6px',hidden='^gnr.app_preference.shipsteps.email_tributi_cp')#con hidden disabilitiamo il bottone se nelle preferenze è flaggato disabilita email tributi cp
         
         #whatsapp msg piloti
-        fb_dep.Button('Gruppo Piloti',disabled='^#FORM.controller.locked').dataRpc(
+        fb_dep.Button('Gruppo Piloti',disabled='^#FORM.controller.locked',iconClass='whatsapp').dataRpc(
             # 1. Puntiamo a un metodo Python nel tuo componente/table che genererà il testo
             self.invia_testo_whatsapp, 
 
@@ -3075,7 +3075,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi pilota ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='pilot').fetch()
         serv_len=len(service_for_email)
-        btn_pilot_dep = fb_dep.Button('!![en]Pilot departure',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true',disabled='^#FORM.controller.locked',
+        btn_pilot_dep = fb_dep.Button('!![en]Pilot departure',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_pilotdep?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH pilotdep";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -3119,7 +3119,7 @@ class Form(BaseComponent):
         #verifichiamo quanti servizi mooringmen ci sono, nel caso più di uno apparirà la checkboxtext per la scelta
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='moor').fetch()
         serv_len=len(service_for_email)
-        btn_moor_dep = fb_dep.Button('!![en]Mooringmen departure',hidden='^#FORM.record.@arr_tasklist.e_moordep?=#v==true',disabled='^#FORM.controller.locked',
+        btn_moor_dep = fb_dep.Button('!![en]Mooringmen departure',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_moordep?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH moordep";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -3163,7 +3163,7 @@ class Form(BaseComponent):
 
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv',serv='tug').fetch()
         serv_len=len(service_for_email)
-        btn_tugdep = fb_dep.Button('!![en]Tug departure',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true',disabled='^#FORM.controller.locked',
+        btn_tugdep = fb_dep.Button('!![en]Tug departure',iconClass='email',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true',disabled='^#FORM.controller.locked',
                               action="""var azione = "PUBLISH tugdep";
                                         if(!invoice_id)
                                         genro.dlg.ask("!![en]Warning",
@@ -3207,7 +3207,7 @@ class Form(BaseComponent):
         #fb_dep.semaphore('^.email_tug_dep?=#v==true?true:false', margin_top='5px')
         fb_dep.semaphore('^.email_tug_dep', margin_top='5px',hidden='^#FORM.record.@arr_tasklist.e_tugdep?=#v==true')
 
-        btn_fgdf=fb_dep.Button('!![en]Form GdF Departure',hidden='^gnr.app_preference.shipsteps.gdf_dep',disabled='^#FORM.controller.locked',#con hidden disabilitiamo il bottone se nelle preferenze è flaggato gdf partenza
+        btn_fgdf=fb_dep.Button('!![en]Form GdF Departure',iconClass='printer',hidden='^gnr.app_preference.shipsteps.gdf_dep',disabled='^#FORM.controller.locked',#con hidden disabilitiamo il bottone se nelle preferenze è flaggato gdf partenza
                                action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Partenza_Finanza',
@@ -3232,20 +3232,20 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px', hidden='^.nsw?=!#v')
         fb_nsw=div_nsw.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
         
-        btn_accosto=fb_nsw.Button('!![en]Email Domanda Accosto',
+        btn_accosto=fb_nsw.Button('!![en]Domanda Accosto',iconClass='email',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Accosto',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
 
-        btn_cambio_accosto=fb_nsw.Button('!![en]Email Cambio Accosto',
+        btn_cambio_accosto=fb_nsw.Button('!![en]Cambio Accosto',iconClass='email',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Cambio_accosto',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_com_partenza=fb_nsw.Button('!![en]Email Comunicazione Partenza',
+        btn_com_partenza=fb_nsw.Button('!![en]Comunicazione Partenza',iconClass='email',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'Partenza',
@@ -3258,19 +3258,19 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px', hidden='^.nsw?=!#v')
         fb_nsw2=div_nsw2.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
 
-        btn_fal1_arr=fb_nsw2.Button('!![en]Fal1 Arrival',
+        btn_fal1_arr=fb_nsw2.Button('!![en]Fal1 Arrival',iconClass='printer',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'general_decl',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_nota_arr=fb_nsw2.Button('Nota Arrivo',
+        btn_nota_arr=fb_nsw2.Button('Nota Arrivo',iconClass='printer',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'nota_arrivo',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_arrivo = fb_nsw2.Button('!![en]Email arrival')
+        btn_arrivo = fb_nsw2.Button('!![en]Email arrival',iconClass='email')
         #btn_arrivo.dataRpc('nome_temp', self.print_template,record='=#FORM.record',servizio=['capitaneria_nsw'], email_template_id='email_arrivo_cp',
         #                    nome_template = 'shipsteps.arrival:mod61_arr',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
         #                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -3301,26 +3301,26 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px', hidden='^.nsw?=!#v')
         fb_nsw3=div_nsw3.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
-        btn_fal1_dep=fb_nsw3.Button('!![en]Fal1 Departure',
+        btn_fal1_dep=fb_nsw3.Button('!![en]Fal1 Departure',iconClass='printer',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'general_decl_dep',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
         
-        btn_disp_val=fb_nsw3.Button('!![en]Currency availability',hidden="^#FORM.record.@vessel_details_id.@imbarcazione_id.flag?=#v=='IT'",
+        btn_disp_val=fb_nsw3.Button('!![en]Currency availability',iconClass='printer',hidden="^#FORM.record.@vessel_details_id.@imbarcazione_id.flag?=#v=='IT'",
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'dispo_valuta',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_nota_dep=fb_nsw3.Button('Dich.Intergr.Partenza',
+        btn_nota_dep=fb_nsw3.Button('Dich.Intergr.Partenza',iconClass='printer',
                                         action="""genro.publish("table_script_run",{table:"shipsteps.arrival",
                                                                                res_type:'print',
                                                                                resource:'dichiarazione_partenza',
                                                                                pkey: pkey});""",
                                                                                pkey='=#FORM.pkey')
-        btn_departure = fb_nsw3.Button('!![en]Email Departure')
+        btn_departure = fb_nsw3.Button('!![en]Email Departure',iconClass='email')
         #btn_departure.dataRpc('nome_temp', self.print_template,record='=#FORM.record',servizio=['capitaneria_nsw'], email_template_id='email_partenza_cp',
         #                    nome_template = 'shipsteps.arrival:mod61_dep',format_page='A4',nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
         #                    _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -3355,7 +3355,7 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb_serv=div_service.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='15em')
         #btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET tabname='services';}""")
-        btn_vs=fb_serv.button('!![en]Vessel services', action="genro.wdgById('dialog_services').show();",disabled='^#FORM.controller.locked')
+        btn_vs=fb_serv.button('!![en]Vessel services',iconClass='printer', action="genro.wdgById('dialog_services').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         #print(x)
         dlg.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
@@ -3375,22 +3375,22 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_app=div_app.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
-        btn_bulk=fb_app.button('!![en]Bulk Application', action="genro.wdgById('dialog_bulk').show();",disabled='^#FORM.controller.locked')
+        btn_bulk=fb_app.button('!![en]Bulk Application',iconClass='document', action="genro.wdgById('dialog_bulk').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_bulk',parentRatio=1,title='Bulk application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         dlg.contentPane(title='!![en]Bulk Application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@rinfusa_arr',formResource='FormFromRinfusa',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        btn_bunk=fb_app.button('!![en]Bunker Application', action="genro.wdgById('dialog_bunker').show();",disabled='^#FORM.controller.locked')
+        btn_bunk=fb_app.button('!![en]Bunker Application',iconClass='document', action="genro.wdgById('dialog_bunker').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_bunker',parentRatio=1,title='Bunker application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         dlg.contentPane(title='!![en]Bunker Application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        btn_cert=fb_app.button('!![en]Certificate Application CP', action="genro.wdgById('dialog_cert').show();",disabled='^#FORM.controller.locked')
+        btn_cert=fb_app.button('!![en]Certificate Application CP',iconClass='document', action="genro.wdgById('dialog_cert').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_cert',parentRatio=1,title='Certicate application CP',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         dlg.contentPane(title='!![en]Certificates Application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@istanza_cert_arr',formResource='FormFromCertificates',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        btn_sancert=fb_app.button('!![en]Sanimare Certificates', action="genro.wdgById('dialog_sancert').show();",disabled='^#FORM.controller.locked')
+        btn_sancert=fb_app.button('!![en]Sanimare Certificates',iconClass='document', action="genro.wdgById('dialog_sancert').show();",disabled='^#FORM.controller.locked')
         dlg = bc_tasklist.dialog(nodeId='dialog_sancert',parentRatio=1,title='Sanimare certificates',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
         dlg.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@certusma_arr',formResource='FormFromCertusma',
@@ -3427,8 +3427,8 @@ class Form(BaseComponent):
                                          if(result=='ws_serv')genro.publish("floating_message",{message:"Email ready to be sent<br>Service inserted inside the services table", messageType:"message"});
                                          if(result=='ws')genro.publish("floating_message",{message:"Email ready to be sent<br>Service already present inside services table", messageType:"warning",duration:6});this.form.save();""")#this.form.save();
                                          #this.form.reload()""")
-        fb_extra.button('Water supply', action="genro.wdgById('dialog_ws').show()",disabled='^#FORM.controller.locked')
-        btn_emailextra=fb_extra.button('!![en]Email to services',disabled='^#FORM.controller.locked')
+        fb_extra.button('Water supply',iconClass='water', action="genro.wdgById('dialog_ws').show()",disabled='^#FORM.controller.locked')
+        btn_emailextra=fb_extra.button('!![en]Email to services',iconClass='email',disabled='^#FORM.controller.locked')
         btn_emailextra.dataRpc('nome_temp', self.email_extra,record='=#FORM.record',servizio=['extra_email'], email_template_id=None,
                             nome_template = None,nome_vs='=#FORM.record.@vessel_details_id.@imbarcazione_id.nome',
                             _ask=dict(title='!![en]Select the services to update and Attachments',fields=[dict(name='services', lbl='!![en]Services', tag='checkboxtext',
