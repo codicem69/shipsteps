@@ -83,9 +83,12 @@ class Form(BaseComponent):
         
         tc = bc.tabContainer(region = 'center',margin='2px',selectedPage='^.tabname')
         
-        self.cargoSof(tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo'))
+        #self.cargoSof(tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo'))
+        tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo').remote(self.cargoSofLazyMode,_waitingMessage='!![en]Please wait')
        # self.arrivalTimes(tc.contentPane(title='!![en]Arr/Dep Times', pageName='arr_times'))
-        self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
+
+        #self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
+        tc.contentPane(title='!![en]Sof operations',height='100%',pageName='operations').remote(self.operationsSofLazyMode,_waitingMessage='!![en]Please wait')
         #tc.contentPane(title='!![en]SOF Operations',pageName='operations').remote(self.operationsSof,_waitingMessage='!![en]Please wait')
         #self.dailyOperations(tc.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
         bc_daily=tc.borderContainer(title='!![en]SOF Daily handling bulk cargo',region='center',pageName='daily_op')#.borderContainer(region='left',splitter=True,height='100%', width='50%',pageName='daily_op')#, datapath='.record.sof_daily')#.tabContainer(height='100%')
@@ -96,7 +99,9 @@ class Form(BaseComponent):
         
         #self.dailyQuantityDest(tc.borderContainer(region='center',title='!![en]SOF Daily handling bulk cargo',pageName='daily_op').borderContainer(region='center',splitter=True,height='100%', width='60%').contentPane(width='100%', height='100%'))
         #self.dailyOperations(bc_daily.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
-        self.trucksDetails(tc.contentPane(title='!![en]Trucks details'))
+        
+        #rimosso tab trucksDetails a favore pulsante che apre la palette
+        #self.trucksDetails(tc.contentPane(title='!![en]Trucks details'))
 
         tc_rem = tc.tabContainer(title='!![en]Remarks',margin='2px',tabPosition='left-h')#, region='center', height='450px', splitter=True)
         
@@ -106,16 +111,46 @@ class Form(BaseComponent):
         self.onbehalf_remarks(tc_rem.contentPane(title='!![en]On behalf Sippers/Receivers',datapath='.record'))
 
         tc_tanks = tc.tabContainer(title='!![en]Tank times',margin='2px')
-        self.tanks(tc_tanks.contentPane(title='Time tanks'))
-        self.emailSof(tc.contentPane(title='Email SOF'))
-        self.emailSofQT(tc.contentPane(title='Email SOF Qta destino'))
-        self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
+        #self.tanks(tc_tanks.contentPane(title='Time tanks'))
+
+        tc_tanks.contentPane(title='!![en]Tank times').remote(self.tanksSofLazyMode,_waitingMessage='!![en]Please wait')
+
+        #rimosso emailSof tab a favore pulsante che apre la palette
+        #self.emailSof(tc.contentPane(title='Email SOF'))
+        
+        #rimosso tab emailSofQT a favore pulsante che apre la palette
+        #self.emailSofQT(tc.contentPane(title='Email SOF Qta destino'))
+        #self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
+        fp = tc.framePane(title='Edit SOF',datapath='#FORM.editPagine')
+        fp.center.contentPane().remote(self.editSofLazyMode,_waitingMessage='!![en]Please wait')
+        
+
         #self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
-        self.editLop(tc.framePane(title='!![EN]Edit LOP', datapath='#FORM.editPagine'))
+
+        fpel = tc.framePane(title='Edit LOP',datapath='#FORM.editPagine')
+        fpel.center.contentPane().remote(self.editLopLazyMode,_waitingMessage='!![en]Please wait')
+        #self.editLop(tc.framePane(title='!![EN]Edit LOP', datapath='#FORM.editPagine'))
+
+
         self.allegatiSof(tc.contentPane(title='!![en]SOF Attachments', height='100%'))
         #tc.dataController("""{SET #THIS.tabname='operations';}""")
         #form.data('tabop','op')
+        dlg_truck = bc.palette(paletteCode='trucks_details',dockButton=True,title='!![en]Truck details',
+                               width='900px',height='600px', top='100px',left='300px',closable=True)
+
+        dlg_truck.dataController("""dlg.show();""", dlg=dlg_truck.js_widget, subscribe_open_truck=True)
+        dlg_truck.contentPane(title="!![en]Trucks details").remote(self.truckDetailsLazyMode,_waitingMessage='!![en]Please wait')
+        dlg_emailsof = bc.palette(paletteCode='email_sof',dockButton=True,title='!![en]Emails SOF',
+                               width='900px',height='600px', top='100px',left='300px',closable=True)
+
+        dlg_emailsof.dataController("""dlg.show();""", dlg=dlg_emailsof.js_widget, subscribe_open_emailsof=True)
+        dlg_emailsof.contentPane(title="!![en]Emails SOF").remote(self.emailSofLazyMode,_waitingMessage='!![en]Please wait')
         
+        dlg_emailsofd = bc.palette(paletteCode='email_sofd',dockButton=True,title='!![en]Emails SOF qtà destino',
+                               width='900px',height='600px', top='100px',left='300px',closable=True)
+
+        dlg_emailsofd.dataController("""dlg.show();""", dlg=dlg_emailsofd.js_widget, subscribe_open_emailsofd=True)
+        dlg_emailsofd.contentPane(title="!![en]Emails SOF qta destino").remote(self.emailSofQTLazyMode,_waitingMessage='!![en]Please wait')
         
     def allegatiSof(self,pane):
         pane.attachmentGrid(viewResource='ViewFromSofAtc',uploaderButton=True)
@@ -276,7 +311,18 @@ class Form(BaseComponent):
             return 'daily_op'        
 
     def th_bottom_custom(self, bottom):
-        bar = bottom.slotBar('10,stampa_sof,20,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,50,times,*')
+        bar = bottom.slotBar('*,truck,10,emailsof,10,emailsofd,*,times,*,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,20,stampa_sof,*')
+        bar.truck.button('!![en]Truck details',disabled='^#FORM/parent/#FORM.controller.locked',
+                     iconClass='truck',width='8em',
+                     action="genro.publish('open_truck',{sof_id: sof_id});",sof_id='=#FORM.record.id')
+        bar.emailsof.button('!![en]Email SOF',disabled='^#FORM/parent/#FORM.controller.locked',
+                     iconClass='email',width='7em',
+                     action="genro.publish('open_emailsof',{sof_id: sof_id});",sof_id='=#FORM.record.id')
+        bar.emailsofd.button('!![en]Email SOF qtà destino',disabled='^#FORM/parent/#FORM.controller.locked',
+                     iconClass='email',width='13em',
+                     action="genro.publish('open_emailsofd',{sof_id: sof_id});",sof_id='=#FORM.record.id')
+        
+
         btn_times=bar.times.button('Times',width='6em', action="if(form_locked==true) genro.publish('floating_message',{message:'Rimuovere il lucchetto della Form principale', messageType:'error'}); " \
                                                         "else {genro.wdgById('dialog_time').show(); PUBLISH rec={arr_id:rec_id};}",iconClass='clock',
                                                          rec_id='=#FORM.record.@time_arr.arrival_id',form_locked='=#FORM/parent/#FORM.controller.locked', disabled='^#FORM/parent/#FORM.controller.locked')
@@ -436,6 +482,15 @@ class Form(BaseComponent):
                                 picker_viewResource='ViewFromCargoLU_picker',
                                 liveUpdate=True)
     
+    @public_method
+    def cargoSofLazyMode(self,pane):
+        pane.inlineTableHandler(maintable='shipsteps.sof',relation='@sof_cargo_sof',viewResource='ViewFromSof_Cargo',
+                                picker='cargo_unl_load_id',
+                                picker_condition='arrival_id=:aid',
+                                picker_condition_aid='^#FORM.record.arrival_id',
+                                picker_viewResource='ViewFromCargoLU_picker',
+                                liveUpdate=True,view_store__onBuilt=True)
+
     #def arrivalTimes(self, frame):
     #    bc = frame.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell')
     #    rg_times = bc.roundedGroup(title='!![en]Arrival/Departure times',table='shipsteps.arrival_time',region='left',datapath='.record.@arrival_id.@time_arr',width='350px', height = 'auto').div(margin='10px',margin_left='2px')
@@ -525,13 +580,39 @@ class Form(BaseComponent):
     
     def operationsSof(self,pane):
         pane.inlineTableHandler(relation='@sof_operations',viewResource='ViewFromSofOperations',liveUpdate=True)
+
+    @public_method
+    def operationsSofLazyMode(self,pane):
+        pane.inlineTableHandler(maintable='shipsteps.sof',relation='@sof_operations',viewResource='ViewFromSofOperations',liveUpdate=True,view_store__onBuilt=True)
     
+    @public_method
+    def dailyqtSofLazyMode(self,pane):
+        pane.inlineTableHandler(maintable='shipsteps.sof',relation='@sof_daily',viewResource='ViewFromSofDailyOp',liveUpdate=True,view_store__onBuilt=True)
+    
+    @public_method
+    def dailyDestQtSofLazyMode(self,pane):
+        pane.inlineTableHandler(maintable='shipsteps.sof',table='shipsteps.qt_destino',
+                                                             condition='$dailysof_id=:dailysof_id',
+                                                             default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+                                                             condition_dailysof_id='^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+                                                             viewResource='ViewFromDailyQTdest',condition__onStart=True,edit = True,autoSave=True, searchOn=False,liveUpdate=True,view_store__onBuilt=True)
+
+    @public_method
+    def reportDailyQtSofLazyMode(self,pane,arr_id=None):
+        
+        pane.plainTableHandler(maintable='shipsteps.sof',table='shipsteps.ck_emailqtdest',viewResource='View',
+                               condition='$arrival_id=:a_id',
+                               condition_a_id=arr_id,liveUpdate=True,
+                               _onStart=True,view_store__onBuilt=True)
+
     def dailyOperations(self,bc_daily):
         bc = bc_daily#.borderContainer(region='center',splitter=True,height='100%', width='100%')
         center_bc = bc_daily.borderContainer(height='100%', width='100%')#region='center',splitter=True,height='100%', width='100%')
         #left.roundedGroupFrame(title='!![en]Daily quantity handled',region='left',width='40%', 
         #                       height='100%',splitter=True,datapath='#FORM').contentPane(width='100%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp', view_grid_autoSelect=True)
-        bc_daily.roundedGroupFrame(title='!![en]Daily quantity handled',width='40%', height='100%',region='left',splitter=True, closable=True).contentPane(width='100%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp')#, view_grid_autoSelect=True)
+        bc_dqt=bc_daily.roundedGroupFrame(title='!![en]Daily quantity handled',width='40%', height='100%',region='left',splitter=True, closable=True)#.contentPane(width='100%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp')#, view_grid_autoSelect=True)
+        
+        bc_dqt.contentPane(width='100%', height='100%').remote(self.dailyqtSofLazyMode,_waitingMessage='!![en]Please wait')
         #left.contentPane(region='left',width='40%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp',liveUpdate=True)
         #left.roundedGroupFrame(title='!![en]Quantity by destination',region='right',width='50%', height='100%',splitter=True,datapath='#FORM').contentPane(region='right',width='40%').inlineTableHandler(table='shipsteps.qt_destino',
         #                                                     view_grid_autoSelect=True,
@@ -539,31 +620,41 @@ class Form(BaseComponent):
         #                                                     #default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
         #                                                     condition_dailysof_id='=^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
         #                                                     viewResource='ViewFromDailyQTdest',condition__onStart=True)
+        
+        
         bc_daily.roundedGroupFrame(title='!![en]Report for Sent daily destinations quantity email',
-                                   width='30%', height='100%',
-                                   region='right',
-                                   splitter=True, 
-                                   closable=True).contentPane(width='100%', height='100%').plainTableHandler(table='shipsteps.ck_emailqtdest',
-                                                                                                             viewResource='View',
-                                                                                                             condition='$arrival_id=:a_id',
-                                                                                                             condition_a_id='^#FORM.record.arrival_id',liveUpdate=True,
-                                                                                                             _onStart=True)
-        #bc_daily.roundedGroupFrame(title='Email inviate',width='30%', height='100%',region='right',splitter=True, closable=True).contentPane(width='100%', height='100%').inlineTableHandler(table='shipsteps.qt_destino',
+                                   width='30%', height='100%', region='right', splitter=True, 
+                                   closable=True).contentPane(width='100%', height='100%').remote(self.reportDailyQtSofLazyMode,_waitingMessage='!![en]Please wait',arr_id='^#FORM.record.arrival_id')
+        
+        #bc_daily.roundedGroupFrame(title='!![en]Report for Sent daily destinations quantity email',
+        #                           width='30%', height='100%',
+        #                           region='right',
+        #                           splitter=True, 
+        #                           closable=True).contentPane(width='100%', height='100%').plainTableHandler(table='shipsteps.ck_emailqtdest',
+        #                                                                                                     viewResource='View',
+        #                                                                                                     condition='$arrival_id=:a_id',
+        #                                                                                                     condition_a_id='^#FORM.record.arrival_id',liveUpdate=True,
+        #                                                                                                     _onStart=True)
+       
+       #bc_daily.roundedGroupFrame(title='Email inviate',width='30%', height='100%',region='right',splitter=True, closable=True).contentPane(width='100%', height='100%').inlineTableHandler(table='shipsteps.qt_destino',
         #                                                     condition='$dailysof_id=:dailysof_id',
         #                                                     default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
         #                                                     condition_dailysof_id='^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
         #                                                     viewResource='ViewFromDailyQTdest',condition__onStart=True,edit = True)
         
         rg=center_bc.roundedGroup(title='!![en]daily destinations quantity',region='top',width='25%', height='70px',margin_left='42%')
-        center_bc.contentPane(width='25%', region='center',margin_left='42%',margin_right='10px').inlineTableHandler(table='shipsteps.qt_destino',
-                                                             condition='$dailysof_id=:dailysof_id',
-                                                             default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
-                                                             condition_dailysof_id='^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
-                                                             viewResource='ViewFromDailyQTdest',condition__onStart=True,edit = True,autoSave=True, searchOn=False)
+        center_bc.contentPane(width='25%', region='center',margin_left='42%',margin_right='10px').remote(self.dailyDestQtSofLazyMode,_waitingMessage='!![en]Please wait')
+
+        #center_bc.contentPane(width='25%', region='center',margin_left='42%',margin_right='10px').inlineTableHandler(table='shipsteps.qt_destino',
+        #                                                     condition='$dailysof_id=:dailysof_id',
+        #                                                     default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+        #                                                     condition_dailysof_id='^#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',
+        #                                                     viewResource='ViewFromDailyQTdest',condition__onStart=True,edit = True,autoSave=True, searchOn=False)
+
         fb= rg.div(margin_left='30%',margin_right='50%').formbuilder(cols=2, border_spacing='4px',fld_width='10em')
         #fb=left.contentPane(region='center',width='auto').div(margin_left='30%',margin_right='50%').formbuilder(cols=2, border_spacing='4px',fld_width='10em')
         fb.br()
-        btn_qtday = fb.button('!![en]Email daily destination q.ty', width='auto')#,hidden="^#FORM.shipsteps_qt_destino.view.grid.selectedId?=!#v")
+        btn_qtday = fb.button('!![en]Daily destination q.ty',iconClass='email', width='12em')#,hidden="^#FORM.shipsteps_qt_destino.view.grid.selectedId?=!#v")
         btn_qtday.dataRpc('nome_temp', self.email_sofqt,record='=#FORM.record',servizio=['arr','sof'], email_template_id='qt_day',
                             nome_template = 'shipsteps.sof:qt_day',format_page='A4',
                             _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
@@ -575,7 +666,10 @@ class Form(BaseComponent):
 
 
         #pane.inlineTableHandler(table='shipsteps.qt_destino',condition='$dailysof_id=:dailysof_id',default_dailysof_id='=#FORM.shipsteps_daily_sofdetails.view.grid.selectedId',viewResource='ViewFromDailyQTdest',liveUpdate=True)
-    
+    @public_method
+    def truckDetailsLazyMode(self,pane):
+        pane.inlineTableHandler(maintable='shipsteps.sof',table='shipsteps.sof_trucks',relation='@sof_trucks',viewResource='ViewFromTrucks',liveUpdate=True,view_store__onBuilt=True)
+
     def trucksDetails(self,pane):
         pane.inlineTableHandler(relation='@sof_trucks',viewResource='ViewFromTrucks',liveUpdate=True)    
 
@@ -618,6 +712,19 @@ class Form(BaseComponent):
     def onbehalf_remarks(self,frame):
         frame.simpleTextArea(value='^.onbehalf',editor=True)
 
+    @public_method
+    def tanksSofLazyMode(self,pane):
+        fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=2, border_spacing='4px',fld_width='10em',table='shipsteps.sof_tanks',datapath='.record.@sof_tanks')
+        fb.field('start_insp')
+        fb.field('stop_insp')
+        fb.field('cargo_calc')
+        fb.br()
+        fb.field('start_ullage')
+        fb.field('stop_ullage')
+        fb.field('hose_conn')
+        fb.field('hose_disconn')
+        fb.field('average')
+
     def tanks(self,pane):
         fb = pane.div(margin_left='50px',margin_right='80px').formbuilder(cols=2, border_spacing='4px',fld_width='10em',table='shipsteps.sof_tanks',datapath='.record.@sof_tanks')
         fb.field('start_insp')
@@ -633,9 +740,33 @@ class Form(BaseComponent):
     def emailSof(self,pane):
         pane.inlineTableHandler(title='Email SOF', relation='@sof_email',viewResource='ViewFromSofEmail',liveUpdate=True)
     
+    @public_method
+    def emailSofLazyMode(self,pane):
+        pane.inlineTableHandler(maintable='shipsteps.sof',title='Email SOF', relation='@sof_email',viewResource='ViewFromSofEmail',liveUpdate=True,view_store__onBuilt=True)
+    
     def emailSofQT(self,pane):
         pane.inlineTableHandler(title='Email SOF Qta destino', relation='@sof_email_qt',viewResource='ViewFromSofEmailQtDest',liveUpdate=True)
 
+    @public_method
+    def emailSofQTLazyMode(self,pane):
+        pane.inlineTableHandler(maintable='shipsteps.sof',title='Email SOF Qta destino', relation='@sof_email_qt',viewResource='ViewFromSofEmailQtDest',liveUpdate=True,view_store__onBuilt=True)
+    
+    @public_method
+    def editSofLazyMode(self, pane):
+        frame = pane.framePane()
+        bar = frame.top.slotBar('10, lett_select,*',height='20px',border_bottom='1px solid silver')
+        fb = bar.lett_select.formbuilder(cols=2,datapath='#FORM.record.htmlbag')
+        fb.dbselect('^.letterhead_id',table='adm.htmltemplate',lbl='carta intestata',hasDownArrow=True)
+        fb.button('Get Html Doc').dataRpc('#FORM.record.htmlbag.source',self.db.table('shipsteps.sof').getHTMLDoc,
+                                            sof_id='=#FORM.pkey',
+                                            record_template='sof',
+                                            letterhead='.letterhead_id')
+        
+        frame.pagedEditor(value='^#FORM.record.htmlbag.source',pagedText='^#FORM.record.htmlbag.output',
+                          border='1px solid silver',
+                          letterhead_id='^#FORM.record.htmlbag.letterhead_id',
+                          datasource='#FORM.record',printAction=True)
+        
     def editSof(self, frame):
         bar = frame.top.slotBar('10, lett_select,*',height='20px',border_bottom='1px solid silver')
         fb = bar.lett_select.formbuilder(cols=2,datapath='#FORM.record.htmlbag')
@@ -648,6 +779,22 @@ class Form(BaseComponent):
         frame.pagedEditor(value='^#FORM.record.htmlbag.source',pagedText='^#FORM.record.htmlbag.output',
                           border='1px solid silver',
                           letterhead_id='^#FORM.record.htmlbag.letterhead_id',
+                          datasource='#FORM.record',printAction=True)
+
+    @public_method
+    def editLopLazyMode(self, pane):
+        frame = pane.framePane()
+        bar = frame.top.slotBar('10, lett_select,*',height='20px',border_bottom='1px solid silver')
+        fb = bar.lett_select.formbuilder(cols=2,datapath='#FORM.record.htmlbag_lop')
+        fb.dbselect('^.letterhead_id',table='adm.htmltemplate',lbl='carta intestata',hasDownArrow=True)
+        fb.button('Get Html Lop Doc').dataRpc('#FORM.record.htmlbag_lop.source',self.db.table('shipsteps.sof').getHTMLDoc,
+                                            sof_id='=#FORM.pkey',
+                                            record_template='lop',
+                                            letterhead='.letterhead_id')
+        
+        frame.pagedEditor(value='^#FORM.record.htmlbag_lop.source',pagedText='^#FORM.record.htmlbag_lop.output',
+                          border='1px solid silver',
+                          letterhead_id='^#FORM.record.htmlbag_lop.letterhead_id',
                           datasource='#FORM.record',printAction=True)
 
     def editLop(self, frame):

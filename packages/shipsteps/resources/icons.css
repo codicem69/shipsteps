@@ -114,3 +114,12 @@
     flex-shrink:0;
     float: left;
 }
+.truck{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/truck.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}
