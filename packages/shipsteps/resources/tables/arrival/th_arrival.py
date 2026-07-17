@@ -691,7 +691,17 @@ class Form(BaseComponent):
         center2 = bc.roundedGroup(title='!![en]EXTRA',region='right',width='18%', height = '100%', margin_left='0px',splitter=True).div(margin='10px',margin_left='2px')
        # center3 = bc.roundedGroup(title='!![en]EXTRA',region='right',datapath='.record',width='240px',margin_left='0px', margin_top='150px').div(margin='10px',margin_left='2px')
         #center3 = bc.roundedGroup(title='!![en]Times',table='shipsteps.arrival_time',region='center',datapath='.record.@time_arr',width='245px', height = '350px', margin_left='1385px').div(margin='10px',margin_left='2px')
-        fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
+        
+        main = center.div(margin='10px', padding='2px')
+
+        # --- CARD ARRIVAL DETAILS  ---
+        ref_box = main.div(border='1px solid #d8d8d8', rounded=6, padding='2px', margin_bottom='6px',
+            background='#ededed')
+
+        ref_box.div('ℹ️ Arrival', font_weight='bold', color='#1565C0', margin_bottom='8px')
+
+        fb = ref_box.formbuilder(cols=1, border_spacing='8px', lblpos='T', fldalign='left', lbl_font_weight='bold')
+        #fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
         #onDbChanges in caso di modifica dati su vessel_details il form arrival viene aggiornato        
         fb.onDbChanges("""if(dbChanges.some(change=>change.dbevent=='U' && change.pkey==pkey)){this.form.reload()}""",
             table='shipsteps.vessel_details',pkey='=#FORM.record.vessel_details_id')
@@ -769,20 +779,31 @@ class Form(BaseComponent):
        
         #fb.field('tip_mov' , hasDownArrow=True,  auxColumns='$description',order_by='$description')
 
-        fb = center1.formbuilder(cols=6, border_spacing='4px',lblpos='T',fldalign='left')
-        fb.field('eta' , width='10em')
-        fb.field('etb' , width='10em')
+        #fb = center1.formbuilder(cols=6, border_spacing='4px',lblpos='T',fldalign='left')
         
-        #fb.field('et_start' , width='10em')
-        #fb.field('etc' , width='10em')
-        fb.field('ets', width='10em' )
-        #fb.field('dock_id', colspan=2, width='100%', readOnly='^#FORM.record.@time_arr.moored?=#v')
-        fb.br()
-        fb.field('dock_id', colspan=1, width='100%', disabled='^#FORM.record.@time_arr.moored?=#v')
-        #fb.div(' - ').button('ℹ',action="""genro.dlg.alert(
-        #     "Il molo può essere modificato solo dalla form 'Movimenti banchina'.")""",
-        #    hidden='^#FORM.record.@time_arr.moored?=!#v', border_spacing='100px')
-        fb.button('Info',action="""
+        main = center1.div(margin='10px', padding='2px')
+
+        # --- CARD TEMPI ---
+        times_box = main.div(border='1px solid #d8d8d8', rounded=6, padding='2px', margin_bottom='6px',
+            background='#ededed')
+
+        times_box.div('⏱ Times', font_weight='bold', color='#1565C0', margin_bottom='8px')
+
+        fb_t = times_box.formbuilder(cols=3, border_spacing='8px', lblpos='T', fldalign='left', lbl_font_weight='bold')
+               
+        fb_t.field('eta')
+        fb_t.field('etb')
+        fb_t.field('ets')
+
+        # --- CARD ORMEGGIO ---
+        moor_box = main.div(border='1px solid #d8d8d8', rounded=6,padding='2px', margin_bottom='6px',background='#eaeaea')
+
+        moor_box.div('⚓ Mooring', font_weight='bold', color='#1565C0',padding='2px', margin_bottom='6px')
+
+        fb_m = moor_box.formbuilder(cols=7, border_spacing='2px', width='98%', colswidth='auto')
+
+        fb_m.field('dock_id', colspan=3, width='20em', disabled='^#FORM.record.@time_arr.moored?=#v')
+        fb_m.button('Info', action="""
                             genro.dlg.ask(
                                 "!![en]Warning",
                                 "La banchina può essere modificata solo dalla form 'Movimenti banchina'. Vuoi cambiarla?",
@@ -793,6 +814,33 @@ class Form(BaseComponent):
                             );
                             """,arr_id='=#FORM.record.id',
                             hidden='^#FORM.record.@time_arr.moored?=!#v',margin_left='10px',margin_top='0px',iconClass='iconbox info',disabled='^#FORM.btn_mov')
+        fb_m.field('info_moor',width='40em', colspan=3 ,placeholder='e.g. Inizio ormeggio il ... ore ....', tag='textArea')
+
+        # --- CARD PESCAGGI ---
+        draft_box = main.div(border='1px solid #d8d8d8', rounded=6,padding='2px', margin_bottom='6px',background='#eaeaea')
+
+        draft_box.div('↕️ Draft', font_weight='bold', color='#1565C0', margin_bottom='8px', border_spacing='0px')
+
+        fb_d = draft_box.formbuilder(cols=4, border_spacing='8px')
+        fb_d.field('draft_aft_arr', width='5em', placeholder='eg:4 or 4,5')
+        fb_d.field('draft_fw_arr' , width='5em', placeholder='eg:4 or 4,5')
+        fb_d.field('draft_aft_dep' , width='5em', placeholder='eg:4 or 4,5')
+        fb_d.field('draft_fw_dep' , width='5em', placeholder='eg:4 or 4,5')
+        #fb = center1.formbuilder(cols=6, border_spacing='6px',lblpos='T',fldalign='left',margin='8px')
+        #
+        #fb.field('eta' , width='10em')
+        #fb.field('etb' , width='10em')
+        #fb.field('ets', width='10em' )
+        #fb.field('et_start' , width='10em')
+        #fb.field('etc' , width='10em')
+        
+        #fb.field('dock_id', colspan=2, width='100%', readOnly='^#FORM.record.@time_arr.moored?=#v')
+        #fb.br()
+        
+        #fb.div(' - ').button('ℹ',action="""genro.dlg.alert(
+        #     "Il molo può essere modificato solo dalla form 'Movimenti banchina'.")""",
+        #    hidden='^#FORM.record.@time_arr.moored?=!#v', border_spacing='100px')
+        
         #genro.publish('open_dock_movements',{arrival_id: arr_id});",arr_id='=#FORM.record.id'
          #action="""
          #                   var tp = {template:template_id};
@@ -813,37 +861,57 @@ class Form(BaseComponent):
          #                                                         genro.publish("table_script_run",kw);}});
          #                   else {
          #                   genro.publish("table_script_run",kw);}""", template_id=template_id,template_id_pfda=template_id_pfda,invoice_id='=.invoice_id')
-        fb.field('info_moor',width='140%', colspan=2 ,placeholder='e.g. Inizio ormeggio il ... ore ....', tag='textArea')
-        fb.br()
-        fb.field('draft_aft_arr', width='5em', placeholder='eg:4 or 4,5')
-        fb.field('draft_fw_arr' , width='5em', placeholder='eg:4 or 4,5')
-        fb.field('draft_aft_dep' , width='5em', placeholder='eg:4 or 4,5')
-        fb.field('draft_fw_dep' , width='5em', placeholder='eg:4 or 4,5')
+        #fb.br()
+        
+        #fb.br()
+        
         #fb.field('dock_id' )
+
+         # --- CARD DETTAGLI VIAGGIO ---
+        voy_box = main.div(border='1px solid #d8d8d8', rounded=6,padding='2px', margin_bottom='6px',background='#eaeaea')
+
+        voy_box.div('📍 Voyage', font_weight='bold', color='#1565C0', margin_bottom='8px')
+
+        fb_v = voy_box.formbuilder(cols=4, border_spacing='4px', lblpos='T', fldalign='left')
+        
+        fb_v.field('voy_n', width='10em')
+        fb_v.field('master_name' )
+        fb_v.field('n_crew' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
+        fb_v.field('n_passengers' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
         
         fb.br()
-        fb.field('voy_n', width='10em')
-        fb.field('master_name' )
-        fb.field('n_crew' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
-        fb.field('n_passengers' , width='5em',validate_regex=" ^[0-9]*$",validate_regex_error='Insert only numbers')
+        fb_v.field('last_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
+        fb_v.field('departure_lp' , width='10em')
+        fb_v.field('next_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
+        fb_v.field('eta_np' , width='10em')
+
+        port_box = main.div(border='1px solid #d8d8d8', rounded=6,padding='2px', margin_bottom='6px',background='#eaeaea')
+
+        port_box.div('🌍 Port', font_weight='bold', color='#1565C0', margin_bottom='8px')
+
+        fb_p = port_box.formbuilder(cols=6, border_spacing='4px', width='98%', colswidth='auto')
+
+        fb_p.field('email_obj', colspan=3, width='98%')
+        fb_p.field('cargo_dest', colspan=3, width='100%')
+        fb_p.br()
+        fb_p.field('mandatory', colspan=6 , width='100%')
         
-        fb.br()
-        fb.field('last_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
-        fb.field('departure_lp' , width='10em')
-        fb.field('next_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
-        fb.field('eta_np' , width='10em')
-        fb.br()
-        fb.field('email_obj', width='20em')
-        fb.field('cargo_dest', colspan=2, width='100%')
-        fb.br()
-        fb.field('mandatory', colspan=3 , width='98%')
-        
-        fb.br()
-        fb.field('invoice_det_id',colspan=5 ,width='100%', hasDownArrow=True)
+        fb_p.br()
+        fb_p.field('invoice_det_id',colspan=6 ,width='100%', hasDownArrow=True)
         #fb.field('@invoice_det_id.fullname',lbl='!![en]Invoicing',colspan=5 ,width='100%', hasDownArrow=True,readOnly=True, tag='textBox')
         #btn_test=fb.Button('test')#, action='SET .@arr_tasklist.email_dogana=true;')
         #btn_test.dataRpc('', self.test_but,arrival_id='=#FORM.record.id')
-        fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
+
+        main = center2.div(margin='10px', padding='2px')
+        # --- CARD EXTRA DETAILS  ---
+        ex_box = main.div(border='1px solid #d8d8d8', rounded=6, padding='2px', margin_bottom='6px',
+            background='#ededed')
+
+        ex_box.div('ℹ️ Extra arrival details', font_weight='bold', color='#1565C0', margin_bottom='8px')
+
+        fb = ex_box.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
+
+        #fb = center2.formbuilder(cols=1, border_spacing='4px',table='shipsteps.gpg',datapath='.record.@gpg_arr', fld_width='10em',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Passengers/UE' && #v!='Passengers'""")
         #con attributo hidden che punta a tip_mov se diverso dal valore pass nascondiamo il formbuilder della gpg
         #fb.field('arrival_id')
         fb.field('date_start')
@@ -851,14 +919,17 @@ class Form(BaseComponent):
         fb.field('n_gpg')
 
         #fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="^#FORM.record.@last_port.@nazione_code.ue_san?=#v==true")
-        fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="^#FORM.record.uesan_pref?=#v==true")
+        fb = ex_box.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="^#FORM.record.uesan_pref?=#v==true")
+        #fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="^#FORM.record.uesan_pref?=#v==true")
         
         #nascondiamo il campo nsis in base al valore della pyColumn ue_san nella tabella Nazione pkg Unlocode
         fb.field('nsis_prot')
       # fb = center3.formbuilder(cols=1, border_spacing='4px', fld_width='18em',lblpos='T')
-        fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T')
+        fb = ex_box.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T')
+        #fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T')
         fb.field('firma_div', tag='textArea')
-        fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
+        fb = ex_box.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
+        #fb = center2.formbuilder(cols=1, datapath='.record',border_spacing='4px', fld_width='18em',lblpos='T',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'""")
         fb.radioButtonText(value='^.fumigated', values='SI:YES,NO:NO', lbl='Cargo fumugated?: ') 
         fb.dataRpc('todos_to_notify',self.getPendingTodos,rec_id='=#FORM.record.id', _fired='^.pkey')
         # Trigger per aprire il dialog quando arrivano i todos
