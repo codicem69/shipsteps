@@ -608,9 +608,17 @@ class Form(BaseComponent):
         dlg_email = bc.palette(title='!![en]Email arrival',closable=True,paletteCode='email_arr',dockButton=True,
         width='1800px',
         height='900px')
-
+        
+       #frame=dlg.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
+        #bar = frame.bottom.slotBar('*,closeDlg,*',height='22px',border='1px solid silver')
+        
+        #bc.dataController("""if(changed==true) {SET .emailSemaphore = null;} else {SET .emailSemaphore = true;}""",
+        #            changed='^#FORM.controller.changed')
+        
+        #barTop_email.formstatus.div('Saved',datapath='^#FORM.controller')
+        #dlg_email.top.slotToolbar('5,addrow,delrow,*,save')
         dlg_email.dataController("""dlg.show();""", dlg=dlg_email.js_widget, subscribe_open_email_arr=True)
-        dlg_email.contentPane(title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait') 
+        dlg_email.contentPane(region='center',title='!![en]Email Arrival').remote(self.emailArrivalLazyMode,_waitingMessage='!![en]Please wait') 
   
         #dlg_email.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival')
 
@@ -634,7 +642,11 @@ class Form(BaseComponent):
         dlg_car.dataController("""dlg.show();""", dlg=dlg_car.js_widget, subscribe_open_cargo=True)
 
         bc_cargo = dlg_car.borderContainer()
-        top = bc_cargo.contentPane(region='top', height='60px')
+        top = bc_cargo.contentPane(region='top', height='80px')
+        
+        barTop_cargo = top.slotBar('*,savebtn',height='22px',border='1px solid silver',toolbar=True)
+        barTop_cargo.savebtn.button('!!Save',action='this.form.save();')
+        
         #top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('M/V '+'^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
         top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('== tipo + " " + nome',tipo='^#FORM.record.@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code', nome='^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
         # Tab centrali
@@ -1200,7 +1212,7 @@ class Form(BaseComponent):
         fb.field('extra_cargo_onboard', tag='simpleTextArea',height='25px',colspan=3)
 
     def datiCarico(self,pane):
-        pane.inlineTableHandler(relation='@cargo_lu_arr',viewResource='ViewFromCargoLU')
+        pane.inlineTableHandler(relation='@cargo_lu_arr',viewResource='ViewFromCargoLU', semaphore=True)
 
     def datiCaricoTransit(self,bc):
         center = bc.roundedGroup(title='!![en]Transit cargo', region='center', height = '100%').div(margin='10px',margin_left='2px')
@@ -1404,8 +1416,10 @@ class Form(BaseComponent):
     
     @public_method
     def emailArrivalLazyMode(self,pane):
-        pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival',view_store__onBuilt=True)
-    
+        pane.inlineTableHandler(title='!![en]Email arrival',relation='@arrival_email',viewResource='ViewFromEmailArrival',view_store__onBuilt=True,
+                                saveButton=True, semaphore=True)
+        
+
     @public_method
     def movDockLazyMode(self,pane):
         pane.stackTableHandler(table='shipsteps.movimenti_banchina',relation='@mov_banchina',viewResource='View',formResource='Form',dialog=True,view_store__onBuilt=True)
