@@ -565,7 +565,7 @@ class Form(BaseComponent):
                      action="genro.publish('open_vessel_details',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
         bar.email_arr.button('!![en]Emails arrival', width='9em',disabled='^#FORM.controller.locked',
                      iconClass='email',
-                     action="genro.publish('open_email_arr'),{arrival_id: arr_id});",arr_id='=#FORM.record.id')
+                     action="genro.publish('open_email_arr',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
         bar.movimenti.button('Movimenti banchina',disabled='^#FORM.btn_mov',
                      iconClass='shifting',
                      action="genro.publish('open_dock_movements',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
