@@ -635,16 +635,16 @@ class Form(BaseComponent):
                                                 template='dettaglio_imb',noModal=True)
         
         #CARICO 
-        dlg_car = bc.dialog(title='!![en]Cargo loading / unloading',closable=True,
-        width='1800px',
-        height='900px')
+        dlg_car = bc.dialog(title='!![en]Cargo loading / unloading',closable=True,parentRatio=0.9)
+#        width='1800px',
+ #       height='900px')
 
         dlg_car.dataController("""dlg.show();""", dlg=dlg_car.js_widget, subscribe_open_cargo=True)
 
         bc_cargo = dlg_car.borderContainer()
         top = bc_cargo.contentPane(region='top', height='80px')
         
-        barTop_cargo = top.slotBar('*,savebtn',height='22px',border='1px solid silver',toolbar=True)
+        barTop_cargo = top.slotToolbar('*,savebtn',height='22px',border='1px solid silver',toolbar=True)
         barTop_cargo.savebtn.button('!!Save',action='this.form.save();')
         
         #top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('M/V '+'^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
