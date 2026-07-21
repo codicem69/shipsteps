@@ -29,11 +29,28 @@ class GnrCustomWebPage(object):
         wrapper = root.div(width='100%', height='100%',
                            text_align='center', background='white',
                            padding_top='30px')
-        wrapper.img(src='/_pkg/shipsteps/resources/html_pages/images/shipsteps_logo.png',
-                    style='width:30%;margin-top:30px;')
-        wrapper.div('Shipsteps',
-                    font_size='100px', color='#384D63',
-                    margin_top='20px', margin_bottom='30px')
+        wrapper.img(src='/_pkg/shipsteps/resources/html_pages/images/Ranalli_Logo.svg',
+                    style='width:20%;margin-top:30px;')
+
+        titlebox = wrapper.div(display='flex',
+                               justify_content='center',
+                               align_items='center',
+                               gap='20px',
+                               margin_top='20px',
+                               margin_bottom='30px')
+
+        titlebox.img(src='/_pkg/shipsteps/resources/html_pages/images/shipsteps.svg',
+                     style='width:150px;height:150px;')
+
+        titlebox.div(
+                'Shipsteps',
+                font_size='100px',
+                font_weight='bold',
+                color='#384D63',
+                text_shadow='2px 2px 4px rgba(0,0,0,0.15)')
+
+        #titlebox.div('Shipsteps', font_size='100px', color='#384D63')
+
         wrapper.div(agency_name + ' - ' + port_name,
                     font_size='70px', color='#1d3355ff',font_weight='bold',
                     margin_top='20px', margin_bottom='30px')
