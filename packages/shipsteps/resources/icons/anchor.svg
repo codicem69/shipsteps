@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   fill="#000000"
+   width="128"
+   height="128"
+   viewBox="-0.01 0 81.91984 81.91984"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="anchor.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.99875"
+     inkscape:cx="400"
+     inkscape:cy="400"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <g
+     id="_07_Anchor"
+     data-name="07 Anchor"
+     transform="matrix(0.15999969,0,0,0.15999969,-0.005,0)">
+    <path
+       id="Path_12"
+       data-name="Path 12"
+       d="M 472.934,408.914 C 425.871,472.678 343.934,512.739 256,511.989 168.064,512.739 86.128,472.677 39.066,408.914 L 0,447.991 v -128 h 128 l -35.187,35.17 A 190.83,190.83 0 0 0 224,444.976 V 251.463 C 168.877,237.2 128,187.574 128,128 a 128,128 0 0 1 256,0 c 0,59.577 -40.875,109.2 -96,123.466 v 193.51 A 190.824,190.824 0 0 0 419.184,355.164 L 384,319.994 h 128 v 128 z M 320,128 a 64,64 0 1 0 -64,64 64,64 0 0 0 64,-64 z"
+       fill-rule="evenodd" />
+  </g>
+</svg>

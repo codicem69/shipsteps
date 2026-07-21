@@ -123,3 +123,30 @@
     flex-shrink:0;
     float: left;
 }
+.voy{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/voy.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}
+.anchor{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/anchor.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}
+.vessel_draft{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/vessel_draft.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}

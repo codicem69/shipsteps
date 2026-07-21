@@ -799,8 +799,9 @@ class Form(BaseComponent):
         times_box = main.div(border='1px solid #d8d8d8', rounded=6, padding='2px', margin_bottom='6px',
             background='#ededed')
 
-        times_box.div('⏱ Times', font_weight='bold', color='#1565C0', margin_bottom='8px')
-
+        #times_box.div('⏱ Times', font_weight='bold', color='#1565C0', margin_bottom='8px')
+        times_box.div("""<div style="display:flex;align-items:center;gap:6px;">
+                        <span class="clock"></span><span style="font-weight:bold;color:#1565C0;">Times</span></div>""")
         fb_t = times_box.formbuilder(cols=3, border_spacing='8px', lblpos='T', fldalign='left', lbl_font_weight='bold')
                
         fb_t.field('eta')
@@ -810,8 +811,9 @@ class Form(BaseComponent):
         # --- CARD ORMEGGIO ---
         moor_box = main.div(border='1px solid #d8d8d8', rounded=6,padding='2px', margin_bottom='6px',background='#eaeaea')
 
-        moor_box.div('⚓ Mooring', font_weight='bold', color='#1565C0',padding='2px', margin_bottom='6px')
-
+        #moor_box.div('⚓ Mooring', font_weight='bold', color='#1565C0',padding='2px', margin_bottom='6px')
+        moor_box.div("""<div style="display:flex;align-items:center;gap:6px;">
+                        <span class="anchor"></span><span style="font-weight:bold;color:#1565C0;">Mooring</span></div>""")
         fb_m = moor_box.formbuilder(cols=7, border_spacing='2px', width='98%', colswidth='auto')
 
         fb_m.field('dock_id', colspan=3, width='20em', disabled='^#FORM.record.@time_arr.moored?=#v')
@@ -831,8 +833,9 @@ class Form(BaseComponent):
         # --- CARD PESCAGGI ---
         draft_box = main.div(border='1px solid #d8d8d8', rounded=6,padding='2px', margin_bottom='6px',background='#eaeaea')
 
-        draft_box.div('↕️ Draft', font_weight='bold', color='#1565C0', margin_bottom='8px', border_spacing='0px')
-
+        #draft_box.div('↕️ Draft', font_weight='bold', color='#1565C0', margin_bottom='8px', border_spacing='0px')
+        draft_box.div("""<div style="display:flex;align-items:center;gap:6px;">
+                        <span class="vessel_draft"></span><span style="font-weight:bold;color:#1565C0;">Draft</span></div>""")
         fb_d = draft_box.formbuilder(cols=4, border_spacing='8px')
         fb_d.field('draft_aft_arr', width='5em', placeholder='eg:4 or 4,5')
         fb_d.field('draft_fw_arr' , width='5em', placeholder='eg:4 or 4,5')
@@ -882,8 +885,10 @@ class Form(BaseComponent):
          # --- CARD DETTAGLI VIAGGIO ---
         voy_box = main.div(border='1px solid #d8d8d8', rounded=6,padding='2px', margin_bottom='6px',background='#eaeaea')
 
-        voy_box.div('📍 Voyage', font_weight='bold', color='#1565C0', margin_bottom='8px')
-
+        #voy_box.div('📍 Voyage', font_weight='bold', color='#1565C0', margin_bottom='8px')
+        voy_box.div("""<div style="display:flex;align-items:center;gap:6px;">
+                        <span class="voy"></span><span style="font-weight:bold;color:#1565C0;">Voyage</span></div>""")
+        
         fb_v = voy_box.formbuilder(cols=4, border_spacing='4px', lblpos='T', fldalign='left')
         
         fb_v.field('voy_n', width='10em')
@@ -898,8 +903,10 @@ class Form(BaseComponent):
         fb_v.field('eta_np' , width='10em')
 
         port_box = main.div(border='1px solid #d8d8d8', rounded=6,padding='2px', margin_bottom='6px',background='#eaeaea')
-
-        port_box.div('🌍 Port', font_weight='bold', color='#1565C0', margin_bottom='8px')
+        
+        port_box.div("""<div style="display:flex;align-items:center;gap:6px;">
+                        <span class="vessel_details"></span><span style="font-weight:bold;color:#1565C0;">Info</span></div>""")
+        #port_box.div("""<span class="vessel_details"></span><span style="margin-left:6px;font-weight:bold;color:#1565C0;"> Vessel details</span>""",  _class='vessel_details', font_weight='bold', color='#1565C0', margin_bottom='8px')
 
         fb_p = port_box.formbuilder(cols=6, border_spacing='4px', width='98%', colswidth='auto')
 
