@@ -606,8 +606,8 @@ class Form(BaseComponent):
 
         #EMAIL ARRIVAL     
         dlg_email = bc.palette(title='!![en]Email arrival',closable=True,paletteCode='email_arr',dockButton=True,
-        width='1800px',
-        height='900px')
+        width='1700px',
+        height='700px')
         
        #frame=dlg.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         #bar = frame.bottom.slotBar('*,closeDlg,*',height='22px',border='1px solid silver')
@@ -663,8 +663,8 @@ class Form(BaseComponent):
         #CARICO 
         dlg_loadingcargo = bc.palette(paletteCode='loadingcargo',dockButton=True,
         title='!![en]Loading Cargo',closable=True,
-        width='1800px',
-        height='900px')
+        width='1700px',
+        height='700px')
 
         dlg_loadingcargo.dataController("""dlg.show();""", dlg=dlg_loadingcargo.js_widget, subscribe_open_loadingcargo=True)
         dlg_loadingcargo.contentPane(title='!![en]Loading Cargoes',height='100%').remote(self.cargodocsCertLazyMode,_waitingMessage='!![en]Please wait')
@@ -673,8 +673,8 @@ class Form(BaseComponent):
         #SOF
         dlg_sof = bc.palette(paletteCode='sof',dockButton=True,
         title='!![en]Statment of Facts',closable=True,
-        width='1800px',
-        height='900px')
+        width='1700px',
+        height='700px')
 
         dlg_sof.dataController("""dlg.show();""", dlg=dlg_sof.js_widget, subscribe_open_sof=True)
         #bc_sof = dlg_sof.borderContainer()
@@ -686,8 +686,8 @@ class Form(BaseComponent):
         #FINAL D/A
         dlg_fda = bc.palette(paletteCode='fda',dockButton=True,
         title='!![en]Final D/A',closable=True,
-        width='1800px',
-        height='900px')
+        width='1700px',
+        height='700px')
 
         dlg_fda.dataController("""dlg.show();""", dlg=dlg_fda.js_widget, subscribe_open_fda=True)
         dlg_fda.contentPane(title='!![en]FDA',pageName='fda',height='100%').remote(self.fdaLazyMode,_waitingMessage='!![en]Please wait')
@@ -710,8 +710,10 @@ class Form(BaseComponent):
         ref_box = main.div(border='1px solid #d8d8d8', rounded=6, padding='2px', margin_bottom='6px',
             background='#ededed')
 
-        ref_box.div('ℹ️ Arrival', font_weight='bold', color='#1565C0', margin_bottom='8px')
-
+        #ref_box.div('ℹ️ Arrival', font_weight='bold', color='#1565C0', margin_bottom='8px')
+        ref_box.div("""<div style="display:flex;align-items:center;gap:6px;">
+                        <span class="vessel_details"></span><span style="font-weight:bold;color:#1565C0;">Arrival</span></div>""")
+        
         fb = ref_box.formbuilder(cols=1, border_spacing='8px', lblpos='T', fldalign='left', lbl_font_weight='bold')
         #fb = center.formbuilder(cols=1, border_spacing='4px',lblpos='T')
         #onDbChanges in caso di modifica dati su vessel_details il form arrival viene aggiornato        
