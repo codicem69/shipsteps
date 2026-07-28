@@ -48,6 +48,7 @@ class Table(object):
         tbl.aliasColumn('receivers_name', '@sof_cargo_sof.@cargo_unl_load_id.@receiver_id.name',name_long='!![en]Receivers name')
         tbl.aliasColumn('shiprec_sofcargo','@sof_cargo_sof.ship_rec')
         tbl.aliasColumn('agencyname','@arrival_id.@agency_id.agency_name')
+        tbl.aliasColumn('agencylogo','@arrival_id.@agency_id.agency_logo')
         tbl.aliasColumn('timearr','@arrival_id.@time_arr.time_arr')
         tbl.aliasColumn('timearr2','@arrival_id.@time_arr.time_arr_2')
         tbl.aliasColumn('sofop_int','@sof_operations.operation_int')
@@ -106,8 +107,18 @@ class Table(object):
         #tbl.formulaColumn('portlog_time',"""CASE WHEN $timearr is not null OR $time_sof is not null OR $timearr2 is not null THEN 
         #                                    'PORTLOG<br>------------------------------<br>' || $timearr || '<br>' || $time_sof || '<br>' || $timearr2 || '<br>' END""")
         tbl.formulaColumn('portlog_time',"""CASE WHEN $timearr !='' THEN 'PORTLOG<br>------------------------------<br>' || coalesce($timearr,'') || coalesce($time_sof ,'') || coalesce($timearr2 ,'') END""")
-        tbl.formulaColumn('intestazione_sof',"""CASE WHEN $int_sof is null THEN $agencyname 
-                                                WHEN $int_sof = '' THEN $agencyname ELSE $int_sof END""" )
+        tbl.formulaColumn('intestazione_sof', """CASE
+           WHEN COALESCE($int_sof, '') <> '' THEN $int_sof
+           WHEN COALESCE($agencylogo, '') = '' THEN $agencyname ELSE NULL END""" )
+        #tbl.formulaColumn('intestazione_sof',"""CASE
+        #   WHEN COALESCE($int_sof, '') <> '' THEN $int_sof
+        #   WHEN COALESCE($agencylogo, '') <> '' THEN ''
+        #   ELSE $agencyname END""", dtype='P')
+        tbl.formulaColumn('logo',""" CASE WHEN COALESCE($int_sof, '') = '' AND COALESCE($agencylogo, '') <> '' 
+                                     THEN $agencylogo ELSE NULL END""", dtype='P')
+        #tbl.formulaColumn('intestazione_sof',"""CASE WHEN $int_sof is null THEN $agencyname 
+        #                                                WHEN $int_sof = '' THEN $agencyname ELSE $int_sof END""" )
+        
         tbl.formulaColumn('email_sof_to',select=dict(table='shipsteps.email_sof', columns="""string_agg($dest || ' ' || $description || '<br>', '')""",
                                                     where='$sof_id=#THIS.id and $dest=:to',to='to', limit=1,ignoreMissing=True))
         tbl.formulaColumn('email_sof_cc',select=dict(table='shipsteps.email_sof', columns="""string_agg($dest || ' ' || $description ||'<br>', '')""",
