@@ -116,8 +116,8 @@ class Table(object):
         #   ELSE $agencyname END""", dtype='P')
         tbl.formulaColumn('logo',""" CASE WHEN COALESCE($int_sof, '') = '' AND COALESCE($agencylogo, '') <> '' 
                                      THEN $agencylogo ELSE NULL END""", dtype='P')
-        #tbl.formulaColumn('intestazione_sof',"""CASE WHEN $int_sof is null THEN $agencyname 
-        #                                                WHEN $int_sof = '' THEN $agencyname ELSE $int_sof END""" )
+        tbl.formulaColumn('agency_name_sof',"""CASE WHEN $int_sof is null THEN $agencyname 
+                                                        WHEN $int_sof = '' THEN $agencyname ELSE $int_sof END""" )
         
         tbl.formulaColumn('email_sof_to',select=dict(table='shipsteps.email_sof', columns="""string_agg($dest || ' ' || $description || '<br>', '')""",
                                                     where='$sof_id=#THIS.id and $dest=:to',to='to', limit=1,ignoreMissing=True))
