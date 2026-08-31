@@ -101,7 +101,7 @@ class ViewFromRigheFda(BaseComponent):
                                                                     where='$proforma_id=:p_id',
                                                                     p_id=pfda_id).fetch()
         tbl_fdaRighe = self.db.table('shipsteps.fda_righe')
-        
+
         for r in record_pfda:
             for l in r.keys():
                 if l == 'diritticp':

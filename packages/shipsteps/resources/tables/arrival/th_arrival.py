@@ -1840,7 +1840,7 @@ class Form(BaseComponent):
                           typemov='^#FORM.record.@movtype_id.hierarchical_descrizione',
                           eori_tasklist='^#FORM.record.@arr_tasklist.e_eori')
         btn_eori = fb.Button('!![en]Eori request', width='11em',iconClass='email',hidden="^#FORM.record.@arr_tasklist.eori_btn",disabled='^#FORM.controller.locked')
-        btn_eori.dataRpc('nome_temp', self.eoriEmail, record='=^#FORM.record',
+        btn_eori.dataRpc('nome_temp', self.eoriEmail, record='=#FORM.record',
                         _ask=dict(title='Select the emails',fields=[dict(name='email_arr', lbl='!![en]Email Arrival',tag='checkboxtext',columns='$id',
                              hasDownArrow=True, auxColumns='$sof_n,$ship_rec', table='shipsteps.email_arr',condition="$arrival_id =:cod",
                                                 condition_cod='=#FORM.record.id',width='25em',validate_notnull=True)],
@@ -4691,7 +4691,7 @@ class Form(BaseComponent):
         vessel_type,vessel_name,eta_arr,info_moor = tbl_arrival.readColumns(columns='@vessel_details_id.@imbarcazione_id.tip_imbarcazione_code,@vessel_details_id.@imbarcazione_id.nome,$eta,$info_moor',
                   where='$agency_id=:ag_id AND $id=:rec_id',
                     ag_id=self.db.currentEnv.get('current_agency_id'),rec_id=rec_id)
-
+        
         # Lettura degli account email predefiniti all'interno di Agency e Staff
         tbl_staff =  self.db.table('agz.staff')
         account_email,email_mittente,user_fullname = tbl_staff.readColumns(columns='$email_account_id,@email_account_id.address,$fullname',
@@ -4752,8 +4752,13 @@ class Form(BaseComponent):
         body_msg=('Good day,'+ '<br>' + """in accordance with the new European regulations, in order to complete the customs formalities 
                   related to the import of cargo, we need the EORI number and the name of the carrier. """ )
         body_html=(body_header + body_msg + body_footer )
-        
+        #se non viene inserito nessun destinatario alla casella a: verrà inserito quella del mittente al fine di far creare il messaggio
+        #normale in quanto verranno inseriti i destinatari nella casella bcc
+        if not email_to:
+            email_to=email_mittente
+            
         if email_to:
+            
             self.db.table('email.message').newMessage(account_id=account_email,
                            to_address=email_to,
                            from_address=email_mittente,
