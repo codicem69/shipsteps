@@ -67,7 +67,12 @@ class ViewFromSofDailyOp(BaseComponent):
     
     def th_options(self):
         return dict(grid_selfDragRows=True)
-    
+
+    def th_view(self,view):
+            bar = view.top.bar.replaceSlots('delrow','reload,5,delrow')
+            bar.reload.button('!![en]Reload',
+                         iconClass='iconbox reload',width='8em',
+                         action="this.form.reload();")
     
 class Form(BaseComponent):
 
