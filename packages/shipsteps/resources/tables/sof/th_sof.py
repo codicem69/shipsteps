@@ -610,9 +610,9 @@ class Form(BaseComponent):
         center_bc = bc_daily.borderContainer(height='100%', width='100%')#region='center',splitter=True,height='100%', width='100%')
         #left.roundedGroupFrame(title='!![en]Daily quantity handled',region='left',width='40%', 
         #                       height='100%',splitter=True,datapath='#FORM').contentPane(width='100%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp', view_grid_autoSelect=True)
-        bc_dqt=bc_daily.roundedGroupFrame(title='!![en]Daily quantity handled',width='40%', height='100%',region='left',splitter=True, closable=True)#.contentPane(width='100%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp')#, view_grid_autoSelect=True)
+        bc_dqt=bc_daily.roundedGroupFrame(title='!![en]Daily quantity handled',width='40%', height='100%',region='left',splitter=True, closable=True).inlineTableHandler(maintable='shipsteps.sof',relation='@sof_daily',viewResource='ViewFromSofDailyOp',liveUpdate=True,view_store__onBuilt=True)#.contentPane(width='100%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp')#, view_grid_autoSelect=True)
         
-        bc_dqt.contentPane(width='100%', height='100%').remote(self.dailyqtSofLazyMode,_waitingMessage='!![en]Please wait')
+        #bc_dqt.contentPane(width='100%', height='100%').remote(self.dailyqtSofLazyMode,_waitingMessage='!![en]Please wait')
         #left.contentPane(region='left',width='40%', height='100%').inlineTableHandler(relation='@sof_daily',viewResource='ViewFromSofDailyOp',liveUpdate=True)
         #left.roundedGroupFrame(title='!![en]Quantity by destination',region='right',width='50%', height='100%',splitter=True,datapath='#FORM').contentPane(region='right',width='40%').inlineTableHandler(table='shipsteps.qt_destino',
         #                                                     view_grid_autoSelect=True,
