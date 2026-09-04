@@ -19,14 +19,16 @@ class Table(object):
         tbl.column('perc_short_surpl', dtype='N', name_short='!![en]Percentage Shortage / Surplus', format='#,###.000')
         #tbl.aliasColumn('totcargo','@sof_id.tot_cargo_sof', dtype='N', format='#,###.000')
         tbl.aliasColumn('nome_ricevitore','@sof_id.@sof_cargo_sof.@cargo_unl_load_id.@receiver_id.name')
+        tbl.aliasColumn('totcargo','@sof_id.tot_cargo_sof')
         tbl.formulaColumn('daily_mov',"""'daily cargo discharged  -' || @measure_id.description || ' ' || $qt_mov || '<br>' ||
                                          'total cargo discharged   ' || @measure_id.description || ' ' || $tot_progressivo || '<br>' ||
                                          'remain to be discharged ' || @measure_id.description || ' ' || $shortage_surplus """)
         
-        tbl.formulaColumn('totcargo',select=dict(table='shipsteps.cargo_unl_load',
-                                                columns='SUM($quantity) as quantity',
-                                                where='$id=#THIS.@sof_id.@sof_cargo_sof.cargo_unl_load_id'),
-                                    dtype='N',name_long='!![en]Cargo total', format='#,###.000')
+        #tbl.formulaColumn('totcargo',select=dict(table='shipsteps.cargo_unl_load',
+        #                                        columns='SUM($quantity) as quantity',
+        #                                        where='$id=#THIS.@sof_id.@sof_cargo_sof.cargo_unl_load_id'),
+        #                            dtype='N',name_long='!![en]Cargo total', format='#,###.000')
+       
         #tbl.formulaColumn('measure_sof',select=dict(table='shipsteps.cargo_unl_load', columns="$measure_id",
         #                                            where='$id=#THIS.@sof_id.@sof_cargo_sof.cargo_unl_load_id'),name_long='measure_sof')
 
@@ -42,7 +44,8 @@ class Table(object):
         tbl.pyColumn('events_rows',dtype='X',required_columns='$id',name_long='Q.tà magazzini')
         tbl.pyColumn('qt_progres',dtype='N',name_long='Qta progressiva')
         tbl.pyColumn('qt_handled',dtype='X',required_columns='$date_op',name_long='mov')
-       
+
+   
     def formulaColumn_carico(self):
         depositi = self.db.table('shipsteps.magazzini').query().fetch()
         result = []
@@ -147,10 +150,151 @@ class Table(object):
             rows.setAttr('r_%s'%(n)+'.qta',format='#,###.000')
         #print(x)   
         return rows
+
+    def trigger_onInserted(self, record=None):
+        if self.currentTrigger.parent:
+            return
+        sof_id = record.get('sof_id')
+        if sof_id:
+            self.aggiorna_Totali(sof_id)
+
+    def trigger_onUpdated(self, record=None, old_record=None):
+        if self.currentTrigger.parent:
+            return
+        sof_id = record.get('sof_id')
+        if sof_id:
+            self.aggiorna_Totali(sof_id)
+
+    def trigger_onDeleted(self, record=None):
+        if self.currentTrigger.parent:
+            return
+        
+        sof_id = record.get('sof_id')
+        if sof_id:
+            self.aggiorna_Totali(sof_id)
+
+    def aggiorna_Totali(self,sof_id=None):
+        self.db.deferToCommit(self.ricalcolaTotali,
+                                   sof_id=sof_id,
+                                   _deferredId=sof_id)    
+#    def ricalcolaTotali(self, sof_id=None):
+#        if not sof_id:
+#            return
+#
+#        tbl_daily = self.db.table('shipsteps.daily_sofdetails')
+#        tbl_sof_cargo = self.db.table('shipsteps.sof_cargo')
+#        tbl_cargo = self.db.table('shipsteps.cargo_unl_load')
+#
+#        # Totale cargo del SOF
+#        cargo_rows = tbl_sof_cargo.query(
+#            columns='$cargo_unl_load_id',
+#            where='$sof_id=:sof_id',
+#            sof_id=sof_id
+#        ).fetch()
+#
+#        tot_cargo = 0
+#
+#        for cargo_row in cargo_rows:
+#            quantity = tbl_cargo.readColumns(
+#                columns='$quantity',
+#                where='$id=:cargo_id',
+#                cargo_id=cargo_row['cargo_unl_load_id']
+#            ) or 0
+#
+#            tot_cargo += quantity
+#
+#        # Movimenti ordinati per data
+#        rows = tbl_daily.query(
+#            columns='$id,$date_op,$qt_mov',
+#            where='$sof_id=:sof_id',
+#            sof_id=sof_id,
+#            order_by='$date_op,$id'
+#        ).fetch()
+#
+#        tot_progressivo = 0
+#
+#        for row in rows:
+#            qt_mov = row['qt_mov'] or 0
+#            tot_progressivo += qt_mov
+#
+#            shortage_surplus = tot_cargo - tot_progressivo
+#
+#            if tot_cargo:
+#                perc_short_surpl = decimalRound(
+#                    shortage_surplus / tot_cargo * 100
+#                )
+#            else:
+#                perc_short_surpl = 0
+#
+#            with tbl_daily.recordToUpdate(row['id']) as record:
+#                record['tot_progressivo'] = tot_progressivo
+#                record['shortage_surplus'] = shortage_surplus
+#                record['perc_short_surpl'] = perc_short_surpl
+
+
+
     
-    
-    
-    
+    def ricalcolaTotali(self, sof_id=None):
+        
+        if not sof_id:
+            return
+
+        tbl_daily = self.db.table('shipsteps.daily_sofdetails')
+        tbl_sof_cargo = self.db.table('shipsteps.sof_cargo')
+        tbl_cargo = self.db.table('shipsteps.cargo_unl_load')
+
+        # Totale cargo del SOF
+        cargo_rows = tbl_sof_cargo.query(
+            columns='$cargo_unl_load_id',
+            where='$sof_id=:sof_id',
+            sof_id=sof_id
+        ).fetch()
+
+        totcargo = 0
+
+        for cargo_row in cargo_rows:
+            quantity = tbl_cargo.readColumns(
+                columns='$quantity',
+                where='$id=:cargo_id',
+                cargo_id=cargo_row['cargo_unl_load_id']
+            ) or 0
+
+            totcargo += quantity
+
+        # Righe del SOF
+        rows = tbl_daily.query(
+            columns='$id,$date_op,$qt_mov',
+            where='$sof_id=:sof_id',
+            sof_id=sof_id,
+            order_by='$date_op,$id'
+        ).fetch()
+
+        tot_progressivo = 0
+
+        for row in rows:
+
+            qt_mov = row['qt_mov'] or 0
+            tot_progressivo += qt_mov
+
+            shortage_surplus = totcargo - tot_progressivo
+
+            if totcargo:
+                perc_short_surpl = decimalRound(
+                    shortage_surplus / totcargo * 100
+                )
+            else:
+                perc_short_surpl = 0
+
+            tbl_daily.update(
+                dict(
+                    id=row['id'],
+                    tot_progressivo=tot_progressivo,
+                    shortage_surplus=shortage_surplus,
+                    perc_short_surpl=perc_short_surpl
+                )
+            )
+
+
     
     
     
