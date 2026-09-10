@@ -17,7 +17,8 @@ class Table(object):
         tbl.column('tot_progressivo', dtype='N', name_short='!![en]Progressive Total quantity handled', format='#,###.000')
         tbl.column('shortage_surplus', dtype='N', name_short='!![en]Q.ty Shortage / Surplus', format='#,###.000')
         tbl.column('perc_short_surpl', dtype='N', name_short='!![en]Percentage Shortage / Surplus', format='#,###.000')
-        tbl.aliasColumn('totcargo','@sof_id.tot_cargo_sof', dtype='N', format='#,###.000')
+        #tbl.aliasColumn('totcargo','@sof_id.tot_cargo_sof', dtype='N', format='#,###.000')
+        tbl.pyColumn('totcargo', dtype='N', name_long='!![en]Cargo total', format='#,###.000')
         tbl.aliasColumn('nome_ricevitore','@sof_id.@sof_cargo_sof.@cargo_unl_load_id.@receiver_id.name')
         #tbl.aliasColumn('totcargo','@sof_id.tot_cargo_sof')
         tbl.formulaColumn('daily_mov',"""'daily cargo discharged  -' || @measure_id.description || ' ' || $qt_mov || '<br>' ||
@@ -44,7 +45,7 @@ class Table(object):
         tbl.pyColumn('events_rows',dtype='X',required_columns='$id',name_long='Q.tà magazzini')
         tbl.pyColumn('qt_progres',dtype='N',name_long='Qta progressiva')
         tbl.pyColumn('qt_handled',dtype='X',required_columns='$date_op',name_long='mov')
-
+        
    
     def formulaColumn_carico(self):
         depositi = self.db.table('shipsteps.magazzini').query().fetch()
@@ -57,6 +58,39 @@ class Table(object):
                  group='carico_dep'))
         #print(x)
         return result    
+
+    def pyColumn_totcargo(self, record, field=None):
+        sof_id = record.get('sof_id')
+
+        if not sof_id:
+            return 0
+
+        tbl_cargo = self.db.table('shipsteps.cargo_unl_load')
+        tbl_sofCargo = self.db.table('shipsteps.sof_cargo')
+
+        cargo_ids = tbl_sofCargo.query(
+            columns='$cargo_unl_load_id',
+            where='$sof_id=:sof_id',
+            sof_id=sof_id
+        ).fetch()
+
+        totcargo = 0
+
+        for r in cargo_ids:
+            cargo_id = r['cargo_unl_load_id']
+
+            if cargo_id:
+                quantity = tbl_cargo.readColumns(
+                    columns='$quantity',
+                    where='$id=:id_cargo',
+                    id_cargo=cargo_id
+                )
+
+                if quantity:
+                    totcargo += quantity
+
+        return totcargo
+
     
     #definiamo questa pyColumn per utilizzarla come dati template nell'invio email
     def pyColumn_qt_handled(self,record=None,field=None):
