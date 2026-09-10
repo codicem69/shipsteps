@@ -65,11 +65,14 @@ class Table(object):
         #tbl.pyColumn('email_sof_cc',name_long='!![en]Email sof cc', static=True)
         #tbl.pyColumn('email_arr_to',name_long='!![en]Email arrival to', static=True)
         #tbl.pyColumn('email_arr_cc',name_long='!![en]Email arrival cc', static=True)
-        #tbl.pyColumn('totcarico',name_long='!![en]Totcarico', static=True)
-        tbl.formulaColumn('tot_cargo_sof',select=dict(table='shipsteps.cargo_unl_load',
-                                                columns='SUM($quantity)',
-                                                where='$id=#THIS.@sof_cargo_sof.cargo_unl_load_id'),
-                                    dtype='N',name_long='!![en]Cargo total', format='#,###.000')
+        #tbl.pyColumn('totcarico',name_long='!![en]Totcarico', static=True
+        tbl.pyColumn('tot_cargo_sof', dtype='N', name_long='!![en]Cargo total', format='#,###.000')
+
+        #tbl.formulaColumn('tot_cargo_sof',select=dict(table='shipsteps.cargo_unl_load',
+        #                                        columns='SUM($quantity)',
+        #                                        where='$id=#THIS.@sof_cargo_sof.cargo_unl_load_id'),
+        #                            dtype='N',name_long='!![en]Cargo total', format='#,###.000')
+        
         tbl.formulaColumn('int_carico',"""CASE WHEN $cargo_sof <>'NIL' THEN 'CARGO DETAILS<br>' || :carsof ELSE '' END""",dtype='T',var_carsof='------------------------------<br>')
         tbl.formulaColumn('sof_det',"$sof_n || '-' || @arrival_id.reference_num || ' - ' || @arrival_id.date || ' - ' || @arrival_id.@vessel_details_id.@imbarcazione_id.nome")
         tbl.formulaColumn('nor_tend_txt', """CASE WHEN $nor_tend is not null THEN 'NOR tendered' || '<br>'  ELSE '' END""", dtype='T')
@@ -146,6 +149,34 @@ class Table(object):
         tbl.aliasColumn('measure','@sof_daily.@measure_id.description')
         tbl.aliasColumn('place_origin_goods','@sof_cargo_sof.@cargo_unl_load_id.@place_origin_goods.citta_nazione')
         tbl.pyColumn('qt_handled',dtype='X',required_columns='$sof_n',name_long='mov')
+
+    def pyColumn_tot_cargo_sof(self, record, field=None):
+        sof_id = record.get('pkey') or record.get('id')
+
+        if not sof_id:
+            return 0
+
+        tbl_cargo = self.db.table('shipsteps.cargo_unl_load')
+        tbl_sofCargo = self.db.table('shipsteps.sof_cargo')
+
+        cargo_ids = tbl_sofCargo.query(columns='$cargo_unl_load_id',
+                                       where='$sof_id=:sof_id',sof_id=sof_id).fetch()
+
+        totcargo = 0
+
+        for r in cargo_ids:
+            cargo_id = r['cargo_unl_load_id']
+
+            if cargo_id:
+                quantity = tbl_cargo.readColumns(
+                    columns='$quantity',
+                    where='$id=:id_cargo',
+                    id_cargo=cargo_id)
+
+                if quantity:
+                    totcargo += quantity
+
+        return totcargo
         
     def pyColumn_qt_handled(self,record=None,field=None):
         if not record.get('sof_n'):
