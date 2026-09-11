@@ -88,10 +88,13 @@ class Form(BaseComponent):
        # self.arrivalTimes(tc.contentPane(title='!![en]Arr/Dep Times', pageName='arr_times'))
 
         #self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
-        tc.contentPane(title='!![en]Sof operations',height='100%',pageName='operations').remote(self.operationsSofLazyMode,_waitingMessage='!![en]Please wait')
+        
+        operation=tc.contentPane(title='!![en]Sof operations',height='100%',hidden='^#FORM.operations_hidden',pageName='operations')
+        operation.remote(self.operationsSofLazyMode,_waitingMessage='!![en]Please wait')
         #tc.contentPane(title='!![en]SOF Operations',pageName='operations').remote(self.operationsSof,_waitingMessage='!![en]Please wait')
         #self.dailyOperations(tc.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
-        bc_daily=tc.borderContainer(title='!![en]SOF Daily handling bulk cargo',region='center',pageName='daily_op')#.borderContainer(region='left',splitter=True,height='100%', width='50%',pageName='daily_op')#, datapath='.record.sof_daily')#.tabContainer(height='100%')
+        
+        bc_daily=tc.borderContainer(title='!![en]SOF Daily handling bulk cargo',region='center',pageName='daily_op',hidden='^#FORM.operations_hidden')#.borderContainer(region='left',splitter=True,height='100%', width='50%',pageName='daily_op')#, datapath='.record.sof_daily')#.tabContainer(height='100%')
         
         self.dailyOperations(bc_daily)
         
@@ -103,14 +106,14 @@ class Form(BaseComponent):
         #rimosso tab trucksDetails a favore pulsante che apre la palette
         #self.trucksDetails(tc.contentPane(title='!![en]Trucks details'))
 
-        tc_rem = tc.tabContainer(title='!![en]Remarks',margin='2px',tabPosition='left-h')#, region='center', height='450px', splitter=True)
+        tc_rem = tc.tabContainer(title='!![en]Remarks',margin='2px',tabPosition='left-h',hidden='^#FORM.operations_hidden')#, region='center', height='450px', splitter=True)
         
         self.remarks_rs(tc_rem.contentPane(title='Receivers/Shippers Remarks',datapath='.record'))
         self.remarks_cte(tc_rem.contentPane(title='Master Remarks',datapath='.record'))
         self.remarks_note(tc_rem.contentPane(title='Note Remarks',datapath='.record'))
         self.onbehalf_remarks(tc_rem.contentPane(title='!![en]On behalf Sippers/Receivers',datapath='.record'))
 
-        tc_tanks = tc.tabContainer(title='!![en]Tank times',margin='2px')
+        tc_tanks = tc.tabContainer(title='!![en]Tank times',margin='2px',hidden='^#FORM.operations_hidden')
         #self.tanks(tc_tanks.contentPane(title='Time tanks'))
 
         tc_tanks.contentPane(title='!![en]Tank times').remote(self.tanksSofLazyMode,_waitingMessage='!![en]Please wait')
@@ -121,18 +124,18 @@ class Form(BaseComponent):
         #rimosso tab emailSofQT a favore pulsante che apre la palette
         #self.emailSofQT(tc.contentPane(title='Email SOF Qta destino'))
         #self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
-        fp = tc.framePane(title='Edit SOF',datapath='#FORM.editPagine')
+        fp = tc.framePane(title='Edit SOF',datapath='#FORM.editPagine',hidden='^#FORM.operations_hidden')
         fp.center.contentPane().remote(self.editSofLazyMode,_waitingMessage='!![en]Please wait')
         
 
         #self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
 
-        fpel = tc.framePane(title='Edit LOP',datapath='#FORM.editPagine')
+        fpel = tc.framePane(title='Edit LOP',datapath='#FORM.editPagine',hidden='^#FORM.operations_hidden')
         fpel.center.contentPane().remote(self.editLopLazyMode,_waitingMessage='!![en]Please wait')
         #self.editLop(tc.framePane(title='!![EN]Edit LOP', datapath='#FORM.editPagine'))
 
 
-        self.allegatiSof(tc.contentPane(title='!![en]SOF Attachments', height='100%'))
+        self.allegatiSof(tc.contentPane(title='!![en]SOF Attachments', height='100%',hidden='^#FORM.operations_hidden'))
         #tc.dataController("""{SET #THIS.tabname='operations';}""")
         #form.data('tabop','op')
         dlg_truck = bc.palette(paletteCode='trucks_details',dockButton=True,title='!![en]Truck details',
@@ -228,8 +231,13 @@ class Form(BaseComponent):
         #fb.dataController("""if(tab=='op'){SET #FORM.tabname='operations';alert(msg_txt);}""",tab='op',msg_txt='fatto', _onStart=True)
         #fb.data('#FORM.tabname', "operations")
         #fb.dataController("""if(^#FORM.shipsteps_sof_cargo.view.count.total>0){SET #FORM.tabname=operations;}""")
-        fb.dataRpc('#FORM.tabname', self.checkCargoSof,  record='=#FORM.record',rec_id='^#FORM.record.id',
-                    _if='rec_id',tabname='=#FORM.tabname')
+        
+        #fb.dataRpc('#FORM.tabname', self.checkCargoSof,  record='=#FORM.record',rec_id='^#FORM.record.id',
+        #            _if='rec_id',tabname='=#FORM.tabname')
+        fb.dataRpc('.checkCS', self.checkCargoSof, record='=#FORM.record', rec_id='^#FORM.record.id', _if='rec_id', tabname='=#FORM.tabname',
+                    _onResult="""SET #FORM.tabname = result.getItem('tabname');
+                                 SET #FORM.operations_hidden = result.getItem('hidden');""")
+
 
     @public_method
     def checkDate(self,etstart=None,etc=None, arr_id=None,campo=None,ets=None,etb=None,**kwargs):
@@ -294,7 +302,7 @@ class Form(BaseComponent):
                     result = False                    
             #print(result)
             return result
-        
+
 
     @public_method
     def checkCargoSof(self,record,**kwargs):
@@ -303,12 +311,23 @@ class Form(BaseComponent):
         record_id = record['id']
         tbl_sof_cargo = self.db.table('shipsteps.sof_cargo')
         sof_cargo = tbl_sof_cargo.query(columns='$id',where = '$sof_id = :sof_id',sof_id=record_id).fetch()
-        if sof_cargo and tabname=='sof_cargo':
-            return 'operations'
-        elif tabname == 'sof_cargo':
-            return 'sof_cargo'
-        elif tabname== 'daily_op':
-            return 'daily_op'        
+
+        result = Bag()
+
+        if sof_cargo:
+            result['tabname'] = 'operations'
+            result['hidden'] = False
+        else:
+            result['tabname'] = 'sof_cargo'
+            result['hidden'] = True
+
+        return result
+        #if sof_cargo and tabname=='sof_cargo':
+        #    return 'operation'
+        #elif tabname == 'sof_cargo':
+        #    return 'sof_cargo'
+        #elif tabname== 'daily_op':
+        #    return 'daily_op'        
 
     def th_bottom_custom(self, bottom):
         bar = bottom.slotBar('*,truck,10,emailsof,10,emailsofd,*,times,*,email_arrivo,20,email_operazioni,20,email_partenza,20,email_to,20,stampa_sof,*')
