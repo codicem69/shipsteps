@@ -17,8 +17,8 @@ class Table(object):
         tbl.column('tot_progressivo', dtype='N', name_short='!![en]Progressive Total quantity handled', format='#,###.000')
         tbl.column('shortage_surplus', dtype='N', name_short='!![en]Q.ty Shortage / Surplus', format='#,###.000')
         tbl.column('perc_short_surpl', dtype='N', name_short='!![en]Percentage Shortage / Surplus', format='#,###.000')
-        #tbl.aliasColumn('totcargo','@sof_id.tot_cargo_sof', dtype='N', format='#,###.000')
-        tbl.pyColumn('totcargo', dtype='N', name_long='!![en]Cargo total', format='#,###.000')
+        tbl.aliasColumn('totcargo','@sof_id.totcargo_sof', dtype='N', format='#,###.000')
+        #tbl.pyColumn('totcargo', dtype='N', name_long='!![en]Cargo total', format='#,###.000')
         tbl.aliasColumn('nome_ricevitore','@sof_id.@sof_cargo_sof.@cargo_unl_load_id.@receiver_id.name')
         #tbl.aliasColumn('totcargo','@sof_id.tot_cargo_sof')
         tbl.formulaColumn('daily_mov',"""'daily cargo discharged  -' || @measure_id.description || ' ' || $qt_mov || '<br>' ||

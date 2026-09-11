@@ -17,15 +17,29 @@ class Table(object):
     def aggiornaSof(self,record):
         sof_id = record['sof_id']
         cargo_un_id = record['cargo_unl_load_id']
+    
         self.db.deferToCommit(self.db.table('shipsteps.sof').insertShipRec,
                                     sof_id=sof_id,cargo_un_id=cargo_un_id,
-                                    _deferredId=sof_id)    
-        
+                                    _deferredId=sof_id)  
+        self.db.deferToCommit(self.db.table('shipsteps.sof').aggiornaTotCargo,
+                                    sof_id=sof_id,
+                                    _deferredId=sof_id)
+  
+
+
     def trigger_onInserted(self,record=None):
         self.aggiornaSof(record)
+        
 
     def trigger_onUpdated(self,record=None,old_record=None):
         self.aggiornaSof(record)
+        # Se il record è stato spostato da un SOF ad un altro,
+        # aggiorniamo anche il vecchio SOF
+        if old_record and old_record.get('sof_id') != record.get('sof_id'):
+            self.db.deferToCommit(
+                self.db.table('shipsteps.sof').aggiornaTotCargo,
+                sof_id=old_record['sof_id'],
+                _deferredId=old_record['sof_id'])
     
     def trigger_onDeleted(self,record=None):
         if self.currentTrigger.parent:   
@@ -38,3 +52,8 @@ class Table(object):
         self.db.deferToCommit(self.db.table('shipsteps.sof').insertShipRec,
                                     sof_id=sof_id,cargo_un_id=None,
                                     _deferredId=sof_id)    
+        # Ricalcola il totale dopo la cancellazione
+        self.db.deferToCommit(
+            self.db.table('shipsteps.sof').aggiornaTotCargo,
+            sof_id=sof_id,
+            _deferredId=sof_id)

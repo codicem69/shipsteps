@@ -39,6 +39,8 @@ class Table(object):
                    ).relation('cargo_type.id',relation_name='sof_cargotype', mode='foreignkey', onDelete='raise')
         tbl.column('cargo_consignee_id',size='22',name_short='!![en]Cargo Consignee',batch_assign=dict(hasDownArrow=True)
                    ).relation('cargo_consignee.id',relation_name='sof_cargocons', mode='foreignkey', onDelete='raise')
+        tbl.column('totcargo_sof',dtype='N',size='10,3', name_long='!![en]Cargo total', format='#,###.000')
+
         tbl.aliasColumn('shiprec_fc','@arrival_id.@cargo_lu_arr.shiprec_sof')#, static=True)
         #tbl.aliasColumn('agency_id','@arrival_id.agency_id')
         tbl.aliasColumn('ship_rec','@sof_cargo_sof.ship_rec')
@@ -441,6 +443,35 @@ class Table(object):
             else:
                 record['shipper_receiver'] = shiprec_id
                 record['cargo_type'] = cargo_type_id
+
+    def aggiornaTotCargo(self, sof_id):
+        if not sof_id:
+            return
+
+        tbl_sofCargo = self.db.table('shipsteps.sof_cargo')
+        tbl_cargo = self.db.table('shipsteps.cargo_unl_load')
+
+        cargo_ids = tbl_sofCargo.query(
+            columns='$cargo_unl_load_id',
+            where='$sof_id=:sof_id',
+            sof_id=sof_id).fetch()
+
+        totale = 0
+
+        for r in cargo_ids:
+            cargo_id = r['cargo_unl_load_id']
+
+            if cargo_id:
+                quantity = tbl_cargo.readColumns(
+                    columns='$quantity',
+                    where='$id=:cargo_id',
+                    cargo_id=cargo_id)
+
+                if quantity:
+                    totale += quantity
+
+        with self.recordToUpdate(sof_id) as record:
+            record['totcargo_sof'] = totale
 
    #def pyColumn_carico_del_sof(self,record,field):
    #    
