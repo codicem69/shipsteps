@@ -89,7 +89,7 @@ class Form(BaseComponent):
 
         #self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
         
-        operation=tc.contentPane(title='!![en]Sof operations',height='100%',hidden='^#FORM.operations_hidden',pageName='operations')
+        operation=tc.contentPane(title='!![en]Sof operations',height='100%',pageName='operations',hidden='^#FORM.operations_hidden')
         operation.remote(self.operationsSofLazyMode,_waitingMessage='!![en]Please wait')
         #tc.contentPane(title='!![en]SOF Operations',pageName='operations').remote(self.operationsSof,_waitingMessage='!![en]Please wait')
         #self.dailyOperations(tc.contentPane(title='!![en]SOF Daily handling bulk cargo',pageName='daily_op'))
@@ -234,10 +234,22 @@ class Form(BaseComponent):
         
         #fb.dataRpc('#FORM.tabname', self.checkCargoSof,  record='=#FORM.record',rec_id='^#FORM.record.id',
         #            _if='rec_id',tabname='=#FORM.tabname')
-        fb.dataRpc('.checkCS', self.checkCargoSof, record='=#FORM.record', rec_id='^#FORM.record.id', _if='rec_id', tabname='=#FORM.tabname',
-                    _onResult="""SET #FORM.tabname = result.getItem('tabname');
-                                 SET #FORM.operations_hidden = result.getItem('hidden');""")
-
+        #fb.dataRpc('.checkCS', self.checkCargoSof, record='=#FORM.record', rec_id='^#FORM.record.id', _if='rec_id', tabname='=#FORM.tabname',
+        #            _onResult="""SET #FORM.tabname = result.getItem('tabname');
+        #                         SET #FORM.operations_hidden = result.getItem('hidden');""")
+        # Modifica il dataRpc gestendo il cambio tab in JS solo se l'utente è su 'sof_cargo' o all'avvio
+        fb.dataRpc('.checkCS', self.checkCargoSof, record='=#FORM.record', rec_id='^#FORM.record.id', _if='rec_id',
+                    _onResult="""
+                        var isHidden = result.getItem('hidden');
+                        SET #FORM.operations_hidden = isHidden;
+                        var currentTab = GET #FORM.tabname;
+                        
+                        if (isHidden) {
+                            SET #FORM.tabname = 'sof_cargo';
+                        } else if (currentTab === 'sof_cargo' || !currentTab) {
+                            SET #FORM.tabname = 'operations';
+                        }
+                    """)
 
     @public_method
     def checkDate(self,etstart=None,etc=None, arr_id=None,campo=None,ets=None,etb=None,**kwargs):
@@ -303,25 +315,35 @@ class Form(BaseComponent):
             #print(result)
             return result
 
-
     @public_method
-    def checkCargoSof(self,record,**kwargs):
-        
-        tabname=kwargs['tabname']
-        record_id = record['id']
+    def checkCargoSof(self, record, **kwargs):
+        record_id = record.get('id')
+        if not record_id:
+            return Bag(hidden=True)
+
         tbl_sof_cargo = self.db.table('shipsteps.sof_cargo')
-        sof_cargo = tbl_sof_cargo.query(columns='$id',where = '$sof_id = :sof_id',sof_id=record_id).fetch()
+        sof_cargo = tbl_sof_cargo.query(columns='$id', where='$sof_id = :sof_id', sof_id=record_id).fetch()
 
-        result = Bag()
+        return Bag(hidden=not bool(sof_cargo))
 
-        if sof_cargo:
-            result['tabname'] = 'operations'
-            result['hidden'] = False
-        else:
-            result['tabname'] = 'sof_cargo'
-            result['hidden'] = True
+   #@public_method
+   #def checkCargoSof(self,record,**kwargs):
+   #    
+   #    tabname=kwargs['tabname']
+   #    record_id = record['id']
+   #    tbl_sof_cargo = self.db.table('shipsteps.sof_cargo')
+   #    sof_cargo = tbl_sof_cargo.query(columns='$id',where = '$sof_id = :sof_id',sof_id=record_id).fetch()
 
-        return result
+   #    result = Bag()
+
+   #    if sof_cargo:
+   #        result['tabname'] = 'operations'
+   #        result['hidden'] = False
+   #    else:
+   #        result['tabname'] = 'sof_cargo'
+   #        result['hidden'] = True
+
+   #    return result
         #if sof_cargo and tabname=='sof_cargo':
         #    return 'operation'
         #elif tabname == 'sof_cargo':
