@@ -298,7 +298,7 @@ class View_Filtered_Arrivals(BaseComponent):
                         sections_anno_width='6em')
         
     def th_order(self):
-        return 'reference_num:d' 
+        return 'data_ord:d' 
 
     def th_query(self):
         return dict(column='@vessel_details_id.@imbarcazione_id.nome', op='contains', val='', runOnStart=True, limit=100)
