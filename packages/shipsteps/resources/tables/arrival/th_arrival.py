@@ -185,7 +185,7 @@ class View(BaseComponent):
                          sections_movtype_id_multiButton=8)
         
     def th_order(self):
-        return 'date:d,reference_num:d' 
+        return 'data_ord :d'
 
     def th_query(self):
         return dict(column='@vessel_details_id.@imbarcazione_id.nome', op='contains', val='', runOnStart=True)

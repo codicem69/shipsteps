@@ -110,6 +110,7 @@ class Table(object):
         tbl.aliasColumn('timearr_log','@time_arr.time_arr')
         tbl.aliasColumn('timearr2_log','@time_arr.time_arr_2')
         tbl.aliasColumn('movement_type','@movtype_id.@movtype_check.description')
+        tbl.formulaColumn('data_ord','COALESCE($etb, $eta, $date)', dtype='DH', name_long='Data ordine arrivo')
         tbl.formulaColumn('object_email',"""CASE WHEN $email_obj !='' THEN ' - ' || coalesce($email_obj,'') END""")
         tbl.formulaColumn('portlog_timearr',"""CASE WHEN $timearr_log !='' THEN 'PORTLOG<br>------------------------------<br>' || coalesce($timearr_log,'') || coalesce($timearr2_log ,'') END""")
         tbl.formulaColumn('rifiuti_conf', """' - ' || @garbage_arr.@garbage.@tip_garbage_id.description || ' - ' || @garbage_arr.@garbage.measure || ' ' || @garbage_arr.@garbage.quantity""",dtype='T',name_long='Rifiuti da conferire')
