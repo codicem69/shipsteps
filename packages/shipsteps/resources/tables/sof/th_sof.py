@@ -82,9 +82,10 @@ class Form(BaseComponent):
         self.datiSof(bc.roundedGroupFrame(title='Dati SOF',region='top',datapath='.record',height='155px', background='lightgrey', splitter=True))
         
         tc = bc.tabContainer(region = 'center',margin='2px',selectedPage='^.tabname')
-        
+
         #self.cargoSof(tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo'))
-        tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo').remote(self.cargoSofLazyMode,_waitingMessage='!![en]Please wait')
+        tc.contentPane(title='!![en]Cargo SOF', pageName='sof_cargo').remote(self.cargoSofLazyMode,_onRemote='FIRE #FORM.controller.loaded;',
+                                                            _waitingMessage='!![en]Please wait')
        # self.arrivalTimes(tc.contentPane(title='!![en]Arr/Dep Times', pageName='arr_times'))
 
         #self.operationsSof(tc.contentPane(title='!![en]SOF Operations',pageName='operations'))
@@ -530,7 +531,10 @@ class Form(BaseComponent):
                                 picker_condition='arrival_id=:aid',
                                 picker_condition_aid='^#FORM.record.arrival_id',
                                 picker_viewResource='ViewFromCargoLU_picker',
+                                picker_condition_built='^#FORM.controller.loaded',
                                 liveUpdate=True,view_store__onBuilt=True)
+      
+
 
     #def arrivalTimes(self, frame):
     #    bc = frame.borderContainer(title='!![en]Arrival/Departure details', region='top', background = 'seashell')
