@@ -1744,15 +1744,41 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb1_doc=div1_2.formbuilder(colspan=1,cols=3, border_spacing='1px',fld_width='150px')
-        fb1_doc.button('!![en]Crew List', iconClass='crew', action="genro.wdgById('dialog_crew').show();",disabled='^#FORM.controller.locked')
-        dlg = bc_tasklist.dialog(nodeId='dialog_crew',parentRatio=.9,title='Crew List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
-        dlg.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
+        #fb1_doc.button('!![en]Crew List', iconClass='crew', action="genro.wdgById('dialog_crew').show();",disabled='^#FORM.controller.locked')
+        #dlg = bc_tasklist.dialog(nodeId='dialog_crew',windowRatio=.9,title='Crew List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
+        
+        # Bottone: pubblica un evento invece di chiamare .show() direttamente
+        fb1_doc.button('!![en]Crew List', iconClass='crew',action="genro.publish('open_crew',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
+        
+        # Palette al posto della dialog
+        dlg_crew = bc_tasklist.palette(
+            paletteCode='crew',
+            dockButton=True,
+            title='!![en]Crew List',
+            closable=True,
+            width='1700px',
+            height='700px')
+        # Apre la palette quando il bottone pubblica l'evento
+        dlg_crew.dataController("""dlg.show();""",dlg=dlg_crew.js_widget,subscribe_open_crew=True)
+
+        dlg_crew.contentPane(title='!![en]Shore pass').remote(self.shorePassLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@shorepass_arr',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         fb1_doc.br()
-        fb1_doc.button('!![en]Pax List', iconClass='pax',action="genro.wdgById('dialog_pax').show();",disabled='^#FORM.controller.locked')
-        dlg = bc_tasklist.dialog(nodeId='dialog_pax',parentRatio=.9,title='Pax List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
-        dlg.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
+        fb1_doc.button('!![en]Pax List', iconClass='crew',action="genro.publish('open_pax',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
+        #fb1_doc.button('!![en]Pax List', iconClass='pax',action="genro.wdgById('dialog_pax').show();",disabled='^#FORM.controller.locked')
+        #dlg = bc_tasklist.dialog(nodeId='dialog_pax',parentRatio=.9,title='Pax List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
+        # Palette al posto della dialog
+        dlg_pax = bc_tasklist.palette(
+                    paletteCode='pax',
+                    dockButton=True,
+                    title='!![en]Pax List',
+                    closable=True,
+                    width='1700px',
+                    height='700px')
+                # Apre la palette quando il bottone pubblica l'evento
+        dlg_pax.dataController("""dlg.show();""",dlg=dlg_pax.js_widget,subscribe_open_pax=True)
+        dlg_pax.contentPane(title='!![en]Pax List').remote(self.paxListLazyMode,_waitingMessage='!![en]Please wait')
         
         #dlg.stackTableHandler(relation='@paxlist_arr',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
@@ -3464,10 +3490,20 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb_serv=div_service.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='15em')
         #btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET tabname='services';}""")
-        btn_vs=fb_serv.button('!![en]Vessel services',iconClass='printer', action="genro.wdgById('dialog_services').show();",disabled='^#FORM.controller.locked')
-        dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
-        #print(x)
-        dlg.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
+        #btn_vs=fb_serv.button('!![en]Vessel services',iconClass='printer', action="genro.wdgById('dialog_services').show();",disabled='^#FORM.controller.locked')
+        btn_vs=fb_serv.button('!![en]Vessel services', iconClass='crew',action="genro.publish('open_services',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
+        
+        #dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
+        dlg_services = bc_tasklist.palette(
+                            paletteCode='services',
+                            dockButton=True,
+                            title='!![en]Vessel services',
+                            closable=True,
+                            width='1700px',
+                            height='700px')
+                        # Apre la palette quando il bottone pubblica l'evento
+        dlg_services.dataController("""dlg.show();""",dlg=dlg_services.js_widget,subscribe_open_services=True)
+        dlg_services.contentPane(title='!![en]Vessel Services',pageName='services').remote(self.servicesLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.inlineTableHandler(relation='@vess_services',viewResource='ViewFromVesselServices',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         
@@ -3484,24 +3520,60 @@ class Form(BaseComponent):
                         border='1px solid silver',
                         margin_top='1px',margin_left='4px')
         fb_app=div_app.formbuilder(colspan=1,cols=1, border_spacing='1px', fld_width='15em')
-        btn_bulk=fb_app.button('!![en]Bulk Application',iconClass='document', action="genro.wdgById('dialog_bulk').show();",disabled='^#FORM.controller.locked')
-        dlg = bc_tasklist.dialog(nodeId='dialog_bulk',parentRatio=1,title='Bulk application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
-        dlg.contentPane(title='!![en]Bulk Application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
+        #btn_bulk=fb_app.button('!![en]Bulk Application',iconClass='document', action="genro.wdgById('dialog_bulk').show();",disabled='^#FORM.controller.locked')
+        btn_bulk=fb_app.button('!![en]Bulk Application', iconClass='document',action="genro.publish('open_bulk',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
+        #dlg = bc_tasklist.dialog(nodeId='dialog_bulk',parentRatio=1,title='Bulk application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg_bulk = bc_tasklist.palette(paletteCode='bulk',
+                                       dockButton=True,
+                                       title='!![en]Bulk Application',
+                                       closable=True,
+                                       width='1700px',
+                                       height='700px')
+        # Apre la palette quando il bottone pubblica l'evento
+        dlg_bulk.dataController("""dlg.show();""",dlg=dlg_bulk.js_widget,subscribe_open_bulk=True)
+        dlg_bulk.contentPane(title='!![en]Bulk Application').remote(self.rinfusaLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@rinfusa_arr',formResource='FormFromRinfusa',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        btn_bunk=fb_app.button('!![en]Bunker Application',iconClass='document', action="genro.wdgById('dialog_bunker').show();",disabled='^#FORM.controller.locked')
-        dlg = bc_tasklist.dialog(nodeId='dialog_bunker',parentRatio=1,title='Bunker application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
-        dlg.contentPane(title='!![en]Bunker Application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
+        #btn_bunk=fb_app.button('!![en]Bunker Application',iconClass='document', action="genro.wdgById('dialog_bunker').show();",disabled='^#FORM.controller.locked')
+        btn_bunker=fb_app.button('!![en]Bunker Application', iconClass='document',action="genro.publish('open_bunker',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
+        dlg_bunker = bc_tasklist.palette(paletteCode='bunker',
+                                        dockButton=True,
+                                        title='!![en]Bunker Application',
+                                        closable=True,
+                                        width='1700px',
+                                        height='700px')
+        # Apre la palette quando il bottone pubblica l'evento
+        dlg_bunker.dataController("""dlg.show();""",dlg=dlg_bunker.js_widget,subscribe_open_bunker=True)
+        #dlg = bc_tasklist.dialog(nodeId='dialog_bunker',parentRatio=1,title='Bunker application',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg_bunker.contentPane(title='!![en]Bunker Application').remote(self.bunkerLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@bunker_arr',formResource='FormFromBunker',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        btn_cert=fb_app.button('!![en]Certificate Application CP',iconClass='document', action="genro.wdgById('dialog_cert').show();",disabled='^#FORM.controller.locked')
-        dlg = bc_tasklist.dialog(nodeId='dialog_cert',parentRatio=1,title='Certicate application CP',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
-        dlg.contentPane(title='!![en]Certificates Application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
+        #btn_cert=fb_app.button('!![en]Certificate Application CP',iconClass='document', action="genro.wdgById('dialog_cert').show();",disabled='^#FORM.controller.locked')
+        btn_cert=fb_app.button('!![en]Certificate Application CP', iconClass='document',action="genro.publish('open_cert',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
+        dlg_cert = bc_tasklist.palette(paletteCode='certificate',
+                                                dockButton=True,
+                                                title='!![en]Certificate Application CP',
+                                                closable=True,
+                                                width='1700px',
+                                                height='700px')
+        # Apre la palette quando il bottone pubblica l'evento
+        dlg_cert.dataController("""dlg.show();""",dlg=dlg_cert.js_widget,subscribe_open_cert=True)
+        #dlg = bc_tasklist.dialog(nodeId='dialog_cert',parentRatio=1,title='Certicate application CP',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg_cert.contentPane(title='!![en]Certificates Application').remote(self.certificateLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@istanza_cert_arr',formResource='FormFromCertificates',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
-        btn_sancert=fb_app.button('!![en]Sanimare Certificates',iconClass='document', action="genro.wdgById('dialog_sancert').show();",disabled='^#FORM.controller.locked')
-        dlg = bc_tasklist.dialog(nodeId='dialog_sancert',parentRatio=1,title='Sanimare certificates',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
-        dlg.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
+        #btn_sancert=fb_app.button('!![en]Sanimare Certificates',iconClass='document', action="genro.wdgById('dialog_sancert').show();",disabled='^#FORM.controller.locked')
+        btn_sancert=fb_app.button('!![en]Sanimare Certificates', iconClass='document',action="genro.publish('open_sancert',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
+        dlg_sancert = bc_tasklist.palette(paletteCode='sanimare_certificate',
+                                                        dockButton=True,
+                                                        title='!![en]Sanimare Certificate',
+                                                        closable=True,
+                                                        width='1700px',
+                                                        height='700px')
+        # Apre la palette quando il bottone pubblica l'evento
+        dlg_sancert.dataController("""dlg.show();""",dlg=dlg_sancert.js_widget,subscribe_open_sancert=True)
+        #dlg = bc_tasklist.dialog(nodeId='dialog_sancert',parentRatio=1,title='Sanimare certificates',closable=True,subscribe_closeDialog_ws="this.widget.hide();")
+        dlg_sancert.contentPane(title='!![en]Renew certificates Sanimare',height='100%').remote(self.usmaCertLazyMode,_waitingMessage='!![en]Please wait')
         #dlg.stackTableHandler(relation='@certusma_arr',formResource='FormFromCertusma',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         
