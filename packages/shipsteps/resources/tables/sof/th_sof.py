@@ -788,14 +788,14 @@ class Form(BaseComponent):
     
     @public_method
     def emailSofLazyMode(self,pane):
-        pane.inlineTableHandler(maintable='shipsteps.sof',title='Email SOF', relation='@sof_email',viewResource='ViewFromSofEmail',liveUpdate=True,view_store__onBuilt=True)
+        pane.inlineTableHandler(maintable='shipsteps.sof',title='Email SOF', relation='@sof_email',viewResource='ViewFromSofEmail',liveUpdate=True,view_store__onBuilt=True,saveButton=True, semaphore=True)
     
     def emailSofQT(self,pane):
-        pane.inlineTableHandler(title='Email SOF Qta destino', relation='@sof_email_qt',viewResource='ViewFromSofEmailQtDest',liveUpdate=True)
+        pane.inlineTableHandler(title='Email SOF Qta destino', relation='@sof_email_qt',viewResource='ViewFromSofEmailQtDest',liveUpdate=True,saveButton=True, semaphore=True)
 
     @public_method
     def emailSofQTLazyMode(self,pane):
-        pane.inlineTableHandler(maintable='shipsteps.sof',title='Email SOF Qta destino', relation='@sof_email_qt',viewResource='ViewFromSofEmailQtDest',liveUpdate=True,view_store__onBuilt=True)
+        pane.inlineTableHandler(maintable='shipsteps.sof',title='Email SOF Qta destino', relation='@sof_email_qt',viewResource='ViewFromSofEmailQtDest',liveUpdate=True,view_store__onBuilt=True,saveButton=True, semaphore=True)
     
     @public_method
     def editSofLazyMode(self, pane):

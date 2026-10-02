@@ -635,10 +635,12 @@ class Form(BaseComponent):
                                                 template='dettaglio_imb',noModal=True)
         
         #CARICO 
-        dlg_car = bc.dialog(title='!![en]Cargo loading / unloading',closable=True,parentRatio=0.9)
-#        width='1800px',
- #       height='900px')
-
+        #dlg_car = bc.dialog(title='!![en]Cargo loading / unloading',closable=True,parentRatio=0.9)
+        dlg_car = bc.palette(paletteCode='cargo',dockButton=True,
+                title='!![en]Cargo loading / unloading',closable=True,
+                width='1700px',
+                height='700px')
+        
         dlg_car.dataController("""dlg.show();""", dlg=dlg_car.js_widget, subscribe_open_cargo=True)
 
         bc_cargo = dlg_car.borderContainer()
@@ -1221,7 +1223,7 @@ class Form(BaseComponent):
         fb.field('extra_cargo_onboard', tag='simpleTextArea',height='25px',colspan=3)
 
     def datiCarico(self,pane):
-        pane.inlineTableHandler(relation='@cargo_lu_arr',viewResource='ViewFromCargoLU', semaphore=True)
+        pane.inlineTableHandler(relation='@cargo_lu_arr',viewResource='ViewFromCargoLU',saveButton=True, semaphore=True)
 
     def datiCaricoTransit(self,bc):
         center = bc.roundedGroup(title='!![en]Transit cargo', region='center', height = '100%').div(margin='10px',margin_left='2px')
