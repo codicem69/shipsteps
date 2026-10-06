@@ -572,8 +572,8 @@ class Form(BaseComponent):
         bar.carico.button('!![en]Cargo loading / unloading',disabled='^#FORM.controller.locked',
                      iconClass='cargo_vessel',
                      action="genro.publish('open_cargo',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
-        bar.load_cargo.button('!![en]Loading Cargo',disabled='^#FORM.controller.locked',
-                     iconClass='cargo_loading',
+        bar.load_cargo.button('!![en]Loading Docs',disabled='^#FORM.controller.locked',
+                     iconClass='loading_doc',
                      action="genro.publish('open_loadingcargo',{arrival_id: arr_id});",arr_id='=#FORM.record.id')
         bar.sof.button('!![en]SOF',disabled='^#FORM.controller.locked',
                      iconClass='sof',

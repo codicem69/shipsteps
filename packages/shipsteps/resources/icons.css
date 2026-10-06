@@ -19,8 +19,8 @@
     width:16px;
     background-size:contain;
 }
-.cargo_loading{
-    background: url(/_rsrc/pkg_shipsteps/icons/cargo_loading.svg);
+.loading_doc{
+    background: url(/_rsrc/pkg_shipsteps/icons/loading_doc.svg);
     height:16px;
     width:16px;
     background-size:contain;
