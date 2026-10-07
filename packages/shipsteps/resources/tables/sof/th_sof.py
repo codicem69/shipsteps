@@ -107,14 +107,14 @@ class Form(BaseComponent):
         #rimosso tab trucksDetails a favore pulsante che apre la palette
         #self.trucksDetails(tc.contentPane(title='!![en]Trucks details'))
 
-        tc_rem = tc.tabContainer(title='!![en]Remarks',margin='2px',tabPosition='left-h',hidden='^#FORM.operations_hidden')#, region='center', height='450px', splitter=True)
+        tc_rem = tc.tabContainer(title='!![en]Remarks',margin='2px',tabPosition='left-h',hidden='^#FORM.operations_hidden',pageName='remarks')#, region='center', height='450px', splitter=True)
         
         self.remarks_rs(tc_rem.contentPane(title='Receivers/Shippers Remarks',datapath='.record'))
         self.remarks_cte(tc_rem.contentPane(title='Master Remarks',datapath='.record'))
         self.remarks_note(tc_rem.contentPane(title='Note Remarks',datapath='.record'))
         self.onbehalf_remarks(tc_rem.contentPane(title='!![en]On behalf Sippers/Receivers',datapath='.record'))
 
-        tc_tanks = tc.tabContainer(title='!![en]Tank times',margin='2px',hidden='^#FORM.operations_hidden')
+        tc_tanks = tc.tabContainer(title='!![en]Tank times',margin='2px',hidden='^#FORM.operations_hidden',pageName='tanks')
         #self.tanks(tc_tanks.contentPane(title='Time tanks'))
 
         tc_tanks.contentPane(title='!![en]Tank times').remote(self.tanksSofLazyMode,_waitingMessage='!![en]Please wait')
@@ -125,18 +125,18 @@ class Form(BaseComponent):
         #rimosso tab emailSofQT a favore pulsante che apre la palette
         #self.emailSofQT(tc.contentPane(title='Email SOF Qta destino'))
         #self.editSof(tc.framePane(title='Edit SOF', datapath='#FORM.editPagine'))
-        fp = tc.framePane(title='Edit SOF',datapath='#FORM.editPagine',hidden='^#FORM.operations_hidden')
+        fp = tc.framePane(title='Edit SOF',datapath='#FORM.editPagine',hidden='^#FORM.operations_hidden',pageName='edit_sof')
         fp.center.contentPane().remote(self.editSofLazyMode,_waitingMessage='!![en]Please wait')
         
 
         #self.Sofpdf(tc.framePane(title='SOF pdf', datapath='#FORM.pdf'))
 
-        fpel = tc.framePane(title='Edit LOP',datapath='#FORM.editPagine',hidden='^#FORM.operations_hidden')
+        fpel = tc.framePane(title='Edit LOP',datapath='#FORM.editPagine',hidden='^#FORM.operations_hidden',pageName='edit_lop')
         fpel.center.contentPane().remote(self.editLopLazyMode,_waitingMessage='!![en]Please wait')
         #self.editLop(tc.framePane(title='!![EN]Edit LOP', datapath='#FORM.editPagine'))
 
 
-        self.allegatiSof(tc.contentPane(title='!![en]SOF Attachments', height='100%',hidden='^#FORM.operations_hidden'))
+        self.allegatiSof(tc.contentPane(title='!![en]SOF Attachments', height='100%',hidden='^#FORM.operations_hidden',pageName='allegati'))
         #tc.dataController("""{SET #THIS.tabname='operations';}""")
         #form.data('tabop','op')
         dlg_truck = bc.palette(paletteCode='trucks_details',dockButton=True,title='!![en]Truck details',
@@ -734,25 +734,49 @@ class Form(BaseComponent):
         #                                    alert("Controlla il salvataggio");""",
         #            note_remark='=gnr.app_preference.shipsteps.remarks_wheat_corn')
         btn_remarks=fb.button('Inserisci',lbl='Remark Wheat/Corn')
-        btn_remarks.dataRpc('dummy', self.leggi_remarks,record='=#FORM.record',shortage='=#FORM.record.shortage',
-                            _onResult="""SET ^.remarks_rs = result.getItem('remarks_corn');this.form.save();alert("Controlla le quantità e il salvataggio");""")
-        
+        #btn_remarks.dataRpc('dummy', self.leggi_remarks,record='=#FORM.record',shortage='=#FORM.record.shortage',
+        #                    _onResult="""SET ^.remarks_rs = result.getItem('remarks_corn');this.form.save();alert("Controlla le quantità e il salvataggio");""")
+        btn_remarks.dataRpc('dummy', self.leggi_remarks,
+                    record='=#FORM.record',
+                    shortage='=#FORM.record.shortage',
+                    _onResult="""
+                        var warning = result.getItem('warning_message');
+                        if (warning) {
+                            // Se c'è un messaggio di avviso, lo mostriamo e ci fermiamo
+                            alert(warning);
+                        } else {
+                            // Altrimenti procediamo con la scrittura dei remarks e salviamo
+                            SET ^.remarks_rs = result.getItem('remarks_corn');
+                            this.form.save();
+                            alert("Controlla le quantità e il salvataggio");
+                        }
+                    """)
     @public_method
     def leggi_remarks(self,record=None,shortage=None,**kwargs):
         #prendiamo dalle preferenze la dicitura remarks dove dentro ci sono le variabili descritte con ${} da sostituire
         remarks=self.db.application.getPreference('shipsteps.remarks_wheat_corn')
-        tot_mov=str(round(record['tot_mov'],3)).replace(".", ",")
-        #assegnamo alle variabili da sostiutire nel corpo del msg i relativi valori
-        variables = {
-            "${tot_mov}": tot_mov,
-            "${shortage}": str(round(shortage,3)).replace(".", ",")
-        }
-        #con il ciclo for sostituiamo le variabili nei remarks prelevati dalle preferenze
-        for variable_key, variable_value in variables.items():
-            remarks= remarks.replace(variable_key, variable_value)
-        #inseriamo i remarks in una bag che ci tornerà sulla chiamata della Rpc
         result = Bag()
-        result['remarks_corn']=remarks    
+        #Se il record è nullo o manca ops_completed
+        ops_completed = record.get('ops_completed') if record else None
+        if not ops_completed:
+            result['warning_message'] = 'Non ancora è stato compilato il campo Load/Unloading completed.'
+            return result
+        #Se il record è nullo o manca tot_mov
+        tot_mov = record.get('tot_mov') if record else None
+        if tot_mov:
+            tot_mov=str(round(record['tot_mov'],3)).replace(".", ",")
+            #assegnamo alle variabili da sostiutire nel corpo del msg i relativi valori
+            variables = {
+                "${tot_mov}": tot_mov,
+                "${shortage}": str(round(shortage,3)).replace(".", ",")
+            }
+            #con il ciclo for sostituiamo le variabili nei remarks prelevati dalle preferenze
+            for variable_key, variable_value in variables.items():
+                remarks= remarks.replace(variable_key, variable_value)
+            #inseriamo i remarks in una bag che ci tornerà sulla chiamata della Rpc 
+            result['remarks_corn']=remarks        
+        else:
+            result['warning_message'] = "Non ci sono ancora movimenti del carico."
         return result
       
     def onbehalf_remarks(self,frame):
