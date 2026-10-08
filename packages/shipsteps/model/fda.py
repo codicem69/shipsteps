@@ -1,4 +1,6 @@
 # encoding: utf-8
+from gnr.core.gnrdecorator import public_method
+from gnr.web.gnrbaseclasses import TableTemplateToHtml
 
 class Table(object):
     def config_db(self,pkg):
@@ -9,6 +11,7 @@ class Table(object):
         tbl.column('pfda_id',size='22',name_short='!![en]Pfda no.').relation('pfda.proforma.id',relation_name='pfda_fda', mode='foreignkey', onDelete='raise')
         tbl.column('invoice_det_id',size='22', name_long='!![en]Invoicing'
                     ).relation('invoice_det.id', relation_name='inv_fda', mode='foreignkey', onDelete='raise')
+        tbl.column('htmlbag', dtype='X', name_long='HTML Doc Bag')
         tbl.aliasColumn('int_fat','@invoice_det_id.fullname')
         tbl.aliasColumn('prot_pfda','@pfda_id.protocollo')
         tbl.formulaColumn('pfda_intfat',"coalesce($prot_pfda || ' - ','') || coalesce($int_fat, '')")
@@ -20,3 +23,8 @@ class Table(object):
                                                 columns='SUM($importo)',
                                                 where='$fda_id=#THIS.id'),
                                     dtype='N',name_long='Tot.FDA',format='€ #,###.00')
+
+    @public_method
+    def getHTMLDoc(self,fda_id=None,record_template=None,**kwargs):
+        testo=TableTemplateToHtml(table=self,record_template=record_template).contentFromTemplate(record=fda_id)
+        return testo

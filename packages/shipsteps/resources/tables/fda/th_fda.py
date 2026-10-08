@@ -40,14 +40,18 @@ class View(BaseComponent):
         self.db.commit() 
 
 class Form(BaseComponent):
-
+    py_requires='gnrcomponents/pagededitor/pagededitor:PagedEditor'
     def th_form(self, form):
         #pane = form.record
-        bc = form.center.borderContainer()
-        self.datiFDA(bc.roundedGroupFrame(title='Dati FDA',region='top',datapath='.record',height='50px', background='lightgrey', splitter=True))
+       
+        tc = form.center.tabContainer(margin='2px')
+        #tc = form.center.tabContainer()
+        bc = tc.borderContainer(title='Dati FDA', width='100%')
+        self.datiFDA(bc.contentPane(title='Dati FDA',region='top',datapath='.record',height='50px', background='lightgrey', splitter=True))
         bc_fdarighe = bc.borderContainer(region = 'center',margin='2px')
-        
         self.righeFDA(bc_fdarighe.contentPane(title='!![en]FDA rows',height='100%'))
+        fp = tc.framePane(title='Edit FDA',datapath='#FORM.editPagine')
+        fp.center.contentPane().remote(self.editFDALazyMode,_waitingMessage='!![en]Please wait')
         
     def datiFDA(self,pane):
         
@@ -75,6 +79,22 @@ class Form(BaseComponent):
 
     def righeFDA(self,pane):
         pane.inlineTableHandler(relation='@fda_righe',viewResource='ViewFromRigheFda',liveUpdate=True)
+
+    @public_method
+    def editFDALazyMode(self, pane):
+        frame = pane.framePane()
+        bar = frame.top.slotBar('10, lett_select,*',height='20px',border_bottom='1px solid silver')
+        fb = bar.lett_select.formbuilder(cols=2,datapath='#FORM.record.htmlbag')
+        fb.dbselect('^.letterhead_id',table='adm.htmltemplate',lbl='carta intestata',hasDownArrow=True)
+        fb.button('Get Html Doc').dataRpc('#FORM.record.htmlbag.source',self.db.table('shipsteps.fda').getHTMLDoc,
+                                            fda_id='=#FORM.pkey',
+                                            record_template='tab_servizi_fda',
+                                            letterhead='.letterhead_id')
+        
+        frame.pagedEditor(value='^#FORM.record.htmlbag.source',pagedText='^#FORM.record.htmlbag.output',
+                          border='1px solid silver',
+                          letterhead_id='^#FORM.record.htmlbag.letterhead_id',
+                          datasource='#FORM.record',printAction=True)
 
     def th_options(self):
         return dict(dialog_height='400px', dialog_width='600px' )
