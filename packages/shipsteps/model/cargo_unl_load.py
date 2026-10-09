@@ -56,8 +56,8 @@ class Table(object):
                                                 columns='SUM($quantity)',
                                                 where='$arrival_id=#THIS.@arrival_id.id'),
                                     dtype='N',name_long='!![en]Cargo total', format='#,###.000')
-        tbl.formulaColumn('cargo_ship_rec', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || ' ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Shippers: ' || @shipper_id.name || '<br>' 
-                                            WHEN $operation = 'U' THEN '-Unloading cargo: ' || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Receivers: ' || @receiver_id.name || '<br>' ELSE 'NIL' END """,
+        tbl.formulaColumn('cargo_ship_rec', """CASE WHEN $operation = 'L' THEN '-Loading cargo: ' || coalesce(' BL no. ' || $bln || ' - ',' ') || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Shippers: ' || @shipper_id.name || '<br>' 
+                                            WHEN $operation = 'U' THEN '-Unloading cargo: ' || coalesce(' BL no. ' || $bln || ' - ',' ') || @measure_id.description || ' ' || $quantity || ' ' || $description || '<br> Receivers: ' || @receiver_id.name || '<br>' ELSE 'NIL' END """,
                             dtype='T', name_long='Carico L/U shiprec')
         tbl.formulaColumn('tip_cargo_dogana',"""CASE WHEN $operation = 'U' and $foreign_cargo = 'True' THEN 'Merce estera da importare'
                                                 WHEN $operation = 'U' and $foreign_cargo = 'False' THEN 'Merce scortata da T2L' ELSE '' END""")
