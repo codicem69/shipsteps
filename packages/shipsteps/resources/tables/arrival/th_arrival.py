@@ -635,13 +635,16 @@ class Form(BaseComponent):
                                                 template='dettaglio_imb',noModal=True)
         
         #CARICO 
-        #dlg_car = bc.dialog(title='!![en]Cargo loading / unloading',closable=True,parentRatio=0.9)
-        dlg_car = bc.palette(paletteCode='cargo',dockButton=True,
-                title='!![en]Cargo loading / unloading',closable=True,
-                width='1700px',
-                height='700px')
+        dlg_car = bc.dialog(title='!![en]Cargo loading / unloading',closable=True,parentRatio=0.9)
+        #dlg_car = bc.palette(paletteCode='cargo',dockButton=True,
+        #        title='!![en]Cargo loading / unloading',closable=True,
+        #        width='1700px',
+        #        height='700px')
+
         
         dlg_car.dataController("""dlg.show();""", dlg=dlg_car.js_widget, subscribe_open_cargo=True)
+
+        
 
         bc_cargo = dlg_car.borderContainer()
         top = bc_cargo.contentPane(region='top', height='80px')
