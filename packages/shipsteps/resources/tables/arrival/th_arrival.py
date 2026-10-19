@@ -635,21 +635,18 @@ class Form(BaseComponent):
                                                 template='dettaglio_imb',noModal=True)
         
         #CARICO 
-        dlg_car = bc.dialog(title='!![en]Cargo loading / unloading',closable=True,parentRatio=0.9)
-        #dlg_car = bc.palette(paletteCode='cargo',dockButton=True,
-        #        title='!![en]Cargo loading / unloading',closable=True,
-        #        width='1700px',
-        #        height='700px')
+        #dlg_car = bc.dialog(title='!![en]Cargo loading / unloading',closable=True,parentRatio=0.9)
+        dlg_car = bc.palette(paletteCode='cargo',dockButton=True,
+                title='!![en]Cargo loading / unloading',closable=True,
+                width='1700px',
+                height='700px')
 
-        
         dlg_car.dataController("""dlg.show();""", dlg=dlg_car.js_widget, subscribe_open_cargo=True)
-
-        
 
         bc_cargo = dlg_car.borderContainer()
         top = bc_cargo.contentPane(region='top', height='80px')
         
-        barTop_cargo = top.slotToolbar('*,savebtn',height='22px',border='1px solid silver',toolbar=True)
+        barTop_cargo = top.slotToolbar('*,savebtn,5',height='22px',border='1px solid silver',toolbar=True)
         barTop_cargo.savebtn.button('!!Save',action='this.form.save();')
         
         #top.div('!![en]Cargo', font_size='16px', font_weight='bold',padding='10px').div('M/V '+'^#FORM.record.@vessel_details_id.@imbarcazione_id.nome')
@@ -657,10 +654,10 @@ class Form(BaseComponent):
         # Tab centrali
         tc_center = bc_cargo.tabContainer(region='center', width='100%')     
         tc_under_c = tc_center.tabContainer(title='!![en]Cargo onboard')
-        self.carbordoArr(tc_under_c.contentPane(title="!![en]Cargo onboard on arrival",datapath='.record'))
-        self.carbordoDep(tc_under_c.contentPane(title='!![en]Cargo onboard on departure',datapath='.record'))
+        self.carbordoArr(tc_under_c.contentPane(title="!![en]Cargo onboard on arrival",datapath='#FORM.record'))
+        self.carbordoDep(tc_under_c.contentPane(title='!![en]Cargo onboard on departure',datapath='#FORM.record'))
         self.datiCarico(tc_center.contentPane(title='!![en]Cargo loading / unloading'))
-        self.datiCaricoTransit(tc_center.contentPane(title='!![en]Transit cargo',datapath='.record'))
+        self.datiCaricoTransit(tc_center.contentPane(title='!![en]Transit cargo',datapath='#FORM.record'))
         #UNSEALING
         tc_center.borderContainer(title='!![en]Unsealing',region='center',height='auto', background = '#f2f0e8', splitter=True).contentPane(title='!![en]Unsealing',pageName='unsealing',height='100%').remote(self.unsealingLazyMode,_waitingMessage='!![en]Please wait')
         
