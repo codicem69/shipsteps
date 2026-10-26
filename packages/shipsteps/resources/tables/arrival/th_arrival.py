@@ -1802,8 +1802,30 @@ class Form(BaseComponent):
                         margin_top='1px',margin_left='4px')
         fb = div2.formbuilder(colspan=1,cols=3, border_spacing='1px', colswidth='4px')
         #fb = rg_prearrival.formbuilder(colspan=3,cols=6, border_spacing='4px',colswidth='10px')
+        
+        btn_arrivo=fb.button('Owner', width='11em',hidden="^checksof",disabled='^#FORM.controller.locked',iconClass='email')#.controller.title?=#v!=null")
+        fb.br()        
+        fb.dataRpc('checksof', self.checkSof,  record='=#FORM.record', cur_tab='^#FORM.current_tab',titolo='^#FORM.controller.title',
+                   _if='cur_tab!=null||titolo!=null')
 
-        btn_sr = fb.Button('!![en]Shipper/Receivers', width='11em',disabled='^#FORM.controller.locked',iconClass='email')
+        btn_arrivo.dataRpc('nome_temp', self.email_arrdep,record='=#FORM.record',servizio=['arr'], email_template_id='email_owner',
+                            nome_template = 'shipsteps.arrival:email_owner',format_page='A4',
+                            _ask=dict(title='!![en]Select the Attachments',fields=[dict(name='allegati', lbl='!![en]Attachments', tag='checkboxtext',
+                             table='shipsteps.arrival_atc', columns='$description',condition="$maintable_id =:cod",condition_cod='=#FORM/parent/#FORM.record.id',
+                             cols=4,popup=True,colspan=2)]))
+
+        #fb.dataController("""
+        #                    console.log('typemov:', typemov);
+        #                    if (!typemov || typemov.indexOf('Passengers') === 0) {
+        #                        SET .shiprec_btn = true;
+        #                    } else {
+        #                        SET .shiprec_btn = false;
+        #                    }
+        #                """, 
+        #                    typemov='^#FORM.record.@movtype_id.hierarchical_descrizione',
+        #                    _movtype_id='^#FORM.record.movtype_id')
+        
+        btn_sr = fb.Button('!![en]Shipper/Receivers', width='11em',disabled='^#FORM.controller.locked',iconClass='email')#, hidden='^#FORM.record.@arr_tasklist.shiprec_btn')
         fb.dataController("""var id = button.id;
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
                         else {document.getElementById(id).style.backgroundColor = '';}
@@ -5163,6 +5185,7 @@ class Form(BaseComponent):
         #inizializziamo le variabili per le email
         email_arr_to,email_arr_cc,email_arr_bcc='','',''
         email_a_to,email_a_cc,email_a_bcc=[],[],[]
+        email_descr_to,email_descr_cc=[],[]
         #definiamo le tabelle dove prelevare l'email
         tbl_email_sof=self.db.table('shipsteps.email_sof')
         tbl_email_arr=self.db.table('shipsteps.email_arr')
@@ -5175,14 +5198,25 @@ class Form(BaseComponent):
                 email_to = tbl_email_arr.query(columns="$email",
                                                     where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
                                                     type='to').fetch()
+                email_to_descr = tbl_email_arr.query(columns="$dest ||': '||$description||'<br>'",
+                                                                    where='$arrival_id=:a_id and $dest=:dest', a_id=record_arr,
+                                                                                                                        dest='to').fetch()
                 for e in range(len(email_to)):
                     email_a_to.append(email_to[e][0])
+                for e in range(len(email_to_descr)):
+                    
+                    email_descr_to.append(email_to_descr[e][0])
 
                 email_cc = tbl_email_arr.query(columns="$email",
                                                     where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
-                                                    type='cc').fetch()  
+                                                    type='cc').fetch()
+                email_cc_descr = tbl_email_arr.query(columns="$dest ||': '||$description||'<br>'",
+                                                                    where='$arrival_id=:a_id and $dest=:dest', a_id=record_arr,
+                                                                                                                         dest='cc').fetch()  
                 for e in range(len(email_cc)):
                     email_a_cc.append(email_cc[e][0])
+                for e in range(len(email_cc_descr)):
+                    email_descr_cc.append(email_cc_descr[e][0])
 
                 email_bcc = tbl_email_arr.query(columns="$email",
                                                     where='$arrival_id=:a_id and $email_type=:type', a_id=record_arr,
@@ -5194,6 +5228,16 @@ class Form(BaseComponent):
         email_arr_to=','.join([str(item) for item in email_a_to])
         email_arr_cc=','.join([str(item) for item in email_a_cc])                    
         email_arr_bcc=','.join([str(item) for item in email_a_bcc])
+        #estraiamo le stringhe email_descr dalle liste
+        email_descrto=''.join([str(item) for item in email_descr_to])
+        email_descrcc=''.join([str(item) for item in email_descr_cc])
+        email_descr = email_descrto + email_descrcc
+        
+        #avendo il valore email_descr ossia i destinatari che appaiono nel body della email li copiamo nel record arrival email_dest_to 
+        tbl_arrival = self.db.table('shipsteps.arrival')  
+        tbl_arrival.batchUpdate(dict(email_dest_to=email_descr),
+                                            where='$id=:a_id', a_id=record_arr)
+        self.db.commit()
         #verifichiamo che non mancano email destinatari TO e CCN altrimenti ritorniamo con la variabile nome_temp che innesca il messaggio
         #verifichiamo se non presente l'email to allora inseriamo l'email del mittente
         if email_arr_to == email_arr_bcc == '':  
