@@ -3652,7 +3652,10 @@ class Form(BaseComponent):
         #dlgws.hr()
         #fb_extra.button('!![en]Virtual stamp', action="genro.wdgById('dialog_boll').show()")
         fb_extra.button('!![en]Virtual stamp',action="""alert(message);""",_delay=50, message='=#FORM.record.@agency_id.virtual_stamp')
-
+        fb_extra.Button('!![en]Ships Docs PMIS',iconClass='printer',
+                                                action="""genro.publish("table_script_run",{table:"shipsteps.shipdoc_pmis",
+                                                                                       res_type:'print',
+                                                                                       resource:'doc_pmis'});""")
         #fb_extra.dataController("""if(rec) console.log('record'+rec);""",rec='^#FORM.record.@time_arr.arrival_id')
         #fb_extra.dataController("""console.log(frm);""",subscribe_rec=True,frm=mb.js_form)
         #self.services(fb_extra.contentPane(title='Services'))
