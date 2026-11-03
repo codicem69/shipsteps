@@ -192,16 +192,15 @@ class View(BaseComponent):
 
     def th_options(self):
         #se l'utente connesso ha i privilegi di admin/superadmin/sviluppatore visualizzerà il tasto - per la cancellazione del record
-        
         usertags = self.db.currentEnv.get('userTags')
-    
+        d_row=self.db.application.site.getUserPreference('arrivi.delrow', pkg='shipsteps')
         if 'admin' in usertags or 'superadmin' in usertags or '_DEV_' in usertags:
             del_row = True
+        elif d_row == True:
+            del_row= True
         else:
             del_row = False
-        
-        return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row,liveUpdate=True)
-    
+        return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
     #def th_condition(self):
     #    # 1. Calcola la data di oggi e la data di 60 giorni fa
     #    oggi = datetime.today()
@@ -305,14 +304,14 @@ class View_Filtered_Arrivals(BaseComponent):
 
     def th_options(self):
         #se l'utente connesso ha i privilegi di admin/superadmin/sviluppatore visualizzerà il tasto - per la cancellazione del record
-       
         usertags = self.db.currentEnv.get('userTags')
-    
+        d_row=self.db.application.site.getUserPreference('arrivi.delrow', pkg='shipsteps')
         if 'admin' in usertags or 'superadmin' in usertags or '_DEV_' in usertags:
             del_row = True
+        elif d_row == True:
+            del_row= True
         else:
             del_row = False
-   
         return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
    
 class Form(BaseComponent):
@@ -343,7 +342,7 @@ class Form(BaseComponent):
         #if len(refnum) > 0:            
         #    form.data('.refnum',html_text)
         #    form.dataController('alert(msg)', msg='=.refnum',_if='msg', _onStart=True)
-
+        
         tc = form.center.tabContainer(selected='.current_tab')
         bc = tc.borderContainer(title='!![en]<strong>Arrival</strong>')
         #disabilitato tabContainer carico a favore dialog con pulsante

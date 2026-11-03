@@ -141,9 +141,15 @@ class AppPref(object):
     #        #return Bag(dict(errorcode=None,data='error'))
     #        return Bag(dict(errorcode='Not existing project',data=data))
 
-#class UserPref(object):
-#    def prefpane_shipsteps(self, parent, **kwargs):
-#        pane = parent.contentPane(**kwargs)
-#        fb = pane.formbuilder(cols=1, border_spacing='3px',datapath='.arrivi')
-#        fb.checkbox(value='^.delrow_arr', lbl='!![en]Enable Delrow bottom on arrival')
+class UserPref(object):
+    def permission_shipsteps(self, **kwargs):
+        # Questo metodo comunica al footer di abilitare il link
+        # sia per l'amministratore che per l'utente standard
+        return 'user'
+    def prefpane_shipsteps(self, parent, **kwargs):
+
+        # ...
+        pane = parent.contentPane(**kwargs)
+        fb = pane.formbuilder(cols=1, border_spacing='3px',datapath='.arrivi')
+        fb.checkbox(value='^.delrow', lbl='!![en]Enable Delrow bottom on arrival')
 
