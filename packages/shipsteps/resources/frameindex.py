@@ -7,7 +7,11 @@ class GnrCustomWebPage(object):
 
         if self.isGuest:
             return
-        if self.user in ('admin','superadmin','_DEV_'):
+        tags = self.userTags
+        #se in tags troviamo i valori di admin o superadmin o _DEV_ allora non facciamo visualizzare le user preferences
+        #nella rotellina in basso sx di settings
+        if set(['admin', 'superadmin', '_DEV_']) & set(tags.split(',')):
+        #if self.user in ('admin','superadmin','_DEV_'):
             slot.userSettings()
         else:
             menu = slot.menudiv(iconClass='iconbox gear')
