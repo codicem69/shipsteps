@@ -1,9 +1,4 @@
 # preference.py
-from gnr.app.gnrapp import GnrApp
-from gnr.core.gnrdecorator import public_method
-from gnr.core.gnrbag import Bag
-from gnr.app.gnrdeploy import ProjectMaker, InstanceMaker, SiteMaker,PackageMaker, PathResolver,ThPackageResourceMaker
-import os
 
 class AppPref(object):
 
