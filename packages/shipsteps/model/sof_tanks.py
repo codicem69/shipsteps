@@ -36,6 +36,7 @@ class Table(object):
         tbl.formulaColumn('time_sof_tanks', 
                           """coalesce('Tanks inspection commenced--' || to_char($start_insp, :df) || '<br>', '') || coalesce('Tanks inspection completed--' || to_char($stop_insp, :df) || '<br>','') ||
                              coalesce('Cargo calculation-----------' || to_char($cargo_calc, :df) || '<br>', '') || coalesce('Ullage commenced------------' || to_char($start_ullage, :df) || '<br>','') ||
-                             coalesce('Ullage completed------------' || to_char($stop_ullage, :df) || '<br>','') || coalesce('Hoses connected-------------' || to_char($hose_conn, :df) || '<br>','') || 
+                             coalesce('Ullage completed------------' || to_char($stop_ullage, :df) || '<br>','') || coalesce('Hoses connected-------------' || to_char($hose_conn, :df) || '<br>','') ||
+                             coalesce('Hoses disconnected----------' || to_char($hose_disconn, :df) || '<br>','') ||
                              coalesce('Average rate----------------' || $average || '<br>','')""",var_df='DD/MM/YYYY HH24:MI')
         tbl.formulaColumn('portlog_tanks_time',"""CASE WHEN $time_sof_tanks !='' THEN '<br>TIMES LOG FOR TANKS<br>------------------------------<br>' || coalesce($time_sof_tanks,'') END""")
