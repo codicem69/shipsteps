@@ -903,7 +903,7 @@ class Form(BaseComponent):
         fb_v.field('last_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
         fb_v.field('departure_lp' , width='10em')
         fb_v.field('next_port',columns='$descrizione,$unlocode',auxColumns='@nazione_code.nome,$unlocode', limit=20 )
-        fb_v.field('eta_np' , width='10em')
+        fb_v.field('eta_np' , width='10em', dtype='DH')
 
         port_box = main.div(border='1px solid #d8d8d8', rounded=6,padding='2px', margin_bottom='6px',background='#eaeaea')
         
@@ -3986,9 +3986,10 @@ class Form(BaseComponent):
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):
                 pkeys_att=lista_all[e]
-                fileurl = tbl_att.readColumns(columns='$fileurl',
+                fileurl = tbl_att.readColumns(columns='$filepath',
                       where='$id=:att_id',
                         att_id=pkeys_att)
+                 
                 if fileurl is not None and fileurl !='':
                     file_url.append(fileurl)
         
@@ -4009,7 +4010,7 @@ class Form(BaseComponent):
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):
                 pkeys_att=std_att[e]
-                fileurl = tbl_att.readColumns(columns='$fileurl',
+                fileurl = tbl_att.readColumns(columns='$filepath',
                       where='$id=:att_id',
                         att_id=pkeys_att)
                 if fileurl is not None and fileurl !='':
@@ -4194,7 +4195,7 @@ class Form(BaseComponent):
         #normale in quanto verranno inseriti i destinatari nella casella bcc
         if not email_to:
             email_to=email_mittente
-       
+        
         # se la variabile email pec non è vuota creaiamo l'email pec altrimenti quella normale
         if (email_pec) != None and (email_pec) != '':
             self.db.table('email.message').newMessageFromUserTemplate(
@@ -4219,7 +4220,7 @@ class Form(BaseComponent):
                                                           template_code=email_template_id,
                                                           arrival_id=arrival_id,
                                                           agency_id=record['agency_id'])    
-            
+          
         self.db.commit()   
         
         if (email_to or email_pec) is not None:
@@ -4316,12 +4317,13 @@ class Form(BaseComponent):
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):
                 pkeys_att=lista_all[e]
-                fileurl = tbl_att.readColumns(columns='$fileurl',
+                fileurl = tbl_att.readColumns(columns='$filepath',
                       where='$id=:att_id',
                         att_id=pkeys_att)
+                
                 if fileurl is not None and fileurl !='':
                     file_url.append(fileurl)
-        
+
             ln = len(file_url)
             for r in range(ln):
                 fileurl = file_url[r]
@@ -4658,7 +4660,7 @@ class Form(BaseComponent):
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):
                 pkeys_att=lista_all[e]
-                fileurl = tbl_att.readColumns(columns='$fileurl',
+                fileurl = tbl_att.readColumns(columns='$filepath',
                       where='$id=:att_id',
                         att_id=pkeys_att)
                 if fileurl is not None and fileurl !='':
@@ -4896,7 +4898,7 @@ class Form(BaseComponent):
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):
                 pkeys_att=lista_all[e]
-                fileurl = tbl_att.readColumns(columns='$fileurl',
+                fileurl = tbl_att.readColumns(columns='$filepath',
                       where='$id=:att_id',
                         att_id=pkeys_att)
                 if fileurl is not None and fileurl !='':
@@ -5161,7 +5163,7 @@ class Form(BaseComponent):
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):
                 pkeys_att=lista_all[e]
-                fileurl = tbl_att.readColumns(columns='$fileurl',
+                fileurl = tbl_att.readColumns(columns='$filepath',
                       where='$id=:att_id',
                         att_id=pkeys_att)
                 if fileurl is not None and fileurl !='':

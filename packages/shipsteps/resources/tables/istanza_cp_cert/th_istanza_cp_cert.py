@@ -194,7 +194,7 @@ class FormFromCertificates(BaseComponent):
                     type_atc=kwargs['type_atc']   
 
         tbl_att =  self.db.table('shipsteps.istanza_cp_cert_atc')
-        fileurl = tbl_att.query(columns='$fileurl',
+        fileurl = tbl_att.query(columns='$filepath',
                   where='$maintable_id=:mt_id',mt_id=id_rinfusa_atc).fetch()
         ln = len(fileurl)
         attcmt=[]

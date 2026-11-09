@@ -224,7 +224,7 @@ class FormFromCertusma(BaseComponent):
         if not record_arr:
             return
         tbl_att =  self.db.table('shipsteps.rinfusa_atc')
-        fileurl = tbl_att.query(columns='$fileurl',
+        fileurl = tbl_att.query(columns='$filepath',
                   where='$maintable_id=:mt_id',mt_id=id_rinfusa_atc).fetch()
         ln = len(fileurl)
         attcmt=[]
@@ -254,7 +254,7 @@ class FormFromCertusma(BaseComponent):
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):
                 pkeys_att=lista_all[e]
-                fileurl = tbl_att.readColumns(columns='$fileurl',
+                fileurl = tbl_att.readColumns(columns='$filepath',
                       where='$id=:att_id',
                         att_id=pkeys_att)
                 if fileurl is not None and fileurl !='':
@@ -276,7 +276,7 @@ class FormFromCertusma(BaseComponent):
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):
                 pkeys_att=lista_allnavi[e]
-                fileurl = tbl_att.readColumns(columns='$fileurl',
+                fileurl = tbl_att.readColumns(columns='$filepath',
                       where='$id=:att_id',
                         att_id=pkeys_att)
                 if fileurl is not None and fileurl !='':

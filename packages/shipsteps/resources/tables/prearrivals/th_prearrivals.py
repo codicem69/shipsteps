@@ -73,7 +73,7 @@ class Form(BaseComponent):
                     type_atc=kwargs['type_atc']   
 
         tbl_att =  self.db.table('shipsteps.prearrivals_default_atc')
-        fileurl = tbl_att.query(columns='$fileurl',
+        fileurl = tbl_att.query(columns='$filepath',
                   where='$maintable_id=:mt_id',mt_id=id_prearr_atc).fetch()
         ln = len(fileurl)
         attcmt=[]

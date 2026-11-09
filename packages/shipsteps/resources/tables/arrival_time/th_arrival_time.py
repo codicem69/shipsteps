@@ -251,7 +251,7 @@ class Form(BaseComponent):
             #viene appesa alla variabile lista file_url
             for e in range(len_allegati):
                 pkeys_att=lista_all[e]
-                fileurl = tbl_att.readColumns(columns='$fileurl',
+                fileurl = tbl_att.readColumns(columns='$filepath',
                       where='$id=:att_id',
                         att_id=pkeys_att)
                 if fileurl is not None and fileurl !='':
