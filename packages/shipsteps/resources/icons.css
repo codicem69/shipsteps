@@ -1,8 +1,63 @@
+/* 1. Button: riferimento + spazio a sinistra per l'icona */
+/* 1. Aspetto delle icone (vale ovunque, nessun posizionamento) */
+.vessel_details,
+.email {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
 
+/* 2. Solo nei pulsanti: spazio a sinistra per l'icona */
+.dijitButtonNode:has(> .printer),
+.dijitButtonNode:has(> .email),
+.dijitButtonNode:has(> .fda),
+.dijitButtonNode:has(> .cargo_vessel),
+.dijitButtonNode:has(> .loading_doc),
+.dijitButtonNode:has(> .shifting),
+.dijitButtonNode:has(> .sof),
+.dijitButtonNode:has(> .whatsapp),
+.dijitButtonNode:has(> .water),
+.dijitButtonNode:has(> .document),
+.dijitButtonNode:has(> .clock),
+.dijitButtonNode:has(> .tax),
+.dijitButtonNode:has(> .crew),
+.dijitButtonNode:has(> .pax),
+.dijitButtonNode:has(> .services),
+.dijitButtonNode:has(> .vessel_details) {
+    position: relative;
+    padding-left: 30px !important;
+}
+
+/* 3. Solo nei pulsanti: icona ancorata a sinistra */
+.dijitButtonNode > .printer,
+.dijitButtonNode > .fda,
+.dijitButtonNode > .cargo_vessel,
+.dijitButtonNode > .loading_doc,
+.dijitButtonNode > .shifting,
+.dijitButtonNode > .sof,
+.dijitButtonNode > .email,
+.dijitButtonNode > .whatsapp,
+.dijitButtonNode > .water,
+.dijitButtonNode > .document,
+.dijitButtonNode > .clock,
+.dijitButtonNode > .tax,
+.dijitButtonNode > .crew,
+.dijitButtonNode > .pax,
+.dijitButtonNode > .services,
+.dijitButtonNode > .vessel_details {
+    position: absolute !important;
+    left: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    float: none !important;
+    display: block !important;
+    z-index: 1;
+}
 
 
 .vessel_details{
-    background: url(/_rsrc/pkg_shipsteps/icons/vessel_details.svg);
+    background: url(/_rsrc/pkg_shipsteps/icons/vessel_details.svg) center center no-repeat;
     height:16px;
     width:16px;
     background-size:contain;
@@ -119,6 +174,15 @@
     width:16px;
     height:16px;
     background:url(/_rsrc/pkg_shipsteps/icons/truck.svg) center center no-repeat;
+    background-size:contain;
+    flex-shrink:0;
+    float: left;
+}
+.services{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    background:url(/_rsrc/pkg_shipsteps/icons/list_services.svg) center center no-repeat;
     background-size:contain;
     flex-shrink:0;
     float: left;

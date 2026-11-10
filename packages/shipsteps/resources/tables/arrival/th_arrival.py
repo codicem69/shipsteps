@@ -1559,7 +1559,7 @@ class Form(BaseComponent):
 
     def taskList(self, bc_tasklist):
         nsw_pref = self.db.application.getPreference('nsw_cp',pkg='shipsteps')
-        rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%').div(margin='10px',margin_left='2px')
+        rg_prearrival = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='230px', height = '100%').div(margin='10px',margin_left='2px')
         rg_prearrival2 = bc_tasklist.roundedGroup(title='!![en]<strong>Pre arrival - Email</strong>',table='shipsteps.tasklist',region='left',datapath='.record.@arr_tasklist',width='220px', height = '100%', margin_left='220px').div(margin='10px',margin_left='2px')
         rg_arrival = bc_tasklist.roundedGroup(title='!![en]<strong>Arrival/Departure</strong>',table='shipsteps.tasklist',region='center',datapath='.record.@arr_tasklist',width='240px', height = '100%', margin_left='440px').div(margin='10px',margin_left='2px')
         if nsw_pref == False:
@@ -1766,7 +1766,7 @@ class Form(BaseComponent):
         #dlg.stackTableHandler(relation='@shorepass_arr',
         #                    pbl_classes=True,margin='2px',addrow=True,semaphore=True,saveButton=True)
         fb1_doc.br()
-        fb1_doc.button('!![en]Pax List', iconClass='crew',action="genro.publish('open_pax',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
+        fb1_doc.button('!![en]Pax List', iconClass='pax',action="genro.publish('open_pax',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
         #fb1_doc.button('!![en]Pax List', iconClass='pax',action="genro.wdgById('dialog_pax').show();",disabled='^#FORM.controller.locked')
         #dlg = bc_tasklist.dialog(nodeId='dialog_pax',parentRatio=.9,title='Pax List',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         # Palette al posto della dialog
@@ -2660,7 +2660,7 @@ class Form(BaseComponent):
         service_for_email = tbl_email_services.query(columns="$service_for_email_id", where='$service_for_email_id=:serv', serv='cp').fetch()
         serv_len=len(service_for_email)
         #attributo hidden per nascondere il widget se il valore movtype_id.hierarchical_descrizione è diverso da Alimentary/UE o Alimentary
-        btn_integr = fb2.Button('!![en]Alimentary integration',iconClass='email',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'"""
+        btn_integr = fb2.Button('!![en]Alimentary integration', width='13em',iconClass='email',hidden="""^#FORM.record.@movtype_id.hierarchical_descrizione?=#v!='Alimentary/UE' && #v!='Alimentary'"""
                                 ,disabled='^#FORM.controller.locked')
         fb1.dataController("""var id = button.id; 
                         if (ca==true){document.getElementById(id).style.backgroundColor = 'lightgreen';}
@@ -3514,7 +3514,7 @@ class Form(BaseComponent):
         fb_serv=div_service.formbuilder(colspan=1,cols=3, border_spacing='1px', fld_width='15em')
         #btn_vs=fb_dep.Button('!![en]Vessel services', action="""{SET tabname='services';}""")
         #btn_vs=fb_serv.button('!![en]Vessel services',iconClass='printer', action="genro.wdgById('dialog_services').show();",disabled='^#FORM.controller.locked')
-        btn_vs=fb_serv.button('!![en]Vessel services', iconClass='crew',action="genro.publish('open_services',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
+        btn_vs=fb_serv.button('!![en]Vessel services', iconClass='services',action="genro.publish('open_services',{arrival_id: arr_id});",arr_id='=#FORM.record.id', disabled='^#FORM.controller.locked')
         
         #dlg = bc_tasklist.dialog(nodeId='dialog_services',parentRatio=.9,title='Vessel services',closable=True,subscribe_closeDialog_ws="this.widget.hide();",noModal=True)
         dlg_services = bc_tasklist.palette(
