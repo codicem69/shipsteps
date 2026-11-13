@@ -315,7 +315,7 @@ class View_Filtered_Arrivals(BaseComponent):
         return dict(view_preview_tpl='dati_nave',partitioned=True, delrow=del_row)
    
 class Form(BaseComponent):
-    css_requires='icons.css'
+    css_requires='icons.css,checktasklist.css'
     py_requires="gnrcomponents/attachmanager/attachmanager:AttachManager,gnrcomponents/pagededitor/pagededitor:PagedEditor"
     
     def th_form(self, form):
@@ -391,8 +391,8 @@ class Form(BaseComponent):
 
         self.datiArrivo(bc.borderContainer(region='top',height='600px', splitter=True, background = '#f2f0e8'))
         #visualizziamo in alto alle pagine tasklist e arrival times gli expected times
-        self.checkTasklist(bc_tasklist.borderContainer(region='left',width='10%', background = 'SlateGrey', splitter=True, closable='close'))
-        self.times(bc_tasklist.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
+        self.checkTasklist(bc_tasklist.borderContainer(region='left',width='10%', splitter=True, closable='close'))
+        self.times(bc_tasklist.borderContainer(region='top',height='10%', splitter=True, closable=True))
         #self.times_sof(tc_sof.borderContainer(region='top',height='10%', background = 'SlateGrey', splitter=True, closable=True))
         self.times_sof(bc_tasklist)
         self.taskList(bc_tasklist.borderContainer(region='center',height='auto', background = '#f2f0e8', splitter=True))
@@ -1443,9 +1443,10 @@ class Form(BaseComponent):
    #def sof_cargo(self,pane):
    #    pane.inlineTableHandler(table='shipsteps.sof_cargo', viewResource='ViewFromSof_Cargo')
     def times(self,frame):
-        center = frame.roundedGroup(title='!![en]Expected Times',font_weight='bold', region='center',datapath='.record').div(margin='10px',margin_left='2px')
+        center = frame.roundedGroup(title='!![en]Expected Times',font_weight='bold', region='center',datapath='.record').div(margin='10px',margin_left='2px',_class='tasklistPanel')
         #rg_arr = frame.roundedGroup(title='!![en]Arrival',datapath='.record',width='100%', height = '10%').div(margin='10px',margin_left='2px')
-        fb = center.formbuilder(cols=6, border_spacing='4px',fld_width='10em',lbl_color='white',lbl_font_weight='bold', font_weight='bold')
+        fb = center.formbuilder(cols=6, border_spacing='4px',fld_width='10em',lbl_font_weight='bold', font_weight='bold')
+        #fb = center.formbuilder(cols=6, border_spacing='4px',fld_width='10em',lbl_color='white',lbl_font_weight='bold', font_weight='bold')
         #fb.onDbChanges("""let cambiamentoDelRecordCorrente = dbChanges.filter(c=>c.pkey==pkey);
         #    if(cambiamentoDelRecordCorrente.length){let datiCambiamento = cambiamentoDelRecordCorrente[0];
         #                if(datiCambiamento['arr_form'])this.form.externalChange('@time_arr.arr_form',datiCambiamento['arr_form']);
@@ -1538,24 +1539,24 @@ class Form(BaseComponent):
         return result
     
     def checkTasklist(self,frame):
-        center = frame.roundedGroup(title='!![en]Tasklist selection',table='shipsteps.tasklist',datapath='.record.@arr_tasklist', region='center').div(margin='10px',margin_left='2px')
+        center = frame.roundedGroup(title='!![en]Tasklist selection',table='shipsteps.tasklist',datapath='.record.@arr_tasklist', region='center').div(margin='10px',margin_left='2px',_class='tasklistPanel')
         #rg_arr = frame.roundedGroup(title='!![en]Arrival',datapath='.record',width='100%', height = '10%').div(margin='10px',margin_left='2px')
         fb = center.formbuilder(cols=1, border_spacing='4px', font_weight='bold')
-        fb.field('e_eori', label_color='white')
-        fb.field('e_customs', label_color='white')
-        fb.field('e_frontiera', label_color='white')
-        fb.field('e_pilotmoor', label_color='white')
-        fb.field('e_pilotdep', label_color='white')
-        fb.field('e_moor', label_color='white')
-        fb.field('e_moordep', label_color='white')
-        fb.field('e_tugarr', label_color='white')
-        fb.field('e_tugdep', label_color='white')
-        fb.field('e_garbage', label_color='white')
-        fb.field('e_pfso', label_color='white')
-        fb.field('e_chemist', label_color='white')
-        fb.field('e_ens', label_color='white')
-        fb.field('e_aeration', label_color='white')
-        fb.field('e_checklist', label_color='white')
+        fb.field('e_eori')
+        fb.field('e_customs')
+        fb.field('e_frontiera')
+        fb.field('e_pilotmoor')
+        fb.field('e_pilotdep')
+        fb.field('e_moor')
+        fb.field('e_moordep')
+        fb.field('e_tugarr')
+        fb.field('e_tugdep')
+        fb.field('e_garbage')
+        fb.field('e_pfso')
+        fb.field('e_chemist')
+        fb.field('e_ens')
+        fb.field('e_aeration')
+        fb.field('e_checklist')
 
     def taskList(self, bc_tasklist):
         nsw_pref = self.db.application.getPreference('nsw_cp',pkg='shipsteps')
