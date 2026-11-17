@@ -3651,7 +3651,8 @@ class Form(BaseComponent):
         #dlgws.span('^.bollo_virt',_virtual_column='@arr_tasklist.bollo_virt')
         #dlgws.hr()
         #fb_extra.button('!![en]Virtual stamp', action="genro.wdgById('dialog_boll').show()")
-        fb_extra.button('!![en]Virtual stamp',action="""alert(message);""",_delay=50, message='=#FORM.record.@agency_id.virtual_stamp')
+        fb_extra.button('!![en]Virtual stamp',action="""alert(message);navigator.clipboard.writeText(vs_n);""",_delay=50, 
+                        message='=#FORM.record.@agency_id.virtual_stamp',vs_n='=#FORM.record.@agency_id.prot_vs')
         fb_extra.Button('!![en]Ships Docs PMIS',iconClass='printer',
                                                 action="""genro.publish("table_script_run",{table:"shipsteps.shipdoc_pmis",
                                                                                        res_type:'print',
